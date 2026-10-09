@@ -15,8 +15,7 @@ Future<T> guardBackend<T>(Future<T> Function() action) async {
   } on sb.AuthException catch (e) {
     throw AppFailure(authFailureKind(e), '${e.code}: ${e.message}');
   } on sb.PostgrestException catch (e) {
-    // 42501: keine Berechtigung (z. B. fremdes Kinder-Profil).
-    throw AppFailure(e.code == '42501' ? FailureKind.notAllowed : FailureKind.unknown, '${e.code}: ${e.message}');
+    throw AppFailure(postgrestFailureKind(e), '${e.code}: ${e.message}');
   } on SocketException catch (e) {
     throw AppFailure(FailureKind.network, e.message);
   } on TimeoutException catch (e) {
@@ -26,6 +25,14 @@ Future<T> guardBackend<T>(Future<T> Function() action) async {
     final isNetwork = e.runtimeType.toString() == 'ClientException';
     throw AppFailure(isNetwork ? FailureKind.network : FailureKind.unknown, '$e');
   }
+}
+
+FailureKind postgrestFailureKind(sb.PostgrestException e) {
+  // 42501: keine Berechtigung (z. B. fremdes Kinder-Profil).
+  if (e.code == '42501') return FailureKind.notAllowed;
+  // Meldung der Buchungsfunktionen, wenn eine Truhe ins Minus gehen würde.
+  if (e.message.contains('Nicht genug Guthaben')) return FailureKind.notEnoughMoney;
+  return FailureKind.unknown;
 }
 
 FailureKind authFailureKind(sb.AuthException e) {

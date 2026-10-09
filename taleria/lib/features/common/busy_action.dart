@@ -20,13 +20,13 @@ Future<bool> runWithFeedback(BuildContext context, Future<void> Function() actio
 }
 
 /// Fragt nach, bevor etwas Endgültiges passiert.
-Future<bool> confirmDestructive(BuildContext context, {required String title, required String body}) async {
+Future<bool> confirmDestructive(BuildContext context, {required String title, String? body}) async {
   final l10n = AppLocalizations.of(context);
   final confirmed = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
       title: Text(title),
-      content: Text(body),
+      content: body == null ? null : Text(body),
       actions: [
         TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
         FilledButton(

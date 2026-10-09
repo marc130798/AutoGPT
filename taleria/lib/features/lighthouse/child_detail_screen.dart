@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/lighthouse_controller.dart';
 import '../common/busy_action.dart';
 import '../common/texts.dart';
+import 'child_budget_screen.dart';
 import 'child_form_screen.dart';
 
 /// Ein Kinder-Profil im Leuchtturm: Gerät anmelden, hier spielen lassen,
@@ -123,6 +124,25 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                       child: Text(l10n.childDetailPlayHereButton(child.nickname)),
                     ),
                   ],
+                ),
+                Card(
+                  child: ListTile(
+                    minTileHeight: 64,
+                    leading: const Icon(Icons.savings_outlined),
+                    title: Text(l10n.budgetTitle),
+                    subtitle: widget.controller.pendingFor(child.id) > 0
+                        ? Text(l10n.pendingTasks(widget.controller.pendingFor(child.id)))
+                        : null,
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => ChildBudgetScreen(child: child, parentId: widget.controller.parent.id),
+                        ),
+                      );
+                      await widget.controller.loadPendingTasks();
+                    },
+                  ),
                 ),
                 const SizedBox(height: 8),
                 ListTile(

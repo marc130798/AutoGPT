@@ -746,4 +746,342 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get islandCompletedButton => 'Zur Karte';
+
+  @override
+  String get childHomeTreasureButton => 'Schatztruhe';
+
+  @override
+  String get childHomeTasksButton => 'Aufträge';
+
+  @override
+  String childHomeTasksOpen(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count offene Aufträge',
+      one: '1 offener Auftrag',
+      zero: 'Keine offenen Aufträge',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get treasureTitle => 'Deine Truhen';
+
+  @override
+  String get potSpendChild => 'Bordkasse';
+
+  @override
+  String get potSaveChild => 'Schatztruhe';
+
+  @override
+  String get potGiveChild => 'Glückstruhe';
+
+  @override
+  String get potSpendHint => 'Zum Ausgeben';
+
+  @override
+  String get potSaveHint => 'Zum Sparen für deine Wunschschätze';
+
+  @override
+  String get potGiveHint => 'Zum Verschenken und Spenden';
+
+  @override
+  String get treasureMove => 'Umbuchen';
+
+  @override
+  String get treasureSpend => 'Ausgabe eintragen';
+
+  @override
+  String get treasureGive => 'Geschenk eintragen';
+
+  @override
+  String treasureAllowance(String amount, String interval) {
+    return 'Deine Heuer: $amount $interval';
+  }
+
+  @override
+  String treasureAllowanceNext(String date) {
+    return 'Nächste Heuer am $date';
+  }
+
+  @override
+  String get treasureNoAllowance => 'Noch keine Heuer. Frag deine Eltern!';
+
+  @override
+  String get treasureVirtual =>
+      'Alle Beträge sind virtuell. Die App zählt mit, das echte Geld bekommst du von deinen Eltern.';
+
+  @override
+  String get allowanceWeekly => 'pro Woche';
+
+  @override
+  String get allowanceMonthly => 'pro Monat';
+
+  @override
+  String get goalsHeading => 'Wunschschätze';
+
+  @override
+  String get goalsEmpty => 'Noch kein Wunschschatz. Lege einen an!';
+
+  @override
+  String get goalNew => 'Neuer Wunschschatz';
+
+  @override
+  String goalProgress(String saved, String target) {
+    return '$saved von $target';
+  }
+
+  @override
+  String get goalRedeem => 'Einlösen';
+
+  @override
+  String get goalReached => 'Erfüllt!';
+
+  @override
+  String goalRedeemTitle(String title) {
+    return '$title einlösen?';
+  }
+
+  @override
+  String goalRedeemBody(String amount) {
+    return '$amount gehen aus der Schatztruhe. Viel Spaß mit deinem Wunsch!';
+  }
+
+  @override
+  String get goalDelete => 'Löschen';
+
+  @override
+  String goalDeleteTitle(String title) {
+    return '$title löschen?';
+  }
+
+  @override
+  String get goalTitleLabel => 'Was wünschst du dir?';
+
+  @override
+  String get goalTargetLabel => 'Wie viel kostet es? (in Euro)';
+
+  @override
+  String get ledgerHeading => 'Kassenbuch';
+
+  @override
+  String get ledgerEmpty => 'Noch keine Buchungen.';
+
+  @override
+  String get ledgerAllowance => 'Heuer';
+
+  @override
+  String get ledgerTask => 'Auftrag';
+
+  @override
+  String get ledgerTransfer => 'Umgebucht';
+
+  @override
+  String get ledgerManual => 'Korrektur';
+
+  @override
+  String get ledgerGoal => 'Wunschschatz eingelöst';
+
+  @override
+  String get ledgerPurchase => 'Ausgabe';
+
+  @override
+  String get ledgerDonation => 'Geschenk';
+
+  @override
+  String get moveTitle => 'Umbuchen';
+
+  @override
+  String get moveFrom => 'Von';
+
+  @override
+  String get moveTo => 'Nach';
+
+  @override
+  String get amountLabel => 'Betrag in Euro';
+
+  @override
+  String get amountHint => 'zum Beispiel 2,50';
+
+  @override
+  String get amountInvalid => 'Bitte einen Betrag wie 2,50 eingeben.';
+
+  @override
+  String get amountZero => 'Der Betrag muss größer als 0 sein.';
+
+  @override
+  String amountTooLarge(String max) {
+    return 'Höchstens $max.';
+  }
+
+  @override
+  String get notEnoughMoney => 'So viel ist nicht in der Truhe.';
+
+  @override
+  String get noteLabel => 'Wofür? (freiwillig)';
+
+  @override
+  String get bookButton => 'Buchen';
+
+  @override
+  String get spendTitle => 'Ausgabe eintragen';
+
+  @override
+  String get giveTitle => 'Geschenk eintragen';
+
+  @override
+  String get tasksTitle => 'Aufträge';
+
+  @override
+  String get tasksOpenHeading => 'Offen';
+
+  @override
+  String get tasksWaitingHeading => 'Wartet auf deine Eltern';
+
+  @override
+  String get tasksDoneHeading => 'Erledigt';
+
+  @override
+  String get tasksEmpty => 'Gerade keine Aufträge. Deine Eltern können im Leuchtturm welche anlegen.';
+
+  @override
+  String get taskDoneButton => 'Erledigt!';
+
+  @override
+  String taskReward(String amount) {
+    return '+$amount';
+  }
+
+  @override
+  String get taskChore => 'Pflicht';
+
+  @override
+  String taskRejected(String note) {
+    return 'Noch nicht ganz: $note';
+  }
+
+  @override
+  String get taskRejectedNoNote => 'Deine Eltern möchten, dass du noch einmal nachschaust.';
+
+  @override
+  String get taskResubmit => 'Nochmal melden';
+
+  @override
+  String get taskSubmitted => 'Super! Jetzt müssen deine Eltern bestätigen.';
+
+  @override
+  String get budgetTitle => 'Taschengeld und Aufgaben';
+
+  @override
+  String pendingTasks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Aufgaben warten auf Bestätigung',
+      one: '1 Aufgabe wartet auf Bestätigung',
+      zero: 'Keine Aufgaben warten',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get parentPotSpend => 'Ausgeben';
+
+  @override
+  String get parentPotSave => 'Sparen';
+
+  @override
+  String get parentPotGive => 'Verschenken';
+
+  @override
+  String get allowanceHeading => 'Taschengeld';
+
+  @override
+  String get allowanceNone => 'Kein Taschengeld festgelegt.';
+
+  @override
+  String allowanceCurrent(String amount, String interval, String date) {
+    return '$amount $interval, nächste Zahlung am $date';
+  }
+
+  @override
+  String get allowanceSet => 'Taschengeld festlegen';
+
+  @override
+  String get allowanceStop => 'Taschengeld beenden';
+
+  @override
+  String get allowanceIntervalLabel => 'Rhythmus';
+
+  @override
+  String get allowanceWeeklyOption => 'wöchentlich';
+
+  @override
+  String get allowanceMonthlyOption => 'monatlich';
+
+  @override
+  String allowanceFirstPayout(String date) {
+    return 'Erste Zahlung: $date';
+  }
+
+  @override
+  String get allowanceHint => 'Das Taschengeld ist virtuell: Die App zählt mit, auszahlen tut ihr es selbst.';
+
+  @override
+  String get tasksParentHeading => 'Aufgaben';
+
+  @override
+  String get taskCreate => 'Aufgabe anlegen';
+
+  @override
+  String get taskTitleLabel => 'Aufgabe';
+
+  @override
+  String get taskRewardLabel => 'Belohnung in Euro';
+
+  @override
+  String get taskChoreLabel => 'Pflicht ohne Belohnung';
+
+  @override
+  String get taskTitleInvalid => 'Bitte 2 bis 60 Zeichen.';
+
+  @override
+  String get taskApprove => 'Bestätigen';
+
+  @override
+  String get taskReject => 'Ablehnen';
+
+  @override
+  String get taskRejectNoteLabel => 'Nachricht an dein Kind (freiwillig)';
+
+  @override
+  String get taskStatusOpen => 'Offen';
+
+  @override
+  String get taskStatusSubmitted => 'Gemeldet';
+
+  @override
+  String get taskStatusApproved => 'Bestätigt';
+
+  @override
+  String get taskStatusRejected => 'Abgelehnt';
+
+  @override
+  String get taskDelete => 'Aufgabe löschen';
+
+  @override
+  String get tasksParentEmpty => 'Noch keine Aufgaben.';
+
+  @override
+  String get balanceHeading => 'Kontostand';
+
+  @override
+  String get manualBooking => 'Korrektur buchen';
+
+  @override
+  String get manualHint => 'Positiv ist eine Gutschrift, mit Minus ein Abzug (zum Beispiel -2,50).';
+
+  @override
+  String get potLabel => 'Truhe';
 }

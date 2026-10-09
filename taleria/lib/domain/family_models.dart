@@ -106,6 +106,9 @@ enum FailureKind {
   weakPassword,
   rateLimited,
   notAllowed,
+
+  /// Nicht genug Guthaben in der Truhe.
+  notEnoughMoney,
   unknown,
 }
 

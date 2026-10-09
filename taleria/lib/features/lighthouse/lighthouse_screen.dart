@@ -30,7 +30,11 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_controller == null) {
-      _controller = LighthouseController(family: AppScope.of(context).family!, parent: widget.parent);
+      _controller = LighthouseController(
+        family: AppScope.of(context).family!,
+        budget: AppScope.of(context).budget,
+        parent: widget.parent,
+      );
       _controller!.load();
     }
   }
@@ -102,6 +106,8 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                               l10n.childSubtitle(child.birthYear, l10n.level(child.level)),
                               if (child.shipName != null) l10n.lighthouseChildShip(child.shipName!),
                               if (!child.onboardingCompleted) l10n.lighthouseIntroPending,
+                              if (controller.pendingFor(child.id) > 0)
+                                l10n.pendingTasks(controller.pendingFor(child.id)),
                             ].join('\n'),
                           ),
                           trailing: const Icon(Icons.chevron_right),

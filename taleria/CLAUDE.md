@@ -417,3 +417,14 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Kassenbuch:** nur Server-Funktionen schreiben, Einträge sind unveränderlich.
 - Interne Hilfsfunktionen ohne Rechteprüfung (`pot_balance`, `station_done`, `island_unlocked`, `station_unlocked`) sind für die App gesperrt.
 - Verschoben: Fotos zu Aufträgen (braucht Kamera-Zugriff und ein Zusatzpaket, vorher mit Marc sprechen), automatische Aufteilung der Heuer auf die Truhen, Wunschflasche (kommt mit den Spielen der Wunschinsel).
+
+**Schritt 5b (Budget und Aufgaben in der App), umgesetzt am 09.10.2026:**
+- **Geld in der App:** Beträge werden als Euro mit Komma eingegeben („2,50“, auch „2.50“) und sofort in ganze Cent umgerechnet (`lib/domain/money.dart`). Höchstbetrag pro Eingabe 1.000 €. Angezeigt wird immer im deutschen Format („2,50 €“).
+- **Kinderbereich:** Auf der Startseite gibt es „Schatztruhe“ und „Aufträge“ (mit Zahl der offenen Aufträge).
+  - *Deine Truhen:* Bordkasse, Schatztruhe, Glückstruhe mit Stand. Umbuchen zwischen den Truhen, Ausgabe (aus der Bordkasse) oder Geschenk (aus der Glückstruhe) eintragen. Darunter Heuer, Wunschschätze mit Fortschrittsbalken (Einlösen, sobald genug in der Schatztruhe ist; Löschen solange offen) und das Kassenbuch.
+  - *Aufträge:* getrennt nach Offen, „Wartet auf deine Eltern“ und Erledigt. „Erledigt!“ meldet einen Auftrag; abgelehnte zeigen die Nachricht der Eltern und „Nochmal melden“.
+  - Hinweis im Kinderbereich: Alle Beträge sind virtuell, das echte Geld kommt von den Eltern.
+- **Leuchtturm:** In der Kinderliste und auf der Kinderseite steht, wie viele Aufgaben auf Bestätigung warten. Die neue Seite „Taschengeld und Aufgaben“ hat: Aufgaben bestätigen, ablehnen (mit freiwilliger Nachricht) oder löschen, neue Aufgabe anlegen (mit Belohnung oder als Pflicht), Taschengeld festlegen, ändern oder beenden (Betrag, wöchentlich oder monatlich, Datum der ersten Zahlung), Kontostand der drei Truhen, Korrektur buchen (mit Minus ein Abzug) und das Kassenbuch.
+- **Fällige Heuer** bucht die App beim Öffnen der Truhen oder der Elternseite nach (`process_due_allowances`).
+- **Nicht genug Guthaben** wird schon in der App geprüft und vom Server noch einmal; die Meldung ist „So viel ist nicht in der Truhe.“
+- Die Oberfläche benutzt im Kinderbereich die Kinderwörter (Heuer, Aufträge, Truhen) und im Leuchtturm die Elternwörter (Taschengeld, Aufgaben), wie im Glossar.

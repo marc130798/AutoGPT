@@ -3,7 +3,16 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 4 gibt
+## Was es nach Schritt 5 gibt
+
+- Kinderbereich: „Schatztruhe“ mit Bordkasse, Schatztruhe und Glückstruhe, Umbuchen,
+  Ausgaben und Geschenke eintragen, Wunschschätze sparen und einlösen, Kassenbuch
+- Kinderbereich: „Aufträge“ melden, Antwort der Eltern sehen, erneut melden
+- Leuchtturm: Taschengeld festlegen (wöchentlich oder monatlich), Aufgaben anlegen, bestätigen
+  oder ablehnen, Kontostand und Korrekturen
+- Alle Beträge sind virtuell: Die App zählt mit, das echte Geld zahlen die Eltern selbst aus
+
+## Was es seit Schritt 4 gibt
 
 - Inselkarte mit allen 15 Inseln: Hafen offen, weitere Inseln mit Schloss, Inseln 4 bis 15 im Nebel
 - Hafen, Tauschinsel und Wunschinsel komplett spielbar: Ankunft, 7 Stationen, Abschlussprüfung
@@ -151,6 +160,26 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 5, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`). Am besten zwei Geräte benutzen:
+eines für die Eltern, eines für das Kind (Anmeldung per Code wie in Schritt 2).
+
+1. Eltern-Gerät: Leuchtturm öffnen, Kind antippen, „Taschengeld und Aufgaben“.
+2. „Taschengeld festlegen“: z. B. 5 € wöchentlich, erste Zahlung heute.
+3. „Aufgabe anlegen“: z. B. „Rasen mähen“ mit 3 € Belohnung. Eine zweite als „Pflicht ohne Belohnung“.
+4. Kinder-Gerät: Startseite zeigt „Aufträge“ mit der Zahl der offenen Aufträge.
+   „Aufträge“ öffnen und bei „Rasen mähen“ auf „Erledigt!“ tippen.
+5. Kinder-Gerät: „Schatztruhe“ öffnen. Die Heuer von 5 € liegt in der Bordkasse.
+6. „Umbuchen“: 2 € von der Bordkasse in die Schatztruhe. Versuch auch mal 20 €:
+   Dann kommt „So viel ist nicht in der Truhe.“
+7. „Neuer Wunschschatz“ mit 2 €: Der Balken ist voll, „Einlösen“ tippen. Im Kassenbuch steht die Buchung.
+8. Eltern-Gerät: Beim Kind steht „1 Aufgabe wartet auf Bestätigung“. „Bestätigen“ tippen:
+   Die 3 € kommen in die Bordkasse. Oder „Ablehnen“ mit einer Nachricht: Das Kind sieht sie
+   und kann „Nochmal melden“.
+9. Eltern-Gerät: „Korrektur buchen“, z. B. -1 € aus der Bordkasse. Ein Abzug, der die Truhe
+   ins Minus bringen würde, wird abgelehnt.
 
 ## Was du ausprobieren kannst (Schritt 4, mit Test-Server)
 

@@ -1028,5 +1028,478 @@
   "islandCompletedButton": "Zur Karte",
   "@islandCompletedButton": {
     "description": "Knopf nach Abschluss einer Insel"
+  },
+  "childHomeTreasureButton": "Schatztruhe",
+  "@childHomeTreasureButton": {
+    "description": "Knopf im Kinderbereich: Truhen und Wunschschätze (Glossar)"
+  },
+  "childHomeTasksButton": "Aufträge",
+  "@childHomeTasksButton": {
+    "description": "Knopf im Kinderbereich: Aufträge (Glossar)"
+  },
+  "childHomeTasksOpen": "{count, plural, =0{Keine offenen Aufträge} =1{1 offener Auftrag} other{{count} offene Aufträge}}",
+  "@childHomeTasksOpen": {
+    "description": "Anzahl offener Aufträge im Kinderbereich",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "treasureTitle": "Deine Truhen",
+  "@treasureTitle": {
+    "description": "Titel der Truhen-Übersicht im Kinderbereich"
+  },
+  "potSpendChild": "Bordkasse",
+  "@potSpendChild": {
+    "description": "Truhe zum Ausgeben (Glossar)"
+  },
+  "potSaveChild": "Schatztruhe",
+  "@potSaveChild": {
+    "description": "Truhe zum Sparen (Glossar)"
+  },
+  "potGiveChild": "Glückstruhe",
+  "@potGiveChild": {
+    "description": "Truhe zum Verschenken (Glossar)"
+  },
+  "potSpendHint": "Zum Ausgeben",
+  "@potSpendHint": {
+    "description": "Erklärung der Bordkasse"
+  },
+  "potSaveHint": "Zum Sparen für deine Wunschschätze",
+  "@potSaveHint": {
+    "description": "Erklärung der Schatztruhe"
+  },
+  "potGiveHint": "Zum Verschenken und Spenden",
+  "@potGiveHint": {
+    "description": "Erklärung der Glückstruhe"
+  },
+  "treasureMove": "Umbuchen",
+  "@treasureMove": {
+    "description": "Knopf: Geld zwischen Truhen verschieben"
+  },
+  "treasureSpend": "Ausgabe eintragen",
+  "@treasureSpend": {
+    "description": "Knopf: Ausgabe aus der Bordkasse"
+  },
+  "treasureGive": "Geschenk eintragen",
+  "@treasureGive": {
+    "description": "Knopf: Geschenk aus der Glückstruhe"
+  },
+  "treasureAllowance": "Deine Heuer: {amount} {interval}",
+  "@treasureAllowance": {
+    "description": "Heuer im Kinderbereich",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "interval": {
+        "type": "String"
+      }
+    }
+  },
+  "treasureAllowanceNext": "Nächste Heuer am {date}",
+  "@treasureAllowanceNext": {
+    "description": "Datum der nächsten Heuer",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "treasureNoAllowance": "Noch keine Heuer. Frag deine Eltern!",
+  "@treasureNoAllowance": {
+    "description": "Hinweis ohne Heuer"
+  },
+  "treasureVirtual": "Alle Beträge sind virtuell. Die App zählt mit, das echte Geld bekommst du von deinen Eltern.",
+  "@treasureVirtual": {
+    "description": "Hinweis: Geld ist virtuell"
+  },
+  "allowanceWeekly": "pro Woche",
+  "@allowanceWeekly": {
+    "description": "Rhythmus der Heuer: wöchentlich"
+  },
+  "allowanceMonthly": "pro Monat",
+  "@allowanceMonthly": {
+    "description": "Rhythmus der Heuer: monatlich"
+  },
+  "goalsHeading": "Wunschschätze",
+  "@goalsHeading": {
+    "description": "Überschrift Wunschschätze (Glossar)"
+  },
+  "goalsEmpty": "Noch kein Wunschschatz. Lege einen an!",
+  "@goalsEmpty": {
+    "description": "Hinweis ohne Wunschschätze"
+  },
+  "goalNew": "Neuer Wunschschatz",
+  "@goalNew": {
+    "description": "Knopf: Wunschschatz anlegen"
+  },
+  "goalProgress": "{saved} von {target}",
+  "@goalProgress": {
+    "description": "Fortschritt eines Wunschschatzes",
+    "placeholders": {
+      "saved": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "goalRedeem": "Einlösen",
+  "@goalRedeem": {
+    "description": "Knopf: Wunschschatz einlösen"
+  },
+  "goalReached": "Erfüllt!",
+  "@goalReached": {
+    "description": "Kennzeichen eines eingelösten Wunschschatzes"
+  },
+  "goalRedeemTitle": "{title} einlösen?",
+  "@goalRedeemTitle": {
+    "description": "Rückfrage beim Einlösen",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "goalRedeemBody": "{amount} gehen aus der Schatztruhe. Viel Spaß mit deinem Wunsch!",
+  "@goalRedeemBody": {
+    "description": "Text beim Einlösen",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalDelete": "Löschen",
+  "@goalDelete": {
+    "description": "Knopf: Wunschschatz löschen"
+  },
+  "goalDeleteTitle": "{title} löschen?",
+  "@goalDeleteTitle": {
+    "description": "Rückfrage beim Löschen eines Wunschschatzes",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "goalTitleLabel": "Was wünschst du dir?",
+  "@goalTitleLabel": {
+    "description": "Feld: Titel eines Wunschschatzes"
+  },
+  "goalTargetLabel": "Wie viel kostet es? (in Euro)",
+  "@goalTargetLabel": {
+    "description": "Feld: Betrag eines Wunschschatzes"
+  },
+  "ledgerHeading": "Kassenbuch",
+  "@ledgerHeading": {
+    "description": "Überschrift der Buchungen"
+  },
+  "ledgerEmpty": "Noch keine Buchungen.",
+  "@ledgerEmpty": {
+    "description": "Hinweis ohne Buchungen"
+  },
+  "ledgerAllowance": "Heuer",
+  "@ledgerAllowance": {
+    "description": "Buchungsart im Kinderbereich"
+  },
+  "ledgerTask": "Auftrag",
+  "@ledgerTask": {
+    "description": "Buchungsart im Kinderbereich"
+  },
+  "ledgerTransfer": "Umgebucht",
+  "@ledgerTransfer": {
+    "description": "Buchungsart im Kinderbereich"
+  },
+  "ledgerManual": "Korrektur",
+  "@ledgerManual": {
+    "description": "Buchungsart"
+  },
+  "ledgerGoal": "Wunschschatz eingelöst",
+  "@ledgerGoal": {
+    "description": "Buchungsart im Kinderbereich"
+  },
+  "ledgerPurchase": "Ausgabe",
+  "@ledgerPurchase": {
+    "description": "Buchungsart"
+  },
+  "ledgerDonation": "Geschenk",
+  "@ledgerDonation": {
+    "description": "Buchungsart"
+  },
+  "moveTitle": "Umbuchen",
+  "@moveTitle": {
+    "description": "Titel des Umbuchen-Dialogs"
+  },
+  "moveFrom": "Von",
+  "@moveFrom": {
+    "description": "Feld: Truhe, aus der umgebucht wird"
+  },
+  "moveTo": "Nach",
+  "@moveTo": {
+    "description": "Feld: Truhe, in die umgebucht wird"
+  },
+  "amountLabel": "Betrag in Euro",
+  "@amountLabel": {
+    "description": "Feld: Betrag"
+  },
+  "amountHint": "zum Beispiel 2,50",
+  "@amountHint": {
+    "description": "Hinweis zum Betrag"
+  },
+  "amountInvalid": "Bitte einen Betrag wie 2,50 eingeben.",
+  "@amountInvalid": {
+    "description": "Fehler: Betrag ungültig"
+  },
+  "amountZero": "Der Betrag muss größer als 0 sein.",
+  "@amountZero": {
+    "description": "Fehler: Betrag 0"
+  },
+  "amountTooLarge": "Höchstens {max}.",
+  "@amountTooLarge": {
+    "description": "Fehler: Betrag zu groß",
+    "placeholders": {
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "notEnoughMoney": "So viel ist nicht in der Truhe.",
+  "@notEnoughMoney": {
+    "description": "Fehler: nicht genug Guthaben"
+  },
+  "noteLabel": "Wofür? (freiwillig)",
+  "@noteLabel": {
+    "description": "Feld: Notiz zu einer Buchung"
+  },
+  "bookButton": "Buchen",
+  "@bookButton": {
+    "description": "Knopf: Buchung ausführen"
+  },
+  "spendTitle": "Ausgabe eintragen",
+  "@spendTitle": {
+    "description": "Titel: Ausgabe aus der Bordkasse"
+  },
+  "giveTitle": "Geschenk eintragen",
+  "@giveTitle": {
+    "description": "Titel: Geschenk aus der Glückstruhe"
+  },
+  "tasksTitle": "Aufträge",
+  "@tasksTitle": {
+    "description": "Titel der Aufträge im Kinderbereich (Glossar)"
+  },
+  "tasksOpenHeading": "Offen",
+  "@tasksOpenHeading": {
+    "description": "Überschrift offener Aufträge"
+  },
+  "tasksWaitingHeading": "Wartet auf deine Eltern",
+  "@tasksWaitingHeading": {
+    "description": "Überschrift gemeldeter Aufträge im Kinderbereich"
+  },
+  "tasksDoneHeading": "Erledigt",
+  "@tasksDoneHeading": {
+    "description": "Überschrift erledigter Aufträge"
+  },
+  "tasksEmpty": "Gerade keine Aufträge. Deine Eltern können im Leuchtturm welche anlegen.",
+  "@tasksEmpty": {
+    "description": "Hinweis ohne Aufträge"
+  },
+  "taskDoneButton": "Erledigt!",
+  "@taskDoneButton": {
+    "description": "Knopf: Auftrag als erledigt melden"
+  },
+  "taskReward": "+{amount}",
+  "@taskReward": {
+    "description": "Belohnung eines Auftrags",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "taskChore": "Pflicht",
+  "@taskChore": {
+    "description": "Kennzeichen einer Pflicht ohne Belohnung"
+  },
+  "taskRejected": "Noch nicht ganz: {note}",
+  "@taskRejected": {
+    "description": "Ablehnung mit Nachricht der Eltern",
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "taskRejectedNoNote": "Deine Eltern möchten, dass du noch einmal nachschaust.",
+  "@taskRejectedNoNote": {
+    "description": "Ablehnung ohne Nachricht"
+  },
+  "taskResubmit": "Nochmal melden",
+  "@taskResubmit": {
+    "description": "Knopf: abgelehnten Auftrag erneut melden"
+  },
+  "taskSubmitted": "Super! Jetzt müssen deine Eltern bestätigen.",
+  "@taskSubmitted": {
+    "description": "Rückmeldung nach dem Melden"
+  },
+  "budgetTitle": "Taschengeld und Aufgaben",
+  "@budgetTitle": {
+    "description": "Titel des Budget-Bereichs im Leuchtturm"
+  },
+  "pendingTasks": "{count, plural, =0{Keine Aufgaben warten} =1{1 Aufgabe wartet auf Bestätigung} other{{count} Aufgaben warten auf Bestätigung}}",
+  "@pendingTasks": {
+    "description": "Anzahl gemeldeter Aufgaben im Leuchtturm",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "parentPotSpend": "Ausgeben",
+  "@parentPotSpend": {
+    "description": "Truhe im Elternbereich (Glossar)"
+  },
+  "parentPotSave": "Sparen",
+  "@parentPotSave": {
+    "description": "Truhe im Elternbereich (Glossar)"
+  },
+  "parentPotGive": "Verschenken",
+  "@parentPotGive": {
+    "description": "Truhe im Elternbereich (Glossar)"
+  },
+  "allowanceHeading": "Taschengeld",
+  "@allowanceHeading": {
+    "description": "Überschrift Taschengeld im Leuchtturm (Glossar)"
+  },
+  "allowanceNone": "Kein Taschengeld festgelegt.",
+  "@allowanceNone": {
+    "description": "Hinweis ohne Taschengeld"
+  },
+  "allowanceCurrent": "{amount} {interval}, nächste Zahlung am {date}",
+  "@allowanceCurrent": {
+    "description": "Aktuelles Taschengeld",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "interval": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "allowanceSet": "Taschengeld festlegen",
+  "@allowanceSet": {
+    "description": "Knopf: Taschengeld festlegen"
+  },
+  "allowanceStop": "Taschengeld beenden",
+  "@allowanceStop": {
+    "description": "Knopf: Taschengeld beenden"
+  },
+  "allowanceIntervalLabel": "Rhythmus",
+  "@allowanceIntervalLabel": {
+    "description": "Feld: Rhythmus des Taschengelds"
+  },
+  "allowanceWeeklyOption": "wöchentlich",
+  "@allowanceWeeklyOption": {
+    "description": "Option Rhythmus"
+  },
+  "allowanceMonthlyOption": "monatlich",
+  "@allowanceMonthlyOption": {
+    "description": "Option Rhythmus"
+  },
+  "allowanceFirstPayout": "Erste Zahlung: {date}",
+  "@allowanceFirstPayout": {
+    "description": "Datum der ersten Zahlung",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "allowanceHint": "Das Taschengeld ist virtuell: Die App zählt mit, auszahlen tut ihr es selbst.",
+  "@allowanceHint": {
+    "description": "Hinweis: Taschengeld ist virtuell"
+  },
+  "tasksParentHeading": "Aufgaben",
+  "@tasksParentHeading": {
+    "description": "Überschrift Aufgaben im Leuchtturm (Glossar)"
+  },
+  "taskCreate": "Aufgabe anlegen",
+  "@taskCreate": {
+    "description": "Knopf: Aufgabe anlegen"
+  },
+  "taskTitleLabel": "Aufgabe",
+  "@taskTitleLabel": {
+    "description": "Feld: Titel der Aufgabe"
+  },
+  "taskRewardLabel": "Belohnung in Euro",
+  "@taskRewardLabel": {
+    "description": "Feld: Belohnung"
+  },
+  "taskChoreLabel": "Pflicht ohne Belohnung",
+  "@taskChoreLabel": {
+    "description": "Option: Aufgabe ohne Geld"
+  },
+  "taskTitleInvalid": "Bitte 2 bis 60 Zeichen.",
+  "@taskTitleInvalid": {
+    "description": "Fehler: Titel der Aufgabe"
+  },
+  "taskApprove": "Bestätigen",
+  "@taskApprove": {
+    "description": "Knopf: Aufgabe bestätigen"
+  },
+  "taskReject": "Ablehnen",
+  "@taskReject": {
+    "description": "Knopf: Aufgabe ablehnen"
+  },
+  "taskRejectNoteLabel": "Nachricht an dein Kind (freiwillig)",
+  "@taskRejectNoteLabel": {
+    "description": "Feld: Nachricht beim Ablehnen"
+  },
+  "taskStatusOpen": "Offen",
+  "@taskStatusOpen": {
+    "description": "Status einer Aufgabe"
+  },
+  "taskStatusSubmitted": "Gemeldet",
+  "@taskStatusSubmitted": {
+    "description": "Status einer Aufgabe"
+  },
+  "taskStatusApproved": "Bestätigt",
+  "@taskStatusApproved": {
+    "description": "Status einer Aufgabe"
+  },
+  "taskStatusRejected": "Abgelehnt",
+  "@taskStatusRejected": {
+    "description": "Status einer Aufgabe"
+  },
+  "taskDelete": "Aufgabe löschen",
+  "@taskDelete": {
+    "description": "Knopf: Aufgabe löschen"
+  },
+  "tasksParentEmpty": "Noch keine Aufgaben.",
+  "@tasksParentEmpty": {
+    "description": "Hinweis ohne Aufgaben im Leuchtturm"
+  },
+  "balanceHeading": "Kontostand",
+  "@balanceHeading": {
+    "description": "Überschrift Kontostand im Leuchtturm"
+  },
+  "manualBooking": "Korrektur buchen",
+  "@manualBooking": {
+    "description": "Knopf: Korrektur buchen"
+  },
+  "manualHint": "Positiv ist eine Gutschrift, mit Minus ein Abzug (zum Beispiel -2,50).",
+  "@manualHint": {
+    "description": "Hinweis zur Korrektur"
+  },
+  "potLabel": "Truhe",
+  "@potLabel": {
+    "description": "Feld: Truhe auswählen (Elternbereich)"
   }
 }

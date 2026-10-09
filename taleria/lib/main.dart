@@ -12,6 +12,7 @@ import 'core/backend/backend.dart';
 import 'core/config/app_config.dart';
 import 'core/config/orientation_policy.dart';
 import 'data/auth_repository.dart';
+import 'data/budget_repository.dart';
 import 'data/child_repository.dart';
 import 'data/content_repository.dart';
 import 'data/family_repository.dart';
@@ -62,6 +63,7 @@ Future<void> main() async {
         content: client == null ? null : SupabaseContentRepository(client),
         progress: client == null ? null : SupabaseProgressRepository(client),
         settings: settings,
+        budget: client == null ? null : SupabaseBudgetRepository(client),
       ),
     ),
   );

@@ -1,15 +1,22 @@
 import 'package:flutter/foundation.dart';
 
+import '../data/budget_repository.dart';
 import '../data/family_repository.dart';
 import '../domain/family_models.dart';
 import '../domain/validators.dart';
 
 /// Kinder-Profile im Leuchtturm: laden, anlegen, ändern, löschen, Codes.
 class LighthouseController extends ChangeNotifier {
-  LighthouseController({required this._family, required this.parent});
+  LighthouseController({required this._family, required this.parent, this._budget});
 
   final FamilyRepository _family;
+  final BudgetRepository? _budget;
   final ParentAccount parent;
+
+  Map<String, int> _pendingTasks = const {};
+
+  /// Wie viele gemeldete Aufgaben bei diesem Kind auf Bestätigung warten.
+  int pendingFor(String childId) => _pendingTasks[childId] ?? 0;
 
   List<ChildProfile> _children = const [];
   bool _loading = true;
@@ -30,6 +37,18 @@ class LighthouseController extends ChangeNotifier {
     }
     _loading = false;
     notifyListeners();
+    await loadPendingTasks();
+  }
+
+  Future<void> loadPendingTasks() async {
+    final budget = _budget;
+    if (budget == null) return;
+    try {
+      _pendingTasks = await budget.fetchSubmittedTaskCounts();
+      notifyListeners();
+    } on AppFailure {
+      // Nur ein Hinweis. Ohne Verbindung einfach weglassen.
+    }
   }
 
   Future<ChildProfile> createChild({

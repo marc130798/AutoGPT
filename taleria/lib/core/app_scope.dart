@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 
+import '../data/budget_repository.dart';
 import '../data/child_repository.dart';
 import '../data/content_repository.dart';
 import '../data/family_repository.dart';
@@ -25,6 +26,7 @@ class AppServices {
     required this.content,
     required this.progress,
     required this.settings,
+    required this.budget,
     this.manifestError,
     Random? random,
   }) : random = random ?? _defaultRandom;
@@ -50,6 +52,9 @@ class AppServices {
 
   /// Fortschritt lesen und Stationen abgeben. `null` ohne Server.
   final ProgressRepository? progress;
+
+  /// Heuer, Aufträge, Truhen und Wunschschätze. `null` ohne Server.
+  final BudgetRepository? budget;
 
   /// Kleine Einstellungen auf diesem Gerät.
   final LocalSettings settings;

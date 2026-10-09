@@ -1446,6 +1446,600 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Zur Karte'**
   String get islandCompletedButton;
+
+  /// Knopf im Kinderbereich: Truhen und Wunschschätze (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Schatztruhe'**
+  String get childHomeTreasureButton;
+
+  /// Knopf im Kinderbereich: Aufträge (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Aufträge'**
+  String get childHomeTasksButton;
+
+  /// Anzahl offener Aufträge im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Keine offenen Aufträge} =1{1 offener Auftrag} other{{count} offene Aufträge}}'**
+  String childHomeTasksOpen(int count);
+
+  /// Titel der Truhen-Übersicht im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Truhen'**
+  String get treasureTitle;
+
+  /// Truhe zum Ausgeben (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Bordkasse'**
+  String get potSpendChild;
+
+  /// Truhe zum Sparen (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Schatztruhe'**
+  String get potSaveChild;
+
+  /// Truhe zum Verschenken (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Glückstruhe'**
+  String get potGiveChild;
+
+  /// Erklärung der Bordkasse
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Ausgeben'**
+  String get potSpendHint;
+
+  /// Erklärung der Schatztruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Sparen für deine Wunschschätze'**
+  String get potSaveHint;
+
+  /// Erklärung der Glückstruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Verschenken und Spenden'**
+  String get potGiveHint;
+
+  /// Knopf: Geld zwischen Truhen verschieben
+  ///
+  /// In de, this message translates to:
+  /// **'Umbuchen'**
+  String get treasureMove;
+
+  /// Knopf: Ausgabe aus der Bordkasse
+  ///
+  /// In de, this message translates to:
+  /// **'Ausgabe eintragen'**
+  String get treasureSpend;
+
+  /// Knopf: Geschenk aus der Glückstruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Geschenk eintragen'**
+  String get treasureGive;
+
+  /// Heuer im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Heuer: {amount} {interval}'**
+  String treasureAllowance(String amount, String interval);
+
+  /// Datum der nächsten Heuer
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Heuer am {date}'**
+  String treasureAllowanceNext(String date);
+
+  /// Hinweis ohne Heuer
+  ///
+  /// In de, this message translates to:
+  /// **'Noch keine Heuer. Frag deine Eltern!'**
+  String get treasureNoAllowance;
+
+  /// Hinweis: Geld ist virtuell
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Beträge sind virtuell. Die App zählt mit, das echte Geld bekommst du von deinen Eltern.'**
+  String get treasureVirtual;
+
+  /// Rhythmus der Heuer: wöchentlich
+  ///
+  /// In de, this message translates to:
+  /// **'pro Woche'**
+  String get allowanceWeekly;
+
+  /// Rhythmus der Heuer: monatlich
+  ///
+  /// In de, this message translates to:
+  /// **'pro Monat'**
+  String get allowanceMonthly;
+
+  /// Überschrift Wunschschätze (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Wunschschätze'**
+  String get goalsHeading;
+
+  /// Hinweis ohne Wunschschätze
+  ///
+  /// In de, this message translates to:
+  /// **'Noch kein Wunschschatz. Lege einen an!'**
+  String get goalsEmpty;
+
+  /// Knopf: Wunschschatz anlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Neuer Wunschschatz'**
+  String get goalNew;
+
+  /// Fortschritt eines Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'{saved} von {target}'**
+  String goalProgress(String saved, String target);
+
+  /// Knopf: Wunschschatz einlösen
+  ///
+  /// In de, this message translates to:
+  /// **'Einlösen'**
+  String get goalRedeem;
+
+  /// Kennzeichen eines eingelösten Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'Erfüllt!'**
+  String get goalReached;
+
+  /// Rückfrage beim Einlösen
+  ///
+  /// In de, this message translates to:
+  /// **'{title} einlösen?'**
+  String goalRedeemTitle(String title);
+
+  /// Text beim Einlösen
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} gehen aus der Schatztruhe. Viel Spaß mit deinem Wunsch!'**
+  String goalRedeemBody(String amount);
+
+  /// Knopf: Wunschschatz löschen
+  ///
+  /// In de, this message translates to:
+  /// **'Löschen'**
+  String get goalDelete;
+
+  /// Rückfrage beim Löschen eines Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'{title} löschen?'**
+  String goalDeleteTitle(String title);
+
+  /// Feld: Titel eines Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'Was wünschst du dir?'**
+  String get goalTitleLabel;
+
+  /// Feld: Betrag eines Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'Wie viel kostet es? (in Euro)'**
+  String get goalTargetLabel;
+
+  /// Überschrift der Buchungen
+  ///
+  /// In de, this message translates to:
+  /// **'Kassenbuch'**
+  String get ledgerHeading;
+
+  /// Hinweis ohne Buchungen
+  ///
+  /// In de, this message translates to:
+  /// **'Noch keine Buchungen.'**
+  String get ledgerEmpty;
+
+  /// Buchungsart im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Heuer'**
+  String get ledgerAllowance;
+
+  /// Buchungsart im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Auftrag'**
+  String get ledgerTask;
+
+  /// Buchungsart im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Umgebucht'**
+  String get ledgerTransfer;
+
+  /// Buchungsart
+  ///
+  /// In de, this message translates to:
+  /// **'Korrektur'**
+  String get ledgerManual;
+
+  /// Buchungsart im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Wunschschatz eingelöst'**
+  String get ledgerGoal;
+
+  /// Buchungsart
+  ///
+  /// In de, this message translates to:
+  /// **'Ausgabe'**
+  String get ledgerPurchase;
+
+  /// Buchungsart
+  ///
+  /// In de, this message translates to:
+  /// **'Geschenk'**
+  String get ledgerDonation;
+
+  /// Titel des Umbuchen-Dialogs
+  ///
+  /// In de, this message translates to:
+  /// **'Umbuchen'**
+  String get moveTitle;
+
+  /// Feld: Truhe, aus der umgebucht wird
+  ///
+  /// In de, this message translates to:
+  /// **'Von'**
+  String get moveFrom;
+
+  /// Feld: Truhe, in die umgebucht wird
+  ///
+  /// In de, this message translates to:
+  /// **'Nach'**
+  String get moveTo;
+
+  /// Feld: Betrag
+  ///
+  /// In de, this message translates to:
+  /// **'Betrag in Euro'**
+  String get amountLabel;
+
+  /// Hinweis zum Betrag
+  ///
+  /// In de, this message translates to:
+  /// **'zum Beispiel 2,50'**
+  String get amountHint;
+
+  /// Fehler: Betrag ungültig
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte einen Betrag wie 2,50 eingeben.'**
+  String get amountInvalid;
+
+  /// Fehler: Betrag 0
+  ///
+  /// In de, this message translates to:
+  /// **'Der Betrag muss größer als 0 sein.'**
+  String get amountZero;
+
+  /// Fehler: Betrag zu groß
+  ///
+  /// In de, this message translates to:
+  /// **'Höchstens {max}.'**
+  String amountTooLarge(String max);
+
+  /// Fehler: nicht genug Guthaben
+  ///
+  /// In de, this message translates to:
+  /// **'So viel ist nicht in der Truhe.'**
+  String get notEnoughMoney;
+
+  /// Feld: Notiz zu einer Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Wofür? (freiwillig)'**
+  String get noteLabel;
+
+  /// Knopf: Buchung ausführen
+  ///
+  /// In de, this message translates to:
+  /// **'Buchen'**
+  String get bookButton;
+
+  /// Titel: Ausgabe aus der Bordkasse
+  ///
+  /// In de, this message translates to:
+  /// **'Ausgabe eintragen'**
+  String get spendTitle;
+
+  /// Titel: Geschenk aus der Glückstruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Geschenk eintragen'**
+  String get giveTitle;
+
+  /// Titel der Aufträge im Kinderbereich (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Aufträge'**
+  String get tasksTitle;
+
+  /// Überschrift offener Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Offen'**
+  String get tasksOpenHeading;
+
+  /// Überschrift gemeldeter Aufträge im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Wartet auf deine Eltern'**
+  String get tasksWaitingHeading;
+
+  /// Überschrift erledigter Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Erledigt'**
+  String get tasksDoneHeading;
+
+  /// Hinweis ohne Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Gerade keine Aufträge. Deine Eltern können im Leuchtturm welche anlegen.'**
+  String get tasksEmpty;
+
+  /// Knopf: Auftrag als erledigt melden
+  ///
+  /// In de, this message translates to:
+  /// **'Erledigt!'**
+  String get taskDoneButton;
+
+  /// Belohnung eines Auftrags
+  ///
+  /// In de, this message translates to:
+  /// **'+{amount}'**
+  String taskReward(String amount);
+
+  /// Kennzeichen einer Pflicht ohne Belohnung
+  ///
+  /// In de, this message translates to:
+  /// **'Pflicht'**
+  String get taskChore;
+
+  /// Ablehnung mit Nachricht der Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht ganz: {note}'**
+  String taskRejected(String note);
+
+  /// Ablehnung ohne Nachricht
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Eltern möchten, dass du noch einmal nachschaust.'**
+  String get taskRejectedNoNote;
+
+  /// Knopf: abgelehnten Auftrag erneut melden
+  ///
+  /// In de, this message translates to:
+  /// **'Nochmal melden'**
+  String get taskResubmit;
+
+  /// Rückmeldung nach dem Melden
+  ///
+  /// In de, this message translates to:
+  /// **'Super! Jetzt müssen deine Eltern bestätigen.'**
+  String get taskSubmitted;
+
+  /// Titel des Budget-Bereichs im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld und Aufgaben'**
+  String get budgetTitle;
+
+  /// Anzahl gemeldeter Aufgaben im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Keine Aufgaben warten} =1{1 Aufgabe wartet auf Bestätigung} other{{count} Aufgaben warten auf Bestätigung}}'**
+  String pendingTasks(int count);
+
+  /// Truhe im Elternbereich (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Ausgeben'**
+  String get parentPotSpend;
+
+  /// Truhe im Elternbereich (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Sparen'**
+  String get parentPotSave;
+
+  /// Truhe im Elternbereich (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Verschenken'**
+  String get parentPotGive;
+
+  /// Überschrift Taschengeld im Leuchtturm (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld'**
+  String get allowanceHeading;
+
+  /// Hinweis ohne Taschengeld
+  ///
+  /// In de, this message translates to:
+  /// **'Kein Taschengeld festgelegt.'**
+  String get allowanceNone;
+
+  /// Aktuelles Taschengeld
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} {interval}, nächste Zahlung am {date}'**
+  String allowanceCurrent(String amount, String interval, String date);
+
+  /// Knopf: Taschengeld festlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld festlegen'**
+  String get allowanceSet;
+
+  /// Knopf: Taschengeld beenden
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld beenden'**
+  String get allowanceStop;
+
+  /// Feld: Rhythmus des Taschengelds
+  ///
+  /// In de, this message translates to:
+  /// **'Rhythmus'**
+  String get allowanceIntervalLabel;
+
+  /// Option Rhythmus
+  ///
+  /// In de, this message translates to:
+  /// **'wöchentlich'**
+  String get allowanceWeeklyOption;
+
+  /// Option Rhythmus
+  ///
+  /// In de, this message translates to:
+  /// **'monatlich'**
+  String get allowanceMonthlyOption;
+
+  /// Datum der ersten Zahlung
+  ///
+  /// In de, this message translates to:
+  /// **'Erste Zahlung: {date}'**
+  String allowanceFirstPayout(String date);
+
+  /// Hinweis: Taschengeld ist virtuell
+  ///
+  /// In de, this message translates to:
+  /// **'Das Taschengeld ist virtuell: Die App zählt mit, auszahlen tut ihr es selbst.'**
+  String get allowanceHint;
+
+  /// Überschrift Aufgaben im Leuchtturm (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgaben'**
+  String get tasksParentHeading;
+
+  /// Knopf: Aufgabe anlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgabe anlegen'**
+  String get taskCreate;
+
+  /// Feld: Titel der Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgabe'**
+  String get taskTitleLabel;
+
+  /// Feld: Belohnung
+  ///
+  /// In de, this message translates to:
+  /// **'Belohnung in Euro'**
+  String get taskRewardLabel;
+
+  /// Option: Aufgabe ohne Geld
+  ///
+  /// In de, this message translates to:
+  /// **'Pflicht ohne Belohnung'**
+  String get taskChoreLabel;
+
+  /// Fehler: Titel der Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte 2 bis 60 Zeichen.'**
+  String get taskTitleInvalid;
+
+  /// Knopf: Aufgabe bestätigen
+  ///
+  /// In de, this message translates to:
+  /// **'Bestätigen'**
+  String get taskApprove;
+
+  /// Knopf: Aufgabe ablehnen
+  ///
+  /// In de, this message translates to:
+  /// **'Ablehnen'**
+  String get taskReject;
+
+  /// Feld: Nachricht beim Ablehnen
+  ///
+  /// In de, this message translates to:
+  /// **'Nachricht an dein Kind (freiwillig)'**
+  String get taskRejectNoteLabel;
+
+  /// Status einer Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Offen'**
+  String get taskStatusOpen;
+
+  /// Status einer Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Gemeldet'**
+  String get taskStatusSubmitted;
+
+  /// Status einer Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Bestätigt'**
+  String get taskStatusApproved;
+
+  /// Status einer Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Abgelehnt'**
+  String get taskStatusRejected;
+
+  /// Knopf: Aufgabe löschen
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgabe löschen'**
+  String get taskDelete;
+
+  /// Hinweis ohne Aufgaben im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Noch keine Aufgaben.'**
+  String get tasksParentEmpty;
+
+  /// Überschrift Kontostand im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Kontostand'**
+  String get balanceHeading;
+
+  /// Knopf: Korrektur buchen
+  ///
+  /// In de, this message translates to:
+  /// **'Korrektur buchen'**
+  String get manualBooking;
+
+  /// Hinweis zur Korrektur
+  ///
+  /// In de, this message translates to:
+  /// **'Positiv ist eine Gutschrift, mit Minus ein Abzug (zum Beispiel -2,50).'**
+  String get manualHint;
+
+  /// Feld: Truhe auswählen (Elternbereich)
+  ///
+  /// In de, this message translates to:
+  /// **'Truhe'**
+  String get potLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

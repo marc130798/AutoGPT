@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../domain/avatar.dart';
@@ -8,6 +11,8 @@ import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
 import '../map/island_map_screen.dart';
+import '../treasure/tasks_screen.dart';
+import '../treasure/treasure_screen.dart';
 import 'lighthouse_button.dart';
 
 /// Kinderbereich nach dem Intro: Avatar, Schiff und der Weg zur Karte.
@@ -63,7 +68,17 @@ class ChildHomeScreen extends StatelessWidget {
                   child: Text(l10n.childHomeMapButton),
                 ),
                 const SizedBox(height: 12),
-                OutlinedButton(
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.inventory_2_outlined),
+                  onPressed: () =>
+                      Navigator.of(context)
+                          .push(MaterialPageRoute<void>(builder: (_) => TreasureScreen(childId: child.id))),
+                  label: Text(l10n.childHomeTreasureButton),
+                ),
+                const SizedBox(height: 12),
+                _TasksButton(childId: child.id),
+                const SizedBox(height: 24),
+                TextButton(
                   onPressed: () =>
                       Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
                   child: Text(l10n.childHomeIntroAgain),
@@ -74,6 +89,72 @@ class ChildHomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Knopf zu den Aufträgen mit der Zahl der Aufträge, die das Kind melden kann.
+/// Lädt die Zahl neu, wenn das Kind von den Aufträgen zurückkommt.
+class _TasksButton extends StatefulWidget {
+  const _TasksButton({required this.childId});
+
+  final String childId;
+
+  @override
+  State<_TasksButton> createState() => _TasksButtonState();
+}
+
+class _TasksButtonState extends State<_TasksButton> {
+  int _open = 0;
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_started) {
+      _started = true;
+      unawaited(_load());
+    }
+  }
+
+  Future<void> _load() async {
+    final budget = AppScope.of(context).budget;
+    if (budget == null) return;
+    try {
+      final tasks = await budget.fetchTasks(widget.childId);
+      if (mounted) setState(() => _open = tasks.where((t) => t.canSubmit).length);
+    } on Object {
+      // Nur ein Hinweis: Ohne Verbindung zeigt der Knopf einfach keine Zahl.
+    }
+  }
+
+  Future<void> _openTasks() async {
+    await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => TasksScreen(childId: widget.childId)));
+    if (mounted) await _load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        OutlinedButton.icon(
+          icon: Badge(isLabelVisible: _open > 0, label: Text('$_open'), child: const Icon(Icons.checklist)),
+          onPressed: _openTasks,
+          label: Text(l10n.childHomeTasksButton),
+        ),
+        if (_open > 0)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              l10n.childHomeTasksOpen(_open),
+              key: const ValueKey('child-home-open-tasks'),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+      ],
     );
   }
 }

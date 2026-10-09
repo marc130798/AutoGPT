@@ -11,6 +11,7 @@ import 'package:taleria/core/backend/backend.dart';
 import 'package:taleria/core/config/app_config.dart';
 import 'package:taleria/services/session_controller.dart';
 
+import 'fake_budget.dart';
 import 'fake_content.dart';
 import 'fakes.dart';
 
@@ -66,6 +67,7 @@ TaleriaApp buildTestApp({
   FakeLocalSettings? settings,
   FakeContent? content,
   FakeProgress? progress,
+  FakeBudget? budget,
 }) {
   final family = backend == null ? null : FakeFamilyRepository(backend);
   final localSettings = settings ?? FakeLocalSettings();
@@ -91,6 +93,7 @@ TaleriaApp buildTestApp({
       content: fakeContent,
       progress: progress ?? (fakeContent == null ? null : FakeProgress(fakeContent)),
       settings: localSettings,
+      budget: budget ?? (backend == null ? null : FakeBudget()),
       random: Random(42),
     ),
   );
