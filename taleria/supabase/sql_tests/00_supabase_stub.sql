@@ -11,8 +11,15 @@ grant usage on schema auth to anon, authenticated, service_role;
 
 create table auth.users (
   id uuid primary key default gen_random_uuid(),
-  email text
+  email text,
+  is_anonymous boolean not null default false,
+  raw_user_meta_data jsonb not null default '{}'::jsonb
 );
+
+-- Supabase installiert Erweiterungen im Schema "extensions".
+create schema extensions;
+grant usage on schema extensions to anon, authenticated, service_role;
+create extension pgcrypto with schema extensions;
 
 create function auth.jwt() returns jsonb
 language sql stable as $$
@@ -23,3 +30,10 @@ create function auth.uid() returns uuid
 language sql stable as $$
   select nullif(auth.jwt() ->> 'sub', '')::uuid;
 $$;
+
+-- Supabase gibt anon und authenticated auf alles im Schema public Rechte.
+-- Ob sie etwas sehen, entscheidet dann die Row Level Security.
+grant usage on schema public to anon, authenticated, service_role;
+alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
+alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
+alter default privileges in schema public grant all on functions to anon, authenticated, service_role;

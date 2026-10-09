@@ -6,7 +6,7 @@ import 'package:taleria/core/config/app_config.dart';
 import '../test_helpers.dart';
 
 void main() {
-  testWidgets('Startbildschirm zeigt Talo und Tala als Platzhalter', (tester) async {
+  testWidgets('Ohne Server: Vorschau zeigt Talo und Tala als Platzhalter', (tester) async {
     await tester.pumpWidget(buildTestApp());
     await tester.pumpAndSettle();
 
@@ -49,11 +49,11 @@ void main() {
     expect(find.text('Willkommen an Bord!'), findsOneWidget);
   });
 
-  testWidgets('Grafik-Übersicht gibt es nur in der Testumgebung', (tester) async {
+  testWidgets('Live: keine Grafik-Übersicht und kein Umgebungs-Schild', (tester) async {
     await tester.pumpWidget(buildTestApp(environment: AppEnvironment.live));
     await tester.pumpAndSettle();
     expect(find.text('Alle Platzhalter ansehen'), findsNothing);
-    expect(find.textContaining('Live'), findsOneWidget);
+    expect(find.textContaining('Testumgebung'), findsNothing);
   });
 
   testWidgets('Grafik-Übersicht zählt vorhandene Dateien', (tester) async {

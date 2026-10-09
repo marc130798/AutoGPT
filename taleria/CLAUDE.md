@@ -118,9 +118,10 @@ Alle sichtbaren Texte liegen in Übersetzungsdateien (zuerst Deutsch), nie fest 
 Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 
 **Konten**
-- `parents` – verknüpft mit `auth.users`; `consent_at`, `locale`, `parent_pin_hash`, `marketing_consent_at`, `marketing_confirmed_at`, `marketing_unsubscribed_at`, `push_consent_at` (Regeln für E-Mails und Push in `MARKETING.md`, Abschnitt 5)
+- `parents` – verknüpft mit `auth.users`; `consent_at`, `consent_version`, `locale`, `parent_pin_hash` (bcrypt, für die App nicht lesbar), `has_parent_pin`, `parent_pin_failed_attempts`, `parent_pin_locked_until`, `marketing_consent_at`, `marketing_confirmed_at`, `marketing_unsubscribed_at`, `push_consent_at` (Regeln für E-Mails und Push in `MARKETING.md`, Abschnitt 5)
 - `children` – `parent_id`, `nickname`, `birth_year`, `level_setting` (Einsteiger, Fortgeschritten), `stage` (1 oder 2), `avatar`, `ship_name`, `stations_per_week` (Standard 2, `null` = freie Fahrt), `release_weekdays` (Standard Montag und Donnerstag)
-- `child_login_codes` – `child_id`, `code`, `expires_at`, `used_at`
+- `child_login_codes` – `child_id`, `code_hash` (nur SHA-256, der Code wird einmal angezeigt), `expires_at`, `used_at`
+- `child_devices` – `user_id` (anonyme Sitzung des Kinder-Geräts), `child_id`
 
 **Inhalte**
 - `islands` – `slug`, `stage`, `island_group`, `sort_order`, `map_x`, `map_y`, `route_type` (main, side, event), `expedition_id` (optional), `title_key`, `intro_video_url`, `is_published`
@@ -354,3 +355,14 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - `is_published` ist in der Datenbank aus `status` abgeleitet (nur eine Wahrheit). Ob Kinder einen Inhalt sehen, entscheidet `is_content_visible(status, publish_at)`.
 - Admin-Rechte gelten in der Datenbank nur mit Zwei-Faktor-Anmeldung (`aal2`). Das Audit-Log ist unveränderlich.
 - Regeln aus Abschnitt 8 und 10 (Pflichtstationen veröffentlichter Inseln, Prüfungsfragen, frühere Fassungen) erzwingt die Datenbank per Trigger, getestet in `supabase/sql_tests/`.
+
+**Schritt 2 (Konten und Rollen), umgesetzt am 09.10.2026:**
+- Kinder-Geräte melden sich mit einer **anonymen Supabase-Sitzung** an und lösen dann einen Code ein (`redeem_child_login_code`). Die Zuordnung steht in `child_devices`; per Row Level Security sieht die Sitzung nur dieses eine Kinder-Profil. In Supabase müssen anonyme Anmeldungen eingeschaltet sein.
+- Anmelde-Code: 8 Zeichen ohne I, L, O, 0, 1, 15 Minuten gültig, einmal nutzbar; ein neuer Code macht den alten ungültig. QR-Code folgt später (braucht Kamera-Paket, vorher mit Marc sprechen).
+- Registrierung: Die App schickt `taleria_role`, `consent_version`, `marketing_consent` und `locale` mit; der Trigger `handle_new_auth_user` legt `parents` mit Zeitstempel an. Ohne `consent_version` keine Registrierung. Die Fassung des Einwilligungstextes steht in `consentVersion` (`lib/services/session_controller.dart`) und muss bei jeder Textänderung hochgezählt werden.
+- Eltern-PIN: 4 bis 6 Ziffern, keine gleichen Ziffern und keine Reihen (1111, 1234, 9876). Gespeichert als bcrypt-Prüfsumme, geprüft nur in der Datenbank (`verify_parent_pin`). Nach 5 Fehlversuchen 5 Minuten gesperrt. Die Rechenaufgabe als Alternative ist nicht gebaut; die PIN erfüllt die Eltern-Sperre.
+- Eltern-Sperre im Ablauf: Frische Anmeldung mit Passwort öffnet den Leuchtturm. Bei jedem App-Start und nach 5 Minuten im Hintergrund fragt die App nach der PIN. PIN vergessen = mit Passwort neu anmelden.
+- „Gerät an Kind übergeben“: Auf dem Eltern-Gerät kann ein Kind spielen (`active_child_id` in `shared_preferences`). Die Sitzung bleibt die der Eltern; die PIN schützt den Leuchtturm.
+- Löschen von Kinder-Profilen und Konten nur über Datenbank-Funktionen (`delete_child`, `delete_my_account`), damit auch die Kinder-Geräte abgemeldet werden. Admin-Konten können sich darüber nicht löschen.
+- Zusätzliches Paket: `shared_preferences` (vom Flutter-Team, war schon über `supabase_flutter` dabei).
+- Offen für später: Passwort zurücksetzen (braucht einen Link zurück in die App), Newsletter-Bestätigung per Double-Opt-in, Schutz vor massenhaften anonymen Anmeldungen (Captcha), Gratis-Grenze von einem Kinder-Profil (kommt mit dem Abo in Schritt 9).

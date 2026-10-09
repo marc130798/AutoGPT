@@ -198,6 +198,612 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Server nicht erreichbar'**
   String get backendUnreachable;
+
+  /// Abbrechen-Knopf in Dialogen
+  ///
+  /// In de, this message translates to:
+  /// **'Abbrechen'**
+  String get cancel;
+
+  /// OK-Knopf in Hinweisen
+  ///
+  /// In de, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// Speichern-Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'Speichern'**
+  String get saveButton;
+
+  /// Knopf, um einen fehlgeschlagenen Vorgang zu wiederholen
+  ///
+  /// In de, this message translates to:
+  /// **'Noch einmal versuchen'**
+  String get retryButton;
+
+  /// Knopf zum Abmelden
+  ///
+  /// In de, this message translates to:
+  /// **'Abmelden'**
+  String get signOutButton;
+
+  /// Pflicht-Hinweis (CLAUDE.md Abschnitt 9)
+  ///
+  /// In de, this message translates to:
+  /// **'Taleria ist ein Lernspiel und keine Finanzberatung. Alle Beträge sind virtuell.'**
+  String get noFinancialAdvice;
+
+  /// Fehler: kein Netz
+  ///
+  /// In de, this message translates to:
+  /// **'Keine Verbindung zum Server. Bitte prüfe das Internet und versuche es noch einmal.'**
+  String get failureNetwork;
+
+  /// Fehler: falsche Anmeldedaten
+  ///
+  /// In de, this message translates to:
+  /// **'E-Mail oder Passwort stimmt nicht.'**
+  String get failureInvalidCredentials;
+
+  /// Fehler: E-Mail noch nicht bestätigt
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte bestätige zuerst deine E-Mail-Adresse. Den Link findest du in unserer E-Mail.'**
+  String get failureEmailNotConfirmed;
+
+  /// Fehler: E-Mail schon registriert
+  ///
+  /// In de, this message translates to:
+  /// **'Für diese E-Mail-Adresse gibt es schon ein Konto. Bitte melde dich an.'**
+  String get failureEmailTaken;
+
+  /// Fehler: Passwort vom Server abgelehnt
+  ///
+  /// In de, this message translates to:
+  /// **'Dieses Passwort ist zu leicht zu erraten. Bitte wähle ein anderes.'**
+  String get failureWeakPassword;
+
+  /// Fehler: zu viele Anfragen
+  ///
+  /// In de, this message translates to:
+  /// **'Zu viele Versuche. Bitte warte kurz und versuche es dann noch einmal.'**
+  String get failureRateLimited;
+
+  /// Fehler: keine Berechtigung
+  ///
+  /// In de, this message translates to:
+  /// **'Das ist mit diesem Konto nicht erlaubt.'**
+  String get failureNotAllowed;
+
+  /// Fehler: unbekannt
+  ///
+  /// In de, this message translates to:
+  /// **'Da ist etwas schiefgegangen. Bitte versuche es noch einmal.'**
+  String get failureUnknown;
+
+  /// Überschrift auf dem Startbildschirm ohne Anmeldung
+  ///
+  /// In de, this message translates to:
+  /// **'Willkommen in Taleria'**
+  String get welcomeTitle;
+
+  /// Unterzeile auf dem Startbildschirm ohne Anmeldung
+  ///
+  /// In de, this message translates to:
+  /// **'Lerne mit Talo und Tala, gut mit Geld umzugehen.'**
+  String get welcomeSubtitle;
+
+  /// Knopf für Kinder: Anmeldecode eingeben
+  ///
+  /// In de, this message translates to:
+  /// **'Ich habe einen Code'**
+  String get welcomeChildButton;
+
+  /// Knopf für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Für Eltern: anmelden oder registrieren'**
+  String get welcomeParentButton;
+
+  /// Hinweis, wenn keine Server-Zugangsdaten eingetragen sind
+  ///
+  /// In de, this message translates to:
+  /// **'Ohne Server gibt es noch keine Konten. Du kannst dir die Vorschau ansehen.'**
+  String get welcomeOfflineHint;
+
+  /// Knopf zur Vorschau, wenn kein Server eingerichtet ist
+  ///
+  /// In de, this message translates to:
+  /// **'Vorschau ohne Konto'**
+  String get welcomeOfflinePreview;
+
+  /// Titel des Bildschirms für Eltern-Anmeldung und -Registrierung
+  ///
+  /// In de, this message translates to:
+  /// **'Eltern-Konto'**
+  String get parentAuthTitle;
+
+  /// Reiter: neues Eltern-Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Registrieren'**
+  String get parentAuthRegisterTab;
+
+  /// Reiter: bestehendes Eltern-Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Anmelden'**
+  String get parentAuthLoginTab;
+
+  /// Feld für die E-Mail-Adresse
+  ///
+  /// In de, this message translates to:
+  /// **'E-Mail'**
+  String get emailLabel;
+
+  /// Feld für das Passwort
+  ///
+  /// In de, this message translates to:
+  /// **'Passwort'**
+  String get passwordLabel;
+
+  /// Hinweis unter dem Passwortfeld
+  ///
+  /// In de, this message translates to:
+  /// **'Mindestens {min} Zeichen'**
+  String passwordHint(int min);
+
+  /// Fehler: E-Mail leer
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte gib deine E-Mail-Adresse ein.'**
+  String get emailEmpty;
+
+  /// Fehler: E-Mail ungültig
+  ///
+  /// In de, this message translates to:
+  /// **'Diese E-Mail-Adresse sieht nicht richtig aus.'**
+  String get emailInvalid;
+
+  /// Fehler: Passwort zu kurz
+  ///
+  /// In de, this message translates to:
+  /// **'Das Passwort braucht mindestens {min} Zeichen.'**
+  String passwordTooShort(int min);
+
+  /// Pflicht-Einwilligung bei der Registrierung. ENTWURF, rechtlich prüfen. Bei Änderung consentVersion hochzählen.
+  ///
+  /// In de, this message translates to:
+  /// **'Ich bin einverstanden, dass Taleria meine Daten und die Daten meines Kindes gemäß der Datenschutzerklärung verarbeitet. (Pflicht)'**
+  String get consentLabel;
+
+  /// Fehler: Einwilligung fehlt
+  ///
+  /// In de, this message translates to:
+  /// **'Ohne diese Einwilligung können wir kein Konto anlegen.'**
+  String get consentRequired;
+
+  /// Freiwillige Newsletter-Einwilligung, nie vorausgewählt (MARKETING.md)
+  ///
+  /// In de, this message translates to:
+  /// **'Ich möchte etwa einmal im Monat per E-Mail erfahren, was es Neues in Taleria gibt. (freiwillig, jederzeit abbestellbar)'**
+  String get marketingLabel;
+
+  /// Knopf: registrieren
+  ///
+  /// In de, this message translates to:
+  /// **'Konto anlegen'**
+  String get registerButton;
+
+  /// Knopf: anmelden
+  ///
+  /// In de, this message translates to:
+  /// **'Anmelden'**
+  String get loginButton;
+
+  /// Überschrift nach der Registrierung, wenn die E-Mail bestätigt werden muss
+  ///
+  /// In de, this message translates to:
+  /// **'Fast geschafft!'**
+  String get checkEmailTitle;
+
+  /// Text nach der Registrierung, wenn die E-Mail bestätigt werden muss
+  ///
+  /// In de, this message translates to:
+  /// **'Wir haben dir eine E-Mail geschickt. Bitte bestätige deine Adresse und melde dich dann hier an.'**
+  String get checkEmailBody;
+
+  /// Titel: PIN festlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Eltern-PIN festlegen'**
+  String get setPinTitle;
+
+  /// Erklärung beim Festlegen der PIN
+  ///
+  /// In de, this message translates to:
+  /// **'Mit dieser PIN öffnest du auf diesem Gerät den Leuchtturm, den Bereich für Eltern. Dein Kind sollte sie nicht kennen.'**
+  String get setPinBody;
+
+  /// Feld für die PIN
+  ///
+  /// In de, this message translates to:
+  /// **'PIN (4 bis 6 Ziffern)'**
+  String get pinLabel;
+
+  /// Feld zum Wiederholen der PIN
+  ///
+  /// In de, this message translates to:
+  /// **'PIN wiederholen'**
+  String get pinRepeatLabel;
+
+  /// Fehler: PIN-Format
+  ///
+  /// In de, this message translates to:
+  /// **'Die PIN besteht aus 4 bis 6 Ziffern.'**
+  String get pinFormat;
+
+  /// Fehler: PIN zu einfach
+  ///
+  /// In de, this message translates to:
+  /// **'Diese PIN ist zu leicht zu erraten, zum Beispiel 1111 oder 1234.'**
+  String get pinTooSimple;
+
+  /// Fehler: PINs stimmen nicht überein
+  ///
+  /// In de, this message translates to:
+  /// **'Die beiden PINs sind nicht gleich.'**
+  String get pinMismatch;
+
+  /// Knopf: PIN speichern
+  ///
+  /// In de, this message translates to:
+  /// **'PIN speichern'**
+  String get pinSaveButton;
+
+  /// Text der PIN-Abfrage vor dem Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte gib die Eltern-PIN ein.'**
+  String get pinGateBody;
+
+  /// Knopf: Leuchtturm mit PIN öffnen
+  ///
+  /// In de, this message translates to:
+  /// **'Öffnen'**
+  String get pinGateUnlock;
+
+  /// Fehler: falsche PIN
+  ///
+  /// In de, this message translates to:
+  /// **'Die PIN stimmt nicht.'**
+  String get pinWrong;
+
+  /// Fehler: PIN gesperrt
+  ///
+  /// In de, this message translates to:
+  /// **'Zu viele Versuche. Du kannst es um {time} Uhr wieder versuchen.'**
+  String pinLocked(String time);
+
+  /// Knopf: PIN vergessen
+  ///
+  /// In de, this message translates to:
+  /// **'PIN vergessen? Mit Passwort neu anmelden'**
+  String get pinForgot;
+
+  /// Knopf auf der PIN-Abfrage, zurück zum Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Zurück an Bord'**
+  String get pinBackToChild;
+
+  /// Bestätigung nach PIN-Änderung
+  ///
+  /// In de, this message translates to:
+  /// **'Die neue PIN ist gespeichert.'**
+  String get pinChanged;
+
+  /// Name des Elternbereichs
+  ///
+  /// In de, this message translates to:
+  /// **'Leuchtturm'**
+  String get lighthouseTitle;
+
+  /// Überschrift der Kinderliste im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Kinder-Profile'**
+  String get lighthouseChildrenHeading;
+
+  /// Hinweis, wenn es noch keine Kinder-Profile gibt
+  ///
+  /// In de, this message translates to:
+  /// **'Noch kein Kinder-Profil. Lege jetzt eins an.'**
+  String get lighthouseNoChildren;
+
+  /// Knopf: neues Kinder-Profil
+  ///
+  /// In de, this message translates to:
+  /// **'Kinder-Profil anlegen'**
+  String get lighthouseAddChild;
+
+  /// Überschrift Konto-Einstellungen im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Konto'**
+  String get lighthouseAccountHeading;
+
+  /// Knopf: PIN ändern
+  ///
+  /// In de, this message translates to:
+  /// **'Eltern-PIN ändern'**
+  String get lighthouseChangePin;
+
+  /// Knopf: Konto löschen
+  ///
+  /// In de, this message translates to:
+  /// **'Konto löschen'**
+  String get lighthouseDeleteAccount;
+
+  /// Knopf zur Grafik-Übersicht im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Grafik-Übersicht (nur Testumgebung)'**
+  String get lighthouseShowAssets;
+
+  /// Titel des Löschen-Dialogs für das Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Konto wirklich löschen?'**
+  String get deleteAccountTitle;
+
+  /// Text des Löschen-Dialogs für das Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Konto, alle Kinder-Profile und alle Daten werden endgültig gelöscht. Angemeldete Kinder-Geräte werden abgemeldet. Das lässt sich nicht rückgängig machen.'**
+  String get deleteAccountBody;
+
+  /// Knopf: endgültig löschen
+  ///
+  /// In de, this message translates to:
+  /// **'Endgültig löschen'**
+  String get deleteConfirm;
+
+  /// Niveau Einsteiger
+  ///
+  /// In de, this message translates to:
+  /// **'Einsteiger'**
+  String get levelBeginner;
+
+  /// Niveau Fortgeschritten
+  ///
+  /// In de, this message translates to:
+  /// **'Fortgeschritten'**
+  String get levelAdvanced;
+
+  /// Zeile unter dem Spitznamen in der Kinderliste
+  ///
+  /// In de, this message translates to:
+  /// **'Jahrgang {year} · {level}'**
+  String childSubtitle(int year, String level);
+
+  /// Titel: Kinder-Profil anlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Neues Kinder-Profil'**
+  String get childFormNewTitle;
+
+  /// Titel: Kinder-Profil bearbeiten
+  ///
+  /// In de, this message translates to:
+  /// **'Profil bearbeiten'**
+  String get childFormEditTitle;
+
+  /// Feld Spitzname
+  ///
+  /// In de, this message translates to:
+  /// **'Spitzname'**
+  String get nicknameLabel;
+
+  /// Hinweis zum Spitznamen (Datensparsamkeit)
+  ///
+  /// In de, this message translates to:
+  /// **'Ein Spitzname reicht, ein echter Name ist nicht nötig.'**
+  String get nicknameHint;
+
+  /// Fehler: Spitzname zu kurz
+  ///
+  /// In de, this message translates to:
+  /// **'Der Spitzname braucht mindestens 2 Zeichen.'**
+  String get nicknameTooShort;
+
+  /// Fehler: Spitzname zu lang
+  ///
+  /// In de, this message translates to:
+  /// **'Der Spitzname darf höchstens 20 Zeichen haben.'**
+  String get nicknameTooLong;
+
+  /// Fehler: Spitzname mit ungültigen Zeichen
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte nur Buchstaben, Ziffern, Leerzeichen oder Bindestrich.'**
+  String get nicknameInvalid;
+
+  /// Feld Geburtsjahr
+  ///
+  /// In de, this message translates to:
+  /// **'Geburtsjahr'**
+  String get birthYearLabel;
+
+  /// Hinweis zum Alter
+  ///
+  /// In de, this message translates to:
+  /// **'Empfohlen ab 10 Jahren. Du entscheidest, wann dein Kind startet.'**
+  String get birthYearHint;
+
+  /// Feld Niveau
+  ///
+  /// In de, this message translates to:
+  /// **'Niveau'**
+  String get levelLabel;
+
+  /// Überschrift: Code für Kinder-Gerät
+  ///
+  /// In de, this message translates to:
+  /// **'Gerät deines Kindes anmelden'**
+  String get childDetailCodeHeading;
+
+  /// Erklärung zum Anmeldecode
+  ///
+  /// In de, this message translates to:
+  /// **'Erzeuge einen Code und gib ihn auf dem Gerät deines Kindes unter „Ich habe einen Code“ ein.'**
+  String get childDetailCodeBody;
+
+  /// Knopf: Code erzeugen
+  ///
+  /// In de, this message translates to:
+  /// **'Anmeldecode erzeugen'**
+  String get childDetailCreateCode;
+
+  /// Gültigkeit des Codes
+  ///
+  /// In de, this message translates to:
+  /// **'Gültig bis {time} Uhr und nur einmal nutzbar.'**
+  String childDetailCodeValid(String time);
+
+  /// Überschrift: Kind spielt auf dem Eltern-Gerät
+  ///
+  /// In de, this message translates to:
+  /// **'Auf diesem Gerät spielen'**
+  String get childDetailPlayHereHeading;
+
+  /// Erklärung: Kind spielt auf dem Eltern-Gerät
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Kind spielt auf diesem Gerät. Zurück in den Leuchtturm geht es nur mit deiner PIN.'**
+  String get childDetailPlayHereBody;
+
+  /// Knopf: Kinderbereich auf dem Eltern-Gerät öffnen
+  ///
+  /// In de, this message translates to:
+  /// **'Gerät an {nickname} übergeben'**
+  String childDetailPlayHereButton(String nickname);
+
+  /// Anzahl der Kinder-Geräte
+  ///
+  /// In de, this message translates to:
+  /// **'Angemeldete Geräte: {count}'**
+  String childDetailDevices(int count);
+
+  /// Knopf: Kinder-Geräte abmelden
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Geräte abmelden'**
+  String get childDetailSignOutDevices;
+
+  /// Bestätigung: Geräte abgemeldet
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Geräte wurden abgemeldet.'**
+  String get childDetailSignedOut;
+
+  /// Knopf: Profil bearbeiten
+  ///
+  /// In de, this message translates to:
+  /// **'Profil bearbeiten'**
+  String get childDetailEdit;
+
+  /// Knopf: Profil löschen
+  ///
+  /// In de, this message translates to:
+  /// **'Profil löschen'**
+  String get childDetailDelete;
+
+  /// Titel des Löschen-Dialogs für ein Kinder-Profil
+  ///
+  /// In de, this message translates to:
+  /// **'{nickname} wirklich löschen?'**
+  String deleteChildTitle(String nickname);
+
+  /// Text des Löschen-Dialogs für ein Kinder-Profil
+  ///
+  /// In de, this message translates to:
+  /// **'Das Profil und alle Fortschritte werden endgültig gelöscht. Angemeldete Geräte werden abgemeldet.'**
+  String get deleteChildBody;
+
+  /// Titel: Code eingeben (Kinderbereich)
+  ///
+  /// In de, this message translates to:
+  /// **'An Bord kommen'**
+  String get childCodeTitle;
+
+  /// Erklärung: Code eingeben (Kinderbereich)
+  ///
+  /// In de, this message translates to:
+  /// **'Gib den Code ein, den deine Eltern im Leuchtturm für dich erzeugt haben.'**
+  String get childCodeBody;
+
+  /// Feld: Anmeldecode
+  ///
+  /// In de, this message translates to:
+  /// **'Code'**
+  String get childCodeLabel;
+
+  /// Knopf: Code einlösen
+  ///
+  /// In de, this message translates to:
+  /// **'An Bord gehen'**
+  String get childCodeButton;
+
+  /// Fehler: Code unvollständig
+  ///
+  /// In de, this message translates to:
+  /// **'Der Code hat 8 Zeichen.'**
+  String get childCodeIncomplete;
+
+  /// Fehler: Code falsch oder abgelaufen
+  ///
+  /// In de, this message translates to:
+  /// **'Dieser Code passt nicht. Vielleicht ist er schon benutzt oder abgelaufen. Frag deine Eltern nach einem neuen.'**
+  String get childCodeInvalid;
+
+  /// Begrüßung im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Willkommen an Bord, {nickname}!'**
+  String childHomeWelcome(String nickname);
+
+  /// Hinweis auf dem Kinder-Gerät beim Tipp auf den Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Der Leuchtturm ist der Bereich für deine Eltern. Er öffnet sich auf ihrem Gerät.'**
+  String get childHomeLighthouseHint;
+
+  /// Titel: angemeldetes Konto ist kein Eltern-Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Kein Eltern-Konto'**
+  String get problemNoParentTitle;
+
+  /// Text: angemeldetes Konto ist kein Eltern-Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Dieses Konto gehört zu keinem Eltern-Konto von Taleria.'**
+  String get problemNoParentBody;
+
+  /// Fehler: Passwort leer bei der Anmeldung
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte gib dein Passwort ein.'**
+  String get passwordEmpty;
+
+  /// Fehler: kein Geburtsjahr gewählt
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte wähle das Geburtsjahr.'**
+  String get birthYearMissing;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

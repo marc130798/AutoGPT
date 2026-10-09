@@ -3,7 +3,20 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 1 gibt
+## Was es nach Schritt 2 gibt
+
+- Start: „Ich habe einen Code“ (Kind) oder „Für Eltern“
+- Eltern registrieren sich mit E-Mail, Passwort (mindestens 10 Zeichen) und Pflicht-Einwilligung;
+  der Newsletter ist ein eigenes, nicht vorausgewähltes Kästchen
+- Danach legen Eltern eine Eltern-PIN fest (4 bis 6 Ziffern, nicht 1111 oder 1234)
+- Leuchtturm (Elternbereich): Kinder-Profile anlegen, bearbeiten, löschen; Konto löschen; PIN ändern
+- Anmeldecode für das Gerät des Kindes (8 Zeichen, 15 Minuten gültig, nur einmal nutzbar)
+- Oder „Gerät an Kind übergeben“: Das Kind spielt auf dem Eltern-Gerät, zurück in den Leuchtturm nur mit PIN
+- Nach 5 Minuten im Hintergrund ist der Leuchtturm wieder gesperrt
+- Eltern können alle Geräte eines Kindes abmelden
+- Die Datenbank erzwingt alle Rechte: Ein Kinder-Gerät sieht nur sein eigenes Profil
+
+## Was es seit Schritt 1 gibt
 
 - Flutter-App für iOS und Android (nur Hochformat auf dem Handy, Tablet auch quer)
 - Startbildschirm mit Talo und Tala als Platzhalter, Intro-Film als Platzhalter („Film folgt“ + Weiter)
@@ -18,6 +31,9 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 | Ordner | Inhalt |
 | --- | --- |
 | `lib/core/` | Grundlagen: Einstellungen, Theme, Grafiken und Platzhalter, Server-Verbindung |
+| `lib/domain/` | Datenmodelle und Prüfregeln (z. B. PIN, Spitzname, Code) |
+| `lib/data/` | Zugriff auf Supabase und auf Einstellungen des Geräts |
+| `lib/services/` | Logik: Sitzung, Eltern-Sperre, Leuchtturm |
 | `lib/features/` | Bildschirme, ein Ordner pro Bereich |
 | `lib/l10n/` | Texte der App (zuerst Deutsch) |
 | `assets/` | Grafiken, Animationen, Ton und das Asset-Manifest |
@@ -59,7 +75,19 @@ cp env/live.example.json env/live.json
 Dann in beiden Dateien Adresse und Schlüssel eintragen. Die Dateien
 `env/test.json` und `env/live.json` stehen in `.gitignore` und landen nie im Git.
 
-### 4. Datenbank aufbauen (zuerst nur Test)
+### 4. Anmeldung im Supabase-Dashboard einstellen (Test und Live)
+
+Unter *Authentication → Sign In / Providers*:
+
+- **Allow anonymous sign-ins** einschalten (so melden sich Kinder-Geräte an, ganz ohne E-Mail)
+- **Confirm email** eingeschaltet lassen (Eltern bestätigen ihre E-Mail-Adresse)
+
+Unter *Authentication → Policies → Password*: Mindestlänge **10**.
+
+Unter *Authentication → URL Configuration*: **Site URL** auf die spätere Website von Taleria
+setzen. Dorthin führt der Bestätigungslink aus der E-Mail. Danach meldet man sich in der App an.
+
+### 5. Datenbank aufbauen (zuerst nur Test)
 
 Mit der [Supabase CLI](https://supabase.com/docs/guides/cli):
 
@@ -87,7 +115,25 @@ flutter run --dart-define-from-file=env/test.json
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
 
-## Was du ausprobieren kannst
+## Was du ausprobieren kannst (Schritt 2, mit Test-Server)
+
+1. App mit `--dart-define-from-file=env/test.json` starten, „Für Eltern“ wählen und registrieren.
+   Ohne Häkchen bei der Einwilligung geht es nicht weiter.
+2. E-Mail bestätigen, in der App anmelden, Eltern-PIN festlegen.
+3. Im Leuchtturm ein Kinder-Profil anlegen (nur Spitzname, Geburtsjahr, Niveau).
+4. Profil antippen, „Anmeldecode erzeugen“. Auf einem zweiten Gerät „Ich habe einen Code“ wählen
+   und den Code eingeben: Dort steht „Willkommen an Bord, …!“.
+5. Denselben Code ein zweites Mal eingeben: Er wird abgelehnt.
+6. Auf dem Eltern-Gerät „Gerät an … übergeben“: Der Kinderbereich öffnet sich. Oben rechts der
+   Leuchtturm fragt nach der PIN, „Zurück an Bord“ führt ohne PIN zurück.
+7. App schließen und neu öffnen: Es geht direkt in den Kinderbereich, ohne PIN.
+8. Im Leuchtturm „Alle Geräte abmelden“: Das zweite Gerät landet wieder auf dem Startbildschirm.
+9. Kinder-Profil löschen und Konto löschen: Beides fragt vorher nach.
+
+In der Supabase-Tabellenansicht (Testprojekt) siehst du in `parents` den Zeitpunkt der
+Einwilligung (`consent_at`). Die PIN steht dort nur als unlesbare Prüfsumme.
+
+## Was du ausprobieren kannst (Schritt 1, ohne Server)
 
 1. App starten: Talo (oranger Kreis) und Tala (rosa Kreis) erscheinen als Platzhalter.
 2. „Intro ansehen“: Standbild mit „Film folgt“, „Weiter“ führt zurück.

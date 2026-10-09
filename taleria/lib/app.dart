@@ -5,7 +5,7 @@ import 'core/app_scope.dart';
 import 'core/config/orientation_policy.dart';
 import 'core/theme/taleria_palette.dart';
 import 'core/theme/taleria_theme.dart';
-import 'features/home/home_screen.dart';
+import 'features/start/session_gate.dart';
 import 'l10n/app_localizations.dart';
 
 class TaleriaApp extends StatelessWidget {
@@ -32,7 +32,7 @@ class TaleriaApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         builder: (context, child) => _TabletFrame(child: child ?? const SizedBox.shrink()),
-        home: const HomeScreen(),
+        home: const SessionGate(),
       ),
     );
   }

@@ -44,6 +44,9 @@ for f in "$ROOT"/supabase/migrations/*.sql; do
   echo "Migration: $(basename "$f")"
   cat "$f" | "${PSQL[@]}"
 done
-cat "$ROOT/supabase/sql_tests/01_grants.sql" | "${PSQL[@]}"
+
+# Alle Testdateien laufen nacheinander in einer Sitzung.
 # set -o pipefail sorgt dafür, dass ein Fehler in psql das Skript abbricht.
-cat "$ROOT/supabase/sql_tests/10_regeln_test.sql" | "${PSQL[@]}" 2>&1 | sed -e "s/^NOTICE:  //" -e "/^$/d"
+cat "$ROOT/supabase/sql_tests/05_test_helpers.sql" "$ROOT"/supabase/sql_tests/[1-9]*_test.sql \
+  | "${PSQL[@]}" 2>&1 | sed -n -e "s/^NOTICE:  //p" -e "/ERROR/p"
+echo "Alle Datenbank-Tests bestanden."

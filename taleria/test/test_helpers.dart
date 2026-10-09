@@ -8,6 +8,9 @@ import 'package:taleria/core/assets/asset_manifest.dart';
 import 'package:taleria/core/assets/asset_repository.dart';
 import 'package:taleria/core/backend/backend.dart';
 import 'package:taleria/core/config/app_config.dart';
+import 'package:taleria/services/session_controller.dart';
+
+import 'fakes.dart';
 
 /// Ein App-Paket im Speicher: enthält nur die Dateien, die der Test angibt.
 class FakeAssetBundle extends CachingAssetBundle {
@@ -49,11 +52,23 @@ final Uint8List tinyPng = base64Decode(
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
 );
 
+/// Baut die App für Widget-Tests.
+///
+/// Ohne [backend] läuft sie wie ohne Server (Vorschau). Mit [backend] gegen
+/// den nachgebauten Server aus fakes.dart.
 TaleriaApp buildTestApp({
   AppEnvironment environment = AppEnvironment.test,
   BackendStatus backendStatus = BackendStatus.notConfigured,
   Map<String, Uint8List> files = const {},
+  FakeBackend? backend,
+  FakeLocalSettings? settings,
 }) {
+  final family = backend == null ? null : FakeFamilyRepository(backend);
+  final session = SessionController(
+    auth: backend == null ? null : FakeAuthRepository(backend),
+    family: family,
+    settings: settings ?? FakeLocalSettings(),
+  )..start();
   return TaleriaApp(
     services: AppServices(
       config: AppConfig(
@@ -64,6 +79,8 @@ TaleriaApp buildTestApp({
       assets: AssetRepository(bundle: FakeAssetBundle(files)),
       manifest: realManifest(),
       backendHealth: FakeHealthCheck(backendStatus),
+      session: session,
+      family: family,
     ),
   );
 }

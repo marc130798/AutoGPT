@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import '../data/family_repository.dart';
+import '../services/session_controller.dart';
 import 'assets/asset_manifest.dart';
 import 'assets/asset_repository.dart';
 import 'backend/backend.dart';
@@ -12,6 +14,8 @@ class AppServices {
     required this.assets,
     required this.manifest,
     required this.backendHealth,
+    required this.session,
+    required this.family,
     this.manifestError,
   });
 
@@ -19,6 +23,12 @@ class AppServices {
   final AssetRepository assets;
   final TaleriaAssetManifest manifest;
   final BackendHealthCheck backendHealth;
+
+  /// Wer benutzt die App gerade (Eltern, Kind, niemand)?
+  final SessionController session;
+
+  /// `null`, wenn kein Server eingerichtet ist.
+  final FamilyRepository? family;
 
   /// Gesetzt, wenn das Manifest nicht geladen werden konnte. Die App läuft
   /// dann mit grauen Platzhaltern weiter.

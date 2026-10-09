@@ -1,63 +1,535 @@
 {
   "@@locale": "de",
-
   "appTitle": "Taleria",
-  "@appTitle": { "description": "Name der App" },
-
+  "@appTitle": {
+    "description": "Name der App"
+  },
   "homeWelcome": "Willkommen an Bord!",
-  "@homeWelcome": { "description": "Begrüßung auf dem Startbildschirm" },
-
+  "@homeWelcome": {
+    "description": "Begrüßung auf dem Startbildschirm"
+  },
   "homeSubtitle": "Talo und Tala warten schon im Hafen auf dich.",
-  "@homeSubtitle": { "description": "Unterzeile auf dem Startbildschirm" },
-
+  "@homeSubtitle": {
+    "description": "Unterzeile auf dem Startbildschirm"
+  },
   "homeShowIntro": "Intro ansehen",
-  "@homeShowIntro": { "description": "Knopf, der den Intro-Film öffnet" },
-
+  "@homeShowIntro": {
+    "description": "Knopf, der den Intro-Film öffnet"
+  },
   "homeShowAssets": "Alle Platzhalter ansehen",
-  "@homeShowAssets": { "description": "Knopf zur Übersicht aller Grafiken (nur Testumgebung)" },
-
+  "@homeShowAssets": {
+    "description": "Knopf zur Übersicht aller Grafiken (nur Testumgebung)"
+  },
   "videoComingSoon": "Film folgt",
-  "@videoComingSoon": { "description": "Text auf dem Standbild, solange ein Film fehlt" },
-
+  "@videoComingSoon": {
+    "description": "Text auf dem Standbild, solange ein Film fehlt"
+  },
   "continueButton": "Weiter",
-  "@continueButton": { "description": "Allgemeiner Weiter-Knopf" },
-
+  "@continueButton": {
+    "description": "Allgemeiner Weiter-Knopf"
+  },
   "assetGalleryTitle": "Grafiken und Filme",
-  "@assetGalleryTitle": { "description": "Titel der Übersicht aller Grafiken" },
-
+  "@assetGalleryTitle": {
+    "description": "Titel der Übersicht aller Grafiken"
+  },
   "assetGalleryHint": "Grau umrandet = Platzhalter, die echte Datei fehlt noch.",
-  "@assetGalleryHint": { "description": "Erklärung oben in der Grafik-Übersicht" },
-
+  "@assetGalleryHint": {
+    "description": "Erklärung oben in der Grafik-Übersicht"
+  },
   "assetGalleryCount": "{available} von {total} Dateien vorhanden",
   "@assetGalleryCount": {
     "description": "Zählt, wie viele echte Dateien es schon gibt",
     "placeholders": {
-      "available": { "type": "int" },
-      "total": { "type": "int" }
+      "available": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "assetManifestError": "Die Liste der Grafiken konnte nicht geladen werden.",
-  "@assetManifestError": { "description": "Fehlermeldung, wenn das Asset-Manifest kaputt ist" },
-
+  "@assetManifestError": {
+    "description": "Fehlermeldung, wenn das Asset-Manifest kaputt ist"
+  },
   "environmentTest": "Testumgebung",
-  "@environmentTest": { "description": "Hinweis-Schild: App läuft gegen die Test-Datenbank" },
-
+  "@environmentTest": {
+    "description": "Hinweis-Schild: App läuft gegen die Test-Datenbank"
+  },
   "environmentLive": "Live",
-  "@environmentLive": { "description": "Hinweis-Schild: App läuft gegen die Live-Datenbank" },
-
+  "@environmentLive": {
+    "description": "Hinweis-Schild: App läuft gegen die Live-Datenbank"
+  },
   "backendNotConfigured": "Ohne Server (keine Zugangsdaten eingetragen)",
-  "@backendNotConfigured": { "description": "Status: App läuft ohne Supabase" },
-
+  "@backendNotConfigured": {
+    "description": "Status: App läuft ohne Supabase"
+  },
   "backendChecking": "Verbindung wird geprüft …",
-  "@backendChecking": { "description": "Status: Verbindung zu Supabase wird geprüft" },
-
+  "@backendChecking": {
+    "description": "Status: Verbindung zu Supabase wird geprüft"
+  },
   "backendReady": "Server verbunden, Datenbank bereit",
-  "@backendReady": { "description": "Status: Supabase erreichbar und Tabellen vorhanden" },
-
+  "@backendReady": {
+    "description": "Status: Supabase erreichbar und Tabellen vorhanden"
+  },
   "backendSchemaMissing": "Server verbunden, aber die Tabellen fehlen noch",
-  "@backendSchemaMissing": { "description": "Status: Supabase erreichbar, Migrationen nicht eingespielt" },
-
+  "@backendSchemaMissing": {
+    "description": "Status: Supabase erreichbar, Migrationen nicht eingespielt"
+  },
   "backendUnreachable": "Server nicht erreichbar",
-  "@backendUnreachable": { "description": "Status: Supabase antwortet nicht" }
+  "@backendUnreachable": {
+    "description": "Status: Supabase antwortet nicht"
+  },
+  "cancel": "Abbrechen",
+  "@cancel": {
+    "description": "Abbrechen-Knopf in Dialogen"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK-Knopf in Hinweisen"
+  },
+  "saveButton": "Speichern",
+  "@saveButton": {
+    "description": "Speichern-Knopf"
+  },
+  "retryButton": "Noch einmal versuchen",
+  "@retryButton": {
+    "description": "Knopf, um einen fehlgeschlagenen Vorgang zu wiederholen"
+  },
+  "signOutButton": "Abmelden",
+  "@signOutButton": {
+    "description": "Knopf zum Abmelden"
+  },
+  "noFinancialAdvice": "Taleria ist ein Lernspiel und keine Finanzberatung. Alle Beträge sind virtuell.",
+  "@noFinancialAdvice": {
+    "description": "Pflicht-Hinweis (CLAUDE.md Abschnitt 9)"
+  },
+  "failureNetwork": "Keine Verbindung zum Server. Bitte prüfe das Internet und versuche es noch einmal.",
+  "@failureNetwork": {
+    "description": "Fehler: kein Netz"
+  },
+  "failureInvalidCredentials": "E-Mail oder Passwort stimmt nicht.",
+  "@failureInvalidCredentials": {
+    "description": "Fehler: falsche Anmeldedaten"
+  },
+  "failureEmailNotConfirmed": "Bitte bestätige zuerst deine E-Mail-Adresse. Den Link findest du in unserer E-Mail.",
+  "@failureEmailNotConfirmed": {
+    "description": "Fehler: E-Mail noch nicht bestätigt"
+  },
+  "failureEmailTaken": "Für diese E-Mail-Adresse gibt es schon ein Konto. Bitte melde dich an.",
+  "@failureEmailTaken": {
+    "description": "Fehler: E-Mail schon registriert"
+  },
+  "failureWeakPassword": "Dieses Passwort ist zu leicht zu erraten. Bitte wähle ein anderes.",
+  "@failureWeakPassword": {
+    "description": "Fehler: Passwort vom Server abgelehnt"
+  },
+  "failureRateLimited": "Zu viele Versuche. Bitte warte kurz und versuche es dann noch einmal.",
+  "@failureRateLimited": {
+    "description": "Fehler: zu viele Anfragen"
+  },
+  "failureNotAllowed": "Das ist mit diesem Konto nicht erlaubt.",
+  "@failureNotAllowed": {
+    "description": "Fehler: keine Berechtigung"
+  },
+  "failureUnknown": "Da ist etwas schiefgegangen. Bitte versuche es noch einmal.",
+  "@failureUnknown": {
+    "description": "Fehler: unbekannt"
+  },
+  "welcomeTitle": "Willkommen in Taleria",
+  "@welcomeTitle": {
+    "description": "Überschrift auf dem Startbildschirm ohne Anmeldung"
+  },
+  "welcomeSubtitle": "Lerne mit Talo und Tala, gut mit Geld umzugehen.",
+  "@welcomeSubtitle": {
+    "description": "Unterzeile auf dem Startbildschirm ohne Anmeldung"
+  },
+  "welcomeChildButton": "Ich habe einen Code",
+  "@welcomeChildButton": {
+    "description": "Knopf für Kinder: Anmeldecode eingeben"
+  },
+  "welcomeParentButton": "Für Eltern: anmelden oder registrieren",
+  "@welcomeParentButton": {
+    "description": "Knopf für Eltern"
+  },
+  "welcomeOfflineHint": "Ohne Server gibt es noch keine Konten. Du kannst dir die Vorschau ansehen.",
+  "@welcomeOfflineHint": {
+    "description": "Hinweis, wenn keine Server-Zugangsdaten eingetragen sind"
+  },
+  "welcomeOfflinePreview": "Vorschau ohne Konto",
+  "@welcomeOfflinePreview": {
+    "description": "Knopf zur Vorschau, wenn kein Server eingerichtet ist"
+  },
+  "parentAuthTitle": "Eltern-Konto",
+  "@parentAuthTitle": {
+    "description": "Titel des Bildschirms für Eltern-Anmeldung und -Registrierung"
+  },
+  "parentAuthRegisterTab": "Registrieren",
+  "@parentAuthRegisterTab": {
+    "description": "Reiter: neues Eltern-Konto"
+  },
+  "parentAuthLoginTab": "Anmelden",
+  "@parentAuthLoginTab": {
+    "description": "Reiter: bestehendes Eltern-Konto"
+  },
+  "emailLabel": "E-Mail",
+  "@emailLabel": {
+    "description": "Feld für die E-Mail-Adresse"
+  },
+  "passwordLabel": "Passwort",
+  "@passwordLabel": {
+    "description": "Feld für das Passwort"
+  },
+  "passwordHint": "Mindestens {min} Zeichen",
+  "@passwordHint": {
+    "description": "Hinweis unter dem Passwortfeld",
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "emailEmpty": "Bitte gib deine E-Mail-Adresse ein.",
+  "@emailEmpty": {
+    "description": "Fehler: E-Mail leer"
+  },
+  "emailInvalid": "Diese E-Mail-Adresse sieht nicht richtig aus.",
+  "@emailInvalid": {
+    "description": "Fehler: E-Mail ungültig"
+  },
+  "passwordTooShort": "Das Passwort braucht mindestens {min} Zeichen.",
+  "@passwordTooShort": {
+    "description": "Fehler: Passwort zu kurz",
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "consentLabel": "Ich bin einverstanden, dass Taleria meine Daten und die Daten meines Kindes gemäß der Datenschutzerklärung verarbeitet. (Pflicht)",
+  "@consentLabel": {
+    "description": "Pflicht-Einwilligung bei der Registrierung. ENTWURF, rechtlich prüfen. Bei Änderung consentVersion hochzählen."
+  },
+  "consentRequired": "Ohne diese Einwilligung können wir kein Konto anlegen.",
+  "@consentRequired": {
+    "description": "Fehler: Einwilligung fehlt"
+  },
+  "marketingLabel": "Ich möchte etwa einmal im Monat per E-Mail erfahren, was es Neues in Taleria gibt. (freiwillig, jederzeit abbestellbar)",
+  "@marketingLabel": {
+    "description": "Freiwillige Newsletter-Einwilligung, nie vorausgewählt (MARKETING.md)"
+  },
+  "registerButton": "Konto anlegen",
+  "@registerButton": {
+    "description": "Knopf: registrieren"
+  },
+  "loginButton": "Anmelden",
+  "@loginButton": {
+    "description": "Knopf: anmelden"
+  },
+  "checkEmailTitle": "Fast geschafft!",
+  "@checkEmailTitle": {
+    "description": "Überschrift nach der Registrierung, wenn die E-Mail bestätigt werden muss"
+  },
+  "checkEmailBody": "Wir haben dir eine E-Mail geschickt. Bitte bestätige deine Adresse und melde dich dann hier an.",
+  "@checkEmailBody": {
+    "description": "Text nach der Registrierung, wenn die E-Mail bestätigt werden muss"
+  },
+  "setPinTitle": "Eltern-PIN festlegen",
+  "@setPinTitle": {
+    "description": "Titel: PIN festlegen"
+  },
+  "setPinBody": "Mit dieser PIN öffnest du auf diesem Gerät den Leuchtturm, den Bereich für Eltern. Dein Kind sollte sie nicht kennen.",
+  "@setPinBody": {
+    "description": "Erklärung beim Festlegen der PIN"
+  },
+  "pinLabel": "PIN (4 bis 6 Ziffern)",
+  "@pinLabel": {
+    "description": "Feld für die PIN"
+  },
+  "pinRepeatLabel": "PIN wiederholen",
+  "@pinRepeatLabel": {
+    "description": "Feld zum Wiederholen der PIN"
+  },
+  "pinFormat": "Die PIN besteht aus 4 bis 6 Ziffern.",
+  "@pinFormat": {
+    "description": "Fehler: PIN-Format"
+  },
+  "pinTooSimple": "Diese PIN ist zu leicht zu erraten, zum Beispiel 1111 oder 1234.",
+  "@pinTooSimple": {
+    "description": "Fehler: PIN zu einfach"
+  },
+  "pinMismatch": "Die beiden PINs sind nicht gleich.",
+  "@pinMismatch": {
+    "description": "Fehler: PINs stimmen nicht überein"
+  },
+  "pinSaveButton": "PIN speichern",
+  "@pinSaveButton": {
+    "description": "Knopf: PIN speichern"
+  },
+  "pinGateBody": "Bitte gib die Eltern-PIN ein.",
+  "@pinGateBody": {
+    "description": "Text der PIN-Abfrage vor dem Leuchtturm"
+  },
+  "pinGateUnlock": "Öffnen",
+  "@pinGateUnlock": {
+    "description": "Knopf: Leuchtturm mit PIN öffnen"
+  },
+  "pinWrong": "Die PIN stimmt nicht.",
+  "@pinWrong": {
+    "description": "Fehler: falsche PIN"
+  },
+  "pinLocked": "Zu viele Versuche. Du kannst es um {time} Uhr wieder versuchen.",
+  "@pinLocked": {
+    "description": "Fehler: PIN gesperrt",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "pinForgot": "PIN vergessen? Mit Passwort neu anmelden",
+  "@pinForgot": {
+    "description": "Knopf: PIN vergessen"
+  },
+  "pinBackToChild": "Zurück an Bord",
+  "@pinBackToChild": {
+    "description": "Knopf auf der PIN-Abfrage, zurück zum Kinderbereich"
+  },
+  "pinChanged": "Die neue PIN ist gespeichert.",
+  "@pinChanged": {
+    "description": "Bestätigung nach PIN-Änderung"
+  },
+  "lighthouseTitle": "Leuchtturm",
+  "@lighthouseTitle": {
+    "description": "Name des Elternbereichs"
+  },
+  "lighthouseChildrenHeading": "Kinder-Profile",
+  "@lighthouseChildrenHeading": {
+    "description": "Überschrift der Kinderliste im Leuchtturm"
+  },
+  "lighthouseNoChildren": "Noch kein Kinder-Profil. Lege jetzt eins an.",
+  "@lighthouseNoChildren": {
+    "description": "Hinweis, wenn es noch keine Kinder-Profile gibt"
+  },
+  "lighthouseAddChild": "Kinder-Profil anlegen",
+  "@lighthouseAddChild": {
+    "description": "Knopf: neues Kinder-Profil"
+  },
+  "lighthouseAccountHeading": "Konto",
+  "@lighthouseAccountHeading": {
+    "description": "Überschrift Konto-Einstellungen im Leuchtturm"
+  },
+  "lighthouseChangePin": "Eltern-PIN ändern",
+  "@lighthouseChangePin": {
+    "description": "Knopf: PIN ändern"
+  },
+  "lighthouseDeleteAccount": "Konto löschen",
+  "@lighthouseDeleteAccount": {
+    "description": "Knopf: Konto löschen"
+  },
+  "lighthouseShowAssets": "Grafik-Übersicht (nur Testumgebung)",
+  "@lighthouseShowAssets": {
+    "description": "Knopf zur Grafik-Übersicht im Leuchtturm"
+  },
+  "deleteAccountTitle": "Konto wirklich löschen?",
+  "@deleteAccountTitle": {
+    "description": "Titel des Löschen-Dialogs für das Konto"
+  },
+  "deleteAccountBody": "Dein Konto, alle Kinder-Profile und alle Daten werden endgültig gelöscht. Angemeldete Kinder-Geräte werden abgemeldet. Das lässt sich nicht rückgängig machen.",
+  "@deleteAccountBody": {
+    "description": "Text des Löschen-Dialogs für das Konto"
+  },
+  "deleteConfirm": "Endgültig löschen",
+  "@deleteConfirm": {
+    "description": "Knopf: endgültig löschen"
+  },
+  "levelBeginner": "Einsteiger",
+  "@levelBeginner": {
+    "description": "Niveau Einsteiger"
+  },
+  "levelAdvanced": "Fortgeschritten",
+  "@levelAdvanced": {
+    "description": "Niveau Fortgeschritten"
+  },
+  "childSubtitle": "Jahrgang {year} · {level}",
+  "@childSubtitle": {
+    "description": "Zeile unter dem Spitznamen in der Kinderliste",
+    "placeholders": {
+      "year": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "childFormNewTitle": "Neues Kinder-Profil",
+  "@childFormNewTitle": {
+    "description": "Titel: Kinder-Profil anlegen"
+  },
+  "childFormEditTitle": "Profil bearbeiten",
+  "@childFormEditTitle": {
+    "description": "Titel: Kinder-Profil bearbeiten"
+  },
+  "nicknameLabel": "Spitzname",
+  "@nicknameLabel": {
+    "description": "Feld Spitzname"
+  },
+  "nicknameHint": "Ein Spitzname reicht, ein echter Name ist nicht nötig.",
+  "@nicknameHint": {
+    "description": "Hinweis zum Spitznamen (Datensparsamkeit)"
+  },
+  "nicknameTooShort": "Der Spitzname braucht mindestens 2 Zeichen.",
+  "@nicknameTooShort": {
+    "description": "Fehler: Spitzname zu kurz"
+  },
+  "nicknameTooLong": "Der Spitzname darf höchstens 20 Zeichen haben.",
+  "@nicknameTooLong": {
+    "description": "Fehler: Spitzname zu lang"
+  },
+  "nicknameInvalid": "Bitte nur Buchstaben, Ziffern, Leerzeichen oder Bindestrich.",
+  "@nicknameInvalid": {
+    "description": "Fehler: Spitzname mit ungültigen Zeichen"
+  },
+  "birthYearLabel": "Geburtsjahr",
+  "@birthYearLabel": {
+    "description": "Feld Geburtsjahr"
+  },
+  "birthYearHint": "Empfohlen ab 10 Jahren. Du entscheidest, wann dein Kind startet.",
+  "@birthYearHint": {
+    "description": "Hinweis zum Alter"
+  },
+  "levelLabel": "Niveau",
+  "@levelLabel": {
+    "description": "Feld Niveau"
+  },
+  "childDetailCodeHeading": "Gerät deines Kindes anmelden",
+  "@childDetailCodeHeading": {
+    "description": "Überschrift: Code für Kinder-Gerät"
+  },
+  "childDetailCodeBody": "Erzeuge einen Code und gib ihn auf dem Gerät deines Kindes unter „Ich habe einen Code“ ein.",
+  "@childDetailCodeBody": {
+    "description": "Erklärung zum Anmeldecode"
+  },
+  "childDetailCreateCode": "Anmeldecode erzeugen",
+  "@childDetailCreateCode": {
+    "description": "Knopf: Code erzeugen"
+  },
+  "childDetailCodeValid": "Gültig bis {time} Uhr und nur einmal nutzbar.",
+  "@childDetailCodeValid": {
+    "description": "Gültigkeit des Codes",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "childDetailPlayHereHeading": "Auf diesem Gerät spielen",
+  "@childDetailPlayHereHeading": {
+    "description": "Überschrift: Kind spielt auf dem Eltern-Gerät"
+  },
+  "childDetailPlayHereBody": "Dein Kind spielt auf diesem Gerät. Zurück in den Leuchtturm geht es nur mit deiner PIN.",
+  "@childDetailPlayHereBody": {
+    "description": "Erklärung: Kind spielt auf dem Eltern-Gerät"
+  },
+  "childDetailPlayHereButton": "Gerät an {nickname} übergeben",
+  "@childDetailPlayHereButton": {
+    "description": "Knopf: Kinderbereich auf dem Eltern-Gerät öffnen",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "childDetailDevices": "Angemeldete Geräte: {count}",
+  "@childDetailDevices": {
+    "description": "Anzahl der Kinder-Geräte",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "childDetailSignOutDevices": "Alle Geräte abmelden",
+  "@childDetailSignOutDevices": {
+    "description": "Knopf: Kinder-Geräte abmelden"
+  },
+  "childDetailSignedOut": "Alle Geräte wurden abgemeldet.",
+  "@childDetailSignedOut": {
+    "description": "Bestätigung: Geräte abgemeldet"
+  },
+  "childDetailEdit": "Profil bearbeiten",
+  "@childDetailEdit": {
+    "description": "Knopf: Profil bearbeiten"
+  },
+  "childDetailDelete": "Profil löschen",
+  "@childDetailDelete": {
+    "description": "Knopf: Profil löschen"
+  },
+  "deleteChildTitle": "{nickname} wirklich löschen?",
+  "@deleteChildTitle": {
+    "description": "Titel des Löschen-Dialogs für ein Kinder-Profil",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteChildBody": "Das Profil und alle Fortschritte werden endgültig gelöscht. Angemeldete Geräte werden abgemeldet.",
+  "@deleteChildBody": {
+    "description": "Text des Löschen-Dialogs für ein Kinder-Profil"
+  },
+  "childCodeTitle": "An Bord kommen",
+  "@childCodeTitle": {
+    "description": "Titel: Code eingeben (Kinderbereich)"
+  },
+  "childCodeBody": "Gib den Code ein, den deine Eltern im Leuchtturm für dich erzeugt haben.",
+  "@childCodeBody": {
+    "description": "Erklärung: Code eingeben (Kinderbereich)"
+  },
+  "childCodeLabel": "Code",
+  "@childCodeLabel": {
+    "description": "Feld: Anmeldecode"
+  },
+  "childCodeButton": "An Bord gehen",
+  "@childCodeButton": {
+    "description": "Knopf: Code einlösen"
+  },
+  "childCodeIncomplete": "Der Code hat 8 Zeichen.",
+  "@childCodeIncomplete": {
+    "description": "Fehler: Code unvollständig"
+  },
+  "childCodeInvalid": "Dieser Code passt nicht. Vielleicht ist er schon benutzt oder abgelaufen. Frag deine Eltern nach einem neuen.",
+  "@childCodeInvalid": {
+    "description": "Fehler: Code falsch oder abgelaufen"
+  },
+  "childHomeWelcome": "Willkommen an Bord, {nickname}!",
+  "@childHomeWelcome": {
+    "description": "Begrüßung im Kinderbereich",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "childHomeLighthouseHint": "Der Leuchtturm ist der Bereich für deine Eltern. Er öffnet sich auf ihrem Gerät.",
+  "@childHomeLighthouseHint": {
+    "description": "Hinweis auf dem Kinder-Gerät beim Tipp auf den Leuchtturm"
+  },
+  "problemNoParentTitle": "Kein Eltern-Konto",
+  "@problemNoParentTitle": {
+    "description": "Titel: angemeldetes Konto ist kein Eltern-Konto"
+  },
+  "problemNoParentBody": "Dieses Konto gehört zu keinem Eltern-Konto von Taleria.",
+  "@problemNoParentBody": {
+    "description": "Text: angemeldetes Konto ist kein Eltern-Konto"
+  },
+  "passwordEmpty": "Bitte gib dein Passwort ein.",
+  "@passwordEmpty": {
+    "description": "Fehler: Passwort leer bei der Anmeldung"
+  },
+  "birthYearMissing": "Bitte wähle das Geburtsjahr.",
+  "@birthYearMissing": {
+    "description": "Fehler: kein Geburtsjahr gewählt"
+  }
 }

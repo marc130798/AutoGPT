@@ -11,6 +11,8 @@ abstract final class AssetKeys {
   static const mapFog = 'map.fog';
   static const mapLock = 'map.lock';
 
+  static const lighthouse = 'parent.lighthouse';
+
   static const introVideo = 'video.intro';
   static const logo = 'brand.logo';
 
