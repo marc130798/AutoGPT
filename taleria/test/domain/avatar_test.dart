@@ -4,6 +4,7 @@ import 'package:taleria/domain/avatar.dart';
 void main() {
   test('Avatar wird gespeichert und wieder gelesen', () {
     const avatar = AvatarConfig(
+      species: Species.rabbit,
       skin: SkinTone.s5,
       hairStyle: HairStyle.braid,
       hairColor: HairColor.red,
@@ -23,5 +24,11 @@ void main() {
 
   test('Gespeichertes Format ist klein (Datenbank erlaubt höchstens 1 KB)', () {
     expect(const AvatarConfig().toJson().toString().length, lessThan(200));
+  });
+
+  test('Ältere Avatare ohne Figur sind Menschen', () {
+    final avatar = AvatarConfig.fromJson({'skin': 's2', 'hat': 'none'});
+    expect(avatar.species, Species.human);
+    expect(avatar.isAnimal, isFalse);
   });
 }

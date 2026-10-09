@@ -79,7 +79,7 @@ Im Code verwenden wir englische Namen. Die Texte in der App kommen aus diesem Gl
 | `conversation_prompt` | (nicht sichtbar) | Kombüsen-Fragen |
 | `family_challenge` | Crew-Abenteuer | Familien-Challenge |
 
-Alle sichtbaren Texte liegen in Übersetzungsdateien (zuerst Deutsch), nie fest im Code.
+Alle sichtbaren Texte der App-Oberfläche liegen in Übersetzungsdateien (zuerst Deutsch), nie fest im Code. Inhaltstexte (Namen von Inseln und Expeditionen, Stationstexte, Fragen) stehen in der Datenbank (entschieden mit Marc am 09.10.2026), damit neue Inhalte kein App-Update brauchen.
 
 ---
 
@@ -124,10 +124,10 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `child_devices` – `user_id` (anonyme Sitzung des Kinder-Geräts), `child_id`
 
 **Inhalte**
-- `islands` – `slug`, `stage`, `island_group`, `sort_order`, `map_x`, `map_y`, `route_type` (main, side, event), `expedition_id` (optional), `title_key`, `intro_video_url`, `is_published`
+- `islands` – `slug`, `stage`, `island_group`, `sort_order`, `map_x`, `map_y`, `route_type` (main, side, event), `expedition_id` (optional), `title` (Name direkt in der Datenbank), `intro_video_url`, `is_published`
 - `stations` – `island_id`, `sort_order`, `type` (video, quiz, game, practice, review_stop, exam), `is_required`, `added_in_version`, `xp_reward`, `content` (jsonb), `is_published`
 - `quiz_questions` – `station_id`, `question`, `answers` (jsonb), `correct_index`, `explanation`
-- `expeditions` – `title_key`, `starts_at`, `ends_at`
+- `expeditions` – `title`, `starts_at`, `ends_at`
 - `conversation_prompts` – `island_id`, `text`
 
 **Fortschritt**
@@ -372,7 +372,11 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Jeder Abschnitt wird sofort gespeichert. Kinder-Geräte ändern ihr Profil nur über `update_child_look()`, den Abschluss bucht `complete_onboarding()` (Seemeilen nur einmal, eindeutiger Eintrag in `xp_events`). `can_act_for_child()` prüft, ob Eltern oder das Kinder-Gerät handeln dürfen.
 - Die 50 Seemeilen stehen bis Schritt 4 als Wert in `complete_onboarding()`. Sobald die Stationen als Inhalte in der Datenbank liegen, kommt der Wert aus `stations.xp_reward`.
 - Neue Tabellen: `savings_goals` (Kind darf anlegen, Ändern und Löschen folgen in Schritt 5) und `xp_events` (nur Server-Funktionen schreiben).
-- Avatar-Baukasten: Mensch mit 6 Hautfarben, 5 Frisuren, 5 Haarfarben, 6 Jackenfarben, 4 Kopfbedeckungen. Gespeichert als kleines JSON mit Formatversion. Bis die Rive-Datei `character.avatar` da ist, zeichnet die App den Avatar aus einfachen Formen. Ob es auch Tier-Avatare gibt, ist noch offen (FIGUREN.md).
+- Avatar-Baukasten: Mensch mit 6 Hautfarben, 5 Frisuren, 5 Haarfarben, 6 Jackenfarben, 4 Kopfbedeckungen. Gespeichert als kleines JSON mit Formatversion. Bis die Rive-Datei `character.avatar` da ist, zeichnet die App den Avatar aus einfachen Formen.
 - Alle Sätze von Talo und Tala sind Entwürfe und stehen in `lib/l10n/app_de.arb` (Beschreibung „ENTWURF“).
 - Auf dem Eltern-Gerät hat auch das Intro den Leuchtturm-Knopf (PIN-Abfrage), auf dem Kinder-Gerät nicht.
 - Die Karte zeigt bis Schritt 4 nur Hintergrund, Schiff und Hafen als Platzhalter.
+
+**Schritt 4a (Tier-Avatare, Namen aus der Datenbank), umgesetzt am 09.10.2026:**
+- Entschieden mit Marc: Der Avatar darf auch ein Tier sein (Katze, Hund, Bär, Hase, Maus). Tiere haben Fellfarbe statt Hautfarbe und keine Frisur; Jacke und Kopfbedeckung gibt es für alle. Ältere Avatare ohne Angabe sind Menschen.
+- Entschieden mit Marc: Namen von Inseln und Expeditionen stehen in der Datenbank (`title` statt `title_key`). Das gilt auch für spätere Inhalte wie Begegnungen und Sammelstücke.

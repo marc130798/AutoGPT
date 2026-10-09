@@ -14,6 +14,18 @@ abstract final class AvatarPalette {
     SkinTone.s6: Color(0xFF5E3A22),
   };
 
+  /// Fellfarben für Tier-Avatare (gleiche Auswahl-Werte wie die Hautfarben).
+  static const fur = {
+    SkinTone.s1: Color(0xFFF7F2E8),
+    SkinTone.s2: Color(0xFFE9C98F),
+    SkinTone.s3: Color(0xFFD98A3D),
+    SkinTone.s4: Color(0xFF9C6B45),
+    SkinTone.s5: Color(0xFF8E8E8E),
+    SkinTone.s6: Color(0xFF3B3B3B),
+  };
+
+  static Color skinOrFur(AvatarConfig avatar) => (avatar.isAnimal ? fur : skin)[avatar.skin]!;
+
   static const hair = {
     HairColor.black: Color(0xFF231F20),
     HairColor.brown: Color(0xFF6B4226),
@@ -62,7 +74,7 @@ class _AvatarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
-    final skin = Paint()..color = AvatarPalette.skin[avatar.skin]!;
+    final skin = Paint()..color = AvatarPalette.skinOrFur(avatar);
     final hair = Paint()..color = AvatarPalette.hair[avatar.hairColor]!;
     final outfit = Paint()..color = AvatarPalette.outfit[avatar.outfit]!;
     final dark = Paint()..color = const Color(0xFF1C2B3A);
@@ -70,8 +82,12 @@ class _AvatarPainter extends CustomPainter {
     final headCenter = Offset(w * 0.5, w * 0.42);
     final headRadius = w * 0.22;
 
-    // Haare hinten (lang, Zopf)
-    if (avatar.hairStyle == HairStyle.long) {
+    // Tierohren hinter dem Kopf
+    if (avatar.isAnimal) _paintEars(canvas, headCenter, headRadius, skin);
+
+    // Haare hinten (lang, Zopf), nur bei Menschen
+    final hairStyle = avatar.isAnimal ? HairStyle.none : avatar.hairStyle;
+    if (hairStyle == HairStyle.long) {
       canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromCenter(center: headCenter.translate(0, w * 0.1), width: headRadius * 2.3, height: headRadius * 2.4),
@@ -80,7 +96,7 @@ class _AvatarPainter extends CustomPainter {
         hair,
       );
     }
-    if (avatar.hairStyle == HairStyle.braid) {
+    if (hairStyle == HairStyle.braid) {
       canvas.drawOval(
         Rect.fromCenter(center: headCenter.translate(headRadius * 1.05, w * 0.12), width: w * 0.1, height: w * 0.26),
         hair,
@@ -103,7 +119,7 @@ class _AvatarPainter extends CustomPainter {
     canvas.drawCircle(headCenter, headRadius, skin);
 
     // Haare vorne
-    switch (avatar.hairStyle) {
+    switch (hairStyle) {
       case HairStyle.short || HairStyle.long || HairStyle.braid:
         canvas.drawArc(Rect.fromCircle(center: headCenter, radius: headRadius * 1.04), 3.3, 2.82, true, hair);
       case HairStyle.curly:
@@ -114,6 +130,23 @@ class _AvatarPainter extends CustomPainter {
         }
       case HairStyle.none:
         break;
+    }
+
+    // Schnauze bei Tieren
+    if (avatar.isAnimal) {
+      canvas.drawOval(
+        Rect.fromCenter(
+          center: headCenter.translate(0, headRadius * 0.42),
+          width: headRadius * 1.0,
+          height: headRadius * 0.7,
+        ),
+        Paint()..color = Color.lerp(skin.color, Colors.white, 0.55)!,
+      );
+      canvas.drawCircle(
+        headCenter.translate(0, headRadius * 0.3),
+        headRadius * 0.12,
+        Paint()..color = const Color(0xFF1C2B3A),
+      );
     }
 
     // Gesicht
@@ -192,6 +225,42 @@ class _AvatarPainter extends CustomPainter {
         );
       case Hat.none:
         break;
+    }
+  }
+
+  void _paintEars(Canvas canvas, Offset head, double r, Paint fur) {
+    final inner = Paint()..color = Color.lerp(fur.color, const Color(0xFFF29CB7), 0.5)!;
+    for (final side in [-1.0, 1.0]) {
+      switch (avatar.species) {
+        case Species.cat:
+          final path = Path()
+            ..moveTo(head.dx + side * r * 0.25, head.dy - r * 0.8)
+            ..lineTo(head.dx + side * r * 0.95, head.dy - r * 1.35)
+            ..lineTo(head.dx + side * r * 0.95, head.dy - r * 0.35)
+            ..close();
+          canvas.drawPath(path, fur);
+        case Species.dog:
+          canvas.drawOval(
+            Rect.fromCenter(center: head.translate(side * r * 0.95, r * 0.05), width: r * 0.55, height: r * 1.2),
+            Paint()..color = Color.lerp(fur.color, Colors.black, 0.25)!,
+          );
+        case Species.bear:
+          canvas.drawCircle(head.translate(side * r * 0.75, -r * 0.75), r * 0.32, fur);
+          canvas.drawCircle(head.translate(side * r * 0.75, -r * 0.75), r * 0.16, inner);
+        case Species.rabbit:
+          final ear = Rect.fromCenter(
+            center: head.translate(side * r * 0.4, -r * 1.35),
+            width: r * 0.42,
+            height: r * 1.3,
+          );
+          canvas.drawOval(ear, fur);
+          canvas.drawOval(ear.deflate(r * 0.1), inner);
+        case Species.mouse:
+          canvas.drawCircle(head.translate(side * r * 0.85, -r * 0.7), r * 0.45, fur);
+          canvas.drawCircle(head.translate(side * r * 0.85, -r * 0.7), r * 0.28, inner);
+        case Species.human:
+          break;
+      }
     }
   }
 

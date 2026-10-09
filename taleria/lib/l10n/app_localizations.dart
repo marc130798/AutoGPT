@@ -1194,6 +1194,54 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Intro noch nicht abgeschlossen'**
   String get lighthouseIntroPending;
+
+  /// Abschnitt im Avatar-Baukasten: Mensch oder Tier
+  ///
+  /// In de, this message translates to:
+  /// **'Figur'**
+  String get avatarSpecies;
+
+  /// Avatar: Mensch
+  ///
+  /// In de, this message translates to:
+  /// **'Mensch'**
+  String get avatarSpeciesHuman;
+
+  /// Avatar: Katze
+  ///
+  /// In de, this message translates to:
+  /// **'Katze'**
+  String get avatarSpeciesCat;
+
+  /// Avatar: Hund
+  ///
+  /// In de, this message translates to:
+  /// **'Hund'**
+  String get avatarSpeciesDog;
+
+  /// Avatar: Bär
+  ///
+  /// In de, this message translates to:
+  /// **'Bär'**
+  String get avatarSpeciesBear;
+
+  /// Avatar: Hase
+  ///
+  /// In de, this message translates to:
+  /// **'Hase'**
+  String get avatarSpeciesRabbit;
+
+  /// Avatar: Maus
+  ///
+  /// In de, this message translates to:
+  /// **'Maus'**
+  String get avatarSpeciesMouse;
+
+  /// Abschnitt im Avatar-Baukasten für Tiere
+  ///
+  /// In de, this message translates to:
+  /// **'Fellfarbe'**
+  String get avatarFur;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

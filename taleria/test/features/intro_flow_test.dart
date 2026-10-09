@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/domain/avatar.dart';
 import 'package:taleria/domain/family_models.dart';
+import 'package:taleria/features/common/avatar_view.dart';
 
 import '../fakes.dart';
 import '../test_helpers.dart';
@@ -9,10 +10,13 @@ import '../test_helpers.dart';
 /// Das Intro so, wie ein Kind es auf seinem eigenen Gerät durchspielt.
 void main() {
   Future<void> tapText(WidgetTester tester, String text) async {
+    // Lange Listen bauen ihre unteren Einträge erst beim Scrollen.
     if (find.text(text).evaluate().isEmpty) {
-      await tester.scrollUntilVisible(find.text(text), 200, scrollable: find.byType(Scrollable).first);
+      await tester.dragUntilVisible(find.text(text), find.byType(Scrollable).first, const Offset(0, -200));
     }
-    await tester.ensureVisible(find.text(text).last);
+    // In die Mitte scrollen, damit der Tipp nicht auf einem Knopf am Rand landet.
+    await Scrollable.ensureVisible(tester.element(find.text(text).last), alignment: 0.5);
+    await tester.pumpAndSettle();
     await tester.tap(find.text(text).last);
     await tester.pumpAndSettle();
   }
@@ -139,5 +143,38 @@ void main() {
     }
     await tapText(tester, 'Ja, ich bin dabei!');
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+  });
+
+  testWidgets('Tier-Avatar: Fellfarbe statt Frisur', (tester) async {
+    final backend = await startNewChild(tester);
+    await tapText(tester, 'Weiter');
+    for (var i = 0; i < 4; i++) {
+      await tapText(tester, 'Weiter');
+    }
+    await tapText(tester, 'Ja, ich bin dabei!');
+    expect(find.text('Frisur'), findsOneWidget);
+    await tapText(tester, 'Katze');
+    expect(find.text('Fellfarbe'), findsOneWidget);
+    expect(find.text('Frisur'), findsNothing);
+    expect(find.text('Haarfarbe'), findsNothing);
+    await tapText(tester, 'So sehe ich aus!');
+    expect(backend.children.single.avatar?.species, Species.cat);
+  });
+
+  testWidgets('Jeder Avatar lässt sich zeichnen', (tester) async {
+    for (final species in Species.values) {
+      for (final hat in Hat.values) {
+        for (final hair in HairStyle.values) {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: AvatarView(
+                avatar: AvatarConfig(species: species, hat: hat, hairStyle: hair),
+              ),
+            ),
+          );
+          expect(tester.takeException(), isNull, reason: '$species $hat $hair');
+        }
+      }
+    }
   });
 }

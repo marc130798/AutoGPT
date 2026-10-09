@@ -3,6 +3,10 @@
 /// Oberfläche fest (heute einfache Formen, später Grafiken).
 library;
 
+/// Mensch oder Tier (FIGUREN.md: „Mensch oder Tier nach Wahl“).
+enum Species { human, cat, dog, bear, rabbit, mouse }
+
+/// Haut- oder Fellfarbe, je nach [Species].
 enum SkinTone { s1, s2, s3, s4, s5, s6 }
 
 enum HairStyle { short, long, curly, braid, none }
@@ -15,6 +19,7 @@ enum Hat { none, captain, bandana, straw }
 
 class AvatarConfig {
   const AvatarConfig({
+    this.species = Species.human,
     this.skin = SkinTone.s3,
     this.hairStyle = HairStyle.short,
     this.hairColor = HairColor.brown,
@@ -29,6 +34,7 @@ class AvatarConfig {
     if (json == null) return fallback;
     T pick<T extends Enum>(List<T> values, String key, T orElse) => values.asNameMap()[json[key]] ?? orElse;
     return AvatarConfig(
+      species: pick(Species.values, 'species', fallback.species),
       skin: pick(SkinTone.values, 'skin', fallback.skin),
       hairStyle: pick(HairStyle.values, 'hair', fallback.hairStyle),
       hairColor: pick(HairColor.values, 'hairColor', fallback.hairColor),
@@ -40,6 +46,7 @@ class AvatarConfig {
   /// Version des Formats, falls sich der Baukasten später ändert.
   static const formatVersion = 1;
 
+  final Species species;
   final SkinTone skin;
   final HairStyle hairStyle;
   final HairColor hairColor;
@@ -48,6 +55,7 @@ class AvatarConfig {
 
   Map<String, dynamic> toJson() => {
     'v': formatVersion,
+    'species': species.name,
     'skin': skin.name,
     'hair': hairStyle.name,
     'hairColor': hairColor.name,
@@ -55,8 +63,18 @@ class AvatarConfig {
     'hat': hat.name,
   };
 
-  AvatarConfig copyWith({SkinTone? skin, HairStyle? hairStyle, HairColor? hairColor, OutfitColor? outfit, Hat? hat}) {
+  bool get isAnimal => species != Species.human;
+
+  AvatarConfig copyWith({
+    Species? species,
+    SkinTone? skin,
+    HairStyle? hairStyle,
+    HairColor? hairColor,
+    OutfitColor? outfit,
+    Hat? hat,
+  }) {
     return AvatarConfig(
+      species: species ?? this.species,
       skin: skin ?? this.skin,
       hairStyle: hairStyle ?? this.hairStyle,
       hairColor: hairColor ?? this.hairColor,
@@ -68,6 +86,7 @@ class AvatarConfig {
   @override
   bool operator ==(Object other) =>
       other is AvatarConfig &&
+      other.species == species &&
       other.skin == skin &&
       other.hairStyle == hairStyle &&
       other.hairColor == hairColor &&
@@ -75,5 +94,5 @@ class AvatarConfig {
       other.hat == hat;
 
   @override
-  int get hashCode => Object.hash(skin, hairStyle, hairColor, outfit, hat);
+  int get hashCode => Object.hash(species, skin, hairStyle, hairColor, outfit, hat);
 }

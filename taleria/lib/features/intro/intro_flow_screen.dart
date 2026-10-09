@@ -169,30 +169,48 @@ class _AvatarStep extends StatelessWidget {
               Center(
                 child: AvatarView(key: const ValueKey('avatar-preview'), avatar: avatar, size: 180),
               ),
+              _ChipRow(
+                title: l10n.avatarSpecies,
+                labels: [
+                  l10n.avatarSpeciesHuman,
+                  l10n.avatarSpeciesCat,
+                  l10n.avatarSpeciesDog,
+                  l10n.avatarSpeciesBear,
+                  l10n.avatarSpeciesRabbit,
+                  l10n.avatarSpeciesMouse,
+                ],
+                selected: avatar.species.index,
+                onSelect: (i) => update(avatar.copyWith(species: Species.values[i])),
+              ),
               _ColorRow(
-                title: l10n.avatarSkin,
-                colors: [for (final s in SkinTone.values) AvatarPalette.skin[s]!],
+                title: avatar.isAnimal ? l10n.avatarFur : l10n.avatarSkin,
+                colors: [
+                  for (final s in SkinTone.values) (avatar.isAnimal ? AvatarPalette.fur : AvatarPalette.skin)[s]!,
+                ],
                 selected: avatar.skin.index,
                 onSelect: (i) => update(avatar.copyWith(skin: SkinTone.values[i])),
               ),
-              _ChipRow(
-                title: l10n.avatarHairStyle,
-                labels: [
-                  l10n.avatarHairShort,
-                  l10n.avatarHairLong,
-                  l10n.avatarHairCurly,
-                  l10n.avatarHairBraid,
-                  l10n.avatarHairNone,
-                ],
-                selected: avatar.hairStyle.index,
-                onSelect: (i) => update(avatar.copyWith(hairStyle: HairStyle.values[i])),
-              ),
-              _ColorRow(
-                title: l10n.avatarHairColor,
-                colors: [for (final c in HairColor.values) AvatarPalette.hair[c]!],
-                selected: avatar.hairColor.index,
-                onSelect: (i) => update(avatar.copyWith(hairColor: HairColor.values[i])),
-              ),
+              // Frisur und Haarfarbe gibt es nur für Menschen.
+              if (!avatar.isAnimal) ...[
+                _ChipRow(
+                  title: l10n.avatarHairStyle,
+                  labels: [
+                    l10n.avatarHairShort,
+                    l10n.avatarHairLong,
+                    l10n.avatarHairCurly,
+                    l10n.avatarHairBraid,
+                    l10n.avatarHairNone,
+                  ],
+                  selected: avatar.hairStyle.index,
+                  onSelect: (i) => update(avatar.copyWith(hairStyle: HairStyle.values[i])),
+                ),
+                _ColorRow(
+                  title: l10n.avatarHairColor,
+                  colors: [for (final c in HairColor.values) AvatarPalette.hair[c]!],
+                  selected: avatar.hairColor.index,
+                  onSelect: (i) => update(avatar.copyWith(hairColor: HairColor.values[i])),
+                ),
+              ],
               _ColorRow(
                 title: l10n.avatarOutfit,
                 colors: [for (final c in OutfitColor.values) AvatarPalette.outfit[c]!],

@@ -606,4 +606,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lighthouseIntroPending => 'Intro noch nicht abgeschlossen';
+
+  @override
+  String get avatarSpecies => 'Figur';
+
+  @override
+  String get avatarSpeciesHuman => 'Mensch';
+
+  @override
+  String get avatarSpeciesCat => 'Katze';
+
+  @override
+  String get avatarSpeciesDog => 'Hund';
+
+  @override
+  String get avatarSpeciesBear => 'Bär';
+
+  @override
+  String get avatarSpeciesRabbit => 'Hase';
+
+  @override
+  String get avatarSpeciesMouse => 'Maus';
+
+  @override
+  String get avatarFur => 'Fellfarbe';
 }

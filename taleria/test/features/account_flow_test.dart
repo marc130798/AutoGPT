@@ -13,12 +13,14 @@ void main() {
   }
 
   Future<void> tapText(WidgetTester tester, String text) async {
-    // Knöpfe weiter unten in langen Listen erst hinscrollen.
+    // Lange Listen bauen ihre unteren Einträge erst beim Scrollen.
     if (find.text(text).evaluate().isEmpty) {
-      await tester.scrollUntilVisible(find.text(text), 200, scrollable: find.byType(Scrollable).first);
+      await tester.dragUntilVisible(find.text(text), find.byType(Scrollable).first, const Offset(0, -200));
     }
-    await tester.ensureVisible(find.text(text));
-    await tester.tap(find.text(text));
+    // In die Mitte scrollen, damit der Tipp nicht auf einem Knopf am Rand landet.
+    await Scrollable.ensureVisible(tester.element(find.text(text).last), alignment: 0.5);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(text).last);
     await tester.pumpAndSettle();
   }
 

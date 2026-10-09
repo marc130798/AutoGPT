@@ -14,12 +14,12 @@ insert into public.admins (id, user_id, role) values
   ('10000000-0000-0000-0000-00000000000a', '00000000-0000-0000-0000-00000000000a', 'owner'),
   ('10000000-0000-0000-0000-00000000000b', '00000000-0000-0000-0000-00000000000b', 'editor');
 
-insert into public.islands (id, slug, sort_order, title_key, status) values
-  ('20000000-0000-0000-0000-000000000001', 'hafen', 1, 'island.hafen.title', 'published'),
-  ('20000000-0000-0000-0000-000000000002', 'tauschinsel', 2, 'island.tauschinsel.title', 'draft');
+insert into public.islands (id, slug, sort_order, title, status) values
+  ('20000000-0000-0000-0000-000000000001', 'hafen', 1, 'Hafen', 'published'),
+  ('20000000-0000-0000-0000-000000000002', 'tauschinsel', 2, 'Tauschinsel', 'draft');
 
-insert into public.islands (id, slug, sort_order, title_key, status, publish_at) values
-  ('20000000-0000-0000-0000-000000000003', 'wunschinsel', 3, 'island.wunschinsel.title',
+insert into public.islands (id, slug, sort_order, title, status, publish_at) values
+  ('20000000-0000-0000-0000-000000000003', 'wunschinsel', 3, 'Wunschinsel',
    'published', now() + interval '7 days');
 
 insert into public.stations (id, island_id, sort_order, type, is_required, status) values
@@ -99,12 +99,12 @@ select test_helpers.expect_error(
   'Richtige Antwort muss in der Antwortliste liegen');
 
 select test_helpers.expect_error(
-  $$insert into public.islands (slug, sort_order, title_key) values ('Falscher Slug', 9, 'x')$$,
+  $$insert into public.islands (slug, sort_order, title) values ('Falscher Slug', 9, 'x')$$,
   'islands_slug_check',
   'Slug muss klein und mit Bindestrichen geschrieben sein');
 
 select test_helpers.expect_error(
-  $$insert into public.islands (slug, stage, sort_order, title_key) values ('stufe-drei', 3, 9, 'x')$$,
+  $$insert into public.islands (slug, stage, sort_order, title) values ('stufe-drei', 3, 9, 'x')$$,
   'islands_stage_check',
   'Nur Stufe 1 und 2 sind erlaubt');
 
@@ -127,7 +127,7 @@ select test_helpers.expect_equal(
   (select count(*) from public.content_versions), 0,
   'Familie sieht keine früheren Fassungen');
 select test_helpers.expect_error(
-  $$insert into public.islands (slug, sort_order, title_key) values ('hack', 99, 'x')$$,
+  $$insert into public.islands (slug, sort_order, title) values ('hack', 99, 'x')$$,
   'row-level security',
   'Familie kann keine Inseln anlegen');
 select test_helpers.logout();
@@ -138,7 +138,7 @@ select test_helpers.expect_equal(
   (select count(*) from public.islands), 2,
   'Editor ohne Zwei-Faktor sieht keine Entwürfe');
 select test_helpers.expect_error(
-  $$insert into public.islands (slug, sort_order, title_key) values ('ohne-mfa', 99, 'x')$$,
+  $$insert into public.islands (slug, sort_order, title) values ('ohne-mfa', 99, 'x')$$,
   'row-level security',
   'Editor ohne Zwei-Faktor kann nichts schreiben');
 select test_helpers.logout();
@@ -148,7 +148,7 @@ select test_helpers.login('00000000-0000-0000-0000-00000000000b', 'aal2');
 select test_helpers.expect_equal(
   (select count(*) from public.islands), 3,
   'Editor mit Zwei-Faktor sieht auch geplante Inhalte');
-insert into public.islands (slug, sort_order, title_key) values ('spar-insel', 4, 'island.spar-insel.title');
+insert into public.islands (slug, sort_order, title) values ('spar-insel', 4, 'Spar-Insel');
 select test_helpers.expect_equal(
   (select count(*) from public.islands where slug = 'spar-insel'), 1,
   'Editor mit Zwei-Faktor legt Inseln an');

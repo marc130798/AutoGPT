@@ -819,5 +819,37 @@
   "lighthouseIntroPending": "Intro noch nicht abgeschlossen",
   "@lighthouseIntroPending": {
     "description": "Hinweis im Leuchtturm, wenn das Kind das Intro noch nicht beendet hat"
+  },
+  "avatarSpecies": "Figur",
+  "@avatarSpecies": {
+    "description": "Abschnitt im Avatar-Baukasten: Mensch oder Tier"
+  },
+  "avatarSpeciesHuman": "Mensch",
+  "@avatarSpeciesHuman": {
+    "description": "Avatar: Mensch"
+  },
+  "avatarSpeciesCat": "Katze",
+  "@avatarSpeciesCat": {
+    "description": "Avatar: Katze"
+  },
+  "avatarSpeciesDog": "Hund",
+  "@avatarSpeciesDog": {
+    "description": "Avatar: Hund"
+  },
+  "avatarSpeciesBear": "Bär",
+  "@avatarSpeciesBear": {
+    "description": "Avatar: Bär"
+  },
+  "avatarSpeciesRabbit": "Hase",
+  "@avatarSpeciesRabbit": {
+    "description": "Avatar: Hase"
+  },
+  "avatarSpeciesMouse": "Maus",
+  "@avatarSpeciesMouse": {
+    "description": "Avatar: Maus"
+  },
+  "avatarFur": "Fellfarbe",
+  "@avatarFur": {
+    "description": "Abschnitt im Avatar-Baukasten für Tiere"
   }
 }
