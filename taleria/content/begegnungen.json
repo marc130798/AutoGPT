@@ -1,0 +1,28 @@
+{
+  "hinweis": "Begegnungen auf See (Kontrollfahrten). ENTWURF von Claude, noch nicht mit Marc abgestimmt. Meister Taleron zeigt sich hier nur halb: Seine ganze Geschichte erzählt er erst nach Insel 4 (INSELN.md, Siegel A).",
+  "begegnungen": [
+    {
+      "slug": "taleron-raetsel",
+      "art": "taleron",
+      "titel": "Meister Taleron",
+      "bild": "character.taleron",
+      "fragen": 3,
+      "seemeilen": 20,
+      "ab_insel": null,
+      "erste_begegnung": [
+        { "wer": "tala", "text": "Talo, schau mal! Unter dem Schiff bewegt sich etwas. Etwas sehr Großes." },
+        { "wer": "taleron", "name": "Stimme aus dem Meer", "text": "Hoho! Wer segelt denn da durch mein Meer? Eine neue Crew, wie schön." },
+        { "wer": "talo", "text": "Keine Angst! Das ist Meister Taleron, der Hüter des Meeres. Er ist uralt und sehr freundlich." },
+        { "wer": "taleron", "text": "Ich lasse jedes Schiff passieren, das drei Rätsel löst. Rätsel über Dinge, die ihr schon gelernt habt." },
+        { "wer": "tala", "text": "Und wenn wir uns irren?" },
+        { "wer": "taleron", "text": "Dann erkläre ich es euch, und ihr versucht es gleich noch einmal. Bei mir geht niemand unter." }
+      ],
+      "szene": [
+        { "wer": "taleron", "text": "Da seid ihr ja wieder! Mal sehen, was ihr noch wisst. Drei Rätsel, dann ist der Weg frei." }
+      ],
+      "richtig": { "wer": "taleron", "text": "Hoho, richtig! Das hast du gut behalten." },
+      "falsch": { "wer": "taleron", "text": "Nicht ganz. Hör gut zu, dann klappt es beim nächsten Versuch." },
+      "geschafft": { "wer": "taleron", "text": "Drei Rätsel, drei Lösungen. Der Weg ist frei, junge Crew. Gute Fahrt!" }
+    }
+  ]
+}

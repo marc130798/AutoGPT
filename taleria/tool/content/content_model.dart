@@ -290,6 +290,8 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       continue;
     }
     check(island.stations.isNotEmpty, '$w: Insel ohne Stationen muss "nebel": true haben');
+    check(island.badge != null && island.badge!.trim().length >= 2, '$w: "orden" fehlt');
+    check(knownAssetKeys.contains('badge.${island.slug}'), '$w: Bild badge.${island.slug} fehlt im Asset-Manifest');
 
     final numbers = [for (final s in island.stations) s.number];
     check(
@@ -363,6 +365,131 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
 }
 
 // -----------------------------------------------------------------------------
+// Begegnungen auf See (content/begegnungen.json)
+// -----------------------------------------------------------------------------
+
+/// Arten von Begegnungen wie in der Datenbank (encounters.type).
+const encounterTypes = {'taleron', 'haendlerschiff', 'fischerboot', 'angeberschiff', 'tala_vergisst'};
+
+class Encounter {
+  Encounter({
+    required this.slug,
+    required this.type,
+    required this.title,
+    required this.assetKey,
+    required this.questionCount,
+    required this.xp,
+    required this.afterIsland,
+    required this.firstScene,
+    required this.scene,
+    required this.right,
+    required this.wrong,
+    required this.success,
+  });
+
+  final String slug;
+  final String type;
+  final String title;
+  final String assetKey;
+  final int questionCount;
+  final int xp;
+
+  /// Slug der Insel, nach deren Abschluss die Begegnung auftaucht (null = sofort).
+  final String? afterIsland;
+  final List<Line> firstScene;
+  final List<Line> scene;
+  final Line right;
+  final Line wrong;
+  final Line success;
+
+  List<Line> get allLines => [...firstScene, ...scene, right, wrong, success];
+
+  /// Inhalt für encounters.content.
+  Map<String, dynamic> toDbContent() => {
+    'first_scene': [for (final l in firstScene) l.toDb()],
+    'scene': [for (final l in scene) l.toDb()],
+    'right': right.toDb(),
+    'wrong': wrong.toDb(),
+    'success': success.toDb(),
+  };
+}
+
+List<Encounter> parseEncounters(String file, String source) {
+  final Map<String, dynamic> json;
+  try {
+    json = jsonDecode(source) as Map<String, dynamic>;
+  } on FormatException catch (e) {
+    throw ContentException('$file: kein gültiges JSON (${e.message})');
+  }
+  String text(Map<String, dynamic> m, String key, String where) {
+    final value = m[key];
+    if (value is! String || value.trim().isEmpty) throw ContentException('$where: "$key" fehlt');
+    return value;
+  }
+
+  Line line(Object? raw, String where) {
+    if (raw is! Map<String, dynamic>) throw ContentException('$where fehlt');
+    return Line(text(raw, 'wer', where), text(raw, 'text', where), raw['name'] as String?);
+  }
+
+  List<Line> lines(Object? raw, String where) => [
+    for (final (i, l) in ((raw as List?) ?? const []).indexed) line(l, '$where, Zeile ${i + 1}'),
+  ];
+
+  return [
+    for (final raw in (json['begegnungen'] as List?) ?? const [])
+      () {
+        final e = raw as Map<String, dynamic>;
+        final where = '$file, Begegnung ${e['slug']}';
+        return Encounter(
+          slug: text(e, 'slug', where),
+          type: text(e, 'art', where),
+          title: text(e, 'titel', where),
+          assetKey: text(e, 'bild', where),
+          questionCount: e['fragen'] as int? ?? 3,
+          xp: e['seemeilen'] as int? ?? 20,
+          afterIsland: e['ab_insel'] as String?,
+          firstScene: lines(e['erste_begegnung'], '$where, erste Begegnung'),
+          scene: lines(e['szene'], '$where, Szene'),
+          right: line(e['richtig'], '$where, "richtig"'),
+          wrong: line(e['falsch'], '$where, "falsch"'),
+          success: line(e['geschafft'], '$where, "geschafft"'),
+        );
+      }(),
+  ];
+}
+
+/// Prüft die Begegnungen (leere Liste = alles in Ordnung).
+List<String> validateEncounters(
+  List<Encounter> encounters, {
+  required List<Island> islands,
+  required Set<String> knownAssetKeys,
+}) {
+  final problems = <String>[];
+  void check(bool ok, String message) {
+    if (!ok) problems.add(message);
+  }
+
+  final slugs = islands.map((i) => i.slug).toSet();
+  check(encounters.map((e) => e.slug).toSet().length == encounters.length, 'Begegnungen: ein Slug kommt doppelt vor');
+  for (final e in encounters) {
+    final w = 'Begegnung ${e.slug}';
+    check(RegExp(r'^[a-z0-9]+(-[a-z0-9]+)*$').hasMatch(e.slug), '$w: Slug ist ungültig');
+    check(encounterTypes.contains(e.type), '$w: unbekannte Art "${e.type}"');
+    check(e.title.length <= 60, '$w: Titel ist länger als 60 Zeichen');
+    check(knownAssetKeys.contains(e.assetKey), '$w: Bild ${e.assetKey} fehlt im Asset-Manifest');
+    check(e.questionCount >= 3 && e.questionCount <= 5, '$w: 3 bis 5 Fragen');
+    check(e.xp >= 0 && e.xp <= 200, '$w: Seemeilen 0 bis 200');
+    check(e.afterIsland == null || slugs.contains(e.afterIsland), '$w: unbekannte Insel "${e.afterIsland}"');
+    check(e.firstScene.isNotEmpty && e.scene.isNotEmpty, '$w: erste Begegnung und Szene nötig');
+    for (final l in e.allLines) {
+      check(knownAssetKeys.contains('character.${l.speaker}'), '$w: unbekannte Figur "${l.speaker}"');
+    }
+  }
+  return problems;
+}
+
+// -----------------------------------------------------------------------------
 // SQL
 // -----------------------------------------------------------------------------
 
@@ -372,7 +499,7 @@ String _id(String name) => "md5(${_lit('taleria:$name')})::uuid";
 
 /// Erzeugt supabase/seed.sql. Alle Inhalte sind Entwürfe (`draft`), die
 /// Testumgebung zeigt sie über die Inhalts-Vorschau.
-String buildSeedSql(List<Island> islands, {int stage = 1}) {
+String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const [], int stage = 1}) {
   final b = StringBuffer()
     ..writeln('-- Seed-Daten für die TESTUMGEBUNG. Nie in die Live-Datenbank einspielen.')
     ..writeln('-- Automatisch erzeugt aus content/stufe1/*.json mit: dart run tool/build_seed.dart')
@@ -443,6 +570,18 @@ String buildSeedSql(List<Island> islands, {int stage = 1}) {
         ..writeln();
     }
 
+    if (island.badge != null) {
+      b
+        ..writeln('insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)')
+        ..writeln(
+          "values (${_id('stage$stage/${island.slug}/badge')}, ${_lit(island.slug)}, 'island', $iid, "
+          "${_lit(island.badge!)}, ${_lit('badge.${island.slug}')}, ${island.order}, 'draft')",
+        )
+        ..writeln('on conflict (id) do update set')
+        ..writeln('  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order;')
+        ..writeln();
+    }
+
     for (final (i, p) in island.prompts.indexed) {
       b
         ..writeln('insert into public.conversation_prompts (id, island_id, text, status)')
@@ -450,6 +589,33 @@ String buildSeedSql(List<Island> islands, {int stage = 1}) {
         ..writeln('on conflict (id) do update set text = excluded.text;');
     }
     if (island.prompts.isNotEmpty) b.writeln();
+  }
+
+  b
+    ..writeln('-- Orden für Inseln, die schon vor ihrem Orden abgeschlossen waren.')
+    ..writeln('insert into public.child_badges (child_id, badge_id)')
+    ..writeln(
+      'select c.child_id, b.id from public.island_completions c join public.badges b on b.island_id = c.island_id',
+    )
+    ..writeln('on conflict on constraint child_badges_once do nothing;')
+    ..writeln();
+
+  for (final e in encounters) {
+    final after = e.afterIsland == null ? 'null' : _id('stage$stage/${e.afterIsland}');
+    b
+      ..writeln('-- Begegnung: ${e.title}')
+      ..writeln(
+        'insert into public.encounters (id, slug, type, title, asset_key, question_count, xp_reward, after_island_id, content, status)',
+      )
+      ..writeln(
+        "values (${_id('encounter/${e.slug}')}, ${_lit(e.slug)}, ${_lit(e.type)}, ${_lit(e.title)}, ${_lit(e.assetKey)}, "
+        "${e.questionCount}, ${e.xp}, $after, ${_json(e.toDbContent())}, 'draft')",
+      )
+      ..writeln('on conflict (id) do update set')
+      ..writeln('  type = excluded.type, title = excluded.title, asset_key = excluded.asset_key,')
+      ..writeln('  question_count = excluded.question_count, xp_reward = excluded.xp_reward,')
+      ..writeln('  after_island_id = excluded.after_island_id, content = excluded.content;')
+      ..writeln();
   }
 
   b.writeln('commit;');

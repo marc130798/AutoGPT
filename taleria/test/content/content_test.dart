@@ -9,9 +9,24 @@ void main() {
   final islands = loadIslands(Directory('content/stufe1'));
   final manifest = jsonDecode(File('assets/asset_manifest.json').readAsStringSync()) as Map<String, dynamic>;
   final assetKeys = (manifest['assets'] as Map<String, dynamic>).keys.toSet();
+  final encounters = parseEncounters('begegnungen.json', File('content/begegnungen.json').readAsStringSync());
 
   test('Alle Inhaltsdateien halten die Regeln ein', () {
     expect(validateIslands(islands, knownAssetKeys: assetKeys), isEmpty);
+    expect(validateEncounters(encounters, islands: islands, knownAssetKeys: assetKeys), isEmpty);
+  });
+
+  test('Jede Insel mit Inhalt hat einen Orden', () {
+    expect(
+      [for (final i in islands.where((i) => !i.fog)) i.badge],
+      ['Erster Landgang', 'Meistertauscher', 'Klarer Kompass'],
+    );
+  });
+
+  test('Meister Taleron ist die erste Begegnung, ab dem Start', () {
+    final taleron = encounters.singleWhere((e) => e.type == 'taleron');
+    expect(taleron.afterIsland, isNull);
+    expect(taleron.questionCount, 3);
   });
 
   test('15 Inseln, 1 bis 3 komplett, 4 bis 15 im Nebel', () {
@@ -31,15 +46,16 @@ void main() {
   });
 
   test('supabase/seed.sql ist aktuell (sonst: dart run tool/build_seed.dart)', () {
-    expect(File('supabase/seed.sql').readAsStringSync(), buildSeedSql(islands));
+    expect(File('supabase/seed.sql').readAsStringSync(), buildSeedSql(islands, encounters: encounters));
   });
 
   group('Die Prüfung findet Fehler', () {
     Island islandWith(Map<String, dynamic> station) => parseIsland(
       'test.json',
       jsonEncode({
-        'slug': 'test',
+        'slug': 'tauschinsel',
         'titel': 'Test',
+        'orden': 'Test-Orden',
         'reihenfolge': 2,
         'gruppe': 1,
         'zugang': 'gratis',
@@ -113,6 +129,46 @@ void main() {
 
     test('nicht genau 3 Antworten', () {
       expect(problems(islandWith(station(wrong: ['b']))), contains(contains('genau 2 falsche Antworten')));
+    });
+  });
+
+  group('Die Prüfung findet Fehler in Begegnungen', () {
+    Map<String, dynamic> line(String who) => {'wer': who, 'text': 'Hallo'};
+    List<String> problems(Map<String, dynamic> changes) => validateEncounters(
+      parseEncounters(
+        'test.json',
+        jsonEncode({
+          'begegnungen': [
+            {
+              'slug': 'test',
+              'art': 'taleron',
+              'titel': 'Test',
+              'bild': 'character.taleron',
+              'erste_begegnung': [line('taleron')],
+              'szene': [line('taleron')],
+              'richtig': line('taleron'),
+              'falsch': line('taleron'),
+              'geschafft': line('taleron'),
+              ...changes,
+            },
+          ],
+        }),
+      ),
+      islands: islands,
+      knownAssetKeys: assetKeys,
+    );
+
+    test('gültige Begegnung', () => expect(problems({}), isEmpty));
+    test('unbekannte Art', () => expect(problems({'art': 'piratenschiff'}), contains(contains('unbekannte Art'))));
+    test('zu viele Fragen', () => expect(problems({'fragen': 6}), contains(contains('3 bis 5 Fragen'))));
+    test('unbekannte Insel', () => expect(problems({'ab_insel': 'atlantis'}), contains(contains('unbekannte Insel'))));
+    test('unbekannte Figur', () {
+      expect(
+        problems({
+          'szene': [line('pirat')],
+        }),
+        contains(contains('unbekannte Figur')),
+      );
     });
   });
 }

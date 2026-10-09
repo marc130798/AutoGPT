@@ -134,10 +134,13 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `station_progress` – `child_id`, `station_id`, `status` (open, done), `best_score`, `last_score`, `attempts`, `completed_at`
 - `island_completions` – `child_id`, `island_id`, `completed_at`
 - `xp_events` – `child_id`, `source_type`, `source_id`, `amount` (ein Kassenbuch der Seemeilen; der Rang wird daraus berechnet)
-- `badges`, `child_badges`
-- `question_reviews` – `child_id`, `question_id`, `due_at`, `interval_days`, `correct_streak`, `last_answered_at`, `last_correct` (Zeitplan der Wiederholung pro Frage und Kind)
-- `encounters` – `slug`, `type` (taleron, haendlerschiff, fischerboot, angeberschiff, tala_vergisst), `title_key`, `asset_key`, `question_count` (Vorlagen für Begegnungen auf See)
-- `encounter_runs` – `child_id`, `encounter_id`, `started_at`, `finished_at`, `correct_count`
+- `ranks` – `code` (schiffsjunge … kapitaen), `sort_order`, `min_xp`, `requires_certificate` (Kapitän nur mit Goldener Schatzkarte)
+- `badges` – `slug`, `kind` (island, taleron, special), `island_id`, `title`, `asset_key`, `sort_order`, `status`; `child_badges` – `child_id`, `badge_id`, `earned_at`
+- `question_reviews` – `child_id`, `question_id`, `due_at`, `interval_days`, `correct_streak`, `times_answered`, `times_wrong`, `last_answered_at`, `last_correct` (Zeitplan der Wiederholung pro Frage und Kind)
+- `encounters` – `slug`, `type` (taleron, haendlerschiff, fischerboot, angeberschiff, tala_vergisst), `title`, `asset_key`, `question_count`, `xp_reward`, `after_island_id`, `content` (Szenen), `status` (Vorlagen für Begegnungen auf See)
+- `encounter_runs` – `child_id`, `encounter_id`, `correct_count`, `total`, `finished_at`
+- `pace_state` – `child_id`, `wind` (neue Stationen, die das Kind gerade beginnen darf), `checked_on`
+- `child_streaks` – `child_id`, `weeks`, `last_week`, `paused` (Fahrtwind)
 - `collectibles` – `slug`, `kind` (pearl, shell, wreck_item), `title_key`, `asset_key`, `rarity` (nur Optik)
 - `child_collectibles` – `child_id`, `collectible_id`, `found_at`, `source_station_id`
 
@@ -428,3 +431,15 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Fällige Heuer** bucht die App beim Öffnen der Truhen oder der Elternseite nach (`process_due_allowances`).
 - **Nicht genug Guthaben** wird schon in der App geprüft und vom Server noch einmal; die Meldung ist „So viel ist nicht in der Truhe.“
 - Die Oberfläche benutzt im Kinderbereich die Kinderwörter (Heuer, Aufträge, Truhen) und im Leuchtturm die Elternwörter (Taschengeld, Aufgaben), wie im Glossar.
+
+**Schritt 6a (Fortschrittssystem in der Datenbank), umgesetzt am 09.10.2026:**
+- **Alle Tage zählen in deutscher Zeit** (Europe/Berlin), auch Freigabetage, Wiederholungstermine und Fahrtwind-Wochen.
+- **Ränge (Vorschlag, mit Marc abstimmen):** Schiffsjunge ab der ersten Seemeile (also nach dem Intro), Matrose ab 1.500 (etwa nach Insel 2), Bootsmann ab 4.000 (etwa nach Insel 4), Steuermann ab 8.000 (etwa nach Insel 8), Kapitän nur mit der Goldenen Schatzkarte (letzte Insel der Hauptroute abgeschlossen). Die Grenzen stehen in der Tabelle `ranks` und lassen sich ohne App-Update ändern. Der Rang wird immer aus den Seemeilen berechnet, nie gespeichert.
+- **Orden:** Jede Insel mit Inhalt hat einen Orden (`orden` in der Inhaltsdatei, Bild `badge.<slug>`). Der Server verleiht ihn automatisch mit dem Insel-Abschluss (Trigger), genau einmal. Taleron-Siegel kommen mit Talerons Prüfungen nach Insel 4.
+- **Tempo als Wind:** Jeder Freigabetag (Standard Montag und Donnerstag) bringt Wind für eine neue Pflichtstation. Nicht genutzter Wind sammelt sich höchstens für eine Woche (bei 2 pro Woche also 2). Ein neues Kind startet mit dem Wind einer Woche, damit es nach dem Intro gleich weiterspielen kann. Die Abschlussprüfung zählt wie eine Station; eine nicht bestandene Prüfung kostet keinen Wind. Wiederholen fertiger Stationen und Bonus-Stationen (Flaschenpost) kosten nie Wind.
+- **Tempo einstellen** nur über `set_pace()` (Eltern): 2 (Mo, Do), 3 (Mo, Mi, Fr), 4 (Mo, Di, Do, Fr) oder freie Fahrt. Samstag bleibt frei für den Ankerplatz (Schritt 7). Eltern dürfen am Kinder-Profil direkt nur noch Spitzname, Geburtsjahr und Niveau ändern.
+- **Wiederholungsplan:** Jede Antwort aus Stations-Checks, Prüfungen, „Weißt du noch?“ und Begegnungen landet in `question_reviews`. Richtig zum Termin: nächster Termin nach 1 Tag, 1 Woche, 1 Monat, danach alle 3 Monate. Falsch: am nächsten Tag wieder. Richtig vor dem Termin ändert den Plan nicht.
+- **Begegnung auf See (Kontrollfahrt):** Sobald Wiederholungen fällig sind, taucht eine Begegnung auf (`next_encounter`). Fällige Fragen kommen zuerst, fehlende Plätze werden mit den nächsten Terminen aufgefüllt. Es zählt die erste Antwort je Frage; danach darf das Kind weiterprobieren, bis es stimmt. Seemeilen (Standard 20) gibt es einmal am Tag. Die erste Begegnung ist Meister Taleron mit 3 Rätseln (`content/begegnungen.json`, Entwurf). Er zeigt sich dabei nur halb und erzählt seine Geschichte erst nach Insel 4 (INSELN.md).
+- **Fahrtwind (Vorschlag, mit Marc abstimmen):** zählt **Wochen** in Folge mit mindestens einer Station oder Begegnung, nicht Tage. So passt er zum Tempo von 2 Stationen pro Woche und macht keinen täglichen Druck. Er reißt erst nach einer ganzen Woche ohne Fahrt. Eltern können ihn pausieren (`set_streak_pause`, zum Beispiel in den Ferien); nach der Pause hat das Kind die laufende Woche Zeit, weiterzufahren.
+- **`child_stats()`** liefert alles für die Startseite in einem Aufruf: Seemeilen, Rang und nächster Rang, Fahrtwind, Zahl der Orden, fällige Wiederholungen und den Wind mit dem nächsten Freigabetag.
+- **`submit_station()`** meldet jetzt zusätzlich `rank_up` (neuer Rang), `badge` (Orden der Insel) und `wind_left`.

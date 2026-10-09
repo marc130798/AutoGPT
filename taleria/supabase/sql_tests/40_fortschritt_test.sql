@@ -20,6 +20,8 @@ select 'c4000000-0000-0000-0000-000000000001', p.id, 'Kim', 2015, 2
 from public.parents p where p.user_id = 'a4000000-0000-0000-0000-000000000001';
 insert into public.child_devices (user_id, child_id)
 values ('d4000000-0000-0000-0000-000000000001', 'c4000000-0000-0000-0000-000000000001');
+-- Freie Fahrt: Hier geht es ums Freischalten, das Tempo testet 60_fortschrittssystem_test.sql.
+update public.children set stations_per_week = null where id = 'c4000000-0000-0000-0000-000000000001';
 
 -- Insel A (offen), Insel B (offen), Insel C (Entwurf, also Nebel)
 insert into public.islands (id, slug, stage, sort_order, title, status) values

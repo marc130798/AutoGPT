@@ -18,6 +18,8 @@ insert into public.children (id, parent_id, nickname, birth_year)
 select 'c5000000-0000-0000-0000-000000000001', p.id, 'Seed', 2015 from public.parents p;
 insert into public.child_devices (user_id, child_id)
 values ('d5000000-0000-0000-0000-000000000001', 'c5000000-0000-0000-0000-000000000001');
+-- Freie Fahrt, damit das Kind alle Stationen am Stück spielen kann.
+update public.children set stations_per_week = null where id = 'c5000000-0000-0000-0000-000000000001';
 
 -- Hilfsfunktion: richtige Antworten (Index 0) für die ersten n Fragen einer Station.
 create function test_helpers.correct_answers(p_slug text, p_station int, p_count int)
@@ -72,10 +74,11 @@ select test_helpers.expect_equal(
 
 select test_helpers.expect_true(
   (select r ->> 'passed' = 'true' and r ->> 'island_completed' = 'true'
+      and r -> 'badge' ->> 'title' = 'Erster Landgang' and r -> 'badge' ->> 'asset_key' = 'badge.hafen'
    from (select public.submit_station('c5000000-0000-0000-0000-000000000001',
      (select s.id from public.stations s join public.islands i on i.id = s.island_id where i.slug = 'hafen' and s.type = 'exam'),
      test_helpers.correct_answers('hafen', 8, 10)) r) x),
-  'Seed: Hafen-Prüfung (10 Fragen) bestanden, Hafen abgeschlossen');
+  'Seed: Hafen-Prüfung (10 Fragen) bestanden, Hafen abgeschlossen, Orden „Erster Landgang“');
 
 -- Tauschinsel: Stationen 1 bis 7, dann Prüfung mit 8 eigenen und 2 Rückblick-Fragen aus dem Hafen.
 do $$
@@ -107,4 +110,17 @@ select test_helpers.expect_true(
 select test_helpers.expect_equal(
   (select sum(amount) from public.xp_events), 50 + 6 * 100 + 150 + 7 * 100 + 150,
   'Seed: Seemeilen aus Hafen und Tauschinsel');
+select test_helpers.expect_true(
+  (select s ->> 'rank' = 'matrose' and (s ->> 'badge_count')::int = 2 from public.child_stats('c5000000-0000-0000-0000-000000000001') s),
+  'Seed: nach zwei Inseln Rang Matrose mit zwei Orden');
+select test_helpers.logout();
+
+-- Am nächsten Tag sind Wiederholungen fällig: Meister Taleron taucht auf.
+update public.question_reviews set due_at = now() - interval '1 hour';
+select test_helpers.login('d5000000-0000-0000-0000-000000000001', 'aal1', true);
+select test_helpers.expect_true(
+  (select e -> 'encounter' ->> 'title' = 'Meister Taleron' and e ->> 'first_meeting' = 'true'
+      and jsonb_array_length(e -> 'encounter' -> 'content' -> 'first_scene') > 0
+   from (select public.next_encounter('c5000000-0000-0000-0000-000000000001') e) x),
+  'Seed: erste Begegnung mit Meister Taleron');
 select test_helpers.logout();

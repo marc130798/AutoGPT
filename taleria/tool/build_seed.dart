@@ -1,4 +1,5 @@
-// Erzeugt supabase/seed.sql aus den Inhaltsdateien in content/stufe1/.
+// Erzeugt supabase/seed.sql aus den Inhaltsdateien in content/stufe1/ und
+// content/begegnungen.json.
 //
 // Aufruf im Ordner taleria/:
 //   dart run tool/build_seed.dart
@@ -15,7 +16,11 @@ void main() {
   final manifest = jsonDecode(File('assets/asset_manifest.json').readAsStringSync()) as Map<String, dynamic>;
   final keys = (manifest['assets'] as Map<String, dynamic>).keys.toSet();
 
-  final problems = validateIslands(islands, knownAssetKeys: keys);
+  final encounters = parseEncounters('begegnungen.json', File('content/begegnungen.json').readAsStringSync());
+  final problems = [
+    ...validateIslands(islands, knownAssetKeys: keys),
+    ...validateEncounters(encounters, islands: islands, knownAssetKeys: keys),
+  ];
   if (problems.isNotEmpty) {
     stderr.writeln('Die Inhalte haben ${problems.length} Problem(e):');
     for (final p in problems) {
@@ -25,7 +30,9 @@ void main() {
     return;
   }
 
-  File('supabase/seed.sql').writeAsStringSync(buildSeedSql(islands));
+  File('supabase/seed.sql').writeAsStringSync(buildSeedSql(islands, encounters: encounters));
   final questions = islands.expand((i) => i.stations).expand((s) => s.questions).length;
-  stdout.writeln('supabase/seed.sql erzeugt: ${islands.length} Inseln, $questions Fragen.');
+  stdout.writeln(
+    'supabase/seed.sql erzeugt: ${islands.length} Inseln, $questions Fragen, ${encounters.length} Begegnung(en).',
+  );
 }
