@@ -1,0 +1,958 @@
+{
+  "slug": "hafen",
+  "titel": "Hafen von Taleria",
+  "reihenfolge": 1,
+  "gruppe": 1,
+  "zugang": "gratis",
+  "karte": {
+    "x": 0.5,
+    "y": 0.96
+  },
+  "lernziel": "Das Kind kennt Talo und Tala, weiß, was Geld ist, wie es entstanden ist, woher es kommt, warum Dinge etwas kosten und hat ein erstes Gefühl für Preise.",
+  "ankunft": {
+    "film": "video.intro",
+    "szene": []
+  },
+  "orden": "Erster Landgang",
+  "auftrag": {
+    "titel": "Preis-Detektiv",
+    "text": "Suche beim nächsten Einkauf drei Produkte, schätze vorher ihren Preis und vergleiche dann mit dem echten Preis. Überlege mit deinen Eltern, wer an einem davon alles mitverdient."
+  },
+  "kombuesen_fragen": [
+    "Was war das Erste, das du dir von deinem eigenen Geld gekauft hast? (Eltern erzählen)",
+    "Was glaubst du, wie viel unser Wocheneinkauf kostet?",
+    "Womit haben wir bezahlt, als ich so alt war wie du?"
+  ],
+  "stationen": [
+    {
+      "nr": 1,
+      "typ": "practice",
+      "art": "intro",
+      "seemeilen": 50,
+      "titel": "Willkommen an Bord",
+      "ort": "Schiffssteg",
+      "lernziel": "Ankommen, Figuren und App kennen",
+      "dauer": "5 bis 8 Min.",
+      "hinweis": "Diese Station ist das Intro der App (Avatar, Schiffstaufe, Rundgang, erster Wunschschatz)."
+    },
+    {
+      "nr": 2,
+      "typ": "quiz",
+      "seemeilen": 100,
+      "titel": "Was ist Geld?",
+      "ort": "Hafenkontor",
+      "lernziel": "Geld als Tauschmittel verstehen",
+      "dauer": "7 bis 10 Min.",
+      "film": "video.station.hafen.2",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Ein Fischbrötchen, bitte! Ich bezahle mit meinem goldenen Halstuch."
+        },
+        {
+          "wer": "haendler",
+          "text": "Ein Halstuch? Tut mir leid, ich brauche Mehl für meine Brötchen.",
+          "name": "Händler"
+        },
+        {
+          "wer": "tala",
+          "text": "Mehl hab ich nicht. Und jetzt?"
+        },
+        {
+          "wer": "talo",
+          "text": "Genau für solche Fälle haben die Menschen das Geld erfunden."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Beim Tauschen muss jeder genau das haben, was der andere gerade braucht. Das klappt nur selten."
+        },
+        {
+          "wer": "talo",
+          "text": "Geld nimmt fast jeder an. Der Händler kann damit später sein Mehl kaufen."
+        },
+        {
+          "wer": "tala",
+          "text": "Und Geld kann man aufheben! Ein Fischbrötchen wird schlecht, ein Taler nicht."
+        },
+        {
+          "wer": "talo",
+          "text": "Mit Geld bekommt außerdem alles einen Preis in derselben Einheit. So kann man Preise vergleichen."
+        }
+      ],
+      "spiel": {
+        "art": "barter",
+        "titel": "Tausch-Spiel",
+        "beschreibung": "Tala versucht ohne Geld an ein Fischbrötchen zu kommen und merkt, wie umständlich Tauschen ist."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Geld ist ein Tauschmittel: Fast jeder nimmt es an, man kann es aufheben und damit Preise vergleichen."
+      },
+      "quiz_anzahl": 5,
+      "fragen": [
+        {
+          "frage": "Warum wollte der Händler Talas Halstuch nicht?",
+          "richtig": "Er brauchte Mehl, kein Halstuch.",
+          "falsch": [
+            "Das Halstuch war ihm zu klein.",
+            "Er mag die Farbe Gold nicht."
+          ],
+          "erklaerung": "Beim Tauschen muss jeder genau das haben, was der andere gerade braucht. Das klappt nur selten."
+        },
+        {
+          "frage": "Was ist der größte Vorteil von Geld gegenüber Tauschen?",
+          "richtig": "Fast jeder nimmt es an.",
+          "falsch": [
+            "Es ist schwerer als ein Halstuch.",
+            "Man kann es essen."
+          ],
+          "erklaerung": "Weil fast jeder Geld annimmt, kann der Händler damit später sein Mehl kaufen."
+        },
+        {
+          "frage": "Tala bekommt heute 5 Taler und will erst nächste Woche etwas kaufen. Geht das?",
+          "richtig": "Ja, Geld kann man aufheben.",
+          "falsch": [
+            "Nein, Geld verschwindet am Abend.",
+            "Nur wenn Talo es erlaubt."
+          ],
+          "erklaerung": "Ein Fischbrötchen wird schlecht, Geld kann man aufheben und später ausgeben."
+        },
+        {
+          "frage": "Ein Apfel kostet 50 Cent, eine Birne 80 Cent. Warum kannst du das so leicht vergleichen?",
+          "richtig": "Beide Preise sind in derselben Währung angegeben.",
+          "falsch": [
+            "Weil Birnen größer sind.",
+            "Weil Äpfel rot sind."
+          ],
+          "erklaerung": "Mit Geld bekommt alles einen Preis in derselben Einheit, so sieht man sofort, was teurer ist."
+        },
+        {
+          "frage": "Womit haben Menschen früher manchmal bezahlt, bevor es Münzen gab?",
+          "richtig": "Mit Muscheln oder Salz",
+          "falsch": [
+            "Mit Kreditkarten",
+            "Mit Smartphones"
+          ],
+          "erklaerung": "Früher wurden seltene Dinge wie bestimmte Muscheln oder Salz als Zahlungsmittel genutzt."
+        },
+        {
+          "frage": "Wie heißt unsere Währung in Deutschland?",
+          "richtig": "Euro",
+          "falsch": [
+            "Dollar",
+            "Taler"
+          ],
+          "erklaerung": "Der Taler ist das Geld in Taleria, bei uns bezahlt man mit Euro."
+        },
+        {
+          "frage": "Warum ist ein 10-Euro-Schein etwas wert, obwohl er nur aus Papier ist?",
+          "richtig": "Weil alle darauf vertrauen und ihn annehmen.",
+          "falsch": [
+            "Weil er aus Gold gemacht ist.",
+            "Weil er so schön bunt ist."
+          ],
+          "erklaerung": "Geld funktioniert, weil sich alle darauf verlassen, dass andere es auch annehmen."
+        },
+        {
+          "frage": "Was ist beim Tauschen ohne Geld besonders schwierig?",
+          "richtig": "Jemanden zu finden, der genau das hat, was ich will, und genau das will, was ich habe.",
+          "falsch": [
+            "Etwas in die Hand zu nehmen.",
+            "Freundlich zu sein."
+          ],
+          "erklaerung": "Beide Seiten müssen gleichzeitig zufrieden sein. Mit Geld ist das viel einfacher."
+        },
+        {
+          "frage": "Der Händler bekommt für ein Fischbrötchen 3 Taler. Was kann er damit tun?",
+          "richtig": "Damit später bei jemand anderem Mehl kaufen",
+          "falsch": [
+            "Nur Fischbrötchen kaufen",
+            "Gar nichts, Taler sind wertlos"
+          ],
+          "erklaerung": "Mit Geld kann der Händler bei jedem einkaufen, der Geld annimmt."
+        },
+        {
+          "frage": "Was macht Geld zu einem guten Tauschmittel?",
+          "richtig": "Fast jeder nimmt es an und man kann es aufheben.",
+          "falsch": [
+            "Es ist besonders bunt.",
+            "Man kann damit Fische fangen."
+          ],
+          "erklaerung": "Ein gutes Tauschmittel wird von vielen angenommen und behält seinen Wert eine Weile."
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Geld früher und heute",
+      "ort": "Altes Lagerhaus",
+      "lernziel": "Geld hat sich entwickelt, die Idee ist gleich geblieben",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.hafen.3",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Talo, hier im Lagerhaus stehen lauter alte Kisten!"
+        },
+        {
+          "wer": "talo",
+          "text": "Lass uns reinschauen. Muscheln, Salz, Metallstücke, alte Münzen und Scheine …"
+        },
+        {
+          "wer": "tala",
+          "text": "Das war alles mal Geld? Sogar Salz?"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Früher haben Menschen mit seltenen Dingen bezahlt, zum Beispiel mit bestimmten Muscheln oder mit Salz."
+        },
+        {
+          "wer": "talo",
+          "text": "Später kamen Münzen aus Metall. Sie halten lange und lassen sich leicht abzählen."
+        },
+        {
+          "wer": "tala",
+          "text": "Dann kamen Scheine aus Papier. Viel leichter als ein Sack voller Münzen!"
+        },
+        {
+          "wer": "talo",
+          "text": "Heute bezahlen viele mit Karte oder Handy. Das Geld kommt dann von einem Konto. Die Idee ist gleich geblieben: Alle nehmen es an."
+        }
+      ],
+      "spiel": {
+        "art": "timeline",
+        "titel": "Zeitstrahl",
+        "beschreibung": "Ordne Muscheln, Münzen, Papiergeld sowie Karte und Handy auf einem Zeitstrahl von früher bis heute."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Geld hat sich verändert, aber es funktioniert immer gleich: Alle vertrauen darauf und nehmen es an."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was haben Menschen früher manchmal als Geld benutzt?",
+          "richtig": "Seltene Muscheln",
+          "falsch": [
+            "Plastiktüten",
+            "Kieselsteine, die überall herumliegen"
+          ],
+          "erklaerung": "Als Geld taugt nur, was selten ist. Kieselsteine liegen überall, bestimmte Muscheln nicht."
+        },
+        {
+          "frage": "Warum waren Münzen praktischer als Salz?",
+          "richtig": "Sie halten lange und sind leicht zu zählen.",
+          "falsch": [
+            "Sie schmecken besser.",
+            "Sie sind leichter als Luft."
+          ],
+          "erklaerung": "Salz kann nass werden und zerfallen. Münzen bleiben gleich und man kann sie abzählen."
+        },
+        {
+          "frage": "Was kam in der Geschichte des Geldes zuerst?",
+          "richtig": "Muscheln und andere seltene Dinge",
+          "falsch": [
+            "Bezahlen mit dem Handy",
+            "Geldscheine"
+          ],
+          "erklaerung": "Erst wurden seltene Dinge genutzt, dann Münzen, dann Scheine und heute auch digitales Geld."
+        },
+        {
+          "frage": "Warum wurden Geldscheine erfunden?",
+          "richtig": "Große Beträge in Münzen sind schwer und unpraktisch.",
+          "falsch": [
+            "Weil Münzen verboten wurden",
+            "Damit man Papier sparen kann"
+          ],
+          "erklaerung": "Ein Schein kann viele Münzen ersetzen und passt in jede Tasche."
+        },
+        {
+          "frage": "Woher kommt das Geld, wenn du mit Karte oder Handy bezahlst?",
+          "richtig": "Von einem Konto",
+          "falsch": [
+            "Aus dem Handy-Akku",
+            "Aus der Kasse im Laden"
+          ],
+          "erklaerung": "Beim digitalen Bezahlen wird Geld von einem Konto auf ein anderes übertragen."
+        },
+        {
+          "frage": "Was ist bei allen Arten von Geld gleich geblieben?",
+          "richtig": "Man kann damit bezahlen, weil alle es annehmen.",
+          "falsch": [
+            "Es ist immer aus Gold.",
+            "Es ist immer rund."
+          ],
+          "erklaerung": "Ob Muschel, Münze oder Karte: Geld funktioniert, weil alle es annehmen."
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Münzen und Scheine",
+      "ort": "Münzschublade im Kontor",
+      "lernziel": "Euro-Münzen und Scheine kennen, Beträge zusammensetzen",
+      "dauer": "7 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "In der Münzschublade herrscht Chaos! Alles liegt durcheinander."
+        },
+        {
+          "wer": "talo",
+          "text": "Dann sortieren wir. Kennst du alle Euro-Münzen und Scheine?"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Es gibt 8 Euro-Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro."
+        },
+        {
+          "wer": "tala",
+          "text": "Und 100 Cent sind genau 1 Euro!"
+        },
+        {
+          "wer": "talo",
+          "text": "Der kleinste Schein ist der 5-Euro-Schein. Für größere Beträge gibt es zum Beispiel Scheine für 10, 20 und 50 Euro."
+        },
+        {
+          "wer": "tala",
+          "text": "Mein Tipp: Wer einen Betrag mit möglichst wenigen Münzen legen will, nimmt zuerst die großen."
+        },
+        {
+          "wer": "talo",
+          "text": "Geld gibt es übrigens auch digital auf einem Konto. Man sieht es nicht, aber es ist genauso viel wert."
+        }
+      ],
+      "spiel": {
+        "art": "coins",
+        "titel": "Münzschublade",
+        "beschreibung": "Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Jetzt kennst du die Euro-Münzen und Scheine und kannst Beträge zusammensetzen."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Welche Münze gibt es beim Euro nicht?",
+          "richtig": "3 Cent",
+          "falsch": [
+            "2 Cent",
+            "50 Cent"
+          ],
+          "erklaerung": "Es gibt 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro, aber keine 3-Cent-Münze."
+        },
+        {
+          "frage": "Wie viel sind zwei 50-Cent-Münzen zusammen?",
+          "richtig": "1 Euro",
+          "falsch": [
+            "50 Cent",
+            "100 Euro"
+          ],
+          "erklaerung": "50 Cent plus 50 Cent sind 100 Cent, also 1 Euro."
+        },
+        {
+          "frage": "Wie legst du 70 Cent mit möglichst wenigen Münzen?",
+          "richtig": "50 Cent und 20 Cent",
+          "falsch": [
+            "Sieben 10-Cent-Münzen",
+            "Vierzehn 5-Cent-Münzen"
+          ],
+          "erklaerung": "Große Münzen zuerst: 50 plus 20 sind 70 Cent mit nur zwei Münzen."
+        },
+        {
+          "frage": "Du zahlst mit einem 5-Euro-Schein für etwas, das 3,50 Euro kostet. Wie viel bekommst du zurück?",
+          "richtig": "1,50 Euro",
+          "falsch": [
+            "2,50 Euro",
+            "50 Cent"
+          ],
+          "erklaerung": "5 Euro minus 3,50 Euro sind 1,50 Euro."
+        },
+        {
+          "frage": "Was ist mehr wert: drei 20-Cent-Münzen oder eine 50-Cent-Münze?",
+          "richtig": "Drei 20-Cent-Münzen",
+          "falsch": [
+            "Die 50-Cent-Münze",
+            "Beides gleich viel"
+          ],
+          "erklaerung": "Drei mal 20 Cent sind 60 Cent, das ist mehr als 50 Cent."
+        },
+        {
+          "frage": "Gibt es Geld auch, ohne dass man es anfassen kann?",
+          "richtig": "Ja, auf einem Konto",
+          "falsch": [
+            "Nein, Geld ist immer aus Metall oder Papier",
+            "Nur in Videospielen"
+          ],
+          "erklaerung": "Auf einem Konto ist Geld gespeichert, ohne dass Münzen oder Scheine herumliegen."
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Woher kommt Geld?",
+      "ort": "Werft",
+      "lernziel": "Geld verdient man durch Arbeit",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.hafen.5",
+      "szene": [
+        {
+          "wer": "bootsbauer",
+          "text": "Puh, heute haben wir das Boot vom Fischer repariert. Morgen ist Zahltag!",
+          "name": "Bootsbauer"
+        },
+        {
+          "wer": "tala",
+          "text": "Zahltag? Bekommt ihr Geld fürs Hämmern?"
+        },
+        {
+          "wer": "talo",
+          "text": "Sie bekommen Lohn, weil sie etwas leisten, das andere brauchen."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Die meisten Erwachsenen verdienen ihr Geld mit Arbeit. Dafür bekommen sie Lohn oder Gehalt."
+        },
+        {
+          "wer": "tala",
+          "text": "Die Bootsbauer reparieren Schiffe, der Bäcker backt Brot, die Ärztin hilft Kranken."
+        },
+        {
+          "wer": "talo",
+          "text": "Hergestellt wird Euro-Geld nur von bestimmten Stellen. Wer selbst Geld druckt, macht Falschgeld, und das ist verboten."
+        },
+        {
+          "wer": "tala",
+          "text": "Also: Geld drucken darf man nicht, Geld verdienen schon!"
+        }
+      ],
+      "spiel": {
+        "art": "matching",
+        "titel": "Berufe zuordnen",
+        "beschreibung": "Ordne jedem Beruf zu, was er für andere leistet."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Geld verdient man, indem man etwas leistet, das andere brauchen."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wofür bekommt die Bäckerin Geld?",
+          "richtig": "Für das Brot, das sie für andere backt",
+          "falsch": [
+            "Fürs Ausschlafen",
+            "Weil sie eine Bäckermütze trägt"
+          ],
+          "erklaerung": "Sie leistet etwas, das andere brauchen und wofür sie bezahlen."
+        },
+        {
+          "frage": "Wie nennt man das Geld, das man für seine Arbeit bekommt?",
+          "richtig": "Lohn oder Gehalt",
+          "falsch": [
+            "Wechselgeld",
+            "Trinkgeld"
+          ],
+          "erklaerung": "Für Arbeit gibt es Lohn oder Gehalt."
+        },
+        {
+          "frage": "Wer darf Euro-Geldscheine herstellen?",
+          "richtig": "Nur bestimmte Stellen, die dafür zuständig sind",
+          "falsch": [
+            "Jeder mit einem guten Drucker",
+            "Jeder Laden"
+          ],
+          "erklaerung": "Nur bestimmte Stellen dürfen Euro-Geld herstellen. Selbstgemachtes Geld ist Falschgeld."
+        },
+        {
+          "frage": "Warum bekommen die Bootsbauer Geld vom Fischer?",
+          "richtig": "Weil sie sein Boot repariert haben",
+          "falsch": [
+            "Weil sie Freunde sind",
+            "Weil Möwen zugeschaut haben"
+          ],
+          "erklaerung": "Der Fischer bezahlt für eine Leistung, die er braucht."
+        },
+        {
+          "frage": "Was ist es, wenn jemand selbst Geldscheine druckt?",
+          "richtig": "Falschgeld, und das ist verboten",
+          "falsch": [
+            "Ein toller Trick, um reich zu werden",
+            "Erlaubt, wenn die Scheine hübsch sind"
+          ],
+          "erklaerung": "Falschgeld schadet allen, deshalb ist es streng verboten."
+        },
+        {
+          "frage": "Welcher Satz stimmt?",
+          "richtig": "Geld verdient man meistens durch Arbeit.",
+          "falsch": [
+            "Geld wächst auf Bäumen.",
+            "Geld bekommt nur, wer laut fragt."
+          ],
+          "erklaerung": "Für die meisten Menschen kommt das Geld aus ihrer Arbeit."
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Warum kostet etwas etwas?",
+      "ort": "Fischbrötchen-Stand",
+      "lernziel": "Ein Preis besteht aus Kosten und Gewinn",
+      "dauer": "7 bis 10 Min.",
+      "film": "video.station.hafen.6",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Was? So viel kostet ein Fischbrötchen? Der Fisch schwimmt doch einfach im Meer herum!"
+        },
+        {
+          "wer": "verkaeuferin",
+          "text": "Der Fisch muss gefangen werden, das Brötchen gebacken, und mein Stand kostet Miete.",
+          "name": "Verkäuferin"
+        },
+        {
+          "wer": "talo",
+          "text": "Lass uns den Preis mal auseinandernehmen."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Im Preis stecken die Zutaten: Fisch, Brötchen, Zwiebeln."
+        },
+        {
+          "wer": "talo",
+          "text": "Dazu kommen die Miete für den Stand und der Lohn für die Verkäuferin."
+        },
+        {
+          "wer": "tala",
+          "text": "Und was übrig bleibt, ist der Gewinn! Davon kann der Stand zum Beispiel einen neuen Grill kaufen."
+        },
+        {
+          "wer": "talo",
+          "text": "Ohne Gewinn lohnt sich der Stand nicht. Ist der Preis zu hoch, kaufen die Leute woanders."
+        }
+      ],
+      "spiel": {
+        "art": "price_stack",
+        "titel": "Preis-Säule",
+        "beschreibung": "Staple Zutaten, Miete, Lohn und Gewinn, bis die Säule genau den Preis ergibt."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Ein Preis besteht aus allen Kosten und einem kleinen Gewinn."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was gehört NICHT zu den Kosten eines Fischbrötchen-Stands?",
+          "richtig": "Das Taschengeld der Kunden",
+          "falsch": [
+            "Die Miete für den Stand",
+            "Der Fisch"
+          ],
+          "erklaerung": "Kosten hat der Stand selbst: Zutaten, Miete, Lohn. Das Taschengeld der Kunden gehört nicht dazu."
+        },
+        {
+          "frage": "Ein Brötchen kostet den Bäcker 30 Cent. Er verkauft es für 40 Cent. Wie hoch ist sein Gewinn?",
+          "richtig": "10 Cent",
+          "falsch": [
+            "40 Cent",
+            "70 Cent"
+          ],
+          "erklaerung": "40 Cent minus 30 Cent Kosten sind 10 Cent Gewinn."
+        },
+        {
+          "frage": "Warum zahlt der Fischbrötchen-Stand Miete?",
+          "richtig": "Weil er einen Platz nutzt, der jemand anderem gehört",
+          "falsch": [
+            "Weil die Möwen es verlangen",
+            "Weil Miete lecker ist"
+          ],
+          "erklaerung": "Wer einen Platz oder Raum nutzt, der jemand anderem gehört, zahlt dafür Miete."
+        },
+        {
+          "frage": "Was passiert, wenn ein Stand dauerhaft mehr ausgibt, als er einnimmt?",
+          "richtig": "Er macht Verlust und muss bald schließen.",
+          "falsch": [
+            "Er wird immer reicher.",
+            "Gar nichts"
+          ],
+          "erklaerung": "Wer mehr ausgibt als einnimmt, macht Verlust. Das geht nicht lange gut."
+        },
+        {
+          "frage": "Wofür kann ein Stand seinen Gewinn nutzen?",
+          "richtig": "Zum Beispiel für einen neuen Grill",
+          "falsch": [
+            "Für gar nichts",
+            "Er muss ihn ins Meer werfen."
+          ],
+          "erklaerung": "Mit dem Gewinn kann man Neues anschaffen, sparen oder davon leben."
+        },
+        {
+          "frage": "Was passiert wahrscheinlich, wenn ein Stand viel zu viel für ein Fischbrötchen verlangt?",
+          "richtig": "Viele Kunden kaufen woanders.",
+          "falsch": [
+            "Es kommen noch mehr Kunden.",
+            "Die Fische springen freiwillig aufs Brötchen."
+          ],
+          "erklaerung": "Ist ein Preis zu hoch, suchen sich die Kunden ein günstigeres Angebot."
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Wie viel ist viel?",
+      "ort": "Marktplatz",
+      "lernziel": "Ein Gefühl für Preise bekommen",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Ich kaufe einfach alles! Das Eis, das Fahrrad und die Kinokarte!"
+        },
+        {
+          "wer": "talo",
+          "text": "Weißt du überhaupt, was das alles kostet?"
+        },
+        {
+          "wer": "tala",
+          "text": "Äh … nicht so genau."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Preise ungefähr zu kennen hilft. Dann merkst du, wenn etwas zu teuer ist."
+        },
+        {
+          "wer": "talo",
+          "text": "Ein Brötchen kostet viel weniger als eine Kinokarte. Und ein Fahrrad kostet ein Vielfaches davon."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich schaue beim nächsten Einkauf mal ganz genau auf die Preisschilder!"
+        },
+        {
+          "wer": "talo",
+          "text": "Gute Idee. Preise ändern sich mit der Zeit und sind nicht überall gleich. Deshalb lohnt sich Vergleichen."
+        }
+      ],
+      "spiel": {
+        "art": "estimate",
+        "titel": "Preise schätzen",
+        "beschreibung": "Schätze Preise von Brötchen, Eis, Kinokarte, Fahrrad und Handy und sortiere sie von günstig bis teuer. Die Preisspannen müssen vor dem Start geprüft und regelmäßig aktualisiert werden."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Wer Preise ungefähr kennt, kann besser planen und lässt sich nicht so leicht übers Ohr hauen."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was ist meistens am günstigsten?",
+          "richtig": "Ein Brötchen",
+          "falsch": [
+            "Eine Kinokarte",
+            "Ein Fahrrad"
+          ],
+          "erklaerung": "Ein Brötchen kostet viel weniger als eine Kinokarte oder ein Fahrrad."
+        },
+        {
+          "frage": "Was ist meistens am teuersten?",
+          "richtig": "Ein neues Handy",
+          "falsch": [
+            "Eine Kugel Eis",
+            "Ein Brötchen"
+          ],
+          "erklaerung": "Ein neues Handy kostet ein Vielfaches von Eis oder Brötchen."
+        },
+        {
+          "frage": "Wie findest du heraus, wie viel etwas ungefähr kostet?",
+          "richtig": "Preisschilder anschauen und vergleichen",
+          "falsch": [
+            "Raten und nie nachsehen",
+            "Den Hund fragen"
+          ],
+          "erklaerung": "Wer Preise vergleicht, bekommt ein gutes Gefühl dafür."
+        },
+        {
+          "frage": "Warum lohnt es sich, Preise ungefähr zu kennen?",
+          "richtig": "Man merkt schneller, wenn etwas zu teuer ist.",
+          "falsch": [
+            "Dann wird alles kostenlos.",
+            "Dann muss man nie wieder einkaufen."
+          ],
+          "erklaerung": "Ein Gefühl für Preise schützt vor teuren Fehlern."
+        },
+        {
+          "frage": "Sind Preise überall und immer gleich?",
+          "richtig": "Nein, sie können sich je nach Laden und Zeit unterscheiden.",
+          "falsch": [
+            "Ja, überall genau gleich",
+            "Nur montags"
+          ],
+          "erklaerung": "Preise ändern sich und sind nicht in jedem Laden gleich. Vergleichen lohnt sich."
+        },
+        {
+          "frage": "Tala will ein Eis, ein Fahrrad und eine Kinokarte auf einmal. Was sollte sie zuerst tun?",
+          "richtig": "Herausfinden, was alles zusammen kostet",
+          "falsch": [
+            "Alles sofort kaufen",
+            "Die Preisschilder abreißen"
+          ],
+          "erklaerung": "Erst die Preise kennen, dann entscheiden, was drin ist."
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "typ": "exam",
+      "seemeilen": 150,
+      "titel": "Abschlussprüfung",
+      "ort": "Hafenkontor",
+      "lernziel": "Alles vom Hafen wiederholen",
+      "dauer": "8 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "talo",
+          "text": "Zeit für die Abschlussprüfung! Ab 8 richtigen Antworten gehört das erste Kartenstück uns."
+        },
+        {
+          "wer": "tala",
+          "text": "Und wenn es nicht klappt, versuchen wir es einfach noch einmal. Ohne Strafe!"
+        }
+      ],
+      "abschluss": {
+        "wer": "tala",
+        "text": "Das erste Kartenstück! Auf zur Tauschinsel!"
+      },
+      "pruefung": {
+        "anzahl": 10,
+        "rueckblick": 0,
+        "bestehen": 8
+      },
+      "fragen": [
+        {
+          "frage": "Warum ist Geld praktischer als Tauschen?",
+          "richtig": "Fast jeder nimmt es an.",
+          "falsch": [
+            "Es ist leichter zu tragen als alles andere.",
+            "Es riecht besser."
+          ],
+          "erklaerung": "Mit Geld muss man niemanden suchen, der genau das braucht, was man selbst hat.",
+          "station": 2
+        },
+        {
+          "frage": "Was kann man mit Geld gut machen?",
+          "richtig": "Es aufheben und später ausgeben",
+          "falsch": [
+            "Es essen, wenn man Hunger hat",
+            "Es pflanzen, damit mehr wächst"
+          ],
+          "erklaerung": "Geld kann man aufbewahren und später gegen etwas eintauschen.",
+          "station": 2
+        },
+        {
+          "frage": "Warum hat ein Geldschein einen Wert?",
+          "richtig": "Weil alle ihn annehmen und darauf vertrauen",
+          "falsch": [
+            "Weil er aus Gold ist",
+            "Weil er alt ist"
+          ],
+          "erklaerung": "Der Wert entsteht, weil sich alle darauf verlassen.",
+          "station": 2
+        },
+        {
+          "frage": "Wie heißt unsere Währung?",
+          "richtig": "Euro",
+          "falsch": [
+            "Taler",
+            "Pfund"
+          ],
+          "erklaerung": "In Deutschland bezahlen wir mit Euro.",
+          "station": 2
+        },
+        {
+          "frage": "Warum haben sich Münzen gegenüber Muscheln und Salz durchgesetzt?",
+          "richtig": "Sie halten lange und lassen sich leicht zählen.",
+          "falsch": [
+            "Sie schmecken besser.",
+            "Sie leuchten im Dunkeln."
+          ],
+          "erklaerung": "Münzen gehen nicht kaputt, sind gleich groß und man kann sie gut abzählen.",
+          "station": 3
+        },
+        {
+          "frage": "Was ist ein Vorteil von Scheinen gegenüber vielen Münzen?",
+          "richtig": "Große Beträge sind leichter zu tragen.",
+          "falsch": [
+            "Sie klimpern lauter.",
+            "Sie sind aus Gold."
+          ],
+          "erklaerung": "Ein Schein ersetzt viele Münzen und passt in jede Tasche.",
+          "station": 3
+        },
+        {
+          "frage": "Womit bezahlen viele Menschen heute oft, ohne Münzen oder Scheine?",
+          "richtig": "Mit Karte oder Handy",
+          "falsch": [
+            "Mit Muscheln",
+            "Mit Salz"
+          ],
+          "erklaerung": "Heute wird viel digital bezahlt, das Geld kommt dann vom Konto.",
+          "station": 3
+        },
+        {
+          "frage": "Wie viele Cent sind ein Euro?",
+          "richtig": "100",
+          "falsch": [
+            "10",
+            "1.000"
+          ],
+          "erklaerung": "100 Cent ergeben genau 1 Euro.",
+          "station": 4
+        },
+        {
+          "frage": "Wie viele verschiedene Euro-Münzen gibt es?",
+          "richtig": "8",
+          "falsch": [
+            "5",
+            "12"
+          ],
+          "erklaerung": "Es gibt 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro.",
+          "station": 4
+        },
+        {
+          "frage": "Welcher ist der kleinste Euro-Schein?",
+          "richtig": "5 Euro",
+          "falsch": [
+            "1 Euro",
+            "10 Euro"
+          ],
+          "erklaerung": "Den kleinsten Schein gibt es für 5 Euro, kleinere Beträge sind Münzen.",
+          "station": 4
+        },
+        {
+          "frage": "Wie legst du 3,50 Euro mit möglichst wenigen Münzen?",
+          "richtig": "2 Euro, 1 Euro und 50 Cent",
+          "falsch": [
+            "Sieben 50-Cent-Münzen",
+            "Drei 1-Euro-Münzen und fünf 10-Cent-Münzen"
+          ],
+          "erklaerung": "Große Münzen zuerst nehmen, dann braucht man am wenigsten.",
+          "station": 4
+        },
+        {
+          "frage": "Du bezahlst 2 Euro für etwas, das 1,20 Euro kostet. Wie viel Wechselgeld bekommst du?",
+          "richtig": "80 Cent",
+          "falsch": [
+            "1 Euro",
+            "20 Cent"
+          ],
+          "erklaerung": "2 Euro minus 1,20 Euro sind 80 Cent.",
+          "station": 4
+        },
+        {
+          "frage": "Woher bekommen die meisten Erwachsenen ihr Geld?",
+          "richtig": "Als Lohn für ihre Arbeit",
+          "falsch": [
+            "Es wächst im Garten.",
+            "Sie finden es auf der Straße."
+          ],
+          "erklaerung": "Wer arbeitet, bekommt dafür Lohn oder Gehalt.",
+          "station": 5
+        },
+        {
+          "frage": "Warum bekommen die Bootsbauer in der Werft Geld?",
+          "richtig": "Weil sie für andere Schiffe reparieren",
+          "falsch": [
+            "Weil sie lange schlafen",
+            "Weil sie Möwen füttern"
+          ],
+          "erklaerung": "Geld bekommt man, weil man etwas leistet, das andere brauchen.",
+          "station": 5
+        },
+        {
+          "frage": "Darf man Euro-Geld einfach selbst drucken?",
+          "richtig": "Nein, das ist verboten.",
+          "falsch": [
+            "Ja, mit einem guten Drucker",
+            "Ja, aber nur am Wochenende"
+          ],
+          "erklaerung": "Geld darf nur von bestimmten Stellen hergestellt werden, alles andere ist Falschgeld.",
+          "station": 5
+        },
+        {
+          "frage": "Woraus setzt sich der Preis eines Fischbrötchens zusammen?",
+          "richtig": "Aus Zutaten, Miete, Lohn und Gewinn",
+          "falsch": [
+            "Nur aus dem Fisch",
+            "Die Verkäuferin denkt sich einfach eine Zahl aus."
+          ],
+          "erklaerung": "Ein Preis deckt alle Kosten und lässt einen kleinen Gewinn übrig.",
+          "station": 6
+        },
+        {
+          "frage": "Was ist der Gewinn?",
+          "richtig": "Das, was nach allen Kosten übrig bleibt",
+          "falsch": [
+            "Das ganze Geld, das in die Kasse kommt",
+            "Das Trinkgeld"
+          ],
+          "erklaerung": "Von den Einnahmen werden zuerst alle Kosten bezahlt, der Rest ist der Gewinn.",
+          "station": 6
+        },
+        {
+          "frage": "Warum ist ein Fischbrötchen am Hafen teurer als ein selbstgemachtes?",
+          "richtig": "Weil Miete, Lohn und Gewinn dazukommen",
+          "falsch": [
+            "Weil die Möwen mitessen",
+            "Weil Fisch am Hafen giftig ist"
+          ],
+          "erklaerung": "Wer etwas verkauft, muss mehr verlangen als nur die Zutaten kosten.",
+          "station": 6
+        },
+        {
+          "frage": "Was kostet normalerweise am meisten?",
+          "richtig": "Ein Fahrrad",
+          "falsch": [
+            "Eine Kugel Eis",
+            "Ein Brötchen"
+          ],
+          "erklaerung": "Ein Fahrrad kostet ein Vielfaches von Eis oder Brötchen.",
+          "station": 7
+        },
+        {
+          "frage": "Warum hilft es, Preise ungefähr zu kennen?",
+          "richtig": "Man merkt schneller, wenn etwas zu teuer ist.",
+          "falsch": [
+            "Dann muss man nie wieder rechnen.",
+            "Dann wird alles billiger."
+          ],
+          "erklaerung": "Wer Preise kennt, lässt sich nicht so leicht übers Ohr hauen.",
+          "station": 7
+        }
+      ]
+    }
+  ]
+}

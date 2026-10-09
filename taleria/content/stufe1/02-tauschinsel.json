@@ -1,0 +1,1056 @@
+{
+  "slug": "tauschinsel",
+  "titel": "Tauschinsel",
+  "reihenfolge": 2,
+  "gruppe": 1,
+  "zugang": "gratis",
+  "karte": {
+    "x": 0.28,
+    "y": 0.9
+  },
+  "lernziel": "Das Kind erlebt, wie Tauschen ohne Geld funktioniert, versteht, dass Wert von Person und Situation abhängt, wie Angebot und Nachfrage Preise beeinflussen, dass billig nicht immer günstig ist, dass jede Entscheidung einen Verzicht bedeutet und was ein fairer Tausch ist.",
+  "ankunft": {
+    "film": "video.arrival.tauschinsel",
+    "szene": [
+      {
+        "wer": "talo",
+        "text": "Land in Sicht! Und unser Proviant ist fast leer."
+      },
+      {
+        "wer": "tala",
+        "text": "Drei Äpfel, bitte! Ich habe Taler!"
+      },
+      {
+        "wer": "bruno",
+        "text": "Taler? Was soll ich damit? Hier wird getauscht!",
+        "name": "Bruno"
+      },
+      {
+        "wer": "talo",
+        "text": "Dann müssen wir wohl lernen zu tauschen."
+      },
+      {
+        "wer": "olga",
+        "text": "Dieses Kartenstück bekommt nur, wer fair tauscht.",
+        "name": "Olga"
+      }
+    ]
+  },
+  "orden": "Meistertauscher",
+  "auftrag": {
+    "titel": "Fairer Tausch",
+    "text": "Tausche mit jemandem aus der Familie etwas (Buch, Spielzeug, Sammelkarte). Erzählt euch vorher gegenseitig, warum euch die Sachen etwas wert sind, und klärt, ob man zurücktauschen darf."
+  },
+  "kombuesen_fragen": [
+    "Was hast du als Kind getauscht, und war es ein guter Tausch?",
+    "Gibt es etwas, das dir viel wert ist, für andere aber kaum etwas?",
+    "Wann musstest du zuletzt auf etwas verzichten, um dir etwas anderes leisten zu können?"
+  ],
+  "stationen": [
+    {
+      "nr": 1,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Hier gibt es kein Geld",
+      "ort": "Anlegestelle",
+      "lernziel": "Tauschen klappt nur, wenn beide genau das wollen, was der andere hat",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.tauschinsel.1",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Ich brauche ein neues Seil fürs Schiff. Ich bezahle mit Talern!"
+        },
+        {
+          "wer": "greta",
+          "text": "Taler? Hier wird getauscht. Für mein Seil will ich Äpfel.",
+          "name": "Greta"
+        },
+        {
+          "wer": "tala",
+          "text": "Äpfel hab ich keine …"
+        },
+        {
+          "wer": "talo",
+          "text": "Dann fragen wir herum, wer was braucht."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "bruno",
+          "text": "Äpfel gebe ich gern her. Aber nur gegen Fisch!",
+          "name": "Bruno"
+        },
+        {
+          "wer": "otti",
+          "text": "Fisch habe ich. Ich hätte gern einen Eimer.",
+          "name": "Otti"
+        },
+        {
+          "wer": "tala",
+          "text": "Einen Eimer haben wir an Bord!"
+        },
+        {
+          "wer": "talo",
+          "text": "Also: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil. Das nennt man eine Tauschkette."
+        },
+        {
+          "wer": "tala",
+          "text": "Ganz schön viel Lauferei für ein Seil!"
+        }
+      ],
+      "spiel": {
+        "art": "barter_chain",
+        "titel": "Tauschkette",
+        "beschreibung": "Baue die Tauschkette: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Tauschen klappt nur, wenn beide genau das wollen, was der andere hat. Sonst braucht man eine lange Tauschkette."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Warum braucht Tala auf der Tauschinsel eine Tauschkette?",
+          "richtig": "Weil Greta etwas will, das Tala nicht direkt hat",
+          "falsch": [
+            "Weil Ketten hübsch aussehen",
+            "Weil Talo es befohlen hat"
+          ],
+          "erklaerung": "Will der andere nicht, was man hat, muss man über mehrere Tausche gehen."
+        },
+        {
+          "frage": "Was ist der erste Tausch in Talas Kette?",
+          "richtig": "Eimer gegen Fisch",
+          "falsch": [
+            "Seil gegen Äpfel",
+            "Taler gegen Seil"
+          ],
+          "erklaerung": "Otti will den Eimer und gibt dafür Fisch. Damit beginnt die Kette."
+        },
+        {
+          "frage": "Warum sind Talas Taler auf der Tauschinsel nichts wert?",
+          "richtig": "Weil dort niemand Taler annimmt",
+          "falsch": [
+            "Weil sie zu klein sind",
+            "Weil sie aus Schokolade sind"
+          ],
+          "erklaerung": "Geld hat nur einen Wert, wenn andere es annehmen."
+        },
+        {
+          "frage": "Was ist beim Tauschen ohne Geld oft das größte Problem?",
+          "richtig": "Man muss jemanden finden, der genau das will, was man hat.",
+          "falsch": [
+            "Man darf dabei nicht reden.",
+            "Tauschen ist verboten."
+          ],
+          "erklaerung": "Beide Seiten müssen zueinander passen. Das ist selten."
+        },
+        {
+          "frage": "Wie viele Tausche braucht Tala für das Seil?",
+          "richtig": "Drei",
+          "falsch": [
+            "Einen",
+            "Zehn"
+          ],
+          "erklaerung": "Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil: drei Tausche."
+        },
+        {
+          "frage": "Wie wäre es mit Geld einfacher?",
+          "richtig": "Tala könnte Greta direkt bezahlen.",
+          "falsch": [
+            "Gar nicht",
+            "Dann bräuchte sie zwei Seile."
+          ],
+          "erklaerung": "Mit Geld braucht man keine Tauschkette, weil fast jeder Geld annimmt."
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Das große Tauschspiel",
+      "ort": "Tauschmarkt",
+      "lernziel": "Vor einem Tausch überlegen: Was brauche ich, was gebe ich her?",
+      "dauer": "7 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "talo",
+          "text": "Heute Nacht wollen wir weitersegeln. Dafür brauchen wir eine Laterne."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich habe eine Muschelkette, einen Korb und ein Stück Käse."
+        },
+        {
+          "wer": "bruno",
+          "text": "Eine Laterne findest du hier auf dem Markt. Aber nicht jeder tauscht gegen alles!",
+          "name": "Bruno"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Bevor du tauschst, frag dich: Was brauche ich wirklich? Und was gebe ich dafür her?"
+        },
+        {
+          "wer": "tala",
+          "text": "Manche Angebote klingen gut, sind es aber nicht. Drei Äpfel für meine schöne Kette? Nein danke!"
+        },
+        {
+          "wer": "talo",
+          "text": "Ein guter Tausch macht beide zufrieden. Und manchmal sagt man besser Nein."
+        }
+      ],
+      "spiel": {
+        "art": "barter_rounds",
+        "titel": "Tauschmarkt",
+        "beschreibung": "Starte mit drei Dingen und ertausche in mehreren Runden eine Laterne. Jeder Händler will etwas anderes, manche Angebote sind schlecht."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Vor jedem Tausch nachdenken lohnt sich: Was brauche ich, und was gebe ich dafür her?"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was solltest du vor einem Tausch klären?",
+          "richtig": "Was ich brauche und was ich dafür hergebe",
+          "falsch": [
+            "Wie das Wetter wird",
+            "Wer zuerst blinzelt"
+          ],
+          "erklaerung": "Wer weiß, was er will, tauscht klüger."
+        },
+        {
+          "frage": "Ein Händler bietet dir eine kaputte Laterne gegen deinen besten Korb. Was tust du?",
+          "richtig": "Ablehnen oder nachverhandeln",
+          "falsch": [
+            "Sofort tauschen",
+            "Den Korb ins Meer werfen"
+          ],
+          "erklaerung": "Man muss nicht jedes Angebot annehmen."
+        },
+        {
+          "frage": "Woran erkennst du einen guten Tausch?",
+          "richtig": "Beide sind am Ende zufrieden.",
+          "falsch": [
+            "Einer hat den anderen ausgetrickst.",
+            "Es ging besonders schnell."
+          ],
+          "erklaerung": "Ein guter Tausch ist für beide fair."
+        },
+        {
+          "frage": "Darf man bei einem Tausch Nein sagen?",
+          "richtig": "Ja, immer",
+          "falsch": [
+            "Nein, nie",
+            "Nur am Wochenende"
+          ],
+          "erklaerung": "Ein Tausch ist freiwillig. Nein sagen ist erlaubt."
+        },
+        {
+          "frage": "Tala braucht eine Laterne. Welches Angebot hilft ihr am meisten?",
+          "richtig": "Eine Laterne gegen ihren Korb",
+          "falsch": [
+            "Drei Äpfel gegen ihre Kette",
+            "Ein Hut gegen ihren Käse"
+          ],
+          "erklaerung": "Ein Tausch hilft, wenn man bekommt, was man wirklich braucht."
+        },
+        {
+          "frage": "Wann ist ein Tausch schlecht für dich?",
+          "richtig": "Wenn du viel mehr hergibst, als du bekommst",
+          "falsch": [
+            "Immer, Tauschen ist schlecht",
+            "Wenn die Laterne leuchtet"
+          ],
+          "erklaerung": "Gibt man viel ab und bekommt wenig, lohnt sich der Tausch nicht."
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Wert ist nicht für jeden gleich",
+      "ort": "Quelle am Berg",
+      "lernziel": "Wert hängt von Person und Situation ab",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.tauschinsel.3",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Puh, dieser Aufstieg! Ich habe so einen Durst!"
+        },
+        {
+          "wer": "talo",
+          "text": "Unten am Strand gab es überall Wasser. Hier oben wäre eine Flasche Wasser ein Schatz."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich würde jetzt sogar mein Lieblings-Fischbrötchen gegen Wasser tauschen!"
+        },
+        {
+          "wer": "talo",
+          "text": "Ich mag Fischbrötchen gar nicht. Für mich wäre das kein guter Tausch."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Wie viel etwas wert ist, hängt von der Situation ab. Wasser ist oben am Berg in der Hitze mehr wert als unten an der Quelle."
+        },
+        {
+          "wer": "tala",
+          "text": "Und es hängt von der Person ab: Ich liebe Fischbrötchen, Talo nicht."
+        },
+        {
+          "wer": "talo",
+          "text": "Deshalb kann ein Tausch für beide gut sein: Jeder bekommt das, was ihm mehr wert ist."
+        }
+      ],
+      "spiel": {
+        "art": "decision",
+        "titel": "Was ist wem wie viel wert?",
+        "beschreibung": "Entscheide in verschiedenen Situationen, wem etwas wie viel wert ist."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Wert ist nicht für jeden gleich. Er hängt von der Person und der Situation ab."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wann ist eine warme Jacke besonders viel wert?",
+          "richtig": "An einem kalten Wintertag",
+          "falsch": [
+            "Im Hochsommer am Strand",
+            "Wenn man schon zwei anhat"
+          ],
+          "erklaerung": "Wer friert, schätzt eine Jacke viel mehr."
+        },
+        {
+          "frage": "Tala liebt Fischbrötchen, Talo nicht. Wer würde mehr dafür hergeben?",
+          "richtig": "Tala",
+          "falsch": [
+            "Talo",
+            "Beide gleich viel"
+          ],
+          "erklaerung": "Wer etwas mag, ist bereit, mehr dafür zu geben."
+        },
+        {
+          "frage": "Warum kann ein Tausch für beide gut sein?",
+          "richtig": "Weil jeder das bekommt, was ihm mehr wert ist",
+          "falsch": [
+            "Weil einer immer verliert",
+            "Weil Tauschen immer Spaß macht"
+          ],
+          "erklaerung": "Dinge sind für verschiedene Menschen unterschiedlich viel wert."
+        },
+        {
+          "frage": "Ein Sonnenschirm am Strand im Hochsommer ist …",
+          "richtig": "viel wert, weil viele Schatten brauchen.",
+          "falsch": [
+            "nichts wert.",
+            "nur nachts wertvoll."
+          ],
+          "erklaerung": "Wenn viele etwas brauchen, steigt sein Wert."
+        },
+        {
+          "frage": "Was beeinflusst, wie viel dir etwas wert ist?",
+          "richtig": "Was du magst und was du gerade brauchst",
+          "falsch": [
+            "Nur die Farbe",
+            "Gar nichts"
+          ],
+          "erklaerung": "Vorlieben und die Situation bestimmen den Wert."
+        },
+        {
+          "frage": "Otti sammelt Muscheln, Bruno sammelt Honigtöpfe. Was zeigt das?",
+          "richtig": "Jeder findet andere Dinge wertvoll.",
+          "falsch": [
+            "Muscheln sind wertlos.",
+            "Honig ist immer mehr wert als Muscheln."
+          ],
+          "erklaerung": "Was jemand sammelt oder mag, ist für ihn besonders wertvoll."
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Wenn alle Eis wollen",
+      "ort": "Eisstand am Strand",
+      "lernziel": "Angebot und Nachfrage beeinflussen den Preis",
+      "dauer": "7 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Darf ich heute den Eisstand übernehmen? Bitte, bitte!"
+        },
+        {
+          "wer": "talo",
+          "text": "Gern. Aber du bestimmst auch den Preis."
+        },
+        {
+          "wer": "tala",
+          "text": "Dann verlange ich ganz viel pro Kugel!"
+        },
+        {
+          "wer": "talo",
+          "text": "Mal sehen, wie viele Kunden dann kommen."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "An heißen Tagen wollen viele ein Eis. Man sagt: Die Nachfrage ist groß."
+        },
+        {
+          "wer": "tala",
+          "text": "Und wenn das Eis knapp wird, zahlen manche sogar mehr dafür!"
+        },
+        {
+          "wer": "talo",
+          "text": "An Regentagen will kaum jemand Eis. Dann muss der Preis runter, sonst bleibt das Eis liegen."
+        },
+        {
+          "wer": "talo",
+          "text": "Angebot heißt: wie viel es von etwas gibt. Nachfrage heißt: wie viele es haben wollen. Beides beeinflusst den Preis."
+        }
+      ],
+      "spiel": {
+        "art": "market_sim",
+        "titel": "Eisstand",
+        "beschreibung": "Setze den Preis für dein Eis an heißen und an verregneten Tagen und sieh, wie viele Kunden kommen."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Wollen viele etwas, das knapp ist, steigt der Preis. Will kaum jemand etwas, sinkt er."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Es ist sehr heiß und alle wollen Eis. Wie nennt man das?",
+          "richtig": "Große Nachfrage",
+          "falsch": [
+            "Großes Angebot",
+            "Großen Hunger auf Suppe"
+          ],
+          "erklaerung": "Nachfrage bedeutet, wie viele etwas haben wollen."
+        },
+        {
+          "frage": "Der Eisstand hat nur noch wenig Eis, aber viele Kunden. Was passiert oft?",
+          "richtig": "Der Preis steigt.",
+          "falsch": [
+            "Das Eis wird verschenkt.",
+            "Der Stand schließt sofort."
+          ],
+          "erklaerung": "Ist etwas knapp und begehrt, steigt meist der Preis."
+        },
+        {
+          "frage": "An einem Regentag kommt kaum jemand zum Eisstand. Was ist klug?",
+          "richtig": "Den Preis senken oder weniger Eis machen",
+          "falsch": [
+            "Den Preis verdoppeln",
+            "Im Regen laut rufen, bis jemand kommt"
+          ],
+          "erklaerung": "Bei wenig Nachfrage sinkt der Preis oder man bietet weniger an."
+        },
+        {
+          "frage": "Was bedeutet „Angebot“?",
+          "richtig": "Wie viel von etwas zu haben ist",
+          "falsch": [
+            "Wie viele etwas haben wollen",
+            "Ein besonders leckeres Eis"
+          ],
+          "erklaerung": "Das Angebot ist die Menge, die es zu kaufen gibt."
+        },
+        {
+          "frage": "Warum sind manche Früchte zu bestimmten Jahreszeiten teurer?",
+          "richtig": "Weil es dann weniger davon gibt",
+          "falsch": [
+            "Weil sie dann größer sind",
+            "Weil sie dann verboten sind"
+          ],
+          "erklaerung": "Gibt es weniger von etwas, wollen es aber genauso viele, wird es oft teurer."
+        },
+        {
+          "frage": "Tala verlangt für eine Kugel Eis einen sehr hohen Preis. Was passiert wahrscheinlich?",
+          "richtig": "Weniger Kunden kaufen bei ihr.",
+          "falsch": [
+            "Mehr Kunden kommen.",
+            "Das Eis schmilzt langsamer."
+          ],
+          "erklaerung": "Ist der Preis zu hoch, kaufen viele lieber nicht oder woanders."
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Preis und Qualität",
+      "ort": "Werkstatt der Netzmacherin",
+      "lernziel": "Billig ist nicht immer günstig, vergleichen lohnt sich",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.tauschinsel.5",
+      "szene": [
+        {
+          "wer": "otti",
+          "text": "Mein Fischernetz ist schon wieder gerissen!",
+          "name": "Otti"
+        },
+        {
+          "wer": "greta",
+          "text": "Ich habe zwei Netze: eins für 5 Taler und eins für 20 Taler.",
+          "name": "Greta"
+        },
+        {
+          "wer": "otti",
+          "text": "Dann nehme ich natürlich das billige!",
+          "name": "Otti"
+        },
+        {
+          "wer": "greta",
+          "text": "Das billige hält aber nur einen Monat. Das teure ein ganzes Jahr.",
+          "name": "Greta"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Rechnen wir mal: Das billige Netz hält einen Monat. Für ein Jahr braucht Otti also 12 Stück."
+        },
+        {
+          "wer": "tala",
+          "text": "12 mal 5 Taler sind 60 Taler! Das gute Netz kostet nur 20."
+        },
+        {
+          "wer": "talo",
+          "text": "Billig ist also nicht immer günstig. Wer vergleicht, wie lange etwas hält, spart oft Geld."
+        },
+        {
+          "wer": "tala",
+          "text": "Aber teuer ist auch nicht automatisch gut. Vergleichen ist das Wichtigste!"
+        }
+      ],
+      "spiel": {
+        "art": "calc",
+        "titel": "Netz-Rechnung",
+        "beschreibung": "Rechne aus, welches Netz über ein Jahr günstiger ist."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Billig ist nicht immer günstig. Vergleichen lohnt sich, auch wie lange etwas hält."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Turnschuhe für 20 Taler halten ein halbes Jahr, Turnschuhe für 30 Taler ein ganzes Jahr. Was ist auf ein Jahr günstiger?",
+          "richtig": "Die Turnschuhe für 30 Taler",
+          "falsch": [
+            "Die Turnschuhe für 20 Taler",
+            "Beide kosten gleich viel"
+          ],
+          "erklaerung": "Zwei billige Paare kosten 40 Taler, das gute Paar nur 30."
+        },
+        {
+          "frage": "Was solltest du beim Vergleichen außer dem Preis noch beachten?",
+          "richtig": "Wie lange etwas hält",
+          "falsch": [
+            "Wie laut es ist",
+            "Gar nichts"
+          ],
+          "erklaerung": "Die Haltbarkeit gehört zum Vergleich dazu."
+        },
+        {
+          "frage": "Otti braucht im Jahr 12 Netze für je 5 Taler. Was kostet das?",
+          "richtig": "60 Taler",
+          "falsch": [
+            "17 Taler",
+            "5 Taler"
+          ],
+          "erklaerung": "12 mal 5 Taler sind 60 Taler."
+        },
+        {
+          "frage": "Ist etwas Teures immer besser?",
+          "richtig": "Nein, vergleichen hilft.",
+          "falsch": [
+            "Ja, immer",
+            "Nur bei Fischernetzen"
+          ],
+          "erklaerung": "Ein hoher Preis allein sagt nicht, dass etwas gut ist."
+        },
+        {
+          "frage": "Was bedeutet „günstig“?",
+          "richtig": "Für das, was man bekommt, nicht zu viel bezahlen",
+          "falsch": [
+            "Immer das Billigste nehmen",
+            "Etwas, das glitzert"
+          ],
+          "erklaerung": "Günstig heißt: Preis und Leistung passen gut zusammen."
+        },
+        {
+          "frage": "Wie findest du heraus, ob sich etwas Teureres lohnt?",
+          "richtig": "Vergleichen, wie lange es hält und was es kann",
+          "falsch": [
+            "Würfeln",
+            "Den Verkäufer nach seiner Lieblingsfarbe fragen"
+          ],
+          "erklaerung": "Wer vergleicht, entscheidet besser."
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Was ist mir etwas wert?",
+      "ort": "Aussichtsturm",
+      "lernziel": "Jede Entscheidung bedeutet einen Verzicht",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.tauschinsel.6",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Oben auf dem Turm gibt es ein Fernrohr zu kaufen! Und unten den Eisstand."
+        },
+        {
+          "wer": "talo",
+          "text": "Du hast 5 Taler. Für beides reicht es nicht."
+        },
+        {
+          "wer": "tala",
+          "text": "Eis jetzt … oder sparen für das Fernrohr? Oh, ist das schwer!"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Geld kann man nur einmal ausgeben. Wer das Eis kauft, verzichtet aufs Sparen."
+        },
+        {
+          "wer": "tala",
+          "text": "Und wer spart, verzichtet heute aufs Eis, hat aber später das Fernrohr."
+        },
+        {
+          "wer": "talo",
+          "text": "Es gibt kein Richtig oder Falsch. Wichtig ist, dass du weißt, worauf du verzichtest."
+        }
+      ],
+      "spiel": {
+        "art": "tradeoff",
+        "titel": "Entscheidungen",
+        "beschreibung": "Triff mehrere Entscheidungen und sieh jedes Mal, worauf du verzichtest."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Jede Entscheidung bedeutet einen Verzicht. Überleg dir, was dir wichtiger ist."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Tala hat 5 Taler und kauft davon ein Eis für 5 Taler. Was kann sie danach nicht mehr?",
+          "richtig": "Die 5 Taler fürs Fernrohr sparen",
+          "falsch": [
+            "Das Eis essen",
+            "Auf den Turm steigen"
+          ],
+          "erklaerung": "Geld kann man nur einmal ausgeben."
+        },
+        {
+          "frage": "Was bedeutet „verzichten“?",
+          "richtig": "Etwas nicht nehmen, um etwas anderes zu bekommen",
+          "falsch": [
+            "Alles gleichzeitig kaufen",
+            "Etwas verschenken, das man nicht mag"
+          ],
+          "erklaerung": "Wer sich entscheidet, verzichtet auf die andere Möglichkeit."
+        },
+        {
+          "frage": "Was hilft bei einer Entscheidung zwischen zwei Wünschen?",
+          "richtig": "Überlegen, was mir wichtiger ist",
+          "falsch": [
+            "Immer das Teurere nehmen",
+            "Gar nicht entscheiden"
+          ],
+          "erklaerung": "Wer weiß, was ihm wichtig ist, entscheidet leichter."
+        },
+        {
+          "frage": "Tala spart mehrere Wochen, statt Eis zu kaufen. Was bekommt sie dafür?",
+          "richtig": "Später das Fernrohr",
+          "falsch": [
+            "Gar nichts",
+            "Drei Eis gratis"
+          ],
+          "erklaerung": "Wer heute verzichtet, kann sich später etwas Größeres leisten."
+        },
+        {
+          "frage": "Gibt es bei „Eis oder Fernrohr“ eine richtige Antwort für alle?",
+          "richtig": "Nein, das hängt davon ab, was einem wichtiger ist.",
+          "falsch": [
+            "Ja, immer das Eis",
+            "Ja, immer das Fernrohr"
+          ],
+          "erklaerung": "Jeder entscheidet nach dem, was ihm wichtig ist."
+        },
+        {
+          "frage": "Warum kann man nicht alles haben, was man sich wünscht?",
+          "richtig": "Weil das Geld nicht für alles reicht",
+          "falsch": [
+            "Weil Wünsche verboten sind",
+            "Weil Läden nachts zuhaben"
+          ],
+          "erklaerung": "Geld ist begrenzt. Deshalb muss man auswählen."
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Fair tauschen unter Freunden",
+      "ort": "Strandlager bei Olga",
+      "lernziel": "Ein fairer Tausch: Beide wissen, was sie bekommen, und sind einverstanden",
+      "dauer": "7 bis 10 Min.",
+      "film": "video.station.tauschinsel.7",
+      "szene": [
+        {
+          "wer": "olga",
+          "text": "Willkommen, junge Crew. Bevor ich euch das Kartenstück gebe, möchte ich etwas sehen.",
+          "name": "Olga"
+        },
+        {
+          "wer": "tala",
+          "text": "Was denn?"
+        },
+        {
+          "wer": "olga",
+          "text": "Ob ihr fair tauschen könnt. Auf dem Schulhof gibt es nämlich nicht nur faire Tausche.",
+          "name": "Olga"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Stell dir vor: Ein älteres Kind will einem jüngeren eine seltene Sammelkarte gegen eine ganz häufige abschwatzen."
+        },
+        {
+          "wer": "tala",
+          "text": "Das ist unfair! Das jüngere weiß gar nicht, wie selten seine Karte ist."
+        },
+        {
+          "wer": "talo",
+          "text": "Fair ist ein Tausch, wenn beide wissen, was sie bekommen, und beide einverstanden sind."
+        },
+        {
+          "wer": "olga",
+          "text": "Und wer vorher klärt, ob man zurücktauschen darf, hat später keinen Streit. Hier ist euer Kartenstück!",
+          "name": "Olga"
+        }
+      ],
+      "spiel": {
+        "art": "situations",
+        "titel": "Faire Tausche",
+        "beschreibung": "Erkenne faire und unfaire Tausche auf dem Schulhof und schlage faire vor. Am Ende tauscht die Crew fair mit Olga."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Ein fairer Tausch: Beide wissen, was sie bekommen, und sind einverstanden."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wann ist ein Tausch fair?",
+          "richtig": "Wenn beide wissen, was sie bekommen, und einverstanden sind",
+          "falsch": [
+            "Wenn einer den anderen austrickst",
+            "Wenn es besonders schnell geht"
+          ],
+          "erklaerung": "Fair heißt ehrlich und freiwillig."
+        },
+        {
+          "frage": "Ein älteres Kind will einem jüngeren eine seltene Karte gegen eine häufige abschwatzen. Ist das fair?",
+          "richtig": "Nein, weil das jüngere den Wert nicht kennt",
+          "falsch": [
+            "Ja, Tausch ist Tausch",
+            "Ja, weil Ältere immer recht haben"
+          ],
+          "erklaerung": "Wer den anderen über den Wert im Unklaren lässt, tauscht nicht fair."
+        },
+        {
+          "frage": "Was solltet ihr vor einem Tausch absprechen?",
+          "richtig": "Ob man zurücktauschen darf",
+          "falsch": [
+            "Wer die schönere Jacke hat",
+            "Wie spät es ist"
+          ],
+          "erklaerung": "Klare Absprachen verhindern späteren Streit."
+        },
+        {
+          "frage": "Dein Freund bietet dir einen unfairen Tausch an. Was kannst du tun?",
+          "richtig": "Freundlich Nein sagen oder einen fairen Tausch vorschlagen",
+          "falsch": [
+            "Ihn anschreien",
+            "Heimlich seine Karte nehmen"
+          ],
+          "erklaerung": "Man kann Nein sagen und trotzdem freundlich bleiben."
+        },
+        {
+          "frage": "Warum gibt Olga der Crew das Kartenstück?",
+          "richtig": "Weil die Crew fair getauscht hat",
+          "falsch": [
+            "Weil Tala gebettelt hat",
+            "Weil Olga es loswerden wollte"
+          ],
+          "erklaerung": "Olga wollte sehen, ob die Crew fair tauschen kann."
+        },
+        {
+          "frage": "Was gehört zu einem fairen Tausch?",
+          "richtig": "Ehrlich sagen, wenn die eigene Sache einen Fehler hat",
+          "falsch": [
+            "Fehler der eigenen Sache verschweigen",
+            "Den anderen unter Druck setzen"
+          ],
+          "erklaerung": "Ehrlichkeit macht einen Tausch fair."
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "typ": "exam",
+      "seemeilen": 150,
+      "titel": "Abschlussprüfung",
+      "ort": "Strandlager bei Olga",
+      "lernziel": "Alles von der Tauschinsel wiederholen, dazu zwei Fragen aus dem Hafen",
+      "dauer": "8 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "olga",
+          "text": "Zeigt mir, was ihr gelernt habt. Ab 8 richtigen Antworten gehört das Kartenstück euch.",
+          "name": "Olga"
+        },
+        {
+          "wer": "tala",
+          "text": "Zwei Fragen kommen sogar noch aus dem Hafen. Weißt du noch?"
+        }
+      ],
+      "abschluss": {
+        "wer": "olga",
+        "text": "Klug und fair, so soll eine Crew sein. Gute Fahrt zur Wunschinsel!",
+        "name": "Olga"
+      },
+      "pruefung": {
+        "anzahl": 8,
+        "rueckblick": 2,
+        "bestehen": 8
+      },
+      "fragen": [
+        {
+          "frage": "Warum konnte Tala auf der Tauschinsel nicht mit Talern bezahlen?",
+          "richtig": "Weil dort niemand Geld annimmt",
+          "falsch": [
+            "Weil die Taler nass waren",
+            "Weil Talo sie versteckt hatte"
+          ],
+          "erklaerung": "Geld funktioniert nur, wenn alle es annehmen.",
+          "station": 1
+        },
+        {
+          "frage": "Greta will Äpfel, Tala hat nur Fisch. Was kann Tala tun?",
+          "richtig": "Erst Fisch gegen Äpfel tauschen, dann Äpfel gegen das Seil",
+          "falsch": [
+            "Das Seil einfach mitnehmen",
+            "Sofort aufgeben"
+          ],
+          "erklaerung": "Über eine Tauschkette kommt man auch ans Ziel, wenn es länger dauert.",
+          "station": 1
+        },
+        {
+          "frage": "Was ist eine Tauschkette?",
+          "richtig": "Mehrere Tausche hintereinander, bis man hat, was man braucht",
+          "falsch": [
+            "Eine Halskette aus Gold",
+            "Ein Seil zum Festbinden"
+          ],
+          "erklaerung": "Jeder Tausch ist ein Glied der Kette.",
+          "station": 1
+        },
+        {
+          "frage": "Was solltest du dir vor einem Tausch überlegen?",
+          "richtig": "Was ich wirklich brauche und was ich dafür hergebe",
+          "falsch": [
+            "Welche Farbe der andere mag",
+            "Gar nichts, einfach schnell tauschen"
+          ],
+          "erklaerung": "Wer vorher nachdenkt, macht bessere Tausche.",
+          "station": 2
+        },
+        {
+          "frage": "Woran erkennst du einen guten Tausch?",
+          "richtig": "Am Ende sind beide zufrieden.",
+          "falsch": [
+            "Nur einer hat gewonnen.",
+            "Einer ist traurig."
+          ],
+          "erklaerung": "Ein guter Tausch ist für beide Seiten gut.",
+          "station": 2
+        },
+        {
+          "frage": "Wann ist eine Flasche Wasser besonders viel wert?",
+          "richtig": "Nach einer langen Wanderung in der Hitze",
+          "falsch": [
+            "Direkt nachdem man getrunken hat",
+            "Wenn man im Regen steht"
+          ],
+          "erklaerung": "Der Wert hängt von der Situation ab.",
+          "station": 3
+        },
+        {
+          "frage": "Tala liebt Fischbrötchen, Talo mag sie nicht. Was zeigt das?",
+          "richtig": "Dieselbe Sache ist nicht für jeden gleich viel wert.",
+          "falsch": [
+            "Talo hat nie Hunger.",
+            "Fischbrötchen sind wertlos."
+          ],
+          "erklaerung": "Jeder Mensch hat eigene Vorlieben, deshalb schätzt jeder Dinge anders.",
+          "station": 3
+        },
+        {
+          "frage": "Warum ist ein Regenschirm an einem Regentag mehr wert als bei Sonne?",
+          "richtig": "Weil ihn dann viele brauchen",
+          "falsch": [
+            "Weil er nass ist",
+            "Weil er dann größer wird"
+          ],
+          "erklaerung": "Wenn viele etwas brauchen, wird es wertvoller.",
+          "station": 3
+        },
+        {
+          "frage": "Es ist heiß, alle wollen Eis, aber es gibt nur wenig. Was passiert oft mit dem Preis?",
+          "richtig": "Er steigt.",
+          "falsch": [
+            "Er sinkt.",
+            "Das Eis wird verschenkt."
+          ],
+          "erklaerung": "Viele wollen etwas, das knapp ist: Dann steigt meist der Preis.",
+          "station": 4
+        },
+        {
+          "frage": "Im Winter will kaum jemand Eis. Was macht der Eisverkäufer wahrscheinlich?",
+          "richtig": "Er senkt den Preis oder verkauft weniger.",
+          "falsch": [
+            "Er verdoppelt den Preis.",
+            "Er verkauft nur noch Sand."
+          ],
+          "erklaerung": "Wenig Nachfrage: Der Preis sinkt oder es wird weniger angeboten.",
+          "station": 4
+        },
+        {
+          "frage": "Was bedeutet „Angebot“?",
+          "richtig": "Wie viel von einer Sache zu haben ist",
+          "falsch": [
+            "Wie freundlich ein Verkäufer ist",
+            "Ein Geschenk"
+          ],
+          "erklaerung": "Das Angebot ist die Menge, die verkauft wird.",
+          "station": 4
+        },
+        {
+          "frage": "Was bedeutet „Nachfrage“?",
+          "richtig": "Wie viele etwas haben wollen",
+          "falsch": [
+            "Wenn man zweimal nachfragt",
+            "Eine Quizfrage"
+          ],
+          "erklaerung": "Die Nachfrage zeigt, wie begehrt etwas ist.",
+          "station": 4
+        },
+        {
+          "frage": "Ein Netz für 5 Taler hält einen Monat, eines für 20 Taler hält ein Jahr. Was ist auf ein Jahr gerechnet günstiger?",
+          "richtig": "Das Netz für 20 Taler",
+          "falsch": [
+            "Das Netz für 5 Taler",
+            "Beide kosten gleich viel"
+          ],
+          "erklaerung": "12 billige Netze kosten 60 Taler, das gute nur 20.",
+          "station": 5
+        },
+        {
+          "frage": "Was bedeutet der Spruch „Wer billig kauft, kauft zweimal“?",
+          "richtig": "Billige Dinge gehen manchmal schnell kaputt, dann muss man neu kaufen.",
+          "falsch": [
+            "Man soll alles zweimal kaufen.",
+            "Billige Sachen sind immer schlecht."
+          ],
+          "erklaerung": "Billig kann teuer werden. Aber nicht alles Billige ist schlecht, vergleichen hilft.",
+          "station": 5
+        },
+        {
+          "frage": "Ist das Teuerste immer das Beste?",
+          "richtig": "Nein, man sollte vergleichen.",
+          "falsch": [
+            "Ja, immer.",
+            "Ja, außer bei Eis."
+          ],
+          "erklaerung": "Ein hoher Preis sagt noch nicht, dass etwas gut ist.",
+          "station": 5
+        },
+        {
+          "frage": "Tala hat 5 Taler: Eis jetzt oder sparen fürs Fernrohr. Was stimmt?",
+          "richtig": "Kauft sie das Eis, verzichtet sie aufs Sparen.",
+          "falsch": [
+            "Sie kann mit denselben 5 Talern beides haben.",
+            "Das spielt keine Rolle."
+          ],
+          "erklaerung": "Geld kann man nur einmal ausgeben. Jede Entscheidung heißt Verzicht.",
+          "station": 6
+        },
+        {
+          "frage": "Was hilft dir bei einer schwierigen Kaufentscheidung?",
+          "richtig": "Überlegen, was mir wichtiger ist",
+          "falsch": [
+            "Würfeln",
+            "Immer das Erste nehmen"
+          ],
+          "erklaerung": "Wer weiß, was ihm wichtig ist, entscheidet leichter.",
+          "station": 6
+        },
+        {
+          "frage": "Was ist ein fairer Tausch?",
+          "richtig": "Beide wissen, was sie bekommen, und sind einverstanden.",
+          "falsch": [
+            "Einer trickst den anderen aus.",
+            "Man nimmt dem Jüngeren etwas weg."
+          ],
+          "erklaerung": "Fair heißt ehrlich und freiwillig.",
+          "station": 7
+        },
+        {
+          "frage": "Ein Freund will deine seltene Sammelkarte gegen eine ganz häufige tauschen. Was ist eine gute Reaktion?",
+          "richtig": "Freundlich Nein sagen oder einen fairen Tausch vorschlagen",
+          "falsch": [
+            "Sofort tauschen, damit er nicht sauer wird",
+            "Ihn auslachen"
+          ],
+          "erklaerung": "Man darf Nein sagen und trotzdem freundlich bleiben.",
+          "station": 7
+        },
+        {
+          "frage": "Was solltet ihr vor einem Tausch unter Freunden klären?",
+          "richtig": "Ob man den Tausch später rückgängig machen darf",
+          "falsch": [
+            "Wer schneller rennen kann",
+            "Welche Musik ihr hört"
+          ],
+          "erklaerung": "Klare Absprachen verhindern Streit.",
+          "station": 7
+        }
+      ]
+    }
+  ]
+}

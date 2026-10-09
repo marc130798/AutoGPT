@@ -1,0 +1,14 @@
+{
+  "slug": "werbe-riff",
+  "titel": "Werbe-Riff",
+  "reihenfolge": 7,
+  "gruppe": 2,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.5,
+    "y": 0.57
+  },
+  "lernziel": "Werbung durchschauen",
+  "nebel": true,
+  "stationen": []
+}

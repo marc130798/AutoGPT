@@ -1,0 +1,14 @@
+{
+  "slug": "zins-insel",
+  "titel": "Zins-Insel",
+  "reihenfolge": 10,
+  "gruppe": 3,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.5,
+    "y": 0.375
+  },
+  "lernziel": "Zinsen und Inflation",
+  "nebel": true,
+  "stationen": []
+}

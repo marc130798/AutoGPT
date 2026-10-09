@@ -2,9 +2,16 @@
 -- Nur für lokale Tests mit einem nackten Postgres (tool/db_test.sh).
 -- In echten Supabase-Projekten gibt es all das schon.
 
-create role anon nologin;
-create role authenticated nologin;
-create role service_role nologin bypassrls;
+-- Rollen gelten für den ganzen Server, deshalb nur anlegen, wenn sie fehlen.
+do $$
+begin
+  if not exists (select 1 from pg_roles where rolname = 'anon') then
+    create role anon nologin;
+    create role authenticated nologin;
+    create role service_role nologin bypassrls;
+  end if;
+end;
+$$;
 
 create schema auth;
 grant usage on schema auth to anon, authenticated, service_role;

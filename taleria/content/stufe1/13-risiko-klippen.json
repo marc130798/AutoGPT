@@ -1,0 +1,14 @@
+{
+  "slug": "risiko-klippen",
+  "titel": "Risiko-Klippen",
+  "reihenfolge": 13,
+  "gruppe": 4,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.5,
+    "y": 0.18
+  },
+  "lernziel": "Risiko und Vorsorge",
+  "nebel": true,
+  "stationen": []
+}

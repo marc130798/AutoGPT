@@ -100,6 +100,33 @@
         "shape": "circle"
       }
     },
+    "character.haendler": {
+      "type": "image",
+      "path": "assets/images/character.haendler.png",
+      "placeholder": {
+        "label": "Händler",
+        "color": "#7A5C3E",
+        "shape": "circle"
+      }
+    },
+    "character.verkaeuferin": {
+      "type": "image",
+      "path": "assets/images/character.verkaeuferin.png",
+      "placeholder": {
+        "label": "Verkäuferin",
+        "color": "#C77D4F",
+        "shape": "circle"
+      }
+    },
+    "character.bootsbauer": {
+      "type": "image",
+      "path": "assets/images/character.bootsbauer.png",
+      "placeholder": {
+        "label": "Bootsbauer",
+        "color": "#5B6E7A",
+        "shape": "circle"
+      }
+    },
     "ship.crew": {
       "type": "image",
       "path": "assets/images/ship.crew.png",
@@ -710,6 +737,123 @@
         "label": "Taleria",
         "color": "#24476B",
         "shape": "rounded"
+      }
+    },
+    "video.station.hafen.2": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Was ist Geld?",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.hafen.3": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Geld früher und heute",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.hafen.5": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Woher kommt Geld?",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.hafen.6": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Warum kostet etwas etwas?",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.tauschinsel.1": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Hier gibt es kein Geld",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.tauschinsel.3": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Wert ist nicht für jeden gleich",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.tauschinsel.5": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Preis und Qualität",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.tauschinsel.6": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Was ist mir etwas wert?",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.tauschinsel.7": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Fair tauschen unter Freunden",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.wunschinsel.3": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Die Warte-Regel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.wunschinsel.4": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Alle haben das",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.wunschinsel.5": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Macht Geld glücklich?",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.station.wunschinsel.7": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Film: Meine Wunschliste",
+        "color": "#24476B",
+        "shape": "rectangle"
       }
     }
   }

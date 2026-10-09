@@ -1,0 +1,14 @@
+{
+  "slug": "marktinsel",
+  "titel": "Marktinsel",
+  "reihenfolge": 6,
+  "gruppe": 2,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.72,
+    "y": 0.635
+  },
+  "lernziel": "Einkaufen",
+  "nebel": true,
+  "stationen": []
+}

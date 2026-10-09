@@ -1,0 +1,14 @@
+{
+  "slug": "zukunftsinsel",
+  "titel": "Zukunftsinsel",
+  "reihenfolge": 14,
+  "gruppe": 4,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.28,
+    "y": 0.115
+  },
+  "lernziel": "Planen und Investieren als Idee",
+  "nebel": true,
+  "stationen": []
+}

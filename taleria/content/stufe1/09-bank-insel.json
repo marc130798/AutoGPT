@@ -1,0 +1,14 @@
+{
+  "slug": "bank-insel",
+  "titel": "Bank-Insel",
+  "reihenfolge": 9,
+  "gruppe": 3,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.72,
+    "y": 0.44
+  },
+  "lernziel": "Bank und Konto",
+  "nebel": true,
+  "stationen": []
+}

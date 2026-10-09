@@ -1,0 +1,14 @@
+{
+  "slug": "spar-insel",
+  "titel": "Spar-Insel",
+  "reihenfolge": 4,
+  "gruppe": 1,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.5,
+    "y": 0.765
+  },
+  "lernziel": "Sparen",
+  "nebel": true,
+  "stationen": []
+}

@@ -1,0 +1,1033 @@
+{
+  "slug": "wunschinsel",
+  "titel": "Wunschinsel",
+  "reihenfolge": 3,
+  "gruppe": 1,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.72,
+    "y": 0.84
+  },
+  "lernziel": "Das Kind unterscheidet Bedürfnisse und Wünsche, setzt Prioritäten, nutzt die Warte-Regel, erkennt Gruppendruck und weiß, dass Glück nicht nur von Dingen abhängt.",
+  "ankunft": {
+    "film": "video.arrival.wunschinsel",
+    "szene": [
+      {
+        "wer": "tala",
+        "text": "Wow, hier glitzert und blinkt ja alles!"
+      },
+      {
+        "wer": "tala",
+        "text": "Das will ich! Und das! Und das!"
+      },
+      {
+        "wer": "elsa",
+        "text": "Alles zu haben, Schätzchen!",
+        "name": "Elsa"
+      },
+      {
+        "wer": "talo",
+        "text": "Moment. Was davon brauchst du wirklich?"
+      },
+      {
+        "wer": "talo",
+        "text": "Schau, im Wunschbrunnen leuchtet das nächste Kartenstück."
+      }
+    ]
+  },
+  "orden": "Klarer Kompass",
+  "auftrag": {
+    "titel": "Wunschflasche",
+    "text": "Steck einen Wunsch in die Wunschflasche und schau nach einer Woche mit deinen Eltern nach, ob du ihn noch willst."
+  },
+  "kombuesen_fragen": [
+    "Was hast du dir mal sehr gewünscht und dann kaum benutzt?",
+    "Was war dein schönstes Erlebnis, das fast kein Geld gekostet hat?"
+  ],
+  "stationen": [
+    {
+      "nr": 1,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Bedürfnis oder Wunsch",
+      "ort": "Glitzerladen",
+      "lernziel": "Bedürfnisse kommen zuerst, Wünsche sind erlaubt",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "elsa",
+          "text": "Willkommen im Glitzerladen! Alles glänzt, alles ist zu haben!",
+          "name": "Elsa"
+        },
+        {
+          "wer": "tala",
+          "text": "Das will ich! Und das! Und den Glitzerkompass!"
+        },
+        {
+          "wer": "talo",
+          "text": "Moment. Was davon brauchst du wirklich?"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Bedürfnisse sind Dinge, die man zum Leben braucht: Essen, Trinken, Kleidung und ein Zuhause."
+        },
+        {
+          "wer": "tala",
+          "text": "Und Wünsche sind Dinge, die Spaß machen, aber nicht lebensnotwendig sind. Wie mein Glitzerkompass!"
+        },
+        {
+          "wer": "talo",
+          "text": "Manche Dinge liegen dazwischen, zum Beispiel ein Handy. Es kommt darauf an, wofür man es braucht."
+        },
+        {
+          "wer": "tala",
+          "text": "Wünsche sind erlaubt! Aber Bedürfnisse kommen zuerst."
+        }
+      ],
+      "spiel": {
+        "art": "sort",
+        "titel": "Zwei Körbe",
+        "beschreibung": "Sortiere Dinge in den Korb für Bedürfnisse oder für Wünsche. Über Dinge dazwischen sprechen Talo und Tala."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Bedürfnisse kommen zuerst, Wünsche sind erlaubt."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Welches davon ist ein Bedürfnis?",
+          "richtig": "Ein Dach über dem Kopf",
+          "falsch": [
+            "Ein Glitzerkompass",
+            "Ein Videospiel"
+          ],
+          "erklaerung": "Ein Zuhause braucht jeder zum Leben."
+        },
+        {
+          "frage": "Welches davon ist ein Wunsch?",
+          "richtig": "Ein neues Spielzeug",
+          "falsch": [
+            "Trinkwasser",
+            "Etwas zu essen"
+          ],
+          "erklaerung": "Ein Spielzeug macht Freude, zum Leben braucht man es aber nicht."
+        },
+        {
+          "frage": "Was kommt zuerst, wenn das Geld knapp ist?",
+          "richtig": "Die Bedürfnisse",
+          "falsch": [
+            "Die Wünsche",
+            "Das, was am meisten glitzert"
+          ],
+          "erklaerung": "Erst das Nötige, dann das Schöne."
+        },
+        {
+          "frage": "Sind Wünsche schlecht?",
+          "richtig": "Nein, Wünsche sind erlaubt.",
+          "falsch": [
+            "Ja, immer",
+            "Nur an Geburtstagen"
+          ],
+          "erklaerung": "Wünsche sind in Ordnung, wenn die Bedürfnisse gedeckt sind."
+        },
+        {
+          "frage": "Warum ist ein Handy schwer einzuordnen?",
+          "richtig": "Weil es je nach Situation Bedürfnis oder Wunsch sein kann",
+          "falsch": [
+            "Weil es so klein ist",
+            "Weil es klingelt"
+          ],
+          "erklaerung": "Für manche ist es nötig, etwa um die Eltern zu erreichen, für andere vor allem Spaß."
+        },
+        {
+          "frage": "Warme Winterstiefel im Dezember sind …",
+          "richtig": "ein Bedürfnis.",
+          "falsch": [
+            "ein Wunsch.",
+            "ein Spielzeug."
+          ],
+          "erklaerung": "Im Winter braucht man warme Schuhe."
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Prioritäten setzen",
+      "ort": "Packhaus",
+      "lernziel": "Wenn das Geld nicht für alles reicht, entscheidet man nach Wichtigkeit",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Ich darf einen Rucksack für die Wanderung packen! Aber nur für 10 Taler."
+        },
+        {
+          "wer": "talo",
+          "text": "Und auf der Liste stehen Sachen für viel mehr als 10 Taler."
+        },
+        {
+          "wer": "tala",
+          "text": "Oh nein, ich will alles mitnehmen!"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Wenn das Geld nicht für alles reicht, muss man auswählen."
+        },
+        {
+          "wer": "talo",
+          "text": "Prioritäten setzen heißt: Das Wichtigste kommt zuerst in den Rucksack."
+        },
+        {
+          "wer": "tala",
+          "text": "Also erst Wasser und Proviant, dann vielleicht die Glitzersonnenbrille."
+        },
+        {
+          "wer": "talo",
+          "text": "Und wer sich für etwas entscheidet, verzichtet auf etwas anderes."
+        }
+      ],
+      "spiel": {
+        "art": "pack",
+        "titel": "Rucksack packen",
+        "beschreibung": "Packe Talas Rucksack mit 10 Talern. Das Wichtigste zuerst."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Reicht das Geld nicht für alles, entscheidet man nach Wichtigkeit."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Du hast 10 Taler. Wasser kostet 2, Proviant 4, eine Glitzerbrille 6. Was packst du für eine Wanderung ein?",
+          "richtig": "Wasser und Proviant",
+          "falsch": [
+            "Nur die Glitzerbrille",
+            "Alles, auch wenn das Geld nicht reicht"
+          ],
+          "erklaerung": "Wasser und Proviant kosten zusammen 6 Taler und sind am wichtigsten. Für die Brille reicht es dann nicht mehr."
+        },
+        {
+          "frage": "Was bedeutet „Prioritäten setzen“?",
+          "richtig": "Das Wichtigste zuerst",
+          "falsch": [
+            "Das Teuerste zuerst",
+            "Alles auf einmal"
+          ],
+          "erklaerung": "Prioritäten zeigen, was am wichtigsten ist."
+        },
+        {
+          "frage": "Warum muss man manchmal auswählen?",
+          "richtig": "Weil das Geld nicht für alles reicht",
+          "falsch": [
+            "Weil Rucksäcke böse sind",
+            "Weil Auswählen Pflicht ist"
+          ],
+          "erklaerung": "Geld ist begrenzt, Wünsche sind es oft nicht."
+        },
+        {
+          "frage": "Tala packt die Glitzerbrille statt Proviant ein. Was ist das Problem?",
+          "richtig": "Auf der Wanderung fehlt ihr etwas Wichtiges.",
+          "falsch": [
+            "Es gibt kein Problem.",
+            "Die Brille ist zu dunkel."
+          ],
+          "erklaerung": "Wer Unwichtiges zuerst kauft, hat für Wichtiges kein Geld mehr."
+        },
+        {
+          "frage": "Wie kannst du deine Wünsche ordnen?",
+          "richtig": "Nach Wichtigkeit, das Wichtigste oben",
+          "falsch": [
+            "Nach Farbe",
+            "Nach dem Alphabet"
+          ],
+          "erklaerung": "Eine Reihenfolge nach Wichtigkeit hilft beim Entscheiden."
+        },
+        {
+          "frage": "Wenn du dich für einen Wunsch entscheidest, …",
+          "richtig": "verzichtest du auf einen anderen.",
+          "falsch": [
+            "bekommst du alle anderen gratis.",
+            "bleibt das Geld trotzdem da."
+          ],
+          "erklaerung": "Geld kann man nur einmal ausgeben."
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Die Warte-Regel",
+      "ort": "Wunschflaschen-Strand",
+      "lernziel": "Warten zeigt, ob man etwas wirklich will",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.wunschinsel.3",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Den Glitzerkompass kaufe ich sofort! Jetzt gleich!"
+        },
+        {
+          "wer": "talo",
+          "text": "Warte mal. Kennst du die Warte-Regel?"
+        },
+        {
+          "wer": "tala",
+          "text": "Die Warte-was?"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Bei kleinen Wünschen schläfst du eine Nacht drüber. Bei großen eine ganze Woche."
+        },
+        {
+          "wer": "tala",
+          "text": "Und wenn ich es danach immer noch will?"
+        },
+        {
+          "wer": "talo",
+          "text": "Dann ist es ein echter Wunsch. Viele Wünsche sind nach ein paar Tagen aber einfach verschwunden."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich stecke meinen Wunsch in eine Wunschflasche! Dann fragt mich die App später, ob ich ihn noch will."
+        }
+      ],
+      "spiel": {
+        "art": "wish_bottle",
+        "titel": "Wunschflasche",
+        "beschreibung": "Steck einen eigenen Wunsch in eine Wunschflasche. Die App fragt später nach, ob du ihn noch willst."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Warten zeigt, ob man etwas wirklich will."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was sagt die Warte-Regel?",
+          "richtig": "Vor einem Kauf erst drüber schlafen",
+          "falsch": [
+            "Immer sofort kaufen",
+            "Nie etwas kaufen"
+          ],
+          "erklaerung": "Mit etwas Abstand entscheidet man besser."
+        },
+        {
+          "frage": "Wie lange wartest du ungefähr bei einem kleinen Wunsch?",
+          "richtig": "Eine Nacht",
+          "falsch": [
+            "Ein Jahr",
+            "Eine Sekunde"
+          ],
+          "erklaerung": "Bei kleinen Wünschen reicht eine Nacht."
+        },
+        {
+          "frage": "Wie lange wartest du ungefähr bei einem großen Wunsch?",
+          "richtig": "Eine Woche",
+          "falsch": [
+            "Gar nicht",
+            "Eine Minute"
+          ],
+          "erklaerung": "Je größer der Wunsch, desto länger lohnt sich das Überlegen."
+        },
+        {
+          "frage": "Was passiert oft mit Wünschen, wenn man wartet?",
+          "richtig": "Manche verschwinden von selbst.",
+          "falsch": [
+            "Sie werden doppelt so groß.",
+            "Sie werden automatisch billiger."
+          ],
+          "erklaerung": "Viele Wünsche sind nach ein paar Tagen gar nicht mehr wichtig."
+        },
+        {
+          "frage": "Tala will den Kompass nach einer Woche immer noch. Was bedeutet das?",
+          "richtig": "Es ist ein echter Wunsch.",
+          "falsch": [
+            "Sie hat die Regel falsch gemacht.",
+            "Der Kompass ist kaputt."
+          ],
+          "erklaerung": "Bleibt der Wunsch, kann man überlegen, dafür zu sparen."
+        },
+        {
+          "frage": "Wozu ist die Wunschflasche gut?",
+          "richtig": "Um einen Wunsch aufzuschreiben und später noch einmal zu prüfen",
+          "falsch": [
+            "Um Limonade zu trinken",
+            "Um Wünsche ins Meer zu werfen"
+          ],
+          "erklaerung": "Die Wunschflasche hilft beim Warten."
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Alle haben das",
+      "ort": "Möwenplatz",
+      "lernziel": "Gruppendruck erkennen und Nein sagen können",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.wunschinsel.4",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Guck mal, alle Möwen tragen rote Mützen! Ich brauche auch eine!"
+        },
+        {
+          "wer": "talo",
+          "text": "Brauchst du sie wirklich, oder willst du nur dazugehören?"
+        },
+        {
+          "wer": "tala",
+          "text": "Hmm … gestern wollte ich noch gar keine."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Wenn man etwas tut, weil alle anderen es tun oder erwarten, nennt man das Gruppendruck."
+        },
+        {
+          "wer": "tala",
+          "text": "Gruppendruck kann dazu führen, dass man Sachen kauft, die man eigentlich gar nicht will."
+        },
+        {
+          "wer": "talo",
+          "text": "Eine gute Frage ist: Würde ich das auch wollen, wenn es niemand sonst hätte?"
+        },
+        {
+          "wer": "tala",
+          "text": "Und man darf freundlich Nein sagen. Das ist sogar ziemlich stark!"
+        }
+      ],
+      "spiel": {
+        "art": "situations",
+        "titel": "Gruppendruck erkennen",
+        "beschreibung": "Erkenne Situationen mit Gruppendruck und übe Antworten."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Gruppendruck erkennen und Nein sagen können, das macht stark."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Alle in der Klasse haben dieselben Turnschuhe. Welche Frage hilft dir?",
+          "richtig": "Würde ich sie auch wollen, wenn sie niemand hätte?",
+          "falsch": [
+            "Wie bekomme ich drei Paar?",
+            "Wer hat die teuersten?"
+          ],
+          "erklaerung": "Diese Frage zeigt, ob man etwas wirklich will."
+        },
+        {
+          "frage": "Was ist Gruppendruck?",
+          "richtig": "Wenn man etwas tut, weil andere es erwarten",
+          "falsch": [
+            "Wenn eine Gruppe Druckbuchstaben schreibt",
+            "Wenn es im Bus eng ist"
+          ],
+          "erklaerung": "Gruppendruck kann zu Entscheidungen führen, die man eigentlich nicht will."
+        },
+        {
+          "frage": "Was ist eine gute Antwort, wenn dich jemand drängt, etwas zu kaufen?",
+          "richtig": "„Nein danke, das brauche ich nicht.“",
+          "falsch": [
+            "„Ich kaufe gleich zwei!“",
+            "Gar nichts sagen und sofort kaufen"
+          ],
+          "erklaerung": "Ein freundliches Nein ist stark."
+        },
+        {
+          "frage": "Warum wollte Tala plötzlich eine rote Mütze?",
+          "richtig": "Weil alle Möwen eine trugen",
+          "falsch": [
+            "Weil ihr kalt war",
+            "Weil rote Mützen schneller machen"
+          ],
+          "erklaerung": "Sie wollte dazugehören, nicht weil sie die Mütze brauchte."
+        },
+        {
+          "frage": "Ist es schlimm, nicht alles zu haben, was andere haben?",
+          "richtig": "Nein, jeder darf eigene Entscheidungen treffen.",
+          "falsch": [
+            "Ja, sehr schlimm",
+            "Ja, dann darf man nicht mitspielen"
+          ],
+          "erklaerung": "Echte Freunde mögen dich wegen dir, nicht wegen deiner Sachen."
+        },
+        {
+          "frage": "Woran merkst du, dass du unter Gruppendruck stehst?",
+          "richtig": "Du willst etwas nur, weil andere es haben.",
+          "falsch": [
+            "Du hast Hunger.",
+            "Es regnet."
+          ],
+          "erklaerung": "Kommt der Wunsch nur von den anderen, ist das Gruppendruck."
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Macht Geld glücklich?",
+      "ort": "Moritz' Höhle",
+      "lernziel": "Geld hilft, aber Glück hat viele Quellen",
+      "dauer": "6 bis 9 Min.",
+      "film": "video.station.wunschinsel.5",
+      "szene": [
+        {
+          "wer": "moritz",
+          "text": "Kommt rein, kommt rein! Viel habe ich nicht, aber es ist gemütlich.",
+          "name": "Moritz"
+        },
+        {
+          "wer": "tala",
+          "text": "Du hast ja fast gar nichts! Bist du nicht traurig?"
+        },
+        {
+          "wer": "moritz",
+          "text": "Traurig? Ich habe meine Freunde, meine Sonnenplätze und meine Murmelsammlung. Ich bin sehr zufrieden.",
+          "name": "Moritz"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Geld ist wichtig. Es kann Sorgen nehmen, zum Beispiel um Essen oder ein Zuhause."
+        },
+        {
+          "wer": "tala",
+          "text": "Aber die Freude über neue Sachen hält oft nicht lange. Mein Glitzerkompass wäre nach einer Woche bestimmt ganz normal."
+        },
+        {
+          "wer": "talo",
+          "text": "Freunde, gemeinsame Zeit und Gesundheit machen auch glücklich. Die kann man nicht kaufen."
+        }
+      ],
+      "spiel": {
+        "art": "conversation",
+        "titel": "Gespräch mit Moritz",
+        "beschreibung": "Unterhalte dich mit Moritz darüber, was ihn glücklich macht."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Geld hilft, aber Glück hat viele Quellen."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wobei kann Geld helfen?",
+          "richtig": "Es kann Sorgen nehmen, zum Beispiel ums Essen.",
+          "falsch": [
+            "Es kann Freunde kaufen.",
+            "Es macht immer glücklich."
+          ],
+          "erklaerung": "Geld hilft bei vielen Dingen, aber nicht bei allem."
+        },
+        {
+          "frage": "Warum ist Moritz zufrieden, obwohl er wenig besitzt?",
+          "richtig": "Weil er Freunde und schöne Zeit hat",
+          "falsch": [
+            "Weil er heimlich reich ist",
+            "Weil er den ganzen Tag schläft"
+          ],
+          "erklaerung": "Glück hängt nicht nur vom Besitz ab."
+        },
+        {
+          "frage": "Was passiert oft mit der Freude über etwas Neues?",
+          "richtig": "Sie wird mit der Zeit kleiner.",
+          "falsch": [
+            "Sie wird jeden Tag größer.",
+            "Sie bleibt für immer gleich."
+          ],
+          "erklaerung": "Man gewöhnt sich schnell an Neues."
+        },
+        {
+          "frage": "Was kann man nicht kaufen?",
+          "richtig": "Echte Freundschaft",
+          "falsch": [
+            "Ein Eis",
+            "Einen Ball"
+          ],
+          "erklaerung": "Freundschaft entsteht durch Zeit und Vertrauen, nicht durch Geld."
+        },
+        {
+          "frage": "Welcher Satz stimmt?",
+          "richtig": "Geld ist wichtig, aber nicht das Einzige, was glücklich macht.",
+          "falsch": [
+            "Nur Geld macht glücklich.",
+            "Geld ist völlig unwichtig."
+          ],
+          "erklaerung": "Geld und Glück hängen zusammen, aber nicht nur."
+        },
+        {
+          "frage": "Was macht viele Menschen glücklich?",
+          "richtig": "Zeit mit Familie und Freunden",
+          "falsch": [
+            "Möglichst viele Kassenbons",
+            "Allein Geld zählen"
+          ],
+          "erklaerung": "Gemeinsame Zeit gehört für viele zu den schönsten Dingen."
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Erlebnisse statt Dinge",
+      "ort": "Erinnerungsfelsen",
+      "lernziel": "Erlebnisse bleiben oft länger in Erinnerung",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Was ist das für ein Felsen? Da sind überall Bilder eingeritzt!"
+        },
+        {
+          "wer": "talo",
+          "text": "Das ist der Erinnerungsfelsen. Hier halten die Inselbewohner ihre schönsten Erlebnisse fest."
+        },
+        {
+          "wer": "tala",
+          "text": "Kein einziges Bild von einem Spielzeug. Nur Ausflüge, Feste und Freunde!"
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Ein neues Spielzeug ist toll, aber oft liegt es nach ein paar Wochen in der Ecke."
+        },
+        {
+          "wer": "tala",
+          "text": "An einen schönen Ausflug erinnere ich mich noch lange. Wie an unsere erste Fahrt mit dem Schiff!"
+        },
+        {
+          "wer": "talo",
+          "text": "Erlebnisse teilt man mit anderen. Und viele schöne Erlebnisse kosten kaum Geld."
+        }
+      ],
+      "spiel": {
+        "art": "album",
+        "titel": "Erinnerungs-Album",
+        "beschreibung": "Vergleiche ein neues Spielzeug mit einem gemeinsamen Ausflug und gestalte ein kleines Album schöner Erlebnisse."
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Erlebnisse bleiben oft länger in Erinnerung als Dinge."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was bleibt oft länger in Erinnerung?",
+          "richtig": "Ein Tag am See mit Freunden",
+          "falsch": [
+            "Ein neuer Radiergummi",
+            "Eine Werbeanzeige"
+          ],
+          "erklaerung": "Gemeinsame Erlebnisse bleiben lange im Gedächtnis."
+        },
+        {
+          "frage": "Warum sind Erlebnisse oft besonders wertvoll?",
+          "richtig": "Man teilt sie mit anderen und erinnert sich gern daran.",
+          "falsch": [
+            "Weil sie immer teuer sind",
+            "Weil man sie im Schrank aufbewahren kann"
+          ],
+          "erklaerung": "Erinnerungen verbinden Menschen."
+        },
+        {
+          "frage": "Was kostet oft kaum Geld und macht trotzdem Freude?",
+          "richtig": "Ein Picknick im Park",
+          "falsch": [
+            "Ein neues Handy",
+            "Eine Fernreise"
+          ],
+          "erklaerung": "Viele schöne Erlebnisse kosten wenig."
+        },
+        {
+          "frage": "Was passiert oft mit neuen Spielsachen nach einiger Zeit?",
+          "richtig": "Man spielt seltener damit.",
+          "falsch": [
+            "Sie werden immer spannender.",
+            "Sie verwandeln sich in Gold."
+          ],
+          "erklaerung": "Neues wird schnell normal."
+        },
+        {
+          "frage": "Wofür ist ein Erinnerungs-Album gut?",
+          "richtig": "Um schöne Erlebnisse festzuhalten",
+          "falsch": [
+            "Um Rechnungen zu sammeln",
+            "Um Hausaufgaben zu verstecken"
+          ],
+          "erklaerung": "Ein Album hilft, sich an Schönes zu erinnern."
+        },
+        {
+          "frage": "Du hast 20 Taler: neues Spielzeug oder Ausflug mit Freunden. Was stimmt?",
+          "richtig": "Beides ist in Ordnung, aber der Ausflug bleibt oft länger in Erinnerung.",
+          "falsch": [
+            "Nur das Spielzeug ist vernünftig.",
+            "Ausflüge sind verboten."
+          ],
+          "erklaerung": "Es ist deine Entscheidung. Erlebnisse halten aber oft länger."
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Meine Wunschliste",
+      "ort": "Wunschbrunnen",
+      "lernziel": "Eine gute Wunschliste hilft beim Planen",
+      "dauer": "7 bis 10 Min.",
+      "film": "video.station.wunschinsel.7",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Da ist der Wunschbrunnen! Und unten leuchtet das Kartenstück!"
+        },
+        {
+          "wer": "elsa",
+          "text": "Das Kartenstück erscheint nur, wenn man eine kluge Wunschliste hineinwirft.",
+          "name": "Elsa"
+        },
+        {
+          "wer": "tala",
+          "text": "Eine kluge Wunschliste? Ich schreibe einfach alles auf!"
+        },
+        {
+          "wer": "talo",
+          "text": "Klug heißt: mit Preisen und nach Wichtigkeit sortiert."
+        }
+      ],
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Schreib deine Wünsche auf und schätze, was sie ungefähr kosten."
+        },
+        {
+          "wer": "tala",
+          "text": "Dann sortiere ich: Was ist mir am wichtigsten? Das kommt nach oben."
+        },
+        {
+          "wer": "talo",
+          "text": "Für den wichtigsten Wunsch kannst du einen Wunschschatz anlegen und dafür sparen."
+        },
+        {
+          "wer": "elsa",
+          "text": "Oh, eine kluge Liste! Seht nur, das Kartenstück steigt auf!",
+          "name": "Elsa"
+        }
+      ],
+      "spiel": {
+        "art": "wish_list",
+        "titel": "Wunschliste",
+        "beschreibung": "Schreibe eine Wunschliste mit Preisen, sortiere sie nach Wichtigkeit und übernimm einen Wunsch als Wunschschatz."
+      },
+      "abschluss": {
+        "wer": "talo",
+        "text": "Eine gute Wunschliste hilft beim Planen."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was gehört auf eine kluge Wunschliste?",
+          "richtig": "Wünsche mit ungefähren Preisen, sortiert nach Wichtigkeit",
+          "falsch": [
+            "Alles aus der Werbung",
+            "Nur die teuersten Sachen"
+          ],
+          "erklaerung": "So sieht man, was man sich leisten kann und was zuerst kommt."
+        },
+        {
+          "frage": "Warum schreibt man die Preise dazu?",
+          "richtig": "Damit man sieht, wie viel man sparen muss",
+          "falsch": [
+            "Weil Zahlen hübsch aussehen",
+            "Damit die Liste länger wird"
+          ],
+          "erklaerung": "Mit Preisen kann man planen."
+        },
+        {
+          "frage": "Welcher Wunsch kommt auf der Liste nach oben?",
+          "richtig": "Der, der mir am wichtigsten ist",
+          "falsch": [
+            "Der, der am teuersten ist",
+            "Der, den meine Freunde haben"
+          ],
+          "erklaerung": "Die Reihenfolge zeigt deine Prioritäten."
+        },
+        {
+          "frage": "Was kannst du mit deinem wichtigsten Wunsch machen?",
+          "richtig": "Einen Wunschschatz anlegen und dafür sparen",
+          "falsch": [
+            "Ihn sofort vergessen",
+            "Ihn heimlich kaufen"
+          ],
+          "erklaerung": "Ein Wunschschatz macht aus einem Wunsch ein Ziel."
+        },
+        {
+          "frage": "Tala wünscht sich ein Fernrohr für 30 Taler und legt jede Woche 5 Taler zur Seite. Wie viele Wochen muss sie sparen?",
+          "richtig": "6 Wochen",
+          "falsch": [
+            "3 Wochen",
+            "30 Wochen"
+          ],
+          "erklaerung": "30 Taler geteilt durch 5 Taler pro Woche sind 6 Wochen."
+        },
+        {
+          "frage": "Warum ist eine Wunschliste besser, als alles sofort zu kaufen?",
+          "richtig": "Man denkt nach und gibt Geld für das Wichtigste aus.",
+          "falsch": [
+            "Weil Listen immer Spaß machen",
+            "Weil man dann nichts mehr bekommt"
+          ],
+          "erklaerung": "Planen hilft, das eigene Geld klug einzusetzen."
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "typ": "exam",
+      "seemeilen": 150,
+      "titel": "Abschlussprüfung",
+      "ort": "Wunschbrunnen",
+      "lernziel": "Alles von der Wunschinsel wiederholen, dazu zwei Fragen von früheren Inseln",
+      "dauer": "8 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "talo",
+          "text": "Letzte Prüfung auf der Wunschinsel. Ab 8 richtigen Antworten steigt das Kartenstück aus dem Brunnen."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich wünsche mir … dass wir bestehen! Und das ist ein echter Wunsch, kein Glitzerkram."
+        }
+      ],
+      "abschluss": {
+        "wer": "tala",
+        "text": "Geschafft! Das Kartenstück ist unser. Auf zur nächsten Insel!"
+      },
+      "pruefung": {
+        "anzahl": 8,
+        "rueckblick": 2,
+        "bestehen": 8
+      },
+      "fragen": [
+        {
+          "frage": "Was ist ein Bedürfnis?",
+          "richtig": "Etwas, das man zum Leben braucht",
+          "falsch": [
+            "Etwas, das gerade alle haben",
+            "Etwas, das glitzert"
+          ],
+          "erklaerung": "Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse.",
+          "station": 1
+        },
+        {
+          "frage": "Was ist ein Wunsch und kein Bedürfnis?",
+          "richtig": "Eine neue Spielkonsole",
+          "falsch": [
+            "Trinkwasser",
+            "Eine warme Jacke im Winter"
+          ],
+          "erklaerung": "Eine Konsole macht Spaß, zum Leben braucht man sie nicht.",
+          "station": 1
+        },
+        {
+          "frage": "Warum ist es wichtig, Bedürfnisse und Wünsche zu unterscheiden?",
+          "richtig": "Damit zuerst das Wichtige bezahlt wird",
+          "falsch": [
+            "Damit man nie etwas Schönes kauft",
+            "Weil Wünsche verboten sind"
+          ],
+          "erklaerung": "Wünsche sind in Ordnung, Bedürfnisse kommen zuerst.",
+          "station": 1
+        },
+        {
+          "frage": "Ist ein Handy ein Bedürfnis oder ein Wunsch?",
+          "richtig": "Das kommt auf die Situation an.",
+          "falsch": [
+            "Immer ein Bedürfnis wie Wasser",
+            "Immer nur ein Wunsch"
+          ],
+          "erklaerung": "Manche Dinge liegen dazwischen.",
+          "station": 1
+        },
+        {
+          "frage": "Du hast 10 Taler und drei Wünsche für je 6 Taler. Was tust du?",
+          "richtig": "Den wichtigsten auswählen",
+          "falsch": [
+            "Alle drei kaufen",
+            "Gar nicht nachdenken"
+          ],
+          "erklaerung": "10 Taler reichen nur für einen.",
+          "station": 2
+        },
+        {
+          "frage": "Was heißt „Prioritäten setzen“?",
+          "richtig": "Entscheiden, was am wichtigsten ist",
+          "falsch": [
+            "Alles gleichzeitig machen",
+            "Immer das Billigste kaufen"
+          ],
+          "erklaerung": "Wer Prioritäten setzt, gibt sein Geld für das Wichtigste aus.",
+          "station": 2
+        },
+        {
+          "frage": "Wenn du dich für einen Wunsch entscheidest, …",
+          "richtig": "verzichtest du auf einen anderen.",
+          "falsch": [
+            "bekommst du alle anderen gratis.",
+            "ist das Geld danach noch da."
+          ],
+          "erklaerung": "Geld kann man nur einmal ausgeben.",
+          "station": 2
+        },
+        {
+          "frage": "Was besagt die Warte-Regel?",
+          "richtig": "Vor einem Kauf erst drüber schlafen",
+          "falsch": [
+            "Immer sofort kaufen",
+            "Nur nachts einkaufen"
+          ],
+          "erklaerung": "Mit etwas Abstand entscheidet man besser.",
+          "station": 3
+        },
+        {
+          "frage": "Warum hilft Warten vor einem Kauf?",
+          "richtig": "Man merkt, ob man es wirklich will.",
+          "falsch": [
+            "Die Sachen werden beim Warten billiger.",
+            "Man vergisst, wo der Laden ist."
+          ],
+          "erklaerung": "Viele Wünsche verschwinden nach ein paar Tagen von selbst.",
+          "station": 3
+        },
+        {
+          "frage": "Wie lange wartet man bei großen Wünschen?",
+          "richtig": "Länger, zum Beispiel eine Woche",
+          "falsch": [
+            "Gar nicht",
+            "Eine Minute"
+          ],
+          "erklaerung": "Je teurer, desto länger lohnt sich das Überlegen.",
+          "station": 3
+        },
+        {
+          "frage": "Alle in deiner Klasse haben eine bestimmte Trinkflasche. Welche Frage hilft dir?",
+          "richtig": "Brauche ich sie wirklich oder will ich nur dazugehören?",
+          "falsch": [
+            "Wie bekomme ich zwei davon?",
+            "Wer hat die teuerste?"
+          ],
+          "erklaerung": "Diese Frage hilft gegen Gruppendruck.",
+          "station": 4
+        },
+        {
+          "frage": "Was ist Gruppendruck?",
+          "richtig": "Wenn man etwas tut, weil andere es erwarten",
+          "falsch": [
+            "Wenn eine Gruppe ein Foto macht",
+            "Druck im Ohr beim Tauchen"
+          ],
+          "erklaerung": "Gruppendruck kann zu Käufen führen, die man gar nicht will.",
+          "station": 4
+        },
+        {
+          "frage": "Wie kannst du auf Gruppendruck reagieren?",
+          "richtig": "Ruhig sagen, dass du es nicht brauchst",
+          "falsch": [
+            "Sofort alles nachkaufen",
+            "Die anderen auslachen"
+          ],
+          "erklaerung": "Freundlich Nein sagen ist stark.",
+          "station": 4
+        },
+        {
+          "frage": "Was stimmt über Geld und Glück?",
+          "richtig": "Geld kann Sorgen nehmen, aber Freunde und Zeit machen auch glücklich.",
+          "falsch": [
+            "Wer am meisten Geld hat, ist immer am glücklichsten.",
+            "Geld macht immer unglücklich."
+          ],
+          "erklaerung": "Glück hat viele Quellen.",
+          "station": 5
+        },
+        {
+          "frage": "Warum hält die Freude über ein neues Spielzeug oft nicht lange?",
+          "richtig": "Weil man sich schnell daran gewöhnt",
+          "falsch": [
+            "Weil Spielzeug verboten ist",
+            "Weil es nachts verschwindet"
+          ],
+          "erklaerung": "Neues wird schnell normal.",
+          "station": 5
+        },
+        {
+          "frage": "Was macht Moritz glücklich, obwohl er wenig besitzt?",
+          "richtig": "Seine Freunde und die Zeit mit ihnen",
+          "falsch": [
+            "Ein riesiger Goldschatz",
+            "Ein teures Handy"
+          ],
+          "erklaerung": "Moritz zeigt, dass Glück nicht vom Besitz abhängt.",
+          "station": 5
+        },
+        {
+          "frage": "Was bleibt oft länger in Erinnerung?",
+          "richtig": "Ein gemeinsamer Ausflug",
+          "falsch": [
+            "Ein neues Paar Socken",
+            "Ein Kassenbon"
+          ],
+          "erklaerung": "Erlebnisse teilt man und erinnert sich gern daran.",
+          "station": 6
+        },
+        {
+          "frage": "Warum können Erlebnisse mehr wert sein als Dinge?",
+          "richtig": "Man erinnert sich gern daran und teilt sie mit anderen.",
+          "falsch": [
+            "Weil Erlebnisse immer gratis sind",
+            "Weil Dinge immer kaputtgehen"
+          ],
+          "erklaerung": "Erinnerungen bleiben, auch wenn Dinge alt werden.",
+          "station": 6
+        },
+        {
+          "frage": "Was gehört auf eine gute Wunschliste?",
+          "richtig": "Wünsche mit Preis, sortiert nach Wichtigkeit",
+          "falsch": [
+            "Alles, was in der Werbung kommt",
+            "Nur Sachen von Freunden"
+          ],
+          "erklaerung": "So sieht man, was man sich leisten kann.",
+          "station": 7
+        },
+        {
+          "frage": "Du wünschst dir ein Fahrrad für 120 Taler. Was ist der erste kluge Schritt?",
+          "richtig": "Einen Wunschschatz anlegen und einen Sparplan überlegen",
+          "falsch": [
+            "Es sofort kaufen, ohne Geld zu haben",
+            "Den Wunsch vergessen"
+          ],
+          "erklaerung": "Mit einem Plan wird aus einem Wunsch ein Ziel.",
+          "station": 7
+        }
+      ]
+    }
+  ]
+}

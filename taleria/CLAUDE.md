@@ -124,9 +124,9 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `child_devices` – `user_id` (anonyme Sitzung des Kinder-Geräts), `child_id`
 
 **Inhalte**
-- `islands` – `slug`, `stage`, `island_group`, `sort_order`, `map_x`, `map_y`, `route_type` (main, side, event), `expedition_id` (optional), `title` (Name direkt in der Datenbank), `intro_video_url`, `is_published`
+- `islands` – `slug`, `stage`, `island_group`, `sort_order`, `map_x`, `map_y`, `route_type` (main, side, event), `expedition_id` (optional), `title` (Name direkt in der Datenbank), `content` (Lernziel, Ankunftsszene, Orden, Auftrag, Zugang), `intro_video_url`, `is_published`
 - `stations` – `island_id`, `sort_order`, `type` (video, quiz, game, practice, review_stop, exam), `is_required`, `added_in_version`, `xp_reward`, `content` (jsonb), `is_published`
-- `quiz_questions` – `station_id`, `question`, `answers` (jsonb), `correct_index`, `explanation`
+- `quiz_questions` – `station_id`, `question`, `answers` (jsonb), `correct_index`, `explanation`, `covers_station` (bei Prüfungsfragen: zu welcher Station)
 - `expeditions` – `title`, `starts_at`, `ends_at`
 - `conversation_prompts` – `island_id`, `text`
 
@@ -390,3 +390,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Abschlussprüfung:** `content.exam.show` Fragen der Insel plus `content.exam.review` Rückblick-Fragen aus Prüfungen früherer Inseln (ab Insel 2), bestanden ab `content.exam.pass`. Für Stufe 1: 8 + 2 = 10 Fragen, bestanden ab 8 (CLAUDE.md Abschnitt 8: „2 der 10 Prüfungsfragen von früheren Inseln“).
 - **Freischalten:** Erste Insel der Hauptroute offen, jede weitere nach Abschluss der vorherigen. Pflichtstationen der Reihe nach, Bonus-Stationen sobald die Insel offen ist. Die Intro-Station (`content.kind = onboarding`) gilt als erledigt, sobald das Intro abgeschlossen ist.
 - **Insel-Abschluss:** Sobald alle sichtbaren Pflichtstationen erledigt sind, schreibt der Server `island_completions`. Der Eintrag lässt sich nicht mehr ändern.
+
+**Schritt 4c (Inhalte als Seed-Daten), umgesetzt am 09.10.2026:**
+- Quelle der Inhalte sind Dateien in `content/stufe1/` (eine pro Insel, deutsche Feldnamen, für Marc lesbar). `dart run tool/build_seed.dart` prüft sie und erzeugt `supabase/seed.sql`. Ein Test schlägt fehl, wenn die Seed-Datei nicht zur Inhaltsdatei passt.
+- Automatisch geprüft: genau 3 Antworten pro Frage mit Erklärung, Pool mindestens doppelt so groß wie die gezeigten Fragen, mindestens 6 Fragen pro Stations-Check, jede Prüfung deckt alle Stationen ab, Rückblick erst ab Insel 2, nur bekannte Figuren und Filme aus dem Asset-Manifest.
+- Hafen, Tauschinsel und Wunschinsel sind komplett: Szenen, Erklärungen und Abschlüsse von Talo, Tala und den Inselbewohnern, 6 Fragen pro Stations-Check (Entwürfe von Claude) und die Prüfungsfragen aus INSELN.md. Inseln 4 bis 15 haben nur Name, Position und Gruppe (Nebel).
+- Widerspruch in INSELN.md aufgelöst: „Pool mindestens doppelt so groß“ und „Quiz-Station 5 aus mindestens 8“ passen nicht zusammen. Der Quiz-Pool von Hafen Station 2 hat deshalb 10 Fragen (2 neue Entwürfe).
+- Stationen, deren Mini-Spiel erst in Schritt 7 kommt, sind trotzdem spielbar: Szene, Erklärung, Platzhalter für das Spiel, Stations-Check.
+- Ankerplätze (Tauchgänge) werden in Schritt 7 als Pflichtstationen ergänzt. Das ist erlaubt, weil die Inseln bis dahin Entwürfe sind.
+- Alle Inhalte haben `status = draft`. Die Seed-Datei schaltet in der Testumgebung die Inhalts-Vorschau ein. **Die Seed-Datei nie in die Live-Datenbank einspielen.**

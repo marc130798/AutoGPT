@@ -1,0 +1,14 @@
+{
+  "slug": "leih-lagune",
+  "titel": "Leih-Lagune",
+  "reihenfolge": 11,
+  "gruppe": 3,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.28,
+    "y": 0.31
+  },
+  "lernziel": "Leihen und Schulden",
+  "nebel": true,
+  "stationen": []
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "taschengeld-bucht",
+  "titel": "Taschengeld-Bucht",
+  "reihenfolge": 5,
+  "gruppe": 2,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.28,
+    "y": 0.7
+  },
+  "lernziel": "Taschengeld einteilen",
+  "nebel": true,
+  "stationen": []
+}

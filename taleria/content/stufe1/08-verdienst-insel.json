@@ -1,0 +1,14 @@
+{
+  "slug": "verdienst-insel",
+  "titel": "Verdienst-Insel",
+  "reihenfolge": 8,
+  "gruppe": 2,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.28,
+    "y": 0.505
+  },
+  "lernziel": "Geld verdienen",
+  "nebel": true,
+  "stationen": []
+}

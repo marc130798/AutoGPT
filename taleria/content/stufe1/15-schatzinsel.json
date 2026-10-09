@@ -1,0 +1,14 @@
+{
+  "slug": "schatzinsel",
+  "titel": "Schatzinsel",
+  "reihenfolge": 15,
+  "gruppe": 4,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.72,
+    "y": 0.05
+  },
+  "lernziel": "Abschluss und Goldene Schatzkarte",
+  "nebel": true,
+  "stationen": []
+}

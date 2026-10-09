@@ -1,0 +1,14 @@
+{
+  "slug": "sicherheits-festung",
+  "titel": "Sicherheits-Festung",
+  "reihenfolge": 12,
+  "gruppe": 3,
+  "zugang": "premium",
+  "karte": {
+    "x": 0.72,
+    "y": 0.245
+  },
+  "lernziel": "Sicher mit Geld",
+  "nebel": true,
+  "stationen": []
+}

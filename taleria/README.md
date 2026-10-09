@@ -51,6 +51,8 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 | `assets/` | Grafiken, Animationen, Ton und das Asset-Manifest |
 | `supabase/migrations/` | Aufbau der Datenbank, Schritt für Schritt |
 | `supabase/sql_tests/` | Tests für die Regeln in der Datenbank |
+| `content/stufe1/` | Inhalte der Inseln (Stationen, Szenen, Fragen), Quelle für `supabase/seed.sql` |
+| `tool/` | Werkzeuge: Datenbank-Tests, Seed-Datei erzeugen |
 | `env/` | Vorlagen für die Zugangsdaten (`*.example.json`) |
 | `test/` | Tests der App |
 
@@ -110,6 +112,19 @@ npx supabase db push
 ```
 
 Für Live später genauso, aber erst, wenn alles in Test geprüft ist.
+
+### 6. Inhalte in die Testdatenbank laden (nur Test, nie Live)
+
+Die Inhalte der Inseln stehen in `content/stufe1/` (eine Datei pro Insel). Daraus entsteht
+`supabase/seed.sql`. Nach einer Änderung an den Inhalten:
+
+```bash
+dart run tool/build_seed.dart
+```
+
+In die Testdatenbank laden: im Supabase-Dashboard des **Testprojekts** den *SQL Editor* öffnen,
+den Inhalt von `supabase/seed.sql` einfügen und ausführen. Die Datei schaltet auch die
+Inhalts-Vorschau ein, damit Kinder in der Testumgebung die Entwürfe sehen.
 
 ## App starten
 

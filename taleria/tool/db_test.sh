@@ -49,4 +49,14 @@ done
 # set -o pipefail sorgt dafür, dass ein Fehler in psql das Skript abbricht.
 cat "$ROOT/supabase/sql_tests/05_test_helpers.sql" "$ROOT"/supabase/sql_tests/[1-9]*_test.sql \
   | "${PSQL[@]}" 2>&1 | sed -n -e "s/^NOTICE:  //p" -e "/ERROR/p"
+
+# Seed-Daten in einer frischen Datenbank prüfen.
+echo "Seed-Daten:"
+run "$PG_BIN/createdb" -h "$WORK" -p "$PORT" -U postgres seedcheck
+SEED_PSQL=(run "$PG_BIN/psql" -h "$WORK" -p "$PORT" -U postgres -d seedcheck -v ON_ERROR_STOP=1 -q -t -A)
+cat "$ROOT/supabase/sql_tests/00_supabase_stub.sql" "$ROOT"/supabase/migrations/*.sql "$ROOT/supabase/seed.sql" \
+  | "${SEED_PSQL[@]}" 2>&1 | sed -e "/already exists, skipping/d"
+cat "$ROOT/supabase/sql_tests/05_test_helpers.sql" "$ROOT/supabase/sql_tests/seed/seed_check.sql" \
+  | "${SEED_PSQL[@]}" 2>&1 | sed -n -e "s/^NOTICE:  //p" -e "/ERROR/p"
+
 echo "Alle Datenbank-Tests bestanden."
