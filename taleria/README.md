@@ -3,7 +3,16 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 5 gibt
+## Was es nach Schritt 6 gibt
+
+- Startseite des Kindes: Rang, Seemeilen, Weg zum nächsten Rang, Fahrtwind (Wochen in Folge)
+- „Meine Orden“: ein Orden pro Insel, mit Schatzkarten-Effekt beim Insel-Abschluss
+- Tempo: 2 neue Stationen pro Woche (Montag und Donnerstag), erzählt als Wind, nie als Countdown
+- Wiederholung: Jede Antwort kommt in einen Wiederholungsplan (1 Tag, 1 Woche, 1 Monat)
+- Begegnung auf See: Meister Taleron taucht auf der Karte auf und stellt 3 Rätsel
+- Leuchtturm: Tempo einstellen (2, 3, 4 oder Frei) und die Serie pausieren
+
+## Was es seit Schritt 5 gibt
 
 - Kinderbereich: „Schatztruhe“ mit Bordkasse, Schatztruhe und Glückstruhe, Umbuchen,
   Ausgaben und Geschenke eintragen, Wunschschätze sparen und einlösen, Kassenbuch
@@ -160,6 +169,28 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 6, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`) und die Inhalte neu laden
+(Abschnitt 6 oben: `supabase/seed.sql` im SQL Editor des Testprojekts ausführen), damit es
+Orden und Meister Taleron gibt.
+
+1. Kinderbereich: Oben steht der Rang „Schiffsjunge“ mit Seemeilen und „Noch … Seemeilen bis Matrose“.
+2. „Meine Orden“: drei Orden, alle noch blass mit „Noch nicht gefunden“.
+3. „Zur Karte“, Hafen, Station 2 und 3 spielen. Danach steht oben „Das Schiff braucht Wind.
+   Die nächste Station erreichst du am …“, und Station 4 zeigt „Wartet auf Wind“.
+   Fertige Stationen kannst du trotzdem wiederholen.
+4. Eltern-Gerät: Leuchtturm, Kind antippen, Karte „Tempo und Serie“: „Frei“ wählen.
+   Zurück im Kinderbereich ist Station 4 offen.
+5. Meister Taleron erscheint, sobald Wiederholungen fällig sind (am nächsten Tag). Zum Ausprobieren
+   sofort, nur im Testprojekt, im SQL Editor:
+   `update public.question_reviews set due_at = now();`
+   Dann die Karte neu öffnen: Taleron taucht neben dem Schiff auf. Antippen, Vorstellung ansehen,
+   ein Rätsel absichtlich falsch beantworten: Er erklärt es, „Nochmal versuchen“.
+6. Hafen-Prüfung bestehen: Das Kartenstück leuchtet auf, der Orden „Erster Landgang“ erscheint.
+   Nach der Tauschinsel wirst du Matrose.
+7. Eltern-Gerät: „Serie pausieren“ einschalten. Im Kinderbereich steht „Fahrtwind macht gerade Pause“.
 
 ## Was du ausprobieren kannst (Schritt 5, mit Test-Server)
 

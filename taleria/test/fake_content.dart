@@ -4,6 +4,7 @@ import 'package:taleria/data/content_repository.dart';
 import 'package:taleria/domain/content_models.dart';
 import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/domain/progress_logic.dart';
+import 'package:taleria/domain/progress_models.dart';
 
 import '../tool/content/content_model.dart' as files;
 import 'fakes.dart';
@@ -13,8 +14,31 @@ import 'fakes.dart';
 class FakeContent implements ContentRepository {
   FakeContent() {
     final islands = files.loadIslands(Directory('content/stufe1'));
+    for (final e in files.parseEncounters('begegnungen.json', File('content/begegnungen.json').readAsStringSync())) {
+      encounters.add(
+        Encounter.fromJson({
+          'id': 'encounter-${e.slug}',
+          'slug': e.slug,
+          'type': e.type,
+          'title': e.title,
+          'asset_key': e.assetKey,
+          'question_count': e.questionCount,
+          'xp_reward': e.xp,
+          'content': e.toDbContent(),
+        }),
+      );
+    }
     for (final island in islands) {
       final id = 'island-${island.slug}';
+      if (island.badge != null) {
+        badges[id] = BadgeInfo(
+          id: 'badge-${island.slug}',
+          slug: island.slug,
+          title: island.badge!,
+          assetKey: 'badge.${island.slug}',
+          sortOrder: island.order,
+        );
+      }
       mapIslands.add(
         MapIsland(
           id: id,
@@ -68,6 +92,12 @@ class FakeContent implements ContentRepository {
   final Map<String, List<StationInfo>> stations = {};
   final Map<String, List<QuizQuestion>> questions = {};
 
+  /// Orden je Insel-ID.
+  final Map<String, BadgeInfo> badges = {};
+  final List<Encounter> encounters = [];
+
+  List<QuizQuestion> get allQuestions => questions.values.expand((q) => q).toList();
+
   /// Richtige Antwort zu einem Fragetext (für Tests, die richtig antworten).
   String rightAnswerFor(String questionText) =>
       questions.values.expand((q) => q).firstWhere((q) => q.question == questionText).answers.first;
@@ -87,13 +117,21 @@ class FakeContent implements ContentRepository {
   Future<List<QuizQuestion>> fetchQuestions(String stationId) async => questions[stationId] ?? const [];
 
   @override
+  Future<List<QuizQuestion>> fetchQuestionsByIds(List<String> ids) async {
+    final all = {for (final q in allQuestions) q.id: q};
+    return [for (final id in ids) ?all[id]];
+  }
+
+  @override
   Future<List<QuizQuestion>> fetchReviewPool({required int stage, required int beforeSortOrder}) async => [
     for (final island in mapIslands.where((i) => i.sortOrder < beforeSortOrder))
       for (final s in stations[island.id]!.where((s) => s.isExam)) ...questions[s.id]!,
   ];
 }
 
-/// Fortschritt wie submit_station() in der Datenbank, vereinfacht.
+/// Fortschritt wie submit_station(), child_stats() und submit_encounter() in
+/// der Datenbank, vereinfacht. Standard ist freie Fahrt, damit Tests viele
+/// Stationen am Stück spielen können.
 class FakeProgress implements ProgressRepository {
   FakeProgress(this.content, {this.backend});
 
@@ -101,13 +139,48 @@ class FakeProgress implements ProgressRepository {
   final FakeBackend? backend;
   final Set<String> done = {};
   final Set<String> completedIslands = {};
+  final Map<String, DateTime> badgeDates = {};
   final Map<String, int> xp = {};
+
+  /// Seemeilen aus dem Intro und anderen Quellen.
+  int extraXp = 50;
   FailureKind? failWith;
   int submissions = 0;
 
+  /// Tempo: `null` = freie Fahrt.
+  int? stationsPerWeek;
+  int wind = 2;
+  DateTime? nextRelease;
+
+  /// Fragen, die das Kind schon kennt, und welche davon fällig sind.
+  final Set<String> seen = {};
+  final Set<String> due = {};
+  final List<List<({String questionId, int answerIndex})>> recordedAnswers = [];
+  int encounterRuns = 0;
+  bool reviewXpToday = false;
+  int streakWeeks = 0;
+  bool streakPaused = false;
+
+  int get totalXp => extraXp + xp.values.fold(0, (a, b) => a + b);
+
+  static const _rankXp = {Rank.schiffsjunge: 1, Rank.matrose: 1500, Rank.bootsmann: 4000, Rank.steuermann: 8000};
+
+  Rank? get rank {
+    if (completedIslands.contains('island-schatzinsel')) return Rank.kapitaen;
+    Rank? best;
+    for (final e in _rankXp.entries) {
+      if (totalXp >= e.value) best = e.key;
+    }
+    return best;
+  }
+
+  void _check() {
+    if (failWith != null) throw AppFailure(failWith!);
+  }
+
   @override
   Future<ChildProgress> fetchProgress(String childId) async {
-    if (failWith != null) throw AppFailure(failWith!);
+    _check();
     return ChildProgress(doneStationIds: {...done}, completedIslandIds: {...completedIslands});
   }
 
@@ -117,37 +190,161 @@ class FakeProgress implements ProgressRepository {
     required String stationId,
     required List<({String questionId, int answerIndex})> answers,
   }) async {
-    if (failWith != null) throw AppFailure(failWith!);
+    _check();
     submissions++;
     final islandId = stationId.split('/').first;
     final stations = content.stations[islandId]!;
     final station = stations.firstWhere((s) => s.id == stationId);
     final state = stationStates(stations, ChildProgress(doneStationIds: done), onboardingCompleted: true)[stationId];
     if (state == StationState.locked) throw const AppFailure(FailureKind.notAllowed, 'gesperrt');
+    final first = !done.contains(stationId);
+    if (first && station.isRequired && stationsPerWeek != null && wind <= 0) {
+      throw const AppFailure(FailureKind.noWind, 'Das Schiff braucht Wind');
+    }
 
-    final all = content.questions.values.expand((q) => q).toList();
+    final all = content.allQuestions;
     final correct = answers
         .where((a) => all.firstWhere((q) => q.id == a.questionId).correctIndex == a.answerIndex)
         .length;
+    seen.addAll(answers.map((a) => a.questionId));
+    final rankBefore = rank;
     final passed = !station.isExam || correct >= station.content.exam!.pass;
     var xpAwarded = 0;
     var islandCompleted = false;
     if (passed) {
+      if (first && stationsPerWeek != null) wind--;
       done.add(stationId);
       if (!xp.containsKey(stationId)) {
         xp[stationId] = station.xpReward;
         xpAwarded = station.xpReward;
       }
       final allDone = stations.every((s) => s.content.isOnboarding || done.contains(s.id));
-      if (allDone && completedIslands.add(islandId)) islandCompleted = true;
+      if (allDone && completedIslands.add(islandId)) {
+        islandCompleted = true;
+        badgeDates[islandId] = DateTime(2026, 10, 9);
+      }
     }
+    if (streakWeeks == 0) streakWeeks = 1;
+    final rankAfter = rank;
     return StationResult(
       correct: correct,
       total: answers.length,
       passed: passed,
       xpAwarded: xpAwarded,
       islandCompleted: islandCompleted,
+      rankUp: rankAfter != rankBefore ? rankAfter : null,
+      badge: islandCompleted ? content.badges[islandId] : null,
+      windLeft: stationsPerWeek == null ? null : wind,
     );
+  }
+
+  @override
+  Future<ChildStats> fetchStats(String childId) async {
+    _check();
+    final current = rank;
+    final next = current == null
+        ? Rank.schiffsjunge
+        : (current.index + 1 < Rank.values.length ? Rank.values[current.index + 1] : null);
+    return ChildStats(
+      xp: totalXp,
+      rank: current,
+      rankMinXp: current == null ? null : (_rankXp[current] ?? 0),
+      nextRank: next,
+      nextRankXp: next == null ? null : _rankXp[next],
+      nextRankNeedsCertificate: next == Rank.kapitaen,
+      streakWeeks: streakWeeks,
+      streakPaused: streakPaused,
+      badgeCount: badgeDates.length,
+      reviewsDue: due.length,
+      pace: stationsPerWeek == null
+          ? PaceStatus.freeSailing
+          : PaceStatus(
+              free: false,
+              stationsPerWeek: stationsPerWeek,
+              wind: wind,
+              nextRelease: wind == 0 ? nextRelease : null,
+            ),
+    );
+  }
+
+  @override
+  Future<List<BadgeInfo>> fetchBadges(String childId) async {
+    _check();
+    return [
+      for (final e in content.badges.entries)
+        if (badgeDates[e.key] case final date?) e.value.earnedOn(date) else e.value,
+    ];
+  }
+
+  @override
+  Future<void> recordAnswers({
+    required String childId,
+    required List<({String questionId, int answerIndex})> answers,
+  }) async {
+    _check();
+    recordedAnswers.add(answers);
+    seen.addAll(answers.map((a) => a.questionId));
+  }
+
+  @override
+  Future<EncounterOffer?> nextEncounter(String childId) async {
+    _check();
+    if (due.isEmpty || content.encounters.isEmpty) return null;
+    final encounter = content.encounters.first;
+    final ids = [...due, ...seen.where((id) => !due.contains(id))].take(encounter.questionCount).toList();
+    if (ids.length < encounter.questionCount) return null;
+    return EncounterOffer(
+      encounter: encounter,
+      questionIds: ids,
+      firstMeeting: encounterRuns == 0,
+      dueCount: due.length,
+    );
+  }
+
+  @override
+  Future<EncounterResult> submitEncounter({
+    required String childId,
+    required String encounterId,
+    required List<({String questionId, int answerIndex})> answers,
+  }) async {
+    _check();
+    final encounter = content.encounters.firstWhere((e) => e.id == encounterId);
+    final all = content.allQuestions;
+    final correct = answers
+        .where((a) => all.firstWhere((q) => q.id == a.questionId).correctIndex == a.answerIndex)
+        .length;
+    final rankBefore = rank;
+    var xpAwarded = 0;
+    if (!reviewXpToday) {
+      reviewXpToday = true;
+      xpAwarded = encounter.xpReward;
+      extraXp += xpAwarded;
+    }
+    encounterRuns++;
+    due.removeAll(answers.map((a) => a.questionId));
+    if (streakWeeks == 0) streakWeeks = 1;
+    final rankAfter = rank;
+    return EncounterResult(
+      correct: correct,
+      total: answers.length,
+      xpAwarded: xpAwarded,
+      rankUp: rankAfter != rankBefore ? rankAfter : null,
+      streakWeeks: streakWeeks,
+    );
+  }
+
+  @override
+  Future<void> setPace(String childId, int? stationsPerWeek) async {
+    _check();
+    if (stationsPerWeek != null && ![2, 3, 4].contains(stationsPerWeek)) throw const AppFailure(FailureKind.unknown);
+    if (this.stationsPerWeek == null && stationsPerWeek != null) wind = stationsPerWeek;
+    this.stationsPerWeek = stationsPerWeek;
+  }
+
+  @override
+  Future<void> setStreakPause(String childId, {required bool paused}) async {
+    _check();
+    streakPaused = paused;
   }
 
   /// Markiert alle Stationen einer Insel bis auf die letzten [except] als erledigt.
@@ -156,5 +353,12 @@ class FakeProgress implements ProgressRepository {
     for (final s in stations.take(stations.length - except)) {
       done.add(s.id);
     }
+  }
+
+  /// Macht Fragen einer Station bekannt und fällig (Wiederholung steht an).
+  void makeDue(String slug, int station, {int count = 3}) {
+    final ids = content.questions['island-$slug/station$station']!.take(count).map((q) => q.id);
+    seen.addAll(ids);
+    due.addAll(ids);
   }
 }

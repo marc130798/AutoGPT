@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -136,10 +137,21 @@ class StationController extends ChangeNotifier {
   void nextWarmUp() {
     final run = _warmUp!;
     if (run.isLast) {
+      unawaited(_recordWarmUp(run));
       next();
     } else {
       run.next();
       notifyListeners();
+    }
+  }
+
+  /// „Weißt du noch?“ fließt in den Wiederholungsplan, ohne Wertung.
+  Future<void> _recordWarmUp(QuizRun run) async {
+    if (!run.answered) return;
+    try {
+      await _progress.recordAnswers(childId: child.id, answers: run.submission);
+    } on AppFailure {
+      // Nur für den Wiederholungsplan: Ein Fehler hier stört das Kind nicht.
     }
   }
 

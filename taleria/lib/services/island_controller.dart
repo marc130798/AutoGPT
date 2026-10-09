@@ -5,6 +5,7 @@ import '../data/local_settings.dart';
 import '../domain/content_models.dart';
 import '../domain/family_models.dart';
 import '../domain/progress_logic.dart';
+import '../domain/progress_models.dart';
 
 /// Eine offene Insel: Stationen in der richtigen Reihenfolge und ihr Zustand.
 class IslandController extends ChangeNotifier {
@@ -25,6 +26,7 @@ class IslandController extends ChangeNotifier {
   IslandDetails? _details;
   List<StationInfo> _stations = const [];
   Map<String, StationState> _states = const {};
+  PaceStatus _pace = PaceStatus.freeSailing;
   bool _loading = true;
   bool _arrivalPending = false;
   FailureKind? _failure;
@@ -33,6 +35,9 @@ class IslandController extends ChangeNotifier {
   List<StationInfo> get stations => _stations;
   bool get loading => _loading;
   FailureKind? get failure => _failure;
+
+  /// Tempo: Wind für neue Stationen und der nächste Freigabetag.
+  PaceStatus get pace => _pace;
 
   /// Die Ankunft (Film und Szene) wurde auf diesem Gerät noch nicht gezeigt.
   bool get arrivalPending => _arrivalPending;
@@ -47,15 +52,30 @@ class IslandController extends ChangeNotifier {
       final details = await _content.fetchIsland(island.id);
       final stations = await _content.fetchStations(island.id);
       final progress = await _progress.fetchProgress(child.id);
+      _pace = await _loadPace();
       _details = details;
       _stations = stations;
-      _states = stationStates(stations, progress, onboardingCompleted: child.onboardingCompleted);
+      _states = stationStates(
+        stations,
+        progress,
+        onboardingCompleted: child.onboardingCompleted,
+        hasWind: _pace.hasWind,
+      );
       _arrivalPending = details.hasArrival && !await _settings.arrivalSeen(child.id, island.id);
     } on AppFailure catch (e) {
       _failure = e.kind;
     }
     _loading = false;
     notifyListeners();
+  }
+
+  /// Ohne Statistik zeigt die App die Station offen; der Server prüft den Wind trotzdem.
+  Future<PaceStatus> _loadPace() async {
+    try {
+      return (await _progress.fetchStats(child.id)).pace;
+    } on AppFailure {
+      return PaceStatus.freeSailing;
+    }
   }
 
   Future<void> arrivalShown() async {

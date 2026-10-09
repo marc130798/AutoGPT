@@ -6,11 +6,15 @@ import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../domain/avatar.dart';
+import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/child_stats_controller.dart';
 import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
 import '../map/island_map_screen.dart';
+import '../progress/badges_screen.dart';
+import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
 import 'lighthouse_button.dart';
@@ -60,13 +64,8 @@ class ChildHomeScreen extends StatelessWidget {
                     style: theme.textTheme.titleMedium,
                   ),
                 ],
-                const SizedBox(height: 32),
-                FilledButton(
-                  onPressed: () =>
-                      Navigator.of(context)
-                          .push(MaterialPageRoute<void>(builder: (_) => IslandMapScreen(child: child))),
-                  child: Text(l10n.childHomeMapButton),
-                ),
+                const SizedBox(height: 24),
+                _ProgressSection(state: state),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   icon: const Icon(Icons.inventory_2_outlined),
@@ -155,6 +154,73 @@ class _TasksButtonState extends State<_TasksButton> {
             ),
           ),
       ],
+    );
+  }
+}
+
+/// Rang, Seemeilen und Fahrtwind, dazu der Weg zur Karte und zu den Orden.
+/// Lädt neu, wenn das Kind von der Karte oder den Orden zurückkommt.
+class _ProgressSection extends StatefulWidget {
+  const _ProgressSection({required this.state});
+
+  final SessionChild state;
+
+  @override
+  State<_ProgressSection> createState() => _ProgressSectionState();
+}
+
+class _ProgressSectionState extends State<_ProgressSection> {
+  ChildStatsController? _controller;
+
+  ChildProfile get _child => widget.state.child;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final progress = AppScope.of(context).progress;
+    if (_controller == null && progress != null) {
+      _controller = ChildStatsController(progress: progress, childId: _child.id)..load();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  Future<void> _open(Widget screen) async {
+    await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => screen));
+    if (mounted) await _controller?.load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final controller = _controller;
+    return ListenableBuilder(
+      listenable: controller ?? const AlwaysStoppedAnimation(0),
+      builder: (context, _) {
+        final stats = controller?.stats;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (stats != null) ...[StatsCard(stats: stats), const SizedBox(height: 16)],
+            FilledButton(
+              onPressed: () => _open(IslandMapScreen(child: _child)),
+              child: Text(l10n.childHomeMapButton),
+            ),
+            if (stats != null) ...[
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.military_tech_outlined),
+                onPressed: () => _open(BadgesScreen(childId: _child.id)),
+                label: Text(l10n.badgesButton(stats.badgeCount)),
+              ),
+            ],
+          ],
+        );
+      },
     );
   }
 }

@@ -17,6 +17,14 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// Scrollt, bis [finder] gebaut ist (lange Listen bauen nur, was zu sehen ist).
+  Future<void> scrollTo(WidgetTester tester, Finder finder) async {
+    if (finder.evaluate().isEmpty) {
+      await tester.dragUntilVisible(finder, find.byType(Scrollable).first, const Offset(0, -200));
+      await tester.pumpAndSettle();
+    }
+  }
+
   Future<void> tapKey(WidgetTester tester, String key) async {
     final finder = find.byKey(ValueKey(key));
     if (finder.evaluate().isEmpty) {
@@ -119,6 +127,7 @@ void main() {
     await answerAllCorrectly(tester, content);
 
     expect(find.text('Prüfung bestanden!'), findsOneWidget);
+    await scrollTo(tester, find.text('Neuer Orden: Erster Landgang'));
     expect(find.text('Kartenstück gefunden!'), findsOneWidget);
     expect(find.text('Neuer Orden: Erster Landgang'), findsOneWidget);
     await tapText(tester, 'Zur Karte');

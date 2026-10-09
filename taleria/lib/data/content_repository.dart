@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import '../domain/content_models.dart';
+import '../domain/progress_models.dart';
 import 'backend_errors.dart';
 
 /// Inseln, Stationen und Fragen aus der Datenbank. Was ein Kind sehen darf,
@@ -16,11 +17,39 @@ abstract interface class ContentRepository {
 
   /// Prüfungsfragen früherer Inseln derselben Stufe (Rückblick).
   Future<List<QuizQuestion>> fetchReviewPool({required int stage, required int beforeSortOrder});
+
+  /// Bestimmte Fragen (für Begegnungen auf See), in der Reihenfolge von [ids].
+  Future<List<QuizQuestion>> fetchQuestionsByIds(List<String> ids);
 }
 
-/// Fortschritt eines Kindes lesen und Stationen abgeben.
+/// Fortschritt eines Kindes: Stationen abgeben, Seemeilen, Rang, Orden,
+/// Wind, Wiederholungen und Begegnungen. Berechnet wird auf dem Server.
 abstract interface class ProgressRepository {
   Future<ChildProgress> fetchProgress(String childId);
+
+  Future<ChildStats> fetchStats(String childId);
+
+  /// Alle sichtbaren Orden, verdiente mit Datum.
+  Future<List<BadgeInfo>> fetchBadges(String childId);
+
+  /// „Weißt du noch?“: Antworten nur für den Wiederholungsplan.
+  Future<void> recordAnswers({required String childId, required List<({String questionId, int answerIndex})> answers});
+
+  /// Begegnung, wenn Wiederholungen fällig sind, sonst `null`.
+  Future<EncounterOffer?> nextEncounter(String childId);
+
+  /// [answers]: die erste Antwort je Frage.
+  Future<EncounterResult> submitEncounter({
+    required String childId,
+    required String encounterId,
+    required List<({String questionId, int answerIndex})> answers,
+  });
+
+  /// Eltern: 2, 3 oder 4 Stationen pro Woche, `null` = freie Fahrt.
+  Future<void> setPace(String childId, int? stationsPerWeek);
+
+  /// Eltern: Fahrtwind pausieren oder fortsetzen.
+  Future<void> setStreakPause(String childId, {required bool paused});
 
   /// [answers]: Frage und gewählte Antwort als Stelle in der gespeicherten
   /// Antwortliste (vor dem Mischen). Der Server zählt selbst nach.
@@ -102,6 +131,14 @@ class SupabaseContentRepository implements ContentRepository {
         return rows.map(_question).toList();
       });
 
+  @override
+  Future<List<QuizQuestion>> fetchQuestionsByIds(List<String> ids) => guardBackend(() async {
+    if (ids.isEmpty) return const <QuizQuestion>[];
+    final rows = await _client.from('quiz_questions').select(_questionColumns).inFilter('id', ids);
+    final byId = {for (final r in rows) r['id'] as String: _question(r)};
+    return [for (final id in ids) ?byId[id]];
+  });
+
   static QuizQuestion _question(Map<String, dynamic> r) => QuizQuestion(
     id: r['id'] as String,
     stationId: r['station_id'] as String,
@@ -140,14 +177,65 @@ class SupabaseProgressRepository implements ProgressRepository {
   }) => guardBackend(() async {
     final result = await _client.rpc<Map<String, dynamic>>(
       'submit_station',
-      params: {
-        'p_child_id': childId,
-        'p_station_id': stationId,
-        'p_answers': [
-          for (final a in answers) {'question_id': a.questionId, 'answer_index': a.answerIndex},
-        ],
-      },
+      params: {'p_child_id': childId, 'p_station_id': stationId, 'p_answers': _answers(answers)},
     );
     return StationResult.fromJson(result);
   });
+
+  static List<Map<String, Object>> _answers(List<({String questionId, int answerIndex})> answers) => [
+    for (final a in answers) {'question_id': a.questionId, 'answer_index': a.answerIndex},
+  ];
+
+  @override
+  Future<ChildStats> fetchStats(String childId) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>>('child_stats', params: {'p_child_id': childId});
+    return ChildStats.fromJson(result);
+  });
+
+  @override
+  Future<List<BadgeInfo>> fetchBadges(String childId) => guardBackend(() async {
+    final badges = await _client.from('badges').select('id, slug, title, asset_key, sort_order').order('sort_order');
+    final earned = await _client.from('child_badges').select('badge_id, earned_at').eq('child_id', childId);
+    final earnedAt = {for (final r in earned) r['badge_id'] as String: DateTime.parse(r['earned_at'] as String)};
+    return [
+      for (final r in badges)
+        if (earnedAt[r['id']] case final date?) BadgeInfo.fromJson(r).earnedOn(date) else BadgeInfo.fromJson(r),
+    ];
+  });
+
+  @override
+  Future<void> recordAnswers({
+    required String childId,
+    required List<({String questionId, int answerIndex})> answers,
+  }) => guardBackend(
+    () => _client.rpc<void>('record_answers', params: {'p_child_id': childId, 'p_answers': _answers(answers)}),
+  );
+
+  @override
+  Future<EncounterOffer?> nextEncounter(String childId) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>?>('next_encounter', params: {'p_child_id': childId});
+    return result == null ? null : EncounterOffer.fromJson(result);
+  });
+
+  @override
+  Future<EncounterResult> submitEncounter({
+    required String childId,
+    required String encounterId,
+    required List<({String questionId, int answerIndex})> answers,
+  }) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>>(
+      'submit_encounter',
+      params: {'p_child_id': childId, 'p_encounter_id': encounterId, 'p_answers': _answers(answers)},
+    );
+    return EncounterResult.fromJson(result);
+  });
+
+  @override
+  Future<void> setPace(String childId, int? stationsPerWeek) => guardBackend(
+    () => _client.rpc<void>('set_pace', params: {'p_child_id': childId, 'p_stations_per_week': stationsPerWeek}),
+  );
+
+  @override
+  Future<void> setStreakPause(String childId, {required bool paused}) =>
+      guardBackend(() => _client.rpc<void>('set_streak_pause', params: {'p_child_id': childId, 'p_paused': paused}));
 }

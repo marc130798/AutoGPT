@@ -109,6 +109,9 @@ enum FailureKind {
 
   /// Nicht genug Guthaben in der Truhe.
   notEnoughMoney,
+
+  /// Tempo: Das Schiff braucht Wind für die nächste neue Station.
+  noWind,
   unknown,
 }
 

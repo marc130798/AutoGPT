@@ -1084,4 +1084,217 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get potLabel => 'Truhe';
+
+  @override
+  String rankName(String rank) {
+    String _temp0 = intl.Intl.selectLogic(rank, {
+      'schiffsjunge': 'Schiffsjunge',
+      'matrose': 'Matrose',
+      'bootsmann': 'Bootsmann',
+      'steuermann': 'Steuermann',
+      'kapitaen': 'Kapitän',
+      'other': 'Neu an Bord',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String statsXp(int xp) {
+    final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String xpString = xpNumberFormat.format(xp);
+
+    return '$xpString Seemeilen';
+  }
+
+  @override
+  String statsNextRank(int xp, String rank) {
+    final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String xpString = xpNumberFormat.format(xp);
+
+    return 'Noch $xpString Seemeilen bis $rank';
+  }
+
+  @override
+  String get statsNextRankCertificate => 'Finde die Goldene Schatzkarte, dann wirst du Kapitän.';
+
+  @override
+  String get statsTopRank => 'Du hast den höchsten Rang erreicht!';
+
+  @override
+  String get statsNoRank => 'Nach dem Intro wirst du Schiffsjunge.';
+
+  @override
+  String streakWeeks(int weeks) {
+    String _temp0 = intl.Intl.pluralLogic(
+      weeks,
+      locale: localeName,
+      other: '$weeks Wochen Fahrtwind',
+      one: '1 Woche Fahrtwind',
+      zero: 'Noch kein Fahrtwind',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get streakPaused => 'Fahrtwind macht gerade Pause';
+
+  @override
+  String get streakHint => 'Jede Woche, in der du segelst, bringt Fahrtwind.';
+
+  @override
+  String badgesButton(int count) {
+    return 'Meine Orden ($count)';
+  }
+
+  @override
+  String get badgesTitle => 'Meine Orden';
+
+  @override
+  String get badgesEmpty => 'Noch keine Orden. Schließe deine erste Insel ab!';
+
+  @override
+  String badgeEarnedOn(String date) {
+    return 'Verliehen am $date';
+  }
+
+  @override
+  String get badgeNotYet => 'Noch nicht gefunden';
+
+  @override
+  String get windNeededShort => 'Das Schiff braucht Wind.';
+
+  @override
+  String windNeeded(String weekday) {
+    return 'Das Schiff braucht Wind. Die nächste Station erreichst du am $weekday.';
+  }
+
+  @override
+  String get windNeededSoon => 'Das Schiff braucht Wind. Bald geht es weiter.';
+
+  @override
+  String get windMeanwhile => 'Bis dahin kannst du fertige Stationen wiederholen oder Begegnungen auf See lösen.';
+
+  @override
+  String weekday(String day) {
+    String _temp0 = intl.Intl.selectLogic(day, {
+      '1': 'Montag',
+      '2': 'Dienstag',
+      '3': 'Mittwoch',
+      '4': 'Donnerstag',
+      '5': 'Freitag',
+      '6': 'Samstag',
+      '7': 'Sonntag',
+      'other': 'nächsten Tag',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get stationNoWind => 'Wartet auf Wind';
+
+  @override
+  String mapEncounterButton(String title) {
+    return '$title taucht auf!';
+  }
+
+  @override
+  String get mapEncounterNone => 'Gerade ist alles ruhig auf See. Schau später wieder vorbei.';
+
+  @override
+  String encounterProgress(int current, int total) {
+    return 'Rätsel $current von $total';
+  }
+
+  @override
+  String get encounterTryAgain => 'Nochmal versuchen';
+
+  @override
+  String get encounterNext => 'Nächstes Rätsel';
+
+  @override
+  String get encounterFinish => 'Fertig';
+
+  @override
+  String get encounterDoneTitle => 'Der Weg ist frei!';
+
+  @override
+  String encounterFirstTry(int correct, int total) {
+    return 'Beim ersten Versuch richtig: $correct von $total';
+  }
+
+  @override
+  String get encounterNoXpToday => 'Seemeilen für Begegnungen gibt es einmal am Tag. Für heute hast du sie schon.';
+
+  @override
+  String get encounterBack => 'Zurück zur Karte';
+
+  @override
+  String rankUpTitle(String rank) {
+    return 'Neuer Rang: $rank!';
+  }
+
+  @override
+  String get badgeTapToContinue => 'Weiter';
+
+  @override
+  String get paceHeading => 'Tempo und Serie';
+
+  @override
+  String get paceLabel => 'Neue Stationen pro Woche';
+
+  @override
+  String get paceFree => 'Frei';
+
+  @override
+  String get paceHint =>
+      'Standard sind 2 neue Stationen pro Woche (Montag und Donnerstag). Wiederholen geht immer. In den Ferien passt „Frei“.';
+
+  @override
+  String get paceSaved => 'Tempo gespeichert.';
+
+  @override
+  String get streakPauseLabel => 'Serie pausieren';
+
+  @override
+  String get streakPauseHint => 'Zum Beispiel in den Ferien: Wochen ohne Lernen beenden die Serie dann nicht.';
+
+  @override
+  String parentLevel(int level, String rank) {
+    return 'Level $level ($rank)';
+  }
+
+  @override
+  String parentProgressXp(int xp) {
+    final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String xpString = xpNumberFormat.format(xp);
+
+    return 'Fortschritt: $xpString Seemeilen';
+  }
+
+  @override
+  String parentBadges(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Abzeichen',
+      one: '1 Abzeichen',
+      zero: 'Noch keine Abzeichen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String parentStreak(int weeks) {
+    String _temp0 = intl.Intl.pluralLogic(
+      weeks,
+      locale: localeName,
+      other: 'Serie: $weeks Wochen',
+      one: 'Serie: 1 Woche',
+      zero: 'Keine laufende Serie',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get parentStreakPaused => 'Serie pausiert';
 }

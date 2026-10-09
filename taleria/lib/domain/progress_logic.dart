@@ -14,7 +14,14 @@ enum IslandState {
   completed,
 }
 
-enum StationState { locked, open, done }
+enum StationState {
+  locked,
+  open,
+  done,
+
+  /// Wäre offen, aber das Schiff braucht erst Wind (Tempo, CLAUDE.md Abschnitt 8).
+  noWind,
+}
 
 /// Zustand jeder Insel auf der Karte, in der Reihenfolge der Route.
 Map<String, IslandState> islandStates(List<MapIsland> islands, ChildProgress progress) {
@@ -51,11 +58,13 @@ bool isStationDone(StationInfo station, ChildProgress progress, {required bool o
     progress.doneStationIds.contains(station.id) || (station.content.isOnboarding && onboardingCompleted);
 
 /// Zustand der Stationen einer offenen Insel: Pflichtstationen der Reihe nach,
-/// Bonus-Stationen sind immer offen.
+/// Bonus-Stationen sind immer offen. Ohne Wind ([hasWind] `false`) wartet die
+/// nächste neue Pflichtstation; Wiederholen und Bonus-Stationen gehen immer.
 Map<String, StationState> stationStates(
   List<StationInfo> stations,
   ChildProgress progress, {
   required bool onboardingCompleted,
+  bool hasWind = true,
 }) {
   final sorted = [...stations]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   final states = <String, StationState>{};
@@ -64,7 +73,8 @@ Map<String, StationState> stationStates(
     final done = isStationDone(station, progress, onboardingCompleted: onboardingCompleted);
     states[station.id] = switch (station) {
       _ when done => StationState.done,
-      _ when !station.isRequired || allEarlierDone => StationState.open,
+      _ when !station.isRequired => StationState.open,
+      _ when allEarlierDone => hasWind ? StationState.open : StationState.noWind,
       _ => StationState.locked,
     };
     if (station.isRequired && !done) allEarlierDone = false;

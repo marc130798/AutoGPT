@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
-import '../../core/assets/taleria_asset.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -11,6 +10,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/station_controller.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
+import '../progress/celebration.dart';
 import 'dialog_sequence.dart';
 import 'quiz_view.dart';
 
@@ -206,19 +206,31 @@ class _ResultView extends StatelessWidget {
                 SpeechBubble.line(controller.content.summary!),
               if (result.islandCompleted) ...[
                 const SizedBox(height: 32),
-                const Center(child: TaleriaAsset(AssetKeys.mapBackground, width: 160, height: 100)),
+                Center(child: IslandRewardEffect(badgeAssetKey: result.badge?.assetKey)),
                 const SizedBox(height: 12),
                 Text(l10n.islandCompletedTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
-                if (details?.badge != null) ...[
+                if ((result.badge?.title ?? details?.badge) case final badge?) ...[
                   const SizedBox(height: 8),
                   Text(
-                    l10n.islandCompletedBadge(details!.badge!),
+                    l10n.islandCompletedBadge(badge),
+                    key: const ValueKey('result-badge'),
                     textAlign: TextAlign.center,
                     style: theme.textTheme.titleMedium,
                   ),
                 ],
                 const SizedBox(height: 8),
                 Text(l10n.islandCompletedNext, textAlign: TextAlign.center),
+              ],
+              if (result.rankUp != null) ...[
+                const SizedBox(height: 32),
+                Center(child: RewardPop(assetKey: AssetKeys.rank(result.rankUp!.code))),
+                const SizedBox(height: 12),
+                Text(
+                  l10n.rankUpTitle(l10n.rank(result.rankUp)),
+                  key: const ValueKey('result-rank-up'),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineSmall,
+                ),
               ],
             ],
           ),

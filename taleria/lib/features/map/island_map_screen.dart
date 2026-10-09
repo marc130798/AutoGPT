@@ -12,6 +12,7 @@ import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/map_controller.dart';
 import '../common/texts.dart';
+import '../encounter/encounter_screen.dart';
 import '../island/island_screen.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
@@ -63,6 +64,20 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
     }
   }
 
+  Future<void> _openEncounter() async {
+    final offer = _controller!.encounter;
+    if (offer == null) {
+      _hint(AppLocalizations.of(context).mapEncounterNone);
+      return;
+    }
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer),
+      ),
+    );
+    await _controller!.load();
+  }
+
   void _hint(String text) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -94,20 +109,65 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
               ),
             );
           }
-          return _MapCanvas(controller: controller, onTap: _onTap);
+          final pace = controller.stats?.pace;
+          return Column(
+            children: [
+              if (pace != null && !pace.hasWind) _WindBanner(text: l10n.windNeededFor(pace)),
+              Expanded(
+                child: _MapCanvas(controller: controller, onTap: _onTap, onEncounter: _openEncounter),
+              ),
+            ],
+          );
         },
       ),
     );
   }
 }
 
+/// Tempo als Geschichte, nie als Sperre mit Countdown (CLAUDE.md Abschnitt 8).
+class _WindBanner extends StatelessWidget {
+  const _WindBanner({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final palette = context.palette;
+    return Material(
+      key: const ValueKey('wind-banner'),
+      color: palette.paper,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+        child: Row(
+          children: [
+            Icon(Icons.air, color: palette.seaDeep, size: 32),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(text, style: Theme.of(context).textTheme.titleSmall),
+                  Text(l10n.windMeanwhile, style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _MapCanvas extends StatelessWidget {
-  const _MapCanvas({required this.controller, required this.onTap});
+  const _MapCanvas({required this.controller, required this.onTap, required this.onEncounter});
 
   static const _markerSize = 96.0;
+  static const _encounterWidth = 140.0;
 
   final MapController controller;
   final ValueChanged<MapIsland> onTap;
+  final VoidCallback onEncounter;
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +182,7 @@ class _MapCanvas extends StatelessWidget {
           (i.mapY * height).clamp(_markerSize, height - _markerSize),
         );
         final route = [...islands.where((i) => i.isMainRoute)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+        final ship = islands.where((i) => i.id == controller.shipIslandId).firstOrNull;
 
         return SingleChildScrollView(
           // Start unten beim Hafen.
@@ -149,6 +210,18 @@ class _MapCanvas extends StatelessWidget {
                       size: _markerSize,
                       onTap: () => onTap(island),
                     ),
+                  ),
+                if (controller.encounter != null && ship != null)
+                  Positioned(
+                    // Neben dem Schiff, auf der Seite mit mehr Platz.
+                    left:
+                        (position(ship).dx < width / 2
+                                ? position(ship).dx + _markerSize / 2 + 8
+                                : position(ship).dx - _markerSize / 2 - 8 - _encounterWidth)
+                            .clamp(8.0, max(8.0, width - _encounterWidth - 8)),
+                    top: position(ship).dy - _markerSize / 2,
+                    width: _encounterWidth,
+                    child: EncounterMapButton(encounter: controller.encounter!.encounter, onTap: onEncounter),
                   ),
               ],
             ),

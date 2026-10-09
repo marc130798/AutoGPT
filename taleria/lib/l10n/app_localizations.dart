@@ -2040,6 +2040,270 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Truhe'**
   String get potLabel;
+
+  /// Name eines Rangs (Glossar). Parameter ist der Code aus der Datenbank.
+  ///
+  /// In de, this message translates to:
+  /// **'{rank, select, schiffsjunge{Schiffsjunge} matrose{Matrose} bootsmann{Bootsmann} steuermann{Steuermann} kapitaen{Kapitän} other{Neu an Bord}}'**
+  String rankName(String rank);
+
+  /// Seemeilen des Kindes
+  ///
+  /// In de, this message translates to:
+  /// **'{xp} Seemeilen'**
+  String statsXp(int xp);
+
+  /// Fortschritt zum nächsten Rang
+  ///
+  /// In de, this message translates to:
+  /// **'Noch {xp} Seemeilen bis {rank}'**
+  String statsNextRank(int xp, String rank);
+
+  /// Hinweis: Kapitän nur mit der Goldenen Schatzkarte
+  ///
+  /// In de, this message translates to:
+  /// **'Finde die Goldene Schatzkarte, dann wirst du Kapitän.'**
+  String get statsNextRankCertificate;
+
+  /// Hinweis beim Rang Kapitän
+  ///
+  /// In de, this message translates to:
+  /// **'Du hast den höchsten Rang erreicht!'**
+  String get statsTopRank;
+
+  /// Hinweis vor dem ersten Rang
+  ///
+  /// In de, this message translates to:
+  /// **'Nach dem Intro wirst du Schiffsjunge.'**
+  String get statsNoRank;
+
+  /// Fahrtwind (Serie) in Wochen, Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'{weeks, plural, =0{Noch kein Fahrtwind} =1{1 Woche Fahrtwind} other{{weeks} Wochen Fahrtwind}}'**
+  String streakWeeks(int weeks);
+
+  /// Fahrtwind ist von den Eltern pausiert
+  ///
+  /// In de, this message translates to:
+  /// **'Fahrtwind macht gerade Pause'**
+  String get streakPaused;
+
+  /// Erklärung Fahrtwind im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Jede Woche, in der du segelst, bringt Fahrtwind.'**
+  String get streakHint;
+
+  /// Knopf zur Orden-Sammlung mit Anzahl
+  ///
+  /// In de, this message translates to:
+  /// **'Meine Orden ({count})'**
+  String badgesButton(int count);
+
+  /// Überschrift der Orden-Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'Meine Orden'**
+  String get badgesTitle;
+
+  /// Hinweis ohne Orden
+  ///
+  /// In de, this message translates to:
+  /// **'Noch keine Orden. Schließe deine erste Insel ab!'**
+  String get badgesEmpty;
+
+  /// Datum eines verdienten Ordens
+  ///
+  /// In de, this message translates to:
+  /// **'Verliehen am {date}'**
+  String badgeEarnedOn(String date);
+
+  /// Orden, den das Kind noch nicht hat
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht gefunden'**
+  String get badgeNotYet;
+
+  /// Kurzer Hinweis: keine neue Station gerade (Tempo)
+  ///
+  /// In de, this message translates to:
+  /// **'Das Schiff braucht Wind.'**
+  String get windNeededShort;
+
+  /// Tempo als Geschichte, nie als Countdown (CLAUDE.md Abschnitt 8)
+  ///
+  /// In de, this message translates to:
+  /// **'Das Schiff braucht Wind. Die nächste Station erreichst du am {weekday}.'**
+  String windNeeded(String weekday);
+
+  /// Tempo, wenn kein Datum bekannt ist
+  ///
+  /// In de, this message translates to:
+  /// **'Das Schiff braucht Wind. Bald geht es weiter.'**
+  String get windNeededSoon;
+
+  /// Was das Kind ohne Wind tun kann
+  ///
+  /// In de, this message translates to:
+  /// **'Bis dahin kannst du fertige Stationen wiederholen oder Begegnungen auf See lösen.'**
+  String get windMeanwhile;
+
+  /// Name eines Wochentags (1 = Montag)
+  ///
+  /// In de, this message translates to:
+  /// **'{day, select, 1{Montag} 2{Dienstag} 3{Mittwoch} 4{Donnerstag} 5{Freitag} 6{Samstag} 7{Sonntag} other{nächsten Tag}}'**
+  String weekday(String day);
+
+  /// Station: neue Station, das Schiff braucht erst Wind
+  ///
+  /// In de, this message translates to:
+  /// **'Wartet auf Wind'**
+  String get stationNoWind;
+
+  /// Knopf auf der Karte: Begegnung auf See wartet
+  ///
+  /// In de, this message translates to:
+  /// **'{title} taucht auf!'**
+  String mapEncounterButton(String title);
+
+  /// Keine Begegnung verfügbar
+  ///
+  /// In de, this message translates to:
+  /// **'Gerade ist alles ruhig auf See. Schau später wieder vorbei.'**
+  String get mapEncounterNone;
+
+  /// Fortschritt in einer Begegnung
+  ///
+  /// In de, this message translates to:
+  /// **'Rätsel {current} von {total}'**
+  String encounterProgress(int current, int total);
+
+  /// Knopf: dieselbe Frage noch einmal
+  ///
+  /// In de, this message translates to:
+  /// **'Nochmal versuchen'**
+  String get encounterTryAgain;
+
+  /// Knopf: weiter zum nächsten Rätsel
+  ///
+  /// In de, this message translates to:
+  /// **'Nächstes Rätsel'**
+  String get encounterNext;
+
+  /// Knopf nach dem letzten Rätsel
+  ///
+  /// In de, this message translates to:
+  /// **'Fertig'**
+  String get encounterFinish;
+
+  /// Überschrift nach einer Begegnung
+  ///
+  /// In de, this message translates to:
+  /// **'Der Weg ist frei!'**
+  String get encounterDoneTitle;
+
+  /// Ergebnis einer Begegnung
+  ///
+  /// In de, this message translates to:
+  /// **'Beim ersten Versuch richtig: {correct} von {total}'**
+  String encounterFirstTry(int correct, int total);
+
+  /// Hinweis ohne Seemeilen
+  ///
+  /// In de, this message translates to:
+  /// **'Seemeilen für Begegnungen gibt es einmal am Tag. Für heute hast du sie schon.'**
+  String get encounterNoXpToday;
+
+  /// Knopf nach einer Begegnung
+  ///
+  /// In de, this message translates to:
+  /// **'Zurück zur Karte'**
+  String get encounterBack;
+
+  /// Feier beim neuen Rang
+  ///
+  /// In de, this message translates to:
+  /// **'Neuer Rang: {rank}!'**
+  String rankUpTitle(String rank);
+
+  /// Knopf nach der Feier für Orden oder Rang
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter'**
+  String get badgeTapToContinue;
+
+  /// Überschrift im Leuchtturm (Elternwörter)
+  ///
+  /// In de, this message translates to:
+  /// **'Tempo und Serie'**
+  String get paceHeading;
+
+  /// Auswahl des Tempos
+  ///
+  /// In de, this message translates to:
+  /// **'Neue Stationen pro Woche'**
+  String get paceLabel;
+
+  /// Tempo: freie Fahrt (kurz)
+  ///
+  /// In de, this message translates to:
+  /// **'Frei'**
+  String get paceFree;
+
+  /// Erklärung Tempo für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Standard sind 2 neue Stationen pro Woche (Montag und Donnerstag). Wiederholen geht immer. In den Ferien passt „Frei“.'**
+  String get paceHint;
+
+  /// Bestätigung nach dem Ändern des Tempos
+  ///
+  /// In de, this message translates to:
+  /// **'Tempo gespeichert.'**
+  String get paceSaved;
+
+  /// Schalter: Fahrtwind (Serie) pausieren
+  ///
+  /// In de, this message translates to:
+  /// **'Serie pausieren'**
+  String get streakPauseLabel;
+
+  /// Erklärung Pause der Serie
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Beispiel in den Ferien: Wochen ohne Lernen beenden die Serie dann nicht.'**
+  String get streakPauseHint;
+
+  /// Rang für Eltern als Level (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Level {level} ({rank})'**
+  String parentLevel(int level, String rank);
+
+  /// Seemeilen für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Fortschritt: {xp} Seemeilen'**
+  String parentProgressXp(int xp);
+
+  /// Orden für Eltern (Abzeichen)
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Noch keine Abzeichen} =1{1 Abzeichen} other{{count} Abzeichen}}'**
+  String parentBadges(int count);
+
+  /// Fahrtwind für Eltern (Serie)
+  ///
+  /// In de, this message translates to:
+  /// **'{weeks, plural, =0{Keine laufende Serie} =1{Serie: 1 Woche} other{Serie: {weeks} Wochen}}'**
+  String parentStreak(int weeks);
+
+  /// Hinweis: Serie ist pausiert
+  ///
+  /// In de, this message translates to:
+  /// **'Serie pausiert'**
+  String get parentStreakPaused;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

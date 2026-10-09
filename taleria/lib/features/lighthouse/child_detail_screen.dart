@@ -9,6 +9,7 @@ import '../common/busy_action.dart';
 import '../common/texts.dart';
 import 'child_budget_screen.dart';
 import 'child_form_screen.dart';
+import 'pace_card.dart';
 
 /// Ein Kinder-Profil im Leuchtturm: Gerät anmelden, hier spielen lassen,
 /// Geräte abmelden, bearbeiten, löschen.
@@ -125,6 +126,7 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                     ),
                   ],
                 ),
+                PaceCard(childId: child.id),
                 Card(
                   child: ListTile(
                     minTileHeight: 64,

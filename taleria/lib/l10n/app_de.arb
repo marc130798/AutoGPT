@@ -1501,5 +1501,276 @@
   "potLabel": "Truhe",
   "@potLabel": {
     "description": "Feld: Truhe auswählen (Elternbereich)"
+  },
+  "rankName": "{rank, select, schiffsjunge{Schiffsjunge} matrose{Matrose} bootsmann{Bootsmann} steuermann{Steuermann} kapitaen{Kapitän} other{Neu an Bord}}",
+  "@rankName": {
+    "description": "Name eines Rangs (Glossar). Parameter ist der Code aus der Datenbank.",
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "statsXp": "{xp} Seemeilen",
+  "@statsXp": {
+    "description": "Seemeilen des Kindes",
+    "placeholders": {
+      "xp": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "statsNextRank": "Noch {xp} Seemeilen bis {rank}",
+  "@statsNextRank": {
+    "description": "Fortschritt zum nächsten Rang",
+    "placeholders": {
+      "xp": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "statsNextRankCertificate": "Finde die Goldene Schatzkarte, dann wirst du Kapitän.",
+  "@statsNextRankCertificate": {
+    "description": "Hinweis: Kapitän nur mit der Goldenen Schatzkarte"
+  },
+  "statsTopRank": "Du hast den höchsten Rang erreicht!",
+  "@statsTopRank": {
+    "description": "Hinweis beim Rang Kapitän"
+  },
+  "statsNoRank": "Nach dem Intro wirst du Schiffsjunge.",
+  "@statsNoRank": {
+    "description": "Hinweis vor dem ersten Rang"
+  },
+  "streakWeeks": "{weeks, plural, =0{Noch kein Fahrtwind} =1{1 Woche Fahrtwind} other{{weeks} Wochen Fahrtwind}}",
+  "@streakWeeks": {
+    "description": "Fahrtwind (Serie) in Wochen, Kinderbereich",
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "streakPaused": "Fahrtwind macht gerade Pause",
+  "@streakPaused": {
+    "description": "Fahrtwind ist von den Eltern pausiert"
+  },
+  "streakHint": "Jede Woche, in der du segelst, bringt Fahrtwind.",
+  "@streakHint": {
+    "description": "Erklärung Fahrtwind im Kinderbereich"
+  },
+  "badgesButton": "Meine Orden ({count})",
+  "@badgesButton": {
+    "description": "Knopf zur Orden-Sammlung mit Anzahl",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "badgesTitle": "Meine Orden",
+  "@badgesTitle": {
+    "description": "Überschrift der Orden-Sammlung"
+  },
+  "badgesEmpty": "Noch keine Orden. Schließe deine erste Insel ab!",
+  "@badgesEmpty": {
+    "description": "Hinweis ohne Orden"
+  },
+  "badgeEarnedOn": "Verliehen am {date}",
+  "@badgeEarnedOn": {
+    "description": "Datum eines verdienten Ordens",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "badgeNotYet": "Noch nicht gefunden",
+  "@badgeNotYet": {
+    "description": "Orden, den das Kind noch nicht hat"
+  },
+  "windNeededShort": "Das Schiff braucht Wind.",
+  "@windNeededShort": {
+    "description": "Kurzer Hinweis: keine neue Station gerade (Tempo)"
+  },
+  "windNeeded": "Das Schiff braucht Wind. Die nächste Station erreichst du am {weekday}.",
+  "@windNeeded": {
+    "description": "Tempo als Geschichte, nie als Countdown (CLAUDE.md Abschnitt 8)",
+    "placeholders": {
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "windNeededSoon": "Das Schiff braucht Wind. Bald geht es weiter.",
+  "@windNeededSoon": {
+    "description": "Tempo, wenn kein Datum bekannt ist"
+  },
+  "windMeanwhile": "Bis dahin kannst du fertige Stationen wiederholen oder Begegnungen auf See lösen.",
+  "@windMeanwhile": {
+    "description": "Was das Kind ohne Wind tun kann"
+  },
+  "weekday": "{day, select, 1{Montag} 2{Dienstag} 3{Mittwoch} 4{Donnerstag} 5{Freitag} 6{Samstag} 7{Sonntag} other{nächsten Tag}}",
+  "@weekday": {
+    "description": "Name eines Wochentags (1 = Montag)",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "stationNoWind": "Wartet auf Wind",
+  "@stationNoWind": {
+    "description": "Station: neue Station, das Schiff braucht erst Wind"
+  },
+  "mapEncounterButton": "{title} taucht auf!",
+  "@mapEncounterButton": {
+    "description": "Knopf auf der Karte: Begegnung auf See wartet",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "mapEncounterNone": "Gerade ist alles ruhig auf See. Schau später wieder vorbei.",
+  "@mapEncounterNone": {
+    "description": "Keine Begegnung verfügbar"
+  },
+  "encounterProgress": "Rätsel {current} von {total}",
+  "@encounterProgress": {
+    "description": "Fortschritt in einer Begegnung",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "encounterTryAgain": "Nochmal versuchen",
+  "@encounterTryAgain": {
+    "description": "Knopf: dieselbe Frage noch einmal"
+  },
+  "encounterNext": "Nächstes Rätsel",
+  "@encounterNext": {
+    "description": "Knopf: weiter zum nächsten Rätsel"
+  },
+  "encounterFinish": "Fertig",
+  "@encounterFinish": {
+    "description": "Knopf nach dem letzten Rätsel"
+  },
+  "encounterDoneTitle": "Der Weg ist frei!",
+  "@encounterDoneTitle": {
+    "description": "Überschrift nach einer Begegnung"
+  },
+  "encounterFirstTry": "Beim ersten Versuch richtig: {correct} von {total}",
+  "@encounterFirstTry": {
+    "description": "Ergebnis einer Begegnung",
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "encounterNoXpToday": "Seemeilen für Begegnungen gibt es einmal am Tag. Für heute hast du sie schon.",
+  "@encounterNoXpToday": {
+    "description": "Hinweis ohne Seemeilen"
+  },
+  "encounterBack": "Zurück zur Karte",
+  "@encounterBack": {
+    "description": "Knopf nach einer Begegnung"
+  },
+  "rankUpTitle": "Neuer Rang: {rank}!",
+  "@rankUpTitle": {
+    "description": "Feier beim neuen Rang",
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "badgeTapToContinue": "Weiter",
+  "@badgeTapToContinue": {
+    "description": "Knopf nach der Feier für Orden oder Rang"
+  },
+  "paceHeading": "Tempo und Serie",
+  "@paceHeading": {
+    "description": "Überschrift im Leuchtturm (Elternwörter)"
+  },
+  "paceLabel": "Neue Stationen pro Woche",
+  "@paceLabel": {
+    "description": "Auswahl des Tempos"
+  },
+  "paceFree": "Frei",
+  "@paceFree": {
+    "description": "Tempo: freie Fahrt (kurz)"
+  },
+  "paceHint": "Standard sind 2 neue Stationen pro Woche (Montag und Donnerstag). Wiederholen geht immer. In den Ferien passt „Frei“.",
+  "@paceHint": {
+    "description": "Erklärung Tempo für Eltern"
+  },
+  "paceSaved": "Tempo gespeichert.",
+  "@paceSaved": {
+    "description": "Bestätigung nach dem Ändern des Tempos"
+  },
+  "streakPauseLabel": "Serie pausieren",
+  "@streakPauseLabel": {
+    "description": "Schalter: Fahrtwind (Serie) pausieren"
+  },
+  "streakPauseHint": "Zum Beispiel in den Ferien: Wochen ohne Lernen beenden die Serie dann nicht.",
+  "@streakPauseHint": {
+    "description": "Erklärung Pause der Serie"
+  },
+  "parentLevel": "Level {level} ({rank})",
+  "@parentLevel": {
+    "description": "Rang für Eltern als Level (Glossar)",
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "parentProgressXp": "Fortschritt: {xp} Seemeilen",
+  "@parentProgressXp": {
+    "description": "Seemeilen für Eltern",
+    "placeholders": {
+      "xp": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "parentBadges": "{count, plural, =0{Noch keine Abzeichen} =1{1 Abzeichen} other{{count} Abzeichen}}",
+  "@parentBadges": {
+    "description": "Orden für Eltern (Abzeichen)",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "parentStreak": "{weeks, plural, =0{Keine laufende Serie} =1{Serie: 1 Woche} other{Serie: {weeks} Wochen}}",
+  "@parentStreak": {
+    "description": "Fahrtwind für Eltern (Serie)",
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "parentStreakPaused": "Serie pausiert",
+  "@parentStreakPaused": {
+    "description": "Hinweis: Serie ist pausiert"
   }
 }

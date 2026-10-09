@@ -1,6 +1,8 @@
 /// Inhalte und Fortschritt auf der Inselkarte. Ohne Aussehen, ohne Supabase.
 library;
 
+import 'progress_models.dart';
+
 /// Eine Insel auf der Karte (aus map_islands()).
 class MapIsland {
   const MapIsland({
@@ -250,6 +252,9 @@ class StationResult {
     required this.passed,
     required this.xpAwarded,
     required this.islandCompleted,
+    this.rankUp,
+    this.badge,
+    this.windLeft,
   });
 
   factory StationResult.fromJson(Map<String, dynamic> json) => StationResult(
@@ -258,6 +263,9 @@ class StationResult {
     passed: json['passed'] as bool,
     xpAwarded: json['xp_awarded'] as int,
     islandCompleted: json['island_completed'] as bool,
+    rankUp: Rank.parse(json['rank_up']),
+    badge: json['badge'] is Map<String, dynamic> ? BadgeInfo.fromJson(json['badge'] as Map<String, dynamic>) : null,
+    windLeft: json['wind_left'] as int?,
   );
 
   final int correct;
@@ -265,4 +273,13 @@ class StationResult {
   final bool passed;
   final int xpAwarded;
   final bool islandCompleted;
+
+  /// Neuer Rang durch diese Station, sonst `null`.
+  final Rank? rankUp;
+
+  /// Orden der Insel, wenn sie mit dieser Station abgeschlossen wurde.
+  final BadgeInfo? badge;
+
+  /// Wind für weitere neue Stationen (`null` bei freier Fahrt oder Bonus-Station).
+  final int? windLeft;
 }

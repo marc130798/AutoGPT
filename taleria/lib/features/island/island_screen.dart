@@ -67,6 +67,12 @@ class _IslandScreenState extends State<IslandScreen> {
         ..showSnackBar(SnackBar(content: Text(l10n.stationLocked)));
       return;
     }
+    if (controller.stateOf(station) == StationState.noWind) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.windNeededFor(controller.pace))));
+      return;
+    }
     final result = await navigator.push<StationResult>(
       MaterialPageRoute(
         builder: (_) => StationScreen(
@@ -178,6 +184,17 @@ class _StationList extends StatelessWidget {
           const SizedBox(height: 12),
           Text(l10n.islandAllDone, style: theme.textTheme.titleMedium),
         ],
+        if (stations.any((s) => controller.stateOf(s) == StationState.noWind)) ...[
+          const SizedBox(height: 12),
+          Card(
+            key: const ValueKey('island-wind-hint'),
+            child: ListTile(
+              leading: const Icon(Icons.air),
+              title: Text(l10n.windNeededFor(controller.pace)),
+              subtitle: Text(l10n.windMeanwhile),
+            ),
+          ),
+        ],
         const SizedBox(height: 16),
         Text(l10n.islandStationsHeading, style: theme.textTheme.titleLarge),
         const SizedBox(height: 8),
@@ -218,7 +235,7 @@ class _StationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
-    final locked = state == StationState.locked;
+    final locked = state == StationState.locked || state == StationState.noWind;
     final label = station.isExam ? l10n.stationExam : l10n.stationNumber(station.sortOrder);
 
     return Card(
@@ -232,11 +249,13 @@ class _StationTile extends StatelessWidget {
             StationState.done => palette.success,
             StationState.open => palette.gold,
             StationState.locked => palette.placeholderBorder,
+            StationState.noWind => palette.seaDeep,
           },
           foregroundColor: Colors.white,
           child: switch (state) {
             StationState.done => const Icon(Icons.check),
             StationState.locked => const Icon(Icons.lock_outline),
+            StationState.noWind => const Icon(Icons.air),
             StationState.open => station.isExam ? const Icon(Icons.flag_outlined) : Text('${station.sortOrder}'),
           },
         ),
@@ -247,6 +266,7 @@ class _StationTile extends StatelessWidget {
             if (station.content.place != null) station.content.place!,
             if (!station.isRequired) l10n.stationBonus,
             if (state == StationState.done) l10n.stationDone,
+            if (state == StationState.noWind) l10n.stationNoWind,
           ].join(' · '),
         ),
         trailing: locked ? null : const Icon(Icons.chevron_right),

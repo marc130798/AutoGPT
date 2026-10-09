@@ -4,6 +4,7 @@ import '../data/content_repository.dart';
 import '../domain/content_models.dart';
 import '../domain/family_models.dart';
 import '../domain/progress_logic.dart';
+import '../domain/progress_models.dart';
 
 /// Inselkarte eines Kindes: welche Inseln es gibt und welche offen sind.
 class MapController extends ChangeNotifier {
@@ -15,10 +16,18 @@ class MapController extends ChangeNotifier {
 
   List<MapIsland> _islands = const [];
   Map<String, IslandState> _states = const {};
+  ChildStats? _stats;
+  EncounterOffer? _offer;
   bool _loading = true;
   FailureKind? _failure;
 
   List<MapIsland> get islands => _islands;
+
+  /// Wind und fällige Wiederholungen; `null`, wenn sie nicht geladen werden konnten.
+  ChildStats? get stats => _stats;
+
+  /// Begegnung auf See, die gerade wartet (Wiederholungen sind fällig), sonst `null`.
+  EncounterOffer? get encounter => _offer;
   bool get loading => _loading;
   FailureKind? get failure => _failure;
 
@@ -39,6 +48,14 @@ class MapController extends ChangeNotifier {
       _states = islandStates(islands, progress);
     } on AppFailure catch (e) {
       _failure = e.kind;
+    }
+    try {
+      _stats = await _progress.fetchStats(child.id);
+      _offer = _stats!.reviewsDue > 0 ? await _progress.nextEncounter(child.id) : null;
+    } on AppFailure {
+      // Ohne Statistik geht die Karte trotzdem; nur Wind und Begegnung fehlen.
+      _stats = null;
+      _offer = null;
     }
     _loading = false;
     notifyListeners();

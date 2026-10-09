@@ -1,6 +1,7 @@
 import '../../domain/budget_models.dart';
 import '../../domain/family_models.dart';
 import '../../domain/money.dart';
+import '../../domain/progress_models.dart';
 import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -15,6 +16,7 @@ extension TaleriaTexts on AppLocalizations {
     FailureKind.rateLimited => failureRateLimited,
     FailureKind.notAllowed => failureNotAllowed,
     FailureKind.notEnoughMoney => notEnoughMoney,
+    FailureKind.noWind => windNeededShort,
     FailureKind.unknown => failureUnknown,
   };
 
@@ -77,6 +79,15 @@ extension TaleriaTexts on AppLocalizations {
     TaskStatus.approved => taskStatusApproved,
     TaskStatus.rejected => taskStatusRejected,
   };
+
+  String rank(Rank? rank) => rankName(rank?.code ?? 'none');
+
+  /// Tempo als Geschichte (CLAUDE.md Abschnitt 8): „Das Schiff braucht Wind,
+  /// die nächste Station erreichst du am Donnerstag.“ Nie als Countdown.
+  String windNeededFor(PaceStatus pace) {
+    final next = pace.nextRelease;
+    return next == null ? windNeededSoon : windNeeded(weekday('${next.weekday}'));
+  }
 
   String level(LevelSetting level) => switch (level) {
     LevelSetting.beginner => levelBeginner,

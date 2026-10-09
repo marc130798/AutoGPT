@@ -77,6 +77,7 @@ void main() {
 
     // --- Kind: Auftrag melden ---
     await openChildDevice(tester, backend, budget, mila.id);
+    await tester.dragUntilVisible(find.text('1 offener Auftrag'), find.byType(Scrollable).first, const Offset(0, -200));
     expect(find.text('1 offener Auftrag'), findsOneWidget);
     await tapText(tester, 'Aufträge');
     expect(find.text('Rasen mähen'), findsOneWidget);

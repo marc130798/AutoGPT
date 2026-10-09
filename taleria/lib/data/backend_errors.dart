@@ -32,6 +32,8 @@ FailureKind postgrestFailureKind(sb.PostgrestException e) {
   if (e.code == '42501') return FailureKind.notAllowed;
   // Meldung der Buchungsfunktionen, wenn eine Truhe ins Minus gehen würde.
   if (e.message.contains('Nicht genug Guthaben')) return FailureKind.notEnoughMoney;
+  // Tempo: submit_station(), wenn für eine neue Station kein Wind da ist.
+  if (e.message.contains('braucht Wind')) return FailureKind.noWind;
   return FailureKind.unknown;
 }
 

@@ -102,6 +102,19 @@ void main() {
       expect(states['exam'], StationState.open);
     });
 
+    test('Ohne Wind wartet die nächste neue Station; Bonus und Wiederholen gehen weiter', () {
+      final states = stationStates(
+        stations,
+        const ChildProgress(doneStationIds: {'s2'}),
+        onboardingCompleted: true,
+        hasWind: false,
+      );
+      expect(states['s2'], StationState.done);
+      expect(states['s3'], StationState.noWind);
+      expect(states['bonus'], StationState.open);
+      expect(states['exam'], StationState.locked);
+    });
+
     test('Weißt du noch? nimmt die Station davor, nie das Intro oder die Prüfung', () {
       expect(previousQuizStation(stations, stations[1]), isNull);
       expect(previousQuizStation(stations, stations[2])?.id, 's2');

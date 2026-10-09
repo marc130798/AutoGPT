@@ -85,6 +85,39 @@ void main() {
     c.nextWarmUp();
     expect(c.step, StationStep.video);
     expect(progress.submissions, 0, reason: 'Aufwärmfragen werden nicht abgegeben');
+    await pumpEventQueue();
+    expect(progress.recordedAnswers, hasLength(1), reason: 'aber sie fließen in den Wiederholungsplan');
+    expect(progress.recordedAnswers.single.map((a) => a.questionId), c.warmUp!.questions.map((q) => q.question.id));
+  });
+
+  test('Ohne Wind: Server lehnt eine neue Station ab, die App zeigt es freundlich', () async {
+    progress
+      ..stationsPerWeek = 2
+      ..wind = 0;
+    final c = controllerFor('hafen', 2);
+    await c.start();
+    while (c.step != StationStep.quiz) {
+      c.next();
+    }
+    await answerAll(c);
+    expect(c.step, StationStep.failed);
+    expect(c.failure, FailureKind.noWind);
+  });
+
+  test('Neue Station verbraucht Wind; Rang und Orden kommen im Ergebnis', () async {
+    progress
+      ..stationsPerWeek = 2
+      ..wind = 1
+      ..extraXp = 1450;
+    final c = controllerFor('hafen', 2);
+    await c.start();
+    while (c.step != StationStep.quiz) {
+      c.next();
+    }
+    await answerAll(c);
+    expect(c.result!.windLeft, 0);
+    expect(c.result!.rankUp?.code, 'matrose');
+    expect(progress.wind, 0);
   });
 
   test('Falsche Antworten: Station trotzdem geschafft', () async {
