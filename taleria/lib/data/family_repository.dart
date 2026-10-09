@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
+import '../domain/avatar.dart';
 import '../domain/family_models.dart';
 import 'backend_errors.dart';
 
@@ -47,7 +48,8 @@ class SupabaseFamilyRepository implements FamilyRepository {
 
   // Nie "*" abfragen: die PIN-Prüfsumme ist für die App gesperrt.
   static const _parentColumns = 'id, user_id, has_parent_pin';
-  static const _childColumns = 'id, nickname, birth_year, level_setting, stage';
+  static const _childColumns =
+      'id, nickname, birth_year, level_setting, stage, avatar, ship_name, onboarding_completed_at';
 
   @override
   Future<ParentAccount?> fetchParent() => guardBackend(() async {
@@ -152,11 +154,18 @@ class SupabaseFamilyRepository implements FamilyRepository {
   @override
   Future<void> deleteMyAccount() => guardBackend(() => _client.rpc<void>('delete_my_account'));
 
-  static ChildProfile _childFromRow(Map<String, dynamic> row) => ChildProfile(
-    id: row['id'] as String,
-    nickname: row['nickname'] as String,
-    birthYear: row['birth_year'] as int,
-    level: LevelSetting.fromCode(row['level_setting'] as String?),
-    stage: row['stage'] as int,
-  );
+  static ChildProfile _childFromRow(Map<String, dynamic> row) {
+    final avatar = row['avatar'] as Map<String, dynamic>?;
+    return ChildProfile(
+      id: row['id'] as String,
+      nickname: row['nickname'] as String,
+      birthYear: row['birth_year'] as int,
+      level: LevelSetting.fromCode(row['level_setting'] as String?),
+      stage: row['stage'] as int,
+      // Leeres Objekt = noch kein Avatar gestaltet.
+      avatar: avatar == null || avatar.isEmpty ? null : AvatarConfig.fromJson(avatar),
+      shipName: row['ship_name'] as String?,
+      onboardingCompleted: row['onboarding_completed_at'] != null,
+    );
+  }
 }

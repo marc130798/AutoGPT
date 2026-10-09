@@ -119,7 +119,7 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 
 **Konten**
 - `parents` – verknüpft mit `auth.users`; `consent_at`, `consent_version`, `locale`, `parent_pin_hash` (bcrypt, für die App nicht lesbar), `has_parent_pin`, `parent_pin_failed_attempts`, `parent_pin_locked_until`, `marketing_consent_at`, `marketing_confirmed_at`, `marketing_unsubscribed_at`, `push_consent_at` (Regeln für E-Mails und Push in `MARKETING.md`, Abschnitt 5)
-- `children` – `parent_id`, `nickname`, `birth_year`, `level_setting` (Einsteiger, Fortgeschritten), `stage` (1 oder 2), `avatar`, `ship_name`, `stations_per_week` (Standard 2, `null` = freie Fahrt), `release_weekdays` (Standard Montag und Donnerstag)
+- `children` – `parent_id`, `nickname`, `birth_year`, `level_setting` (Einsteiger, Fortgeschritten), `stage` (1 oder 2), `avatar` (JSON, höchstens 1 KB), `ship_name`, `onboarding_completed_at` (Intro abgeschlossen), `stations_per_week` (Standard 2, `null` = freie Fahrt), `release_weekdays` (Standard Montag und Donnerstag)
 - `child_login_codes` – `child_id`, `code_hash` (nur SHA-256, der Code wird einmal angezeigt), `expires_at`, `used_at`
 - `child_devices` – `user_id` (anonyme Sitzung des Kinder-Geräts), `child_id`
 
@@ -366,3 +366,13 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Löschen von Kinder-Profilen und Konten nur über Datenbank-Funktionen (`delete_child`, `delete_my_account`), damit auch die Kinder-Geräte abgemeldet werden. Admin-Konten können sich darüber nicht löschen.
 - Zusätzliches Paket: `shared_preferences` (vom Flutter-Team, war schon über `supabase_flutter` dabei).
 - Offen für später: Passwort zurücksetzen (braucht einen Link zurück in die App), Newsletter-Bestätigung per Double-Opt-in, Schutz vor massenhaften anonymen Anmeldungen (Captcha), Gratis-Grenze von einem Kinder-Profil (kommt mit dem Abo in Schritt 9).
+
+**Schritt 3 (Intro), umgesetzt am 09.10.2026:**
+- Das Intro ist Station 1 des Hafens („Willkommen an Bord“): Intro-Film (Platzhalter) → Talo und Tala erzählen → „Willst du in unsere Crew?“ → Avatar → Schiffstaufe → Rundgang (Karte, Schatztruhe, Logbuch) → erster Wunschschatz (darf übersprungen werden) → Abschluss mit Rang Schiffsjunge und 50 Seemeilen → die Karte rollt sich auf.
+- Jeder Abschnitt wird sofort gespeichert. Kinder-Geräte ändern ihr Profil nur über `update_child_look()`, den Abschluss bucht `complete_onboarding()` (Seemeilen nur einmal, eindeutiger Eintrag in `xp_events`). `can_act_for_child()` prüft, ob Eltern oder das Kinder-Gerät handeln dürfen.
+- Die 50 Seemeilen stehen bis Schritt 4 als Wert in `complete_onboarding()`. Sobald die Stationen als Inhalte in der Datenbank liegen, kommt der Wert aus `stations.xp_reward`.
+- Neue Tabellen: `savings_goals` (Kind darf anlegen, Ändern und Löschen folgen in Schritt 5) und `xp_events` (nur Server-Funktionen schreiben).
+- Avatar-Baukasten: Mensch mit 6 Hautfarben, 5 Frisuren, 5 Haarfarben, 6 Jackenfarben, 4 Kopfbedeckungen. Gespeichert als kleines JSON mit Formatversion. Bis die Rive-Datei `character.avatar` da ist, zeichnet die App den Avatar aus einfachen Formen. Ob es auch Tier-Avatare gibt, ist noch offen (FIGUREN.md).
+- Alle Sätze von Talo und Tala sind Entwürfe und stehen in `lib/l10n/app_de.arb` (Beschreibung „ENTWURF“).
+- Auf dem Eltern-Gerät hat auch das Intro den Leuchtturm-Knopf (PIN-Abfrage), auf dem Kinder-Gerät nicht.
+- Die Karte zeigt bis Schritt 4 nur Hintergrund, Schiff und Hafen als Platzhalter.

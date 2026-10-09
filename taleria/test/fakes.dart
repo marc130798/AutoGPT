@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:taleria/data/auth_repository.dart';
+import 'package:taleria/data/child_repository.dart';
 import 'package:taleria/data/family_repository.dart';
 import 'package:taleria/data/local_settings.dart';
+import 'package:taleria/domain/avatar.dart';
 import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/domain/validators.dart';
 
@@ -25,6 +27,8 @@ class FakeBackend {
   final Map<String, ({String childId, DateTime validUntil, bool used})> codes = {};
   final Map<String, String> devices = {};
   final StreamController<void> signedOutEvents = StreamController<void>.broadcast();
+  final List<({String childId, String title, int targetCents})> savingsGoals = [];
+  final Map<String, int> xpByChild = {};
 
   AuthUser? currentUser;
   int _nextId = 1;
@@ -47,12 +51,22 @@ class FakeBackend {
     return parent;
   }
 
-  ChildProfile addChild(ParentAccount parent, {String nickname = 'Mila', int birthYear = 2015}) {
+  /// Legt ein Kind an. Standard: Intro schon erledigt, damit Tests direkt im
+  /// Kinderbereich starten.
+  ChildProfile addChild(
+    ParentAccount parent, {
+    String nickname = 'Mila',
+    int birthYear = 2015,
+    bool onboardingCompleted = true,
+  }) {
     final child = ChildProfile(
       id: newId('child'),
       nickname: nickname,
       birthYear: birthYear,
       level: LevelSetting.beginner,
+      onboardingCompleted: onboardingCompleted,
+      shipName: onboardingCompleted ? 'Seestern' : null,
+      avatar: onboardingCompleted ? const AvatarConfig() : null,
     );
     children.add(child);
     childParent[child.id] = parent.id;
@@ -73,6 +87,20 @@ class FakeBackend {
   }
 
   ParentAccount? get currentParent => currentUser == null ? null : parentsByUser[currentUser!.id];
+
+  /// Wie can_act_for_child() in der Datenbank.
+  bool canActFor(String childId) {
+    final user = currentUser;
+    if (user == null) return false;
+    if (user.isAnonymous) return devices[user.id] == childId;
+    return childParent[childId] == currentParent?.id;
+  }
+
+  ChildProfile childById(String id) => children.firstWhere((c) => c.id == id);
+
+  void replaceChild(ChildProfile child) {
+    children[children.indexWhere((c) => c.id == child.id)] = child;
+  }
 }
 
 class FakeAuthRepository implements AuthRepository {
@@ -270,5 +298,61 @@ class FakeLocalSettings implements LocalSettings {
     } else {
       values[parentUserId] = childId;
     }
+  }
+}
+
+class FakeChildRepository implements ChildRepository {
+  FakeChildRepository(this.backend);
+
+  final FakeBackend backend;
+
+  void _requireAccess(String childId) {
+    backend.check();
+    if (!backend.canActFor(childId)) throw const AppFailure(FailureKind.notAllowed);
+  }
+
+  @override
+  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName}) async {
+    _requireAccess(childId);
+    final old = backend.childById(childId);
+    backend.replaceChild(
+      ChildProfile(
+        id: old.id,
+        nickname: old.nickname,
+        birthYear: old.birthYear,
+        level: old.level,
+        stage: old.stage,
+        avatar: avatar ?? old.avatar,
+        shipName: shipName ?? old.shipName,
+        onboardingCompleted: old.onboardingCompleted,
+      ),
+    );
+  }
+
+  @override
+  Future<void> createSavingsGoal(String childId, {required String title, required int targetCents}) async {
+    _requireAccess(childId);
+    backend.savingsGoals.add((childId: childId, title: title.trim(), targetCents: targetCents));
+  }
+
+  @override
+  Future<int> completeOnboarding(String childId) async {
+    _requireAccess(childId);
+    final old = backend.childById(childId);
+    backend.replaceChild(
+      ChildProfile(
+        id: old.id,
+        nickname: old.nickname,
+        birthYear: old.birthYear,
+        level: old.level,
+        stage: old.stage,
+        avatar: old.avatar,
+        shipName: old.shipName,
+        onboardingCompleted: true,
+      ),
+    );
+    if (backend.xpByChild.containsKey(childId)) return 0;
+    backend.xpByChild[childId] = 50;
+    return 50;
   }
 }

@@ -12,6 +12,7 @@ import 'core/backend/backend.dart';
 import 'core/config/app_config.dart';
 import 'core/config/orientation_policy.dart';
 import 'data/auth_repository.dart';
+import 'data/child_repository.dart';
 import 'data/family_repository.dart';
 import 'data/local_settings.dart';
 import 'services/session_controller.dart';
@@ -55,6 +56,7 @@ Future<void> main() async {
         backendHealth: SupabaseHealthCheck(client),
         session: session,
         family: family,
+        children: client == null ? null : SupabaseChildRepository(client),
       ),
     ),
   );

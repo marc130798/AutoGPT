@@ -804,6 +804,396 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Bitte wähle das Geburtsjahr.'**
   String get birthYearMissing;
+
+  /// Name von Talo über seiner Sprechblase
+  ///
+  /// In de, this message translates to:
+  /// **'Talo'**
+  String get speakerTalo;
+
+  /// Name von Tala über ihrer Sprechblase
+  ///
+  /// In de, this message translates to:
+  /// **'Tala'**
+  String get speakerTala;
+
+  /// Intro, Szene 1: Talo stellt sich vor (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Ahoi! Ich bin Talo, der Kapitän. Ich habe einen Kompass und meistens einen Plan.'**
+  String get introStoryTalo1;
+
+  /// Intro, Szene 2: Tala stellt sich vor (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Und ich bin Tala, die Zahlmeisterin! Ich passe auf unsere Schatztruhe auf. Meistens jedenfalls.'**
+  String get introStoryTala1;
+
+  /// Intro, Szene 3: Flaschenpost (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Heute Morgen ist eine Flaschenpost angetrieben. Darin war ein Stück einer alten Schatzkarte!'**
+  String get introStoryTalo2;
+
+  /// Intro, Szene 4: Meister Taleron (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Meister Taleron, der Hüter des Meeres, hat die Karte zerrissen und die Teile auf den Inseln versteckt. Nur eine kluge Crew findet den Schatz.'**
+  String get introStoryTala2;
+
+  /// Intro, Szene 5: Einladung in die Crew (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Unsere Bordkasse ist leer, und wir brauchen Verstärkung. Willst du in unsere Crew?'**
+  String get introStoryTalo3;
+
+  /// Knopf: der Crew beitreten
+  ///
+  /// In de, this message translates to:
+  /// **'Ja, ich bin dabei!'**
+  String get introJoinButton;
+
+  /// Knopf: nächste Szene im Intro
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter'**
+  String get introNext;
+
+  /// Überschrift Avatar-Baukasten
+  ///
+  /// In de, this message translates to:
+  /// **'Wie siehst du aus?'**
+  String get avatarTitle;
+
+  /// Abschnitt im Avatar-Baukasten
+  ///
+  /// In de, this message translates to:
+  /// **'Hautfarbe'**
+  String get avatarSkin;
+
+  /// Abschnitt im Avatar-Baukasten
+  ///
+  /// In de, this message translates to:
+  /// **'Frisur'**
+  String get avatarHairStyle;
+
+  /// Abschnitt im Avatar-Baukasten
+  ///
+  /// In de, this message translates to:
+  /// **'Haarfarbe'**
+  String get avatarHairColor;
+
+  /// Abschnitt im Avatar-Baukasten
+  ///
+  /// In de, this message translates to:
+  /// **'Jacke'**
+  String get avatarOutfit;
+
+  /// Abschnitt im Avatar-Baukasten
+  ///
+  /// In de, this message translates to:
+  /// **'Kopfbedeckung'**
+  String get avatarHat;
+
+  /// Frisur kurz
+  ///
+  /// In de, this message translates to:
+  /// **'Kurz'**
+  String get avatarHairShort;
+
+  /// Frisur lang
+  ///
+  /// In de, this message translates to:
+  /// **'Lang'**
+  String get avatarHairLong;
+
+  /// Frisur Locken
+  ///
+  /// In de, this message translates to:
+  /// **'Locken'**
+  String get avatarHairCurly;
+
+  /// Frisur Zopf
+  ///
+  /// In de, this message translates to:
+  /// **'Zopf'**
+  String get avatarHairBraid;
+
+  /// Keine Haare
+  ///
+  /// In de, this message translates to:
+  /// **'Keine'**
+  String get avatarHairNone;
+
+  /// Keine Kopfbedeckung
+  ///
+  /// In de, this message translates to:
+  /// **'Keine'**
+  String get avatarHatNone;
+
+  /// Kopfbedeckung Kapitänsmütze
+  ///
+  /// In de, this message translates to:
+  /// **'Kapitänsmütze'**
+  String get avatarHatCaptain;
+
+  /// Kopfbedeckung Kopftuch
+  ///
+  /// In de, this message translates to:
+  /// **'Kopftuch'**
+  String get avatarHatBandana;
+
+  /// Kopfbedeckung Strohhut
+  ///
+  /// In de, this message translates to:
+  /// **'Strohhut'**
+  String get avatarHatStraw;
+
+  /// Vorlesetext für eine Farbauswahl, z. B. „Hautfarbe 3“
+  ///
+  /// In de, this message translates to:
+  /// **'{group} {number}'**
+  String avatarColorOption(String group, int number);
+
+  /// Knopf: Avatar speichern
+  ///
+  /// In de, this message translates to:
+  /// **'So sehe ich aus!'**
+  String get avatarDone;
+
+  /// Überschrift Schiffstaufe
+  ///
+  /// In de, this message translates to:
+  /// **'Taufe dein Schiff'**
+  String get shipTitle;
+
+  /// Tala bei der Schiffstaufe (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Jedes Schiff braucht einen Namen. Wie soll unseres heißen?'**
+  String get shipBody;
+
+  /// Feld Schiffsname
+  ///
+  /// In de, this message translates to:
+  /// **'Name des Schiffs'**
+  String get shipLabel;
+
+  /// Namensvorschläge für das Schiff, getrennt durch |
+  ///
+  /// In de, this message translates to:
+  /// **'Seestern|Goldmöwe|Wellenreiter|Sturmvogel'**
+  String get shipSuggestions;
+
+  /// Knopf: Schiff taufen
+  ///
+  /// In de, this message translates to:
+  /// **'Schiff taufen'**
+  String get shipButton;
+
+  /// Fehler: Schiffsname zu kurz
+  ///
+  /// In de, this message translates to:
+  /// **'Der Name braucht mindestens 2 Zeichen.'**
+  String get shipNameTooShort;
+
+  /// Fehler: Schiffsname zu lang
+  ///
+  /// In de, this message translates to:
+  /// **'Der Name darf höchstens 30 Zeichen haben.'**
+  String get shipNameTooLong;
+
+  /// Überschrift Rundgang
+  ///
+  /// In de, this message translates to:
+  /// **'Rundgang an Bord'**
+  String get tourTitle;
+
+  /// Rundgang: Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Die Karte'**
+  String get tourMapTitle;
+
+  /// Talo erklärt die Karte (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Karte siehst du alle Inseln. Jede Insel hat ein Thema und versteckt ein Stück der Schatzkarte.'**
+  String get tourMapBody;
+
+  /// Rundgang: Schatztruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Die Schatztruhe'**
+  String get tourChestTitle;
+
+  /// Tala erklärt die Schatztruhe (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'In der Schatztruhe sammelst du deine Taler und deine Wunschschätze.'**
+  String get tourChestBody;
+
+  /// Rundgang: Logbuch
+  ///
+  /// In de, this message translates to:
+  /// **'Das Logbuch'**
+  String get tourLogbookTitle;
+
+  /// Talo erklärt das Logbuch (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Im Logbuch steht, was du schon geschafft hast: Seemeilen, Orden und dein Rang.'**
+  String get tourLogbookBody;
+
+  /// Knopf: Rundgang beenden
+  ///
+  /// In de, this message translates to:
+  /// **'Verstanden!'**
+  String get tourDone;
+
+  /// Überschrift erster Wunschschatz
+  ///
+  /// In de, this message translates to:
+  /// **'Dein erster Wunschschatz'**
+  String get wishTitle;
+
+  /// Tala erklärt den Wunschschatz (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Wofür würdest du gern sparen? Ein Wunschschatz ist etwas, das du dir wünschst und wofür du Taler sammelst.'**
+  String get wishBody;
+
+  /// Feld: Titel des Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'Was wünschst du dir?'**
+  String get wishTitleLabel;
+
+  /// Feld: Betrag des Wunschschatzes
+  ///
+  /// In de, this message translates to:
+  /// **'Ungefähr wie viel kostet das? (in Euro)'**
+  String get wishAmountLabel;
+
+  /// Hinweis zum Betrag
+  ///
+  /// In de, this message translates to:
+  /// **'Schätzen ist völlig in Ordnung.'**
+  String get wishAmountHint;
+
+  /// Knopf: Wunschschatz speichern
+  ///
+  /// In de, this message translates to:
+  /// **'In die Schatztruhe legen'**
+  String get wishSave;
+
+  /// Knopf: Wunschschatz überspringen
+  ///
+  /// In de, this message translates to:
+  /// **'Weiß ich noch nicht'**
+  String get wishSkip;
+
+  /// Fehler: Titel zu kurz
+  ///
+  /// In de, this message translates to:
+  /// **'Schreib mindestens 2 Zeichen.'**
+  String get wishTitleTooShort;
+
+  /// Fehler: Titel zu lang
+  ///
+  /// In de, this message translates to:
+  /// **'Höchstens 40 Zeichen, bitte.'**
+  String get wishTitleTooLong;
+
+  /// Fehler: Betrag ungültig
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte eine ganze Zahl von 1 bis 10000.'**
+  String get wishAmountInvalid;
+
+  /// Abschluss des Intros
+  ///
+  /// In de, this message translates to:
+  /// **'Willkommen in der Crew, {nickname}!'**
+  String doneTitle(String nickname);
+
+  /// Erster Rang nach dem Intro (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Rang: Schiffsjunge'**
+  String get doneRank;
+
+  /// Gutgeschriebene Seemeilen
+  ///
+  /// In de, this message translates to:
+  /// **'+{xp} Seemeilen'**
+  String doneXp(int xp);
+
+  /// Hinweis nach angelegtem Wunschschatz
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Wunschschatz liegt in der Schatztruhe.'**
+  String get doneWish;
+
+  /// Knopf: Karte öffnen
+  ///
+  /// In de, this message translates to:
+  /// **'Karte öffnen'**
+  String get doneMapButton;
+
+  /// Überschrift, wenn sich die Karte aufrollt
+  ///
+  /// In de, this message translates to:
+  /// **'Die Karte ist offen!'**
+  String get mapOpenTitle;
+
+  /// Text unter der Karte nach dem Intro (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Euer erstes Ziel: der Hafen von Taleria.'**
+  String get mapOpenBody;
+
+  /// Knopf: Intro beenden
+  ///
+  /// In de, this message translates to:
+  /// **'Los geht\'s'**
+  String get mapStartButton;
+
+  /// Titel der Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Karte'**
+  String get mapTitle;
+
+  /// Schiffsname im Kinderbereich
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Schiff: {ship}'**
+  String childHomeShip(String ship);
+
+  /// Knopf: Karte öffnen (Kinderbereich)
+  ///
+  /// In de, this message translates to:
+  /// **'Zur Karte'**
+  String get childHomeMapButton;
+
+  /// Knopf: Intro-Film erneut ansehen
+  ///
+  /// In de, this message translates to:
+  /// **'Intro noch einmal ansehen'**
+  String get childHomeIntroAgain;
+
+  /// Schiffsname im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Schiff: {ship}'**
+  String lighthouseChildShip(String ship);
+
+  /// Hinweis im Leuchtturm, wenn das Kind das Intro noch nicht beendet hat
+  ///
+  /// In de, this message translates to:
+  /// **'Intro noch nicht abgeschlossen'**
+  String get lighthouseIntroPending;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

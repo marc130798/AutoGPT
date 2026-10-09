@@ -59,13 +59,7 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
         await widget.controller.createChild(nickname: _nickname.text, birthYear: _birthYear!, level: _level);
       } else {
         await widget.controller.updateChild(
-          ChildProfile(
-            id: existing.id,
-            nickname: _nickname.text.trim(),
-            birthYear: _birthYear!,
-            level: _level,
-            stage: existing.stage,
-          ),
+          existing.copyWith(nickname: _nickname.text.trim(), birthYear: _birthYear, level: _level),
         );
       }
     });

@@ -10,11 +10,23 @@ enum PinProblem { format, tooSimple }
 
 enum NicknameProblem { tooShort, tooLong, invalidCharacters }
 
+enum ShipNameProblem { tooShort, tooLong, invalidCharacters }
+
+enum WishTitleProblem { tooShort, tooLong }
+
+enum WishAmountProblem { notANumber, outOfRange }
+
 /// Mindestlänge für Eltern-Passwörter (auch in supabase/config.toml).
 const int minPasswordLength = 10;
 
 const int minNicknameLength = 2;
 const int maxNicknameLength = 20;
+const int maxShipNameLength = 30;
+const int maxWishTitleLength = 40;
+
+/// Wunschschatz: 1 € bis 10.000 € (passt zu savings_goals in der Datenbank).
+const int minWishEuros = 1;
+const int maxWishEuros = 10000;
 
 /// Zeichen für Anmelde-Codes, ohne leicht verwechselbare I, L, O, 0 und 1.
 /// Muss zu create_child_login_code() in der Datenbank passen.
@@ -66,6 +78,35 @@ NicknameProblem? validateNickname(String input) {
   }
   return null;
 }
+
+/// Schiffsname: 2 bis 30 Zeichen, sonst wie beim Spitznamen.
+ShipNameProblem? validateShipName(String input) {
+  final value = input.trim();
+  if (value.characters < minNicknameLength) return ShipNameProblem.tooShort;
+  if (value.characters > maxShipNameLength) return ShipNameProblem.tooLong;
+  if (!_nicknamePattern.hasMatch(value) || !_letterPattern.hasMatch(value)) {
+    return ShipNameProblem.invalidCharacters;
+  }
+  return null;
+}
+
+WishTitleProblem? validateWishTitle(String input) {
+  final value = input.trim();
+  if (value.characters < 2) return WishTitleProblem.tooShort;
+  if (value.characters > maxWishTitleLength) return WishTitleProblem.tooLong;
+  return null;
+}
+
+/// Betrag eines Wunschschatzes in ganzen Euro (Schätzen ist erlaubt).
+WishAmountProblem? validateWishEuros(String input) {
+  final euros = int.tryParse(input.trim());
+  if (euros == null) return WishAmountProblem.notANumber;
+  if (euros < minWishEuros || euros > maxWishEuros) return WishAmountProblem.outOfRange;
+  return null;
+}
+
+/// Ganze Euro in Cent (Geld immer als ganze Zahl in Cent, CLAUDE.md).
+int eurosToCents(int euros) => euros * 100;
 
 /// Geburtsjahre zur Auswahl, neueste zuerst: Kinder von 6 bis 17 Jahren.
 /// Empfohlen ist Taleria ab 10, aber die Eltern entscheiden.

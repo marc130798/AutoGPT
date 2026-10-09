@@ -7,6 +7,7 @@ import '../child/child_code_screen.dart';
 import '../child/child_home_screen.dart';
 import '../common/texts.dart';
 import '../home/preview_home_screen.dart';
+import '../intro/intro_flow_screen.dart';
 import '../lighthouse/lighthouse_screen.dart';
 import '../lighthouse/pin_screens.dart';
 import 'welcome_screen.dart';
@@ -57,7 +58,7 @@ class _SessionGateState extends State<SessionGate> with WidgetsBindingObserver {
   /// schließen wir alle Unterseiten.
   static Object _kindOf(SessionState state) => switch (state) {
     SessionParent(:final parent, :final unlocked) => (SessionParent, parent.hasPin, unlocked),
-    SessionChild(:final child) => (SessionChild, child.id),
+    SessionChild(:final child) => (SessionChild, child.id, child.onboardingCompleted),
     _ => state.runtimeType,
   };
 
@@ -85,6 +86,10 @@ class _SessionGateState extends State<SessionGate> with WidgetsBindingObserver {
       SessionOffline() => const PreviewHomeScreen(),
       SessionSignedOut() => const WelcomeScreen(),
       SessionChildUnlinked() => const ChildCodeScreen(),
+      SessionChild(:final child) when !child.onboardingCompleted => IntroFlowScreen(
+        key: ValueKey(child.id),
+        state: state,
+      ),
       SessionChild() => ChildHomeScreen(state: state),
       SessionParent(:final parent) when !parent.hasPin => const SetPinScreen(),
       SessionParent(:final unlocked) when !unlocked => PinGateScreen(state: state),

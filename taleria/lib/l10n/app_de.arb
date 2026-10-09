@@ -531,5 +531,293 @@
   "birthYearMissing": "Bitte wähle das Geburtsjahr.",
   "@birthYearMissing": {
     "description": "Fehler: kein Geburtsjahr gewählt"
+  },
+  "speakerTalo": "Talo",
+  "@speakerTalo": {
+    "description": "Name von Talo über seiner Sprechblase"
+  },
+  "speakerTala": "Tala",
+  "@speakerTala": {
+    "description": "Name von Tala über ihrer Sprechblase"
+  },
+  "introStoryTalo1": "Ahoi! Ich bin Talo, der Kapitän. Ich habe einen Kompass und meistens einen Plan.",
+  "@introStoryTalo1": {
+    "description": "Intro, Szene 1: Talo stellt sich vor (ENTWURF)"
+  },
+  "introStoryTala1": "Und ich bin Tala, die Zahlmeisterin! Ich passe auf unsere Schatztruhe auf. Meistens jedenfalls.",
+  "@introStoryTala1": {
+    "description": "Intro, Szene 2: Tala stellt sich vor (ENTWURF)"
+  },
+  "introStoryTalo2": "Heute Morgen ist eine Flaschenpost angetrieben. Darin war ein Stück einer alten Schatzkarte!",
+  "@introStoryTalo2": {
+    "description": "Intro, Szene 3: Flaschenpost (ENTWURF)"
+  },
+  "introStoryTala2": "Meister Taleron, der Hüter des Meeres, hat die Karte zerrissen und die Teile auf den Inseln versteckt. Nur eine kluge Crew findet den Schatz.",
+  "@introStoryTala2": {
+    "description": "Intro, Szene 4: Meister Taleron (ENTWURF)"
+  },
+  "introStoryTalo3": "Unsere Bordkasse ist leer, und wir brauchen Verstärkung. Willst du in unsere Crew?",
+  "@introStoryTalo3": {
+    "description": "Intro, Szene 5: Einladung in die Crew (ENTWURF)"
+  },
+  "introJoinButton": "Ja, ich bin dabei!",
+  "@introJoinButton": {
+    "description": "Knopf: der Crew beitreten"
+  },
+  "introNext": "Weiter",
+  "@introNext": {
+    "description": "Knopf: nächste Szene im Intro"
+  },
+  "avatarTitle": "Wie siehst du aus?",
+  "@avatarTitle": {
+    "description": "Überschrift Avatar-Baukasten"
+  },
+  "avatarSkin": "Hautfarbe",
+  "@avatarSkin": {
+    "description": "Abschnitt im Avatar-Baukasten"
+  },
+  "avatarHairStyle": "Frisur",
+  "@avatarHairStyle": {
+    "description": "Abschnitt im Avatar-Baukasten"
+  },
+  "avatarHairColor": "Haarfarbe",
+  "@avatarHairColor": {
+    "description": "Abschnitt im Avatar-Baukasten"
+  },
+  "avatarOutfit": "Jacke",
+  "@avatarOutfit": {
+    "description": "Abschnitt im Avatar-Baukasten"
+  },
+  "avatarHat": "Kopfbedeckung",
+  "@avatarHat": {
+    "description": "Abschnitt im Avatar-Baukasten"
+  },
+  "avatarHairShort": "Kurz",
+  "@avatarHairShort": {
+    "description": "Frisur kurz"
+  },
+  "avatarHairLong": "Lang",
+  "@avatarHairLong": {
+    "description": "Frisur lang"
+  },
+  "avatarHairCurly": "Locken",
+  "@avatarHairCurly": {
+    "description": "Frisur Locken"
+  },
+  "avatarHairBraid": "Zopf",
+  "@avatarHairBraid": {
+    "description": "Frisur Zopf"
+  },
+  "avatarHairNone": "Keine",
+  "@avatarHairNone": {
+    "description": "Keine Haare"
+  },
+  "avatarHatNone": "Keine",
+  "@avatarHatNone": {
+    "description": "Keine Kopfbedeckung"
+  },
+  "avatarHatCaptain": "Kapitänsmütze",
+  "@avatarHatCaptain": {
+    "description": "Kopfbedeckung Kapitänsmütze"
+  },
+  "avatarHatBandana": "Kopftuch",
+  "@avatarHatBandana": {
+    "description": "Kopfbedeckung Kopftuch"
+  },
+  "avatarHatStraw": "Strohhut",
+  "@avatarHatStraw": {
+    "description": "Kopfbedeckung Strohhut"
+  },
+  "avatarColorOption": "{group} {number}",
+  "@avatarColorOption": {
+    "description": "Vorlesetext für eine Farbauswahl, z. B. „Hautfarbe 3“",
+    "placeholders": {
+      "group": {
+        "type": "String"
+      },
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "avatarDone": "So sehe ich aus!",
+  "@avatarDone": {
+    "description": "Knopf: Avatar speichern"
+  },
+  "shipTitle": "Taufe dein Schiff",
+  "@shipTitle": {
+    "description": "Überschrift Schiffstaufe"
+  },
+  "shipBody": "Jedes Schiff braucht einen Namen. Wie soll unseres heißen?",
+  "@shipBody": {
+    "description": "Tala bei der Schiffstaufe (ENTWURF)"
+  },
+  "shipLabel": "Name des Schiffs",
+  "@shipLabel": {
+    "description": "Feld Schiffsname"
+  },
+  "shipSuggestions": "Seestern|Goldmöwe|Wellenreiter|Sturmvogel",
+  "@shipSuggestions": {
+    "description": "Namensvorschläge für das Schiff, getrennt durch |"
+  },
+  "shipButton": "Schiff taufen",
+  "@shipButton": {
+    "description": "Knopf: Schiff taufen"
+  },
+  "shipNameTooShort": "Der Name braucht mindestens 2 Zeichen.",
+  "@shipNameTooShort": {
+    "description": "Fehler: Schiffsname zu kurz"
+  },
+  "shipNameTooLong": "Der Name darf höchstens 30 Zeichen haben.",
+  "@shipNameTooLong": {
+    "description": "Fehler: Schiffsname zu lang"
+  },
+  "tourTitle": "Rundgang an Bord",
+  "@tourTitle": {
+    "description": "Überschrift Rundgang"
+  },
+  "tourMapTitle": "Die Karte",
+  "@tourMapTitle": {
+    "description": "Rundgang: Karte"
+  },
+  "tourMapBody": "Auf der Karte siehst du alle Inseln. Jede Insel hat ein Thema und versteckt ein Stück der Schatzkarte.",
+  "@tourMapBody": {
+    "description": "Talo erklärt die Karte (ENTWURF)"
+  },
+  "tourChestTitle": "Die Schatztruhe",
+  "@tourChestTitle": {
+    "description": "Rundgang: Schatztruhe"
+  },
+  "tourChestBody": "In der Schatztruhe sammelst du deine Taler und deine Wunschschätze.",
+  "@tourChestBody": {
+    "description": "Tala erklärt die Schatztruhe (ENTWURF)"
+  },
+  "tourLogbookTitle": "Das Logbuch",
+  "@tourLogbookTitle": {
+    "description": "Rundgang: Logbuch"
+  },
+  "tourLogbookBody": "Im Logbuch steht, was du schon geschafft hast: Seemeilen, Orden und dein Rang.",
+  "@tourLogbookBody": {
+    "description": "Talo erklärt das Logbuch (ENTWURF)"
+  },
+  "tourDone": "Verstanden!",
+  "@tourDone": {
+    "description": "Knopf: Rundgang beenden"
+  },
+  "wishTitle": "Dein erster Wunschschatz",
+  "@wishTitle": {
+    "description": "Überschrift erster Wunschschatz"
+  },
+  "wishBody": "Wofür würdest du gern sparen? Ein Wunschschatz ist etwas, das du dir wünschst und wofür du Taler sammelst.",
+  "@wishBody": {
+    "description": "Tala erklärt den Wunschschatz (ENTWURF)"
+  },
+  "wishTitleLabel": "Was wünschst du dir?",
+  "@wishTitleLabel": {
+    "description": "Feld: Titel des Wunschschatzes"
+  },
+  "wishAmountLabel": "Ungefähr wie viel kostet das? (in Euro)",
+  "@wishAmountLabel": {
+    "description": "Feld: Betrag des Wunschschatzes"
+  },
+  "wishAmountHint": "Schätzen ist völlig in Ordnung.",
+  "@wishAmountHint": {
+    "description": "Hinweis zum Betrag"
+  },
+  "wishSave": "In die Schatztruhe legen",
+  "@wishSave": {
+    "description": "Knopf: Wunschschatz speichern"
+  },
+  "wishSkip": "Weiß ich noch nicht",
+  "@wishSkip": {
+    "description": "Knopf: Wunschschatz überspringen"
+  },
+  "wishTitleTooShort": "Schreib mindestens 2 Zeichen.",
+  "@wishTitleTooShort": {
+    "description": "Fehler: Titel zu kurz"
+  },
+  "wishTitleTooLong": "Höchstens 40 Zeichen, bitte.",
+  "@wishTitleTooLong": {
+    "description": "Fehler: Titel zu lang"
+  },
+  "wishAmountInvalid": "Bitte eine ganze Zahl von 1 bis 10000.",
+  "@wishAmountInvalid": {
+    "description": "Fehler: Betrag ungültig"
+  },
+  "doneTitle": "Willkommen in der Crew, {nickname}!",
+  "@doneTitle": {
+    "description": "Abschluss des Intros",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "doneRank": "Dein Rang: Schiffsjunge",
+  "@doneRank": {
+    "description": "Erster Rang nach dem Intro (Glossar)"
+  },
+  "doneXp": "+{xp} Seemeilen",
+  "@doneXp": {
+    "description": "Gutgeschriebene Seemeilen",
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "doneWish": "Dein Wunschschatz liegt in der Schatztruhe.",
+  "@doneWish": {
+    "description": "Hinweis nach angelegtem Wunschschatz"
+  },
+  "doneMapButton": "Karte öffnen",
+  "@doneMapButton": {
+    "description": "Knopf: Karte öffnen"
+  },
+  "mapOpenTitle": "Die Karte ist offen!",
+  "@mapOpenTitle": {
+    "description": "Überschrift, wenn sich die Karte aufrollt"
+  },
+  "mapOpenBody": "Euer erstes Ziel: der Hafen von Taleria.",
+  "@mapOpenBody": {
+    "description": "Text unter der Karte nach dem Intro (ENTWURF)"
+  },
+  "mapStartButton": "Los geht's",
+  "@mapStartButton": {
+    "description": "Knopf: Intro beenden"
+  },
+  "mapTitle": "Karte",
+  "@mapTitle": {
+    "description": "Titel der Karte"
+  },
+  "childHomeShip": "Dein Schiff: {ship}",
+  "@childHomeShip": {
+    "description": "Schiffsname im Kinderbereich",
+    "placeholders": {
+      "ship": {
+        "type": "String"
+      }
+    }
+  },
+  "childHomeMapButton": "Zur Karte",
+  "@childHomeMapButton": {
+    "description": "Knopf: Karte öffnen (Kinderbereich)"
+  },
+  "childHomeIntroAgain": "Intro noch einmal ansehen",
+  "@childHomeIntroAgain": {
+    "description": "Knopf: Intro-Film erneut ansehen"
+  },
+  "lighthouseChildShip": "Schiff: {ship}",
+  "@lighthouseChildShip": {
+    "description": "Schiffsname im Leuchtturm",
+    "placeholders": {
+      "ship": {
+        "type": "String"
+      }
+    }
+  },
+  "lighthouseIntroPending": "Intro noch nicht abgeschlossen",
+  "@lighthouseIntroPending": {
+    "description": "Hinweis im Leuchtturm, wenn das Kind das Intro noch nicht beendet hat"
   }
 }

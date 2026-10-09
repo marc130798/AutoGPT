@@ -1,6 +1,8 @@
 /// Datenmodelle für Konten und Kinder-Profile. Ohne Aussehen, ohne Supabase.
 library;
 
+import 'avatar.dart';
+
 enum LevelSetting {
   beginner('beginner'),
   advanced('advanced');
@@ -31,6 +33,9 @@ class ChildProfile {
     required this.birthYear,
     required this.level,
     this.stage = 1,
+    this.avatar,
+    this.shipName,
+    this.onboardingCompleted = false,
   });
 
   final String id;
@@ -40,6 +45,26 @@ class ChildProfile {
 
   /// Stufe 1 (10 bis 14) oder später Stufe 2. Bestimmt Theme und Inhalte.
   final int stage;
+
+  /// `null`, solange das Kind noch keinen Avatar gestaltet hat.
+  final AvatarConfig? avatar;
+
+  /// Name des Schiffs, `null` vor der Schiffstaufe.
+  final String? shipName;
+
+  /// Intro (Station 1 des Hafens) abgeschlossen?
+  final bool onboardingCompleted;
+
+  ChildProfile copyWith({String? nickname, int? birthYear, LevelSetting? level}) => ChildProfile(
+    id: id,
+    nickname: nickname ?? this.nickname,
+    birthYear: birthYear ?? this.birthYear,
+    level: level ?? this.level,
+    stage: stage,
+    avatar: avatar,
+    shipName: shipName,
+    onboardingCompleted: onboardingCompleted,
+  );
 }
 
 /// Neu erzeugter Anmelde-Code. Der Code wird nur dieses eine Mal angezeigt.

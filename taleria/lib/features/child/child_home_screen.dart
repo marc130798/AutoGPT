@@ -1,39 +1,27 @@
 import 'package:flutter/material.dart';
 
-import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
+import '../../domain/avatar.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/session_controller.dart';
+import '../common/avatar_view.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
+import '../map/map_screen.dart';
+import 'lighthouse_button.dart';
 
-/// Kinderbereich. Bis zum Intro (Schritt 3) nur Begrüßung und Figuren.
+/// Kinderbereich nach dem Intro: Avatar, Schiff und der Weg zur Karte.
 /// Keine Preise, keine Kauf-Knöpfe, keine Links nach außen.
 class ChildHomeScreen extends StatelessWidget {
   const ChildHomeScreen({super.key, required this.state});
 
   final SessionChild state;
 
-  void _openLighthouse(BuildContext context) {
-    final session = AppScope.of(context).session;
-    if (state.onParentDevice) {
-      session.requestParentArea();
-      return;
-    }
-    final l10n = AppLocalizations.of(context);
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Text(l10n.childHomeLighthouseHint),
-        actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.ok))],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final child = state.child;
 
     return Scaffold(
       body: SafeArea(
@@ -42,40 +30,46 @@ class ChildHomeScreen extends StatelessWidget {
             ListView(
               padding: const EdgeInsets.fromLTRB(24, 72, 24, 24),
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    TaleriaAsset(AssetKeys.talo, width: 120, height: 120),
-                    SizedBox(width: 24),
-                    TaleriaAsset(AssetKeys.tala, width: 120, height: 120),
+                    const TaleriaAsset(AssetKeys.talo, width: 88, height: 88),
+                    const SizedBox(width: 12),
+                    AvatarView(avatar: child.avatar ?? const AvatarConfig(), size: 140),
+                    const SizedBox(width: 12),
+                    const TaleriaAsset(AssetKeys.tala, width: 88, height: 88),
                   ],
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 24),
                 Text(
-                  l10n.childHomeWelcome(state.child.nickname),
+                  l10n.childHomeWelcome(child.nickname),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineMedium,
                 ),
-                const SizedBox(height: 8),
-                Text(l10n.homeSubtitle, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
+                if (child.shipName != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.childHomeShip(child.shipName!),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.titleMedium,
+                  ),
+                ],
                 const SizedBox(height: 32),
                 FilledButton(
                   onPressed: () =>
+                      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const MapScreen())),
+                  child: Text(l10n.childHomeMapButton),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton(
+                  onPressed: () =>
                       Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
-                  child: Text(l10n.homeShowIntro),
+                  child: Text(l10n.childHomeIntroAgain),
                 ),
               ],
             ),
-            Positioned(
-              top: 8,
-              right: 8,
-              child: IconButton(
-                key: const ValueKey('lighthouse-button'),
-                tooltip: l10n.lighthouseTitle,
-                icon: const TaleriaAsset(AssetKeys.lighthouse, width: 48, height: 48),
-                onPressed: () => _openLighthouse(context),
-              ),
-            ),
+            Positioned(top: 8, right: 8, child: LighthouseButton(state: state)),
           ],
         ),
       ),

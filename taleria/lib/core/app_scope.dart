@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../data/child_repository.dart';
 import '../data/family_repository.dart';
 import '../services/session_controller.dart';
 import 'assets/asset_manifest.dart';
@@ -16,6 +17,7 @@ class AppServices {
     required this.backendHealth,
     required this.session,
     required this.family,
+    required this.children,
     this.manifestError,
   });
 
@@ -29,6 +31,9 @@ class AppServices {
 
   /// `null`, wenn kein Server eingerichtet ist.
   final FamilyRepository? family;
+
+  /// Avatar, Schiff, Wunschschätze, Intro. `null` ohne Server.
+  final ChildRepository? children;
 
   /// Gesetzt, wenn das Manifest nicht geladen werden konnte. Die App läuft
   /// dann mit grauen Platzhaltern weiter.

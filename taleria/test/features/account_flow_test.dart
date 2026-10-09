@@ -82,16 +82,16 @@ void main() {
     expect(find.text('ABCD 2345'), findsOneWidget);
     expect(find.text('Gültig bis 14:35 Uhr und nur einmal nutzbar.'), findsOneWidget);
 
-    // Gerät an Mila übergeben
+    // Gerät an Mila übergeben: Ein neues Kind startet mit dem Intro.
     await tapText(tester, 'Gerät an Mila übergeben');
-    expect(find.text('Willkommen an Bord, Mila!'), findsOneWidget);
+    expect(find.text('Film folgt'), findsOneWidget);
 
     // Leuchtturm nur mit PIN, „Zurück an Bord“ ohne PIN
     await tester.tap(find.byKey(const ValueKey('lighthouse-button')));
     await tester.pumpAndSettle();
     expect(find.text('Bitte gib die Eltern-PIN ein.'), findsOneWidget);
     await tapText(tester, 'Zurück an Bord');
-    expect(find.text('Willkommen an Bord, Mila!'), findsOneWidget);
+    expect(find.text('Film folgt'), findsOneWidget);
 
     await tester.tap(find.byKey(const ValueKey('lighthouse-button')));
     await tester.pumpAndSettle();
@@ -101,6 +101,8 @@ void main() {
     await enter(tester, 'pin-gate-field', '2468');
     await tapText(tester, 'Öffnen');
     expect(find.text('Kinder-Profile'), findsOneWidget);
+    // Mila hat das Intro noch nicht beendet, das sehen die Eltern im Leuchtturm.
+    expect(find.textContaining('Intro noch nicht abgeschlossen'), findsOneWidget);
   });
 
   testWidgets('Kinder-Gerät: Code eingeben, Kinderbereich, Leuchtturm-Hinweis', (tester) async {

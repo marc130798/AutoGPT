@@ -8,6 +8,7 @@ import '../../domain/family_models.dart';
 import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/session_controller.dart';
+import '../common/busy_action.dart';
 import '../common/button_spinner.dart';
 import '../common/texts.dart';
 
@@ -184,7 +185,10 @@ class _PinGateScreenState extends State<PinGateScreen> {
             ),
             const SizedBox(height: 8),
             if (returnChild != null)
-              OutlinedButton(onPressed: session.returnToChild, child: Text(l10n.pinBackToChild))
+              OutlinedButton(
+                onPressed: () => runWithFeedback(context, session.returnToChild),
+                child: Text(l10n.pinBackToChild),
+              )
             else
               TextButton(
                 onPressed: () => session.signOut(),

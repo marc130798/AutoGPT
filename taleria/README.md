@@ -3,7 +3,19 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 2 gibt
+## Was es nach Schritt 3 gibt
+
+- Beim ersten Start im Kinderbereich läuft das Intro (Station 1 des Hafens):
+  Intro-Film (Platzhalter), Talo und Tala erzählen die Geschichte, „Willst du in unsere Crew?“
+- Avatar-Baukasten: Hautfarbe, Frisur, Haarfarbe, Jacke, Kopfbedeckung
+- Schiffstaufe mit Namensvorschlägen
+- Rundgang: Karte, Schatztruhe, Logbuch
+- Erster Wunschschatz (Titel und ungefährer Preis), kann übersprungen werden
+- Abschluss: Rang Schiffsjunge, +50 Seemeilen, die Karte rollt sich auf
+- Danach zeigt der Kinderbereich Avatar und Schiffsname, im Leuchtturm sehen Eltern beides
+- Alles wird sofort gespeichert; Seemeilen bucht nur der Server, und nur einmal
+
+## Was es seit Schritt 2 gibt
 
 - Start: „Ich habe einen Code“ (Kind) oder „Für Eltern“
 - Eltern registrieren sich mit E-Mail, Passwort (mindestens 10 Zeichen) und Pflicht-Einwilligung;
@@ -114,6 +126,23 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 3, mit Test-Server)
+
+1. Im Leuchtturm ein neues Kinder-Profil anlegen und auf einem Kinder-Gerät mit Code anmelden
+   (oder „Gerät an … übergeben“).
+2. Das Intro startet: Film-Platzhalter, „Weiter“, dann erzählen Talo und Tala.
+3. Avatar gestalten und „So sehe ich aus!“ – die Vorschau ändert sich bei jedem Tipp.
+4. Schiff taufen: Ein Name mit nur einem Buchstaben wird abgelehnt, ein Vorschlag lässt sich antippen.
+5. Rundgang durchtippen, dann einen Wunschschatz anlegen (zum Beispiel „Fahrradhelm“, 40 €)
+   oder „Weiß ich noch nicht“.
+6. Abschluss: „Dein Rang: Schiffsjunge“ und „+50 Seemeilen“, dann „Karte öffnen“ und „Los geht's“.
+7. App schließen und neu öffnen: Das Intro kommt nicht noch einmal.
+8. Im Leuchtturm stehen jetzt Avatar und Schiffsname beim Kind.
+9. In der Supabase-Tabellenansicht: `savings_goals` enthält den Wunschschatz in Cent (4000),
+   `xp_events` genau einen Eintrag mit 50 Seemeilen.
+
+Auf dem Eltern-Gerät führt der Leuchtturm-Knopf auch während des Intros zur PIN-Abfrage.
 
 ## Was du ausprobieren kannst (Schritt 2, mit Test-Server)
 

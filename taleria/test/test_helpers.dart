@@ -81,6 +81,7 @@ TaleriaApp buildTestApp({
       backendHealth: FakeHealthCheck(backendStatus),
       session: session,
       family: family,
+      children: backend == null ? null : FakeChildRepository(backend),
     ),
   );
 }

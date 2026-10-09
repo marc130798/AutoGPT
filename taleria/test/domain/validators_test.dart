@@ -92,4 +92,30 @@ void main() {
       }
     });
   });
+
+  group('Schiff und Wunschschatz', () {
+    test('Schiffsname', () {
+      expect(validateShipName('Seestern'), isNull);
+      expect(validateShipName('Die schnelle Goldmöwe'), isNull);
+      expect(validateShipName('S'), ShipNameProblem.tooShort);
+      expect(validateShipName('A' * 31), ShipNameProblem.tooLong);
+      expect(validateShipName('<script>'), ShipNameProblem.invalidCharacters);
+    });
+
+    test('Titel des Wunschschatzes', () {
+      expect(validateWishTitle('Fahrradhelm'), isNull);
+      expect(validateWishTitle(' x '), WishTitleProblem.tooShort);
+      expect(validateWishTitle('A' * 41), WishTitleProblem.tooLong);
+    });
+
+    test('Betrag des Wunschschatzes in ganzen Euro', () {
+      expect(validateWishEuros('40'), isNull);
+      expect(validateWishEuros('10000'), isNull);
+      expect(validateWishEuros('0'), WishAmountProblem.outOfRange);
+      expect(validateWishEuros('10001'), WishAmountProblem.outOfRange);
+      expect(validateWishEuros('vierzig'), WishAmountProblem.notANumber);
+      expect(validateWishEuros('4,50'), WishAmountProblem.notANumber);
+      expect(eurosToCents(40), 4000);
+    });
+  });
 }

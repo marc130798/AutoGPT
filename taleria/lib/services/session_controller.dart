@@ -104,6 +104,9 @@ class SessionController extends ChangeNotifier {
 
   Future<void> retry() => _evaluate();
 
+  /// Lädt Profil und Rechte neu, z. B. nach dem Intro.
+  Future<void> refresh() => _evaluate();
+
   // ---------------------------------------------------------------------------
   // Eltern
   // ---------------------------------------------------------------------------
@@ -165,11 +168,11 @@ class SessionController extends ChangeNotifier {
     }
   }
 
-  /// Von der PIN-Abfrage zurück zum Kind, ohne etwas zu öffnen.
-  void returnToChild() {
-    final current = _state;
-    if (current is SessionParent && current.returnChild != null) {
-      _set(SessionChild(current.returnChild!, onParentDevice: true, parent: current.parent));
+  /// Von der PIN-Abfrage zurück zum Kind, ohne etwas zu öffnen. Lädt das
+  /// Profil neu, damit z. B. ein gerade gestalteter Avatar zu sehen ist.
+  Future<void> returnToChild() async {
+    if (_state is SessionParent && (_state as SessionParent).returnChild != null) {
+      await _evaluate();
     }
   }
 

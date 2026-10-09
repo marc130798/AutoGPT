@@ -396,4 +396,214 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get birthYearMissing => 'Bitte wähle das Geburtsjahr.';
+
+  @override
+  String get speakerTalo => 'Talo';
+
+  @override
+  String get speakerTala => 'Tala';
+
+  @override
+  String get introStoryTalo1 => 'Ahoi! Ich bin Talo, der Kapitän. Ich habe einen Kompass und meistens einen Plan.';
+
+  @override
+  String get introStoryTala1 =>
+      'Und ich bin Tala, die Zahlmeisterin! Ich passe auf unsere Schatztruhe auf. Meistens jedenfalls.';
+
+  @override
+  String get introStoryTalo2 =>
+      'Heute Morgen ist eine Flaschenpost angetrieben. Darin war ein Stück einer alten Schatzkarte!';
+
+  @override
+  String get introStoryTala2 =>
+      'Meister Taleron, der Hüter des Meeres, hat die Karte zerrissen und die Teile auf den Inseln versteckt. Nur eine kluge Crew findet den Schatz.';
+
+  @override
+  String get introStoryTalo3 => 'Unsere Bordkasse ist leer, und wir brauchen Verstärkung. Willst du in unsere Crew?';
+
+  @override
+  String get introJoinButton => 'Ja, ich bin dabei!';
+
+  @override
+  String get introNext => 'Weiter';
+
+  @override
+  String get avatarTitle => 'Wie siehst du aus?';
+
+  @override
+  String get avatarSkin => 'Hautfarbe';
+
+  @override
+  String get avatarHairStyle => 'Frisur';
+
+  @override
+  String get avatarHairColor => 'Haarfarbe';
+
+  @override
+  String get avatarOutfit => 'Jacke';
+
+  @override
+  String get avatarHat => 'Kopfbedeckung';
+
+  @override
+  String get avatarHairShort => 'Kurz';
+
+  @override
+  String get avatarHairLong => 'Lang';
+
+  @override
+  String get avatarHairCurly => 'Locken';
+
+  @override
+  String get avatarHairBraid => 'Zopf';
+
+  @override
+  String get avatarHairNone => 'Keine';
+
+  @override
+  String get avatarHatNone => 'Keine';
+
+  @override
+  String get avatarHatCaptain => 'Kapitänsmütze';
+
+  @override
+  String get avatarHatBandana => 'Kopftuch';
+
+  @override
+  String get avatarHatStraw => 'Strohhut';
+
+  @override
+  String avatarColorOption(String group, int number) {
+    return '$group $number';
+  }
+
+  @override
+  String get avatarDone => 'So sehe ich aus!';
+
+  @override
+  String get shipTitle => 'Taufe dein Schiff';
+
+  @override
+  String get shipBody => 'Jedes Schiff braucht einen Namen. Wie soll unseres heißen?';
+
+  @override
+  String get shipLabel => 'Name des Schiffs';
+
+  @override
+  String get shipSuggestions => 'Seestern|Goldmöwe|Wellenreiter|Sturmvogel';
+
+  @override
+  String get shipButton => 'Schiff taufen';
+
+  @override
+  String get shipNameTooShort => 'Der Name braucht mindestens 2 Zeichen.';
+
+  @override
+  String get shipNameTooLong => 'Der Name darf höchstens 30 Zeichen haben.';
+
+  @override
+  String get tourTitle => 'Rundgang an Bord';
+
+  @override
+  String get tourMapTitle => 'Die Karte';
+
+  @override
+  String get tourMapBody =>
+      'Auf der Karte siehst du alle Inseln. Jede Insel hat ein Thema und versteckt ein Stück der Schatzkarte.';
+
+  @override
+  String get tourChestTitle => 'Die Schatztruhe';
+
+  @override
+  String get tourChestBody => 'In der Schatztruhe sammelst du deine Taler und deine Wunschschätze.';
+
+  @override
+  String get tourLogbookTitle => 'Das Logbuch';
+
+  @override
+  String get tourLogbookBody => 'Im Logbuch steht, was du schon geschafft hast: Seemeilen, Orden und dein Rang.';
+
+  @override
+  String get tourDone => 'Verstanden!';
+
+  @override
+  String get wishTitle => 'Dein erster Wunschschatz';
+
+  @override
+  String get wishBody =>
+      'Wofür würdest du gern sparen? Ein Wunschschatz ist etwas, das du dir wünschst und wofür du Taler sammelst.';
+
+  @override
+  String get wishTitleLabel => 'Was wünschst du dir?';
+
+  @override
+  String get wishAmountLabel => 'Ungefähr wie viel kostet das? (in Euro)';
+
+  @override
+  String get wishAmountHint => 'Schätzen ist völlig in Ordnung.';
+
+  @override
+  String get wishSave => 'In die Schatztruhe legen';
+
+  @override
+  String get wishSkip => 'Weiß ich noch nicht';
+
+  @override
+  String get wishTitleTooShort => 'Schreib mindestens 2 Zeichen.';
+
+  @override
+  String get wishTitleTooLong => 'Höchstens 40 Zeichen, bitte.';
+
+  @override
+  String get wishAmountInvalid => 'Bitte eine ganze Zahl von 1 bis 10000.';
+
+  @override
+  String doneTitle(String nickname) {
+    return 'Willkommen in der Crew, $nickname!';
+  }
+
+  @override
+  String get doneRank => 'Dein Rang: Schiffsjunge';
+
+  @override
+  String doneXp(int xp) {
+    return '+$xp Seemeilen';
+  }
+
+  @override
+  String get doneWish => 'Dein Wunschschatz liegt in der Schatztruhe.';
+
+  @override
+  String get doneMapButton => 'Karte öffnen';
+
+  @override
+  String get mapOpenTitle => 'Die Karte ist offen!';
+
+  @override
+  String get mapOpenBody => 'Euer erstes Ziel: der Hafen von Taleria.';
+
+  @override
+  String get mapStartButton => 'Los geht\'s';
+
+  @override
+  String get mapTitle => 'Karte';
+
+  @override
+  String childHomeShip(String ship) {
+    return 'Dein Schiff: $ship';
+  }
+
+  @override
+  String get childHomeMapButton => 'Zur Karte';
+
+  @override
+  String get childHomeIntroAgain => 'Intro noch einmal ansehen';
+
+  @override
+  String lighthouseChildShip(String ship) {
+    return 'Schiff: $ship';
+  }
+
+  @override
+  String get lighthouseIntroPending => 'Intro noch nicht abgeschlossen';
 }

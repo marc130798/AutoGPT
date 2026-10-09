@@ -4,6 +4,7 @@ import '../../core/app_scope.dart';
 import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/lighthouse_controller.dart';
+import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
 import '../common/environment_banner.dart';
 import '../common/texts.dart';
@@ -92,9 +93,17 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                       Card(
                         child: ListTile(
                           minTileHeight: 64,
-                          leading: CircleAvatar(child: Text(child.nickname.characters.first.toUpperCase())),
+                          leading: child.avatar == null
+                              ? CircleAvatar(child: Text(child.nickname.characters.first.toUpperCase()))
+                              : AvatarView(avatar: child.avatar!, size: 48),
                           title: Text(child.nickname),
-                          subtitle: Text(l10n.childSubtitle(child.birthYear, l10n.level(child.level))),
+                          subtitle: Text(
+                            [
+                              l10n.childSubtitle(child.birthYear, l10n.level(child.level)),
+                              if (child.shipName != null) l10n.lighthouseChildShip(child.shipName!),
+                              if (!child.onboardingCompleted) l10n.lighthouseIntroPending,
+                            ].join('\n'),
+                          ),
                           trailing: const Icon(Icons.chevron_right),
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute<void>(

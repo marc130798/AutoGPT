@@ -19,6 +19,7 @@ abstract final class AssetKeys {
   static String islandBackground(String slug) => 'island.$slug.background';
   static String arrivalVideo(String slug) => 'video.arrival.$slug';
   static String islandBadge(String slug) => 'badge.$slug';
+  static String rank(String slug) => 'rank.$slug';
 
   /// Alle festen Schlüssel oben, damit ein Test prüfen kann, dass sie im
   /// Manifest stehen.

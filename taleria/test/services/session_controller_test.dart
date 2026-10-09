@@ -166,7 +166,7 @@ void main() {
       final gate = restarted.state as SessionParent;
       expect(gate.unlocked, isFalse);
       expect(gate.returnChild?.id, mila.id);
-      restarted.returnToChild();
+      await restarted.returnToChild();
       expect(restarted.state, isA<SessionChild>());
 
       // Mit PIN in den Leuchtturm. Danach startet die App wieder im Leuchtturm.
