@@ -7,7 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
-import '../map/map_screen.dart';
+import '../map/island_map_screen.dart';
 import 'lighthouse_button.dart';
 
 /// Kinderbereich nach dem Intro: Avatar, Schiff und der Weg zur Karte.
@@ -58,7 +58,8 @@ class ChildHomeScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 FilledButton(
                   onPressed: () =>
-                      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const MapScreen())),
+                      Navigator.of(context)
+                          .push(MaterialPageRoute<void>(builder: (_) => IslandMapScreen(child: child))),
                   child: Text(l10n.childHomeMapButton),
                 ),
                 const SizedBox(height: 12),

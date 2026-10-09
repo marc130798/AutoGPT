@@ -3,7 +3,17 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 3 gibt
+## Was es nach Schritt 4 gibt
+
+- Inselkarte mit allen 15 Inseln: Hafen offen, weitere Inseln mit Schloss, Inseln 4 bis 15 im Nebel
+- Hafen, Tauschinsel und Wunschinsel komplett spielbar: Ankunft, 7 Stationen, Abschlussprüfung
+- Jede Station: „Weißt du noch?“, Film (Platzhalter), Szene mit Talo, Tala und Inselbewohnern,
+  Erklärung, Spiel (Platzhalter bis Schritt 7), Stations-Check, Seemeilen
+- Abschlussprüfung: 10 Fragen (ab Insel 2 mit 2 Rückblick-Fragen), bestanden ab 8,
+  danach öffnet sich die nächste Insel
+- Alle Inhalte stehen in `content/stufe1/` und sind Entwürfe zur Prüfung durch Marc
+
+## Was es seit Schritt 3 gibt
 
 - Beim ersten Start im Kinderbereich läuft das Intro (Station 1 des Hafens):
   Intro-Film (Platzhalter), Talo und Tala erzählen die Geschichte, „Willst du in unsere Crew?“
@@ -45,7 +55,7 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 | `lib/core/` | Grundlagen: Einstellungen, Theme, Grafiken und Platzhalter, Server-Verbindung |
 | `lib/domain/` | Datenmodelle und Prüfregeln (z. B. PIN, Spitzname, Code) |
 | `lib/data/` | Zugriff auf Supabase und auf Einstellungen des Geräts |
-| `lib/services/` | Logik: Sitzung, Eltern-Sperre, Leuchtturm |
+| `lib/services/` | Logik: Sitzung, Eltern-Sperre, Leuchtturm, Intro, Karte, Insel, Station |
 | `lib/features/` | Bildschirme, ein Ordner pro Bereich |
 | `lib/l10n/` | Texte der App (zuerst Deutsch) |
 | `assets/` | Grafiken, Animationen, Ton und das Asset-Manifest |
@@ -141,6 +151,25 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 4, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`) und die Inhalte laden
+(Abschnitt 6 oben: `supabase/seed.sql` im SQL Editor des Testprojekts ausführen).
+
+1. Im Kinderbereich „Zur Karte“: unten der Hafen (leuchtet), darüber die Tauschinsel mit Schloss,
+   ganz oben die Inseln im Nebel mit Fragezeichen. Antippen zeigt jeweils einen Hinweis.
+2. Hafen antippen: Station 1 ist erledigt (Intro), Station 2 offen, die anderen gesperrt.
+3. Station 2 spielen: Film-Platzhalter, Szene am Hafenkontor, Erklärung, Spiel-Platzhalter,
+   5 Fragen mit Erklärung nach jeder Antwort, dann „Station geschafft!“ und +100 Seemeilen.
+4. Station 3 beginnt mit „Weißt du noch?“: 2 Fragen zur Station davor.
+5. Station 2 noch einmal spielen: andere Fragen, und keine Seemeilen mehr.
+6. Nach Station 7 die Abschlussprüfung: absichtlich falsch antworten, dann „Noch nicht ganz“
+   und „Noch einmal versuchen“ mit neuen Fragen. Mit 8 richtigen: „Kartenstück gefunden!“.
+7. Zurück auf der Karte ist die Tauschinsel offen. Beim ersten Besuch kommt die Ankunft mit Bruno und Olga.
+8. Die Prüfung der Tauschinsel enthält 2 Fragen aus dem Hafen.
+9. Inhalte ändern: Datei in `content/stufe1/` bearbeiten, `dart run tool/build_seed.dart`,
+   `supabase/seed.sql` erneut im SQL Editor ausführen.
 
 ## Was du ausprobieren kannst (Schritt 3, mit Test-Server)
 

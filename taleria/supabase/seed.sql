@@ -10,7 +10,7 @@ on conflict (key) do update set value = excluded.value;
 
 -- 1. Hafen von Taleria
 insert into public.islands (id, slug, stage, island_group, sort_order, map_x, map_y, route_type, title, status, content)
-values (md5('taleria:stage1/hafen')::uuid, 'hafen', 1, 1, 1, 0.5, 0.96, 'main', 'Hafen von Taleria', 'draft', '{"goal":"Das Kind kennt Talo und Tala, weiß, was Geld ist, wie es entstanden ist, woher es kommt, warum Dinge etwas kosten und hat ein erstes Gefühl für Preise.","access":"free","arrival":{"video_key":"video.intro","scene":[]},"badge":"Erster Landgang","real_life_task":{"title":"Preis-Detektiv","text":"Suche beim nächsten Einkauf drei Produkte, schätze vorher ihren Preis und vergleiche dann mit dem echten Preis. Überlege mit deinen Eltern, wer an einem davon alles mitverdient."}}'::jsonb)
+values (md5('taleria:stage1/hafen')::uuid, 'hafen', 1, 1, 1, 0.5, 0.96, 'main', 'Hafen von Taleria', 'draft', '{"goal":"Das Kind kennt Talo und Tala, weiß, was Geld ist, wie es entstanden ist, woher es kommt, warum Dinge etwas kosten und hat ein erstes Gefühl für Preise.","access":"free","badge":"Erster Landgang","real_life_task":{"title":"Preis-Detektiv","text":"Suche beim nächsten Einkauf drei Produkte, schätze vorher ihren Preis und vergleiche dann mit dem echten Preis. Überlege mit deinen Eltern, wer an einem davon alles mitverdient."}}'::jsonb)
 on conflict (id) do update set
   slug = excluded.slug, island_group = excluded.island_group, sort_order = excluded.sort_order,
   map_x = excluded.map_x, map_y = excluded.map_y, title = excluded.title, content = excluded.content;

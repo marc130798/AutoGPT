@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:taleria/app.dart';
@@ -10,6 +11,7 @@ import 'package:taleria/core/backend/backend.dart';
 import 'package:taleria/core/config/app_config.dart';
 import 'package:taleria/services/session_controller.dart';
 
+import 'fake_content.dart';
 import 'fakes.dart';
 
 /// Ein App-Paket im Speicher: enthält nur die Dateien, die der Test angibt.
@@ -62,13 +64,17 @@ TaleriaApp buildTestApp({
   Map<String, Uint8List> files = const {},
   FakeBackend? backend,
   FakeLocalSettings? settings,
+  FakeContent? content,
+  FakeProgress? progress,
 }) {
   final family = backend == null ? null : FakeFamilyRepository(backend);
+  final localSettings = settings ?? FakeLocalSettings();
   final session = SessionController(
     auth: backend == null ? null : FakeAuthRepository(backend),
     family: family,
-    settings: settings ?? FakeLocalSettings(),
+    settings: localSettings,
   )..start();
+  final fakeContent = content ?? (backend == null ? null : FakeContent());
   return TaleriaApp(
     services: AppServices(
       config: AppConfig(
@@ -82,6 +88,10 @@ TaleriaApp buildTestApp({
       session: session,
       family: family,
       children: backend == null ? null : FakeChildRepository(backend),
+      content: fakeContent,
+      progress: progress ?? (fakeContent == null ? null : FakeProgress(fakeContent)),
+      settings: localSettings,
+      random: Random(42),
     ),
   );
 }

@@ -287,6 +287,25 @@ class FakeFamilyRepository implements FamilyRepository {
 
 class FakeLocalSettings implements LocalSettings {
   final Map<String, String> values = {};
+  final Map<String, Set<String>> quizSelections = {};
+  final Set<String> arrivals = {};
+
+  @override
+  Future<Set<String>?> lastQuizSelection(String childId, String stationId) async =>
+      quizSelections['$childId/$stationId'];
+
+  @override
+  Future<void> setLastQuizSelection(String childId, String stationId, Set<String> questionIds) async {
+    quizSelections['$childId/$stationId'] = questionIds;
+  }
+
+  @override
+  Future<bool> arrivalSeen(String childId, String islandId) async => arrivals.contains('$childId/$islandId');
+
+  @override
+  Future<void> setArrivalSeen(String childId, String islandId) async {
+    arrivals.add('$childId/$islandId');
+  }
 
   @override
   Future<String?> activeChildId(String parentUserId) async => values[parentUserId];

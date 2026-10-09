@@ -13,6 +13,7 @@ import 'core/config/app_config.dart';
 import 'core/config/orientation_policy.dart';
 import 'data/auth_repository.dart';
 import 'data/child_repository.dart';
+import 'data/content_repository.dart';
 import 'data/family_repository.dart';
 import 'data/local_settings.dart';
 import 'services/session_controller.dart';
@@ -38,10 +39,11 @@ Future<void> main() async {
   }
 
   final family = client == null ? null : SupabaseFamilyRepository(client);
+  final settings = SharedPreferencesSettings();
   final session = SessionController(
     auth: client == null ? null : SupabaseAuthRepository(client),
     family: family,
-    settings: SharedPreferencesSettings(),
+    settings: settings,
   );
   // Nicht abwarten: Bis die Sitzung geprüft ist, zeigt die App einen Ladekreis.
   unawaited(session.start());
@@ -57,6 +59,9 @@ Future<void> main() async {
         session: session,
         family: family,
         children: client == null ? null : SupabaseChildRepository(client),
+        content: client == null ? null : SupabaseContentRepository(client),
+        progress: client == null ? null : SupabaseProgressRepository(client),
+        settings: settings,
       ),
     ),
   );

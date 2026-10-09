@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
-import '../../l10n/app_localizations.dart';
 
-/// Die Inselkarte. In Schritt 3 nur Hintergrund und Schiff im Hafen;
-/// die Inseln mit Stationen kommen in Schritt 4 aus der Datenbank.
+/// Vorschau der Karte am Ende des Intros: Hintergrund und Schiff im Hafen.
+/// Die echte Karte mit allen Inseln ist IslandMapScreen.
 class MapView extends StatelessWidget {
   const MapView({super.key});
 
@@ -65,20 +64,6 @@ class _MapRevealState extends State<MapReveal> with SingleTickerProviderStateMix
         child: Opacity(opacity: _controller.value, child: child),
       ),
       child: widget.child,
-    );
-  }
-}
-
-/// Karte aus dem Kinderbereich heraus öffnen.
-class MapScreen extends StatelessWidget {
-  const MapScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.mapTitle)),
-      body: const MapView(),
     );
   }
 }

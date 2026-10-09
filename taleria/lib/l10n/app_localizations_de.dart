@@ -630,4 +630,120 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get avatarFur => 'Fellfarbe';
+
+  @override
+  String get mapIslandLocked => 'Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.';
+
+  @override
+  String get mapIslandFog => 'Diese Insel taucht bald auf.';
+
+  @override
+  String mapIslandFogTitle(String title) {
+    return '$title?';
+  }
+
+  @override
+  String get mapYouAreHere => 'Dein Schiff';
+
+  @override
+  String get islandStationsHeading => 'Stationen';
+
+  @override
+  String get islandArrivalAgain => 'Ankunft noch einmal ansehen';
+
+  @override
+  String get islandAllDone => 'Alle Stationen geschafft. Das Kartenstück gehört euch!';
+
+  @override
+  String stationNumber(int number) {
+    return 'Station $number';
+  }
+
+  @override
+  String get stationExam => 'Abschlussprüfung';
+
+  @override
+  String get stationLocked => 'Diese Station öffnet sich, wenn du die Station davor geschafft hast.';
+
+  @override
+  String get stationIntroDone => 'Hier hat deine Reise begonnen.';
+
+  @override
+  String get stationDone => 'Geschafft';
+
+  @override
+  String get stationBonus => 'Flaschenpost';
+
+  @override
+  String get warmUpTitle => 'Weißt du noch?';
+
+  @override
+  String get warmUpHint => 'Zwei kurze Fragen zur letzten Station. Fehler sind kein Problem.';
+
+  @override
+  String get quizCheckTitle => 'Kurzer Check';
+
+  @override
+  String quizProgress(int current, int total) {
+    return 'Frage $current von $total';
+  }
+
+  @override
+  String get quizCorrect => 'Richtig!';
+
+  @override
+  String get quizWrong => 'Nicht ganz.';
+
+  @override
+  String get quizNext => 'Nächste Frage';
+
+  @override
+  String get quizFinish => 'Fertig';
+
+  @override
+  String gamePlaceholderTitle(String title) {
+    return 'Spiel: $title';
+  }
+
+  @override
+  String get gamePlaceholderBody => 'Dieses Spiel wird gerade gebaut. Bald kannst du es hier spielen.';
+
+  @override
+  String get resultTitle => 'Station geschafft!';
+
+  @override
+  String resultCorrect(int correct, int total) {
+    return '$correct von $total richtig';
+  }
+
+  @override
+  String get resultBack => 'Zurück zur Insel';
+
+  @override
+  String get examPassedTitle => 'Prüfung bestanden!';
+
+  @override
+  String get examFailedTitle => 'Noch nicht ganz';
+
+  @override
+  String examFailedBody(int pass) {
+    return 'Du brauchst $pass richtige Antworten. Versuch es noch einmal, ohne Strafe. Du bekommst neue Fragen.';
+  }
+
+  @override
+  String get examRetry => 'Noch einmal versuchen';
+
+  @override
+  String get islandCompletedTitle => 'Kartenstück gefunden!';
+
+  @override
+  String islandCompletedBadge(String badge) {
+    return 'Neuer Orden: $badge';
+  }
+
+  @override
+  String get islandCompletedNext => 'Die nächste Insel ist jetzt offen.';
+
+  @override
+  String get islandCompletedButton => 'Zur Karte';
 }

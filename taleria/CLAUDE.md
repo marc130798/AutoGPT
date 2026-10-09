@@ -399,3 +399,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Stationen, deren Mini-Spiel erst in Schritt 7 kommt, sind trotzdem spielbar: Szene, Erklärung, Platzhalter für das Spiel, Stations-Check.
 - Ankerplätze (Tauchgänge) werden in Schritt 7 als Pflichtstationen ergänzt. Das ist erlaubt, weil die Inseln bis dahin Entwürfe sind.
 - Alle Inhalte haben `status = draft`. Die Seed-Datei schaltet in der Testumgebung die Inhalts-Vorschau ein. **Die Seed-Datei nie in die Live-Datenbank einspielen.**
+
+**Schritt 4d (Inselkarte und Lernen in der App), umgesetzt am 09.10.2026:**
+- **Karte:** scrollt senkrecht, startet unten beim Hafen. Offene Inseln leuchten, gesperrte tragen ein Schloss, Inseln im Nebel zeigen ihren Namen mit Fragezeichen („Diese Insel taucht bald auf“). Das Schiff liegt an der ersten offenen Insel der Hauptroute.
+- **Insel:** Beim ersten Besuch läuft die Ankunft (Film-Platzhalter und Szene), gemerkt pro Gerät. Beim Hafen entfällt sie, weil sein Ankunftsfilm der Intro-Film ist. Danach die Stationen der Reihe nach, die Intro-Station ist erledigt.
+- **Station:** „Weißt du noch?“ (2 Fragen der Station davor, ab der dritten Station des Hafens, ohne Wertung) → Film (Platzhalter) → Szene → Erklärung → Spiel (Platzhalter bis Schritt 7) → Stations-Check → Ergebnis mit Seemeilen und Abschlusssatz.
+- **Abschlussprüfung:** Szene → Fragen → Ergebnis. Nicht bestanden: neue Auswahl ohne Strafe. Bestanden und Insel fertig: „Kartenstück gefunden!“, Name des Ordens, zurück zur Karte, die nächste Insel ist offen. Orden und Schatzkarten-Effekt als Animation kommen in Schritt 6.
+- **Quiz in der App:** Auswahl und Reihenfolge zufällig, Antworten gemischt, die letzte Zusammenstellung je Station wird auf dem Gerät gemerkt und nie direkt wiederholt. Nach jeder Antwort: richtig oder nicht und die Erklärung. Die App schickt nur die Antworten, der Server wertet aus.
+- **Freischalten in der App** folgt denselben Regeln wie der Server (`lib/domain/progress_logic.dart`), damit die Karte stimmt, auch bevor der Server gefragt wird.
+- Die Aufwärmfragen („Weißt du noch?“) fließen ab Schritt 6 in den Wiederholungsplan.

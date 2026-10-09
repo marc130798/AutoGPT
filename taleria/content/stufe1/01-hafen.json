@@ -9,10 +9,6 @@
     "y": 0.96
   },
   "lernziel": "Das Kind kennt Talo und Tala, weiß, was Geld ist, wie es entstanden ist, woher es kommt, warum Dinge etwas kosten und hat ein erstes Gefühl für Preise.",
-  "ankunft": {
-    "film": "video.intro",
-    "szene": []
-  },
   "orden": "Erster Landgang",
   "auftrag": {
     "titel": "Preis-Detektiv",

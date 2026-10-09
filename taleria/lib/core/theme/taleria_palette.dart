@@ -18,6 +18,7 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
     required this.tala,
     required this.taleron,
     required this.placeholderBorder,
+    required this.success,
   });
 
   /// Palette für Stufe 1 (10 bis 14 Jahre): freundlich, aber nicht babyhaft.
@@ -33,6 +34,7 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
     tala: Color(0xFFF29CB7),
     taleron: Color(0xFF2E8B7A),
     placeholderBorder: Color(0xFF8A96A3),
+    success: Color(0xFF2E8B57),
   );
 
   final Color sea;
@@ -50,6 +52,9 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
 
   final Color placeholderBorder;
 
+  /// Rückmeldung „richtig“ im Quiz.
+  final Color success;
+
   @override
   TaleriaPalette copyWith({
     Color? sea,
@@ -63,6 +68,7 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
     Color? tala,
     Color? taleron,
     Color? placeholderBorder,
+    Color? success,
   }) {
     return TaleriaPalette(
       sea: sea ?? this.sea,
@@ -76,6 +82,7 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
       tala: tala ?? this.tala,
       taleron: taleron ?? this.taleron,
       placeholderBorder: placeholderBorder ?? this.placeholderBorder,
+      success: success ?? this.success,
     );
   }
 
@@ -94,6 +101,7 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
       tala: Color.lerp(tala, other.tala, t)!,
       taleron: Color.lerp(taleron, other.taleron, t)!,
       placeholderBorder: Color.lerp(placeholderBorder, other.placeholderBorder, t)!,
+      success: Color.lerp(success, other.success, t)!,
     );
   }
 }

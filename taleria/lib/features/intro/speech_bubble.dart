@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 
 enum Speaker { talo, tala }
 
-/// Talo oder Tala mit Sprechblase. Die Figur ist heute ein Platzhalter und
+/// Eine Figur mit Sprechblase. Die Figur ist heute ein Platzhalter und
 /// später die Rive-Animation (Zustand „sprechen“).
 class SpeechBubble extends StatelessWidget {
-  const SpeechBubble({super.key, required this.speaker, required this.text});
+  const SpeechBubble({super.key, required this.speaker, required this.text}) : line = null;
 
-  final Speaker speaker;
+  /// Dialogzeile aus den Inhalten (Talo, Tala oder eine andere Figur).
+  SpeechBubble.line(DialogLine this.line, {super.key}) : speaker = null, text = line.text;
+
+  final Speaker? speaker;
+  final DialogLine? line;
   final String text;
 
   @override
@@ -20,9 +26,11 @@ class SpeechBubble extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     final theme = Theme.of(context);
-    final (assetKey, name, color) = switch (speaker) {
-      Speaker.talo => (AssetKeys.talo, l10n.speakerTalo, palette.talo),
-      Speaker.tala => (AssetKeys.tala, l10n.speakerTala, palette.tala),
+    final key = line?.speaker ?? speaker!.name;
+    final (assetKey, name, color) = switch (key) {
+      'talo' => (AssetKeys.talo, l10n.speakerTalo, palette.talo),
+      'tala' => (AssetKeys.tala, l10n.speakerTala, palette.tala),
+      _ => _other(context, key),
     };
 
     return Row(
@@ -41,7 +49,7 @@ class SpeechBubble extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: theme.textTheme.labelLarge?.copyWith(color: palette.ink)),
+                Text(line?.name ?? name, style: theme.textTheme.labelLarge?.copyWith(color: palette.ink)),
                 const SizedBox(height: 4),
                 Text(text, style: theme.textTheme.bodyLarge),
               ],
@@ -51,4 +59,9 @@ class SpeechBubble extends StatelessWidget {
       ],
     );
   }
+}
+
+(String, String, Color) _other(BuildContext context, String speaker) {
+  final entry = AppScope.of(context).manifest.lookup('character.$speaker');
+  return (entry.key, entry.placeholder.label, entry.placeholder.color);
 }

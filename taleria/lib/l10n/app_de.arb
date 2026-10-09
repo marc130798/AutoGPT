@@ -851,5 +851,182 @@
   "avatarFur": "Fellfarbe",
   "@avatarFur": {
     "description": "Abschnitt im Avatar-Baukasten für Tiere"
+  },
+  "mapIslandLocked": "Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.",
+  "@mapIslandLocked": {
+    "description": "Hinweis beim Tipp auf eine gesperrte Insel"
+  },
+  "mapIslandFog": "Diese Insel taucht bald auf.",
+  "@mapIslandFog": {
+    "description": "Hinweis beim Tipp auf eine Insel im Nebel (Glossar: Nebel)"
+  },
+  "mapIslandFogTitle": "{title}?",
+  "@mapIslandFogTitle": {
+    "description": "Name einer Insel im Nebel, mit Fragezeichen",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "mapYouAreHere": "Dein Schiff",
+  "@mapYouAreHere": {
+    "description": "Vorlesetext für das Schiff auf der Karte"
+  },
+  "islandStationsHeading": "Stationen",
+  "@islandStationsHeading": {
+    "description": "Überschrift der Stationsliste einer Insel"
+  },
+  "islandArrivalAgain": "Ankunft noch einmal ansehen",
+  "@islandArrivalAgain": {
+    "description": "Knopf: Ankunftsszene der Insel erneut zeigen"
+  },
+  "islandAllDone": "Alle Stationen geschafft. Das Kartenstück gehört euch!",
+  "@islandAllDone": {
+    "description": "Hinweis, wenn eine Insel abgeschlossen ist"
+  },
+  "stationNumber": "Station {number}",
+  "@stationNumber": {
+    "description": "Nummer einer Station",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "stationExam": "Abschlussprüfung",
+  "@stationExam": {
+    "description": "Name der Prüfungsstation"
+  },
+  "stationLocked": "Diese Station öffnet sich, wenn du die Station davor geschafft hast.",
+  "@stationLocked": {
+    "description": "Hinweis beim Tipp auf eine gesperrte Station"
+  },
+  "stationIntroDone": "Hier hat deine Reise begonnen.",
+  "@stationIntroDone": {
+    "description": "Hinweis beim Tipp auf die erledigte Intro-Station"
+  },
+  "stationDone": "Geschafft",
+  "@stationDone": {
+    "description": "Kennzeichen einer erledigten Station"
+  },
+  "stationBonus": "Flaschenpost",
+  "@stationBonus": {
+    "description": "Kennzeichen einer Bonus-Station (Glossar)"
+  },
+  "warmUpTitle": "Weißt du noch?",
+  "@warmUpTitle": {
+    "description": "Überschrift der Aufwärmfragen (Glossar)"
+  },
+  "warmUpHint": "Zwei kurze Fragen zur letzten Station. Fehler sind kein Problem.",
+  "@warmUpHint": {
+    "description": "Erklärung der Aufwärmfragen"
+  },
+  "quizCheckTitle": "Kurzer Check",
+  "@quizCheckTitle": {
+    "description": "Überschrift des Stations-Checks"
+  },
+  "quizProgress": "Frage {current} von {total}",
+  "@quizProgress": {
+    "description": "Fortschritt im Quiz",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "quizCorrect": "Richtig!",
+  "@quizCorrect": {
+    "description": "Rückmeldung bei richtiger Antwort"
+  },
+  "quizWrong": "Nicht ganz.",
+  "@quizWrong": {
+    "description": "Rückmeldung bei falscher Antwort"
+  },
+  "quizNext": "Nächste Frage",
+  "@quizNext": {
+    "description": "Knopf: nächste Frage"
+  },
+  "quizFinish": "Fertig",
+  "@quizFinish": {
+    "description": "Knopf: Quiz abschließen"
+  },
+  "gamePlaceholderTitle": "Spiel: {title}",
+  "@gamePlaceholderTitle": {
+    "description": "Überschrift des Spiel-Platzhalters",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gamePlaceholderBody": "Dieses Spiel wird gerade gebaut. Bald kannst du es hier spielen.",
+  "@gamePlaceholderBody": {
+    "description": "Text des Spiel-Platzhalters (bis Schritt 7)"
+  },
+  "resultTitle": "Station geschafft!",
+  "@resultTitle": {
+    "description": "Überschrift nach einer Station"
+  },
+  "resultCorrect": "{correct} von {total} richtig",
+  "@resultCorrect": {
+    "description": "Ergebnis eines Quiz",
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "resultBack": "Zurück zur Insel",
+  "@resultBack": {
+    "description": "Knopf: zurück zur Insel"
+  },
+  "examPassedTitle": "Prüfung bestanden!",
+  "@examPassedTitle": {
+    "description": "Überschrift nach bestandener Prüfung"
+  },
+  "examFailedTitle": "Noch nicht ganz",
+  "@examFailedTitle": {
+    "description": "Überschrift nach nicht bestandener Prüfung"
+  },
+  "examFailedBody": "Du brauchst {pass} richtige Antworten. Versuch es noch einmal, ohne Strafe. Du bekommst neue Fragen.",
+  "@examFailedBody": {
+    "description": "Erklärung nach nicht bestandener Prüfung",
+    "placeholders": {
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "examRetry": "Noch einmal versuchen",
+  "@examRetry": {
+    "description": "Knopf: Prüfung wiederholen"
+  },
+  "islandCompletedTitle": "Kartenstück gefunden!",
+  "@islandCompletedTitle": {
+    "description": "Überschrift nach Abschluss einer Insel"
+  },
+  "islandCompletedBadge": "Neuer Orden: {badge}",
+  "@islandCompletedBadge": {
+    "description": "Orden für die Insel",
+    "placeholders": {
+      "badge": {
+        "type": "String"
+      }
+    }
+  },
+  "islandCompletedNext": "Die nächste Insel ist jetzt offen.",
+  "@islandCompletedNext": {
+    "description": "Hinweis nach Abschluss einer Insel"
+  },
+  "islandCompletedButton": "Zur Karte",
+  "@islandCompletedButton": {
+    "description": "Knopf nach Abschluss einer Insel"
   }
 }

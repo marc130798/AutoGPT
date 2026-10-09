@@ -1242,6 +1242,210 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Fellfarbe'**
   String get avatarFur;
+
+  /// Hinweis beim Tipp auf eine gesperrte Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.'**
+  String get mapIslandLocked;
+
+  /// Hinweis beim Tipp auf eine Insel im Nebel (Glossar: Nebel)
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Insel taucht bald auf.'**
+  String get mapIslandFog;
+
+  /// Name einer Insel im Nebel, mit Fragezeichen
+  ///
+  /// In de, this message translates to:
+  /// **'{title}?'**
+  String mapIslandFogTitle(String title);
+
+  /// Vorlesetext für das Schiff auf der Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Schiff'**
+  String get mapYouAreHere;
+
+  /// Überschrift der Stationsliste einer Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Stationen'**
+  String get islandStationsHeading;
+
+  /// Knopf: Ankunftsszene der Insel erneut zeigen
+  ///
+  /// In de, this message translates to:
+  /// **'Ankunft noch einmal ansehen'**
+  String get islandArrivalAgain;
+
+  /// Hinweis, wenn eine Insel abgeschlossen ist
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Stationen geschafft. Das Kartenstück gehört euch!'**
+  String get islandAllDone;
+
+  /// Nummer einer Station
+  ///
+  /// In de, this message translates to:
+  /// **'Station {number}'**
+  String stationNumber(int number);
+
+  /// Name der Prüfungsstation
+  ///
+  /// In de, this message translates to:
+  /// **'Abschlussprüfung'**
+  String get stationExam;
+
+  /// Hinweis beim Tipp auf eine gesperrte Station
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Station öffnet sich, wenn du die Station davor geschafft hast.'**
+  String get stationLocked;
+
+  /// Hinweis beim Tipp auf die erledigte Intro-Station
+  ///
+  /// In de, this message translates to:
+  /// **'Hier hat deine Reise begonnen.'**
+  String get stationIntroDone;
+
+  /// Kennzeichen einer erledigten Station
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft'**
+  String get stationDone;
+
+  /// Kennzeichen einer Bonus-Station (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Flaschenpost'**
+  String get stationBonus;
+
+  /// Überschrift der Aufwärmfragen (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Weißt du noch?'**
+  String get warmUpTitle;
+
+  /// Erklärung der Aufwärmfragen
+  ///
+  /// In de, this message translates to:
+  /// **'Zwei kurze Fragen zur letzten Station. Fehler sind kein Problem.'**
+  String get warmUpHint;
+
+  /// Überschrift des Stations-Checks
+  ///
+  /// In de, this message translates to:
+  /// **'Kurzer Check'**
+  String get quizCheckTitle;
+
+  /// Fortschritt im Quiz
+  ///
+  /// In de, this message translates to:
+  /// **'Frage {current} von {total}'**
+  String quizProgress(int current, int total);
+
+  /// Rückmeldung bei richtiger Antwort
+  ///
+  /// In de, this message translates to:
+  /// **'Richtig!'**
+  String get quizCorrect;
+
+  /// Rückmeldung bei falscher Antwort
+  ///
+  /// In de, this message translates to:
+  /// **'Nicht ganz.'**
+  String get quizWrong;
+
+  /// Knopf: nächste Frage
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Frage'**
+  String get quizNext;
+
+  /// Knopf: Quiz abschließen
+  ///
+  /// In de, this message translates to:
+  /// **'Fertig'**
+  String get quizFinish;
+
+  /// Überschrift des Spiel-Platzhalters
+  ///
+  /// In de, this message translates to:
+  /// **'Spiel: {title}'**
+  String gamePlaceholderTitle(String title);
+
+  /// Text des Spiel-Platzhalters (bis Schritt 7)
+  ///
+  /// In de, this message translates to:
+  /// **'Dieses Spiel wird gerade gebaut. Bald kannst du es hier spielen.'**
+  String get gamePlaceholderBody;
+
+  /// Überschrift nach einer Station
+  ///
+  /// In de, this message translates to:
+  /// **'Station geschafft!'**
+  String get resultTitle;
+
+  /// Ergebnis eines Quiz
+  ///
+  /// In de, this message translates to:
+  /// **'{correct} von {total} richtig'**
+  String resultCorrect(int correct, int total);
+
+  /// Knopf: zurück zur Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Zurück zur Insel'**
+  String get resultBack;
+
+  /// Überschrift nach bestandener Prüfung
+  ///
+  /// In de, this message translates to:
+  /// **'Prüfung bestanden!'**
+  String get examPassedTitle;
+
+  /// Überschrift nach nicht bestandener Prüfung
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht ganz'**
+  String get examFailedTitle;
+
+  /// Erklärung nach nicht bestandener Prüfung
+  ///
+  /// In de, this message translates to:
+  /// **'Du brauchst {pass} richtige Antworten. Versuch es noch einmal, ohne Strafe. Du bekommst neue Fragen.'**
+  String examFailedBody(int pass);
+
+  /// Knopf: Prüfung wiederholen
+  ///
+  /// In de, this message translates to:
+  /// **'Noch einmal versuchen'**
+  String get examRetry;
+
+  /// Überschrift nach Abschluss einer Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Kartenstück gefunden!'**
+  String get islandCompletedTitle;
+
+  /// Orden für die Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Neuer Orden: {badge}'**
+  String islandCompletedBadge(String badge);
+
+  /// Hinweis nach Abschluss einer Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Die nächste Insel ist jetzt offen.'**
+  String get islandCompletedNext;
+
+  /// Knopf nach Abschluss einer Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Zur Karte'**
+  String get islandCompletedButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
