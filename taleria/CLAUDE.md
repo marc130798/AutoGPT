@@ -142,9 +142,9 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `child_collectibles` – `child_id`, `collectible_id`, `found_at`, `source_station_id`
 
 **Budget und Aufgaben (alles virtuell)**
-- `tasks` – `parent_id`, `child_id`, `title`, `reward_cents`, `is_chore` (Pflicht ohne Geld), `status` (open, submitted, approved, rejected), `photo_path` (optional), `due_at`
+- `tasks` – `parent_id`, `child_id`, `title`, `reward_cents`, `is_chore` (Pflicht ohne Geld), `status` (open, submitted, approved, rejected), `photo_path` (optional), `due_at`, `parent_note`, `submitted_at`, `reviewed_at`
 - `allowance_rules` – `child_id`, `amount_cents`, `interval` (weekly, monthly), `next_run_at`
-- `ledger_entries` – `child_id`, `pot` (spend, save, give), `amount_cents`, `entry_type` (allowance, task, transfer, manual, goal), `reference_id`, `created_by` (Kassenbuch; Guthaben = Summe, nie direkt überschreiben)
+- `ledger_entries` – `child_id`, `pot` (spend, save, give), `amount_cents`, `entry_type` (allowance, task, transfer, manual, goal, purchase, donation), `reference_id`, `note`, `created_by` (Kassenbuch; Guthaben = Summe, nie direkt überschreiben)
 - `savings_goals` – `child_id`, `title`, `target_cents`, `reached_at`
 - `wish_bottles` – `child_id`, `title`, `price_cents` (optional), `remind_at`, `decision` (open, dropped, converted), `savings_goal_id` (bei Umwandlung)
 
@@ -408,3 +408,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Quiz in der App:** Auswahl und Reihenfolge zufällig, Antworten gemischt, die letzte Zusammenstellung je Station wird auf dem Gerät gemerkt und nie direkt wiederholt. Nach jeder Antwort: richtig oder nicht und die Erklärung. Die App schickt nur die Antworten, der Server wertet aus.
 - **Freischalten in der App** folgt denselben Regeln wie der Server (`lib/domain/progress_logic.dart`), damit die Karte stimmt, auch bevor der Server gefragt wird.
 - Die Aufwärmfragen („Weißt du noch?“) fließen ab Schritt 6 in den Wiederholungsplan.
+
+**Schritt 5a (Budget und Aufgaben in der Datenbank), umgesetzt am 09.10.2026:**
+- **Heuer:** Eltern legen Betrag und Rhythmus (wöchentlich, monatlich) mit `set_allowance()` fest. Die Heuer landet in der Bordkasse. `process_due_allowances()` bucht beim Öffnen der App alle fälligen Zahlungen nach, jede nur einmal (eindeutige Referenz pro Zahltag). Ein Zeitplan auf dem Server (pg_cron) ist dafür nicht nötig.
+- **Aufträge:** Eltern legen sie an (Belohnung bis 100 € oder Pflicht ohne Geld). Das Kind meldet mit `submit_task()`, nur Eltern bestätigen oder lehnen mit `review_task()` ab (mit Nachricht). Erst die Bestätigung schreibt die Belohnung in die Bordkasse, genau einmal. Bestätigte Aufträge bleiben als Beleg erhalten.
+- **Truhen:** Umbuchen zwischen den eigenen Truhen (`move_between_pots`), Ausgaben aus der Bordkasse und Geschenke aus der Glückstruhe (`record_spending`), Korrekturen nur durch Eltern (`book_manual`). Keine Truhe geht ins Minus; jede Buchung sperrt kurz das Kinder-Profil, damit gleichzeitige Buchungen nicht doppelt abbuchen.
+- **Wunschschätze:** Offene darf das Kind ändern und löschen. Einlösen nur mit `redeem_savings_goal()`, wenn genug in der Schatztruhe ist.
+- **Kassenbuch:** nur Server-Funktionen schreiben, Einträge sind unveränderlich.
+- Interne Hilfsfunktionen ohne Rechteprüfung (`pot_balance`, `station_done`, `island_unlocked`, `station_unlocked`) sind für die App gesperrt.
+- Verschoben: Fotos zu Aufträgen (braucht Kamera-Zugriff und ein Zusatzpaket, vorher mit Marc sprechen), automatische Aufteilung der Heuer auf die Truhen, Wunschflasche (kommt mit den Spielen der Wunschinsel).

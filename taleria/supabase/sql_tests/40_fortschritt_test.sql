@@ -101,8 +101,9 @@ select test_helpers.expect_error(
 select test_helpers.expect_equal(
   public.complete_onboarding('c4000000-0000-0000-0000-000000000001'), 50,
   'Intro bringt die Seemeilen aus der Intro-Station');
-select test_helpers.expect_true(
-  public.station_done('c4000000-0000-0000-0000-000000000001', 'f4000000-0000-0000-0000-0000000000a1'),
+select test_helpers.expect_equal(
+  (select count(*) from public.station_progress
+   where station_id = 'f4000000-0000-0000-0000-0000000000a1' and status = 'done'), 1,
   'Intro-Station ist danach erledigt');
 
 select test_helpers.expect_error(
