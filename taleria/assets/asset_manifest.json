@@ -1,0 +1,716 @@
+{
+  "version": 1,
+  "assets": {
+    "character.talo": {
+      "type": "rive",
+      "path": "assets/rive/talo.riv",
+      "placeholder": {
+        "label": "Talo",
+        "color": "#E8792B",
+        "shape": "circle"
+      }
+    },
+    "character.tala": {
+      "type": "rive",
+      "path": "assets/rive/tala.riv",
+      "placeholder": {
+        "label": "Tala",
+        "color": "#F29CB7",
+        "shape": "circle"
+      }
+    },
+    "character.taleron": {
+      "type": "rive",
+      "path": "assets/rive/taleron.riv",
+      "placeholder": {
+        "label": "Meister Taleron",
+        "color": "#2E8B7A",
+        "shape": "circle"
+      }
+    },
+    "character.avatar": {
+      "type": "rive",
+      "path": "assets/rive/avatar.riv",
+      "placeholder": {
+        "label": "Avatar",
+        "color": "#7A86C9",
+        "shape": "circle"
+      }
+    },
+    "character.prunk": {
+      "type": "image",
+      "path": "assets/images/character.prunk.png",
+      "placeholder": {
+        "label": "Kapitän Prunk",
+        "color": "#1F6FB2",
+        "shape": "circle"
+      }
+    },
+    "character.bruno": {
+      "type": "image",
+      "path": "assets/images/character.bruno.png",
+      "placeholder": {
+        "label": "Bruno",
+        "color": "#8B5A2B",
+        "shape": "circle"
+      }
+    },
+    "character.greta": {
+      "type": "image",
+      "path": "assets/images/character.greta.png",
+      "placeholder": {
+        "label": "Greta",
+        "color": "#B8A88A",
+        "shape": "circle"
+      }
+    },
+    "character.otti": {
+      "type": "image",
+      "path": "assets/images/character.otti.png",
+      "placeholder": {
+        "label": "Otti",
+        "color": "#6B4F3A",
+        "shape": "circle"
+      }
+    },
+    "character.olga": {
+      "type": "image",
+      "path": "assets/images/character.olga.png",
+      "placeholder": {
+        "label": "Olga",
+        "color": "#5E8C4A",
+        "shape": "circle"
+      }
+    },
+    "character.elsa": {
+      "type": "image",
+      "path": "assets/images/character.elsa.png",
+      "placeholder": {
+        "label": "Elsa",
+        "color": "#3B3B58",
+        "shape": "circle"
+      }
+    },
+    "character.moritz": {
+      "type": "image",
+      "path": "assets/images/character.moritz.png",
+      "placeholder": {
+        "label": "Moritz",
+        "color": "#A67B5B",
+        "shape": "circle"
+      }
+    },
+    "ship.crew": {
+      "type": "image",
+      "path": "assets/images/ship.crew.png",
+      "placeholder": {
+        "label": "Schiff der Crew",
+        "color": "#9C6B3C",
+        "shape": "rounded"
+      }
+    },
+    "ship.prunk": {
+      "type": "image",
+      "path": "assets/images/ship.prunk.png",
+      "placeholder": {
+        "label": "Prunks Schiff",
+        "color": "#1F6FB2",
+        "shape": "rounded"
+      }
+    },
+    "map.background": {
+      "type": "image",
+      "path": "assets/images/map.background.png",
+      "placeholder": {
+        "label": "Inselkarte",
+        "color": "#3E8FB0",
+        "shape": "rectangle"
+      }
+    },
+    "map.fog": {
+      "type": "image",
+      "path": "assets/images/map.fog.png",
+      "placeholder": {
+        "label": "Nebel",
+        "color": "#B9C4CC",
+        "shape": "rounded"
+      }
+    },
+    "map.lock": {
+      "type": "image",
+      "path": "assets/images/map.lock.png",
+      "placeholder": {
+        "label": "Schloss",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "island.hafen.background": {
+      "type": "image",
+      "path": "assets/images/island.hafen.background.png",
+      "placeholder": {
+        "label": "Hafen",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.tauschinsel.background": {
+      "type": "image",
+      "path": "assets/images/island.tauschinsel.background.png",
+      "placeholder": {
+        "label": "Tauschinsel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.wunschinsel.background": {
+      "type": "image",
+      "path": "assets/images/island.wunschinsel.background.png",
+      "placeholder": {
+        "label": "Wunschinsel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.spar-insel.background": {
+      "type": "image",
+      "path": "assets/images/island.spar-insel.background.png",
+      "placeholder": {
+        "label": "Spar-Insel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.taschengeld-bucht.background": {
+      "type": "image",
+      "path": "assets/images/island.taschengeld-bucht.background.png",
+      "placeholder": {
+        "label": "Taschengeld-Bucht",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.marktinsel.background": {
+      "type": "image",
+      "path": "assets/images/island.marktinsel.background.png",
+      "placeholder": {
+        "label": "Marktinsel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.werbe-riff.background": {
+      "type": "image",
+      "path": "assets/images/island.werbe-riff.background.png",
+      "placeholder": {
+        "label": "Werbe-Riff",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.verdienst-insel.background": {
+      "type": "image",
+      "path": "assets/images/island.verdienst-insel.background.png",
+      "placeholder": {
+        "label": "Verdienst-Insel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.bank-insel.background": {
+      "type": "image",
+      "path": "assets/images/island.bank-insel.background.png",
+      "placeholder": {
+        "label": "Bank-Insel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.zins-insel.background": {
+      "type": "image",
+      "path": "assets/images/island.zins-insel.background.png",
+      "placeholder": {
+        "label": "Zins-Insel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.leih-lagune.background": {
+      "type": "image",
+      "path": "assets/images/island.leih-lagune.background.png",
+      "placeholder": {
+        "label": "Leih-Lagune",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.sicherheits-festung.background": {
+      "type": "image",
+      "path": "assets/images/island.sicherheits-festung.background.png",
+      "placeholder": {
+        "label": "Sicherheits-Festung",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.risiko-klippen.background": {
+      "type": "image",
+      "path": "assets/images/island.risiko-klippen.background.png",
+      "placeholder": {
+        "label": "Risiko-Klippen",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.zukunftsinsel.background": {
+      "type": "image",
+      "path": "assets/images/island.zukunftsinsel.background.png",
+      "placeholder": {
+        "label": "Zukunftsinsel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "island.schatzinsel.background": {
+      "type": "image",
+      "path": "assets/images/island.schatzinsel.background.png",
+      "placeholder": {
+        "label": "Schatzinsel",
+        "color": "#4FA36B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.hafen": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Hafen",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.tauschinsel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Tauschinsel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.wunschinsel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Wunschinsel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.spar-insel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Spar-Insel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.taschengeld-bucht": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Taschengeld-Bucht",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.marktinsel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Marktinsel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.werbe-riff": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Werbe-Riff",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.verdienst-insel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Verdienst-Insel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.bank-insel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Bank-Insel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.zins-insel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Zins-Insel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.leih-lagune": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Leih-Lagune",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.sicherheits-festung": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Sicherheits-Festung",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.risiko-klippen": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Risiko-Klippen",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.zukunftsinsel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Zukunftsinsel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.arrival.schatzinsel": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Ankunftsfilm Schatzinsel",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "video.intro": {
+      "type": "video",
+      "path": null,
+      "placeholder": {
+        "label": "Intro-Film",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
+    "underwater.background": {
+      "type": "image",
+      "path": "assets/images/underwater.background.png",
+      "placeholder": {
+        "label": "Unterwasserwelt",
+        "color": "#14506E",
+        "shape": "rectangle"
+      }
+    },
+    "collectible.pearl": {
+      "type": "image",
+      "path": "assets/images/collectible.pearl.png",
+      "placeholder": {
+        "label": "Perle",
+        "color": "#EDE7DA",
+        "shape": "circle"
+      }
+    },
+    "collectible.shell": {
+      "type": "image",
+      "path": "assets/images/collectible.shell.png",
+      "placeholder": {
+        "label": "Muschel",
+        "color": "#E6B89C",
+        "shape": "circle"
+      }
+    },
+    "collectible.wreck_item": {
+      "type": "image",
+      "path": "assets/images/collectible.wreck_item.png",
+      "placeholder": {
+        "label": "Fundstück",
+        "color": "#8A7F6B",
+        "shape": "rounded"
+      }
+    },
+    "badge.hafen": {
+      "type": "image",
+      "path": "assets/images/badge.hafen.png",
+      "placeholder": {
+        "label": "Orden Hafen",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.tauschinsel": {
+      "type": "image",
+      "path": "assets/images/badge.tauschinsel.png",
+      "placeholder": {
+        "label": "Orden Tauschinsel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.wunschinsel": {
+      "type": "image",
+      "path": "assets/images/badge.wunschinsel.png",
+      "placeholder": {
+        "label": "Orden Wunschinsel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.spar-insel": {
+      "type": "image",
+      "path": "assets/images/badge.spar-insel.png",
+      "placeholder": {
+        "label": "Orden Spar-Insel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.taschengeld-bucht": {
+      "type": "image",
+      "path": "assets/images/badge.taschengeld-bucht.png",
+      "placeholder": {
+        "label": "Orden Taschengeld-Bucht",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.marktinsel": {
+      "type": "image",
+      "path": "assets/images/badge.marktinsel.png",
+      "placeholder": {
+        "label": "Orden Marktinsel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.werbe-riff": {
+      "type": "image",
+      "path": "assets/images/badge.werbe-riff.png",
+      "placeholder": {
+        "label": "Orden Werbe-Riff",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.verdienst-insel": {
+      "type": "image",
+      "path": "assets/images/badge.verdienst-insel.png",
+      "placeholder": {
+        "label": "Orden Verdienst-Insel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.bank-insel": {
+      "type": "image",
+      "path": "assets/images/badge.bank-insel.png",
+      "placeholder": {
+        "label": "Orden Bank-Insel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.zins-insel": {
+      "type": "image",
+      "path": "assets/images/badge.zins-insel.png",
+      "placeholder": {
+        "label": "Orden Zins-Insel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.leih-lagune": {
+      "type": "image",
+      "path": "assets/images/badge.leih-lagune.png",
+      "placeholder": {
+        "label": "Orden Leih-Lagune",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.sicherheits-festung": {
+      "type": "image",
+      "path": "assets/images/badge.sicherheits-festung.png",
+      "placeholder": {
+        "label": "Orden Sicherheits-Festung",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.risiko-klippen": {
+      "type": "image",
+      "path": "assets/images/badge.risiko-klippen.png",
+      "placeholder": {
+        "label": "Orden Risiko-Klippen",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.zukunftsinsel": {
+      "type": "image",
+      "path": "assets/images/badge.zukunftsinsel.png",
+      "placeholder": {
+        "label": "Orden Zukunftsinsel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.schatzinsel": {
+      "type": "image",
+      "path": "assets/images/badge.schatzinsel.png",
+      "placeholder": {
+        "label": "Orden Schatzinsel",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
+    "badge.taleron_seal_a": {
+      "type": "image",
+      "path": "assets/images/badge.taleron_seal_a.png",
+      "placeholder": {
+        "label": "Siegel A",
+        "color": "#2E8B7A",
+        "shape": "circle"
+      }
+    },
+    "badge.taleron_seal_b": {
+      "type": "image",
+      "path": "assets/images/badge.taleron_seal_b.png",
+      "placeholder": {
+        "label": "Siegel B",
+        "color": "#2E8B7A",
+        "shape": "circle"
+      }
+    },
+    "badge.taleron_seal_c": {
+      "type": "image",
+      "path": "assets/images/badge.taleron_seal_c.png",
+      "placeholder": {
+        "label": "Siegel C",
+        "color": "#2E8B7A",
+        "shape": "circle"
+      }
+    },
+    "certificate.golden_map": {
+      "type": "image",
+      "path": "assets/images/certificate.golden_map.png",
+      "placeholder": {
+        "label": "Goldene Schatzkarte",
+        "color": "#D4AF37",
+        "shape": "rounded"
+      }
+    },
+    "rank.schiffsjunge": {
+      "type": "image",
+      "path": "assets/images/rank.schiffsjunge.png",
+      "placeholder": {
+        "label": "Schiffsjunge",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "rank.matrose": {
+      "type": "image",
+      "path": "assets/images/rank.matrose.png",
+      "placeholder": {
+        "label": "Matrose",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "rank.bootsmann": {
+      "type": "image",
+      "path": "assets/images/rank.bootsmann.png",
+      "placeholder": {
+        "label": "Bootsmann",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "rank.steuermann": {
+      "type": "image",
+      "path": "assets/images/rank.steuermann.png",
+      "placeholder": {
+        "label": "Steuermann",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "rank.kapitaen": {
+      "type": "image",
+      "path": "assets/images/rank.kapitaen.png",
+      "placeholder": {
+        "label": "Kapitän",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "effect.message_bottle": {
+      "type": "lottie",
+      "path": "assets/lottie/message_bottle.json",
+      "placeholder": {
+        "label": "Flaschenpost",
+        "color": "#7FB7A4",
+        "shape": "rounded"
+      }
+    },
+    "effect.seagull": {
+      "type": "lottie",
+      "path": "assets/lottie/seagull.json",
+      "placeholder": {
+        "label": "Möwe",
+        "color": "#DDE3E8",
+        "shape": "rounded"
+      }
+    },
+    "parent.lighthouse": {
+      "type": "image",
+      "path": "assets/images/parent.lighthouse.png",
+      "placeholder": {
+        "label": "Leuchtturm",
+        "color": "#C0392B",
+        "shape": "rounded"
+      }
+    },
+    "brand.logo": {
+      "type": "image",
+      "path": "assets/images/brand.logo.png",
+      "placeholder": {
+        "label": "Taleria",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    }
+  }
+}

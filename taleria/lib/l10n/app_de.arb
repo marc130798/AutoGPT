@@ -1,0 +1,63 @@
+{
+  "@@locale": "de",
+
+  "appTitle": "Taleria",
+  "@appTitle": { "description": "Name der App" },
+
+  "homeWelcome": "Willkommen an Bord!",
+  "@homeWelcome": { "description": "Begrüßung auf dem Startbildschirm" },
+
+  "homeSubtitle": "Talo und Tala warten schon im Hafen auf dich.",
+  "@homeSubtitle": { "description": "Unterzeile auf dem Startbildschirm" },
+
+  "homeShowIntro": "Intro ansehen",
+  "@homeShowIntro": { "description": "Knopf, der den Intro-Film öffnet" },
+
+  "homeShowAssets": "Alle Platzhalter ansehen",
+  "@homeShowAssets": { "description": "Knopf zur Übersicht aller Grafiken (nur Testumgebung)" },
+
+  "videoComingSoon": "Film folgt",
+  "@videoComingSoon": { "description": "Text auf dem Standbild, solange ein Film fehlt" },
+
+  "continueButton": "Weiter",
+  "@continueButton": { "description": "Allgemeiner Weiter-Knopf" },
+
+  "assetGalleryTitle": "Grafiken und Filme",
+  "@assetGalleryTitle": { "description": "Titel der Übersicht aller Grafiken" },
+
+  "assetGalleryHint": "Grau umrandet = Platzhalter, die echte Datei fehlt noch.",
+  "@assetGalleryHint": { "description": "Erklärung oben in der Grafik-Übersicht" },
+
+  "assetGalleryCount": "{available} von {total} Dateien vorhanden",
+  "@assetGalleryCount": {
+    "description": "Zählt, wie viele echte Dateien es schon gibt",
+    "placeholders": {
+      "available": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "assetManifestError": "Die Liste der Grafiken konnte nicht geladen werden.",
+  "@assetManifestError": { "description": "Fehlermeldung, wenn das Asset-Manifest kaputt ist" },
+
+  "environmentTest": "Testumgebung",
+  "@environmentTest": { "description": "Hinweis-Schild: App läuft gegen die Test-Datenbank" },
+
+  "environmentLive": "Live",
+  "@environmentLive": { "description": "Hinweis-Schild: App läuft gegen die Live-Datenbank" },
+
+  "backendNotConfigured": "Ohne Server (keine Zugangsdaten eingetragen)",
+  "@backendNotConfigured": { "description": "Status: App läuft ohne Supabase" },
+
+  "backendChecking": "Verbindung wird geprüft …",
+  "@backendChecking": { "description": "Status: Verbindung zu Supabase wird geprüft" },
+
+  "backendReady": "Server verbunden, Datenbank bereit",
+  "@backendReady": { "description": "Status: Supabase erreichbar und Tabellen vorhanden" },
+
+  "backendSchemaMissing": "Server verbunden, aber die Tabellen fehlen noch",
+  "@backendSchemaMissing": { "description": "Status: Supabase erreichbar, Migrationen nicht eingespielt" },
+
+  "backendUnreachable": "Server nicht erreichbar",
+  "@backendUnreachable": { "description": "Status: Supabase antwortet nicht" }
+}
