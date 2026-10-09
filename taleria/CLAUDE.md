@@ -131,7 +131,7 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `conversation_prompts` – `island_id`, `text`
 
 **Fortschritt**
-- `station_progress` – `child_id`, `station_id`, `status` (open, done), `score`, `completed_at`
+- `station_progress` – `child_id`, `station_id`, `status` (open, done), `best_score`, `last_score`, `attempts`, `completed_at`
 - `island_completions` – `child_id`, `island_id`, `completed_at`
 - `xp_events` – `child_id`, `source_type`, `source_id`, `amount` (ein Kassenbuch der Seemeilen; der Rang wird daraus berechnet)
 - `badges`, `child_badges`
@@ -154,6 +154,7 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 **Admin**
 - `admins` – verknüpft mit `auth.users`; `role` (owner, editor, support), `mfa_required` (immer true)
 - `admin_audit_log` – `admin_id`, `action`, `target_type`, `target_id`, `reason`, `created_at` (jeder Zugriff auf ein Familienkonto und jede Löschung wird protokolliert)
+- `app_settings` – `key`, `value` (Einstellungen der Umgebung, z. B. `content_preview` nur in der Testumgebung)
 - `content_versions` – `entity_type`, `entity_id`, `snapshot` (jsonb), `created_by`, `created_at` (frühere Fassungen von Inseln und Stationen, damit man Änderungen zurückholen kann)
 - Inhalte haben zusätzlich `status` (draft, review, published), damit Entwürfe nie versehentlich bei Kindern landen.
 
@@ -380,3 +381,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 **Schritt 4a (Tier-Avatare, Namen aus der Datenbank), umgesetzt am 09.10.2026:**
 - Entschieden mit Marc: Der Avatar darf auch ein Tier sein (Katze, Hund, Bär, Hase, Maus). Tiere haben Fellfarbe statt Hautfarbe und keine Frisur; Jacke und Kopfbedeckung gibt es für alle. Ältere Avatare ohne Angabe sind Menschen.
 - Entschieden mit Marc: Namen von Inseln und Expeditionen stehen in der Datenbank (`title` statt `title_key`). Das gilt auch für spätere Inhalte wie Begegnungen und Sammelstücke.
+
+**Schritt 4b (Fortschritt in der Datenbank), umgesetzt am 09.10.2026:**
+- **Inhalts-Vorschau:** In der Testumgebung steht in `app_settings` der Eintrag `content_preview = true`. Dann sehen Kinder auch Inhalte mit Status `draft` und `review`, damit Marc Entwürfe durchspielen kann. In der Live-Datenbank gibt es diesen Eintrag nie.
+- **Nebel:** `map_islands(stage)` liefert alle Inseln der Hauptroute und Nebeninseln, auch die ohne sichtbare Inhalte (nur Name und Position, `has_content = false`). Stationen und Fragen von Inseln im Nebel bleiben unsichtbar.
+- **Abgeben:** `submit_station(child, station, answers)` prüft auf dem Server, ob die Station offen ist, ob die Fragen zur Station gehören und wie viele richtig sind. Die App schickt die Antwort als Stelle in der gespeicherten Antwortliste (vor dem Mischen). Seemeilen (`stations.xp_reward`) gibt es pro Station nur einmal.
+- **Stations-Check:** erledigt nach dem Durchgang, auch mit Fehlern (INSELN.md: Falsche Antworten kosten nichts). Anzahl der Fragen steht in `content.quiz.show`.
+- **Abschlussprüfung:** `content.exam.show` Fragen der Insel plus `content.exam.review` Rückblick-Fragen aus Prüfungen früherer Inseln (ab Insel 2), bestanden ab `content.exam.pass`. Für Stufe 1: 8 + 2 = 10 Fragen, bestanden ab 8 (CLAUDE.md Abschnitt 8: „2 der 10 Prüfungsfragen von früheren Inseln“).
+- **Freischalten:** Erste Insel der Hauptroute offen, jede weitere nach Abschluss der vorherigen. Pflichtstationen der Reihe nach, Bonus-Stationen sobald die Insel offen ist. Die Intro-Station (`content.kind = onboarding`) gilt als erledigt, sobald das Intro abgeschlossen ist.
+- **Insel-Abschluss:** Sobald alle sichtbaren Pflichtstationen erledigt sind, schreibt der Server `island_completions`. Der Eintrag lässt sich nicht mehr ändern.
