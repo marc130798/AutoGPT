@@ -21,6 +21,7 @@ import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
 import '../common/menu_music.dart';
+import 'board_tour.dart';
 import 'lighthouse_button.dart';
 import 'sound_button.dart';
 
@@ -52,6 +53,16 @@ class ChildHomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SoundButton(),
+                      const SizedBox(width: 4),
+                      DeckRoundButton(
+                        key: const ValueKey('tour-button'),
+                        icon: Icons.explore_rounded,
+                        label: l10n.tourButton,
+                        tooltip: l10n.tourButton,
+                        onTap: () =>
+                            Navigator.of(context)
+                                .push(MaterialPageRoute<void>(builder: (_) => const BoardTourScreen())),
+                      ),
                       const Spacer(),
                       LighthouseButton(state: state),
                     ],

@@ -509,19 +509,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourMapBody =>
-      'Auf der Karte siehst du alle Inseln. Jede Insel hat ein Thema und versteckt ein Stück der Schatzkarte.';
+      'Auf der Karte liegen alle Inseln. Tipp auf eine Insel und spiel ihre Stationen. Auf jeder Insel wartet ein Stück der Schatzkarte.';
 
   @override
   String get tourChestTitle => 'Die Schatztruhe';
 
   @override
-  String get tourChestBody => 'In der Schatztruhe sammelst du deine Taler und deine Wunschschätze.';
-
-  @override
-  String get tourLogbookTitle => 'Das Logbuch';
-
-  @override
-  String get tourLogbookBody => 'Im Logbuch steht, was du schon geschafft hast: Seemeilen, Orden und dein Rang.';
+  String get tourChestBody =>
+      'Hier liegt dein Geld in drei Truhen: zum Ausgeben, zum Sparen und zum Verschenken. Hier sparst du auch für deine Wunschschätze.';
 
   @override
   String get tourDone => 'Verstanden!';
@@ -1854,4 +1849,69 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get collectionIntro =>
       'Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.';
+
+  @override
+  String get tourButton => 'Was ist wo?';
+
+  @override
+  String get tourWhere => 'Wo?';
+
+  @override
+  String get tourBack => 'Zurück';
+
+  @override
+  String get tourMapWhere => 'Auf der Startseite die große blaue Kachel „Zur Karte“';
+
+  @override
+  String get tourRankTitle => 'Rang, Seemeilen und Fahrtwind';
+
+  @override
+  String get tourRankWhere => 'Auf der Startseite direkt unter der Begrüßung';
+
+  @override
+  String get tourRankBody =>
+      'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, vom Schiffsjungen bis zum Kapitän. Spielst du jede Woche, bekommst du Fahrtwind.';
+
+  @override
+  String get tourChestWhere => 'Auf der Startseite unter der Karte, links';
+
+  @override
+  String get tourTasksTitle => 'Aufträge';
+
+  @override
+  String get tourTasksWhere => 'Auf der Startseite unter der Karte, rechts';
+
+  @override
+  String get tourTasksBody =>
+      'Hier stehen Aufgaben von deinen Eltern. Bist du fertig, tippst du auf „Erledigt!“. Die rote Zahl zeigt, wie viele noch offen sind.';
+
+  @override
+  String get tourBadgesTitle => 'Orden';
+
+  @override
+  String get tourBadgesWhere => 'Auf der Startseite ganz unten, links';
+
+  @override
+  String get tourBadgesBody =>
+      'Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden.';
+
+  @override
+  String get tourCollectionTitle => 'Sammlung';
+
+  @override
+  String get tourCollectionWhere => 'Auf der Startseite ganz unten, rechts';
+
+  @override
+  String get tourCollectionBody =>
+      'Beim Tauchen an den Ankerplätzen findest du Perlen und alte Schätze aus Wracks. Hier liegt alles, was du gefunden hast.';
+
+  @override
+  String get tourLighthouseTitle => 'Leuchtturm und Ton';
+
+  @override
+  String get tourLighthouseWhere => 'Auf der Startseite ganz oben';
+
+  @override
+  String get tourLighthouseBody =>
+      'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.';
 }

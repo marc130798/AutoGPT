@@ -1018,7 +1018,7 @@ abstract class AppLocalizations {
   /// Talo erklärt die Karte (ENTWURF)
   ///
   /// In de, this message translates to:
-  /// **'Auf der Karte siehst du alle Inseln. Jede Insel hat ein Thema und versteckt ein Stück der Schatzkarte.'**
+  /// **'Auf der Karte liegen alle Inseln. Tipp auf eine Insel und spiel ihre Stationen. Auf jeder Insel wartet ein Stück der Schatzkarte.'**
   String get tourMapBody;
 
   /// Rundgang: Schatztruhe
@@ -1030,20 +1030,8 @@ abstract class AppLocalizations {
   /// Tala erklärt die Schatztruhe (ENTWURF)
   ///
   /// In de, this message translates to:
-  /// **'In der Schatztruhe sammelst du deine Taler und deine Wunschschätze.'**
+  /// **'Hier liegt dein Geld in drei Truhen: zum Ausgeben, zum Sparen und zum Verschenken. Hier sparst du auch für deine Wunschschätze.'**
   String get tourChestBody;
-
-  /// Rundgang: Logbuch
-  ///
-  /// In de, this message translates to:
-  /// **'Das Logbuch'**
-  String get tourLogbookTitle;
-
-  /// Talo erklärt das Logbuch (ENTWURF)
-  ///
-  /// In de, this message translates to:
-  /// **'Im Logbuch steht, was du schon geschafft hast: Seemeilen, Orden und dein Rang.'**
-  String get tourLogbookBody;
 
   /// Knopf: Rundgang beenden
   ///
@@ -3174,6 +3162,126 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.'**
   String get collectionIntro;
+
+  /// Startseite: Knopf oben, öffnet den Rundgang mit allen Bereichen
+  ///
+  /// In de, this message translates to:
+  /// **'Was ist wo?'**
+  String get tourButton;
+
+  /// Rundgang: Beschriftung vor der Stelle auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Wo?'**
+  String get tourWhere;
+
+  /// Rundgang: Knopf zur vorigen Station
+  ///
+  /// In de, this message translates to:
+  /// **'Zurück'**
+  String get tourBack;
+
+  /// Rundgang: wo die Karte zu finden ist
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite die große blaue Kachel „Zur Karte“'**
+  String get tourMapWhere;
+
+  /// Rundgang: Titel der Station Rang
+  ///
+  /// In de, this message translates to:
+  /// **'Rang, Seemeilen und Fahrtwind'**
+  String get tourRankTitle;
+
+  /// Rundgang: wo Rang und Seemeilen stehen
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite direkt unter der Begrüßung'**
+  String get tourRankWhere;
+
+  /// Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind
+  ///
+  /// In de, this message translates to:
+  /// **'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, vom Schiffsjungen bis zum Kapitän. Spielst du jede Woche, bekommst du Fahrtwind.'**
+  String get tourRankBody;
+
+  /// Rundgang: wo die Schatztruhe ist
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite unter der Karte, links'**
+  String get tourChestWhere;
+
+  /// Rundgang: Titel der Station Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Aufträge'**
+  String get tourTasksTitle;
+
+  /// Rundgang: wo die Aufträge sind
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite unter der Karte, rechts'**
+  String get tourTasksWhere;
+
+  /// Rundgang: Tala erklärt die Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Hier stehen Aufgaben von deinen Eltern. Bist du fertig, tippst du auf „Erledigt!“. Die rote Zahl zeigt, wie viele noch offen sind.'**
+  String get tourTasksBody;
+
+  /// Rundgang: Titel der Station Orden
+  ///
+  /// In de, this message translates to:
+  /// **'Orden'**
+  String get tourBadgesTitle;
+
+  /// Rundgang: wo die Orden sind
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite ganz unten, links'**
+  String get tourBadgesWhere;
+
+  /// Rundgang: Talo erklärt die Orden
+  ///
+  /// In de, this message translates to:
+  /// **'Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden.'**
+  String get tourBadgesBody;
+
+  /// Rundgang: Titel der Station Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'Sammlung'**
+  String get tourCollectionTitle;
+
+  /// Rundgang: wo die Sammlung ist
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite ganz unten, rechts'**
+  String get tourCollectionWhere;
+
+  /// Rundgang: Tala erklärt die Unterwasser-Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'Beim Tauchen an den Ankerplätzen findest du Perlen und alte Schätze aus Wracks. Hier liegt alles, was du gefunden hast.'**
+  String get tourCollectionBody;
+
+  /// Rundgang: Titel der letzten Station
+  ///
+  /// In de, this message translates to:
+  /// **'Leuchtturm und Ton'**
+  String get tourLighthouseTitle;
+
+  /// Rundgang: wo Leuchtturm, Ton und Rundgang sind
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Startseite ganz oben'**
+  String get tourLighthouseWhere;
+
+  /// Rundgang: Talo erklärt Leuchtturm, Ton und den Rundgang-Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.'**
+  String get tourLighthouseBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

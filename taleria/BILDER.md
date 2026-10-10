@@ -378,7 +378,7 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Schatz
 
 ---
 
-## 4g. Aufträge, Orden und Fundstücke (es fehlt nur noch das Logbuch)
+## 4g. Aufträge, Orden und Fundstücke (alle da)
 
 ### Bild 18 und 19: Hintergründe
 
@@ -412,7 +412,7 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 | 21 | `collectible.hafen.2` | Kleine Münztruhe | eine kleine verschlossene Holztruhe mit Eisenbeschlägen, mit Muscheln und Seepocken bewachsen, aus dem Spalt schauen ein paar Goldmünzen | da |
 | 22 | `collectible.hafen.3` | Rostiges Preisschild | ein altes, rostiges Preisschild aus Metall an einer Schnur | da |
 | 23 | `collectible.tauschinsel.1` | Alter Kompass | ein alter Messing-Kompass mit aufgeklapptem Deckel und einer roten Nadel | da |
-| 24 | `collectible.tauschinsel.2` | Logbuch des Händlers | ein altes, zugeklapptes Logbuch mit Ledereinband und einem roten Lesebändchen | fehlt |
+| 24 | `collectible.tauschinsel.2` | Logbuch des Händlers | ein altes, zugeklapptes Logbuch mit Ledereinband und einem roten Lesebändchen | da |
 | 25 | `collectible.tauschinsel.3` | Taucherbrille | eine alte Taucherbrille aus Messing und Leder mit rundem, leicht bläulichem Glas | da |
 | 26 | `collectible.wunschinsel.1` | Kapitänskiste | eine kleine verzierte Kapitänskiste mit einem goldenen Anker auf dem geschlossenen Deckel | da |
 | 27 | `collectible.wunschinsel.2` | Flaschenbrief | eine grüne Glasflasche mit Korken, in der ein zusammengerollter Brief liegt | da |

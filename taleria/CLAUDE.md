@@ -613,6 +613,11 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Orden: Talo erklärt, wie man Orden bekommt. Hintergrund `badges.background` (Ehrenwand).
 - Sammlung: Die Unterwasserwelt liegt hinter der ganzen Seite (statt klein oben), Tala erklärt, was man beim Tauchen findet.
 - Alle diese Seiten nutzen `SceneBackground`, `PaperCard` und `PaperHeading` (`lib/features/common/scene_background.dart`); ohne Bild ein Holz-Verlauf.
-- Jedes Fundstück hat ein eigenes Bild: `"fund_bild"` beim Tauchgang in der Inhaltsdatei (`collectible.<insel>.<nummer>`), ohne Angabe `collectible.wreck_item`. `tool/build_seed.dart` schreibt es in `collectibles.asset_key` und aktualisiert es beim nächsten Seed. Im Testprojekt muss `supabase/seed.sql` dafür neu ausgeführt werden.
+- Jedes Fundstück hat ein eigenes Bild: `"fund_bild"` beim Tauchgang in der Inhaltsdatei (`collectible.<insel>.<nummer>`), ohne Angabe `collectible.wreck_item`. `tool/build_seed.dart` schreibt es in `collectibles.asset_key` und aktualisiert es beim nächsten Seed. Im Testprojekt muss `supabase/seed.sql` dafür neu ausgeführt werden. Alle neun Fundstücke der ersten drei Inseln haben Bilder von Marc.
+
+**Rundgang „Was ist wo?“, umgesetzt am 10.10.2026 (Idee von Marc):**
+- Talo und Tala zeigen nacheinander jeden Bereich der Startseite mit seinem Bild, sagen, was er ist und wo er liegt („Wo? Auf der Startseite unter der Karte, links“): Karte, Rang mit Seemeilen und Fahrtwind, Schatztruhe, Aufträge, Orden, Sammlung, Leuchtturm und Ton. Weiter und Zurück, Punkte zeigen die Station.
+- Zu finden oben auf der Startseite (Knopf „Was ist wo?“ neben dem Ton-Knopf) und in der Einführung (ersetzt den alten Rundgang mit Symbolen und dem „Logbuch“, das es auf der Startseite nicht gibt).
+- Technik: `lib/features/child/board_tour.dart` (`BoardTour`, `BoardTourScreen`, `tourStops`); runde Knöpfe oben auf der Startseite teilen sich `DeckRoundButton` (`sound_button.dart`).
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

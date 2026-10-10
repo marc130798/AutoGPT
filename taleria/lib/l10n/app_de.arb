@@ -680,7 +680,7 @@
   "@tourMapTitle": {
     "description": "Rundgang: Karte"
   },
-  "tourMapBody": "Auf der Karte siehst du alle Inseln. Jede Insel hat ein Thema und versteckt ein Stück der Schatzkarte.",
+  "tourMapBody": "Auf der Karte liegen alle Inseln. Tipp auf eine Insel und spiel ihre Stationen. Auf jeder Insel wartet ein Stück der Schatzkarte.",
   "@tourMapBody": {
     "description": "Talo erklärt die Karte (ENTWURF)"
   },
@@ -688,17 +688,9 @@
   "@tourChestTitle": {
     "description": "Rundgang: Schatztruhe"
   },
-  "tourChestBody": "In der Schatztruhe sammelst du deine Taler und deine Wunschschätze.",
+  "tourChestBody": "Hier liegt dein Geld in drei Truhen: zum Ausgeben, zum Sparen und zum Verschenken. Hier sparst du auch für deine Wunschschätze.",
   "@tourChestBody": {
     "description": "Tala erklärt die Schatztruhe (ENTWURF)"
-  },
-  "tourLogbookTitle": "Das Logbuch",
-  "@tourLogbookTitle": {
-    "description": "Rundgang: Logbuch"
-  },
-  "tourLogbookBody": "Im Logbuch steht, was du schon geschafft hast: Seemeilen, Orden und dein Rang.",
-  "@tourLogbookBody": {
-    "description": "Talo erklärt das Logbuch (ENTWURF)"
   },
   "tourDone": "Verstanden!",
   "@tourDone": {
@@ -2563,5 +2555,85 @@
   "collectionIntro": "Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.",
   "@collectionIntro": {
     "description": "Sammlung: Tala erklärt oben, was man beim Tauchen findet"
+  },
+  "tourButton": "Was ist wo?",
+  "@tourButton": {
+    "description": "Startseite: Knopf oben, öffnet den Rundgang mit allen Bereichen"
+  },
+  "tourWhere": "Wo?",
+  "@tourWhere": {
+    "description": "Rundgang: Beschriftung vor der Stelle auf der Startseite"
+  },
+  "tourBack": "Zurück",
+  "@tourBack": {
+    "description": "Rundgang: Knopf zur vorigen Station"
+  },
+  "tourMapWhere": "Auf der Startseite die große blaue Kachel „Zur Karte“",
+  "@tourMapWhere": {
+    "description": "Rundgang: wo die Karte zu finden ist"
+  },
+  "tourRankTitle": "Rang, Seemeilen und Fahrtwind",
+  "@tourRankTitle": {
+    "description": "Rundgang: Titel der Station Rang"
+  },
+  "tourRankWhere": "Auf der Startseite direkt unter der Begrüßung",
+  "@tourRankWhere": {
+    "description": "Rundgang: wo Rang und Seemeilen stehen"
+  },
+  "tourRankBody": "Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, vom Schiffsjungen bis zum Kapitän. Spielst du jede Woche, bekommst du Fahrtwind.",
+  "@tourRankBody": {
+    "description": "Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind"
+  },
+  "tourChestWhere": "Auf der Startseite unter der Karte, links",
+  "@tourChestWhere": {
+    "description": "Rundgang: wo die Schatztruhe ist"
+  },
+  "tourTasksTitle": "Aufträge",
+  "@tourTasksTitle": {
+    "description": "Rundgang: Titel der Station Aufträge"
+  },
+  "tourTasksWhere": "Auf der Startseite unter der Karte, rechts",
+  "@tourTasksWhere": {
+    "description": "Rundgang: wo die Aufträge sind"
+  },
+  "tourTasksBody": "Hier stehen Aufgaben von deinen Eltern. Bist du fertig, tippst du auf „Erledigt!“. Die rote Zahl zeigt, wie viele noch offen sind.",
+  "@tourTasksBody": {
+    "description": "Rundgang: Tala erklärt die Aufträge"
+  },
+  "tourBadgesTitle": "Orden",
+  "@tourBadgesTitle": {
+    "description": "Rundgang: Titel der Station Orden"
+  },
+  "tourBadgesWhere": "Auf der Startseite ganz unten, links",
+  "@tourBadgesWhere": {
+    "description": "Rundgang: wo die Orden sind"
+  },
+  "tourBadgesBody": "Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden.",
+  "@tourBadgesBody": {
+    "description": "Rundgang: Talo erklärt die Orden"
+  },
+  "tourCollectionTitle": "Sammlung",
+  "@tourCollectionTitle": {
+    "description": "Rundgang: Titel der Station Sammlung"
+  },
+  "tourCollectionWhere": "Auf der Startseite ganz unten, rechts",
+  "@tourCollectionWhere": {
+    "description": "Rundgang: wo die Sammlung ist"
+  },
+  "tourCollectionBody": "Beim Tauchen an den Ankerplätzen findest du Perlen und alte Schätze aus Wracks. Hier liegt alles, was du gefunden hast.",
+  "@tourCollectionBody": {
+    "description": "Rundgang: Tala erklärt die Unterwasser-Sammlung"
+  },
+  "tourLighthouseTitle": "Leuchtturm und Ton",
+  "@tourLighthouseTitle": {
+    "description": "Rundgang: Titel der letzten Station"
+  },
+  "tourLighthouseWhere": "Auf der Startseite ganz oben",
+  "@tourLighthouseWhere": {
+    "description": "Rundgang: wo Leuchtturm, Ton und Rundgang sind"
+  },
+  "tourLighthouseBody": "Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.",
+  "@tourLighthouseBody": {
+    "description": "Rundgang: Talo erklärt Leuchtturm, Ton und den Rundgang-Knopf"
   }
 }

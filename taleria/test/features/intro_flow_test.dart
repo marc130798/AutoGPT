@@ -62,12 +62,16 @@ void main() {
     await tapText(tester, 'Goldmöwe');
     await tapText(tester, 'Schiff taufen');
 
-    // Rundgang
+    // Rundgang „Was ist wo?“: alle Bereiche der Startseite, mit Zurück
     expect(find.text('Die Karte'), findsOneWidget);
     await tapText(tester, 'Weiter');
-    expect(find.text('Die Schatztruhe'), findsOneWidget);
-    await tapText(tester, 'Weiter');
-    expect(find.text('Das Logbuch'), findsOneWidget);
+    expect(find.text('Rang, Seemeilen und Fahrtwind'), findsOneWidget);
+    await tapText(tester, 'Zurück');
+    expect(find.text('Die Karte'), findsOneWidget);
+    for (var i = 0; i < 6; i++) {
+      await tapText(tester, 'Weiter');
+    }
+    expect(find.text('Leuchtturm und Ton'), findsOneWidget);
     await tapText(tester, 'Verstanden!');
 
     expect(find.text('Dein erster Wunschschatz'), findsOneWidget);

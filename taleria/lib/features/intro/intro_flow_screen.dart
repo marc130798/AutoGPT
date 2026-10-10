@@ -11,6 +11,7 @@ import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/intro_controller.dart';
 import '../../services/session_controller.dart';
+import '../child/board_tour.dart';
 import '../child/lighthouse_button.dart';
 import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
@@ -56,7 +57,7 @@ class _IntroFlowScreenState extends State<IntroFlowScreen> {
           IntroStep.story => _StoryStep(onJoin: controller.joinCrew),
           IntroStep.avatar => _AvatarStep(controller: controller),
           IntroStep.ship => _ShipStep(controller: controller),
-          IntroStep.tour => _TourStep(onDone: controller.tourFinished),
+          IntroStep.tour => BoardTour(onDone: controller.tourFinished),
           IntroStep.wish => _WishStep(controller: controller),
           IntroStep.done => _DoneStep(controller: controller),
           IntroStep.map => const _MapStep(),
@@ -419,76 +420,6 @@ class _ShipStepState extends State<_ShipStep> {
           ),
         ),
         _BottomButton(label: l10n.shipButton, busy: widget.controller.busy, onPressed: _submit),
-      ],
-    );
-  }
-}
-
-// -----------------------------------------------------------------------------
-// Rundgang
-// -----------------------------------------------------------------------------
-
-class _TourStep extends StatefulWidget {
-  const _TourStep({required this.onDone});
-
-  final VoidCallback onDone;
-
-  @override
-  State<_TourStep> createState() => _TourStepState();
-}
-
-class _TourStepState extends State<_TourStep> {
-  int _index = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final stops = [
-      (Icons.map_outlined, l10n.tourMapTitle, Speaker.talo, l10n.tourMapBody),
-      (Icons.inventory_2_outlined, l10n.tourChestTitle, Speaker.tala, l10n.tourChestBody),
-      (Icons.menu_book_outlined, l10n.tourLogbookTitle, Speaker.talo, l10n.tourLogbookBody),
-    ];
-    final (icon, title, speaker, text) = stops[_index];
-    final last = _index == stops.length - 1;
-
-    return Column(
-      children: [
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              Text(l10n.tourTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
-              const SizedBox(height: 24),
-              Icon(icon, size: 96, color: theme.colorScheme.primary),
-              const SizedBox(height: 8),
-              Text(title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
-              const SizedBox(height: 24),
-              SpeechBubble(speaker: speaker, text: text),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (var i = 0; i < stops.length; i++)
-                    Container(
-                      margin: const EdgeInsets.all(4),
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: i == _index ? theme.colorScheme.primary : theme.colorScheme.outlineVariant,
-                      ),
-                    ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        _BottomButton(
-          label: last ? l10n.tourDone : l10n.introNext,
-          busy: false,
-          onPressed: last ? widget.onDone : () => setState(() => _index++),
-        ),
       ],
     );
   }
