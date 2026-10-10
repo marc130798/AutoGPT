@@ -643,6 +643,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 
 **Rückmeldungen aus Marcs Test, zweite Runde (10.10.2026):**
 - **Fehler behoben, falsche Reihenfolge:** `supabase_flutter` sortiert mit `.order(...)` ohne Angabe **absteigend**. Darum standen die Stationen auf der Insel verkehrt herum: Station 1 lag oben, die Prüfung unten am Steg. Orden und Unterwasser-Sammlung waren auch umgedreht, ebenso Kombüsen-Fragen, Wunschschätze und die Kinderliste. Jetzt steht überall `ascending: true` (oder ausdrücklich `false`), und der `IslandController` sortiert die Stationen zusätzlich selbst. Regel: `.order()` nie ohne `ascending`.
+- **Rang-Zeitstrahl:** Wer auf der Startseite die Rang-Karte antippt (oder „Alle Ränge ansehen“), sieht alle Ränge als Zeitstrahl: unten der erste Rang, oben der Kapitän. Bei jedem Rang steht die Grenze („ab 1.500 Seemeilen“, beim Kapitän „mit der Goldenen Schatzkarte“), geschaffte Ränge haben einen Haken, beim aktuellen steht „Hier bist du“. Die Linie zum nächsten Rang füllt sich mit dem Fortschritt. Darunter steht, wofür es Seemeilen gibt. Die Grenzen kommen aus der Tabelle `ranks` (`fetchRanks`), die Namen in der gewählten Form (`lib/features/progress/rank_ladder_screen.dart`).
 
 ---
 

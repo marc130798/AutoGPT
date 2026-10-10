@@ -1682,6 +1682,65 @@
       }
     }
   },
+  "ranksTitle": "Deine Ränge",
+  "@ranksTitle": {
+    "description": "Titel der Seite mit allen Rängen (Zeitstrahl)"
+  },
+  "ranksOpen": "Alle Ränge ansehen",
+  "@ranksOpen": {
+    "description": "Knopf auf der Rang-Karte der Startseite"
+  },
+  "ranksIntro": "Mit jeder Seemeile segelst du ein Stück weiter. Ganz oben wartet {captain}. Dafür brauchst du die Goldene Schatzkarte.",
+  "@ranksIntro": {
+    "description": "Talo erklärt den Zeitstrahl der Ränge (ENTWURF)",
+    "placeholders": {
+      "captain": {
+        "type": "String"
+      }
+    }
+  },
+  "ranksFrom": "ab {xp} Seemeilen",
+  "@ranksFrom": {
+    "description": "Grenze eines Rangs",
+    "placeholders": {
+      "xp": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "ranksFromStart": "gleich zu Beginn",
+  "@ranksFromStart": {
+    "description": "Grenze des ersten Rangs (ab der ersten Seemeile)"
+  },
+  "ranksFromCertificate": "mit der Goldenen Schatzkarte",
+  "@ranksFromCertificate": {
+    "description": "Grenze des höchsten Rangs"
+  },
+  "ranksReached": "Geschafft",
+  "@ranksReached": {
+    "description": "Rang ist erreicht"
+  },
+  "ranksHere": "Hier bist du",
+  "@ranksHere": {
+    "description": "Aktueller Rang im Zeitstrahl"
+  },
+  "ranksHowTitle": "So sammelst du Seemeilen",
+  "@ranksHowTitle": {
+    "description": "Überschrift: woher Seemeilen kommen"
+  },
+  "ranksHowStation": "Für jede Station, die du schaffst",
+  "@ranksHowStation": {
+    "description": "Woher Seemeilen kommen"
+  },
+  "ranksHowDive": "Für jeden Tauchgang am Ankerplatz",
+  "@ranksHowDive": {
+    "description": "Woher Seemeilen kommen"
+  },
+  "ranksHowEncounter": "Für Begegnungen auf See, einmal am Tag",
+  "@ranksHowEncounter": {
+    "description": "Woher Seemeilen kommen"
+  },
   "statsXp": "{xp} Seemeilen",
   "@statsXp": {
     "description": "Seemeilen des Kindes",

@@ -21,6 +21,7 @@ import '../intro/speech_bubble.dart';
 import '../map/island_map_screen.dart';
 import '../progress/badges_screen.dart';
 import '../progress/collection_screen.dart';
+import '../progress/rank_ladder_screen.dart';
 import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
@@ -598,7 +599,14 @@ class _ProgressSectionState extends State<_ProgressSection> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (stats != null) ...[StatsCard(stats: stats, rankForm: _child.rankForm), const SizedBox(height: 16)],
+            if (stats != null) ...[
+              StatsCard(
+                stats: stats,
+                rankForm: _child.rankForm,
+                onOpenRanks: () => _open(RankLadderScreen(stats: stats, rankForm: _child.rankForm)),
+              ),
+              const SizedBox(height: 16),
+            ],
             _MapTile(onTap: () => _open(IslandMapScreen(child: _child))),
             const SizedBox(height: 12),
             widget.budgetRow,

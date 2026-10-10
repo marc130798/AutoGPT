@@ -1202,6 +1202,49 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get ranksTitle => 'Deine Ränge';
+
+  @override
+  String get ranksOpen => 'Alle Ränge ansehen';
+
+  @override
+  String ranksIntro(String captain) {
+    return 'Mit jeder Seemeile segelst du ein Stück weiter. Ganz oben wartet $captain. Dafür brauchst du die Goldene Schatzkarte.';
+  }
+
+  @override
+  String ranksFrom(int xp) {
+    final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String xpString = xpNumberFormat.format(xp);
+
+    return 'ab $xpString Seemeilen';
+  }
+
+  @override
+  String get ranksFromStart => 'gleich zu Beginn';
+
+  @override
+  String get ranksFromCertificate => 'mit der Goldenen Schatzkarte';
+
+  @override
+  String get ranksReached => 'Geschafft';
+
+  @override
+  String get ranksHere => 'Hier bist du';
+
+  @override
+  String get ranksHowTitle => 'So sammelst du Seemeilen';
+
+  @override
+  String get ranksHowStation => 'Für jede Station, die du schaffst';
+
+  @override
+  String get ranksHowDive => 'Für jeden Tauchgang am Ankerplatz';
+
+  @override
+  String get ranksHowEncounter => 'Für Begegnungen auf See, einmal am Tag';
+
+  @override
   String statsXp(int xp) {
     final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
     final String xpString = xpNumberFormat.format(xp);

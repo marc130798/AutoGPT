@@ -309,6 +309,14 @@ class FakeProgress implements ProgressRepository {
   }
 
   @override
+  Future<List<RankStep>> fetchRanks() async {
+    _check();
+    return [
+      for (final rank in Rank.values) (rank: rank, minXp: _rankXp[rank] ?? 0, needsCertificate: rank == Rank.kapitaen),
+    ];
+  }
+
+  @override
   Future<ChildStats> fetchStats(String childId) async {
     _check();
     final current = rank;

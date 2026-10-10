@@ -28,6 +28,10 @@ enum Rank {
   }
 }
 
+/// Ein Rang mit seiner Grenze aus der Tabelle `ranks`: ab wie vielen
+/// Seemeilen, oder nur mit der Goldenen Schatzkarte (Kapitän).
+typedef RankStep = ({Rank rank, int minXp, bool needsCertificate});
+
 /// Datenschutzfreundliche Messung (Schritt 11): höchstens ein Eintrag pro Kind,
 /// Ereignis, Station und Tag, ohne Uhrzeit und ohne Geräte-Daten.
 enum TrackedEvent {

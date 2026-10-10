@@ -2197,6 +2197,78 @@ abstract class AppLocalizations {
   /// **'{rank, select, schiffsjunge{Schiffsjunge} matrose{Matrose} bootsmann{Bootsmann} steuermann{Steuermann} kapitaen{Kapitän} other{Neu an Bord}}'**
   String rankName(String rank);
 
+  /// Titel der Seite mit allen Rängen (Zeitstrahl)
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Ränge'**
+  String get ranksTitle;
+
+  /// Knopf auf der Rang-Karte der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Ränge ansehen'**
+  String get ranksOpen;
+
+  /// Talo erklärt den Zeitstrahl der Ränge (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Mit jeder Seemeile segelst du ein Stück weiter. Ganz oben wartet {captain}. Dafür brauchst du die Goldene Schatzkarte.'**
+  String ranksIntro(String captain);
+
+  /// Grenze eines Rangs
+  ///
+  /// In de, this message translates to:
+  /// **'ab {xp} Seemeilen'**
+  String ranksFrom(int xp);
+
+  /// Grenze des ersten Rangs (ab der ersten Seemeile)
+  ///
+  /// In de, this message translates to:
+  /// **'gleich zu Beginn'**
+  String get ranksFromStart;
+
+  /// Grenze des höchsten Rangs
+  ///
+  /// In de, this message translates to:
+  /// **'mit der Goldenen Schatzkarte'**
+  String get ranksFromCertificate;
+
+  /// Rang ist erreicht
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft'**
+  String get ranksReached;
+
+  /// Aktueller Rang im Zeitstrahl
+  ///
+  /// In de, this message translates to:
+  /// **'Hier bist du'**
+  String get ranksHere;
+
+  /// Überschrift: woher Seemeilen kommen
+  ///
+  /// In de, this message translates to:
+  /// **'So sammelst du Seemeilen'**
+  String get ranksHowTitle;
+
+  /// Woher Seemeilen kommen
+  ///
+  /// In de, this message translates to:
+  /// **'Für jede Station, die du schaffst'**
+  String get ranksHowStation;
+
+  /// Woher Seemeilen kommen
+  ///
+  /// In de, this message translates to:
+  /// **'Für jeden Tauchgang am Ankerplatz'**
+  String get ranksHowDive;
+
+  /// Woher Seemeilen kommen
+  ///
+  /// In de, this message translates to:
+  /// **'Für Begegnungen auf See, einmal am Tag'**
+  String get ranksHowEncounter;
+
   /// Seemeilen des Kindes
   ///
   /// In de, this message translates to:

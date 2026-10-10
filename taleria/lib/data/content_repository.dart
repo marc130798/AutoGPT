@@ -33,6 +33,9 @@ abstract interface class ProgressRepository {
 
   Future<ChildStats> fetchStats(String childId);
 
+  /// Alle Ränge mit ihren Grenzen, vom ersten bis zum höchsten.
+  Future<List<RankStep>> fetchRanks();
+
   /// Alle sichtbaren Orden, verdiente mit Datum.
   Future<List<BadgeInfo>> fetchBadges(String childId);
 
@@ -227,6 +230,19 @@ class SupabaseProgressRepository implements ProgressRepository {
   ];
 
   @override
+  Future<List<RankStep>> fetchRanks() => guardBackend(() async {
+    final rows = await _client
+        .from('ranks')
+        .select('code, min_xp, requires_certificate')
+        .order('sort_order', ascending: true);
+    return [
+      for (final r in rows)
+        if (Rank.parse(r['code']) case final rank?)
+          (rank: rank, minXp: r['min_xp'] as int, needsCertificate: r['requires_certificate'] as bool),
+    ];
+  });
+
+  @override
   Future<ChildStats> fetchStats(String childId) => guardBackend(() async {
     final result = await _client.rpc<Map<String, dynamic>>('child_stats', params: {'p_child_id': childId});
     return ChildStats.fromJson(result);
@@ -234,7 +250,10 @@ class SupabaseProgressRepository implements ProgressRepository {
 
   @override
   Future<List<BadgeInfo>> fetchBadges(String childId) => guardBackend(() async {
-    final badges = await _client.from('badges').select('id, slug, title, asset_key, sort_order').order('sort_order', ascending: true);
+    final badges = await _client
+        .from('badges')
+        .select('id, slug, title, asset_key, sort_order')
+        .order('sort_order', ascending: true);
     final earned = await _client.from('child_badges').select('badge_id, earned_at').eq('child_id', childId);
     final earnedAt = {for (final r in earned) r['badge_id'] as String: DateTime.parse(r['earned_at'] as String)};
     return [
@@ -268,7 +287,10 @@ class SupabaseProgressRepository implements ProgressRepository {
 
   @override
   Future<List<CollectibleInfo>> fetchCollection(String childId) => guardBackend(() async {
-    final items = await _client.from('collectibles').select('id, slug, kind, title, asset_key').order('sort_order', ascending: true);
+    final items = await _client
+        .from('collectibles')
+        .select('id, slug, kind, title, asset_key')
+        .order('sort_order', ascending: true);
     final found = await _client.from('child_collectibles').select('collectible_id, found_at').eq('child_id', childId);
     final foundAt = {for (final r in found) r['collectible_id'] as String: DateTime.parse(r['found_at'] as String)};
     return [
