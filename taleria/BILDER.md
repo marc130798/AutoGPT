@@ -278,8 +278,12 @@ Bekommt das Kind, wenn es eine Insel schafft. Wieder den Orden von der Startseit
 | `badge.wunschinsel` | Klarer Kompass | ein Kompass, dessen Nadel auf einen kleinen goldenen Stern zeigt |
 
 ```
-Gleicher Stil und gleiches Licht wie im angehängten Bild: ein goldener Orden an einem blauen Band, aber auf dem Orden statt des Ankers MOTIV. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+Gleicher Stil, gleiches Licht und gleicher Bildaufbau wie im angehängten Bild: ein goldener Orden an einem kurzen blauen Stoffband. Das Band ist oben zu einer kleinen Schlaufe gelegt, genau wie im angehängten Bild, und hört dort auf. Auf dem Orden statt des Ankers: MOTIV.
+Orden und Band zusammen sind nur etwa zwei Drittel so hoch wie das Bild. Das ganze Band ist zu sehen, nichts ragt über den Bildrand hinaus, rundherum ist viel freier Platz.
+Leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
 ```
+
+Ist das Band trotzdem abgeschnitten, im selben Gemini-Chat nachschieben: „Bitte weiter herauszoomen. Das ganze blaue Band muss zu sehen sein, mit freiem Platz bis zum Rand.“
 
 ---
 
