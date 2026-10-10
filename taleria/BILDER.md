@@ -119,7 +119,87 @@ Gebraucht werden sie erst, wenn die Insel veröffentlicht wird. Bis dahin liegt 
 
 ---
 
-## 4. Was der Code dazu macht
+## 4. Startseite des Kindes (nächster Schritt)
+
+Statt weißem Hintergrund ein Bild, oben Talo und Tala, der Leuchtturm als echtes Bild, das Schiff bei „Dein Schiff“ und große Bild-Kacheln statt schlichter Knöpfe.
+Das Schiff gibt es schon (Bild 4), es wird wiederverwendet.
+
+### Bild 7: Hintergrund der Startseite → `home.background`
+
+```
+Blick vom Deck eines alten Holz-Segelschiffs auf das Meer von Taleria an einem sonnigen Vormittag. Unten im Bild ein Stück helles Holzdeck mit Reling, dahinter ruhiges türkisblaues Meer mit zwei, drei kleinen Inseln am Horizont, oben viel heller Himmel mit ein paar länglichen weißen Wolken. Die Mitte des Bildes ist ruhig und ohne viele Einzelheiten, damit Text und Knöpfe darauf gut lesbar sind. Hochformat 9:16.
+
+Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus einem Kinofilm für Kinder. Weiche, runde Formen, leuchtende, warme Farben, sonniges Licht von links oben. Keine Schrift, keine Logos, keine Waffen oder Kanonen, keine Menschen, keine Tiere.
+```
+
+### Bild 8: Leuchtturm → `parent.lighthouse`
+
+Den Hafen als Bild anhängen.
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt einer Insel ein einzelner Leuchtturm:
+
+Ein rot-weiß gestreifter Leuchtturm auf einem kleinen runden Felsen mit etwas Gras, oben eine warm leuchtende Laterne und ein dunkelblaues Dach. Leicht von oben gesehen, steht vollständig in der Bildmitte mit Abstand zu allen Rändern. Kein Wasser. Quadratisches Bild.
+
+Keine Schrift, keine Logos, keine Menschen, keine Tiere.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+```
+
+### Bild 9 bis 13: Bilder für die Kacheln
+
+Jeweils den Hafen anhängen und nur den Gegenstand austauschen:
+
+| Nr. | Datei | Gegenstand (statt „GEGENSTAND“ einsetzen) |
+| --- | --- | --- |
+| 9 | `icon.map` | eine halb aufgerollte alte Schatzkarte mit Inseln und einer gestrichelten Route, daneben ein Messing-Kompass |
+| 10 | `icon.treasure` | eine offene hölzerne Schatztruhe mit Goldbeschlägen, gefüllt mit goldenen Talern |
+| 11 | `icon.tasks` | eine Schriftrolle mit rotem Wachssiegel und einer Feder |
+| 12 | `icon.badges` | ein goldener Orden mit einem Anker darauf an einem blauen Band |
+| 13 | `icon.collection` | eine offene Muschel mit einer glänzenden Perle darin |
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt einer Insel ein einzelner Gegenstand: GEGENSTAND. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild.
+
+Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+### Talo und Tala: zuerst der Entwurf, dann die Posen
+
+Talo und Tala kommen später auf fast jedem Bildschirm vor. Deshalb zuerst je ein **Entwurf** von vorn. Erst wenn er dir gefällt, entstehen daraus die Posen (für die Startseite: winken), immer mit dem Entwurf als angehängtem Bild, damit die Figur gleich bleibt.
+Bitte prüfen: Die Figuren dürfen keiner bekannten Filmfigur ähneln, und Tala trägt keine Krone und kein Kleid (`FIGUREN.md`).
+
+**Bild 14: Talo, Entwurf → `character.talo`** (Hafen anhängen)
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt einer Insel ein Figurenentwurf für eine Kinder-App:
+
+Talo, ein junger, freundlicher Fuchs, Kapitän eines kleinen Segelschiffs. Goldrotes Fell, weiße Schwanzspitze, große runde bernsteinfarbene Augen, kurze runde Schnauze, rundliche, kindgerechte Proportionen mit großem Kopf. Dunkelblaue Kapitänsjacke mit goldenen Knöpfen, eine kleine dunkelblaue Kapitänsmütze und ein Messing-Kompass an einer Kette um den Hals. Er steht aufrecht, ganzer Körper von vorn, freundliches Lächeln. Quadratisches Bild, die Figur vollständig in der Mitte.
+
+Keine Schrift, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+**Bild 15: Tala, Entwurf → `character.tala`** (Hafen anhängen)
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt einer Insel ein Figurenentwurf für eine Kinder-App:
+
+Tala, ein mutiges, fröhliches Schweinemädchen, die Zahlmeisterin der Crew. Rosa, rundliche, kindgerechte Proportionen, große freundliche Augen. Ein goldenes Halstuch, eine türkisfarbene Weste mit Taschen, ein Gürtel mit einer Ledertasche, an der ein goldener Schlüssel hängt. In der Hand ein kleines Rechnungsbuch mit einer Feder. Keine Krone, kein Kleid. Sie steht aufrecht, ganzer Körper von vorn, offenes Lachen. Quadratisches Bild, die Figur vollständig in der Mitte.
+
+Keine Schrift, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Grün (#00FF00), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+Tala bekommt einen grünen statt pinken Hintergrund, weil sie selbst rosa ist. Sonst würde beim Freistellen ein Teil von ihr verschwinden.
+
+---
+
+## 5. Was der Code dazu macht
 
 - **Meer:** Das Wasserbild wird untereinander gesetzt (jedes zweite gespiegelt, damit man keine Kante sieht). Darüber glitzert es und kleine Wellen bewegen sich.
 - **Um jede Insel:** flaches türkises Wasser und Gischt, die sich bewegt.
@@ -133,7 +213,7 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 
 ---
 
-## 5. Rechte
+## 6. Rechte
 
 - Vor dem Start die Nutzungsbedingungen von Gemini prüfen: Darf man die Bilder in einer kostenpflichtigen App, in Werbung und für Merchandise nutzen?
 - Jedes Bild, das in die App kommt, steht in `ASSETS_LICENSES.md` (Urheber: Marc mit Google Gemini, Datum).
@@ -141,7 +221,7 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 
 ---
 
-## 6. Technische Angaben (für Claude Code)
+## 7. Technische Angaben (für Claude Code)
 
 - Werkzeug: `python3 tool/bilder_freistellen.py --art insel|schiff|wolke|meer <Bild> <Schlüssel>` (braucht Pillow und numpy). Es legt die fertige Datei unter `assets/images/` ab.
 - Inseln (768 px breit) und Schiff (512 px): PNG mit durchsichtigem Hintergrund. Durchsichtig wird nur die einfarbige Fläche, die mit dem Bildrand verbunden ist (pinke Dinge auf der Insel bleiben), mit weichem Rand und ohne pinken Farbsaum, zugeschnitten auf den Inhalt.
