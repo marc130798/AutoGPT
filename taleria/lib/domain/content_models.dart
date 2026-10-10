@@ -180,7 +180,7 @@ class GameInfo {
     done: game['done'] is Map<String, dynamic> ? DialogLine.fromJson(game['done'] as Map<String, dynamic>) : null,
   );
 
-  /// sort, order oder eine Spielart, die erst später gebaut wird (Platzhalter).
+  /// sort, order, wish_bottle oder eine Spielart, die erst später gebaut wird (Platzhalter).
   final String type;
   final String title;
   final String? description;
@@ -195,6 +195,7 @@ class GameInfo {
   bool get isPlayable => switch (type) {
     'sort' => baskets.length >= 2 && items.isNotEmpty,
     'order' => items.length >= 2,
+    'wish_bottle' => true,
     _ => false,
   };
 }

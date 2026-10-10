@@ -68,13 +68,7 @@ class ChildHomeScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 _ProgressSection(state: state),
                 const SizedBox(height: 12),
-                OutlinedButton.icon(
-                  icon: const Icon(Icons.inventory_2_outlined),
-                  onPressed: () =>
-                      Navigator.of(context)
-                          .push(MaterialPageRoute<void>(builder: (_) => TreasureScreen(childId: child.id))),
-                  label: Text(l10n.childHomeTreasureButton),
-                ),
+                _TreasureButton(childId: child.id),
                 const SizedBox(height: 12),
                 _TasksButton(childId: child.id),
                 const SizedBox(height: 24),
@@ -89,6 +83,72 @@ class ChildHomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Knopf zur Schatztruhe. Sind Wunschflaschen angespült, steht darunter ein Hinweis
+/// (statt einer Push-Nachricht, CLAUDE.md Abschnitt 10). Lädt neu nach der Rückkehr.
+class _TreasureButton extends StatefulWidget {
+  const _TreasureButton({required this.childId});
+
+  final String childId;
+
+  @override
+  State<_TreasureButton> createState() => _TreasureButtonState();
+}
+
+class _TreasureButtonState extends State<_TreasureButton> {
+  int _due = 0;
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_started) {
+      _started = true;
+      unawaited(_load());
+    }
+  }
+
+  Future<void> _load() async {
+    final budget = AppScope.of(context).budget;
+    if (budget == null) return;
+    try {
+      final status = await budget.fetchWishBottleStatus(widget.childId);
+      if (mounted) setState(() => _due = status.due);
+    } on Object {
+      // Nur ein Hinweis: Ohne Verbindung erscheint er einfach nicht.
+    }
+  }
+
+  Future<void> _open() async {
+    await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => TreasureScreen(childId: widget.childId)));
+    if (mounted) await _load();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        OutlinedButton.icon(
+          icon: Badge(isLabelVisible: _due > 0, label: Text('$_due'), child: const Icon(Icons.inventory_2_outlined)),
+          onPressed: _open,
+          label: Text(l10n.childHomeTreasureButton),
+        ),
+        if (_due > 0)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              l10n.childHomeWishDue(_due),
+              key: const ValueKey('child-home-wish-due'),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+      ],
     );
   }
 }

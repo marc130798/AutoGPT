@@ -2,25 +2,32 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../domain/budget_models.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
+import '../treasure/wish_bottle_form.dart';
 
 /// Mini-Spiel einer Station. Spielarten ohne eigene Mechanik zeigen den
 /// Platzhalter [placeholder]. [onDone] führt weiter zum Stations-Check.
 class GameStepView extends StatelessWidget {
-  const GameStepView({super.key, required this.game, required this.onDone, required this.placeholder});
+  const GameStepView({super.key, required this.game, required this.onDone, required this.placeholder, this.onWish});
 
   final GameInfo game;
   final VoidCallback onDone;
   final Widget placeholder;
+
+  /// Spiel „Wunschflasche“: steckt den Wunsch in eine Flasche (ohne Server: Platzhalter).
+  final Future<void> Function(WishDraft draft)? onWish;
 
   @override
   Widget build(BuildContext context) {
     if (!game.isPlayable) return placeholder;
     return switch (game.type) {
       'sort' => SortGameView(game: game, onDone: onDone),
+      'wish_bottle' when onWish != null => WishBottleGameView(game: game, onWish: onWish!, onDone: onDone),
+      'wish_bottle' => placeholder,
       _ => OrderGameView(game: game, onDone: onDone),
     };
   }
@@ -256,6 +263,59 @@ class _OrderGameViewState extends State<OrderGameView> {
         if (game.finished) ...[
           Text(l10n.gameDone, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
           if (widget.game.done != null) ...[const SizedBox(height: 12), SpeechBubble.line(widget.game.done!)],
+        ],
+      ],
+    );
+  }
+}
+
+/// Wunschflasche (Wunschinsel): Das Kind steckt einen eigenen Wunsch in eine
+/// Flasche. Nach einer Nacht oder einer Woche fragt die App nach (Schatztruhe).
+class WishBottleGameView extends StatefulWidget {
+  const WishBottleGameView({super.key, required this.game, required this.onWish, required this.onDone});
+
+  final GameInfo game;
+  final Future<void> Function(WishDraft draft) onWish;
+  final VoidCallback onDone;
+
+  @override
+  State<WishBottleGameView> createState() => _WishBottleGameViewState();
+}
+
+class _WishBottleGameViewState extends State<WishBottleGameView> {
+  WishDraft? _thrown;
+
+  Future<void> _throw(WishDraft draft) async {
+    await widget.onWish(draft);
+    if (mounted) setState(() => _thrown = draft);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final thrown = _thrown;
+    return _GameFrame(
+      game: widget.game,
+      button: thrown == null
+          ? TextButton(key: const ValueKey('game-skip'), onPressed: widget.onDone, child: Text(l10n.wishBottleSkip))
+          : FilledButton(key: const ValueKey('game-done'), onPressed: widget.onDone, child: Text(l10n.introNext)),
+      children: [
+        if (thrown == null) ...[
+          if (widget.game.description != null)
+            Text(widget.game.description!, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
+          const SizedBox(height: 16),
+          WishBottleForm(submitLabel: l10n.wishBottleThrow, onSubmit: _throw),
+        ] else ...[
+          Icon(Icons.water_drop_outlined, size: 64, color: context.palette.sea),
+          const SizedBox(height: 16),
+          Text(
+            thrown.isBig ? l10n.wishBottleThrownBig(thrown.title) : l10n.wishBottleThrownSmall(thrown.title),
+            key: const ValueKey('wish-thrown'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleMedium,
+          ),
+          if (widget.game.done != null) ...[const SizedBox(height: 16), SpeechBubble.line(widget.game.done!)],
         ],
       ],
     );

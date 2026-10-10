@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/core/app_scope.dart';
 import 'package:taleria/core/theme/taleria_theme.dart';
+import 'package:taleria/domain/budget_models.dart';
 import 'package:taleria/features/station/game_views.dart';
 import 'package:taleria/l10n/app_localizations.dart';
 
@@ -72,6 +73,52 @@ void main() {
   testWidgets('Spiel ohne eigene Mechanik zeigt den Platzhalter', (tester) async {
     final game = FakeContent().station('hafen', 4).content.game!;
     expect(game.type, 'coins');
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('Platzhalter'))));
+    expect(find.text('Platzhalter'), findsOneWidget);
+  });
+
+  testWidgets('Wunschflasche (Wunschinsel 3): Wunsch einstecken oder überspringen', (tester) async {
+    final game = FakeContent().station('wunschinsel', 3).content.game!;
+    final wishes = <WishDraft>[];
+    var done = 0;
+    Widget view() => host(
+      GameStepView(
+        game: game,
+        onDone: () => done++,
+        placeholder: const Text('Platzhalter'),
+        onWish: (draft) async => wishes.add(draft),
+      ),
+    );
+
+    await tester.pumpWidget(view());
+    await tester.pumpAndSettle();
+    expect(find.text('Platzhalter'), findsNothing);
+    await tester.tap(find.byKey(const ValueKey('wish-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Bitte mindestens 2 Zeichen.'), findsOneWidget);
+    expect(wishes, isEmpty);
+
+    await tester.enterText(find.byKey(const ValueKey('wish-title')), 'Glitzerkompass');
+    await tester.tap(find.byKey(const ValueKey('wish-submit')));
+    await tester.pumpAndSettle();
+    expect(wishes.single.title, 'Glitzerkompass');
+    expect(wishes.single.isBig, isFalse);
+    expect(find.byKey(const ValueKey('wish-thrown')), findsOneWidget);
+    expect(find.textContaining('Morgen wird sie angespült'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('game-done')));
+    expect(done, 1);
+
+    // Überspringen geht auch, dann ohne Flasche.
+    await tester.pumpWidget(const SizedBox());
+    await tester.pumpWidget(view());
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('game-skip')));
+    expect(done, 2);
+    expect(wishes, hasLength(1));
+  });
+
+  testWidgets('Wunschflasche ohne Server: Platzhalter', (tester) async {
+    final game = FakeContent().station('wunschinsel', 3).content.game!;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('Platzhalter'))));
     expect(find.text('Platzhalter'), findsOneWidget);
   });

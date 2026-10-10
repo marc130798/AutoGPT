@@ -3,8 +3,10 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
+import '../data/budget_repository.dart';
 import '../data/content_repository.dart';
 import '../data/local_settings.dart';
+import '../domain/budget_models.dart';
 import '../domain/content_models.dart';
 import '../domain/family_models.dart';
 import '../domain/progress_logic.dart';
@@ -60,12 +62,14 @@ class StationController extends ChangeNotifier {
     required this.island,
     required this.station,
     required this.allStations,
+    this._budget,
     Random? random,
   }) : _random = random ?? Random();
 
   final ContentRepository _content;
   final ProgressRepository _progress;
   final LocalSettings _settings;
+  final BudgetRepository? _budget;
   final Random _random;
   final ChildProfile child;
   final MapIsland island;
@@ -107,6 +111,13 @@ class StationController extends ChangeNotifier {
       _failure = e.kind;
       _go(StationStep.failed);
     }
+  }
+
+  /// Spiel „Wunschflasche“ (Wunschinsel): den Wunsch des Kindes in eine Flasche stecken.
+  Future<void> createWishBottle(WishDraft draft) async {
+    final budget = _budget;
+    if (budget == null) throw const AppFailure(FailureKind.unknown, 'Ohne Server keine Wunschflasche');
+    await budget.createWishBottle(child.id, draft);
   }
 
   /// Messung für die Abbruchquote. Ein Fehler dabei stört das Kind nie.

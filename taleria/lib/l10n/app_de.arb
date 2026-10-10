@@ -2173,5 +2173,132 @@
   "childLimitButton": "Zum Abo",
   "@childLimitButton": {
     "description": "Dialog: Knopf zur Abo-Seite"
+  },
+  "wishBottlesHeading": "Wunschflaschen",
+  "@wishBottlesHeading": {
+    "description": "Kinderbereich, Schatztruhe: Überschrift des Bereichs Wunschflaschen"
+  },
+  "wishBottlesIntro": "Steck einen Wunsch in eine Flasche. Wenn sie wieder angespült wird, schaust du, ob du ihn noch willst.",
+  "@wishBottlesIntro": {
+    "description": "Kinderbereich, Schatztruhe: kurze Erklärung der Warte-Regel (ENTWURF)"
+  },
+  "wishBottlesEmpty": "Gerade treibt keine Flasche auf dem Meer.",
+  "@wishBottlesEmpty": {
+    "description": "Kinderbereich, Schatztruhe: keine offenen Wunschflaschen"
+  },
+  "wishBottleNew": "Neue Wunschflasche",
+  "@wishBottleNew": {
+    "description": "Knopf und Dialogtitel: neuen Wunsch in eine Flasche stecken"
+  },
+  "wishBottleTitleLabel": "Was wünschst du dir?",
+  "@wishBottleTitleLabel": {
+    "description": "Eingabefeld: Name des Wunsches"
+  },
+  "wishBottlePriceLabel": "Was kostet es ungefähr? (freiwillig)",
+  "@wishBottlePriceLabel": {
+    "description": "Eingabefeld: ungefährer Preis des Wunsches in Euro, darf leer bleiben"
+  },
+  "wishBottleSmall": "Kleiner Wunsch",
+  "@wishBottleSmall": {
+    "description": "Auswahl: kleiner Wunsch (eine Nacht warten)"
+  },
+  "wishBottleBig": "Großer Wunsch",
+  "@wishBottleBig": {
+    "description": "Auswahl: großer Wunsch (eine Woche warten)"
+  },
+  "wishBottleSmallHint": "Du schläfst eine Nacht drüber.",
+  "@wishBottleSmallHint": {
+    "description": "Erklärung unter der Auswahl: kleiner Wunsch"
+  },
+  "wishBottleBigHint": "Du schläfst eine Woche drüber.",
+  "@wishBottleBigHint": {
+    "description": "Erklärung unter der Auswahl: großer Wunsch"
+  },
+  "wishBottleTitleTooShort": "Bitte mindestens 2 Zeichen.",
+  "@wishBottleTitleTooShort": {
+    "description": "Fehler: Name des Wunsches zu kurz"
+  },
+  "wishBottleThrow": "In die Flasche stecken",
+  "@wishBottleThrow": {
+    "description": "Knopf: Wunsch in die Flasche stecken und aufs Meer schicken"
+  },
+  "wishBottleSkip": "Überspringen",
+  "@wishBottleSkip": {
+    "description": "Knopf im Spiel Wunschflasche: ohne eigenen Wunsch weiter"
+  },
+  "wishBottleThrownSmall": "Deine Flasche treibt jetzt übers Meer. Morgen wird sie angespült. Dann fragt sie dich, ob du „{title}“ noch willst.",
+  "@wishBottleThrownSmall": {
+    "description": "Spiel Wunschflasche: Bestätigung, kleiner Wunsch (ENTWURF)",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishBottleThrownBig": "Deine Flasche treibt jetzt übers Meer. In einer Woche wird sie angespült. Dann fragt sie dich, ob du „{title}“ noch willst.",
+  "@wishBottleThrownBig": {
+    "description": "Spiel Wunschflasche: Bestätigung, großer Wunsch (ENTWURF)",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishBottleDrifting": "Treibt noch bis {date}",
+  "@wishBottleDrifting": {
+    "description": "Schatztruhe: Flasche, deren Wartezeit noch läuft",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "wishBottleDueQuestion": "Willst du „{title}“ noch?",
+  "@wishBottleDueQuestion": {
+    "description": "Schatztruhe: angespülte Flasche, das Kind entscheidet",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishBottleKeep": "Ja, Wunschschatz daraus machen",
+  "@wishBottleKeep": {
+    "description": "Knopf: aus dem Wunsch wird ein Wunschschatz (Sparziel)"
+  },
+  "wishBottleDrop": "Loslassen",
+  "@wishBottleDrop": {
+    "description": "Knopf: den Wunsch nicht mehr verfolgen"
+  },
+  "wishBottleKeepPrice": "Wie viel kostet „{title}“?",
+  "@wishBottleKeepPrice": {
+    "description": "Dialogtitel: Preis für den neuen Wunschschatz eingeben, wenn die Flasche keinen hat",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishBottleKept": "Neuer Wunschschatz: {title}",
+  "@wishBottleKept": {
+    "description": "Hinweis nach dem Umwandeln in einen Wunschschatz",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "wishBottleDropped": "Losgelassen. Gut, dass du gewartet hast!",
+  "@wishBottleDropped": {
+    "description": "Hinweis nach dem Loslassen eines Wunsches (ENTWURF)"
+  },
+  "childHomeWishDue": "{count, plural, =1{Eine Wunschflasche ist angespült! Schau in der Schatztruhe nach.} other{{count} Wunschflaschen sind angespült! Schau in der Schatztruhe nach.}}",
+  "@childHomeWishDue": {
+    "description": "Startseite des Kindes: Hinweis auf angespülte Wunschflaschen, ohne Push-Nachricht",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

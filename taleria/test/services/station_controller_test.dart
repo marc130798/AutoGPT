@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taleria/domain/budget_models.dart';
 import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/domain/progress_models.dart';
 import 'package:taleria/services/station_controller.dart';
 
+import '../fake_budget.dart';
 import '../fake_content.dart';
 import '../fakes.dart';
 
@@ -272,5 +274,27 @@ void main() {
     await c.start();
     expect(c.step, StationStep.failed);
     expect(c.failure, FailureKind.unknown);
+  });
+
+  test('Wunschflasche: Station steckt den Wunsch über die Schatztruhe ein, ohne Server Fehler', () async {
+    final island = content.island('wunschinsel');
+    final budget = FakeBudget();
+    StationController make({FakeBudget? b}) => StationController(
+      content: content,
+      progress: progress,
+      settings: settings,
+      child: child,
+      island: island,
+      station: content.station('wunschinsel', 3),
+      allStations: content.stations[island.id]!,
+      budget: b,
+    );
+
+    await make(b: budget).createWishBottle(const WishDraft(title: 'Glitzerkompass', isBig: false));
+    expect(budget.wishBottles['kind']!.single.title, 'Glitzerkompass');
+    await expectLater(
+      make().createWishBottle(const WishDraft(title: 'Ball', isBig: false)),
+      throwsA(isA<AppFailure>()),
+    );
   });
 }

@@ -1592,4 +1592,94 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get childLimitButton => 'Zum Abo';
+
+  @override
+  String get wishBottlesHeading => 'Wunschflaschen';
+
+  @override
+  String get wishBottlesIntro =>
+      'Steck einen Wunsch in eine Flasche. Wenn sie wieder angespült wird, schaust du, ob du ihn noch willst.';
+
+  @override
+  String get wishBottlesEmpty => 'Gerade treibt keine Flasche auf dem Meer.';
+
+  @override
+  String get wishBottleNew => 'Neue Wunschflasche';
+
+  @override
+  String get wishBottleTitleLabel => 'Was wünschst du dir?';
+
+  @override
+  String get wishBottlePriceLabel => 'Was kostet es ungefähr? (freiwillig)';
+
+  @override
+  String get wishBottleSmall => 'Kleiner Wunsch';
+
+  @override
+  String get wishBottleBig => 'Großer Wunsch';
+
+  @override
+  String get wishBottleSmallHint => 'Du schläfst eine Nacht drüber.';
+
+  @override
+  String get wishBottleBigHint => 'Du schläfst eine Woche drüber.';
+
+  @override
+  String get wishBottleTitleTooShort => 'Bitte mindestens 2 Zeichen.';
+
+  @override
+  String get wishBottleThrow => 'In die Flasche stecken';
+
+  @override
+  String get wishBottleSkip => 'Überspringen';
+
+  @override
+  String wishBottleThrownSmall(String title) {
+    return 'Deine Flasche treibt jetzt übers Meer. Morgen wird sie angespült. Dann fragt sie dich, ob du „$title“ noch willst.';
+  }
+
+  @override
+  String wishBottleThrownBig(String title) {
+    return 'Deine Flasche treibt jetzt übers Meer. In einer Woche wird sie angespült. Dann fragt sie dich, ob du „$title“ noch willst.';
+  }
+
+  @override
+  String wishBottleDrifting(String date) {
+    return 'Treibt noch bis $date';
+  }
+
+  @override
+  String wishBottleDueQuestion(String title) {
+    return 'Willst du „$title“ noch?';
+  }
+
+  @override
+  String get wishBottleKeep => 'Ja, Wunschschatz daraus machen';
+
+  @override
+  String get wishBottleDrop => 'Loslassen';
+
+  @override
+  String wishBottleKeepPrice(String title) {
+    return 'Wie viel kostet „$title“?';
+  }
+
+  @override
+  String wishBottleKept(String title) {
+    return 'Neuer Wunschschatz: $title';
+  }
+
+  @override
+  String get wishBottleDropped => 'Losgelassen. Gut, dass du gewartet hast!';
+
+  @override
+  String childHomeWishDue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Wunschflaschen sind angespült! Schau in der Schatztruhe nach.',
+      one: 'Eine Wunschflasche ist angespült! Schau in der Schatztruhe nach.',
+    );
+    return '$_temp0';
+  }
 }

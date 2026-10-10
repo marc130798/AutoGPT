@@ -3,6 +3,13 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
+## Was es seit der Wunschflasche gibt
+
+- Wunschinsel, Station 3: einen eigenen Wunsch in eine Wunschflasche stecken
+- Nach einer Nacht (kleiner Wunsch) oder einer Woche (großer Wunsch) fragt die App nach:
+  loslassen oder einen Wunschschatz daraus machen
+- Schatztruhe: Bereich „Wunschflaschen“, Startseite: Hinweis auf angespülte Flaschen
+
 ## Was es nach Schritt 11 gibt
 
 - Messung ohne Drittanbieter: Rückkehr nach 1 und 4 Wochen, begonnene und geschaffte Stationen
@@ -274,6 +281,17 @@ und den Ordner `build/web` auf einen Webspace laden (wo, ist noch offen).
 
 Veröffentlichte Inhalte schützt die Datenbank: Korrekturen gehen, Pflichtstationen und
 Prüfungsfragen lassen sich aber nicht mehr entfernen oder zurückziehen.
+
+## Was du ausprobieren kannst (Wunschflasche, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`, oder bei einem neuen Testprojekt
+`supabase/datenbank_einrichten.sql`). Die Wunschinsel braucht das Abo (im Test: „Abo testweise aktiv“).
+
+1. Wunschinsel, Station 3 „Die Warte-Regel“: Wunsch eintragen und „In die Flasche stecken“.
+2. Schatztruhe: unter „Wunschflaschen“ steht „Treibt noch bis …“.
+3. Am nächsten Tag (kleiner Wunsch) zeigt die Startseite „Eine Wunschflasche ist angespült!“.
+   In der Schatztruhe: „Ja, Wunschschatz daraus machen“ oder „Loslassen“.
+   Zum schnellen Testen im SQL Editor: `update wish_bottles set remind_at = now();`
 
 ## Was du ausprobieren kannst (Schritt 11, mit Test-Server)
 

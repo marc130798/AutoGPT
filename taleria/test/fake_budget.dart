@@ -220,4 +220,77 @@ class FakeBudget implements BudgetRepository {
       e.value[i] = SavingsGoal(id: goal.id, title: goal.title, targetCents: goal.targetCents, reachedAt: now);
     }
   }
+
+  /// Wunschflaschen pro Kind (alle, auch entschiedene).
+  final Map<String, List<WishBottle>> wishBottles = {};
+
+  /// Station mit der Wunschflasche geschafft (schaltet sie frei, auch ohne Flasche).
+  final Set<String> wishUnlocked = {};
+
+  bool _due(WishBottle b) => b.isOpen && !b.remindAt.isAfter(now);
+
+  @override
+  Future<List<WishBottle>> fetchWishBottles(String childId) async {
+    _check();
+    return [
+      for (final b in (wishBottles[childId] ?? const <WishBottle>[]).where((b) => b.isOpen).toList().reversed)
+        WishBottle(
+          id: b.id,
+          title: b.title,
+          priceCents: b.priceCents,
+          isBig: b.isBig,
+          remindAt: b.remindAt,
+          due: _due(b),
+        ),
+    ];
+  }
+
+  @override
+  Future<WishBottleStatus> fetchWishBottleStatus(String childId) async {
+    _check();
+    final all = wishBottles[childId] ?? const [];
+    return WishBottleStatus(unlocked: all.isNotEmpty || wishUnlocked.contains(childId), due: all.where(_due).length);
+  }
+
+  @override
+  Future<void> createWishBottle(String childId, WishDraft draft) async {
+    _check();
+    final list = wishBottles.putIfAbsent(childId, () => []);
+    if (list.where((b) => b.isOpen).length >= 10) throw const AppFailure(FailureKind.unknown, 'Höchstens 10');
+    final start = DateTime(now.year, now.month, now.day);
+    list.add(
+      WishBottle(
+        id: _next('w'),
+        title: draft.title.trim(),
+        priceCents: draft.priceCents,
+        isBig: draft.isBig,
+        remindAt: start.add(Duration(days: WishBottle.waitDays(big: draft.isBig))),
+      ),
+    );
+  }
+
+  @override
+  Future<void> decideWishBottle(String bottleId, {required bool keep, int? targetCents}) async {
+    _check();
+    for (final e in wishBottles.entries) {
+      final i = e.value.indexWhere((b) => b.id == bottleId);
+      if (i < 0) continue;
+      final b = e.value[i];
+      if (!b.isOpen) throw const AppFailure(FailureKind.unknown, 'schon entschieden');
+      if (keep && !_due(b)) throw const AppFailure(FailureKind.unknown, 'treibt noch');
+      final target = targetCents ?? b.priceCents;
+      if (keep) {
+        if (target == null || target < 100) throw const AppFailure(FailureKind.unknown, 'Preis fehlt');
+        await createGoal(e.key, title: b.title, targetCents: target);
+      }
+      e.value[i] = WishBottle(
+        id: b.id,
+        title: b.title,
+        priceCents: b.priceCents,
+        isBig: b.isBig,
+        remindAt: b.remindAt,
+        decision: keep ? WishDecision.converted : WishDecision.dropped,
+      );
+    }
+  }
 }

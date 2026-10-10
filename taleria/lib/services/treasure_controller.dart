@@ -17,6 +17,8 @@ class TreasureController extends ChangeNotifier {
   List<FamilyTask> _tasks = const [];
   List<SavingsGoal> _goals = const [];
   AllowanceRule? _allowance;
+  List<WishBottle> _wishBottles = const [];
+  WishBottleStatus _wishStatus = const WishBottleStatus();
   bool _loading = true;
   FailureKind? _failure;
 
@@ -25,6 +27,15 @@ class TreasureController extends ChangeNotifier {
   List<FamilyTask> get tasks => _tasks;
   List<SavingsGoal> get goals => _goals;
   AllowanceRule? get allowance => _allowance;
+
+  /// Wunschflaschen: erst nach der Station auf der Wunschinsel (oder mit einer Flasche).
+  bool get wishBottlesUnlocked => _wishStatus.unlocked || _wishBottles.isNotEmpty;
+
+  /// Angespült: Das Kind entscheidet jetzt.
+  List<WishBottle> get dueWishBottles => _wishBottles.where((b) => b.due).toList();
+
+  /// Treiben noch.
+  List<WishBottle> get driftingWishBottles => _wishBottles.where((b) => !b.due).toList();
   bool get loading => _loading;
   FailureKind? get failure => _failure;
 
@@ -47,12 +58,16 @@ class TreasureController extends ChangeNotifier {
         _budget.fetchTasks(childId),
         _budget.fetchGoals(childId),
         _budget.fetchAllowance(childId),
+        _budget.fetchWishBottles(childId),
+        _budget.fetchWishBottleStatus(childId),
       ]);
       _balances = results[0] as PotBalances;
       _ledger = results[1] as List<LedgerEntry>;
       _tasks = results[2] as List<FamilyTask>;
       _goals = results[3] as List<SavingsGoal>;
       _allowance = results[4] as AllowanceRule?;
+      _wishBottles = results[5] as List<WishBottle>;
+      _wishStatus = results[6] as WishBottleStatus;
     } on AppFailure catch (e) {
       _failure = e.kind;
     }
@@ -84,6 +99,14 @@ class TreasureController extends ChangeNotifier {
     if (!goal.canRedeem(_balances.save)) throw StateError('Noch nicht genug in der Schatztruhe');
     return _then(_budget.redeemGoal(goal.id));
   }
+
+  Future<void> createWishBottle(WishDraft draft) => _then(_budget.createWishBottle(childId, draft));
+
+  /// Wunschschatz daraus machen. [targetCents] nur, wenn die Flasche keinen Preis hat.
+  Future<void> keepWish(WishBottle bottle, {int? targetCents}) =>
+      _then(_budget.decideWishBottle(bottle.id, keep: true, targetCents: targetCents));
+
+  Future<void> dropWish(WishBottle bottle) => _then(_budget.decideWishBottle(bottle.id, keep: false));
 
   // Nur Eltern
 

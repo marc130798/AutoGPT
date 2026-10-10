@@ -50,6 +50,17 @@ abstract interface class BudgetRepository {
   Future<void> deleteGoal(String goalId);
 
   Future<void> redeemGoal(String goalId);
+
+  /// Offene Wunschflaschen, neueste zuerst.
+  Future<List<WishBottle>> fetchWishBottles(String childId);
+
+  Future<WishBottleStatus> fetchWishBottleStatus(String childId);
+
+  Future<void> createWishBottle(String childId, WishDraft draft);
+
+  /// [keep] = Wunschschatz daraus machen (erst nach der Wartezeit), sonst loslassen.
+  /// [targetCents] ist nötig, wenn die Flasche keinen Preis hat.
+  Future<void> decideWishBottle(String bottleId, {required bool keep, int? targetCents});
 }
 
 class SupabaseBudgetRepository implements BudgetRepository {
@@ -236,4 +247,47 @@ class SupabaseBudgetRepository implements BudgetRepository {
   @override
   Future<void> redeemGoal(String goalId) =>
       guardBackend(() => _client.rpc<void>('redeem_savings_goal', params: {'p_goal_id': goalId}));
+
+  @override
+  Future<List<WishBottle>> fetchWishBottles(String childId) => guardBackend(() async {
+    final rows = await _client.rpc<List<dynamic>>('open_wish_bottles', params: {'p_child_id': childId});
+    return [
+      for (final r in rows.cast<Map<String, dynamic>>())
+        WishBottle(
+          id: r['id'] as String,
+          title: r['title'] as String,
+          priceCents: r['price_cents'] as int?,
+          isBig: r['is_big'] as bool? ?? false,
+          remindAt: DateTime.parse(r['remind_at'] as String).toLocal(),
+          due: r['due'] as bool? ?? false,
+        ),
+    ];
+  });
+
+  @override
+  Future<WishBottleStatus> fetchWishBottleStatus(String childId) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>>('wish_bottle_status', params: {'p_child_id': childId});
+    return WishBottleStatus(unlocked: result['unlocked'] as bool? ?? false, due: (result['due'] as num?)?.toInt() ?? 0);
+  });
+
+  @override
+  Future<void> createWishBottle(String childId, WishDraft draft) => guardBackend(
+    () => _client.rpc<void>(
+      'create_wish_bottle',
+      params: {
+        'p_child_id': childId,
+        'p_title': draft.title.trim(),
+        'p_price_cents': draft.priceCents,
+        'p_big': draft.isBig,
+      },
+    ),
+  );
+
+  @override
+  Future<void> decideWishBottle(String bottleId, {required bool keep, int? targetCents}) => guardBackend(
+    () => _client.rpc<void>(
+      'decide_wish_bottle',
+      params: {'p_bottle_id': bottleId, 'p_keep': keep, 'p_target_cents': targetCents},
+    ),
+  );
 }

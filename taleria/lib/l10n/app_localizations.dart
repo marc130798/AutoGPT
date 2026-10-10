@@ -2760,6 +2760,144 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Zum Abo'**
   String get childLimitButton;
+
+  /// Kinderbereich, Schatztruhe: Überschrift des Bereichs Wunschflaschen
+  ///
+  /// In de, this message translates to:
+  /// **'Wunschflaschen'**
+  String get wishBottlesHeading;
+
+  /// Kinderbereich, Schatztruhe: kurze Erklärung der Warte-Regel (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Steck einen Wunsch in eine Flasche. Wenn sie wieder angespült wird, schaust du, ob du ihn noch willst.'**
+  String get wishBottlesIntro;
+
+  /// Kinderbereich, Schatztruhe: keine offenen Wunschflaschen
+  ///
+  /// In de, this message translates to:
+  /// **'Gerade treibt keine Flasche auf dem Meer.'**
+  String get wishBottlesEmpty;
+
+  /// Knopf und Dialogtitel: neuen Wunsch in eine Flasche stecken
+  ///
+  /// In de, this message translates to:
+  /// **'Neue Wunschflasche'**
+  String get wishBottleNew;
+
+  /// Eingabefeld: Name des Wunsches
+  ///
+  /// In de, this message translates to:
+  /// **'Was wünschst du dir?'**
+  String get wishBottleTitleLabel;
+
+  /// Eingabefeld: ungefährer Preis des Wunsches in Euro, darf leer bleiben
+  ///
+  /// In de, this message translates to:
+  /// **'Was kostet es ungefähr? (freiwillig)'**
+  String get wishBottlePriceLabel;
+
+  /// Auswahl: kleiner Wunsch (eine Nacht warten)
+  ///
+  /// In de, this message translates to:
+  /// **'Kleiner Wunsch'**
+  String get wishBottleSmall;
+
+  /// Auswahl: großer Wunsch (eine Woche warten)
+  ///
+  /// In de, this message translates to:
+  /// **'Großer Wunsch'**
+  String get wishBottleBig;
+
+  /// Erklärung unter der Auswahl: kleiner Wunsch
+  ///
+  /// In de, this message translates to:
+  /// **'Du schläfst eine Nacht drüber.'**
+  String get wishBottleSmallHint;
+
+  /// Erklärung unter der Auswahl: großer Wunsch
+  ///
+  /// In de, this message translates to:
+  /// **'Du schläfst eine Woche drüber.'**
+  String get wishBottleBigHint;
+
+  /// Fehler: Name des Wunsches zu kurz
+  ///
+  /// In de, this message translates to:
+  /// **'Bitte mindestens 2 Zeichen.'**
+  String get wishBottleTitleTooShort;
+
+  /// Knopf: Wunsch in die Flasche stecken und aufs Meer schicken
+  ///
+  /// In de, this message translates to:
+  /// **'In die Flasche stecken'**
+  String get wishBottleThrow;
+
+  /// Knopf im Spiel Wunschflasche: ohne eigenen Wunsch weiter
+  ///
+  /// In de, this message translates to:
+  /// **'Überspringen'**
+  String get wishBottleSkip;
+
+  /// Spiel Wunschflasche: Bestätigung, kleiner Wunsch (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Flasche treibt jetzt übers Meer. Morgen wird sie angespült. Dann fragt sie dich, ob du „{title}“ noch willst.'**
+  String wishBottleThrownSmall(String title);
+
+  /// Spiel Wunschflasche: Bestätigung, großer Wunsch (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Flasche treibt jetzt übers Meer. In einer Woche wird sie angespült. Dann fragt sie dich, ob du „{title}“ noch willst.'**
+  String wishBottleThrownBig(String title);
+
+  /// Schatztruhe: Flasche, deren Wartezeit noch läuft
+  ///
+  /// In de, this message translates to:
+  /// **'Treibt noch bis {date}'**
+  String wishBottleDrifting(String date);
+
+  /// Schatztruhe: angespülte Flasche, das Kind entscheidet
+  ///
+  /// In de, this message translates to:
+  /// **'Willst du „{title}“ noch?'**
+  String wishBottleDueQuestion(String title);
+
+  /// Knopf: aus dem Wunsch wird ein Wunschschatz (Sparziel)
+  ///
+  /// In de, this message translates to:
+  /// **'Ja, Wunschschatz daraus machen'**
+  String get wishBottleKeep;
+
+  /// Knopf: den Wunsch nicht mehr verfolgen
+  ///
+  /// In de, this message translates to:
+  /// **'Loslassen'**
+  String get wishBottleDrop;
+
+  /// Dialogtitel: Preis für den neuen Wunschschatz eingeben, wenn die Flasche keinen hat
+  ///
+  /// In de, this message translates to:
+  /// **'Wie viel kostet „{title}“?'**
+  String wishBottleKeepPrice(String title);
+
+  /// Hinweis nach dem Umwandeln in einen Wunschschatz
+  ///
+  /// In de, this message translates to:
+  /// **'Neuer Wunschschatz: {title}'**
+  String wishBottleKept(String title);
+
+  /// Hinweis nach dem Loslassen eines Wunsches (ENTWURF)
+  ///
+  /// In de, this message translates to:
+  /// **'Losgelassen. Gut, dass du gewartet hast!'**
+  String get wishBottleDropped;
+
+  /// Startseite des Kindes: Hinweis auf angespülte Wunschflaschen, ohne Push-Nachricht
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Eine Wunschflasche ist angespült! Schau in der Schatztruhe nach.} other{{count} Wunschflaschen sind angespült! Schau in der Schatztruhe nach.}}'**
+  String childHomeWishDue(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -149,7 +149,7 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `allowance_rules` – `child_id`, `amount_cents`, `interval` (weekly, monthly), `next_run_at`
 - `ledger_entries` – `child_id`, `pot` (spend, save, give), `amount_cents`, `entry_type` (allowance, task, transfer, manual, goal, purchase, donation), `reference_id`, `note`, `created_by` (Kassenbuch; Guthaben = Summe, nie direkt überschreiben)
 - `savings_goals` – `child_id`, `title`, `target_cents`, `reached_at`
-- `wish_bottles` – `child_id`, `title`, `price_cents` (optional), `remind_at`, `decision` (open, dropped, converted), `savings_goal_id` (bei Umwandlung)
+- `wish_bottles` – `child_id`, `title`, `price_cents` (optional), `is_big` (großer Wunsch), `remind_at`, `decision` (open, dropped, converted), `decided_at`, `savings_goal_id` (bei Umwandlung)
 
 **Abo**
 - `entitlements` – `parent_id`, `entitlement` (premium), `source` (revenuecat, manual, test), `valid_until` (`null` = ohne Ablauf)
@@ -517,3 +517,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Fehlerprotokoll für die Beta (`app_errors`):** Die App meldet unerwartete Fehler selbst (Flutter-Fehler, Fehler im Hintergrund, unerwartete Daten vom Server): Fehlertext (bis 500 Zeichen), gekürzter Stack (25 Zeilen) und Plattform. Kein Nutzer, kein Gerät. Gleicher Fehler am selben Tag = eine Zeile mit Zähler, höchstens 500 verschiedene Fehler pro Tag, jeder Fehler höchstens einmal pro App-Start, gelöscht nach 90 Tagen. Nur mit Anmeldung. In der Admin-Seite unter „Fehler“ (nur owner) und als Zahl in der Übersicht.
 - **Fehler behoben:** Ein Hinweis unten am Bildschirm (SnackBar) blieb nach dem Öffnen einer neuen Seite stehen und verdeckte dort ein paar Sekunden den „Weiter“-Knopf. Jetzt verschwindet er bei jeder neuen Seite. Unerwartete Daten vom Server führen zu „Das hat nicht geklappt“ mit „Nochmal versuchen“ statt zu einem endlosen Ladekreis, eine Station ohne sichtbare Fragen ebenso.
 - **Für Marc vor der Beta:** Die Messung und das Fehlerprotokoll gehören in die Datenschutzerklärung (Abschnitt 9, rechtlich prüfen lassen). Schutz vor massenhaften anonymen Anmeldungen (Captcha) kommt vor dem öffentlichen Start, für eine kleine Beta ist er nicht nötig.
+
+**Wunschflasche (Beta-Inseln vervollständigen), umgesetzt am 10.10.2026:**
+- Schritt 12 ist laut Plan erst nach der Beta dran. Bis dahin werden die Inseln 1 bis 3 für die Beta vervollständigt, zuerst mit der Wunschflasche (Abschnitt 8, in Schritt 5 verschoben).
+- **Datenbank:** `wish_bottles` mit `create_wish_bottle()`, `decide_wish_bottle()`, `open_wish_bottles()` und `wish_bottle_status()`. Schreiben nur über die Funktionen, lesen dürfen Kind und Eltern. Höchstens 10 Flaschen treiben gleichzeitig.
+- **Warten:** kleiner Wunsch bis zum nächsten Tagesbeginn, großer 7 Tage (deutsche Zeit). Ob eine Flasche „angespült“ ist, entscheidet die Uhr des Servers. Loslassen geht jederzeit, ein Wunschschatz erst nach der Wartezeit. Ohne Preis (oder unter 1 €) fragt die App beim Umwandeln nach dem Preis.
+- **Groß oder klein (Vorschlag, mit Marc abstimmen):** Das Kind wählt selbst. Ab 20 € schlägt die App „großer Wunsch“ vor.
+- **Station 3 der Wunschinsel:** Das Spiel ist jetzt echt: Wunsch, ungefährer Preis (freiwillig), klein oder groß, „In die Flasche stecken“. Überspringen geht auch. Danach sind die Wunschflaschen dauerhaft in der Schatztruhe freigeschaltet, auch wenn das Kind übersprungen hat.
+- **Schatztruhe:** Bereich „Wunschflaschen“ unter den Wunschschätzen: angespülte Flaschen mit „Willst du … noch?“, „Ja, Wunschschatz daraus machen“ und „Loslassen“, treibende Flaschen mit „Treibt noch bis …“, dazu „Neue Wunschflasche“.
+- **Startseite:** Keine Push-Nachricht an Kinder (Abschnitt 10). Ist eine Flasche angespült, zeigt der Knopf „Schatztruhe“ eine Zahl und darunter „Eine Wunschflasche ist angespült!“.

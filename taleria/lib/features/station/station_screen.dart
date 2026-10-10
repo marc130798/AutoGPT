@@ -55,6 +55,7 @@ class _StationScreenState extends State<StationScreen> {
         island: widget.island,
         station: widget.station,
         allStations: widget.allStations,
+        budget: services.budget,
         random: services.random,
       )..start();
     }
@@ -89,6 +90,7 @@ class _StationScreenState extends State<StationScreen> {
           StationStep.game => GameStepView(
             game: content.game!,
             onDone: controller.next,
+            onWish: AppScope.of(context).budget == null ? null : controller.createWishBottle,
             placeholder: _GamePlaceholder(game: content.game!, onContinue: controller.next),
           ),
           StationStep.quiz => QuizView(

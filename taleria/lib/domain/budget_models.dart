@@ -113,3 +113,58 @@ class SavingsGoal {
 
   bool canRedeem(int saveBalanceCents) => !reached && saveBalanceCents >= targetCents;
 }
+
+/// Wunschflasche (CLAUDE.md Abschnitt 8): erst warten, dann entscheiden.
+enum WishDecision { open, dropped, converted }
+
+class WishBottle {
+  const WishBottle({
+    required this.id,
+    required this.title,
+    required this.isBig,
+    required this.remindAt,
+    this.priceCents,
+    this.due = false,
+    this.decision = WishDecision.open,
+  });
+
+  /// Ab diesem Preis schlägt die App „großer Wunsch“ vor (Vorschlag, mit Marc abstimmen).
+  static const bigWishFromCents = 2000;
+
+  /// Wartezeit in Tagen: klein eine Nacht, groß eine Woche.
+  static int waitDays({required bool big}) => big ? 7 : 1;
+
+  /// Vorschlag für die Größe eines Wunsches anhand des Preises.
+  static bool suggestBig(int? priceCents) => priceCents != null && priceCents >= bigWishFromCents;
+
+  final String id;
+  final String title;
+  final int? priceCents;
+  final bool isBig;
+
+  /// Ab dann ist die Flasche „angespült“ und die App fragt nach.
+  final DateTime remindAt;
+
+  /// Angespült: Die Wartezeit ist vorbei (entscheidet der Server mit seiner Uhr).
+  final bool due;
+  final WishDecision decision;
+
+  bool get isOpen => decision == WishDecision.open;
+}
+
+/// Freigeschaltet (nach der Station auf der Wunschinsel) und wie viele Flaschen angespült sind.
+class WishBottleStatus {
+  const WishBottleStatus({this.unlocked = false, this.due = 0});
+
+  final bool unlocked;
+  final int due;
+}
+
+/// Ein neuer Wunsch, bevor er in die Flasche kommt.
+class WishDraft {
+  const WishDraft({required this.title, required this.isBig, this.priceCents});
+
+  final String title;
+  final int? priceCents;
+  final bool isBig;
+}

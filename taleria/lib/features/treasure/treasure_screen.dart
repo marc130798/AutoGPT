@@ -10,6 +10,7 @@ import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
 import '../common/texts.dart';
 import 'amount_dialog.dart';
+import 'wish_bottle_form.dart';
 
 /// Kinderbereich: Bordkasse, Schatztruhe, Glückstruhe, Wunschschätze und
 /// Kassenbuch. Keine Kauf-Knöpfe, alle Beträge sind virtuell.
@@ -88,6 +89,35 @@ class _TreasureScreenState extends State<TreasureScreen> {
     if (ok == true && mounted) await runWithFeedback(context, () => c.redeemGoal(goal));
   }
 
+  Future<void> _newWish() => showWishBottleDialog(context, onSubmit: _controller!.createWishBottle);
+
+  /// Wunschschatz aus einer angespülten Flasche. Ohne Preis (oder unter 1 €) fragt die App danach.
+  Future<void> _keepWish(WishBottle bottle) async {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final c = _controller!;
+    final price = bottle.priceCents;
+    final bool ok;
+    if (price != null && price >= 100) {
+      ok = await runWithFeedback(context, () => c.keepWish(bottle));
+    } else {
+      ok = await showAmountDialog(
+        context,
+        title: l10n.wishBottleKeepPrice(bottle.title),
+        amountLabel: l10n.goalTargetLabel,
+        onSubmit: (input) => c.keepWish(bottle, targetCents: input.amountCents),
+      );
+    }
+    if (ok) messenger.showSnackBar(SnackBar(content: Text(l10n.wishBottleKept(bottle.title))));
+  }
+
+  Future<void> _dropWish(WishBottle bottle) async {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final ok = await runWithFeedback(context, () => _controller!.dropWish(bottle));
+    if (ok) messenger.showSnackBar(SnackBar(content: Text(l10n.wishBottleDropped)));
+  }
+
   Future<void> _deleteGoal(SavingsGoal goal) async {
     final l10n = AppLocalizations.of(context);
     final c = _controller!;
@@ -118,6 +148,9 @@ class _TreasureScreenState extends State<TreasureScreen> {
                 onNewGoal: _newGoal,
                 onRedeem: _redeem,
                 onDeleteGoal: _deleteGoal,
+                onNewWish: _newWish,
+                onKeepWish: _keepWish,
+                onDropWish: _dropWish,
               ),
             );
           },
@@ -135,6 +168,9 @@ class _TreasureContent extends StatelessWidget {
     required this.onNewGoal,
     required this.onRedeem,
     required this.onDeleteGoal,
+    required this.onNewWish,
+    required this.onKeepWish,
+    required this.onDropWish,
   });
 
   final TreasureController controller;
@@ -143,6 +179,9 @@ class _TreasureContent extends StatelessWidget {
   final VoidCallback onNewGoal;
   final ValueChanged<SavingsGoal> onRedeem;
   final ValueChanged<SavingsGoal> onDeleteGoal;
+  final VoidCallback onNewWish;
+  final ValueChanged<WishBottle> onKeepWish;
+  final ValueChanged<WishBottle> onDropWish;
 
   @override
   Widget build(BuildContext context) {
@@ -187,6 +226,32 @@ class _TreasureContent extends StatelessWidget {
           ),
         const SizedBox(height: 8),
         OutlinedButton.icon(onPressed: onNewGoal, icon: const Icon(Icons.add), label: Text(l10n.goalNew)),
+        if (controller.wishBottlesUnlocked) ...[
+          const SizedBox(height: 24),
+          Text(l10n.wishBottlesHeading, style: theme.textTheme.titleLarge),
+          const SizedBox(height: 4),
+          Text(l10n.wishBottlesIntro),
+          const SizedBox(height: 8),
+          if (controller.dueWishBottles.isEmpty && controller.driftingWishBottles.isEmpty) Text(l10n.wishBottlesEmpty),
+          for (final bottle in controller.dueWishBottles)
+            _WishDueCard(bottle: bottle, onKeep: () => onKeepWish(bottle), onDrop: () => onDropWish(bottle)),
+          for (final bottle in controller.driftingWishBottles)
+            ListTile(
+              key: ValueKey('wish-drifting-${bottle.id}'),
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.water_drop_outlined),
+              title: Text(bottle.title),
+              subtitle: Text(l10n.wishBottleDrifting(formatDate(bottle.remindAt))),
+              trailing: TextButton(onPressed: () => onDropWish(bottle), child: Text(l10n.wishBottleDrop)),
+            ),
+          const SizedBox(height: 8),
+          OutlinedButton.icon(
+            key: const ValueKey('wish-new'),
+            onPressed: onNewWish,
+            icon: const Icon(Icons.water_drop_outlined),
+            label: Text(l10n.wishBottleNew),
+          ),
+        ],
         const SizedBox(height: 24),
         Text(l10n.ledgerHeading, style: theme.textTheme.titleLarge),
         const SizedBox(height: 8),
@@ -248,6 +313,39 @@ class _PotCard extends StatelessWidget {
               key: ValueKey('balance-${pot.code}'),
               style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Angespülte Wunschflasche: Das Kind entscheidet, ob es den Wunsch noch will.
+class _WishDueCard extends StatelessWidget {
+  const _WishDueCard({required this.bottle, required this.onKeep, required this.onDrop});
+
+  final WishBottle bottle;
+  final VoidCallback onKeep;
+  final VoidCallback onDrop;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Card(
+      key: ValueKey('wish-due-${bottle.id}'),
+      color: context.palette.sand,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(l10n.wishBottleDueQuestion(bottle.title), style: theme.textTheme.titleMedium),
+            if (bottle.priceCents != null) Text(formatCents(bottle.priceCents!)),
+            const SizedBox(height: 12),
+            FilledButton(onPressed: onKeep, child: Text(l10n.wishBottleKeep)),
+            const SizedBox(height: 8),
+            OutlinedButton(onPressed: onDrop, child: Text(l10n.wishBottleDrop)),
           ],
         ),
       ),
