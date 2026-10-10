@@ -378,7 +378,7 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Schatz
 
 ---
 
-## 4g. Als Nächstes: Aufträge, Orden und Fundstücke
+## 4g. Aufträge, Orden und Fundstücke (es fehlt nur noch das Logbuch)
 
 ### Bild 18 und 19: Hintergründe
 
@@ -389,10 +389,14 @@ Als Vorlage jeweils die Schatzkammer anhängen (`design/gemini/treasure.backgrou
 Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: die gemütliche Kapitänskajüte auf dem Schiff. Ein Schreibtisch mit Schreibfeder, an der Wand eine Pinnwand aus Kork mit ein paar leeren Zetteln ohne Schrift, eine Laterne, ein rundes Fenster mit Blick aufs Meer. Die Mitte des Bildes ist ruhig und eher leer, damit man dort Text gut lesen kann. Hochformat 9:16. Keine Schrift, keine Logos, keine Waffen, keine Figuren.
 ```
 
+Stand: da.
+
 **19 → `badges.background` (Orden):**
 ```
 Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: eine feierliche Ehrenwand in der Kapitänskajüte. Dunkelblaue Holzwand mit goldenen Verzierungen, ein paar leere goldene Haken, warmes Licht von Laternen, unten ein Holzregal. Die Mitte des Bildes ist ruhig und eher leer, damit man dort Text gut lesen kann. Hochformat 9:16. Keine Schrift, keine Logos, keine Waffen, keine Figuren.
 ```
+
+Stand: da.
 
 ### Bild 20 bis 28: Fundstücke aus den Wracks
 
@@ -404,9 +408,9 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 
 | Nr. | Datei | Fundstück | DING | Stand |
 | --- | --- | --- | --- | --- |
-| 20 | `collectible.hafen.1` | Alte Handelsmünze | eine große alte Goldmünze mit einem kleinen Segelschiff darauf, etwas angelaufen | fehlt |
-| 21 | `collectible.hafen.2` | Kleine Münztruhe | eine kleine verschlossene Holztruhe mit Eisenbeschlägen, mit Muscheln und Seepocken bewachsen, aus dem Spalt schauen ein paar Goldmünzen | fehlt |
-| 22 | `collectible.hafen.3` | Rostiges Preisschild | ein altes, rostiges Preisschild aus Metall an einer Schnur | fehlt |
+| 20 | `collectible.hafen.1` | Alte Handelsmünze | eine große alte Goldmünze mit einem kleinen Segelschiff darauf, etwas angelaufen | da |
+| 21 | `collectible.hafen.2` | Kleine Münztruhe | eine kleine verschlossene Holztruhe mit Eisenbeschlägen, mit Muscheln und Seepocken bewachsen, aus dem Spalt schauen ein paar Goldmünzen | da |
+| 22 | `collectible.hafen.3` | Rostiges Preisschild | ein altes, rostiges Preisschild aus Metall an einer Schnur | da |
 | 23 | `collectible.tauschinsel.1` | Alter Kompass | ein alter Messing-Kompass mit aufgeklapptem Deckel und einer roten Nadel | da |
 | 24 | `collectible.tauschinsel.2` | Logbuch des Händlers | ein altes, zugeklapptes Logbuch mit Ledereinband und einem roten Lesebändchen | fehlt |
 | 25 | `collectible.tauschinsel.3` | Taucherbrille | eine alte Taucherbrille aus Messing und Leder mit rundem, leicht bläulichem Glas | da |
