@@ -55,8 +55,11 @@ def border_connected(mask, seeds=None):
         reached = grown
 
 
-def key_out_background(rgb, low=40.0, high=110.0):
-    """Einfarbigen Hintergrund durchsichtig machen. Liefert RGBA (float 0..255)."""
+def key_out_background(rgb, low=40.0, high=110.0, figure=False):
+    """Einfarbigen Hintergrund durchsichtig machen. Liefert RGBA (float 0..255).
+
+    figure: für Figuren mit Fell. Dort wirft der Hintergrund Farbe auf die
+    ganze Figur, und zwischen Arm und Kopf bleiben dunklere Lücken."""
     h, w, _ = rgb.shape
     border = np.concatenate([rgb[0, :], rgb[-1, :], rgb[:, 0], rgb[:, -1]])
     background = np.median(border, axis=0)
@@ -64,7 +67,7 @@ def key_out_background(rgb, low=40.0, high=110.0):
     # Vom Rand aus, dazu eingeschlossene Lücken in reiner Hintergrundfarbe
     # (zum Beispiel zwischen den Balken eines Turms). Pinke Dinge auf der Insel
     # sind nie so nah an der Hintergrundfarbe und bleiben.
-    region = border_connected(distance < high, seeds=distance < 35)
+    region = border_connected(distance < high, seeds=distance < (70 if figure else 35))
     alpha = np.ones((h, w))
     alpha[region] = np.clip((distance[region] - low) / (high - low), 0, 1)
 
@@ -79,17 +82,32 @@ def key_out_background(rgb, low=40.0, high=110.0):
 
     # Farbschimmer, den der Hintergrund auf Sand, Holz oder Fell am Rand wirft:
     # in einem Streifen am Rand den Anteil der Hintergrundfarbe herausnehmen.
-    near_edge = grow(alpha < 0.5, 24)
+    near_edge = np.ones((h, w)) if figure else grow(alpha < 0.5, 24)
     r, g, b = foreground[..., 0], foreground[..., 1], foreground[..., 2]
     if background[1] > max(background[0], background[2]):
         # grüner Hintergrund (zum Beispiel bei der rosa Tala)
         green = np.clip(g - np.maximum(r, b), 0, None) * near_edge
+        if figure:
+            # Direkt am Rand wirft der grüne Grund helles Licht aufs Fell, das
+            # sonst gelblich bleibt: dort Grün höchstens wie der Mittelwert.
+            rim = grow(alpha < 0.5, round(max(h, w) / 128))
+            green = np.maximum(green, np.clip(g - (r + b) / 2, 0, None) * rim)
         foreground[..., 1] = g - green
     else:
         # pinker Hintergrund
         magenta = np.clip(np.minimum(r, b) - g, 0, None) * near_edge
         foreground[..., 2] = b - magenta
         foreground[..., 0] = r - magenta * 0.35
+    # Feiner Saum aus Hintergrundfarbe am Rand (bei Fell und Haaren): Rand ein
+    # wenig nach innen ziehen (bei 1024 Pixeln drei Pixel). Die Farben bleiben.
+    choke = round(max(h, w) / 400) if figure else 0
+    for _ in range(choke):
+        shrunk = alpha.copy()
+        shrunk[1:, :] = np.minimum(shrunk[1:, :], alpha[:-1, :])
+        shrunk[:-1, :] = np.minimum(shrunk[:-1, :], alpha[1:, :])
+        shrunk[:, 1:] = np.minimum(shrunk[:, 1:], alpha[:, :-1])
+        shrunk[:, :-1] = np.minimum(shrunk[:, :-1], alpha[:, 1:])
+        alpha = shrunk
     return np.dstack([foreground, alpha * 255])
 
 
@@ -171,7 +189,10 @@ def main():
         target = os.path.join(OUT_DIR, args.schluessel + '.jpg')
         image.save(target, quality=82, optimize=True)
     else:
-        rgba = light_to_alpha(rgb) if args.art == 'wolke' else key_out_background(rgb)
+        if args.art == 'wolke':
+            rgba = light_to_alpha(rgb)
+        else:
+            rgba = key_out_background(rgb, figure=args.art == 'figur')
         rgba = crop_to_content(rgba)
         image = shrink(Image.fromarray(np.round(rgba).astype(np.uint8), 'RGBA'), MAX_WIDTH[args.art])
         target = os.path.join(OUT_DIR, args.schluessel + '.png')

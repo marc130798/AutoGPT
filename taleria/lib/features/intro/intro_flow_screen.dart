@@ -105,11 +105,12 @@ class _StoryStepState extends State<_StoryStep> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final lines = [
-      (Speaker.talo, l10n.introStoryTalo1),
-      (Speaker.tala, l10n.introStoryTala1),
-      (Speaker.talo, l10n.introStoryTalo2),
-      (Speaker.tala, l10n.introStoryTala2),
-      (Speaker.talo, l10n.introStoryTalo3),
+      // Zur Begrüßung winken beide.
+      (Speaker.talo, l10n.introStoryTalo1, CharacterPose.wave),
+      (Speaker.tala, l10n.introStoryTala1, CharacterPose.wave),
+      (Speaker.talo, l10n.introStoryTalo2, null),
+      (Speaker.tala, l10n.introStoryTala2, null),
+      (Speaker.talo, l10n.introStoryTalo3, null),
     ];
     final last = _shown >= lines.length;
 
@@ -120,10 +121,10 @@ class _StoryStepState extends State<_StoryStep> {
             reverse: true,
             padding: const EdgeInsets.all(16),
             children: [
-              for (final (speaker, text) in lines.take(_shown).toList().reversed)
+              for (final (speaker, text, pose) in lines.take(_shown).toList().reversed)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
-                  child: SpeechBubble(speaker: speaker, text: text),
+                  child: SpeechBubble(speaker: speaker, text: text, pose: pose),
                 ),
             ],
           ),

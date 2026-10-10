@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/assets/asset_keys.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -189,9 +190,13 @@ class _StationList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (allDone && stations.isNotEmpty)
-                  SpeechBubble(speaker: Speaker.talo, text: l10n.islandAllDone)
+                  SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.islandAllDone)
                 else if (next != null)
-                  SpeechBubble(speaker: Speaker.talo, text: l10n.islandNextHint(next.content.title)),
+                  SpeechBubble(
+                    speaker: Speaker.talo,
+                    pose: CharacterPose.think,
+                    text: l10n.islandNextHint(next.content.title),
+                  ),
                 if (stations.any((s) => controller.stateOf(s) == StationState.noWind)) ...[
                   if (next != null || allDone) const SizedBox(height: 12),
                   Card(

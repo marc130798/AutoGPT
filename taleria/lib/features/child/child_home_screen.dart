@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/character_image.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
@@ -114,6 +115,7 @@ class _DeckBackground extends StatelessWidget {
 }
 
 /// Talo links, der Avatar des Kindes im Bullauge in der Mitte, Tala rechts.
+/// Beide winken zur Begrüßung.
 class _CrewHeader extends StatelessWidget {
   const _CrewHeader({required this.avatar});
 
@@ -126,7 +128,10 @@ class _CrewHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         const Expanded(
-          child: Align(alignment: Alignment.bottomCenter, child: TaleriaAsset(AssetKeys.talo, width: 112, height: 140)),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: CharacterImage(AssetKeys.talo, pose: CharacterPose.wave, width: 112, height: 140),
+          ),
         ),
         Container(
           width: 132,
@@ -142,7 +147,10 @@ class _CrewHeader extends StatelessWidget {
           ),
         ),
         const Expanded(
-          child: Align(alignment: Alignment.bottomCenter, child: TaleriaAsset(AssetKeys.tala, width: 112, height: 140)),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: CharacterImage(AssetKeys.tala, pose: CharacterPose.wave, width: 112, height: 140),
+          ),
         ),
       ],
     );

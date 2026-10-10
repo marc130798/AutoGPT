@@ -19,6 +19,60 @@
         "shape": "circle"
       }
     },
+    "character.talo.wave": {
+      "type": "image",
+      "path": "assets/images/character.talo.wave.png",
+      "placeholder": {
+        "label": "Talo winkt",
+        "color": "#E8792B",
+        "shape": "circle"
+      }
+    },
+    "character.talo.happy": {
+      "type": "image",
+      "path": "assets/images/character.talo.happy.png",
+      "placeholder": {
+        "label": "Talo freut sich",
+        "color": "#E8792B",
+        "shape": "circle"
+      }
+    },
+    "character.talo.think": {
+      "type": "image",
+      "path": "assets/images/character.talo.think.png",
+      "placeholder": {
+        "label": "Talo denkt nach",
+        "color": "#E8792B",
+        "shape": "circle"
+      }
+    },
+    "character.tala.wave": {
+      "type": "image",
+      "path": "assets/images/character.tala.wave.png",
+      "placeholder": {
+        "label": "Tala winkt",
+        "color": "#F29CB7",
+        "shape": "circle"
+      }
+    },
+    "character.tala.happy": {
+      "type": "image",
+      "path": "assets/images/character.tala.happy.png",
+      "placeholder": {
+        "label": "Tala freut sich",
+        "color": "#F29CB7",
+        "shape": "circle"
+      }
+    },
+    "character.tala.think": {
+      "type": "image",
+      "path": "assets/images/character.tala.think.png",
+      "placeholder": {
+        "label": "Tala denkt nach",
+        "color": "#F29CB7",
+        "shape": "circle"
+      }
+    },
     "character.taleron": {
       "type": "rive",
       "path": "assets/rive/taleron.riv",

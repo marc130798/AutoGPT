@@ -245,6 +245,12 @@ Gleiche Figur wie im angehängten Bild, gleicher Stil, gleiche Kleidung und glei
 
 Danach auf dieselbe Art „freut sich“ (`.happy`) und „denkt nach“ (`.think`) für die Stationen.
 
+| Pose | Talo | Tala |
+| --- | --- | --- |
+| winkt (`.wave`) | da | da |
+| freut sich (`.happy`) | da | da |
+| denkt nach (`.think`) | da | da |
+
 ### Fünf Rang-Abzeichen → `rank.schiffsjunge` … `rank.kapitaen`
 
 Den Orden von der Startseite (Bild 12) anhängen, damit alle Abzeichen dazu passen. Von Rang zu Rang wertvoller:

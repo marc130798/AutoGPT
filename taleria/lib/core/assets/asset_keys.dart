@@ -1,3 +1,7 @@
+/// Posen von Talo und Tala (BILDER.md, Abschnitt 4c): winken (Begrüßung),
+/// freut sich (geschafft), nachdenken (Tipp, Frage).
+enum CharacterPose { wave, happy, think }
+
 /// Feste Schlüssel für Grafiken, Animationen und Filme, die der Code direkt
 /// verwendet. Die Zuordnung zur Datei steht in `assets/asset_manifest.json`.
 abstract final class AssetKeys {
@@ -5,6 +9,9 @@ abstract final class AssetKeys {
   static const tala = 'character.tala';
   static const taleron = 'character.taleron';
   static const avatar = 'character.avatar';
+
+  /// Eine Pose von Talo oder Tala, zum Beispiel `character.talo.wave`.
+  static String pose(String character, CharacterPose pose) => '$character.${pose.name}';
 
   static const crewShip = 'ship.crew';
   static const mapBackground = 'map.background';
@@ -42,7 +49,9 @@ abstract final class AssetKeys {
 
   /// Alle festen Schlüssel oben, damit ein Test prüfen kann, dass sie im
   /// Manifest stehen.
-  static const all = [
+  static final all = [
+    for (final character in [talo, tala])
+      for (final p in CharacterPose.values) pose(character, p),
     talo,
     tala,
     taleron,

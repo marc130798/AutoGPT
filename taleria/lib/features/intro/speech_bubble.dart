@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
-import '../../core/assets/taleria_asset.dart';
+import '../../core/assets/character_image.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -10,16 +10,20 @@ import '../../l10n/app_localizations.dart';
 enum Speaker { talo, tala }
 
 /// Eine Figur mit Sprechblase. Die Figur ist ihr Bild (oder der Platzhalter),
-/// später das Bild für den Zustand „sprechen“ (FIGUREN.md).
+/// Talo und Tala auf Wunsch in einer Pose.
 class SpeechBubble extends StatelessWidget {
-  const SpeechBubble({super.key, required this.speaker, required this.text}) : line = null;
+  const SpeechBubble({super.key, required this.speaker, required this.text, this.pose}) : line = null;
 
   /// Dialogzeile aus den Inhalten (Talo, Tala oder eine andere Figur).
-  SpeechBubble.line(DialogLine this.line, {super.key}) : speaker = null, text = line.text;
+  SpeechBubble.line(DialogLine this.line, {super.key}) : speaker = null, text = line.text, pose = null;
 
   final Speaker? speaker;
   final DialogLine? line;
   final String text;
+
+  /// Pose von Talo oder Tala (winken, freut sich, nachdenken). Ohne Pose
+  /// das Grundbild.
+  final CharacterPose? pose;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +50,9 @@ class SpeechBubble extends StatelessWidget {
             border: Border.all(color: color, width: 3),
           ),
           child: ClipOval(
-            child: TaleriaAsset(
+            child: CharacterImage(
               assetKey,
+              pose: key == 'talo' || key == 'tala' ? pose : null,
               width: 72,
               height: 72,
               fit: BoxFit.cover,

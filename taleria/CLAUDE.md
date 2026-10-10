@@ -570,3 +570,8 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Wegmarken: geschafft goldener Haken; die nächste Station weiß mit Nummer, sie leuchtet und pulsiert leicht; gesperrt grau mit Nummer, Anker oder Flagge und kleinem Schloss; ohne Wind mit kleinem Wind-Zeichen. Antippen wie bisher: öffnen oder Hinweis.
 - Der Weg gehört zum Bild und steht im Asset-Manifest (`route`, Punkte von 0 bis 1). Fehlt das Bild, zeigt die App einen grünen Grund mit gezeichnetem Sandweg und einem Standard-Weg.
 - Oben sagt Talo, was als Nächstes dran ist (oder dass die Insel geschafft ist), darunter bei Bedarf der Wind-Hinweis. Unter dem Bild stehen wie bisher Lernziel und die Liste „Stationen“ mit allen Titeln; Bonus-Stationen (Flaschenpost) stehen nur in der Liste.
+
+**Posen von Talo und Tala, umgesetzt am 10.10.2026:**
+- Beide gibt es in drei Posen als Bild: winkt, freut sich, denkt nach (`character.talo.wave`, `.happy`, `.think`, genauso für Tala; BILDER.md Abschnitt 4c). Fehlt das Bild einer Pose, zeigt die App das Grundbild der Figur (`CharacterImage`).
+- Verwendet: Startseite (beide winken), Begrüßung in der Einführung (winken), Insel von innen (Talo denkt nach beim Tipp, freut sich, wenn die Insel geschafft ist). Später auch in den Stationen.
+- Freistellen von Figuren (`--art figur`): Der farbige Hintergrund wirft Licht auf das ganze Fell, das wird überall herausgerechnet; der Rand wird ein wenig nach innen gezogen und Lücken zwischen Arm und Kopf werden durchsichtig.
