@@ -10,7 +10,8 @@ import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import 'map_painters.dart';
 
-/// Eine Wolke: Bild aus BILDER.md oder die gezeichnete Ersatz-Wolke.
+/// Eine längliche Wolke: Bild aus BILDER.md oder die gezeichnete Ersatz-Wolke.
+/// Jede zweite ist gespiegelt, damit nicht alle gleich aussehen.
 class MapCloud extends StatelessWidget {
   const MapCloud({super.key, required this.index, required this.width, required this.height});
 
@@ -20,13 +21,17 @@ class MapCloud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TaleriaAsset(
-      AssetKeys.mapClouds[index % AssetKeys.mapClouds.length],
-      width: width,
-      height: height,
-      fallback: CustomPaint(
-        size: Size(width, height),
-        painter: CloudPainter(seed: index),
+    return Transform.flip(
+      flipX: index.isOdd,
+      child: TaleriaAsset(
+        AssetKeys.mapClouds[index % AssetKeys.mapClouds.length],
+        width: width,
+        height: height,
+        fit: BoxFit.fill,
+        fallback: CustomPaint(
+          size: Size(width, height),
+          painter: CloudPainter(seed: index),
+        ),
       ),
     );
   }
@@ -194,7 +199,7 @@ class MapIslandMarker extends StatelessWidget {
     final phase = (stableSeed(island.slug) % 628) / 100;
     Widget art = IslandArt(slug: island.slug, width: width, height: height);
     if (lock != null && lock! < 0.45) art = ColorFiltered(colorFilter: _dimmed, child: art);
-    if (fog) art = Opacity(opacity: 0.5, child: art);
+    if (fog) art = Opacity(opacity: 0.4, child: art);
 
     return Semantics(
       button: true,
@@ -259,7 +264,7 @@ class MapIslandMarker extends StatelessWidget {
     const lefts = [-0.12, 0.32, 0.06];
     const tops = [-0.05, 0.1, 0.38];
     const sizes = [0.72, 0.78, 0.9];
-    final w = width * sizes[k], h = w * 0.6;
+    final w = width * sizes[k], h = w * 0.5;
     return AnimatedBuilder(
       animation: clock,
       builder: (context, child) {
@@ -383,7 +388,7 @@ class FogIntro extends StatelessWidget {
   }
 
   Widget _cloud(({double x, double y, double size, int index}) cloud, double w, double h, double q) {
-    final cw = w * cloud.size, ch = cw * 0.62;
+    final cw = w * cloud.size, ch = cw * 0.5;
     final pos = Offset(cloud.x * w, cloud.y * h);
     var dir = pos - Offset(w / 2, h / 2);
     dir = dir.distance < 1 ? const Offset(0, -1) : dir / dir.distance;

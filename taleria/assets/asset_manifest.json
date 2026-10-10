@@ -316,24 +316,6 @@
         "shape": "rounded"
       }
     },
-    "map.cloud.2": {
-      "type": "image",
-      "path": "assets/images/map.cloud.2.png",
-      "placeholder": {
-        "label": "Wolke",
-        "color": "#E4ECF2",
-        "shape": "rounded"
-      }
-    },
-    "map.cloud.3": {
-      "type": "image",
-      "path": "assets/images/map.cloud.3.png",
-      "placeholder": {
-        "label": "Wolke",
-        "color": "#E4ECF2",
-        "shape": "rounded"
-      }
-    },
     "island.hafen.background": {
       "type": "image",
       "path": "assets/images/island.hafen.background.png",

@@ -11,8 +11,10 @@ abstract final class AssetKeys {
   static const mapFog = 'map.fog';
   static const mapLock = 'map.lock';
 
-  /// Wolken für den Nebel-Start und die Inseln im Nebel (BILDER.md, Bild 6 bis 8).
-  static const mapClouds = ['map.cloud.1', 'map.cloud.2', 'map.cloud.3'];
+  /// Wolken für den Nebel-Start und die Inseln im Nebel (BILDER.md, Bild 6).
+  /// Nur die längliche Wolke (entschieden mit Marc); sie wird gespiegelt und
+  /// verschieden groß gezeigt.
+  static const mapClouds = ['map.cloud.1'];
 
   static const lighthouse = 'parent.lighthouse';
 

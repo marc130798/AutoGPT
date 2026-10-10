@@ -492,7 +492,7 @@ class LockPainter extends CustomPainter {
 // Wolken
 // ---------------------------------------------------------------------------
 
-/// Weiche Wolke als Ersatz, bis die Wolkenbilder da sind.
+/// Weiche, längliche Wolke als Ersatz, bis das Wolkenbild da ist.
 class CloudPainter extends CustomPainter {
   const CloudPainter({required this.seed});
 
@@ -503,8 +503,8 @@ class CloudPainter extends CustomPainter {
     final rnd = Random(seed);
     final w = size.width, h = size.height;
     for (var k = 0; k < 7; k++) {
-      final c = Offset(w * (0.18 + 0.64 * rnd.nextDouble()), h * (0.42 + 0.22 * rnd.nextDouble()));
-      final r = h * (0.26 + 0.16 * rnd.nextDouble());
+      final c = Offset(w * (0.2 + 0.6 * k / 6), h * (0.48 + 0.14 * rnd.nextDouble()));
+      final r = h * (0.3 + 0.14 * rnd.nextDouble());
       canvas.drawCircle(
         c,
         r,

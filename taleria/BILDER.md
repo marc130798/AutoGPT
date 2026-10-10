@@ -87,12 +87,12 @@ Die Meeresoberfläche direkt von oben gesehen: nur Wasser, kein Horizont, keine 
 Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus einem Kinofilm für Kinder, leuchtende Farben, Sonnenlicht von links oben. Keine Schrift, keine Logos.
 ```
 
-### Bild 6 bis 8: Wolken → `map.cloud.1`, `map.cloud.2`, `map.cloud.3`
+### Bild 6: Wolke → `map.cloud.1`
 
-Dreimal, jeweils mit einer anderen Form (statt „FORM“ einsetzen: „klein und rund“, „mittelgroß und bauschig“, „lang und flach“).
+Nur eine längliche Wolke (entschieden mit Marc: keine runden Wolken). Die App spiegelt sie und zeigt sie verschieden groß.
 
 ```
-Eine einzelne flauschige weiße Wolke, FORM, im 3D-Animationsfilm-Look, leicht von oben gesehen, weiche Ränder, Sonnenlicht von links oben, unten ganz leicht bläulich schattiert. Hintergrund: komplett reines Schwarz (#000000), sonst nichts im Bild. Keine Schrift.
+Eine einzelne flauschige weiße Wolke, lang und flach, im 3D-Animationsfilm-Look, leicht von oben gesehen, weiche Ränder, Sonnenlicht von links oben, unten ganz leicht bläulich schattiert. Hintergrund: komplett reines Schwarz (#000000), sonst nichts im Bild. Keine Schrift.
 ```
 
 ---
@@ -146,8 +146,8 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 - Werkzeug: `python3 tool/bilder_freistellen.py --art insel|schiff|wolke|meer <Bild> <Schlüssel>` (braucht Pillow und numpy). Es legt die fertige Datei unter `assets/images/` ab.
 - Inseln (768 px breit) und Schiff (512 px): PNG mit durchsichtigem Hintergrund. Durchsichtig wird nur die einfarbige Fläche, die mit dem Bildrand verbunden ist (pinke Dinge auf der Insel bleiben), mit weichem Rand und ohne pinken Farbsaum, zugeschnitten auf den Inhalt.
 - Meer (`map.background`): JPG, 768 px breit, aus Bild und Spiegelbild zu einer Kachel zusammengesetzt, die sich nahtlos wiederholt.
-- Wolken (640 px): PNG, die Helligkeit wird zur Deckkraft (weiß auf schwarz).
+- Wolke (640 px): PNG, die Helligkeit wird zur Deckkraft (weiß auf schwarz).
 - Die Originale von Gemini liegen in `design/gemini/` (gleicher Name wie der Schlüssel). So lassen sie sich jederzeit neu freistellen.
 - Alle Bilder vor dem Einbau in `ASSETS_LICENSES.md` eintragen.
 
-**Stand 10.10.2026:** Bild 1 bis 8 sind da und eingebaut.
+**Stand 10.10.2026:** Bild 1 bis 6 sind da und eingebaut (eine längliche Wolke).
