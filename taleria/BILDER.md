@@ -287,7 +287,7 @@ Ist das Band trotzdem abgeschnitten, im selben Gemini-Chat nachschieben: „Bitt
 
 ---
 
-## 4d. Als Nächstes: die Figuren auf den ersten drei Inseln
+## 4d. Die Figuren auf den ersten drei Inseln (alle da)
 
 Diese Figuren sprechen in den Stationen mit dem Kind. Bis jetzt sieht man dort nur einen farbigen Kreis mit Namen. Insel für Insel:
 
@@ -315,9 +315,31 @@ Tipp: Bei Figuren mit viel Weiß oder Grau (zum Beispiel einer weißen Schürze)
 | `character.greta` | Greta, Seilmacherin | eine weiße Ziege mit kleinen Hörnern, rotem Kopftuch und Lederschürze, über der Schulter trägt sie aufgerollte Seile | da |
 | `character.otti` | Otti, Fischer | ein Fischotter mit gelber Regenjacke und Fischermütze, er hält einen geflochtenen Korb mit glänzenden Fischen | da |
 | `character.olga` | Olga, Inselälteste | eine alte, freundliche Landschildkröte mit Brille und Wollschal, sie stützt sich auf einen Stock aus Treibholz und hält eine aufgerollte alte Karte | da |
-| `character.elsa` | Elsa, Glitzerladen | eine Elster mit glänzend schwarz-weißem Gefieder mit blauem Schimmer und lila Weste, behängt mit vielen glitzernden goldenen Ketten und Ringen (**grüner Hintergrund**, sonst leidet das Lila) | fehlt |
-| `character.moritz` | Moritz, zufrieden mit wenig | ein Murmeltier in einem einfachen hellbraunen Hemd mit bunten Flicken in Blau, Gelb und Grün, es lächelt zufrieden und hält eine Tasse Tee | fehlt |
-| `character.taleron` | Meister Taleron | ein großes, uraltes, freundliches Seeungeheuer mit türkisgrünen Schuppen, langem Bart aus Seetang mit kleinen Muscheln und runder Brille, es sitzt gemütlich und hat den langen Schwanz um sich gelegt, sanft und gar nicht gruselig | fehlt |
+| `character.elsa` | Elsa, Glitzerladen | eine Elster mit glänzend schwarz-weißem Gefieder mit blauem Schimmer und lila Weste, behängt mit vielen glitzernden goldenen Ketten und Ringen (**grüner Hintergrund**, sonst leidet das Lila) | da |
+| `character.moritz` | Moritz, zufrieden mit wenig | ein Murmeltier in einem einfachen hellbraunen Hemd mit bunten Flicken in Blau, Gelb und Grün, es lächelt zufrieden und hält eine Tasse Tee | da |
+| `character.taleron` | Meister Taleron | ein großes, uraltes, freundliches Seeungeheuer mit türkisgrünen Schuppen, langem Bart aus Seetang mit kleinen Muscheln und runder Brille, es sitzt gemütlich und hat den langen Schwanz um sich gelegt, sanft und gar nicht gruselig | da |
+
+---
+
+## 4e. Als Nächstes: der Tauchgang
+
+An den Ankerplätzen taucht das Kind und findet Dinge für seine Sammlung. Die Perle ist schon da (dasselbe Bild wie die Muschel mit Perle auf der Startseite).
+
+### Bild 11: Unterwasserwelt → `underwater.background`
+
+Als Vorlage das Bild vom Hafen von innen anhängen (`design/gemini/island.hafen.background.jpg`).
+
+```
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: eine fröhliche, helle Unterwasserwelt in einer flachen Lagune. Sonnenstrahlen fallen von oben durch türkisblaues Wasser, unten heller Sandboden mit bunten Korallen, Seegras, ein paar Muscheln und kleinen bunten Fischen, hinten ein altes, freundlich aussehendes Schiffswrack aus Holz halb im Sand. Ruhig und einladend, nicht dunkel, nicht gruselig. Hochformat 9:16. Keine Schrift, keine Logos, keine Waffen, keine Figuren.
+```
+
+### Bild 12: Fundstück → `collectible.wreck_item`
+
+Als Vorlage den Orden mit dem Anker anhängen (`design/gemini/icon.badges.jpg`).
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt des Ordens: ein kleiner Haufen Fundstücke vom Meeresgrund, eine alte Goldmünze, ein kleiner Messing-Kompass und eine hübsche Muschel, mit etwas grünem Seetang. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
 
 ---
 

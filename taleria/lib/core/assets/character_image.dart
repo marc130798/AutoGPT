@@ -15,6 +15,7 @@ class CharacterImage extends StatelessWidget {
     this.height,
     this.fit = BoxFit.contain,
     this.alignment = Alignment.center,
+    this.fallback,
   });
 
   /// Schlüssel der Figur, zum Beispiel [AssetKeys.talo].
@@ -25,9 +26,19 @@ class CharacterImage extends StatelessWidget {
   final BoxFit fit;
   final Alignment alignment;
 
+  /// Eigener Ersatz, wenn auch das Grundbild fehlt (sonst der Platzhalter).
+  final Widget? fallback;
+
   @override
   Widget build(BuildContext context) {
-    final base = TaleriaAsset(character, width: width, height: height, fit: fit, alignment: alignment);
+    final base = TaleriaAsset(
+      character,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      fallback: fallback,
+    );
     final pose = this.pose;
     if (pose == null) return base;
     return TaleriaAsset(

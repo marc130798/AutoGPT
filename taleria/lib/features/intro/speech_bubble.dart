@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/asset_placeholder.dart';
 import '../../core/assets/character_image.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 
 enum Speaker { talo, tala }
+
+/// Größe, in der die Figur hinter dem runden Rahmen (72) liegt.
+const double _zoomed = 116;
 
 /// Eine Figur mit Sprechblase. Die Figur ist ihr Bild (oder der Platzhalter),
 /// Talo und Tala auf Wunsch in einer Pose.
@@ -28,6 +32,7 @@ class SpeechBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final services = AppScope.of(context);
     final palette = context.palette;
     final theme = Theme.of(context);
     final key = line?.speaker ?? speaker!.name;
@@ -40,7 +45,9 @@ class SpeechBubble extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        // Bild im runden Rahmen, nur Kopf und Schultern (die Bilder zeigen die ganze Figur).
+        // Bild im runden Rahmen, nur Kopf und Schultern (die Bilder zeigen die ganze
+        // Figur): größer gezeigt, oben in der Mitte, der Rest wird abgeschnitten.
+        // So wirken breite und schmale Figuren gleich groß.
         Container(
           width: 72,
           height: 72,
@@ -50,13 +57,22 @@ class SpeechBubble extends StatelessWidget {
             border: Border.all(color: color, width: 3),
           ),
           child: ClipOval(
-            child: CharacterImage(
-              assetKey,
-              pose: key == 'talo' || key == 'tala' ? pose : null,
-              width: 72,
-              height: 72,
-              fit: BoxFit.cover,
+            child: OverflowBox(
+              maxWidth: _zoomed,
+              maxHeight: _zoomed,
               alignment: Alignment.topCenter,
+              child: CharacterImage(
+                assetKey,
+                pose: key == 'talo' || key == 'tala' ? pose : null,
+                width: _zoomed,
+                height: _zoomed,
+                alignment: Alignment.topCenter,
+                // Ohne Bild der Platzhalter in Rahmengröße, oben in der Mitte (dort ist das Fenster).
+                fallback: Align(
+                  alignment: Alignment.topCenter,
+                  child: AssetPlaceholder(entry: services.manifest.lookup(assetKey), width: 72, height: 72),
+                ),
+              ),
             ),
           ),
         ),

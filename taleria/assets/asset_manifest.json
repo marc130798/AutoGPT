@@ -74,8 +74,8 @@
       }
     },
     "character.taleron": {
-      "type": "rive",
-      "path": "assets/rive/taleron.riv",
+      "type": "image",
+      "path": "assets/images/character.taleron.png",
       "placeholder": {
         "label": "Meister Taleron",
         "color": "#2E8B7A",
