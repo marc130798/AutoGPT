@@ -62,5 +62,12 @@ if ! grep -q '<title>Taleria (Test)</title>' "$OUT/index.html"; then
 fi
 
 rm -f "$ZIP"
-(cd "$OUT" && zip -qr "../$(basename "$ZIP")" .)
+# Weggelassen wird, was der Browser bei diesem Build nie lädt, damit die
+# ZIP-Datei klein genug zum Verschicken bleibt (unter 30 MB):
+# - *.js.symbols: Hilfsdateien zur Fehlersuche
+# - skwasm*, wimp*: gehören zur Wasm-Bauweise (hier wird dart2js mit CanvasKit gebaut)
+# - webparagraph/: nur mit der Einstellung preferWebParagraph (setzen wir nicht)
+# Geladen werden canvaskit/canvaskit.* (Safari, Firefox) und canvaskit/chromium/* (Chrome).
+(cd "$OUT" && zip -9 -qr "../$(basename "$ZIP")" . \
+  -x '*.js.symbols' 'canvaskit/skwasm*' 'canvaskit/wimp*' 'canvaskit/webparagraph/*')
 echo "Fertig: $OUT und $ZIP"
