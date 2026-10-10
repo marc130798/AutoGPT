@@ -374,9 +374,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/hafen/dive1/find')::uuid, 'hafen-fund-1', 'wreck_item', 'Alte Handelsmünze', 'collectible.wreck_item', md5('taleria:stage1/hafen/dive1')::uuid, 11, 'draft')
+values (md5('taleria:stage1/hafen/dive1/find')::uuid, 'hafen-fund-1', 'wreck_item', 'Alte Handelsmünze', 'collectible.hafen.1', md5('taleria:stage1/hafen/dive1')::uuid, 11, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 -- Ankerplatz 2: Die Münztruhe im Laderaum
@@ -386,9 +387,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/hafen/dive2/find')::uuid, 'hafen-fund-2', 'wreck_item', 'Kleine Münztruhe', 'collectible.wreck_item', md5('taleria:stage1/hafen/dive2')::uuid, 12, 'draft')
+values (md5('taleria:stage1/hafen/dive2/find')::uuid, 'hafen-fund-2', 'wreck_item', 'Kleine Münztruhe', 'collectible.hafen.2', md5('taleria:stage1/hafen/dive2')::uuid, 12, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 -- Ankerplatz 3: Der versunkene Fischbrötchen-Stand
@@ -398,9 +400,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/hafen/dive3/find')::uuid, 'hafen-fund-3', 'wreck_item', 'Rostiges Preisschild', 'collectible.wreck_item', md5('taleria:stage1/hafen/dive3')::uuid, 13, 'draft')
+values (md5('taleria:stage1/hafen/dive3/find')::uuid, 'hafen-fund-3', 'wreck_item', 'Rostiges Preisschild', 'collectible.hafen.3', md5('taleria:stage1/hafen/dive3')::uuid, 13, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 delete from public.quiz_questions q using public.stations s
@@ -798,9 +801,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/tauschinsel/dive1/find')::uuid, 'tauschinsel-fund-1', 'wreck_item', 'Alter Kompass', 'collectible.wreck_item', md5('taleria:stage1/tauschinsel/dive1')::uuid, 21, 'draft')
+values (md5('taleria:stage1/tauschinsel/dive1/find')::uuid, 'tauschinsel-fund-1', 'wreck_item', 'Alter Kompass', 'collectible.tauschinsel.1', md5('taleria:stage1/tauschinsel/dive1')::uuid, 21, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 -- Ankerplatz 2: Das Logbuch des Händlers
@@ -810,9 +814,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/tauschinsel/dive2/find')::uuid, 'tauschinsel-fund-2', 'wreck_item', 'Logbuch des Händlers', 'collectible.wreck_item', md5('taleria:stage1/tauschinsel/dive2')::uuid, 22, 'draft')
+values (md5('taleria:stage1/tauschinsel/dive2/find')::uuid, 'tauschinsel-fund-2', 'wreck_item', 'Logbuch des Händlers', 'collectible.tauschinsel.2', md5('taleria:stage1/tauschinsel/dive2')::uuid, 22, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 -- Ankerplatz 3: Zwei Taucherbrillen
@@ -822,9 +827,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/tauschinsel/dive3/find')::uuid, 'tauschinsel-fund-3', 'wreck_item', 'Taucherbrille', 'collectible.wreck_item', md5('taleria:stage1/tauschinsel/dive3')::uuid, 23, 'draft')
+values (md5('taleria:stage1/tauschinsel/dive3/find')::uuid, 'tauschinsel-fund-3', 'wreck_item', 'Taucherbrille', 'collectible.tauschinsel.3', md5('taleria:stage1/tauschinsel/dive3')::uuid, 23, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 delete from public.quiz_questions q using public.stations s
@@ -1222,9 +1228,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/wunschinsel/dive1/find')::uuid, 'wunschinsel-fund-1', 'wreck_item', 'Kapitänskiste', 'collectible.wreck_item', md5('taleria:stage1/wunschinsel/dive1')::uuid, 31, 'draft')
+values (md5('taleria:stage1/wunschinsel/dive1/find')::uuid, 'wunschinsel-fund-1', 'wreck_item', 'Kapitänskiste', 'collectible.wunschinsel.1', md5('taleria:stage1/wunschinsel/dive1')::uuid, 31, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 -- Ankerplatz 2: Der Brief des Matrosen
@@ -1234,9 +1241,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/wunschinsel/dive2/find')::uuid, 'wunschinsel-fund-2', 'wreck_item', 'Flaschenbrief', 'collectible.wreck_item', md5('taleria:stage1/wunschinsel/dive2')::uuid, 32, 'draft')
+values (md5('taleria:stage1/wunschinsel/dive2/find')::uuid, 'wunschinsel-fund-2', 'wreck_item', 'Flaschenbrief', 'collectible.wunschinsel.2', md5('taleria:stage1/wunschinsel/dive2')::uuid, 32, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 -- Ankerplatz 3: Das Album der alten Crew
@@ -1246,9 +1254,10 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
   status = excluded.status;
 insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
-values (md5('taleria:stage1/wunschinsel/dive3/find')::uuid, 'wunschinsel-fund-3', 'wreck_item', 'Altes Fotoalbum', 'collectible.wreck_item', md5('taleria:stage1/wunschinsel/dive3')::uuid, 33, 'draft')
+values (md5('taleria:stage1/wunschinsel/dive3/find')::uuid, 'wunschinsel-fund-3', 'wreck_item', 'Altes Fotoalbum', 'collectible.wunschinsel.3', md5('taleria:stage1/wunschinsel/dive3')::uuid, 33, 'draft')
 on conflict (id) do update set
-  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
   status = excluded.status;
 
 delete from public.quiz_questions q using public.stations s

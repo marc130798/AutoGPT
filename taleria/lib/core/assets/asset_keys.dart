@@ -41,6 +41,10 @@ abstract final class AssetKeys {
   static const iconLedger = 'icon.ledger';
   static const iconWish = 'icon.wish';
 
+  /// Hintergründe von Aufträgen und Orden (BILDER.md, Abschnitt 4g).
+  static const tasksBackground = 'tasks.background';
+  static const badgesBackground = 'badges.background';
+
   static const underwaterBackground = 'underwater.background';
   static const pearl = 'collectible.pearl';
 
@@ -88,6 +92,8 @@ abstract final class AssetKeys {
     potGive,
     iconLedger,
     iconWish,
+    tasksBackground,
+    badgesBackground,
     introVideo,
     logo,
     musicHome,

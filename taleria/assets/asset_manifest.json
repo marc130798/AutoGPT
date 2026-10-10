@@ -1079,6 +1079,105 @@
         "shape": "circle"
       }
     },
+    "collectible.hafen.1": {
+      "type": "image",
+      "path": "assets/images/collectible.hafen.1.png",
+      "placeholder": {
+        "label": "Alte Handelsmünze",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.hafen.2": {
+      "type": "image",
+      "path": "assets/images/collectible.hafen.2.png",
+      "placeholder": {
+        "label": "Kleine Münztruhe",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.hafen.3": {
+      "type": "image",
+      "path": "assets/images/collectible.hafen.3.png",
+      "placeholder": {
+        "label": "Rostiges Preisschild",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.tauschinsel.1": {
+      "type": "image",
+      "path": "assets/images/collectible.tauschinsel.1.png",
+      "placeholder": {
+        "label": "Alter Kompass",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.tauschinsel.2": {
+      "type": "image",
+      "path": "assets/images/collectible.tauschinsel.2.png",
+      "placeholder": {
+        "label": "Logbuch des Händlers",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.tauschinsel.3": {
+      "type": "image",
+      "path": "assets/images/collectible.tauschinsel.3.png",
+      "placeholder": {
+        "label": "Taucherbrille",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.wunschinsel.1": {
+      "type": "image",
+      "path": "assets/images/collectible.wunschinsel.1.png",
+      "placeholder": {
+        "label": "Kapitänskiste",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.wunschinsel.2": {
+      "type": "image",
+      "path": "assets/images/collectible.wunschinsel.2.png",
+      "placeholder": {
+        "label": "Flaschenbrief",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "collectible.wunschinsel.3": {
+      "type": "image",
+      "path": "assets/images/collectible.wunschinsel.3.png",
+      "placeholder": {
+        "label": "Altes Fotoalbum",
+        "color": "#2E86AB",
+        "shape": "rounded"
+      }
+    },
+    "tasks.background": {
+      "type": "image",
+      "path": "assets/images/tasks.background.jpg",
+      "placeholder": {
+        "label": "Kapitänskajüte",
+        "color": "#8A5A2B",
+        "shape": "rectangle"
+      }
+    },
+    "badges.background": {
+      "type": "image",
+      "path": "assets/images/badges.background.jpg",
+      "placeholder": {
+        "label": "Ehrenwand",
+        "color": "#24476B",
+        "shape": "rectangle"
+      }
+    },
     "music.home": {
       "type": "audio",
       "path": "assets/audio/music.home.mp3",

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/scene_background.dart';
 import '../common/texts.dart';
+import '../intro/speech_bubble.dart';
 
 /// Orden-Sammlung des Kindes: verdiente Orden leuchten, die anderen sind
-/// blass und warten noch („Noch nicht gefunden“).
+/// blass und warten noch („Noch nicht gefunden“). Oben erklärt Talo, wie man
+/// Orden bekommt; dahinter die Ehrenwand.
 class BadgesScreen extends StatefulWidget {
   const BadgesScreen({super.key, required this.childId});
 
@@ -33,33 +37,35 @@ class _BadgesScreenState extends State<BadgesScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.badgesTitle)),
-      body: SafeArea(
-        child: FutureBuilder<List<BadgeInfo>>(
-          future: _badges,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              final error = snapshot.error;
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Text(l10n.failure(error is AppFailure ? error.kind : FailureKind.unknown)),
-                ),
-              );
-            }
-            final badges = snapshot.data;
-            if (badges == null) return const Center(child: CircularProgressIndicator());
-            final earned = badges.where((b) => b.earned).length;
-            return ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                if (earned == 0) ...[
-                  Text(l10n.badgesEmpty, style: theme.textTheme.bodyLarge),
+      body: SceneBackground(
+        assetKey: AssetKeys.badgesBackground,
+        child: SafeArea(
+          child: FutureBuilder<List<BadgeInfo>>(
+            future: _badges,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                final error = snapshot.error;
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(l10n.failure(error is AppFailure ? error.kind : FailureKind.unknown)),
+                  ),
+                );
+              }
+              final badges = snapshot.data;
+              if (badges == null) return const Center(child: CircularProgressIndicator());
+              final earned = badges.where((b) => b.earned).length;
+              return ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.badgesIntro),
                   const SizedBox(height: 16),
+                  if (earned == 0) PaperCard(child: Text(l10n.badgesEmpty, style: theme.textTheme.bodyLarge)),
+                  for (final badge in badges) _BadgeTile(badge: badge),
                 ],
-                for (final badge in badges) _BadgeTile(badge: badge),
-              ],
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -74,8 +80,9 @@ class _BadgeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Card(
+    return PaperCard(
       key: ValueKey('badge-${badge.slug}'),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
         minTileHeight: 80,
         leading: Opacity(

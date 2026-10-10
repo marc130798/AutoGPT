@@ -223,9 +223,13 @@ void main() {
     );
     await tapKey(tester, 'home-collection');
     expect(find.text('3 Perlen'), findsOneWidget);
-    expect(find.text('Alte Handelsmünze'), findsOneWidget);
+    // Jeder Fund hat ein eigenes Bild; ohne Bilddatei trägt der Platzhalter denselben Namen.
+    expect(
+      find.descendant(of: find.byKey(const ValueKey('find-hafen-fund-1')), matching: find.text('Alte Handelsmünze')),
+      findsWidgets,
+    );
     expect(find.text('Gefunden am 10.10.2026'), findsOneWidget);
-    await scrollTo(tester, find.text('Altes Fotoalbum'));
+    await scrollTo(tester, find.byKey(const ValueKey('find-wunschinsel-fund-3')));
     expect(find.text('Noch nicht gefunden'), findsWidgets);
   });
 

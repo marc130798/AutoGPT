@@ -1543,6 +1543,7 @@
       "spiel": "perlentauchen",
       "fragen": 4,
       "fund": "Alter Kompass",
+      "fund_bild": "collectible.tauschinsel.1",
       "wrack": {
         "szene": [
           {
@@ -1569,6 +1570,7 @@
       "spiel": "fischschwarm",
       "fragen": 4,
       "fund": "Logbuch des Händlers",
+      "fund_bild": "collectible.tauschinsel.2",
       "wrack": {
         "szene": [
           {
@@ -1595,6 +1597,7 @@
       "spiel": "schatztruhe",
       "fragen": 4,
       "fund": "Taucherbrille",
+      "fund_bild": "collectible.tauschinsel.3",
       "wrack": {
         "szene": [
           {

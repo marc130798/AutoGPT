@@ -93,6 +93,11 @@ class StatsCard extends StatelessWidget {
                 ),
               ],
             ),
+            // Was Fahrtwind ist, in einem Satz für Kinder.
+            Padding(
+              padding: const EdgeInsets.only(left: 32, top: 2),
+              child: Text(l10n.streakHint, key: const ValueKey('stats-streak-hint'), style: theme.textTheme.bodySmall),
+            ),
           ],
         ),
       ),

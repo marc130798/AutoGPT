@@ -1202,6 +1202,7 @@
       "spiel": "perlentauchen",
       "fragen": 4,
       "fund": "Alte Handelsmünze",
+      "fund_bild": "collectible.hafen.1",
       "wrack": {
         "szene": [
           {
@@ -1228,6 +1229,7 @@
       "spiel": "schatztruhe",
       "fragen": 4,
       "fund": "Kleine Münztruhe",
+      "fund_bild": "collectible.hafen.2",
       "wrack": {
         "szene": [
           {
@@ -1254,6 +1256,7 @@
       "spiel": "fischschwarm",
       "fragen": 4,
       "fund": "Rostiges Preisschild",
+      "fund_bild": "collectible.hafen.3",
       "wrack": {
         "szene": [
           {

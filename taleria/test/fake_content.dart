@@ -91,7 +91,7 @@ class FakeContent implements ContentRepository {
           slug: '${island.slug}-fund-${k + 1}',
           kind: 'wreck_item',
           title: d.find,
-          assetKey: 'collectible.wreck_item',
+          assetKey: d.findImage,
         );
       }
       for (final s in island.stations) {

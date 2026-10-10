@@ -10,6 +10,7 @@ import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
+import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import 'amount_dialog.dart';
@@ -135,50 +136,34 @@ class _TreasureScreenState extends State<TreasureScreen> {
     final controller = _controller!;
     return Scaffold(
       appBar: AppBar(title: Text(l10n.treasureTitle)),
-      body: Stack(
-        children: [
-          // Schatzkammer im Bauch des Schiffs; ohne Bild warmes Holz.
-          Positioned.fill(
-            child: TaleriaAsset(
-              AssetKeys.treasureBackground,
-              fit: BoxFit.cover,
-              fallback: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFFE9D3AE), Color(0xFFC79A63)],
-                  ),
+      // Schatzkammer im Bauch des Schiffs; ohne Bild warmes Holz.
+      body: SceneBackground(
+        assetKey: AssetKeys.treasureBackground,
+        child: SafeArea(
+          child: ListenableBuilder(
+            listenable: controller,
+            builder: (context, _) {
+              if (controller.loading) return const Center(child: CircularProgressIndicator());
+              if (controller.failure != null) {
+                return _Failure(kind: controller.failure!, onRetry: controller.load);
+              }
+              return RefreshIndicator(
+                onRefresh: controller.load,
+                child: _TreasureContent(
+                  controller: controller,
+                  onMove: _move,
+                  onSpend: _spend,
+                  onNewGoal: _newGoal,
+                  onRedeem: _redeem,
+                  onDeleteGoal: _deleteGoal,
+                  onNewWish: _newWish,
+                  onKeepWish: _keepWish,
+                  onDropWish: _dropWish,
                 ),
-              ),
-            ),
+              );
+            },
           ),
-          SafeArea(
-            child: ListenableBuilder(
-              listenable: controller,
-              builder: (context, _) {
-                if (controller.loading) return const Center(child: CircularProgressIndicator());
-                if (controller.failure != null) {
-                  return _Failure(kind: controller.failure!, onRetry: controller.load);
-                }
-                return RefreshIndicator(
-                  onRefresh: controller.load,
-                  child: _TreasureContent(
-                    controller: controller,
-                    onMove: _move,
-                    onSpend: _spend,
-                    onNewGoal: _newGoal,
-                    onRedeem: _redeem,
-                    onDeleteGoal: _deleteGoal,
-                    onNewWish: _newWish,
-                    onKeepWish: _keepWish,
-                    onDropWish: _dropWish,
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -1381,6 +1381,7 @@
       "spiel": "fischschwarm",
       "fragen": 4,
       "fund": "Kapitänskiste",
+      "fund_bild": "collectible.wunschinsel.1",
       "wrack": {
         "szene": [
           {
@@ -1407,6 +1408,7 @@
       "spiel": "perlentauchen",
       "fragen": 4,
       "fund": "Flaschenbrief",
+      "fund_bild": "collectible.wunschinsel.2",
       "wrack": {
         "szene": [
           {
@@ -1433,6 +1435,7 @@
       "spiel": "schatztruhe",
       "fragen": 4,
       "fund": "Altes Fotoalbum",
+      "fund_bild": "collectible.wunschinsel.3",
       "wrack": {
         "szene": [
           {

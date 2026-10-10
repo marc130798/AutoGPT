@@ -606,5 +606,13 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Oben erklärt Tala (die Zahlmeisterin) in einer Sprechblase die drei Truhen. Jede Truhe hat ein Bild und einen Satz mit Beispiel (Bordkasse: „zum Beispiel ein Eis“). Knöpfe sagen, was passiert: „Ich habe etwas gekauft“, „Ich habe etwas verschenkt“, „Geld in eine andere Truhe legen“.
 - Abschnitte auf Papier mit Bild und Erklärung: Taschengeld, Wunschschätze („etwas, das du dir wünschst und wofür du sparst“), Wunschflaschen, Kassenbuch („alles, was mit deinem Geld passiert ist“).
 - Bilder von Marc (BILDER.md Abschnitt 4f): `treasure.background` (Schatzkammer), `pot.spend` (Geldkassette), `pot.give` (runde Truhe mit Herz), `icon.ledger` (Kassenbuch), `icon.wish` (goldener Stern); die Schatztruhe zeigt `icon.treasure`. Ohne Bild Holz-Verlauf und farbige Kreise mit Symbol.
+
+**Menü-Seiten erklärt, umgesetzt am 10.10.2026 (Wunsch von Marc):**
+- Startseite: Unter dem Fahrtwind steht, was er ist („Spiel jede Woche mindestens eine Station. Jede Woche hintereinander macht deinen Fahrtwind stärker.“).
+- Aufträge: Talo und Tala erklären oben, was Aufträge sind, dass die Eltern bestätigen, wohin die Belohnung geht und was „Pflicht“ heißt. Hintergrund `tasks.background` (Kapitänskajüte).
+- Orden: Talo erklärt, wie man Orden bekommt. Hintergrund `badges.background` (Ehrenwand).
+- Sammlung: Die Unterwasserwelt liegt hinter der ganzen Seite (statt klein oben), Tala erklärt, was man beim Tauchen findet.
+- Alle diese Seiten nutzen `SceneBackground`, `PaperCard` und `PaperHeading` (`lib/features/common/scene_background.dart`); ohne Bild ein Holz-Verlauf.
+- Jedes Fundstück hat ein eigenes Bild: `"fund_bild"` beim Tauchgang in der Inhaltsdatei (`collectible.<insel>.<nummer>`), ohne Angabe `collectible.wreck_item`. `tool/build_seed.dart` schreibt es in `collectibles.asset_key` und aktualisiert es beim nächsten Seed. Im Testprojekt muss `supabase/seed.sql` dafür neu ausgeführt werden.
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

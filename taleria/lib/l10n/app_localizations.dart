@@ -2098,7 +2098,7 @@ abstract class AppLocalizations {
   /// Erklärung Fahrtwind im Kinderbereich
   ///
   /// In de, this message translates to:
-  /// **'Jede Woche, in der du segelst, bringt Fahrtwind.'**
+  /// **'Spiel jede Woche mindestens eine Station. Jede Woche hintereinander macht deinen Fahrtwind stärker.'**
   String get streakHint;
 
   /// Knopf zur Orden-Sammlung mit Anzahl
@@ -3150,6 +3150,30 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.'**
   String get ledgerIntro;
+
+  /// Aufträge: Talo erklärt oben, was Aufträge sind
+  ///
+  /// In de, this message translates to:
+  /// **'Aufträge sind Aufgaben von deinen Eltern, zum Beispiel: Zimmer aufräumen. Bist du fertig, tippst du auf „Erledigt!“.'**
+  String get tasksIntroTalo;
+
+  /// Aufträge: Tala erklärt Bestätigung, Belohnung und Pflicht
+  ///
+  /// In de, this message translates to:
+  /// **'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Bordkasse. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.'**
+  String get tasksIntroTala;
+
+  /// Orden: Talo erklärt oben, wie man Orden bekommt
+  ///
+  /// In de, this message translates to:
+  /// **'Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden. Die blassen findest du noch auf deiner Reise.'**
+  String get badgesIntro;
+
+  /// Sammlung: Tala erklärt oben, was man beim Tauchen findet
+  ///
+  /// In de, this message translates to:
+  /// **'Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.'**
+  String get collectionIntro;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

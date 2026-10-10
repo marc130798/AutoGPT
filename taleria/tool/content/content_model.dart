@@ -208,6 +208,7 @@ class Dive {
     required this.find,
     required this.wreckScene,
     required this.wreckQuestion,
+    this.findImage = 'collectible.wreck_item',
   });
 
   /// Nummer der Station, nach der der Ankerplatz liegt.
@@ -218,6 +219,9 @@ class Dive {
 
   /// Fund für die Unterwasser-Sammlung.
   final String find;
+
+  /// Bild des Funds (`fund_bild`), ohne Angabe das allgemeine Fundstück.
+  final String findImage;
   final List<Line> wreckScene;
   final Question wreckQuestion;
 
@@ -403,6 +407,7 @@ Island parseIsland(String file, String source) {
             game: text(d, 'spiel', where),
             questions: d['fragen'] as int? ?? 4,
             find: text(d, 'fund', where),
+            findImage: d['fund_bild'] as String? ?? 'collectible.wreck_item',
             wreckScene: lines(wrack['szene'], '$where, Wrack'),
             wreckQuestion: Question(
               question: text(wrack, 'frage', '$where, Wrack'),
@@ -546,6 +551,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       check(diveGames.containsKey(d.game), '$dw: unbekanntes Spiel "${d.game}"');
       check(d.questions >= 3 && d.questions <= 4, '$dw: 3 bis 4 Fragen');
       check(d.find.trim().length >= 2 && d.find.length <= 60, '$dw: Fund braucht einen Namen (bis 60 Zeichen)');
+      check(knownAssetKeys.contains(d.findImage), '$dw: Bild ${d.findImage} fehlt im Asset-Manifest');
       final pool = island.stations
           .where((s) => !s.isExam && s.number > previous && s.number <= d.after)
           .expand((s) => s.questions)
@@ -929,10 +935,11 @@ String buildSeedSql(
         ..writeln('insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)')
         ..writeln(
           "values (${_id('stage$stage/${island.slug}/dive${k + 1}/find')}, ${_lit('${island.slug}-fund-${k + 1}')}, "
-          "'wreck_item', ${_lit(d.find)}, 'collectible.wreck_item', $did, ${island.order * 10 + k + 1}, $status)",
+          "'wreck_item', ${_lit(d.find)}, ${_lit(d.findImage)}, $did, ${island.order * 10 + k + 1}, $status)",
         )
         ..writeln('on conflict (id) do update set')
-        ..writeln('  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,')
+        ..writeln('  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,')
+        ..writeln('  sort_order = excluded.sort_order,')
         ..writeln('  status = excluded.status;')
         ..writeln();
     }

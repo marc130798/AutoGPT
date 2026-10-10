@@ -1568,7 +1568,7 @@
   "@streakPaused": {
     "description": "Fahrtwind ist von den Eltern pausiert"
   },
-  "streakHint": "Jede Woche, in der du segelst, bringt Fahrtwind.",
+  "streakHint": "Spiel jede Woche mindestens eine Station. Jede Woche hintereinander macht deinen Fahrtwind stärker.",
   "@streakHint": {
     "description": "Erklärung Fahrtwind im Kinderbereich"
   },
@@ -2547,5 +2547,21 @@
   "allowanceHeading": "Taschengeld",
   "@allowanceHeading": {
     "description": "Schatztruhe: Überschrift über dem Taschengeld (Kinderwort, früher „Heuer“)"
+  },
+  "tasksIntroTalo": "Aufträge sind Aufgaben von deinen Eltern, zum Beispiel: Zimmer aufräumen. Bist du fertig, tippst du auf „Erledigt!“.",
+  "@tasksIntroTalo": {
+    "description": "Aufträge: Talo erklärt oben, was Aufträge sind"
+  },
+  "tasksIntroTala": "Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Bordkasse. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.",
+  "@tasksIntroTala": {
+    "description": "Aufträge: Tala erklärt Bestätigung, Belohnung und Pflicht"
+  },
+  "badgesIntro": "Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden. Die blassen findest du noch auf deiner Reise.",
+  "@badgesIntro": {
+    "description": "Orden: Talo erklärt oben, wie man Orden bekommt"
+  },
+  "collectionIntro": "Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.",
+  "@collectionIntro": {
+    "description": "Sammlung: Tala erklärt oben, was man beim Tauchen findet"
   }
 }

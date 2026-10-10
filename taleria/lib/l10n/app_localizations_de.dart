@@ -1144,7 +1144,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get streakPaused => 'Fahrtwind macht gerade Pause';
 
   @override
-  String get streakHint => 'Jede Woche, in der du segelst, bringt Fahrtwind.';
+  String get streakHint =>
+      'Spiel jede Woche mindestens eine Station. Jede Woche hintereinander macht deinen Fahrtwind stärker.';
 
   @override
   String badgesButton(int count) {
@@ -1837,4 +1838,20 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get ledgerIntro =>
       'Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.';
+
+  @override
+  String get tasksIntroTalo =>
+      'Aufträge sind Aufgaben von deinen Eltern, zum Beispiel: Zimmer aufräumen. Bist du fertig, tippst du auf „Erledigt!“.';
+
+  @override
+  String get tasksIntroTala =>
+      'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Bordkasse. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.';
+
+  @override
+  String get badgesIntro =>
+      'Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden. Die blassen findest du noch auf deiner Reise.';
+
+  @override
+  String get collectionIntro =>
+      'Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.';
 }
