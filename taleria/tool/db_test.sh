@@ -73,4 +73,33 @@ if [[ "$MIGRATIONS" != "$RECORDED" ]]; then
 fi
 echo "ok: datenbank_einrichten.sql richtet die Datenbank ein und trägt $RECORDED Migrationen ein"
 
+# Geprüfter Import für die Live-Datenbank: ohne Test-Einstellungen, beliebig oft einspielbar.
+# Danach dieselbe Datei mit allem „freigegeben“: veröffentlichen klappt, ein erneuter Import
+# ändert nichts, und zurück auf Entwurf lehnt die Datenbank ab.
+echo "Live-Import:"
+run "$PG_BIN/createdb" -h "$WORK" -p "$PORT" -U postgres livecheck
+LIVE_PSQL=(run "$PG_BIN/psql" -h "$WORK" -p "$PORT" -U postgres -d livecheck -v ON_ERROR_STOP=1 -q -t -A)
+cat "$ROOT/supabase/sql_tests/00_supabase_stub.sql" "$ROOT/supabase/datenbank_einrichten.sql" \
+  "$ROOT/supabase/inhalte_live.sql" "$ROOT/supabase/inhalte_live.sql" \
+  | "${LIVE_PSQL[@]}" 2>&1 | sed -e "/already exists, skipping/d"
+NOT_DRAFT="$("${LIVE_PSQL[@]}" -c "select count(*) from public.islands where status <> 'draft'")"
+if [[ "$NOT_DRAFT" != "0" ]]; then
+  echo "FEHLER: Der Live-Import enthält freigegebene Inseln, obwohl in den Dateien nichts freigegeben ist"
+  exit 1
+fi
+echo "ok: inhalte_live.sql läuft zweimal hintereinander, alles bleibt Entwurf"
+sed "s/'draft'/'published'/g" "$ROOT/supabase/inhalte_live.sql" > "$WORK/alles_freigegeben.sql"
+cat "$WORK/alles_freigegeben.sql" "$WORK/alles_freigegeben.sql" | "${LIVE_PSQL[@]}" >/dev/null
+cat "$ROOT/supabase/sql_tests/05_test_helpers.sql" "$ROOT/supabase/sql_tests/seed/live_check.sql" \
+  | "${LIVE_PSQL[@]}" 2>&1 | sed -n -e "s/^NOTICE:  //p" -e "/ERROR/p"
+if WITHDRAW="$("${LIVE_PSQL[@]}" -f "$ROOT/supabase/inhalte_live.sql" 2>&1)"; then
+  echo "FEHLER: Veröffentlichte Pflichtstationen ließen sich wieder auf Entwurf setzen"
+  exit 1
+fi
+if [[ "$WITHDRAW" != *"nicht zurückgezogen werden"* ]]; then
+  echo "FEHLER: Zurückziehen scheitert mit einer unerwarteten Meldung: $WITHDRAW"
+  exit 1
+fi
+echo "ok: Veröffentlichte Inhalte lassen sich nicht zurückziehen"
+
 echo "Alle Datenbank-Tests bestanden."

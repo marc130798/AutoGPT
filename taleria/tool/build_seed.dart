@@ -1,5 +1,6 @@
-// Erzeugt supabase/seed.sql aus den Inhaltsdateien in content/stufe1/ und
-// content/begegnungen.json.
+// Erzeugt aus den Inhaltsdateien in content/stufe1/ und content/begegnungen.json:
+//   * supabase/seed.sql          Testumgebung (mit Inhalts-Vorschau und Test-Abo)
+//   * supabase/inhalte_live.sql  geprüfter Import für die Live-Datenbank
 //
 // Aufruf im Ordner taleria/:
 //   dart run tool/build_seed.dart
@@ -31,8 +32,14 @@ void main() {
   }
 
   File('supabase/seed.sql').writeAsStringSync(buildSeedSql(islands, encounters: encounters));
+  File('supabase/inhalte_live.sql')
+      .writeAsStringSync(buildSeedSql(islands, encounters: encounters, target: SeedTarget.live));
   final questions = islands.expand((i) => i.stations).expand((s) => s.questions).length;
-  stdout.writeln(
-    'supabase/seed.sql erzeugt: ${islands.length} Inseln, $questions Fragen, ${encounters.length} Begegnung(en).',
-  );
+  final released = islands.where((i) => i.status == 'freigegeben').map((i) => i.title);
+  stdout
+    ..writeln(
+      'supabase/seed.sql und supabase/inhalte_live.sql erzeugt: '
+      '${islands.length} Inseln, $questions Fragen, ${encounters.length} Begegnung(en).',
+    )
+    ..writeln('Freigegeben: ${released.isEmpty ? 'noch nichts' : released.join(', ')}');
 }

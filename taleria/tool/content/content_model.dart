@@ -1,8 +1,9 @@
 /// Inhalte der Inseln als Dateien (content/stufe1/*.json) und ihre Prüfung.
 ///
-/// Die Dateien sind die Quelle für die Seed-Daten der Testumgebung. Sie haben
-/// deutsche Feldnamen, damit Marc sie lesen und ändern kann. Daraus erzeugt
-/// tool/build_seed.dart die Datei supabase/seed.sql.
+/// Die Dateien sind die einzige Quelle der Inhalte. Sie haben deutsche
+/// Feldnamen, damit Marc sie lesen und ändern kann. Daraus erzeugt
+/// tool/build_seed.dart die Dateien supabase/seed.sql (Testumgebung) und
+/// supabase/inhalte_live.sql (geprüfter Import für die Live-Datenbank).
 library;
 
 import 'dart:convert';
@@ -16,6 +17,10 @@ const minCheckPool = 6;
 
 /// Seemeilen für einen Tauchgang.
 const diveXp = 50;
+
+/// Status einer Insel oder Begegnung in den Dateien und in der Datenbank.
+/// Kinder sehen in der Live-Datenbank nur „freigegeben“ (CLAUDE.md Abschnitt 10).
+const contentStatuses = {'entwurf': 'draft', 'pruefung': 'review', 'freigegeben': 'published'};
 
 class ContentException implements Exception {
   ContentException(this.message);
@@ -207,6 +212,7 @@ class Island {
     required this.prompts,
     required this.stations,
     this.dives = const [],
+    this.status = 'entwurf',
   });
 
   final String file;
@@ -228,6 +234,12 @@ class Island {
   final List<String> prompts;
   final List<Station> stations;
   final List<Dive> dives;
+
+  /// entwurf, pruefung oder freigegeben (gilt für alles auf der Insel).
+  final String status;
+
+  /// Status in der Datenbank (draft, review, published).
+  String get dbStatus => contentStatuses[status] ?? 'draft';
 
   /// Inhalt für islands.content.
   Map<String, dynamic> toDbContent() => {
@@ -332,6 +344,7 @@ Island parseIsland(String file, String source) {
     task: json['auftrag'] as Map<String, dynamic>?,
     prompts: [for (final p in (json['kombuesen_fragen'] as List? ?? const [])) p as String],
     stations: stations,
+    status: json['status'] as String? ?? 'entwurf',
     dives: [
       for (final raw in (json['tauchgaenge'] as List?) ?? const [])
         () {
@@ -373,8 +386,14 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
   );
   check(islands.map((i) => i.slug).toSet().length == islands.length, 'Ein Slug kommt doppelt vor');
 
-  for (final island in islands) {
+  final statuses = contentStatuses.keys.join(', ');
+  for (final (index, island) in islands.indexed) {
     final w = island.file;
+    check(contentStatuses.containsKey(island.status), '$w: "status" muss $statuses sein');
+    if (island.status == 'freigegeben') {
+      final before = islands.take(index).where((i) => i.status != 'freigegeben').map((i) => i.slug);
+      check(before.isEmpty, '$w: freigegeben, aber diese Inseln davor noch nicht: ${before.join(', ')}');
+    }
     check(slugPattern.hasMatch(island.slug), '$w: Slug "${island.slug}" ist ungültig');
     check(island.title.length <= 60, '$w: Titel ist länger als 60 Zeichen');
     check({'gratis', 'premium'}.contains(island.access), '$w: Zugang muss gratis oder premium sein');
@@ -391,6 +410,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
 
     if (island.fog) {
       check(island.stations.isEmpty, '$w: Insel im Nebel darf noch keine Stationen haben');
+      check(island.status == 'entwurf', '$w: Insel im Nebel bleibt Entwurf');
       continue;
     }
     check(island.stations.isNotEmpty, '$w: Insel ohne Stationen muss "nebel": true haben');
@@ -547,6 +567,7 @@ class Encounter {
     required this.right,
     required this.wrong,
     required this.success,
+    this.status = 'entwurf',
   });
 
   final String slug;
@@ -563,6 +584,11 @@ class Encounter {
   final Line right;
   final Line wrong;
   final Line success;
+
+  /// entwurf, pruefung oder freigegeben.
+  final String status;
+
+  String get dbStatus => contentStatuses[status] ?? 'draft';
 
   List<Line> get allLines => [...firstScene, ...scene, right, wrong, success];
 
@@ -616,6 +642,7 @@ List<Encounter> parseEncounters(String file, String source) {
           right: line(e['richtig'], '$where, "richtig"'),
           wrong: line(e['falsch'], '$where, "falsch"'),
           success: line(e['geschafft'], '$where, "geschafft"'),
+          status: e['status'] as String? ?? 'entwurf',
         );
       }(),
   ];
@@ -637,6 +664,7 @@ List<String> validateEncounters(
   for (final e in encounters) {
     final w = 'Begegnung ${e.slug}';
     check(RegExp(r'^[a-z0-9]+(-[a-z0-9]+)*$').hasMatch(e.slug), '$w: Slug ist ungültig');
+    check(contentStatuses.containsKey(e.status), '$w: "status" muss ${contentStatuses.keys.join(', ')} sein');
     check(encounterTypes.contains(e.type), '$w: unbekannte Art "${e.type}"');
     check(e.title.length <= 60, '$w: Titel ist länger als 60 Zeichen');
     check(knownAssetKeys.contains(e.assetKey), '$w: Bild ${e.assetKey} fehlt im Asset-Manifest');
@@ -659,35 +687,67 @@ String _lit(String value) => "'${value.replaceAll("'", "''")}'";
 String _json(Object value) => '${_lit(jsonEncode(value))}::jsonb';
 String _id(String name) => "md5(${_lit('taleria:$name')})::uuid";
 
-/// Erzeugt supabase/seed.sql. Alle Inhalte sind Entwürfe (`draft`), die
-/// Testumgebung zeigt sie über die Inhalts-Vorschau.
-String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const [], int stage = 1}) {
-  final b = StringBuffer()
-    ..writeln('-- Seed-Daten für die TESTUMGEBUNG. Nie in die Live-Datenbank einspielen.')
-    ..writeln('-- Automatisch erzeugt aus content/stufe1/*.json mit: dart run tool/build_seed.dart')
-    ..writeln('-- Nicht von Hand ändern, sondern die Inhaltsdateien bearbeiten und neu erzeugen.')
-    ..writeln()
-    ..writeln('begin;')
-    ..writeln()
-    ..writeln('-- Inhalts-Vorschau: Kinder sehen in der Testumgebung auch Entwürfe.')
-    ..writeln("insert into public.app_settings (key, value) values ('content_preview', 'true'::jsonb)")
-    ..writeln('on conflict (key) do update set value = excluded.value;')
-    ..writeln()
-    ..writeln('-- Test-Abo: Eltern können das Abo im Leuchtturm testweise ein- und ausschalten.')
-    ..writeln("insert into public.app_settings (key, value) values ('test_purchases', 'true'::jsonb)")
-    ..writeln('on conflict (key) do update set value = excluded.value;')
-    ..writeln();
+/// Wohin die erzeugten Inhalte gehen.
+enum SeedTarget {
+  /// supabase/seed.sql: Inhalte plus Inhalts-Vorschau und Test-Abo.
+  test,
+
+  /// supabase/inhalte_live.sql: nur Inhalte, ohne Test-Einstellungen.
+  live,
+}
+
+/// Erzeugt die SQL-Datei mit allen Inhalten. Der Status kommt aus den Dateien
+/// („status“ je Insel und Begegnung, Standard „entwurf“). Eine Insel wird erst
+/// am Ende ihres Blocks veröffentlicht, damit ihre Pflichtstationen schon da
+/// sind (die Datenbank verbietet neue Pflichtstationen an veröffentlichten Inseln).
+/// Die Datei darf beliebig oft eingespielt werden.
+String buildSeedSql(
+  List<Island> islands, {
+  List<Encounter> encounters = const [],
+  int stage = 1,
+  SeedTarget target = SeedTarget.test,
+}) {
+  final b = StringBuffer();
+  if (target == SeedTarget.test) {
+    b
+      ..writeln('-- Seed-Daten für die TESTUMGEBUNG. Nie in die Live-Datenbank einspielen.')
+      ..writeln('-- Automatisch erzeugt aus content/stufe1/*.json mit: dart run tool/build_seed.dart')
+      ..writeln('-- Nicht von Hand ändern, sondern die Inhaltsdateien bearbeiten und neu erzeugen.')
+      ..writeln()
+      ..writeln('begin;')
+      ..writeln()
+      ..writeln('-- Inhalts-Vorschau: Kinder sehen in der Testumgebung auch Entwürfe.')
+      ..writeln("insert into public.app_settings (key, value) values ('content_preview', 'true'::jsonb)")
+      ..writeln('on conflict (key) do update set value = excluded.value;')
+      ..writeln()
+      ..writeln('-- Test-Abo: Eltern können das Abo im Leuchtturm testweise ein- und ausschalten.')
+      ..writeln("insert into public.app_settings (key, value) values ('test_purchases', 'true'::jsonb)")
+      ..writeln('on conflict (key) do update set value = excluded.value;')
+      ..writeln();
+  } else {
+    b
+      ..writeln('-- Inhalte für die LIVE-Datenbank (geprüfter Import, CLAUDE.md Abschnitt 10).')
+      ..writeln('-- Automatisch erzeugt aus content/stufe1/*.json mit: dart run tool/build_seed.dart')
+      ..writeln('-- Nicht von Hand ändern, sondern die Inhaltsdateien bearbeiten und neu erzeugen.')
+      ..writeln('-- Kinder sehen nur Inhalte mit "status": "freigegeben". Keine Test-Einstellungen.')
+      ..writeln('-- Darf beliebig oft eingespielt werden. Veröffentlichte Inhalte schützt die Datenbank:')
+      ..writeln('-- Pflichtstationen und Prüfungsfragen lassen sich korrigieren, aber nicht entfernen.')
+      ..writeln()
+      ..writeln('begin;')
+      ..writeln();
+  }
 
   for (final island in islands) {
     final iid = _id('stage$stage/${island.slug}');
+    final status = _lit(island.dbStatus);
     b
-      ..writeln('-- ${island.order}. ${island.title}${island.fog ? ' (Nebel)' : ''}')
+      ..writeln('-- ${island.order}. ${island.title}${island.fog ? ' (Nebel)' : ''}, Status: ${island.status}')
       ..writeln(
-        'insert into public.islands (id, slug, stage, island_group, sort_order, map_x, map_y, route_type, title, status, content)',
+        'insert into public.islands (id, slug, stage, island_group, sort_order, map_x, map_y, route_type, title, content)',
       )
       ..writeln(
         'values ($iid, ${_lit(island.slug)}, $stage, ${island.group}, ${island.order}, ${island.mapX}, ${island.mapY}, '
-        "'main', ${_lit(island.title)}, 'draft', ${_json(island.toDbContent())})",
+        "'main', ${_lit(island.title)}, ${_json(island.toDbContent())})",
       )
       ..writeln('on conflict (id) do update set')
       ..writeln('  slug = excluded.slug, island_group = excluded.island_group, sort_order = excluded.sort_order,')
@@ -702,11 +762,11 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
           'insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)',
         )
         ..writeln(
-          "values ($sid, $iid, ${s.number * 10}, ${_lit(s.type)}, true, ${s.xp}, ${_json(s.toDbContent())}, 'draft')",
+          "values ($sid, $iid, ${s.number * 10}, ${_lit(s.type)}, true, ${s.xp}, ${_json(s.toDbContent())}, $status)",
         )
         ..writeln('on conflict (id) do update set')
         ..writeln('  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,')
-        ..writeln('  content = excluded.content;');
+        ..writeln('  content = excluded.content, status = excluded.status;');
       for (final (i, q) in s.questions.indexed) {
         final qname = 'stage$stage/${island.slug}/station${s.number}/q${i + 1}';
         questionIds.add(_id(qname));
@@ -716,13 +776,15 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
           )
           ..writeln(
             'values (${_id(qname)}, $sid, ${_lit(q.question)}, ${_json(q.answers)}, 0, ${_lit(q.explanation)}, '
-            "${q.station ?? 'null'}, 'draft')",
+            "${q.station ?? 'null'}, $status)",
           )
           ..writeln('on conflict (id) do update set')
           ..writeln(
             '  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,',
           )
-          ..writeln('  explanation = excluded.explanation, covers_station = excluded.covers_station;');
+          ..writeln(
+            '  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;',
+          );
       }
       b.writeln();
     }
@@ -736,17 +798,19 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
           'insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)',
         )
         ..writeln(
-          "values ($did, $iid, ${d.after * 10 + 5}, 'review_stop', true, $diveXp, ${_json(d.toDbContent(k + 1))}, 'draft')",
+          "values ($did, $iid, ${d.after * 10 + 5}, 'review_stop', true, $diveXp, ${_json(d.toDbContent(k + 1))}, $status)",
         )
         ..writeln('on conflict (id) do update set')
-        ..writeln('  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content;')
+        ..writeln('  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,')
+        ..writeln('  status = excluded.status;')
         ..writeln('insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)')
         ..writeln(
           "values (${_id('stage$stage/${island.slug}/dive${k + 1}/find')}, ${_lit('${island.slug}-fund-${k + 1}')}, "
-          "'wreck_item', ${_lit(d.find)}, 'collectible.wreck_item', $did, ${island.order * 10 + k + 1}, 'draft')",
+          "'wreck_item', ${_lit(d.find)}, 'collectible.wreck_item', $did, ${island.order * 10 + k + 1}, $status)",
         )
         ..writeln('on conflict (id) do update set')
-        ..writeln('  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order;')
+        ..writeln('  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order,')
+        ..writeln('  status = excluded.status;')
         ..writeln();
     }
 
@@ -764,20 +828,26 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
         ..writeln('insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)')
         ..writeln(
           "values (${_id('stage$stage/${island.slug}/badge')}, ${_lit(island.slug)}, 'island', $iid, "
-          "${_lit(island.badge!)}, ${_lit('badge.${island.slug}')}, ${island.order}, 'draft')",
+          "${_lit(island.badge!)}, ${_lit('badge.${island.slug}')}, ${island.order}, $status)",
         )
         ..writeln('on conflict (id) do update set')
-        ..writeln('  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order;')
+        ..writeln('  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order,')
+        ..writeln('  status = excluded.status;')
         ..writeln();
     }
 
     for (final (i, p) in island.prompts.indexed) {
       b
         ..writeln('insert into public.conversation_prompts (id, island_id, text, status)')
-        ..writeln("values (${_id('stage$stage/${island.slug}/prompt${i + 1}')}, $iid, ${_lit(p)}, 'draft')")
-        ..writeln('on conflict (id) do update set text = excluded.text;');
+        ..writeln("values (${_id('stage$stage/${island.slug}/prompt${i + 1}')}, $iid, ${_lit(p)}, $status)")
+        ..writeln('on conflict (id) do update set text = excluded.text, status = excluded.status;');
     }
     if (island.prompts.isNotEmpty) b.writeln();
+
+    b
+      ..writeln('-- Status der Insel erst jetzt, wenn alles auf der Insel da ist.')
+      ..writeln('update public.islands set status = $status where id = $iid and status <> $status;')
+      ..writeln();
   }
 
   b
@@ -792,18 +862,18 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
   for (final e in encounters) {
     final after = e.afterIsland == null ? 'null' : _id('stage$stage/${e.afterIsland}');
     b
-      ..writeln('-- Begegnung: ${e.title}')
+      ..writeln('-- Begegnung: ${e.title}, Status: ${e.status}')
       ..writeln(
         'insert into public.encounters (id, slug, type, title, asset_key, question_count, xp_reward, after_island_id, content, status)',
       )
       ..writeln(
         "values (${_id('encounter/${e.slug}')}, ${_lit(e.slug)}, ${_lit(e.type)}, ${_lit(e.title)}, ${_lit(e.assetKey)}, "
-        "${e.questionCount}, ${e.xp}, $after, ${_json(e.toDbContent())}, 'draft')",
+        "${e.questionCount}, ${e.xp}, $after, ${_json(e.toDbContent())}, ${_lit(e.dbStatus)})",
       )
       ..writeln('on conflict (id) do update set')
       ..writeln('  type = excluded.type, title = excluded.title, asset_key = excluded.asset_key,')
       ..writeln('  question_count = excluded.question_count, xp_reward = excluded.xp_reward,')
-      ..writeln('  after_island_id = excluded.after_island_id, content = excluded.content;')
+      ..writeln('  after_island_id = excluded.after_island_id, content = excluded.content, status = excluded.status;')
       ..writeln();
   }
 

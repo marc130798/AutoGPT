@@ -253,9 +253,7 @@ select test_helpers.expect_equal(
   (select count(*) from public.children where id = 'c0000000-0000-0000-0000-000000000002'), 0,
   'Konto löschen entfernt alle Kinder-Profile');
 
--- Admins löschen sich nicht über die App.
-insert into public.admins (user_id, role) values ('a0000000-0000-0000-0000-000000000002', 'support');
-select test_helpers.login('a0000000-0000-0000-0000-000000000002');
-select test_helpers.expect_error($$select public.delete_my_account()$$,
-  'Admin-Konten', 'Admin-Konten werden nicht über die App gelöscht');
-select test_helpers.logout();
+-- Admins nutzen die App nicht: Ein Eltern-Konto wird kein Admin (Schritt 10).
+select test_helpers.expect_error(
+  $$insert into public.admins (user_id, role) values ('a0000000-0000-0000-0000-000000000002', 'support')$$,
+  'Eltern-Konto', 'Ein Eltern-Konto wird kein Admin');

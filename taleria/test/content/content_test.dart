@@ -65,10 +65,48 @@ void main() {
     expect(File('supabase/seed.sql').readAsStringSync(), buildSeedSql(islands, encounters: encounters));
   });
 
+  test('supabase/inhalte_live.sql ist aktuell (sonst: dart run tool/build_seed.dart)', () {
+    expect(
+      File('supabase/inhalte_live.sql').readAsStringSync(),
+      buildSeedSql(islands, encounters: encounters, target: SeedTarget.live),
+    );
+  });
+
+  group('Status und Live-Import', () {
+    test('Ohne Angabe ist alles Entwurf', () {
+      expect(islands.map((i) => i.status).toSet(), {'entwurf'});
+      expect(encounters.map((e) => e.status).toSet(), {'entwurf'});
+    });
+
+    test('Der Live-Import hat keine Test-Einstellungen', () {
+      expect(buildSeedSql(islands, encounters: encounters), contains('content_preview'));
+      final live = buildSeedSql(islands, encounters: encounters, target: SeedTarget.live);
+      expect(live, isNot(contains('app_settings')));
+      expect(live, contains('LIVE-Datenbank'));
+    });
+
+    test('Freigegebene Insel: erst alles auf der Insel, dann die Insel veröffentlichen', () {
+      final json = jsonDecode(File('content/stufe1/01-hafen.json').readAsStringSync()) as Map<String, dynamic>;
+      final hafen = parseIsland('01-hafen.json', jsonEncode({...json, 'status': 'freigegeben'}));
+      final sql = buildSeedSql([hafen], target: SeedTarget.live);
+      expect(sql, isNot(contains("'draft'")));
+      expect(
+        sql.indexOf("update public.islands set status = 'published'"),
+        greaterThan(sql.lastIndexOf('insert into public.conversation_prompts')),
+      );
+      expect(
+        RegExp(r'insert into public\.islands \([^)]*status').hasMatch(sql),
+        isFalse,
+        reason: 'neue Inseln starten als Entwurf',
+      );
+    });
+  });
+
   group('Die Prüfung findet Fehler', () {
-    Island islandWith(Map<String, dynamic> station) => parseIsland(
+    Island islandWith(Map<String, dynamic> station, {Map<String, dynamic> extra = const {}}) => parseIsland(
       'test.json',
       jsonEncode({
+        ...extra,
         'slug': 'tauschinsel',
         'titel': 'Test',
         'orden': 'Test-Orden',
@@ -145,6 +183,38 @@ void main() {
 
     test('nicht genau 3 Antworten', () {
       expect(problems(islandWith(station(wrong: ['b']))), contains(contains('genau 2 falsche Antworten')));
+    });
+
+    test('unbekannter Status', () {
+      expect(problems(islandWith(station(), extra: {'status': 'fertig'})), contains(contains('"status" muss')));
+    });
+
+    Island fogIsland({String status = 'entwurf'}) => parseIsland(
+      'nebel.json',
+      jsonEncode({
+        'slug': 'hafen',
+        'titel': 'Nebel',
+        'reihenfolge': 1,
+        'gruppe': 1,
+        'zugang': 'gratis',
+        'lernziel': 'Test',
+        'nebel': true,
+        'status': status,
+      }),
+    );
+
+    test('Insel im Nebel bleibt Entwurf', () {
+      expect(problems(fogIsland(status: 'freigegeben')), contains(contains('bleibt Entwurf')));
+    });
+
+    test('freigegeben, aber eine Insel davor noch nicht', () {
+      expect(
+        validateIslands([
+          fogIsland(),
+          islandWith(station(), extra: {'status': 'freigegeben'}),
+        ], knownAssetKeys: assetKeys),
+        contains(contains('Inseln davor noch nicht: hafen')),
+      );
     });
   });
 
@@ -227,6 +297,7 @@ void main() {
     );
 
     test('gültige Begegnung', () => expect(problems({}), isEmpty));
+    test('unbekannter Status', () => expect(problems({'status': 'live'}), contains(contains('"status" muss'))));
     test('unbekannte Art', () => expect(problems({'art': 'piratenschiff'}), contains(contains('unbekannte Art'))));
     test('zu viele Fragen', () => expect(problems({'fragen': 6}), contains(contains('3 bis 5 Fragen'))));
     test('unbekannte Insel', () => expect(problems({'ab_insel': 'atlantis'}), contains(contains('unbekannte Insel'))));

@@ -1,16 +1,11 @@
--- Seed-Daten für die TESTUMGEBUNG. Nie in die Live-Datenbank einspielen.
+-- Inhalte für die LIVE-Datenbank (geprüfter Import, CLAUDE.md Abschnitt 10).
 -- Automatisch erzeugt aus content/stufe1/*.json mit: dart run tool/build_seed.dart
 -- Nicht von Hand ändern, sondern die Inhaltsdateien bearbeiten und neu erzeugen.
+-- Kinder sehen nur Inhalte mit "status": "freigegeben". Keine Test-Einstellungen.
+-- Darf beliebig oft eingespielt werden. Veröffentlichte Inhalte schützt die Datenbank:
+-- Pflichtstationen und Prüfungsfragen lassen sich korrigieren, aber nicht entfernen.
 
 begin;
-
--- Inhalts-Vorschau: Kinder sehen in der Testumgebung auch Entwürfe.
-insert into public.app_settings (key, value) values ('content_preview', 'true'::jsonb)
-on conflict (key) do update set value = excluded.value;
-
--- Test-Abo: Eltern können das Abo im Leuchtturm testweise ein- und ausschalten.
-insert into public.app_settings (key, value) values ('test_purchases', 'true'::jsonb)
-on conflict (key) do update set value = excluded.value;
 
 -- 1. Hafen von Taleria, Status: entwurf
 insert into public.islands (id, slug, stage, island_group, sort_order, map_x, map_y, route_type, title, content)

@@ -3,7 +3,15 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 9a gibt
+## Was es nach Schritt 10 gibt
+
+- Adminbereich als eigene Webseite (nicht in der App): Anmeldung nur mit Zwei-Faktor-App
+- Übersicht mit Familien, aktiven Kindern und Abos, Statistik pro Insel, Station und Frage
+- Support: Familie per E-Mail suchen, Abo von Hand vergeben (zum Beispiel für Beta-Familien),
+  Konto löschen; jeder Schritt mit Grund im Protokoll
+- Inhalte freigeben: `"status"` in den Inhaltsdateien und ein geprüfter Import für die Live-Datenbank
+
+## Was es seit Schritt 9a gibt
 
 - Gratis: Hafen und Tauschinsel, ein Kinder-Profil, Aufgaben, Taschengeld und Schatztruhe
 - Mit Abo: alle weiteren Inseln und mehrere Kinder-Profile
@@ -95,11 +103,13 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 | `lib/data/` | Zugriff auf Supabase und auf Einstellungen des Geräts |
 | `lib/services/` | Logik: Sitzung, Eltern-Sperre, Leuchtturm, Intro, Karte, Insel, Station |
 | `lib/features/` | Bildschirme, ein Ordner pro Bereich |
+| `lib/admin/`, `lib/main_admin.dart` | Adminbereich (Webseite nur fürs Team, nicht Teil der App) |
+| `web/` | Rahmen der Admin-Webseite |
 | `lib/l10n/` | Texte der App (zuerst Deutsch) |
 | `assets/` | Grafiken, Animationen, Ton und das Asset-Manifest |
 | `supabase/migrations/` | Aufbau der Datenbank, Schritt für Schritt |
 | `supabase/sql_tests/` | Tests für die Regeln in der Datenbank |
-| `content/stufe1/` | Inhalte der Inseln (Stationen, Szenen, Fragen), Quelle für `supabase/seed.sql` |
+| `content/stufe1/` | Inhalte der Inseln (Stationen, Szenen, Fragen), Quelle für `supabase/seed.sql` und `supabase/inhalte_live.sql` |
 | `tool/` | Werkzeuge: Datenbank-Tests, Seed-Datei erzeugen |
 | `env/` | Vorlagen für die Zugangsdaten (`*.example.json`) |
 | `test/` | Tests der App |
@@ -123,6 +133,7 @@ Für Marc: So entsteht die Test-Datenbank, ganz ohne Programme auf dem Computer.
    Damit sind Inseln, Stationen und Fragen da (nur im Testprojekt, nie im Live-Projekt).
 5. **Project Settings** → **API Keys**: die **Project URL** und den **Publishable key**
    (beginnt mit `sb_publishable_`) kopieren. Den **Secret key** nie weitergeben.
+6. Für den Adminbereich: ein Admin-Konto anlegen, wie unten unter „Adminbereich“ beschrieben.
 
 Kommen später neue Migrationen dazu, können sie mit der Supabase CLI (`npx supabase db push`)
 nachgeholt werden: `datenbank_einrichten.sql` trägt die eingespielten Migrationen dafür ein.
@@ -188,8 +199,9 @@ Für Live später genauso, aber erst, wenn alles in Test geprüft ist.
 
 ### 6. Inhalte in die Testdatenbank laden (nur Test, nie Live)
 
-Die Inhalte der Inseln stehen in `content/stufe1/` (eine Datei pro Insel). Daraus entsteht
-`supabase/seed.sql`. Nach einer Änderung an den Inhalten:
+Die Inhalte der Inseln stehen in `content/stufe1/` (eine Datei pro Insel). Daraus entstehen
+`supabase/seed.sql` (Testumgebung) und `supabase/inhalte_live.sql` (Live, siehe „Inhalte freigeben“).
+Nach einer Änderung an den Inhalten:
 
 ```bash
 dart run tool/build_seed.dart
@@ -214,6 +226,62 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Adminbereich
+
+Eine eigene Webseite nur für das Taleria-Team. Sie ist nicht Teil der App.
+
+### Admin-Konto anlegen (einmal pro Projekt, Test und Live getrennt)
+
+1. Supabase-Dashboard → **Authentication** → **Users** → **Add user** → **Create new user**.
+   Eine eigene E-Mail-Adresse nehmen, nicht die deines Eltern-Kontos (zum Beispiel
+   `marc+admin@…`), ein langes Passwort und **Auto Confirm User** einschalten.
+2. **SQL Editor** → neue Abfrage:
+   ```sql
+   select public.grant_admin_role('deine-admin-adresse@beispiel.de', 'owner');
+   ```
+   Weitere Rollen: `editor` (nur Inhalte) und `support` (Familien suchen, nichts ändern).
+3. Unter **Authentication** → **Multi-Factor** muss **TOTP (App Authenticator)** eingeschaltet sein
+   (bei Supabase ist das schon so eingestellt).
+
+### Admin-Seite starten
+
+```bash
+flutter run -d chrome -t lib/main_admin.dart --dart-define-from-file=env/test.json
+```
+
+Beim ersten Anmelden zeigt die Seite einen Schlüssel. Den in eine Zwei-Faktor-App eintragen
+(Google Authenticator, Microsoft Authenticator, 1Password …) und den 6-stelligen Code eingeben.
+Danach fragt die Seite bei jeder Anmeldung nach dem aktuellen Code.
+
+Für eine eigene Adresse später: `flutter build web -t lib/main_admin.dart --dart-define-from-file=env/live.json`
+und den Ordner `build/web` auf einen Webspace laden (wo, ist noch offen).
+
+### Inhalte freigeben und in die Live-Datenbank bringen
+
+1. In der Inhaltsdatei der Insel `"status"` setzen: `"entwurf"`, `"pruefung"` oder `"freigegeben"`.
+   Freigeben erst, wenn Marc und eine Fachperson die Insel geprüft haben (CLAUDE.md Abschnitt 11).
+2. `dart run tool/build_seed.dart` ausführen. Das prüft die Regeln und erzeugt beide Dateien.
+3. Im **Testprojekt** `supabase/seed.sql` ausführen und die Insel durchspielen.
+4. Im **Live-Projekt** im SQL Editor `supabase/inhalte_live.sql` ausführen. Nie `seed.sql`!
+
+Veröffentlichte Inhalte schützt die Datenbank: Korrekturen gehen, Pflichtstationen und
+Prüfungsfragen lassen sich aber nicht mehr entfernen oder zurückziehen.
+
+## Was du ausprobieren kannst (Schritt 10, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`, oder bei einem neuen Testprojekt
+`supabase/datenbank_einrichten.sql`) und `supabase/seed.sql` neu ausführen.
+
+1. Admin-Konto anlegen (siehe „Adminbereich“) und die Admin-Seite starten.
+2. Mit einem Eltern-Konto anmelden: „Kein Admin-Zugang“.
+3. Mit dem Admin-Konto anmelden, Zwei-Faktor-App einrichten, Code eingeben.
+4. „Übersicht“: Familien, Kinder, aktive Kinder und Abos. Oben steht TESTUMGEBUNG mit dem Hinweis
+   auf die Test-Einstellungen.
+5. „Inhalte“: alle Inseln als Entwurf, pro Station, wie viele Kinder sie geschafft haben.
+6. „Support“: dein Eltern-Konto per E-Mail suchen (mit Grund), Abo von Hand vergeben.
+   In der App steht dann im Leuchtturm unter „Abo“, dass das Abo aktiv ist.
+7. „Protokoll“: Suche und Abo-Änderung mit Grund.
 
 ## Was du ausprobieren kannst (Schritt 9a, mit Test-Server)
 
