@@ -70,8 +70,37 @@ List<Offset> staggerBeside(List<Offset> spots, Size size, double amount) {
   ];
 }
 
+/// Stellen am Wasser für die Ankerplätze, der Reihe nach, oder `null`, wenn
+/// das Bild keine (oder zu wenige) hat. Dann liegen die Ankerplätze wie die
+/// anderen Stationen auf dem Weg.
+List<Offset>? diveSpots(List<Offset>? dives, List<StationInfo> stations) {
+  final count = stations.where((s) => s.isDive).length;
+  if (dives == null || count == 0 || dives.length < count) return null;
+  return dives.sublist(0, count);
+}
+
+/// Wo jede Station auf der Insel liegt (0 bis 1): Ankerplätze am Wasser
+/// ([dives], sonst auf dem Weg), alle anderen in gleichen Abständen auf dem
+/// Weg, abwechselnd etwas links und rechts daneben, damit sie sich nicht
+/// berühren.
+List<Offset> placeStations(List<Offset> route, List<StationInfo> stations, Size size, List<Offset>? dives) {
+  final onPath = dives == null
+      ? stations
+      : [
+          for (final s in stations)
+            if (!s.isDive) s,
+        ];
+  final pathSpots = staggerBeside(placeAlongRoute(route, onPath.length, size, from: 0.03, to: 0.98), size, 17);
+  var path = 0, dive = 0;
+  return [
+    for (final s in stations)
+      if (dives != null && s.isDive) dives[dive++] else pathSpots[path++],
+  ];
+}
+
 /// Die Insel von innen: Bild über die ganze Breite (Hochformat), darauf die
-/// Pflichtstationen als Wegmarken vom Steg nach oben. Ohne Bild ein grüner
+/// Pflichtstationen als Wegmarken vom Steg nach oben, die Ankerplätze am
+/// Wasser. Ohne Bild ein grüner
 /// Grund mit gezeichnetem Sandweg.
 class IslandScene extends StatelessWidget {
   const IslandScene({
@@ -96,7 +125,9 @@ class IslandScene extends StatelessWidget {
   Widget build(BuildContext context) {
     final services = AppScope.of(context);
     final key = AssetKeys.islandBackground(slug);
-    final route = services.manifest.lookup(key).route ?? defaultIslandRoute;
+    final entry = services.manifest.lookup(key);
+    final route = entry.route ?? defaultIslandRoute;
+    final spotsForDives = diveSpots(entry.dives, stations);
     final motion = services.sceneMotion && !MediaQuery.disableAnimationsOf(context);
     final next = stations.where((s) => stateOf(s) == StationState.open && !s.content.isOnboarding).firstOrNull;
 
@@ -105,8 +136,7 @@ class IslandScene extends StatelessWidget {
         final width = min(constraints.maxWidth, 600.0);
         final size = Size(width, width / aspect);
         const marker = 50.0;
-        // Wegmarken abwechselnd neben dem Weg, damit sie sich auch bei vielen Stationen nicht berühren.
-        final spots = staggerBeside(placeAlongRoute(route, stations.length, size, from: 0.03, to: 0.98), size, 17);
+        final spots = placeStations(route, stations, size, spotsForDives);
         return Center(
           child: SizedBox.fromSize(
             size: size,

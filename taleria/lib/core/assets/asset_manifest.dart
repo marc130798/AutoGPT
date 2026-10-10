@@ -18,7 +18,14 @@ class AssetPlaceholderSpec {
 
 /// Ein Eintrag im Manifest: fester Schlüssel → Datei + Platzhalter.
 class AssetEntry {
-  const AssetEntry({required this.key, required this.type, required this.path, required this.placeholder, this.route});
+  const AssetEntry({
+    required this.key,
+    required this.type,
+    required this.path,
+    required this.placeholder,
+    this.route,
+    this.dives,
+  });
 
   /// Fester Schlüssel, z. B. `character.talo` oder `video.intro`.
   final String key;
@@ -33,6 +40,10 @@ class AssetEntry {
   /// einer Insel): Punkte von 0 bis 1, x von links, y von oben. Darauf setzt die
   /// App die Stationen. Gehört zum Bild, weil er genau dessen Weg nachzeichnet.
   final List<Offset>? route;
+
+  /// Stellen am Wasser (Strand), an denen die Ankerplätze einer Insel liegen,
+  /// der Reihe nach. Zum Tauchen geht es ins Wasser, nicht mitten auf den Weg.
+  final List<Offset>? dives;
 
   /// Erster Teil des Schlüssels, z. B. `character` bei `character.talo`.
   String get category => key.split('.').first;
@@ -110,24 +121,13 @@ class TaleriaAssetManifest {
     if (shape == null) {
       throw AssetManifestException('"$key": unbekannte Form ${placeholder['shape']}');
     }
-    final route = raw['route'];
-    List<Offset>? points;
-    if (route != null) {
-      if (route is! List || route.length < 2) {
-        throw AssetManifestException('"$key": route braucht mindestens zwei Punkte');
-      }
-      points = [];
-      for (final point in route) {
-        if (point is! List || point.length != 2 || point.any((v) => v is! num || v < 0 || v > 1)) {
-          throw AssetManifestException('"$key": jeder Punkt der route ist [x, y] mit Werten von 0 bis 1');
-        }
-        points.add(Offset((point[0] as num).toDouble(), (point[1] as num).toDouble()));
-      }
-    }
+    final route = _points(key, raw, 'route', minCount: 2);
+    final dives = _points(key, raw, 'dives', minCount: 1);
     return AssetEntry(
       key: key,
       type: type,
-      route: points,
+      route: route,
+      dives: dives,
       path: path as String?,
       placeholder: AssetPlaceholderSpec(
         label: label,
@@ -135,6 +135,26 @@ class TaleriaAssetManifest {
         shape: shape,
       ),
     );
+  }
+
+  /// Punkte im Bild (`route`, `dives`): Liste von [x, y] mit Werten von 0 bis 1.
+  static List<Offset>? _points(String key, Map<String, dynamic> raw, String field, {required int minCount}) {
+    final list = raw[field];
+    if (list == null) return null;
+    if (list is! List || list.length < minCount) {
+      throw AssetManifestException(
+        minCount == 1
+            ? '"$key": $field braucht mindestens einen Punkt'
+            : '"$key": $field braucht mindestens zwei Punkte',
+      );
+    }
+    return [
+      for (final point in list)
+        if (point is List && point.length == 2 && point.every((v) => v is num && v >= 0 && v <= 1))
+          Offset((point[0] as num).toDouble(), (point[1] as num).toDouble())
+        else
+          throw AssetManifestException('"$key": jeder Punkt in $field ist [x, y] mit Werten von 0 bis 1'),
+    ];
   }
 
   Iterable<AssetEntry> get entries => _entries.values;

@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/core/assets/asset_manifest.dart';
+import 'package:taleria/domain/content_models.dart';
 import 'package:taleria/features/island/island_scene.dart';
 
+import '../fake_content.dart';
 import '../test_helpers.dart';
 
 void main() {
@@ -45,6 +47,50 @@ void main() {
     expect(route.length, greaterThan(5));
     expect(route.every((p) => p.dx >= 0 && p.dx <= 1 && p.dy >= 0 && p.dy <= 1), isTrue);
     expect(route.first.dy, greaterThan(route.last.dy), reason: 'Start unten am Steg');
+  });
+
+  test('Ankerplätze liegen am Wasser, die anderen Stationen auf dem Weg', () {
+    final content = FakeContent();
+    final hafen = content.mapIslands.firstWhere((i) => i.slug == 'hafen');
+    final stations = [...content.stations[hafen.id]!.where((s) => s.isRequired)]
+      ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+    final entry = realManifest().lookup('island.hafen.background');
+    expect(entry.dives, hasLength(3));
+    final dives = diveSpots(entry.dives, stations);
+    final spots = placeStations(entry.route!, stations, const Size(390, 693), dives);
+    final diveIndexes = [
+      for (final (i, s) in stations.indexed)
+        if (s.isDive) i,
+    ];
+    expect(diveIndexes, hasLength(3));
+    expect([for (final i in diveIndexes) spots[i]], entry.dives, reason: 'am Strand, der Reihe nach');
+    // Die anderen Stationen bleiben auf dem Weg, vom Steg nach oben.
+    final path = [
+      for (final (i, s) in stations.indexed)
+        if (!s.isDive) spots[i].dy,
+    ];
+    expect(path, [...path]..sort((a, b) => b.compareTo(a)));
+  });
+
+  test('Ohne Stellen am Wasser liegen Ankerplätze auf dem Weg', () {
+    final content = FakeContent();
+    final hafen = content.mapIslands.firstWhere((i) => i.slug == 'hafen');
+    final stations = content.stations[hafen.id]!.where((s) => s.isRequired).toList();
+    expect(diveSpots(null, stations), isNull);
+    expect(diveSpots(const [Offset(0.1, 0.5)], stations), isNull, reason: 'zu wenige Stellen');
+    final spots = placeStations(defaultIslandRoute, stations, const Size(390, 693), null);
+    expect(spots, hasLength(stations.length));
+  });
+
+  test('Jede Insel mit Bild hat genug Stellen am Wasser für ihre Ankerplätze', () {
+    final content = FakeContent();
+    final manifest = realManifest();
+    for (final island in content.mapIslands) {
+      final entry = manifest.lookup('island.${island.slug}.background');
+      if (entry.path == null) continue;
+      final dives = (content.stations[island.id] ?? const <StationInfo>[]).where((s) => s.isDive).length;
+      expect(entry.dives?.length ?? 0, greaterThanOrEqualTo(dives), reason: island.slug);
+    }
   });
 
   test('Kaputter Weg im Manifest wird mit Meldung abgelehnt', () {
