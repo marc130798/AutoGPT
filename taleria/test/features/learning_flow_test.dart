@@ -109,7 +109,7 @@ void main() {
     await tapKey(tester, 'island-hafen');
 
     // Keine Ankunft im Hafen (der Film lief schon im Intro), direkt die Stationen.
-    expect(find.text('Stationen'), findsOneWidget);
+    expect(find.byKey(const ValueKey('island-scene')), findsOneWidget);
     await tapKey(tester, 'station-3');
     expect(find.text('Diese Station öffnet sich, wenn du die Station davor geschafft hast.'), findsOneWidget);
     await tapKey(tester, 'station-1');

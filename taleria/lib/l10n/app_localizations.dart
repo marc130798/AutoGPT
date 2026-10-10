@@ -1279,6 +1279,12 @@ abstract class AppLocalizations {
   /// **'Ankunft noch einmal ansehen'**
   String get islandArrivalAgain;
 
+  /// Talo auf der Insel: welche Station als Nächstes dran ist
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter geht\'s mit „{title}“. Tipp auf die leuchtende Stelle am Weg!'**
+  String islandNextHint(String title);
+
   /// Hinweis, wenn eine Insel abgeschlossen ist
   ///
   /// In de, this message translates to:

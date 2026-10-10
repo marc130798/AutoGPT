@@ -652,6 +652,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get islandArrivalAgain => 'Ankunft noch einmal ansehen';
 
   @override
+  String islandNextHint(String title) {
+    return 'Weiter geht\'s mit „$title“. Tipp auf die leuchtende Stelle am Weg!';
+  }
+
+  @override
   String get islandAllDone => 'Alle Stationen geschafft. Das Kartenstück gehört euch!';
 
   @override

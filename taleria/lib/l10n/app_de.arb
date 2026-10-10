@@ -881,6 +881,15 @@
   "@islandArrivalAgain": {
     "description": "Knopf: Ankunftsszene der Insel erneut zeigen"
   },
+  "islandNextHint": "Weiter geht's mit „{title}“. Tipp auf die leuchtende Stelle am Weg!",
+  "@islandNextHint": {
+    "description": "Talo auf der Insel: welche Station als Nächstes dran ist",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "islandAllDone": "Alle Stationen geschafft. Das Kartenstück gehört euch!",
   "@islandAllDone": {
     "description": "Hinweis, wenn eine Insel abgeschlossen ist"

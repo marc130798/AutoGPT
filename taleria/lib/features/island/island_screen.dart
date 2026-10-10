@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
-import '../../core/assets/asset_keys.dart';
-import '../../core/assets/taleria_asset.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -12,7 +10,9 @@ import '../../l10n/app_localizations.dart';
 import '../../services/island_controller.dart';
 import '../common/texts.dart';
 import '../station/dialog_sequence.dart';
+import '../intro/speech_bubble.dart';
 import '../station/station_screen.dart';
+import 'island_scene.dart';
 
 /// Eine Insel: Ankunft beim ersten Besuch, danach die Stationen der Reihe nach.
 class IslandScreen extends StatefulWidget {
@@ -170,43 +170,80 @@ class _StationList extends StatelessWidget {
     final theme = Theme.of(context);
     final details = controller.details!;
     final stations = controller.stations;
-    final allDone = stations.where((s) => s.isRequired).every((s) => controller.stateOf(s) == StationState.done);
+    final required = stations.where((s) => s.isRequired).toList();
+    final allDone = required.every((s) => controller.stateOf(s) == StationState.done);
+    final next = required
+        .where((s) => controller.stateOf(s) == StationState.open && !s.content.isOnboarding)
+        .firstOrNull;
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        Center(child: TaleriaAsset(AssetKeys.islandBackground(details.slug), width: 220, height: 120)),
-        if (details.goal != null) ...[
-          const SizedBox(height: 12),
-          Text(details.goal!, style: theme.textTheme.bodyLarge),
-        ],
-        if (allDone && stations.isNotEmpty) ...[
-          const SizedBox(height: 12),
-          Text(l10n.islandAllDone, style: theme.textTheme.titleMedium),
-        ],
-        if (stations.any((s) => controller.stateOf(s) == StationState.noWind)) ...[
-          const SizedBox(height: 12),
-          Card(
-            key: const ValueKey('island-wind-hint'),
-            child: ListTile(
-              leading: const Icon(Icons.air),
-              title: Text(l10n.windNeededFor(controller.pace)),
-              subtitle: Text(l10n.windMeanwhile),
+    // Kein ListView: Die Seite ist kurz, und so sind Wegmarken und Liste immer gebaut.
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Oben, was als Nächstes dran ist (oder dass Wind fehlt), damit es ohne Scrollen zu sehen ist.
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (allDone && stations.isNotEmpty)
+                  SpeechBubble(speaker: Speaker.talo, text: l10n.islandAllDone)
+                else if (next != null)
+                  SpeechBubble(speaker: Speaker.talo, text: l10n.islandNextHint(next.content.title)),
+                if (stations.any((s) => controller.stateOf(s) == StationState.noWind)) ...[
+                  if (next != null || allDone) const SizedBox(height: 12),
+                  Card(
+                    key: const ValueKey('island-wind-hint'),
+                    child: ListTile(
+                      leading: const Icon(Icons.air),
+                      title: Text(l10n.windNeededFor(controller.pace)),
+                      subtitle: Text(l10n.windMeanwhile),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          // Die Insel von innen: Wegmarken vom Steg nach oben (Schlüssel station-N, dive-N).
+          IslandScene(
+            key: const ValueKey('island-scene'),
+            slug: details.slug,
+            stations: required,
+            stateOf: controller.stateOf,
+            onOpen: onOpen,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (details.goal != null) ...[
+                  Text(details.goal!, style: theme.textTheme.bodyLarge),
+                  const SizedBox(height: 16),
+                ],
+                Text(l10n.islandStationsHeading, style: theme.textTheme.titleLarge),
+                const SizedBox(height: 8),
+                for (final station in stations)
+                  _StationTile(
+                    station: station,
+                    state: controller.stateOf(station),
+                    // Pflichtstationen haben ihren Schlüssel auf der Wegmarke, Bonus-Stationen hier.
+                    keyed: !station.isRequired,
+                    onTap: () => onOpen(station),
+                  ),
+                if (details.hasArrival)
+                  TextButton.icon(
+                    onPressed: () => _replayArrival(context, details),
+                    icon: const Icon(Icons.replay),
+                    label: Text(l10n.islandArrivalAgain),
+                  ),
+              ],
             ),
           ),
         ],
-        const SizedBox(height: 16),
-        Text(l10n.islandStationsHeading, style: theme.textTheme.titleLarge),
-        const SizedBox(height: 8),
-        for (final station in stations)
-          _StationTile(station: station, state: controller.stateOf(station), onTap: () => onOpen(station)),
-        if (details.hasArrival)
-          TextButton.icon(
-            onPressed: () => _replayArrival(context, details),
-            icon: const Icon(Icons.replay),
-            label: Text(l10n.islandArrivalAgain),
-          ),
-      ],
+      ),
     );
   }
 
@@ -225,10 +262,11 @@ class _StationList extends StatelessWidget {
 }
 
 class _StationTile extends StatelessWidget {
-  const _StationTile({required this.station, required this.state, required this.onTap});
+  const _StationTile({required this.station, required this.state, required this.keyed, required this.onTap});
 
   final StationInfo station;
   final StationState state;
+  final bool keyed;
   final VoidCallback onTap;
 
   @override
@@ -241,7 +279,9 @@ class _StationTile extends StatelessWidget {
         : (station.isExam ? l10n.stationExam : l10n.stationNumber(station.displayNumber));
 
     return Card(
-      key: ValueKey(station.isDive ? 'dive-${station.displayNumber}' : 'station-${station.displayNumber}'),
+      key: keyed
+          ? ValueKey(station.isDive ? 'dive-${station.displayNumber}' : 'station-${station.displayNumber}')
+          : null,
       color: locked ? Theme.of(context).colorScheme.surfaceContainerHighest : null,
       child: ListTile(
         minTileHeight: 72,

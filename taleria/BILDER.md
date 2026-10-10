@@ -199,6 +199,36 @@ Tala bekommt einen grünen statt pinken Hintergrund, weil sie selbst rosa ist. S
 
 ---
 
+## 4b. Die Inseln von innen
+
+Tippt das Kind auf der Karte auf eine Insel, füllt sie den ganzen Bildschirm. Auf ihrem Weg liegen die Stationen als Wegmarken (die zeichnet die App). Jede Insel braucht dafür ein Bild im Hochformat. Immer das Kartenbild der Insel anhängen, damit es dieselbe Insel wird.
+
+| Insel | Datei | Stand |
+| --- | --- | --- |
+| Hafen | `island.hafen.background` | da (10.10.2026) |
+| Tauschinsel | `island.tauschinsel.background` | fehlt |
+| Wunschinsel | `island.wunschinsel.background` | fehlt |
+
+**Tauschinsel** (Kartenbild der Tauschinsel anhängen):
+
+```
+Die gleiche Insel wie im angehängten Bild, aber ganz nah und im Hochformat 9:16, sie füllt das ganze Bild. Blick schräg von oben. Unten am Rand eine kleine Anlegestelle aus Holz am Wasser. Von dort schlängelt sich ein heller Sandweg in großen Kurven nach oben durch die ganze Insel: vorbei an einem Eisstand am Strand, einer Werkstatt mit Fischernetzen, einem großen Tauschmarkt mit bunten Stoffbahnen und Wimpeln und Körben voller Obst, Fische und Werkzeug, einer kleinen Quelle an einem Hügel, bis zu einem hölzernen Aussichtsturm ganz oben. Palmen, Wiesen und an den Seiten etwas türkises Wasser. Der Weg ist gut sichtbar und frei, ohne Gebäude darauf.
+
+Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus einem Kinofilm für Kinder. Weiche Formen, leuchtende, warme Farben, sonniges Licht von links oben. Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere.
+```
+
+**Wunschinsel** (Kartenbild der Wunschinsel anhängen):
+
+```
+Die gleiche Insel wie im angehängten Bild, aber ganz nah und im Hochformat 9:16, sie füllt das ganze Bild. Blick schräg von oben, warmes Licht am späten Nachmittag. Unten am Rand ein Strand mit angespülten Glasflaschen und ein kleiner Steg am Wasser. Von dort schlängelt sich ein heller Weg aus Sand und Steinplatten in großen Kurven nach oben durch die ganze Insel: vorbei an einem kleinen Laden mit glitzernden Schaufenstern, einem Packhaus mit Kisten, einem runden Platz, einer gemütlichen Höhle in einem Hügel und einem großen Felsen, bis zu einem Wunschbrunnen mit goldenen Lichterketten ganz oben. Palmen, Wiesen und an den Seiten etwas türkises Wasser. Der Weg ist gut sichtbar und frei, ohne Gebäude darauf.
+
+Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus einem Kinofilm für Kinder. Weiche Formen, leuchtende, warme Farben, sonniges Licht von links oben. Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere.
+```
+
+Den Verlauf des Wegs zeichnet Claude Code im Bild nach und trägt ihn im Manifest ein (`route`). Darauf verteilt die App die Wegmarken.
+
+---
+
 ## 5. Was der Code dazu macht
 
 - **Meer:** Das Wasserbild wird untereinander gesetzt (jedes zweite gespiegelt, damit man keine Kante sieht). Darüber glitzert es und kleine Wellen bewegen sich.
@@ -228,6 +258,7 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 - Meer (`map.background`): JPG, 768 px breit, aus Bild und Spiegelbild zu einer Kachel zusammengesetzt, die sich nahtlos wiederholt.
 - Wolke (640 px): PNG, die Helligkeit wird zur Deckkraft (weiß auf schwarz).
 - Die Originale von Gemini liegen in `design/gemini/` (gleicher Name wie der Schlüssel). So lassen sie sich jederzeit neu freistellen.
+- Inseln von innen (`island.<slug>.background`): JPG, Hochformat 9:16, unverändert verkleinert (`--art hintergrund`). Dazu im Manifest `route`: Punkte des Wegs von unten (Steg) nach oben, jeweils [x, y] von 0 bis 1.
 - Alle Bilder vor dem Einbau in `ASSETS_LICENSES.md` eintragen.
 
 **Stand 10.10.2026:** Bild 1 bis 6 sind da und eingebaut (eine längliche Wolke). Für die Startseite sind Bild 7 bis 13 eingebaut, dazu die Entwürfe von Talo und Tala (Bild 14 und 15).

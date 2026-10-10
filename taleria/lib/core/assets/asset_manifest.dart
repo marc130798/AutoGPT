@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:ui' show Color;
+import 'dart:ui' show Color, Offset;
 
 /// Art einer Datei aus dem Asset-Manifest.
 enum AssetType { image, rive, lottie, video, audio }
@@ -18,7 +18,7 @@ class AssetPlaceholderSpec {
 
 /// Ein Eintrag im Manifest: fester Schlüssel → Datei + Platzhalter.
 class AssetEntry {
-  const AssetEntry({required this.key, required this.type, required this.path, required this.placeholder});
+  const AssetEntry({required this.key, required this.type, required this.path, required this.placeholder, this.route});
 
   /// Fester Schlüssel, z. B. `character.talo` oder `video.intro`.
   final String key;
@@ -28,6 +28,11 @@ class AssetEntry {
   /// (z. B. Filme, die später in Supabase Storage liegen).
   final String? path;
   final AssetPlaceholderSpec placeholder;
+
+  /// Weg durch das Bild, falls es einen hat (zum Beispiel vom Steg zum Marktplatz
+  /// einer Insel): Punkte von 0 bis 1, x von links, y von oben. Darauf setzt die
+  /// App die Stationen. Gehört zum Bild, weil er genau dessen Weg nachzeichnet.
+  final List<Offset>? route;
 
   /// Erster Teil des Schlüssels, z. B. `character` bei `character.talo`.
   String get category => key.split('.').first;
@@ -105,9 +110,24 @@ class TaleriaAssetManifest {
     if (shape == null) {
       throw AssetManifestException('"$key": unbekannte Form ${placeholder['shape']}');
     }
+    final route = raw['route'];
+    List<Offset>? points;
+    if (route != null) {
+      if (route is! List || route.length < 2) {
+        throw AssetManifestException('"$key": route braucht mindestens zwei Punkte');
+      }
+      points = [];
+      for (final point in route) {
+        if (point is! List || point.length != 2 || point.any((v) => v is! num || v < 0 || v > 1)) {
+          throw AssetManifestException('"$key": jeder Punkt der route ist [x, y] mit Werten von 0 bis 1');
+        }
+        points.add(Offset((point[0] as num).toDouble(), (point[1] as num).toDouble()));
+      }
+    }
     return AssetEntry(
       key: key,
       type: type,
+      route: points,
       path: path as String?,
       placeholder: AssetPlaceholderSpec(
         label: label,

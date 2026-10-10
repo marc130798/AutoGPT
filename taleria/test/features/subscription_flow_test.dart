@@ -59,7 +59,7 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
     await tester.pumpAndSettle();
     await tapKey(tester, 'island-hafen');
-    expect(find.text('Stationen'), findsOneWidget);
+    expect(find.byKey(const ValueKey('island-scene')), findsOneWidget);
   });
 
   Future<FakeBackend> openLighthouse(WidgetTester tester, {bool premium = false}) async {
