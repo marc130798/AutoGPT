@@ -71,6 +71,16 @@ class FakeContent implements ContentRepository {
             xpReward: s.xp,
             content: StationContent.fromJson(s.toDbContent()),
           ),
+        for (final (k, st) in island.seaStops.indexed)
+          StationInfo(
+            id: '$id/sea${k + 1}',
+            islandId: id,
+            sortOrder: k + 1,
+            type: StationType.seaStop,
+            isRequired: true,
+            xpReward: st.xp,
+            content: StationContent.fromJson(st.toDbContent(k + 1)),
+          ),
         for (final (k, d) in island.dives.indexed)
           StationInfo(
             id: '$id/dive${k + 1}',
@@ -93,6 +103,20 @@ class FakeContent implements ContentRepository {
           title: d.find,
           assetKey: d.findImage,
         );
+      }
+      for (final (k, st) in island.seaStops.indexed) {
+        final stopId = '$id/sea${k + 1}';
+        questions[stopId] = [
+          for (final (i, q) in st.questions.indexed)
+            QuizQuestion(
+              id: '$stopId/q${i + 1}',
+              stationId: stopId,
+              question: q.question,
+              answers: q.answers,
+              correctIndex: 0,
+              explanation: q.explanation,
+            ),
+        ];
       }
       for (final s in island.stations) {
         final stationId = '$id/station${s.number}';
@@ -137,9 +161,13 @@ class FakeContent implements ContentRepository {
 
   MapIsland island(String slug) => mapIslands.firstWhere((i) => i.slug == slug);
 
-  /// Station einer Insel nach angezeigter Nummer (ohne Ankerplätze).
+  /// Station einer Insel nach angezeigter Nummer (ohne Ankerplätze und Stopps auf See).
   StationInfo station(String slug, int number) =>
-      stations['island-$slug']!.firstWhere((s) => !s.isDive && s.displayNumber == number);
+      stations['island-$slug']!.firstWhere((s) => !s.isDive && !s.isSeaStop && s.displayNumber == number);
+
+  /// Stopp auf See vor einer Insel (1 oder 2).
+  StationInfo seaStop(String slug, int number) =>
+      stations['island-$slug']!.firstWhere((s) => s.id.endsWith('/sea$number'));
 
   /// Ankerplatz einer Insel (1 bis 3).
   StationInfo dive(String slug, int number) =>
@@ -147,6 +175,11 @@ class FakeContent implements ContentRepository {
 
   @override
   Future<List<MapIsland>> fetchMap(int stage) async => mapIslands;
+
+  @override
+  Future<List<StationInfo>> fetchSeaStops(List<String> islandIds) async => [
+    for (final id in islandIds) ...?stations[id]?.where((s) => s.isSeaStop),
+  ];
 
   @override
   Future<IslandDetails> fetchIsland(String islandId) async => details[islandId]!;
@@ -258,7 +291,9 @@ class FakeProgress implements ProgressRepository {
     final state = stationStates(stations, ChildProgress(doneStationIds: done), onboardingCompleted: true)[stationId];
     if (state == StationState.locked) throw const AppFailure(FailureKind.notAllowed, 'gesperrt');
     final first = !done.contains(stationId);
-    if (first && station.isRequired && !station.isDive && stationsPerWeek != null && wind <= 0) {
+    // Ankerplätze und Stopps auf See brauchen keinen Wind (wie submit_station()).
+    final noWind = station.isDive || station.isSeaStop;
+    if (first && station.isRequired && !noWind && stationsPerWeek != null && wind <= 0) {
       throw const AppFailure(FailureKind.noWind, 'Das Schiff braucht Wind');
     }
 
@@ -281,7 +316,7 @@ class FakeProgress implements ProgressRepository {
       }
     }
     if (passed) {
-      if (first && !station.isDive && stationsPerWeek != null) wind--;
+      if (first && !noWind && stationsPerWeek != null) wind--;
       done.add(stationId);
       if (!xp.containsKey(stationId)) {
         xp[stationId] = station.xpReward;
@@ -303,7 +338,7 @@ class FakeProgress implements ProgressRepository {
       islandCompleted: islandCompleted,
       rankUp: rankAfter != rankBefore ? rankAfter : null,
       badge: islandCompleted ? content.badges[islandId] : null,
-      windLeft: stationsPerWeek == null || station.isDive ? null : wind,
+      windLeft: stationsPerWeek == null || noWind ? null : wind,
       find: find,
     );
   }

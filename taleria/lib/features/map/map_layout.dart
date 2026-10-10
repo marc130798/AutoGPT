@@ -24,7 +24,8 @@ class MapLayout {
     // Pro Insel: das Bild, darunter das Namensband und etwas Meer. Die Inseln
     // liegen in der Datenbank etwas enger als eine Zeile (0,06 bis 0,065 von
     // 15), deshalb der Zuschlag.
-    final rowHeight = islandHeight * 1.12 + 56;
+    // Dazu Meer zwischen zwei Inseln für die Stopps auf See.
+    final rowHeight = islandHeight * 1.12 + 56 + seaGap;
     final top = islandHeight * 0.75 + 24;
     final bottom = islandHeight * 0.5 + 64;
     final height = max(viewportHeight, max(1, islands.length) * rowHeight + top + bottom);
@@ -47,6 +48,17 @@ class MapLayout {
 
   /// Höhe zu Breite eines Inselbilds.
   static const artAspect = 0.62;
+
+  /// Zusätzliches Meer zwischen zwei Inseln, damit die Stopps auf See dort
+  /// Platz haben (Marke mit Namen, etwa 100 Punkte hoch, dazu Abstand).
+  static const seaGap = 190.0;
+
+  /// So weit ragen manche Inselbilder über ihr Feld hinaus (der Turm der
+  /// Tauschinsel). Stopps auf See halten diesen Abstand zur Insel darunter.
+  static const artOverflow = 36.0;
+
+  /// Platz unter jeder Insel für ihr Namensband (wie `MapIslandMarker.labelSpace`).
+  static const islandLabelSpace = 40.0;
 
   final double width;
   final double height;
@@ -105,6 +117,27 @@ class MapLayout {
 
     // Blickrichtung für die ganze Fahrt gleich, damit das Schiff nicht hin und her springt.
     return (position: at(t), movingLeft: at(1).dx < at(0).dx);
+  }
+
+  /// Wo [count] Stopps auf See vor Routen-Insel [index] liegen: mitten im
+  /// Meer zwischen ihr und der Insel davor, auf der Route, bei zwei Stopps
+  /// nebeneinander (links der erste). Leer für die erste Insel.
+  List<Offset> seaStopSpots(int index, int count) {
+    if (index <= 0 || index >= route.length || count <= 0) return const [];
+    final lower = centerOf(route[index - 1].id), upper = centerOf(route[index].id);
+    // Freies Meer: zwischen dem Namensband der oberen Insel und der unteren Insel.
+    final top = upper.dy + islandHeight / 2 + islandLabelSpace;
+    final bottom = lower.dy - islandHeight / 2 - artOverflow;
+    final y = (top + bottom) / 2;
+    final t = lower.dy == upper.dy ? 0.5 : ((lower.dy - y) / (lower.dy - upper.dy)).clamp(0.0, 1.0);
+    final mid = Offset(pointOn(index - 1, t).dx, y);
+    const spacing = 112.0;
+    const margin = 56.0;
+    final firstX = (mid.dx - spacing * (count - 1) / 2).clamp(
+      margin,
+      max(margin, width - margin - spacing * (count - 1)),
+    );
+    return [for (var k = 0; k < count; k++) Offset(firstX + spacing * k, y)];
   }
 
   /// Scroll-Abstand (Karte unten verankert), bei dem [y] in der Mitte steht.

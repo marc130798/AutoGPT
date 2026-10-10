@@ -182,8 +182,30 @@ void main() {
     expect(find.text('Neuer Orden: Erster Landgang'), findsOneWidget);
     await tapText(tester, 'Zur Karte');
 
-    // Zurück auf der Karte: Tauschinsel ist offen, mit Ankunftsszene beim ersten Besuch.
+    // Zurück auf der Karte: Auf dem Weg zur Tauschinsel liegen zwei Stopps auf See.
     expect(progress.completedIslands, contains('island-hafen'));
+    await tapKey(tester, 'island-tauschinsel');
+    expect(
+      find.text('Auf dem Weg zu dieser Insel liegen noch Stopps auf See. Tipp auf den leuchtenden Stopp!'),
+      findsOneWidget,
+    );
+    await tapKey(tester, 'sea-stop-tauschinsel-2');
+    expect(
+      find.text('Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.'),
+      findsOneWidget,
+    );
+    for (final k in [1, 2]) {
+      await tapKey(tester, 'sea-stop-tauschinsel-$k');
+      await playUntilQuiz(tester);
+      expect(find.text('Weißt du noch?'), findsNothing, reason: 'der Stopp wiederholt selbst');
+      await answerAllCorrectly(tester, content);
+      expect(find.text('Stopp geschafft!'), findsOneWidget);
+      expect(find.text('+30 Seemeilen'), findsOneWidget);
+      await tapText(tester, 'Weiter segeln');
+    }
+    expect(progress.done, containsAll(['island-tauschinsel/sea1', 'island-tauschinsel/sea2']));
+
+    // Jetzt ist die Tauschinsel offen, mit Ankunftsszene beim ersten Besuch.
     await tapKey(tester, 'island-tauschinsel');
     expect(find.text('Film folgt'), findsOneWidget);
     await tapText(tester, 'Weiter');

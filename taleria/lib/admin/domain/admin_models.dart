@@ -225,6 +225,7 @@ class StationStats {
 
   bool get isDive => type == 'review_stop';
   bool get isExam => type == 'exam';
+  bool get isSeaStop => type == 'sea_stop';
 }
 
 class IslandStats {

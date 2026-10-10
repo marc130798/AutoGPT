@@ -14,6 +14,10 @@ abstract interface class ContentRepository {
 
   Future<List<StationInfo>> fetchStations(String islandId);
 
+  /// Stopps auf See (Pflichtstationen auf der Route vor einer Insel) der
+  /// Inseln [islandIds], für die Karte.
+  Future<List<StationInfo>> fetchSeaStops(List<String> islandIds);
+
   Future<List<QuizQuestion>> fetchQuestions(String stationId);
 
   /// Prüfungsfragen früherer Inseln derselben Stufe (Rückblick).
@@ -117,18 +121,19 @@ class SupabaseContentRepository implements ContentRepository {
         .select('id, island_id, sort_order, type, is_required, xp_reward, content')
         .eq('island_id', islandId)
         .order('sort_order', ascending: true);
-    return [
-      for (final r in rows)
-        StationInfo(
-          id: r['id'] as String,
-          islandId: r['island_id'] as String,
-          sortOrder: r['sort_order'] as int,
-          type: StationInfo.parseType(r['type'] as String?),
-          isRequired: r['is_required'] as bool,
-          xpReward: r['xp_reward'] as int,
-          content: StationContent.fromJson((r['content'] as Map<String, dynamic>?) ?? const {}),
-        ),
-    ];
+    return [for (final r in rows) StationInfo.fromRow(r)];
+  });
+
+  @override
+  Future<List<StationInfo>> fetchSeaStops(List<String> islandIds) => guardBackend(() async {
+    if (islandIds.isEmpty) return const <StationInfo>[];
+    final rows = await _client
+        .from('stations')
+        .select('id, island_id, sort_order, type, is_required, xp_reward, content')
+        .eq('type', 'sea_stop')
+        .inFilter('island_id', islandIds)
+        .order('sort_order', ascending: true);
+    return [for (final r in rows) StationInfo.fromRow(r)];
   });
 
   @override

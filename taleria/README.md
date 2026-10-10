@@ -310,6 +310,18 @@ und den Ordner `build/web` auf einen Webspace laden (wo, ist noch offen).
 Veröffentlichte Inhalte schützt die Datenbank: Korrekturen gehen, Pflichtstationen und
 Prüfungsfragen lassen sich aber nicht mehr entfernen oder zurückziehen.
 
+## Was du ausprobieren kannst (zweite Runde: Stopps auf See, Bildergeschichten, mit Test-Server)
+
+Vorher die Datenbank aktualisieren: im SQL Editor des **Testprojekts** den Inhalt von
+`supabase/migrations/20261010000200_stopps_auf_see.sql` ausführen (geht auch zweimal) und danach
+`supabase/seed.sql`.
+
+1. Insel: Station 1 liegt jetzt unten am Steg, die Prüfung oben. Die drei Tauchplätze liegen am Strand.
+2. Station: Die Erklärung ist eine Bildergeschichte zum Blättern (bis die Bilder da sind, mit Platzhaltern).
+3. Startseite: auf den Rang tippen. Dann siehst du alle Ränge als Zeitstrahl mit Seemeilen.
+4. Karte: Nach dem Hafen liegen zwei Stopps auf See vor der Tauschinsel (Händlerschiff und Fischerboot). Erst danach geht die Tauschinsel auf.
+5. Sammlung und Orden: Der erste Fund und der erste Orden stehen jetzt oben.
+
 ## Was du ausprobieren kannst (Rückmeldungen aus dem Test, mit Test-Server)
 
 Die Datenbank bleibt gleich, es braucht keine neue SQL-Datei.

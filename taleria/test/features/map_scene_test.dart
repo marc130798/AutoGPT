@@ -21,6 +21,7 @@ void main() {
   Future<({FakeLocalSettings settings, String childId})> openMap(
     WidgetTester tester, {
     bool hafenDone = false,
+    bool stopsDone = true,
     String? lastShip,
   }) async {
     final backend = FakeBackend();
@@ -30,6 +31,7 @@ void main() {
     final content = FakeContent();
     final progress = FakeProgress(content);
     if (hafenDone) progress.completedIslands.add('island-hafen');
+    if (hafenDone && stopsDone) progress.done.addAll(['island-tauschinsel/sea1', 'island-tauschinsel/sea2']);
     final settings = FakeLocalSettings();
     if (lastShip != null) settings.ships[mila.id] = lastShip;
 
@@ -88,6 +90,17 @@ void main() {
     expect(lockOn('tauschinsel'), findsNothing);
     // Die Wunschinsel bleibt verschlossen.
     expect(lockOn('wunschinsel'), findsOneWidget);
+  });
+
+  testWidgets('Stopps auf See: Schiff wartet am Hafen, die Tauschinsel bleibt zu', (tester) async {
+    final (:settings, :childId) = await openMap(tester, hafenDone: true, stopsDone: false, lastShip: 'island-hafen');
+    await tester.pump(const Duration(seconds: 3));
+    expect(settings.ships[childId], 'island-hafen', reason: 'erst nach den Stopps fährt das Schiff weiter');
+    expect(lockOn('tauschinsel'), findsOneWidget);
+    expect(find.byKey(const ValueKey('sea-stop-tauschinsel-1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('sea-stop-tauschinsel-2')), findsOneWidget);
+    expect(find.text('Das Händlerschiff'), findsOneWidget);
+    expect(find.text('Das Fischerboot'), findsOneWidget);
   });
 
   testWidgets('Bewegung reduziert: kein Nebel-Start, keine Fahrt', (tester) async {

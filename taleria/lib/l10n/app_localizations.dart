@@ -1231,6 +1231,30 @@ abstract class AppLocalizations {
   /// **'Fellfarbe'**
   String get avatarFur;
 
+  /// Hinweis: Insel offen, aber die Stopps auf See davor fehlen noch
+  ///
+  /// In de, this message translates to:
+  /// **'Auf dem Weg zu dieser Insel liegen noch Stopps auf See. Tipp auf den leuchtenden Stopp!'**
+  String get mapSeaStopsFirst;
+
+  /// Hinweis: Stopp auf See noch gesperrt
+  ///
+  /// In de, this message translates to:
+  /// **'Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.'**
+  String get mapSeaStopLocked;
+
+  /// Ergebnis nach einem Stopp auf See
+  ///
+  /// In de, this message translates to:
+  /// **'Stopp geschafft!'**
+  String get seaStopDone;
+
+  /// Knopf nach einem Stopp auf See: zurück zur Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter segeln'**
+  String get seaStopBack;
+
   /// Hinweis beim Tipp auf eine gesperrte Insel
   ///
   /// In de, this message translates to:

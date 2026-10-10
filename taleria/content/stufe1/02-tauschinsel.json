@@ -46,6 +46,170 @@
     "Gibt es etwas, das dir viel wert ist, für andere aber kaum etwas?",
     "Wann musstest du zuletzt auf etwas verzichten, um dir etwas anderes leisten zu können?"
   ],
+  "stopps_auf_see": [
+    {
+      "art": "haendlerschiff",
+      "figur": "haendler",
+      "titel": "Das Händlerschiff",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "haendler",
+          "text": "Ahoi, Crew! Ich segle mit meinem Händlerschiff auch zur Tauschinsel. Was habt ihr im Hafen gelernt?"
+        },
+        {
+          "wer": "talo",
+          "text": "Eine ganze Menge! Frag ruhig."
+        },
+        {
+          "wer": "haendler",
+          "text": "Dann beantwortet mir drei Fragen, und wir segeln zusammen weiter."
+        }
+      ],
+      "abschluss": {
+        "wer": "haendler",
+        "text": "Sehr gut, ihr kennt euch mit Geld aus! Gute Fahrt zur Tauschinsel."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Warum nehmen Händler lieber Geld als Waren zum Tauschen?",
+          "richtig": "Fast jeder nimmt Geld an.",
+          "falsch": [
+            "Geld ist schwerer als Waren.",
+            "Mit Geld muss man nie rechnen."
+          ],
+          "erklaerung": "Beim Tauschen muss jeder genau das haben, was der andere braucht. Geld nimmt fast jeder an."
+        },
+        {
+          "frage": "Womit haben Menschen früher bezahlt, bevor es Münzen gab?",
+          "richtig": "Mit seltenen Dingen wie Muscheln oder Salz",
+          "falsch": [
+            "Mit Bankkarten",
+            "Mit Handys"
+          ],
+          "erklaerung": "Früher waren seltene Dinge wie bestimmte Muscheln oder Salz das Geld."
+        },
+        {
+          "frage": "Warum kann man Geld gut aufheben?",
+          "richtig": "Es wird nicht schlecht.",
+          "falsch": [
+            "Es wird jedes Jahr mehr.",
+            "Man muss es jeden Tag ausgeben."
+          ],
+          "erklaerung": "Ein Fischbrötchen wird schlecht, ein Taler nicht. Deshalb kann man Geld für später aufheben."
+        },
+        {
+          "frage": "Wie verdienen die meisten Erwachsenen ihr Geld?",
+          "richtig": "Mit Arbeit, dafür bekommen sie Lohn oder Gehalt",
+          "falsch": [
+            "Sie drucken es selbst.",
+            "Sie bekommen es geschenkt, wann sie wollen."
+          ],
+          "erklaerung": "Die meisten Erwachsenen arbeiten und bekommen dafür Lohn oder Gehalt. Geld selbst drucken ist verboten."
+        },
+        {
+          "frage": "Was steckt alles im Preis eines Fischbrötchens?",
+          "richtig": "Zutaten, Miete, Lohn und ein Gewinn",
+          "falsch": [
+            "Nur der Fisch",
+            "Nur der Gewinn des Stands"
+          ],
+          "erklaerung": "Im Preis stecken die Zutaten, die Miete für den Stand, der Lohn der Verkäuferin und ein Gewinn."
+        },
+        {
+          "frage": "Was passiert, wenn ein Stand viel zu hohe Preise verlangt?",
+          "richtig": "Die Leute kaufen woanders.",
+          "falsch": [
+            "Alle kaufen trotzdem doppelt so viel.",
+            "Der Stand bekommt Geld geschenkt."
+          ],
+          "erklaerung": "Ist der Preis zu hoch, kaufen die Leute woanders. Deshalb muss ein Preis passen."
+        }
+      ]
+    },
+    {
+      "art": "fischerboot",
+      "figur": "otti",
+      "titel": "Das Fischerboot",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "otti",
+          "text": "Hilfe! Ich verkaufe Fische und komme mit dem Wechselgeld durcheinander."
+        },
+        {
+          "wer": "tala",
+          "text": "Wir helfen dir! Rechnen mit Münzen haben wir im Hafen geübt."
+        },
+        {
+          "wer": "otti",
+          "text": "Danke! Dann los, die Kundschaft wartet."
+        }
+      ],
+      "abschluss": {
+        "wer": "otti",
+        "text": "Jetzt stimmt meine Kasse! Wir sehen uns auf der Tauschinsel."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Ein Fisch kostet 2 Euro. Wie viel kosten 3 Fische?",
+          "richtig": "6 Euro",
+          "falsch": [
+            "5 Euro",
+            "8 Euro"
+          ],
+          "erklaerung": "3 mal 2 Euro sind 6 Euro."
+        },
+        {
+          "frage": "Wie viele Cent sind 1 Euro?",
+          "richtig": "100 Cent",
+          "falsch": [
+            "10 Cent",
+            "1.000 Cent"
+          ],
+          "erklaerung": "100 Cent sind genau 1 Euro."
+        },
+        {
+          "frage": "Ein Fisch kostet 3 Euro. Jemand bezahlt mit einem 5-Euro-Schein. Wie viel Wechselgeld bekommt er?",
+          "richtig": "2 Euro",
+          "falsch": [
+            "3 Euro",
+            "8 Euro"
+          ],
+          "erklaerung": "5 Euro minus 3 Euro sind 2 Euro Wechselgeld."
+        },
+        {
+          "frage": "Welche Münzen ergeben zusammen genau 1 Euro?",
+          "richtig": "Zwei 50-Cent-Münzen",
+          "falsch": [
+            "Zwei 20-Cent-Münzen",
+            "Fünf 10-Cent-Münzen"
+          ],
+          "erklaerung": "50 Cent und 50 Cent sind 100 Cent, also 1 Euro."
+        },
+        {
+          "frage": "Otti bekommt einen Geldschein. Welcher ist der kleinste Euro-Schein, den es gibt?",
+          "richtig": "Der 5-Euro-Schein",
+          "falsch": [
+            "Der 1-Euro-Schein",
+            "Der 2-Euro-Schein"
+          ],
+          "erklaerung": "Den kleinsten Schein gibt es für 5 Euro. 1 Euro und 2 Euro sind Münzen."
+        },
+        {
+          "frage": "Was kostet meistens am meisten?",
+          "richtig": "Ein Fahrrad",
+          "falsch": [
+            "Ein Brötchen",
+            "Eine Kinokarte"
+          ],
+          "erklaerung": "Ein Fahrrad kostet ein Vielfaches von einem Brötchen oder einer Kinokarte."
+        }
+      ]
+    }
+  ],
   "stationen": [
     {
       "nr": 1,

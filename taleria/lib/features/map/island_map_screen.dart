@@ -17,6 +17,7 @@ import '../common/menu_music.dart';
 import '../common/texts.dart';
 import '../encounter/encounter_screen.dart';
 import '../island/island_screen.dart';
+import '../station/station_screen.dart';
 import 'map_layout.dart';
 import 'map_painters.dart';
 import 'map_scene.dart';
@@ -192,6 +193,9 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
         _hint(l10n.mapIslandLocked);
       case IslandState.premium:
         _hint(l10n.mapIslandPremium);
+      case IslandState.open when controller.waitingAtSea(island):
+        // Erst die Stopps auf See auf dem Weg dorthin.
+        _hint(l10n.mapSeaStopsFirst);
       case IslandState.open || IslandState.completed:
         await Navigator.of(context).push(
           MaterialPageRoute<void>(
@@ -200,6 +204,27 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
         );
         await controller.load();
     }
+  }
+
+  /// Stopp auf See: eine kurze Station mit Szene und Fragen zur Insel davor.
+  Future<void> _openStop(StationInfo stop) async {
+    final controller = _controller!;
+    if (controller.stopState(stop) == StationState.locked) {
+      _hint(AppLocalizations.of(context).mapSeaStopLocked);
+      return;
+    }
+    final island = controller.islandOf(stop);
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => StationScreen(
+          child: widget.child,
+          island: island,
+          station: stop,
+          allStations: controller.stopsBefore(island),
+        ),
+      ),
+    );
+    await controller.load();
   }
 
   Future<void> _openEncounter() async {
@@ -354,6 +379,7 @@ extension on _IslandMapScreenState {
                   unlockingId: _unlockingId,
                   unlock: _unlock.value,
                   onTap: _onTap,
+                  onStop: _openStop,
                   onEncounter: _openEncounter,
                 ),
               ),
@@ -453,6 +479,7 @@ class _MapScene extends StatelessWidget {
     required this.unlockingId,
     required this.unlock,
     required this.onTap,
+    required this.onStop,
     required this.onEncounter,
   });
 
@@ -467,6 +494,7 @@ class _MapScene extends StatelessWidget {
   final String? unlockingId;
   final double unlock;
   final ValueChanged<MapIsland> onTap;
+  final ValueChanged<StationInfo> onStop;
   final VoidCallback onEncounter;
 
   @override
@@ -502,7 +530,8 @@ class _MapScene extends StatelessWidget {
       final double? lock;
       if (unlocking) {
         lock = traveling ? 0 : unlock;
-      } else if (state == IslandState.locked || state == IslandState.premium) {
+      } else if (state == IslandState.locked || state == IslandState.premium || controller.waitingAtSea(island)) {
+        // Auch vor offenen Inseln, auf deren Weg noch Stopps auf See liegen.
         lock = 0;
       } else {
         lock = null;
@@ -526,6 +555,33 @@ class _MapScene extends StatelessWidget {
           ),
         ),
       ));
+    }
+    // Stopps auf See im Meer zwischen zwei Inseln.
+    for (final (index, island) in route.indexed) {
+      final stops = controller.stopsBefore(island);
+      final spots = layout.seaStopSpots(index, stops.length);
+      for (final (k, stop) in stops.indexed.take(spots.length)) {
+        final spot = spots[k];
+        layers.add((
+          spot.dy,
+          Positioned(
+            // Ganze Marke (Kreis und Name) mittig im Meer zwischen den Inseln.
+            left: spot.dx - SeaStopMarker.labelWidth / 2,
+            top: spot.dy - SeaStopMarker.height / 2,
+            width: SeaStopMarker.labelWidth,
+            height: SeaStopMarker.height,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: SeaStopMarker(
+                key: ValueKey('sea-stop-${island.slug}-${k + 1}'),
+                stop: stop,
+                state: controller.stopState(stop),
+                onTap: () => onStop(stop),
+              ),
+            ),
+          ),
+        ));
+      }
     }
     if (shipPosition != null) {
       final size = layout.shipSize;

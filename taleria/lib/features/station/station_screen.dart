@@ -154,10 +154,11 @@ class _StationScreenState extends State<StationScreen> {
         return Scaffold(
           appBar: AppBar(title: Text(content.title)),
           body: StationBackdrop(
-            // Die Insel von innen, beim Tauchgang die Unterwasserwelt.
+            // Die Insel von innen, beim Tauchgang die Unterwasserwelt, beim
+            // Stopp auf See das offene Meer.
             assetKey: controller.isDive
                 ? AssetKeys.underwaterBackground
-                : AssetKeys.islandBackground(widget.island.slug),
+                : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
             // Unter Wasser oben das Wrack mit den Fischen zeigen.
             lift: controller.isDive ? 0.35 : 0,
             child: SafeArea(
@@ -292,7 +293,9 @@ class _ResultView extends StatelessWidget {
                     ? l10n.examFailedTitle
                     : (controller.isExam
                           ? l10n.examPassedTitle
-                          : (controller.isDive ? l10n.diveResultTitle : l10n.resultTitle)),
+                          : (controller.isDive
+                                ? l10n.diveResultTitle
+                                : (controller.isSeaStop ? l10n.seaStopDone : l10n.resultTitle))),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineSmall,
               ),
@@ -382,7 +385,11 @@ class _ResultView extends StatelessWidget {
               ] else
                 FilledButton(
                   onPressed: () => Navigator.of(context).pop(result),
-                  child: Text(result.islandCompleted ? l10n.islandCompletedButton : l10n.resultBack),
+                  child: Text(
+                    result.islandCompleted
+                        ? l10n.islandCompletedButton
+                        : (controller.isSeaStop ? l10n.seaStopBack : l10n.resultBack),
+                  ),
                 ),
             ],
           ),

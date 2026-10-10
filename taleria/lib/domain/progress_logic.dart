@@ -89,8 +89,9 @@ Map<String, StationState> stationStates(
     states[station.id] = switch (station) {
       _ when done => StationState.done,
       _ when !station.isRequired => StationState.open,
-      // Ankerplätze brauchen keinen Wind, sie gehören zu den Stationen davor.
-      _ when allEarlierDone => hasWind || station.isDive ? StationState.open : StationState.noWind,
+      // Ankerplätze und Stopps auf See brauchen keinen Wind: Sie wiederholen,
+      // was schon da war.
+      _ when allEarlierDone => hasWind || station.isDive || station.isSeaStop ? StationState.open : StationState.noWind,
       _ => StationState.locked,
     };
     if (station.isRequired && !done) allEarlierDone = false;
@@ -108,6 +109,7 @@ List<StationInfo> stationsBeforeDive(List<StationInfo> stations, StationInfo div
       if (s.sortOrder < dive.sortOrder &&
           s.sortOrder > (previousDive?.sortOrder ?? -1) &&
           !s.isDive &&
+          !s.isSeaStop &&
           !s.isExam &&
           !s.content.isOnboarding)
         s,
@@ -132,8 +134,28 @@ RouteBlock? routeBlock(List<MapIsland> islands, Map<String, IslandState> states)
 StationInfo? previousQuizStation(List<StationInfo> stations, StationInfo station) {
   final earlier =
       stations
-          .where((s) => s.sortOrder < station.sortOrder && !s.isExam && !s.isDive && !s.content.isOnboarding)
+          .where(
+            (s) => s.sortOrder < station.sortOrder && !s.isExam && !s.isDive && !s.isSeaStop && !s.content.isOnboarding,
+          )
           .toList()
         ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   return earlier.isEmpty ? null : earlier.last;
+}
+
+/// Zustand der Stopps auf See vor einer Insel: der Reihe nach, sobald die
+/// Insel offen ist (die Insel davor geschafft, bei Abo-Inseln mit Abo).
+/// Stopps brauchen keinen Wind.
+Map<String, StationState> seaStopStates(List<StationInfo> stops, ChildProgress progress, IslandState island) {
+  final sorted = [...stops]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+  final reachable = island == IslandState.open || island == IslandState.completed;
+  final states = <String, StationState>{};
+  var allEarlierDone = true;
+  for (final stop in sorted) {
+    final done = progress.doneStationIds.contains(stop.id);
+    states[stop.id] = done
+        ? StationState.done
+        : (reachable && allEarlierDone ? StationState.open : StationState.locked);
+    if (!done) allEarlierDone = false;
+  }
+  return states;
 }

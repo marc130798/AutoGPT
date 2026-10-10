@@ -110,8 +110,10 @@ abstract final class AdminTexts {
         ? 'Ankerplatz'
         : s.isExam
         ? 'Prüfung'
+        : s.isSeaStop
+        ? 'Stopp auf See'
         : 'Station';
-    final number = s.number == null || s.isExam ? '' : ' ${s.number}';
+    final number = s.number == null || s.isExam || s.isSeaStop ? '' : ' ${s.number}';
     final bonus = s.isRequired ? '' : ' (Bonus)';
     return '$kind$number$bonus: ${s.title}';
   }
@@ -131,6 +133,8 @@ abstract final class AdminTexts {
         ? 'Prüfung'
         : q.stationType == 'review_stop'
         ? 'Ankerplatz'
+        : q.stationType == 'sea_stop'
+        ? 'Stopp auf See'
         : 'Station ${q.stationNumber ?? '?'}';
     return '${q.island}, $where · ${q.wrong} von ${q.answered} falsch (${q.wrongPercent} %)';
   }

@@ -629,6 +629,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get avatarFur => 'Fellfarbe';
 
   @override
+  String get mapSeaStopsFirst =>
+      'Auf dem Weg zu dieser Insel liegen noch Stopps auf See. Tipp auf den leuchtenden Stopp!';
+
+  @override
+  String get mapSeaStopLocked => 'Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.';
+
+  @override
+  String get seaStopDone => 'Stopp geschafft!';
+
+  @override
+  String get seaStopBack => 'Weiter segeln';
+
+  @override
   String get mapIslandLocked => 'Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.';
 
   @override

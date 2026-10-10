@@ -3,8 +3,14 @@
 
 select test_helpers.expect_equal((select count(*) from public.islands where stage = 1), 15,
   'Seed: 15 Inseln in Stufe 1');
-select test_helpers.expect_equal((select count(*) from public.stations), 33,
-  'Seed: 8 Stationen und 3 Ankerplätze auf Hafen, Tauschinsel und Wunschinsel');
+select test_helpers.expect_equal((select count(*) from public.stations), 37,
+  'Seed: 8 Stationen und 3 Ankerplätze auf Hafen, Tauschinsel und Wunschinsel, dazu 4 Stopps auf See');
+select test_helpers.expect_true(
+  (select array_agg(i.slug || ':' || s.sort_order order by i.sort_order, s.sort_order)
+     = '{tauschinsel:1,tauschinsel:2,wunschinsel:1,wunschinsel:2}'
+   from public.stations s join public.islands i on i.id = s.island_id
+   where s.type = 'sea_stop'),
+  'Seed: je zwei Stopps auf See vor Tauschinsel und Wunschinsel, vor ihrer ersten Station');
 select test_helpers.expect_equal((select count(*) from public.collectibles), 9,
   'Seed: 9 Funde für die Unterwasser-Sammlung');
 select test_helpers.expect_true(
@@ -12,8 +18,8 @@ select test_helpers.expect_true(
    from public.stations s join public.islands i on i.id = s.island_id
    where i.slug = 'hafen' and s.type = 'review_stop'),
   'Seed: Ankerplätze im Hafen nach Station 2, 4 und 6');
-select test_helpers.expect_equal((select count(*) from public.quiz_questions), 184,
-  'Seed: 184 Fragen');
+select test_helpers.expect_equal((select count(*) from public.quiz_questions), 208,
+  'Seed: 208 Fragen (184 auf den Inseln, 24 bei den Stopps auf See)');
 select test_helpers.expect_true((select bool_and(status = 'draft') from public.islands),
   'Seed: alles sind Entwürfe');
 
@@ -61,14 +67,23 @@ begin
     where i.slug = p_slug and s.type <> 'exam' and coalesce(s.content ->> 'kind', '') <> 'onboarding'
     order by s.sort_order
   loop
-    if v_station.type = 'review_stop' then
+    if v_station.type = 'sea_stop' then
+      select jsonb_agg(jsonb_build_object('question_id', q.id, 'answer_index', q.correct_index))
+        into v_answers
+      from (
+        select q.id, q.correct_index from public.quiz_questions q
+        where q.station_id = v_station.id
+        order by q.id
+        limit (v_station.content -> 'quiz' ->> 'show')::int
+      ) q;
+    elsif v_station.type = 'review_stop' then
       select jsonb_agg(jsonb_build_object('question_id', q.id, 'answer_index', q.correct_index))
         into v_answers
       from (
         select q.id, q.correct_index
         from public.quiz_questions q join public.stations s on s.id = q.station_id
         where s.island_id = (select island_id from public.stations where id = v_station.id)
-          and s.type not in ('exam', 'review_stop') and s.sort_order > v_prev and s.sort_order < v_station.sort_order
+          and s.type not in ('exam', 'review_stop', 'sea_stop') and s.sort_order > v_prev and s.sort_order < v_station.sort_order
         order by q.id
         limit (v_station.content -> 'dive' ->> 'questions')::int
       ) q;
@@ -118,9 +133,10 @@ select test_helpers.expect_true(
      test_helpers.correct_answers('hafen', 8, 10)) r) x),
   'Seed: Hafen-Prüfung (10 Fragen) bestanden, Hafen abgeschlossen, Orden „Erster Landgang“');
 
--- Tauschinsel: Stationen 1 bis 7 mit Ankerplätzen, dann Prüfung mit 8 eigenen und 2 Rückblick-Fragen.
-select test_helpers.expect_equal(test_helpers.play_island('c5000000-0000-0000-0000-000000000001', 'tauschinsel'), 10,
-  'Seed: Tauschinsel Stationen 1 bis 7 und 3 Ankerplätze gespielt');
+-- Tauschinsel: erst die 2 Stopps auf See, dann Stationen 1 bis 7 mit Ankerplätzen,
+-- dann Prüfung mit 8 eigenen und 2 Rückblick-Fragen.
+select test_helpers.expect_equal(test_helpers.play_island('c5000000-0000-0000-0000-000000000001', 'tauschinsel'), 12,
+  'Seed: Tauschinsel 2 Stopps auf See, Stationen 1 bis 7 und 3 Ankerplätze gespielt');
 
 select test_helpers.expect_true(
   (select r ->> 'passed' = 'true' and r ->> 'correct' = '10' and r ->> 'island_completed' = 'true'
@@ -130,8 +146,8 @@ select test_helpers.expect_true(
   'Seed: Tauschinsel-Prüfung mit 2 Rückblick-Fragen aus dem Hafen bestanden');
 
 select test_helpers.expect_equal(
-  (select sum(amount) from public.xp_events), 50 + 6 * 100 + 150 + 7 * 100 + 150 + 6 * 50,
-  'Seed: Seemeilen aus Hafen und Tauschinsel, mit 6 Tauchgängen');
+  (select sum(amount) from public.xp_events), 50 + 6 * 100 + 150 + 7 * 100 + 150 + 6 * 50 + 2 * 30,
+  'Seed: Seemeilen aus Hafen und Tauschinsel, mit 6 Tauchgängen und 2 Stopps auf See');
 select test_helpers.expect_true(
   (select s ->> 'rank' = 'matrose' and (s ->> 'badge_count')::int = 2 from public.child_stats('c5000000-0000-0000-0000-000000000001') s),
   'Seed: nach zwei Inseln Rang Matrose mit zwei Orden');

@@ -35,11 +35,13 @@ void main() {
   File('supabase/inhalte_live.sql')
       .writeAsStringSync(buildSeedSql(islands, encounters: encounters, target: SeedTarget.live));
   final questions = islands.expand((i) => i.stations).expand((s) => s.questions).length;
+  final stops = islands.expand((i) => i.seaStops).toList();
   final released = islands.where((i) => i.status == 'freigegeben').map((i) => i.title);
   stdout
     ..writeln(
       'supabase/seed.sql und supabase/inhalte_live.sql erzeugt: '
-      '${islands.length} Inseln, $questions Fragen, ${encounters.length} Begegnung(en).',
+      '${islands.length} Inseln, $questions Fragen, ${stops.length} Stopps auf See '
+      '(${stops.expand((s) => s.questions).length} Fragen), ${encounters.length} Begegnung(en).',
     )
     ..writeln('Freigegeben: ${released.isEmpty ? 'noch nichts' : released.join(', ')}');
 }

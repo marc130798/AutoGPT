@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/asset_placeholder.dart';
+import '../../core/assets/character_image.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -403,6 +406,116 @@ class FogIntro extends StatelessWidget {
         child: Transform.scale(
           scale: 1 + q * 0.5,
           child: MapCloud(index: cloud.index, width: cw, height: ch),
+        ),
+      ),
+    );
+  }
+}
+
+/// Ein Stopp auf See auf der Route: die Figur im runden Rahmen, darunter der
+/// Name. Geschafft: goldener Haken. Dran: goldener, leuchtender Rand.
+/// Gesperrt: blass mit Schloss.
+class SeaStopMarker extends StatelessWidget {
+  const SeaStopMarker({super.key, required this.stop, required this.state, required this.onTap});
+
+  static const size = 60.0;
+
+  /// Breite für den Namen unter der Marke.
+  static const labelWidth = 108.0;
+
+  /// Höhe der ganzen Marke mit Namen (zwei Zeilen), zum Mittig-Setzen.
+  static const height = 100.0;
+
+  final StationInfo stop;
+  final StationState state;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final services = AppScope.of(context);
+    final palette = context.palette;
+    final figure = 'character.${stop.content.seaStop?.figure ?? 'talo'}';
+    final open = state == StationState.open;
+    final done = state == StationState.done;
+    // Wie in den Sprechblasen: nur Kopf und Schultern, größer gezeigt.
+    const zoomed = size * 1.6;
+    return Semantics(
+      button: true,
+      label: stop.content.title,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: size,
+                  height: size,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: palette.paper,
+                    border: Border.all(
+                      color: open || done ? palette.gold : palette.placeholderBorder,
+                      width: open ? 4 : 3,
+                    ),
+                    boxShadow: [
+                      if (open) BoxShadow(color: palette.gold.withValues(alpha: 0.8), blurRadius: 16, spreadRadius: 3),
+                      const BoxShadow(color: Color(0x55081C30), blurRadius: 6, offset: Offset(0, 2)),
+                    ],
+                  ),
+                  child: ClipOval(
+                    child: Opacity(
+                      opacity: state == StationState.locked ? 0.5 : 1,
+                      child: OverflowBox(
+                        maxWidth: zoomed,
+                        maxHeight: zoomed,
+                        alignment: Alignment.topCenter,
+                        child: CharacterImage(
+                          figure,
+                          width: zoomed,
+                          height: zoomed,
+                          alignment: Alignment.topCenter,
+                          fallback: Align(
+                            alignment: Alignment.topCenter,
+                            child: AssetPlaceholder(entry: services.manifest.lookup(figure), width: size, height: size),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                if (done || state == StationState.locked)
+                  Positioned(
+                    right: -4,
+                    bottom: -4,
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: done ? palette.gold : palette.seaDeep,
+                      child: Icon(done ? Icons.check_rounded : Icons.lock, size: 15, color: Colors.white),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Container(
+              constraints: const BoxConstraints(maxWidth: labelWidth),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: palette.paper.withValues(alpha: 0.92),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                stop.content.title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelSmall
+                    ?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
+              ),
+            ),
+          ],
         ),
       ),
     );

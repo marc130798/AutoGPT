@@ -44,6 +44,162 @@
     "Was hast du dir mal sehr gewünscht und dann kaum benutzt?",
     "Was war dein schönstes Erlebnis, das fast kein Geld gekostet hat?"
   ],
+  "stopps_auf_see": [
+    {
+      "art": "haendlerschiff",
+      "figur": "greta",
+      "titel": "Gretas Händlerboot",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "greta",
+          "text": "Ahoi! Ich bringe Seile zur Wunschinsel. Aber erst will ich wissen, ob ihr auf der Tauschinsel gut aufgepasst habt."
+        },
+        {
+          "wer": "talo",
+          "text": "Na klar. Stell uns deine Fragen!"
+        }
+      ],
+      "abschluss": {
+        "wer": "greta",
+        "text": "Ihr seid kluge Händler geworden! Gute Fahrt zur Wunschinsel."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Warum ist Wasser oben am heißen Berg mehr wert als unten an der Quelle?",
+          "richtig": "Weil es oben knapp ist und man es dringend braucht",
+          "falsch": [
+            "Weil Wasser oben anders schmeckt",
+            "Weil oben mehr Wasser da ist"
+          ],
+          "erklaerung": "Wie viel etwas wert ist, hängt von der Situation ab. Was knapp ist und dringend gebraucht wird, ist mehr wert."
+        },
+        {
+          "frage": "An einem heißen Tag wollen alle ein Eis. Was passiert oft mit dem Preis?",
+          "richtig": "Er steigt.",
+          "falsch": [
+            "Er sinkt.",
+            "Das Eis wird verschenkt."
+          ],
+          "erklaerung": "Wenn viele etwas haben wollen (große Nachfrage), steigt oft der Preis."
+        },
+        {
+          "frage": "An einem Regentag will kaum jemand Eis. Was macht die Eisverkäuferin am besten?",
+          "richtig": "Sie senkt den Preis.",
+          "falsch": [
+            "Sie verdoppelt den Preis.",
+            "Sie wirft das Eis weg."
+          ],
+          "erklaerung": "Ist die Nachfrage klein, muss der Preis runter, sonst bleibt das Eis liegen."
+        },
+        {
+          "frage": "Ein billiges Netz kostet 5 Taler und hält einen Monat. Ein gutes kostet 20 Taler und hält ein Jahr. Was ist für ein Jahr günstiger?",
+          "richtig": "Das gute Netz",
+          "falsch": [
+            "Das billige Netz",
+            "Beide kosten gleich viel"
+          ],
+          "erklaerung": "12 billige Netze kosten 60 Taler, das gute nur 20. Billig ist nicht immer günstig."
+        },
+        {
+          "frage": "Was heißt Angebot?",
+          "richtig": "Wie viel es von etwas gibt",
+          "falsch": [
+            "Wie viele etwas haben wollen",
+            "Wie teuer etwas ist"
+          ],
+          "erklaerung": "Angebot heißt, wie viel es von etwas gibt. Nachfrage heißt, wie viele es haben wollen."
+        },
+        {
+          "frage": "Ist Teures automatisch gut?",
+          "richtig": "Nein, man sollte vergleichen.",
+          "falsch": [
+            "Ja, teuer ist immer am besten.",
+            "Ja, aber nur bei Eis."
+          ],
+          "erklaerung": "Teuer ist nicht automatisch gut. Vergleichen ist das Wichtigste."
+        }
+      ]
+    },
+    {
+      "art": "tala_vergisst",
+      "figur": "tala",
+      "titel": "Tala hat etwas vergessen",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Oh nein! Ich habe ganz vergessen, was wir auf der Tauschinsel über faires Tauschen gelernt haben."
+        },
+        {
+          "wer": "talo",
+          "text": "Kein Problem. Hilfst du Tala, sich zu erinnern?"
+        }
+      ],
+      "abschluss": {
+        "wer": "tala",
+        "text": "Danke, jetzt weiß ich es wieder! Auf zur Wunschinsel!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Tala fragt: Woran erkenne ich einen fairen Tausch?",
+          "richtig": "Wenn beide wissen, was sie bekommen, und einverstanden sind",
+          "falsch": [
+            "Wenn einer viel mehr bekommt",
+            "Wenn der Ältere entscheidet"
+          ],
+          "erklaerung": "Fair ist ein Tausch, wenn beide wissen, was sie bekommen, und beide einverstanden sind."
+        },
+        {
+          "frage": "Ein älteres Kind will einem jüngeren eine seltene Karte gegen eine häufige abschwatzen. Wie ist das?",
+          "richtig": "Unfair",
+          "falsch": [
+            "Fair",
+            "Egal"
+          ],
+          "erklaerung": "Das jüngere Kind weiß nicht, wie selten seine Karte ist. So ein Tausch ist unfair."
+        },
+        {
+          "frage": "Was nennt man eine Tauschkette?",
+          "richtig": "Mehrere Tausche hintereinander, bis man hat, was man braucht",
+          "falsch": [
+            "Eine Kette, die man verschenkt",
+            "Einen Tausch ohne Gegenleistung"
+          ],
+          "erklaerung": "Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil: Das ist eine Tauschkette."
+        },
+        {
+          "frage": "Was solltest du dich vor einem Tausch fragen?",
+          "richtig": "Was brauche ich wirklich, und was gebe ich dafür her?",
+          "falsch": [
+            "Was ist am teuersten?",
+            "Was haben meine Freunde?"
+          ],
+          "erklaerung": "Vor einem Tausch lohnt sich die Frage: Was brauche ich wirklich, und was gebe ich dafür her?"
+        },
+        {
+          "frage": "Wer sein Geld für ein Eis ausgibt, ...",
+          "richtig": "kann es nicht mehr sparen.",
+          "falsch": [
+            "hat danach mehr Geld.",
+            "bekommt das Geld zurück."
+          ],
+          "erklaerung": "Geld kann man nur einmal ausgeben. Wer das Eis kauft, verzichtet aufs Sparen."
+        },
+        {
+          "frage": "Wie verhinderst du Streit nach einem Tausch?",
+          "richtig": "Vorher klären, ob man zurücktauschen darf",
+          "falsch": [
+            "Gar nicht darüber reden",
+            "Heimlich tauschen"
+          ],
+          "erklaerung": "Wer vorher klärt, ob man zurücktauschen darf, hat später keinen Streit."
+        }
+      ]
+    }
+  ],
   "stationen": [
     {
       "nr": 1,

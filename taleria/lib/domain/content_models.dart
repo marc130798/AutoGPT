@@ -127,7 +127,7 @@ class IslandDetails {
   bool get hasArrival => arrivalScene.isNotEmpty || arrivalVideoKey != null;
 }
 
-enum StationType { video, quiz, game, practice, reviewStop, exam }
+enum StationType { video, quiz, game, practice, reviewStop, exam, seaStop }
 
 class ExamRules {
   const ExamRules({required this.show, required this.review, required this.pass});
@@ -318,6 +318,19 @@ class DiveInfo {
   final WreckTask? wreck;
 }
 
+/// Stopp auf See (stations.content.stop): welche Art, welche Figur auf der
+/// Karte zu sehen ist und der wievielte Stopp vor der Insel.
+class SeaStopInfo {
+  const SeaStopInfo({required this.type, required this.figure, required this.index});
+
+  /// haendlerschiff, fischerboot, angeberschiff oder tala_vergisst.
+  final String type;
+
+  /// Figur (Asset-Schlüssel `character.<figure>`).
+  final String figure;
+  final int index;
+}
+
 /// Inhalt einer Station (stations.content).
 class StationContent {
   const StationContent({
@@ -335,6 +348,7 @@ class StationContent {
     this.exam,
     this.number,
     this.dive,
+    this.seaStop,
   });
 
   factory StationContent.fromJson(Map<String, dynamic> json) {
@@ -346,7 +360,15 @@ class StationContent {
     final summary = json['summary'] as Map<String, dynamic>?;
     final dive = json['dive'] as Map<String, dynamic>?;
     final wreck = dive?['wreck'] as Map<String, dynamic>?;
+    final stop = json['stop'] as Map<String, dynamic>?;
     return StationContent(
+      seaStop: stop == null
+          ? null
+          : SeaStopInfo(
+              type: stop['type'] as String? ?? 'haendlerschiff',
+              figure: stop['figure'] as String? ?? 'talo',
+              index: stop['index'] as int? ?? 1,
+            ),
       title: json['title'] as String? ?? '',
       place: json['place'] as String?,
       goal: json['goal'] as String?,
@@ -405,6 +427,9 @@ class StationContent {
 
   /// Nur bei Ankerplätzen.
   final DiveInfo? dive;
+
+  /// Nur bei Stopps auf See: Art, Figur auf der Karte, Nummer.
+  final SeaStopInfo? seaStop;
 }
 
 class StationInfo {
@@ -417,6 +442,17 @@ class StationInfo {
     required this.xpReward,
     required this.content,
   });
+
+  /// Eine Zeile aus der Tabelle `stations`.
+  factory StationInfo.fromRow(Map<String, dynamic> r) => StationInfo(
+    id: r['id'] as String,
+    islandId: r['island_id'] as String,
+    sortOrder: r['sort_order'] as int,
+    type: StationInfo.parseType(r['type'] as String?),
+    isRequired: r['is_required'] as bool,
+    xpReward: r['xp_reward'] as int,
+    content: StationContent.fromJson((r['content'] as Map<String, dynamic>?) ?? const {}),
+  );
 
   final String id;
   final String islandId;
@@ -431,6 +467,9 @@ class StationInfo {
   /// Ankerplatz mit Tauchgang.
   bool get isDive => type == StationType.reviewStop;
 
+  /// Stopp auf See: Pflicht auf der Route vor der Insel, zu der er gehört.
+  bool get isSeaStop => type == StationType.seaStop;
+
   /// Nummer für die Anzeige (bei älteren Inhalten ohne Nummer die Reihenfolge).
   int get displayNumber => content.number ?? sortOrder;
 
@@ -440,6 +479,7 @@ class StationInfo {
     'practice' => StationType.practice,
     'review_stop' => StationType.reviewStop,
     'exam' => StationType.exam,
+    'sea_stop' => StationType.seaStop,
     _ => StationType.game,
   };
 }

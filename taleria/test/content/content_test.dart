@@ -47,6 +47,26 @@ void main() {
     expect(taleron.questionCount, 3);
   });
 
+  test('Stopps auf See: je zwei vor Tauschinsel und Wunschinsel, keine vor dem Hafen', () {
+    final bySlug = {for (final i in islands) i.slug: i};
+    expect(bySlug['hafen']!.seaStops, isEmpty);
+    expect(bySlug['tauschinsel']!.seaStops.map((s) => s.kind), ['haendlerschiff', 'fischerboot']);
+    expect(bySlug['wunschinsel']!.seaStops.map((s) => s.kind), ['haendlerschiff', 'tala_vergisst']);
+    // Keine Frage eines Stopps steht wortgleich auch woanders.
+    final stationTexts = {
+      for (final i in islands)
+        for (final st in i.stations)
+          for (final q in st.questions) q.question,
+    };
+    for (final i in islands) {
+      for (final stop in i.seaStops) {
+        for (final q in stop.questions) {
+          expect(stationTexts, isNot(contains(q.question)), reason: '${i.slug}: ${q.question}');
+        }
+      }
+    }
+  });
+
   test('15 Inseln, 1 bis 3 komplett, 4 bis 15 im Nebel', () {
     expect(islands, hasLength(15));
     expect([for (final i in islands) i.order], List.generate(15, (i) => i + 1));
@@ -108,7 +128,6 @@ void main() {
     Island islandWith(Map<String, dynamic> station, {Map<String, dynamic> extra = const {}}) => parseIsland(
       'test.json',
       jsonEncode({
-        ...extra,
         'slug': 'tauschinsel',
         'titel': 'Test',
         'orden': 'Test-Orden',
@@ -144,6 +163,7 @@ void main() {
             ],
           },
         ],
+        ...extra,
       }),
     );
 
@@ -243,6 +263,89 @@ void main() {
           expect(s.video, isNull, reason: '${island.slug} ${s.number}');
         }
       }
+    });
+
+    test('Stopps auf See: Art, Figur, Pool, nicht vor der ersten Insel', () {
+      Map<String, dynamic> stop({String art = 'haendlerschiff', String figur = 'haendler', int questions = 6}) => {
+        'art': art,
+        'figur': figur,
+        'titel': 'Ein Stopp',
+        'seemeilen': 30,
+        'szene': [
+          {'wer': 'talo', 'text': 'Ahoi'},
+        ],
+        'abschluss': {'wer': 'talo', 'text': 'Weiter'},
+        'quiz_anzahl': 3,
+        'fragen': [
+          for (var i = 0; i < questions; i++)
+            {
+              'frage': 'S$i',
+              'richtig': 'a',
+              'falsch': ['b', 'c'],
+              'erklaerung': 'e',
+            },
+        ],
+      };
+      expect(
+        problems(
+          islandWith(
+            station(),
+            extra: {
+              'reihenfolge': 1,
+              'stopps_auf_see': [stop()],
+            },
+          ),
+        ),
+        contains(contains('vor der ersten Insel gibt es keine Stopps auf See')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(),
+            extra: {
+              'reihenfolge': 2,
+              'stopps_auf_see': [stop()],
+            },
+          ),
+        ),
+        isEmpty,
+      );
+      expect(
+        problems(
+          islandWith(
+            station(),
+            extra: {
+              'reihenfolge': 2,
+              'stopps_auf_see': [stop(art: 'piratenschiff')],
+            },
+          ),
+        ),
+        contains(contains('unbekannte Art')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(),
+            extra: {
+              'reihenfolge': 2,
+              'stopps_auf_see': [stop(figur: 'pirat')],
+            },
+          ),
+        ),
+        contains(contains('unbekannte Figur "pirat"')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(),
+            extra: {
+              'reihenfolge': 2,
+              'stopps_auf_see': [stop(questions: 5)],
+            },
+          ),
+        ),
+        contains(contains('mindestens doppelt so groß')),
+      );
     });
 
     test('unbekannter Status', () {

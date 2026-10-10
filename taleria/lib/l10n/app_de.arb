@@ -849,6 +849,22 @@
   "@avatarFur": {
     "description": "Abschnitt im Avatar-Baukasten für Tiere"
   },
+  "mapSeaStopsFirst": "Auf dem Weg zu dieser Insel liegen noch Stopps auf See. Tipp auf den leuchtenden Stopp!",
+  "@mapSeaStopsFirst": {
+    "description": "Hinweis: Insel offen, aber die Stopps auf See davor fehlen noch"
+  },
+  "mapSeaStopLocked": "Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.",
+  "@mapSeaStopLocked": {
+    "description": "Hinweis: Stopp auf See noch gesperrt"
+  },
+  "seaStopDone": "Stopp geschafft!",
+  "@seaStopDone": {
+    "description": "Ergebnis nach einem Stopp auf See"
+  },
+  "seaStopBack": "Weiter segeln",
+  "@seaStopBack": {
+    "description": "Knopf nach einem Stopp auf See: zurück zur Karte"
+  },
   "mapIslandLocked": "Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.",
   "@mapIslandLocked": {
     "description": "Hinweis beim Tipp auf eine gesperrte Insel"

@@ -102,6 +102,9 @@ class StationController extends ChangeNotifier {
   bool get isExam => station.isExam;
   bool get isDive => station.isDive;
 
+  /// Stopp auf See: Szene und Fragen, ohne „Weißt du noch?“ (er wiederholt selbst).
+  bool get isSeaStop => station.isSeaStop;
+
   /// Lädt die Fragen und beginnt mit dem ersten Abschnitt.
   Future<void> start() async {
     _step = StationStep.loading;
@@ -299,7 +302,7 @@ class StationController extends ChangeNotifier {
 
   Future<void> _prepareWarmUp() async {
     _warmUp = null;
-    if (isExam || isDive) return;
+    if (isExam || isDive || isSeaStop) return;
     final previous = previousQuizStation(allStations, station);
     if (previous == null) return;
     final pool = await _content.fetchQuestions(previous.id);

@@ -247,6 +247,47 @@ class Dive {
   };
 }
 
+/// Arten von Stopps auf See (CLAUDE.md Abschnitt 8, Begegnungen auf See).
+const seaStopKinds = {'haendlerschiff', 'fischerboot', 'angeberschiff', 'tala_vergisst'};
+
+/// Stopp auf See: Pflicht auf der Route vor einer Insel (entschieden mit Marc
+/// am 10.10.2026). Wiederholt die Insel davor mit einer Szene und Fragen.
+/// In der Datenbank eine Pflichtstation der Insel mit dem Typ sea_stop, vor
+/// ihrer ersten Station.
+class SeaStop {
+  SeaStop({
+    required this.kind,
+    required this.figure,
+    required this.title,
+    required this.xp,
+    required this.scene,
+    required this.summary,
+    required this.quizShow,
+    required this.questions,
+  });
+
+  /// haendlerschiff, fischerboot, angeberschiff oder tala_vergisst.
+  final String kind;
+
+  /// Figur auf der Karte (Asset-Schlüssel `character.<figure>`).
+  final String figure;
+  final String title;
+  final int xp;
+  final List<Line> scene;
+  final Line? summary;
+  final int? quizShow;
+  final List<Question> questions;
+
+  Map<String, dynamic> toDbContent(int index) => {
+    'title': title,
+    'kind': 'sea_stop',
+    'stop': {'type': kind, 'figure': figure, 'index': index},
+    'scene': [for (final l in scene) l.toDb()],
+    if (summary != null) 'summary': summary!.toDb(),
+    'quiz': {'show': quizShow},
+  };
+}
+
 class Island {
   Island({
     required this.file,
@@ -266,6 +307,7 @@ class Island {
     required this.prompts,
     required this.stations,
     this.dives = const [],
+    this.seaStops = const [],
     this.status = 'entwurf',
   });
 
@@ -288,6 +330,9 @@ class Island {
   final List<String> prompts;
   final List<Station> stations;
   final List<Dive> dives;
+
+  /// Stopps auf See auf der Route vor dieser Insel, in Fahrtrichtung.
+  final List<SeaStop> seaStops;
 
   /// entwurf, pruefung oder freigegeben (gilt für alles auf der Insel).
   final String status;
@@ -341,6 +386,17 @@ Island parseIsland(String file, String source) {
       ),
   ];
 
+  List<Question> questions(Object? raw, String where) => [
+    for (final (i, q) in ((raw as List?) ?? const []).indexed)
+      Question(
+        question: text(q as Map<String, dynamic>, 'frage', '$where, Frage ${i + 1}'),
+        right: text(q, 'richtig', '$where, Frage ${i + 1}'),
+        wrong: [for (final w in (q['falsch'] as List? ?? const [])) w as String],
+        explanation: text(q, 'erklaerung', '$where, Frage ${i + 1}'),
+        station: q['station'] as int?,
+      ),
+  ];
+
   final karte = json['karte'] as Map<String, dynamic>?;
   final ankunft = json['ankunft'] as Map<String, dynamic>?;
   final stations = <Station>[];
@@ -368,16 +424,7 @@ Island parseIsland(String file, String source) {
         examShow: pruefung?['anzahl'] as int?,
         examReview: pruefung?['rueckblick'] as int?,
         examPass: pruefung?['bestehen'] as int?,
-        questions: [
-          for (final (i, q) in ((s['fragen'] as List?) ?? const []).indexed)
-            Question(
-              question: text(q as Map<String, dynamic>, 'frage', '$where, Frage ${i + 1}'),
-              right: text(q, 'richtig', '$where, Frage ${i + 1}'),
-              wrong: [for (final w in (q['falsch'] as List? ?? const [])) w as String],
-              explanation: text(q, 'erklaerung', '$where, Frage ${i + 1}'),
-              station: q['station'] as int?,
-            ),
-        ],
+        questions: questions(s['fragen'], where),
       ),
     );
   }
@@ -400,6 +447,24 @@ Island parseIsland(String file, String source) {
     prompts: [for (final p in (json['kombuesen_fragen'] as List? ?? const [])) p as String],
     stations: stations,
     status: json['status'] as String? ?? 'entwurf',
+    seaStops: [
+      for (final (k, raw) in ((json['stopps_auf_see'] as List?) ?? const []).indexed)
+        () {
+          final st = raw as Map<String, dynamic>;
+          final where = '$file, Stopp auf See ${k + 1}';
+          final abschluss = st['abschluss'] as Map<String, dynamic>?;
+          return SeaStop(
+            kind: text(st, 'art', where),
+            figure: text(st, 'figur', where),
+            title: text(st, 'titel', where),
+            xp: st['seemeilen'] as int? ?? 0,
+            scene: lines(st['szene'], '$where, Szene'),
+            summary: abschluss == null ? null : lines([abschluss], '$where, Abschluss').single,
+            quizShow: st['quiz_anzahl'] as int?,
+            questions: questions(st['fragen'], where),
+          );
+        }(),
+    ],
     dives: [
       for (final raw in (json['tauchgaenge'] as List?) ?? const [])
         () {
@@ -466,6 +531,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
 
     if (island.fog) {
       check(island.stations.isEmpty, '$w: Insel im Nebel darf noch keine Stationen haben');
+      check(island.seaStops.isEmpty, '$w: Insel im Nebel hat noch keine Stopps auf See');
       check(island.status == 'entwurf', '$w: Insel im Nebel bleibt Entwurf');
       continue;
     }
@@ -579,6 +645,29 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
         check(knownAssetKeys.contains('character.${line.speaker}'), '$dw: unbekannte Figur "${line.speaker}"');
       }
       previous = d.after;
+    }
+
+    // Stopps auf See: auf der Route vor der Insel, also nie vor der ersten.
+    check(island.seaStops.isEmpty || island.order > 1, '$w: vor der ersten Insel gibt es keine Stopps auf See');
+    for (final (k, st) in island.seaStops.indexed) {
+      final sw = '$w, Stopp auf See ${k + 1}';
+      check(seaStopKinds.contains(st.kind), '$sw: unbekannte Art "${st.kind}"');
+      check(knownAssetKeys.contains('character.${st.figure}'), '$sw: unbekannte Figur "${st.figure}"');
+      check(st.scene.isNotEmpty && st.summary != null, '$sw: Szene und Abschluss nötig');
+      for (final line in [...st.scene, ?st.summary]) {
+        check(knownAssetKeys.contains('character.${line.speaker}'), '$sw: unbekannte Figur "${line.speaker}"');
+      }
+      final show = st.quizShow;
+      check(show != null && show > 0, '$sw: "quiz_anzahl" fehlt');
+      if (show != null) {
+        check(
+          st.questions.length >= 2 * show,
+          '$sw: Pool (${st.questions.length}) muss mindestens doppelt so groß sein wie $show',
+        );
+      }
+      for (final (i, q) in st.questions.indexed) {
+        check(q.wrong.length == 2, '$sw, Frage ${i + 1}: genau 2 falsche Antworten nötig (3 Antworten insgesamt)');
+      }
     }
   }
   return problems;
@@ -901,6 +990,36 @@ String buildSeedSql(
       ..writeln();
 
     final questionIds = <String>[];
+    // Stopps auf See auf der Route vor der Insel: Pflicht, vor Station 1 (Reihenfolge 1, 2, ...).
+    for (final (k, st) in island.seaStops.indexed) {
+      final sid = _id('stage$stage/${island.slug}/sea${k + 1}');
+      b
+        ..writeln('-- Stopp auf See ${k + 1}: ${st.title}')
+        ..writeln(
+          'insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)',
+        )
+        ..writeln("values ($sid, $iid, ${k + 1}, 'sea_stop', true, ${st.xp}, ${_json(st.toDbContent(k + 1))}, $status)")
+        ..writeln('on conflict (id) do update set')
+        ..writeln('  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,')
+        ..writeln('  content = excluded.content, status = excluded.status;');
+      for (final (i, q) in st.questions.indexed) {
+        final qname = 'stage$stage/${island.slug}/sea${k + 1}/q${i + 1}';
+        questionIds.add(_id(qname));
+        b
+          ..writeln(
+            'insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)',
+          )
+          ..writeln(
+            "values (${_id(qname)}, $sid, ${_lit(q.question)}, ${_json(q.answers)}, 0, ${_lit(q.explanation)}, null, $status)",
+          )
+          ..writeln('on conflict (id) do update set')
+          ..writeln(
+            '  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,',
+          )
+          ..writeln('  explanation = excluded.explanation, status = excluded.status;');
+      }
+      b.writeln();
+    }
     for (final s in island.stations) {
       final sid = _id('stage$stage/${island.slug}/station${s.number}');
       b

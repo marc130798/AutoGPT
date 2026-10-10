@@ -170,7 +170,8 @@ class _StationList extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final details = controller.details!;
-    final stations = controller.stations;
+    // Stopps auf See liegen auf der Karte vor der Insel, nicht auf ihr.
+    final stations = controller.stations.where((s) => !s.isSeaStop).toList();
     final required = stations.where((s) => s.isRequired).toList();
     final allDone = required.every((s) => controller.stateOf(s) == StationState.done);
     final next = required
