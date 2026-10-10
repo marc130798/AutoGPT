@@ -147,7 +147,7 @@
     },
     "map.background": {
       "type": "image",
-      "path": "assets/images/map.background.png",
+      "path": "assets/images/map.background.jpg",
       "placeholder": {
         "label": "Inselkarte",
         "color": "#3E8FB0",
@@ -170,6 +170,168 @@
         "label": "Schloss",
         "color": "#C9A227",
         "shape": "circle"
+      }
+    },
+    "map.island.hafen": {
+      "type": "image",
+      "path": "assets/images/map.island.hafen.png",
+      "placeholder": {
+        "label": "Hafen",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.tauschinsel": {
+      "type": "image",
+      "path": "assets/images/map.island.tauschinsel.png",
+      "placeholder": {
+        "label": "Tauschinsel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.wunschinsel": {
+      "type": "image",
+      "path": "assets/images/map.island.wunschinsel.png",
+      "placeholder": {
+        "label": "Wunschinsel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.spar-insel": {
+      "type": "image",
+      "path": "assets/images/map.island.spar-insel.png",
+      "placeholder": {
+        "label": "Spar-Insel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.taschengeld-bucht": {
+      "type": "image",
+      "path": "assets/images/map.island.taschengeld-bucht.png",
+      "placeholder": {
+        "label": "Taschengeld-Bucht",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.marktinsel": {
+      "type": "image",
+      "path": "assets/images/map.island.marktinsel.png",
+      "placeholder": {
+        "label": "Marktinsel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.werbe-riff": {
+      "type": "image",
+      "path": "assets/images/map.island.werbe-riff.png",
+      "placeholder": {
+        "label": "Werbe-Riff",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.verdienst-insel": {
+      "type": "image",
+      "path": "assets/images/map.island.verdienst-insel.png",
+      "placeholder": {
+        "label": "Verdienst-Insel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.bank-insel": {
+      "type": "image",
+      "path": "assets/images/map.island.bank-insel.png",
+      "placeholder": {
+        "label": "Bank-Insel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.zins-insel": {
+      "type": "image",
+      "path": "assets/images/map.island.zins-insel.png",
+      "placeholder": {
+        "label": "Zins-Insel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.leih-lagune": {
+      "type": "image",
+      "path": "assets/images/map.island.leih-lagune.png",
+      "placeholder": {
+        "label": "Leih-Lagune",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.sicherheits-festung": {
+      "type": "image",
+      "path": "assets/images/map.island.sicherheits-festung.png",
+      "placeholder": {
+        "label": "Sicherheits-Festung",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.risiko-klippen": {
+      "type": "image",
+      "path": "assets/images/map.island.risiko-klippen.png",
+      "placeholder": {
+        "label": "Risiko-Klippen",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.zukunftsinsel": {
+      "type": "image",
+      "path": "assets/images/map.island.zukunftsinsel.png",
+      "placeholder": {
+        "label": "Zukunftsinsel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.island.schatzinsel": {
+      "type": "image",
+      "path": "assets/images/map.island.schatzinsel.png",
+      "placeholder": {
+        "label": "Schatzinsel",
+        "color": "#4FA36B",
+        "shape": "rounded"
+      }
+    },
+    "map.cloud.1": {
+      "type": "image",
+      "path": "assets/images/map.cloud.1.png",
+      "placeholder": {
+        "label": "Wolke",
+        "color": "#E4ECF2",
+        "shape": "rounded"
+      }
+    },
+    "map.cloud.2": {
+      "type": "image",
+      "path": "assets/images/map.cloud.2.png",
+      "placeholder": {
+        "label": "Wolke",
+        "color": "#E4ECF2",
+        "shape": "rounded"
+      }
+    },
+    "map.cloud.3": {
+      "type": "image",
+      "path": "assets/images/map.cloud.3.png",
+      "placeholder": {
+        "label": "Wolke",
+        "color": "#E4ECF2",
+        "shape": "rounded"
       }
     },
     "island.hafen.background": {

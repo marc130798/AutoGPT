@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
@@ -14,10 +16,18 @@ import '../../services/map_controller.dart';
 import '../common/texts.dart';
 import '../encounter/encounter_screen.dart';
 import '../island/island_screen.dart';
+import 'map_layout.dart';
+import 'map_painters.dart';
+import 'map_scene.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
 /// nach oben (Schatzinsel). Inseln im Nebel und gesperrte Inseln sind
 /// sichtbar, aber nicht betretbar.
+///
+/// Bewegung: Beim Öffnen ziehen Wolken auseinander (Nebel-Start), das Meer
+/// schimmert, und ist seit dem letzten Besuch eine neue Insel offen, segelt das
+/// Schiff dorthin und das Schloss springt auf. Mit „Bewegung reduzieren“ steht
+/// alles still.
 class IslandMapScreen extends StatefulWidget {
   const IslandMapScreen({super.key, required this.child});
 
@@ -27,15 +37,52 @@ class IslandMapScreen extends StatefulWidget {
   State<IslandMapScreen> createState() => _IslandMapScreenState();
 }
 
-class _IslandMapScreenState extends State<IslandMapScreen> {
+class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderStateMixin {
   MapController? _controller;
+
+  /// Uhr für Wellen, Wolken, Flaggen (eine Minute, wiederholt sich).
+  late final AnimationController _clock = AnimationController(vsync: this, duration: const Duration(minutes: 1));
+  late final AnimationController _intro = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2600),
+  );
+  late final AnimationController _travel = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 3400),
+  );
+  late final AnimationController _unlock = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 900),
+  );
+  final ScrollController _scroll = ScrollController();
+
+  bool _motion = false;
+  bool _wasLoading = true;
+  bool _introStarted = false;
+  bool _scrolledToShip = false;
+
+  /// Fahrt des Schiffs (Routen-Stellen) und die Insel, deren Schloss aufspringt.
+  int? _travelFrom;
+  int? _travelTo;
+  String? _unlockingId;
+  MapLayout? _layout;
+  double _viewport = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_controller == null) {
       final services = AppScope.of(context);
-      _controller = MapController(content: services.content!, progress: services.progress!, child: widget.child)
+      _motion = services.sceneMotion && !MediaQuery.disableAnimationsOf(context);
+      if (_motion) {
+        _clock.repeat();
+      } else {
+        _intro.value = 1;
+      }
+      final controller = MapController(content: services.content!, progress: services.progress!, child: widget.child);
+      _controller = controller;
+      controller
+        ..addListener(_onControllerChanged)
         ..load();
     }
   }
@@ -43,7 +90,89 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
   @override
   void dispose() {
     _controller?.dispose();
+    _clock.dispose();
+    _intro.dispose();
+    _travel.dispose();
+    _unlock.dispose();
+    _scroll.dispose();
     super.dispose();
+  }
+
+  void _onControllerChanged() {
+    final loading = _controller!.loading;
+    if (_wasLoading && !loading) unawaited(_afterLoad());
+    _wasLoading = loading;
+  }
+
+  /// Nach jedem Laden: Nebel-Start (einmal) und, wenn eine neue Insel offen
+  /// ist, die Fahrt des Schiffs dorthin.
+  Future<void> _afterLoad() async {
+    final controller = _controller!;
+    if (controller.failure != null) {
+      _intro.value = 1;
+      return;
+    }
+    if (_motion && !_introStarted) {
+      _introStarted = true;
+      unawaited(_intro.forward());
+    }
+    final target = controller.shipIslandId;
+    if (target == null) return;
+    final settings = AppScope.of(context).settings;
+    final last = await settings.lastShipIsland(widget.child.id);
+    if (last != target) await settings.setLastShipIsland(widget.child.id, target);
+    if (!mounted || !_motion || last == null || last == target) return;
+
+    final route = [...controller.islands.where((i) => i.isMainRoute)]
+      ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+    final from = route.indexWhere((i) => i.id == last);
+    final to = route.indexWhere((i) => i.id == target);
+    if (from < 0 || to <= from) return;
+    setState(() {
+      _travelFrom = from;
+      _travelTo = to;
+      _unlockingId = target;
+    });
+    _travel.value = 0;
+    _unlock.value = 0;
+    try {
+      await _introDone();
+      if (!mounted) return;
+      final layout = _layout;
+      if (layout != null && _scroll.hasClients) {
+        unawaited(
+          _scroll.animateTo(
+            layout.offsetToShow(layout.centerOf(target).dy, _viewport),
+            duration: const Duration(milliseconds: 1800),
+            curve: Curves.easeInOut,
+          ),
+        );
+      }
+      await _travel.forward(from: 0).orCancel;
+      if (!mounted) return;
+      setState(() {
+        _travelFrom = null;
+        _travelTo = null;
+      });
+      await _unlock.forward(from: 0).orCancel;
+    } on TickerCanceled {
+      return;
+    }
+    if (mounted) setState(() => _unlockingId = null);
+  }
+
+  Future<void> _introDone() {
+    if (_intro.isCompleted) return Future.value();
+    final done = Completer<void>();
+    void listener(AnimationStatus status) {
+      if (status == AnimationStatus.completed) {
+        _intro.removeStatusListener(listener);
+        done.complete();
+      }
+    }
+
+    _intro.addStatusListener(listener);
+    return done.future;
   }
 
   Future<void> _onTap(MapIsland island) async {
@@ -124,7 +253,17 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
       body: ListenableBuilder(
         listenable: controller,
         builder: (context, _) {
-          if (controller.loading) return const Center(child: CircularProgressIndicator());
+          if (controller.loading) {
+            return Stack(
+              children: [
+                if (_motion)
+                  Positioned.fill(
+                    child: FogIntro(progress: _intro, onSkip: () {}),
+                  ),
+                const Center(child: CircularProgressIndicator()),
+              ],
+            );
+          }
           if (controller.failure != null) {
             return Center(
               child: Padding(
@@ -141,19 +280,83 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
             );
           }
           final pace = controller.stats?.pace;
-          return Column(
+          return Stack(
             children: [
-              if (controller.blockedAhead case final block?)
-                _BlockedBanner(block: block, onPractice: _practice)
-              else if (pace != null && !pace.hasWind)
-                _WindBanner(text: l10n.windNeededFor(pace)),
-              Expanded(
-                child: _MapCanvas(controller: controller, onTap: _onTap, onEncounter: _openEncounter),
+              Column(
+                children: [
+                  if (controller.blockedAhead case final block?)
+                    _BlockedBanner(block: block, onPractice: _practice)
+                  else if (pace != null && !pace.hasWind)
+                    _WindBanner(text: l10n.windNeededFor(pace)),
+                  Expanded(child: _buildMap(controller)),
+                ],
+              ),
+              Positioned.fill(
+                child: FogIntro(progress: _intro, onSkip: () => _intro.value = 1),
               ),
             ],
           );
         },
       ),
+    );
+  }
+}
+
+extension on _IslandMapScreenState {
+  Widget _buildMap(MapController controller) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final layout = MapLayout.compute(
+          width: constraints.maxWidth,
+          viewportHeight: constraints.maxHeight,
+          islands: controller.islands,
+        );
+        _layout = layout;
+        _viewport = constraints.maxHeight;
+        if (!_scrolledToShip) {
+          _scrolledToShip = true;
+          final shipId = controller.shipIslandId;
+          if (shipId != null) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              if (_scroll.hasClients) {
+                _scroll.jumpTo(layout.offsetToShow(layout.centerOf(shipId).dy, constraints.maxHeight));
+              }
+            });
+          }
+        }
+        return AnimatedBuilder(
+          animation: _intro,
+          builder: (context, child) {
+            // Beim Nebel-Start sinkt die Kamera ein Stück herab.
+            final q = Curves.easeOut.transform(_intro.value);
+            return Transform.scale(scale: 1 + 0.12 * (1 - q), child: child);
+          },
+          child: SingleChildScrollView(
+            controller: _scroll,
+            // Start unten beim Hafen.
+            reverse: true,
+            child: SizedBox(
+              width: layout.width,
+              height: layout.height,
+              child: AnimatedBuilder(
+                animation: Listenable.merge([_travel, _unlock]),
+                builder: (context, _) => _MapScene(
+                  controller: controller,
+                  layout: layout,
+                  clock: _clock,
+                  travelFrom: _travelFrom,
+                  travelTo: _travelTo,
+                  travel: Curves.easeInOut.transform(_travel.value),
+                  unlockingId: _unlockingId,
+                  unlock: _unlock.value,
+                  onTap: _onTap,
+                  onEncounter: _openEncounter,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -234,210 +437,165 @@ class _BlockedBanner extends StatelessWidget {
   }
 }
 
-class _MapCanvas extends StatelessWidget {
-  const _MapCanvas({required this.controller, required this.onTap, required this.onEncounter});
+/// Alles auf der Karte: Meer, Route, Inseln, Schiff und Begegnung.
+class _MapScene extends StatelessWidget {
+  const _MapScene({
+    required this.controller,
+    required this.layout,
+    required this.clock,
+    required this.travelFrom,
+    required this.travelTo,
+    required this.travel,
+    required this.unlockingId,
+    required this.unlock,
+    required this.onTap,
+    required this.onEncounter,
+  });
 
-  static const _markerSize = 96.0;
   static const _encounterWidth = 140.0;
 
   final MapController controller;
+  final MapLayout layout;
+  final Animation<double> clock;
+  final int? travelFrom;
+  final int? travelTo;
+  final double travel;
+  final String? unlockingId;
+  final double unlock;
   final ValueChanged<MapIsland> onTap;
   final VoidCallback onEncounter;
 
   @override
   Widget build(BuildContext context) {
     final islands = controller.islands;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = constraints.maxWidth;
-        // Genug Platz pro Insel, mindestens so hoch wie der Bildschirm.
-        final height = max(constraints.maxHeight, islands.length * 150.0 + 160);
-        Offset position(MapIsland i) => Offset(
-          (i.mapX * width).clamp(_markerSize / 2 + 8, width - _markerSize / 2 - 8),
-          (i.mapY * height).clamp(_markerSize, height - _markerSize),
-        );
-        final route = [...islands.where((i) => i.isMainRoute)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
-        final ship = islands.where((i) => i.id == controller.shipIslandId).firstOrNull;
+    final route = layout.route;
+    final shipId = controller.shipIslandId;
+    final shipIndex = layout.routeIndexOf(shipId);
+    final traveling = travelFrom != null && travelTo != null;
+    final fogFrom = route.indexWhere((i) => controller.stateOf(i) == IslandState.fog);
+    final centers = [for (final i in islands) layout.centerOf(i.id)];
 
-        return SingleChildScrollView(
-          // Start unten beim Hafen.
-          reverse: true,
-          child: SizedBox(
-            width: width,
-            height: height,
-            child: Stack(
-              children: [
-                const Positioned.fill(child: TaleriaAsset(AssetKeys.mapBackground, fit: BoxFit.cover)),
-                Positioned.fill(
-                  child: CustomPaint(
-                    painter: _RoutePainter([for (final i in route) position(i)], context.palette.paper),
-                  ),
-                ),
-                for (final island in islands)
-                  Positioned(
-                    left: position(island).dx - _markerSize / 2 - 16,
-                    top: position(island).dy - _markerSize / 2,
-                    width: _markerSize + 32,
-                    child: _IslandMarker(
-                      island: island,
-                      state: controller.stateOf(island),
-                      hasShip: controller.shipIslandId == island.id,
-                      size: _markerSize,
-                      onTap: () => onTap(island),
-                    ),
-                  ),
-                if (controller.encounter != null && ship != null)
-                  Positioned(
-                    // Neben dem Schiff, auf der Seite mit mehr Platz.
-                    left:
-                        (position(ship).dx < width / 2
-                                ? position(ship).dx + _markerSize / 2 + 8
-                                : position(ship).dx - _markerSize / 2 - 8 - _encounterWidth)
-                            .clamp(8.0, max(8.0, width - _encounterWidth - 8)),
-                    top: position(ship).dy - _markerSize / 2,
-                    width: _encounterWidth,
-                    child: EncounterMapButton(encounter: controller.encounter!.encounter, onTap: onEncounter),
-                  ),
-              ],
+    // Schiff: auf der Fahrt entlang der Route, sonst am Ankerplatz.
+    Offset? shipPosition;
+    var facingLeft = false;
+    if (traveling) {
+      final step = layout.travel(travelFrom!, travelTo!, travel);
+      shipPosition = step.position;
+      facingLeft = step.movingLeft;
+    } else if (shipId != null) {
+      shipPosition = layout.shipAnchor(shipId);
+      final next = shipIndex >= 0 && shipIndex + 1 < route.length ? route[shipIndex + 1] : null;
+      facingLeft = next != null && layout.centerOf(next.id).dx < shipPosition.dx;
+    }
+
+    // Nach Tiefe sortiert: weiter oben liegende Inseln zuerst, damit nähere
+    // Inseln und das Schiff davor liegen.
+    final layers = <(double, Widget)>[];
+    for (final island in islands) {
+      final c = layout.centerOf(island.id);
+      final state = controller.stateOf(island);
+      final unlocking = island.id == unlockingId;
+      final double? lock;
+      if (unlocking) {
+        lock = traveling ? 0 : unlock;
+      } else if (state == IslandState.locked || state == IslandState.premium) {
+        lock = 0;
+      } else {
+        lock = null;
+      }
+      layers.add((
+        c.dy,
+        Positioned(
+          left: c.dx - layout.islandWidth / 2,
+          top: c.dy - layout.islandHeight / 2,
+          width: layout.islandWidth,
+          height: layout.islandHeight + MapIslandMarker.labelSpace,
+          child: MapIslandMarker(
+            island: island,
+            state: state,
+            width: layout.islandWidth,
+            height: layout.islandHeight,
+            clock: clock,
+            glow: island.id == shipId && state == IslandState.open && !traveling && !unlocking,
+            lock: lock,
+            onTap: () => onTap(island),
+          ),
+        ),
+      ));
+    }
+    if (shipPosition != null) {
+      final size = layout.shipSize;
+      layers.add((
+        shipPosition.dy,
+        Positioned(
+          left: shipPosition.dx - size / 2,
+          top: shipPosition.dy - size * 0.75,
+          width: size,
+          height: size,
+          child: IgnorePointer(
+            child: MapShip(size: size, clock: clock, facingLeft: facingLeft, moving: traveling),
+          ),
+        ),
+      ));
+    }
+    layers.sort((a, b) => a.$1.compareTo(b.$1));
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Positioned.fill(
+          child: RepaintBoundary(
+            child: CustomPaint(
+              painter: SeaPainter(islands: centers, islandWidth: layout.islandWidth),
             ),
           ),
-        );
-      },
-    );
-  }
-}
-
-class _IslandMarker extends StatelessWidget {
-  const _IslandMarker({
-    required this.island,
-    required this.state,
-    required this.hasShip,
-    required this.size,
-    required this.onTap,
-  });
-
-  final MapIsland island;
-  final IslandState state;
-  final bool hasShip;
-  final double size;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final palette = context.palette;
-    final theme = Theme.of(context);
-    final fog = state == IslandState.fog;
-
-    return Semantics(
-      button: true,
-      label: fog ? l10n.mapIslandFogTitle(island.title) : island.title,
-      child: GestureDetector(
-        key: ValueKey('island-${island.slug}'),
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox.square(
-              dimension: size,
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: state == IslandState.open
-                            ? [BoxShadow(color: palette.gold.withValues(alpha: 0.8), blurRadius: 18, spreadRadius: 4)]
-                            : null,
-                      ),
-                      child: ClipOval(
-                        child: Opacity(
-                          opacity: state == IslandState.locked || state == IslandState.premium ? 0.6 : 1,
-                          child: TaleriaAsset(AssetKeys.islandBackground(island.slug), fit: BoxFit.cover),
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (fog)
-                    const Positioned.fill(
-                      child: ClipOval(child: TaleriaAsset(AssetKeys.mapFog, fit: BoxFit.cover)),
-                    ),
-                  if (state == IslandState.locked || state == IslandState.premium)
-                    const Positioned(
-                      right: -4,
-                      bottom: -4,
-                      child: TaleriaAsset(AssetKeys.mapLock, width: 36, height: 36),
-                    ),
-                  if (state == IslandState.completed)
-                    Positioned(
-                      right: -4,
-                      bottom: -4,
-                      child: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: palette.success,
-                        child: const Icon(Icons.check, color: Colors.white, size: 20),
-                      ),
-                    ),
-                  if (hasShip)
-                    Positioned(
-                      left: -20,
-                      top: -12,
-                      child: Semantics(
-                        label: l10n.mapYouAreHere,
-                        child: const TaleriaAsset(AssetKeys.crewShip, width: 56, height: 36),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 4),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: palette.paper.withValues(alpha: 0.9),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                fog ? l10n.mapIslandFogTitle(island.title) : island.title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                style: theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w700),
-              ),
-            ),
-          ],
         ),
-      ),
+        // Wasserbild aus BILDER.md, falls es da ist (sonst nur der gezeichnete Grund).
+        const Positioned.fill(
+          child: Opacity(
+            opacity: 0.88,
+            child: TaleriaAsset(
+              AssetKeys.mapBackground,
+              fit: BoxFit.fitWidth,
+              repeat: ImageRepeat.repeatY,
+              alignment: Alignment.topCenter,
+              fallback: SizedBox.shrink(),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: IgnorePointer(
+            child: CustomPaint(
+              painter: SeaSurfacePainter(clock: clock, islands: centers, islandWidth: layout.islandWidth),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: IgnorePointer(
+            child: CustomPaint(
+              painter: RoutePainter(
+                layout: layout,
+                goldUntil: traveling ? travelFrom! + travel * (travelTo! - travelFrom!) : max(0, shipIndex).toDouble(),
+                fogFrom: fogFrom < 0 ? route.length : fogFrom,
+                clock: clock,
+              ),
+            ),
+          ),
+        ),
+        for (final layer in layers) layer.$2,
+        if (controller.encounter != null && shipPosition != null && !traveling)
+          Positioned(
+            // Neben dem Schiff, auf der Seite mit mehr Platz.
+            left:
+                (shipPosition.dx < layout.width / 2
+                        ? shipPosition.dx + layout.shipSize / 2
+                        : shipPosition.dx - layout.shipSize / 2 - _encounterWidth)
+                    .clamp(8.0, max(8.0, layout.width - _encounterWidth - 8)),
+            top: shipPosition.dy - layout.shipSize * 0.9,
+            width: _encounterWidth,
+            child: EncounterMapButton(encounter: controller.encounter!.encounter, onTap: onEncounter),
+          ),
+      ],
     );
   }
-}
-
-/// Gestrichelte Route zwischen den Inseln der Hauptroute.
-class _RoutePainter extends CustomPainter {
-  _RoutePainter(this.points, this.color);
-
-  final List<Offset> points;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color.withValues(alpha: 0.85)
-      ..strokeWidth = 4
-      ..strokeCap = StrokeCap.round;
-    for (var i = 0; i < points.length - 1; i++) {
-      final a = points[i], b = points[i + 1];
-      final distance = (b - a).distance;
-      const dash = 12.0, gap = 10.0;
-      for (var d = 0.0; d < distance; d += dash + gap) {
-        final start = Offset.lerp(a, b, d / distance)!;
-        final end = Offset.lerp(a, b, min(d + dash, distance) / distance)!;
-        canvas.drawLine(start, end, paint);
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(_RoutePainter oldDelegate) => oldDelegate.points != points || oldDelegate.color != color;
 }

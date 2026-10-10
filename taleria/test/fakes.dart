@@ -320,6 +320,15 @@ class FakeLocalSettings implements LocalSettings {
   final Map<String, String> values = {};
   final Map<String, Set<String>> quizSelections = {};
   final Set<String> arrivals = {};
+  final Map<String, String> ships = {};
+
+  @override
+  Future<String?> lastShipIsland(String childId) async => ships[childId];
+
+  @override
+  Future<void> setLastShipIsland(String childId, String islandId) async {
+    ships[childId] = islandId;
+  }
 
   @override
   Future<Set<String>?> lastQuizSelection(String childId, String stationId) async =>

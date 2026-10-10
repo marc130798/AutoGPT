@@ -11,6 +11,9 @@ abstract final class AssetKeys {
   static const mapFog = 'map.fog';
   static const mapLock = 'map.lock';
 
+  /// Wolken für den Nebel-Start und die Inseln im Nebel (BILDER.md, Bild 6 bis 8).
+  static const mapClouds = ['map.cloud.1', 'map.cloud.2', 'map.cloud.3'];
+
   static const lighthouse = 'parent.lighthouse';
 
   static const underwaterBackground = 'underwater.background';
@@ -20,6 +23,9 @@ abstract final class AssetKeys {
   static const logo = 'brand.logo';
 
   static String islandBackground(String slug) => 'island.$slug.background';
+
+  /// Die Insel, wie sie auf der Karte liegt (freigestellt, BILDER.md).
+  static String mapIsland(String slug) => 'map.island.$slug';
   static String arrivalVideo(String slug) => 'video.arrival.$slug';
   static String islandBadge(String slug) => 'badge.$slug';
   static String rank(String slug) => 'rank.$slug';
@@ -35,6 +41,7 @@ abstract final class AssetKeys {
     mapBackground,
     mapFog,
     mapLock,
+    ...mapClouds,
     introVideo,
     logo,
     underwaterBackground,

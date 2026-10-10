@@ -17,6 +17,12 @@ abstract interface class LocalSettings {
   Future<bool> arrivalSeen(String childId, String islandId);
 
   Future<void> setArrivalSeen(String childId, String islandId);
+
+  /// Insel, an der das Schiff zuletzt auf der Karte lag. Ist inzwischen eine
+  /// neue Insel offen, segelt das Schiff beim nächsten Öffnen dorthin.
+  Future<String?> lastShipIsland(String childId);
+
+  Future<void> setLastShipIsland(String childId, String islandId);
 }
 
 class SharedPreferencesSettings implements LocalSettings {
@@ -50,6 +56,18 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setArrivalSeen(String childId, String islandId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('arrival.$childId.$islandId', true);
+  }
+
+  @override
+  Future<String?> lastShipIsland(String childId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('ship.$childId');
+  }
+
+  @override
+  Future<void> setLastShipIsland(String childId, String islandId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('ship.$childId', islandId);
   }
 
   @override

@@ -68,6 +68,7 @@ TaleriaApp buildTestApp({
   FakeContent? content,
   FakeProgress? progress,
   FakeBudget? budget,
+  bool sceneMotion = false,
 }) {
   final family = backend == null ? null : FakeFamilyRepository(backend);
   final localSettings = settings ?? FakeLocalSettings();
@@ -95,6 +96,7 @@ TaleriaApp buildTestApp({
       settings: localSettings,
       budget: budget ?? (backend == null ? null : FakeBudget()),
       random: Random(42),
+      sceneMotion: sceneMotion,
     ),
   );
 }

@@ -550,3 +550,10 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Rive entfällt für die Figuren, weil es nicht zum 3D-Look passt. Stattdessen Einzelbilder pro Zustand und kurze Filme für besondere Momente (`FIGUREN.md`).
 - Beim Beispielbild beachten: Talo darf nicht wie Nick Wilde aus „Zoomania“ aussehen, auf dem Schiff keine Kanonen, Tala ohne Krone und Prinzessinnenkleid.
 - Vor dem Start klären: Nutzungsbedingungen von Gemini für App, Werbung und Merchandise; Schutz von Logo und Hauptfiguren mit einer Fachperson besprechen.
+
+**Bewegte Karte, umgesetzt am 10.10.2026:**
+- Die Inselkarte ist eine Szene: Meer mit Verlauf, Tiefen, schimmernden Wellen und Glitzern; um jede Insel flaches Wasser, Gischt und Brandung; gepunktete Route (gold bis zum Schiff, weiß voraus mit wandernden Punkten, blass in den Nebel); geschaffte Inseln mit wehender Flagge; die Insel mit dem Schiff leuchtet; gesperrte Inseln sind blasser mit Schloss; über Inseln im Nebel ziehen Wolken. Inseln liegen größer als vorher (gut halbe Bildschirmbreite), jede mit Namensband.
+- **Nebel-Start:** Beim Öffnen der Karte liegen Wolken über allem (auch während des Ladens) und ziehen nach etwa 2,5 Sekunden auseinander, die Kamera sinkt dabei leicht herab. Antippen überspringt.
+- **Fahrt:** Das Gerät merkt sich, an welcher Insel das Schiff zuletzt lag (`LocalSettings.lastShipIsland`). Ist seitdem eine neue Insel offen, segelt das Schiff nach dem Nebel-Start entlang der Route dorthin (etwa 3,5 Sekunden, mit Kielwasser), danach springt das Schloss auf.
+- Bilder aus `BILDER.md` ersetzen Inseln (`map.island.<slug>`), Schiff (`ship.crew`), Wolken (`map.cloud.1` bis `3`) und Meer (`map.background`, als Kachel). Fehlt ein Bild, zeichnet der Code einen Ersatz im selben Aufbau. Freistellen mit `tool/bilder_freistellen.py`.
+- Bei „Bewegung reduzieren“ steht alles still, ohne Nebel-Start und ohne Fahrt. In Widget-Tests ist die Bewegung aus (`AppServices.sceneMotion`), eigene Tests prüfen sie mit `pump` und Zeitangabe.

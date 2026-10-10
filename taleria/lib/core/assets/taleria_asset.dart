@@ -7,14 +7,29 @@ import 'asset_placeholder.dart';
 /// Zeigt eine Grafik über ihren festen Schlüssel an.
 ///
 /// Fehlt die Datei (oder kann die App diese Art noch nicht anzeigen),
-/// erscheint der Platzhalter aus dem Manifest. Nie ein Absturz.
+/// erscheint der Platzhalter aus dem Manifest oder [fallback]. Nie ein Absturz.
 class TaleriaAsset extends StatefulWidget {
-  const TaleriaAsset(this.assetKey, {super.key, this.width, this.height, this.fit = BoxFit.contain});
+  const TaleriaAsset(
+    this.assetKey, {
+    super.key,
+    this.width,
+    this.height,
+    this.fit = BoxFit.contain,
+    this.fallback,
+    this.repeat = ImageRepeat.noRepeat,
+    this.alignment = Alignment.center,
+  });
 
   final String assetKey;
   final double? width;
   final double? height;
   final BoxFit fit;
+  final ImageRepeat repeat;
+  final Alignment alignment;
+
+  /// Eigener Ersatz statt des Platzhalters, zum Beispiel eine im Code
+  /// gezeichnete Insel, bis das Bild da ist.
+  final Widget? fallback;
 
   @override
   State<TaleriaAsset> createState() => _TaleriaAssetState();
@@ -50,7 +65,7 @@ class _TaleriaAssetState extends State<TaleriaAsset> {
   @override
   Widget build(BuildContext context) {
     final entry = _entry!;
-    final placeholder = AssetPlaceholder(entry: entry, width: widget.width, height: widget.height);
+    final placeholder = widget.fallback ?? AssetPlaceholder(entry: entry, width: widget.width, height: widget.height);
     return FutureBuilder<bool>(
       future: _available,
       builder: (context, snapshot) {
@@ -62,6 +77,8 @@ class _TaleriaAssetState extends State<TaleriaAsset> {
             width: widget.width,
             height: widget.height,
             fit: widget.fit,
+            repeat: widget.repeat,
+            alignment: widget.alignment,
             errorBuilder: (_, _, _) => placeholder,
           ),
           _ => placeholder,

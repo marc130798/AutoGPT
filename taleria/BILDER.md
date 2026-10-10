@@ -143,7 +143,8 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 
 ## 6. Technische Angaben (für Claude Code)
 
-- Inseln und Schiff: PNG mit transparentem Hintergrund, höchstens 1024 px breit, unter `assets/images/<Schlüssel>.png`. Freistellen über den Farbabstand zu Magenta mit weichem Rand, pinken Farbsaum am Rand entfernen, auf den sichtbaren Inhalt zuschneiden.
-- Meer (`map.background`): PNG, 1024 px breit, wird senkrecht gekachelt, jede zweite Kachel gespiegelt.
-- Wolken: PNG mit transparentem Hintergrund, die Helligkeit wird zur Deckkraft (weiß auf schwarz).
+- Werkzeug: `python3 tool/bilder_freistellen.py --art insel|schiff|wolke|meer <Bild> <Schlüssel>` (braucht Pillow und numpy). Es legt die fertige Datei unter `assets/images/` ab.
+- Inseln (768 px breit) und Schiff (512 px): PNG mit durchsichtigem Hintergrund. Durchsichtig wird nur die einfarbige Fläche, die mit dem Bildrand verbunden ist (pinke Dinge auf der Insel bleiben), mit weichem Rand und ohne pinken Farbsaum, zugeschnitten auf den Inhalt.
+- Meer (`map.background`): JPG, 768 px breit, aus Bild und Spiegelbild zu einer Kachel zusammengesetzt, die sich nahtlos wiederholt.
+- Wolken (640 px): PNG, die Helligkeit wird zur Deckkraft (weiß auf schwarz).
 - Alle Bilder vor dem Einbau in `ASSETS_LICENSES.md` eintragen.

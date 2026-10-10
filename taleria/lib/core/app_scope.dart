@@ -28,6 +28,7 @@ class AppServices {
     required this.settings,
     required this.budget,
     this.manifestError,
+    this.sceneMotion = true,
     Random? random,
   }) : random = random ?? _defaultRandom;
 
@@ -61,6 +62,11 @@ class AppServices {
 
   /// Zufall für die Quiz-Auswahl (in Tests fest vorgegeben).
   final Random random;
+
+  /// Bewegte Szenen (Wellen, Wolken, Nebel-Start, segelndes Schiff). In Tests
+  /// aus, damit die Bildschirme zur Ruhe kommen. Im Gerät gilt zusätzlich
+  /// „Bewegung reduzieren“.
+  final bool sceneMotion;
 
   /// Gesetzt, wenn das Manifest nicht geladen werden konnte. Die App läuft
   /// dann mit grauen Platzhaltern weiter.

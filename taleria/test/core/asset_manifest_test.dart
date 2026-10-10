@@ -42,6 +42,7 @@ void main() {
       ];
       for (final slug in slugs) {
         expect(manifest.contains(AssetKeys.islandBackground(slug)), isTrue, reason: slug);
+        expect(manifest.contains(AssetKeys.mapIsland(slug)), isTrue, reason: slug);
         expect(manifest.contains(AssetKeys.arrivalVideo(slug)), isTrue, reason: slug);
         expect(manifest.contains(AssetKeys.islandBadge(slug)), isTrue, reason: slug);
       }
@@ -56,7 +57,8 @@ void main() {
 
     test('Bilder liegen unter assets/images/ und heißen wie ihr Schlüssel', () {
       for (final entry in manifest.entries.where((e) => e.type == AssetType.image)) {
-        expect(entry.path, 'assets/images/${entry.key}.png');
+        // PNG, nur Fotos ohne Durchsichtiges (das Meer) als JPG.
+        expect(entry.path, anyOf('assets/images/${entry.key}.png', 'assets/images/${entry.key}.jpg'));
       }
     });
 
