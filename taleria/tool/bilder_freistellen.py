@@ -14,6 +14,8 @@ Aufruf im Ordner taleria/ (braucht Python 3 mit Pillow und numpy):
 - insel, schiff, figur, gegenstand: einfarbiger (pinker oder grüner) Hintergrund wird durchsichtig. Nur Fläche,
   die mit dem Bildrand verbunden ist, damit pinke Dinge auf der Insel bleiben.
   Weicher Rand, pinker Farbsaum wird herausgerechnet.
+  figur und gegenstand: auch eingeschlossene Lücken und Schatten am Boden werden
+  durchsichtig. figur: der Farbschimmer wird auf der ganzen Figur herausgerechnet.
 - wolke: weiß auf schwarz, die Helligkeit wird zur Deckkraft.
 - hintergrund: ganzes Bild (zum Beispiel für die Startseite), nur verkleinert, als JPG.
 - meer: wird mit seinem Spiegelbild zu einer Kachel, die man nahtlos
@@ -55,11 +57,15 @@ def border_connected(mask, seeds=None):
         reached = grown
 
 
-def key_out_background(rgb, low=40.0, high=110.0, figure=False):
+def key_out_background(rgb, low=40.0, high=110.0, figure=False, loose=False):
     """Einfarbigen Hintergrund durchsichtig machen. Liefert RGBA (float 0..255).
 
     figure: für Figuren mit Fell. Dort wirft der Hintergrund Farbe auf die
-    ganze Figur, und zwischen Arm und Kopf bleiben dunklere Lücken."""
+    ganze Figur, das wird überall herausgerechnet.
+    loose: für Figuren und lose Gegenstände. Dunklere Lücken (zwischen Arm
+    und Kopf, zwischen Seetang und Münze) und Schatten am Boden werden
+    durchsichtig, der Rand wird ein wenig nach innen gezogen."""
+    loose = loose or figure
     h, w, _ = rgb.shape
     border = np.concatenate([rgb[0, :], rgb[-1, :], rgb[:, 0], rgb[:, -1]])
     background = np.median(border, axis=0)
@@ -67,14 +73,24 @@ def key_out_background(rgb, low=40.0, high=110.0, figure=False):
     # Vom Rand aus, dazu eingeschlossene Lücken in reiner Hintergrundfarbe
     # (zum Beispiel zwischen den Balken eines Turms). Pinke Dinge auf der Insel
     # sind nie so nah an der Hintergrundfarbe und bleiben.
-    region = border_connected(distance < high, seeds=distance < (70 if figure else 35))
+    # Wie weit ein Pixel von einem bloß dunkleren (oder helleren) Hintergrund
+    # entfernt ist. Klein bei Schatten und Lücken, groß bei echten Farben.
+    k = (rgb @ background) / (background @ background)
+    residual = np.sqrt(((rgb - k[..., None] * background) ** 2).sum(axis=2))
+    seeds = distance < 35
+    if loose:
+        # Auch dunklere Lücken, zum Beispiel zwischen Arm und Kopf.
+        seeds |= (residual < 20) & (distance < high)
+    region = border_connected(distance < high, seeds=seeds)
     alpha = np.ones((h, w))
     alpha[region] = np.clip((distance[region] - low) / (high - low), 0, 1)
-    if figure:
+    if loose:
+        # Helle, zarte Farben (Creme, Rosa) liegen bei blasserem Pink nah am
+        # Hintergrund. Was aber keine bloß hellere oder dunklere Hintergrundfarbe
+        # ist, bleibt deckend.
+        alpha[region] = np.maximum(alpha[region], np.clip((residual[region] - 15) / 45, 0, 1))
         # Schatten auf dem Boden (nur dunkleres Pink oder Grün): ganz weg, damit
         # die Figur nicht auf einem grauen Fleck steht.
-        k = (rgb @ background) / (background @ background)
-        residual = np.sqrt(((rgb - k[..., None] * background) ** 2).sum(axis=2))
         alpha[region & (residual < 24)] = 0
 
     # Farbe ohne Hintergrund: Pixel = a * Vordergrund + (1 - a) * Hintergrund.
@@ -93,7 +109,7 @@ def key_out_background(rgb, low=40.0, high=110.0, figure=False):
     if background[1] > max(background[0], background[2]):
         # grüner Hintergrund (zum Beispiel bei der rosa Tala)
         green = np.clip(g - np.maximum(r, b), 0, None) * near_edge
-        if figure:
+        if loose:
             # Direkt am Rand wirft der grüne Grund helles Licht aufs Fell, das
             # sonst gelblich bleibt: dort Grün höchstens wie der Mittelwert.
             rim = grow(alpha < 0.5, round(max(h, w) / 128))
@@ -107,7 +123,7 @@ def key_out_background(rgb, low=40.0, high=110.0, figure=False):
         foreground[..., 0] = r - magenta * (1.0 if figure else 0.35)
     # Feiner Saum aus Hintergrundfarbe am Rand (bei Fell und Haaren): Rand ein
     # wenig nach innen ziehen (bei 1024 Pixeln drei Pixel). Die Farben bleiben.
-    choke = round(max(h, w) / 400) if figure else 0
+    choke = round(max(h, w) / 400) if loose else 0
     for _ in range(choke):
         shrunk = alpha.copy()
         shrunk[1:, :] = np.minimum(shrunk[1:, :], alpha[:-1, :])
@@ -199,7 +215,7 @@ def main():
         if args.art == 'wolke':
             rgba = light_to_alpha(rgb)
         else:
-            rgba = key_out_background(rgb, figure=args.art == 'figur')
+            rgba = key_out_background(rgb, figure=args.art == 'figur', loose=args.art == 'gegenstand')
         rgba = crop_to_content(rgba)
         image = shrink(Image.fromarray(np.round(rgba).astype(np.uint8), 'RGBA'), MAX_WIDTH[args.art])
         target = os.path.join(OUT_DIR, args.schluessel + '.png')

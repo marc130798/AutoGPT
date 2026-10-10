@@ -321,7 +321,7 @@ Tipp: Bei Figuren mit viel Weiß oder Grau (zum Beispiel einer weißen Schürze)
 
 ---
 
-## 4e. Als Nächstes: der Tauchgang
+## 4e. Der Tauchgang (beide da)
 
 An den Ankerplätzen taucht das Kind und findet Dinge für seine Sammlung. Die Perle ist schon da (dasselbe Bild wie die Muschel mit Perle auf der Startseite).
 
@@ -333,6 +333,8 @@ Als Vorlage das Bild vom Hafen von innen anhängen (`design/gemini/island.hafen.
 Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: eine fröhliche, helle Unterwasserwelt in einer flachen Lagune. Sonnenstrahlen fallen von oben durch türkisblaues Wasser, unten heller Sandboden mit bunten Korallen, Seegras, ein paar Muscheln und kleinen bunten Fischen, hinten ein altes, freundlich aussehendes Schiffswrack aus Holz halb im Sand. Ruhig und einladend, nicht dunkel, nicht gruselig. Hochformat 9:16. Keine Schrift, keine Logos, keine Waffen, keine Figuren.
 ```
 
+Stand: da.
+
 ### Bild 12: Fundstück → `collectible.wreck_item`
 
 Als Vorlage den Orden mit dem Anker anhängen (`design/gemini/icon.badges.jpg`).
@@ -340,6 +342,8 @@ Als Vorlage den Orden mit dem Anker anhängen (`design/gemini/icon.badges.jpg`).
 ```
 Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt des Ordens: ein kleiner Haufen Fundstücke vom Meeresgrund, eine alte Goldmünze, ein kleiner Messing-Kompass und eine hübsche Muschel, mit etwas grünem Seetang. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
 ```
+
+Stand: da, aber fotorealistisch und mit Kopf und Buchstaben auf der Münze. Vor dem Start neu machen, dazu an den Text anhängen: „Im verspielten 3D-Animationsfilm-Look mit runden, weichen Formen, nicht fotorealistisch. Auf der Münze ein kleiner Anker statt eines Gesichts, ohne Buchstaben.“
 
 ---
 

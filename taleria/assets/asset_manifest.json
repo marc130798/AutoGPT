@@ -703,7 +703,7 @@
     },
     "underwater.background": {
       "type": "image",
-      "path": "assets/images/underwater.background.png",
+      "path": "assets/images/underwater.background.jpg",
       "placeholder": {
         "label": "Unterwasserwelt",
         "color": "#14506E",
