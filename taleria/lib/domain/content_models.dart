@@ -15,6 +15,7 @@ class MapIsland {
     required this.hasContent,
     this.group,
     this.routeType = 'main',
+    this.access = 'free',
   });
 
   final String id;
@@ -31,7 +32,11 @@ class MapIsland {
   /// `false` = Insel liegt im Nebel (Inhalte noch nicht veröffentlicht).
   final bool hasContent;
 
+  /// free oder premium (Abo-Rechte, CLAUDE.md Abschnitt 8).
+  final String access;
+
   bool get isMainRoute => routeType == 'main';
+  bool get isPremium => access == 'premium';
 }
 
 /// Eine Zeile Dialog von Talo, Tala oder einer anderen Figur.

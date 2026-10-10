@@ -93,6 +93,7 @@ class SupabaseContentRepository implements ContentRepository {
           mapY: (r['map_y'] as num?)?.toDouble() ?? 0.5,
           routeType: r['route_type'] as String? ?? 'main',
           hasContent: r['has_content'] as bool? ?? false,
+          access: r['access'] as String? ?? 'free',
         ),
     ];
   });

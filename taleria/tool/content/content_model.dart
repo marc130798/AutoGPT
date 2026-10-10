@@ -672,6 +672,10 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
     ..writeln('-- Inhalts-Vorschau: Kinder sehen in der Testumgebung auch Entwürfe.')
     ..writeln("insert into public.app_settings (key, value) values ('content_preview', 'true'::jsonb)")
     ..writeln('on conflict (key) do update set value = excluded.value;')
+    ..writeln()
+    ..writeln('-- Test-Abo: Eltern können das Abo im Leuchtturm testweise ein- und ausschalten.')
+    ..writeln("insert into public.app_settings (key, value) values ('test_purchases', 'true'::jsonb)")
+    ..writeln('on conflict (key) do update set value = excluded.value;')
     ..writeln();
 
   for (final island in islands) {

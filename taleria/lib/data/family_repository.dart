@@ -39,6 +39,12 @@ abstract interface class FamilyRepository {
   Future<PinCheckResult> verifyParentPin(String pin);
 
   Future<void> deleteMyAccount();
+
+  /// Abo des Eltern-Kontos.
+  Future<Subscription> fetchSubscription();
+
+  /// Nur in der Testumgebung: Abo testweise ein- oder ausschalten.
+  Future<void> setTestPremium({required bool active});
 }
 
 class SupabaseFamilyRepository implements FamilyRepository {
@@ -153,6 +159,16 @@ class SupabaseFamilyRepository implements FamilyRepository {
 
   @override
   Future<void> deleteMyAccount() => guardBackend(() => _client.rpc<void>('delete_my_account'));
+
+  @override
+  Future<Subscription> fetchSubscription() => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>>('my_subscription');
+    return Subscription.fromJson(result);
+  });
+
+  @override
+  Future<void> setTestPremium({required bool active}) =>
+      guardBackend(() => _client.rpc<void>('set_test_premium', params: {'p_active': active}));
 
   static ChildProfile _childFromRow(Map<String, dynamic> row) {
     final avatar = row['avatar'] as Map<String, dynamic>?;

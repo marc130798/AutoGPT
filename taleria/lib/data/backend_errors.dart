@@ -34,6 +34,8 @@ FailureKind postgrestFailureKind(sb.PostgrestException e) {
   if (e.message.contains('Nicht genug Guthaben')) return FailureKind.notEnoughMoney;
   // Tempo: submit_station(), wenn für eine neue Station kein Wind da ist.
   if (e.message.contains('braucht Wind')) return FailureKind.noWind;
+  // Abo-Grenze, zum Beispiel ein weiteres Kinder-Profil ohne Abo.
+  if (e.message.contains('mit dem Abo')) return FailureKind.premiumRequired;
   return FailureKind.unknown;
 }
 

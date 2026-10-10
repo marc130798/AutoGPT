@@ -152,7 +152,7 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `wish_bottles` – `child_id`, `title`, `price_cents` (optional), `remind_at`, `decision` (open, dropped, converted), `savings_goal_id` (bei Umwandlung)
 
 **Abo**
-- `entitlements` – `parent_id`, `entitlement` (premium), `source` (revenuecat), `valid_until`
+- `entitlements` – `parent_id`, `entitlement` (premium), `source` (revenuecat, manual, test), `valid_until` (`null` = ohne Ablauf)
 
 **Admin**
 - `admins` – verknüpft mit `auth.users`; `role` (owner, editor, support), `mfa_required` (immer true)
@@ -482,3 +482,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Kombüsen-Fragen:** Gesprächsideen der Inseln, die das Kind erreicht hat, die aktuelle Insel oben („Gerade dran“). Darunter der Auftrag fürs echte Leben der Insel mit „Als Aufgabe anlegen“: Der Aufgaben-Dialog öffnet sich mit dem Titel vorausgefüllt, die Belohnung legen die Eltern selbst fest (INSELN.md).
 - `child_stats()` liefert zusätzlich `last_active_at` (letzte Station, Begegnung oder Wiederholung).
 - Noch nicht gebaut: Urkunde „Finanzführerschein Stufe 1“ als PDF (kommt mit der Schatzinsel), „Neue Inhalte“-Hinweis für Eltern (kommt mit dem Adminbereich), Häkchen „haben wir besprochen“ bei Kombüsen-Fragen.
+
+**Schritt 9a (Abo-Rechte ohne Kauf), umgesetzt am 10.10.2026:**
+- Auf Wunsch von Marc zuerst ohne RevenueCat und ohne Store-Konten gebaut. Kaufen (RevenueCat-Paket, Produkte in App Store Connect und Google Play, Webhook auf dem Server) folgt als Schritt 9b, sobald Marc die Konten und Preise hat.
+- **Regeln in der Datenbank:** Das Abo hängt am Eltern-Konto (`entitlements`, nur Server und Admins schreiben). Premium-Inseln (`content.access = premium`, alle außer Hafen und Tauschinsel) öffnen sich nur mit Abo (`island_unlocked`). Gratis gibt es ein Kinder-Profil; ein zweites lehnt die Datenbank ohne Abo ab. Aufgaben, Taschengeld, Schatztruhe, Wiederholungen und Begegnungen sind gratis.
+- **Ohne Abo bleibt Fertiges fertig:** Abgeschlossene Inseln, Orden, Seemeilen und Funde bleiben. Premium-Inseln lassen sich ohne Abo aber nicht wiederholen. Bestehende weitere Kinder-Profile bleiben, nur neue gehen nicht.
+- **Kinderbereich ohne Kauf:** Die nächste Premium-Insel trägt ein Schloss mit dem Hinweis „Deine Eltern können sie im Leuchtturm freischalten“. Oben auf der Karte steht dann wie beim Nebel, was das Kind bis dahin tun kann, mit Kontrollfahrt. Keine Preise, kein Kauf-Knopf (Abschnitt 6).
+- **Leuchtturm:** neuer Eintrag „Abo“ unter Konto: Stand (Basis oder aktiv), was kostenlos dabei ist, was das Abo bringt, „Abo abschließen“ ausgegraut mit Hinweis. „Kinder-Profil anlegen“ zeigt ohne Abo beim zweiten Kind einen Hinweis mit „Zum Abo“. Im Fortschritt steht bei Premium-Inseln „Mit dem Abo“.
+- **Test-Abo:** Nur wenn `app_settings.test_purchases = true` (setzt `supabase/seed.sql`, also nur im Testprojekt) gibt es auf der Abo-Seite den Schalter „Abo testweise aktiv“ (`set_test_premium`). In der Live-Datenbank gibt es den Eintrag nie.
+- Noch offen für Marc: Preise, ob es Monats- und Jahresabo gibt, Probezeit, und was „Aufgaben und Schatztruhe in der Basisversion“ genau einschränken soll (heute ist alles davon gratis).

@@ -51,6 +51,7 @@ class FakeContent implements ContentRepository {
           mapX: island.mapX,
           mapY: island.mapY,
           hasContent: island.stations.isNotEmpty,
+          access: island.access == 'gratis' ? 'free' : 'premium',
         ),
       );
       details[id] = IslandDetails.fromRow({
@@ -206,6 +207,9 @@ class FakeProgress implements ProgressRepository {
   bool streakPaused = false;
   DateTime? lastActiveAt;
 
+  /// Abo des Eltern-Kontos (Standard: an, damit Tests alle Inseln spielen können).
+  bool premium = true;
+
   /// Lernstand pro Station (wie learning_status() in der Datenbank).
   final Map<String, TopicLearning> learning = {};
 
@@ -320,6 +324,7 @@ class FakeProgress implements ProgressRepository {
       reviewsDue: due.length,
       pearls: pearlsByDive.values.fold(0, (a, b) => a + b),
       lastActiveAt: lastActiveAt,
+      premium: premium,
       finds: findDates.length,
       pace: stationsPerWeek == null
           ? PaceStatus.freeSailing

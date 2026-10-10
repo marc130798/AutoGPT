@@ -73,6 +73,7 @@ class ChildStats {
     this.pearls = 0,
     this.finds = 0,
     this.lastActiveAt,
+    this.premium = true,
   });
 
   factory ChildStats.fromJson(Map<String, dynamic> json) => ChildStats(
@@ -88,6 +89,7 @@ class ChildStats {
     reviewsDue: json['reviews_due'] as int? ?? 0,
     pearls: (json['pearls'] as num?)?.toInt() ?? 0,
     finds: json['finds'] as int? ?? 0,
+    premium: json['premium'] as bool? ?? true,
     lastActiveAt: json['last_active_at'] == null ? null : DateTime.parse(json['last_active_at'] as String),
     pace: json['pace'] is Map<String, dynamic>
         ? PaceStatus.fromJson(json['pace'] as Map<String, dynamic>)
@@ -114,6 +116,9 @@ class ChildStats {
 
   /// Zuletzt an Bord (Station, Begegnung oder Wiederholung), `null` = noch nie.
   final DateTime? lastActiveAt;
+
+  /// Das Eltern-Konto hat das Abo (Premium-Inseln offen).
+  final bool premium;
 
   /// Fehlende Seemeilen bis zum nächsten Rang (`null`, wenn es nicht um Seemeilen geht).
   int? get xpToNextRank => nextRankXp == null ? null : (nextRankXp! - xp).clamp(0, nextRankXp!);

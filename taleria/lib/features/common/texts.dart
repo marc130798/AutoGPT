@@ -17,6 +17,7 @@ extension TaleriaTexts on AppLocalizations {
     FailureKind.notAllowed => failureNotAllowed,
     FailureKind.notEnoughMoney => notEnoughMoney,
     FailureKind.noWind => windNeededShort,
+    FailureKind.premiumRequired => failurePremiumRequired,
     FailureKind.unknown => failureUnknown,
   };
 

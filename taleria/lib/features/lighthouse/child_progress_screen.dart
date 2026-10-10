@@ -127,12 +127,14 @@ class _IslandCard extends StatelessWidget {
       ),
       IslandState.open => l10n.islandStatusProgress(report.requiredDone, report.requiredTotal),
       IslandState.locked => l10n.islandStatusLocked,
+      IslandState.premium => l10n.islandStatusPremium,
       IslandState.fog => l10n.islandStatusFog,
     };
     final icon = switch (report.state) {
       IslandState.completed => Icon(Icons.check_circle, color: palette.success),
       IslandState.open => Icon(Icons.sailing, color: palette.gold),
       IslandState.locked => const Icon(Icons.lock_outline),
+      IslandState.premium => const Icon(Icons.workspace_premium_outlined),
       IslandState.fog => const Icon(Icons.cloud_outlined),
     };
     if (!report.reached) {

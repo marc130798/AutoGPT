@@ -67,6 +67,31 @@ class ChildProfile {
   );
 }
 
+/// Abo eines Eltern-Kontos (my_subscription()).
+class Subscription {
+  const Subscription({required this.premium, this.source, this.validUntil, this.testPurchases = false});
+
+  factory Subscription.fromJson(Map<String, dynamic> json) => Subscription(
+    premium: json['premium'] as bool? ?? false,
+    source: json['source'] as String?,
+    validUntil: json['valid_until'] == null ? null : DateTime.parse(json['valid_until'] as String),
+    testPurchases: json['test_purchases'] as bool? ?? false,
+  );
+
+  static const free = Subscription(premium: false);
+
+  final bool premium;
+
+  /// revenuecat, manual oder test
+  final String? source;
+  final DateTime? validUntil;
+
+  /// Nur in der Testumgebung: Abo lässt sich testweise schalten.
+  final bool testPurchases;
+
+  bool get isTest => source == 'test';
+}
+
 /// Neu erzeugter Anmelde-Code. Der Code wird nur dieses eine Mal angezeigt.
 class LoginCode {
   const LoginCode({required this.code, required this.validUntil});
@@ -112,6 +137,9 @@ enum FailureKind {
 
   /// Tempo: Das Schiff braucht Wind für die nächste neue Station.
   noWind,
+
+  /// Nur mit Abo (zum Beispiel ein weiteres Kinder-Profil).
+  premiumRequired,
   unknown,
 }
 

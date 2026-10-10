@@ -3,7 +3,14 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 8 gibt
+## Was es nach Schritt 9a gibt
+
+- Gratis: Hafen und Tauschinsel, ein Kinder-Profil, Aufgaben, Taschengeld und Schatztruhe
+- Mit Abo: alle weiteren Inseln und mehrere Kinder-Profile
+- Leuchtturm: Seite „Abo“; im Testprojekt lässt sich das Abo testweise einschalten
+- Kaufen über die App-Stores kommt später (RevenueCat, braucht Store-Konten)
+
+## Was es seit Schritt 8 gibt
 
 - Leuchtturm: offene Aufgaben aller Kinder oben, pro Kind Level und letzter Spieltag
 - Fortschritt pro Insel und Lernstand pro Thema („Sicher“, „Wird geübt“, „Wackelt noch“)
@@ -207,6 +214,18 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 9a, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`, oder bei einem neuen Testprojekt
+`supabase/datenbank_einrichten.sql`) und `supabase/seed.sql` neu ausführen (schaltet das Test-Abo frei).
+
+1. Leuchtturm → Konto → „Abo“: „Basis (kostenlos)“, „Abo abschließen“ ist noch ausgegraut.
+2. Kinder-Profil anlegen, wenn schon eins da ist: Hinweis „Weitere Kinder-Profile“ mit „Zum Abo“.
+3. Kinderbereich: Hafen und Tauschinsel spielen. Die Wunschinsel trägt ein Schloss mit
+   „Deine Eltern können sie im Leuchtturm freischalten“, ohne Preis und ohne Kauf-Knopf.
+4. Leuchtturm → „Abo“ → „Abo testweise aktiv“ einschalten. Jetzt ist die Wunschinsel offen
+   und ein zweites Kinder-Profil geht.
 
 ## Was du ausprobieren kannst (Schritt 8, mit Test-Server)
 

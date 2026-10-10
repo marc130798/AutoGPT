@@ -29,8 +29,8 @@ class MapController extends ChangeNotifier {
   /// Begegnung auf See, die gerade wartet (Wiederholungen sind fällig), sonst `null`.
   EncounterOffer? get encounter => _offer;
 
-  /// Keine offene Insel mehr, die nächste liegt im Nebel.
-  bool get fogAhead => !_loading && _failure == null && isFogAhead(_islands, _states);
+  /// Keine offene Insel mehr: die nächste liegt im Nebel oder gehört zum Abo.
+  RouteBlock? get blockedAhead => _loading || _failure != null ? null : routeBlock(_islands, _states);
 
   /// Begegnung zum Üben, wenn Nebel voraus liegt (auch ohne fällige Wiederholungen).
   Future<EncounterOffer?> practiceEncounter() => _progress.nextEncounter(child.id, practice: true);
@@ -47,23 +47,27 @@ class MapController extends ChangeNotifier {
     _failure = null;
     notifyListeners();
     try {
+      _stats = await _progress.fetchStats(child.id);
+      _offer = _stats!.reviewsDue > 0 ? await _progress.nextEncounter(child.id) : null;
+    } on AppFailure {
+      // Ohne Statistik geht die Karte trotzdem; nur Wind, Abo und Begegnung fehlen.
+      _stats = null;
+      _offer = null;
+    }
+    try {
       // Überall nach Stufe filtern, auch wenn heute nur Stufe 1 gebaut wird.
       final islands = await _content.fetchMap(child.stage);
       final progress = await _progress.fetchProgress(child.id);
       _islands = islands;
-      _states = islandStates(islands, progress);
+      // Ohne Statistik ist das Abo unbekannt: dann entscheidet der Server.
+      _states = islandStates(islands, progress, premium: _stats?.premium ?? true);
     } on AppFailure catch (e) {
       _failure = e.kind;
-    }
-    try {
-      _stats = await _progress.fetchStats(child.id);
-      _offer = _stats!.reviewsDue > 0 ? await _progress.nextEncounter(child.id) : null;
-    } on AppFailure {
-      // Ohne Statistik geht die Karte trotzdem; nur Wind und Begegnung fehlen.
-      _stats = null;
-      _offer = null;
     }
     _loading = false;
     notifyListeners();
   }
+
+  /// Insel gehört zum Abo, das gerade nicht aktiv ist (auch schon abgeschlossene).
+  bool premiumBlocked(MapIsland island) => island.isPremium && !(_stats?.premium ?? true);
 }

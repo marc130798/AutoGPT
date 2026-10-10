@@ -2604,6 +2604,162 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Wartet auf deine Bestätigung'**
   String get pendingOverviewTitle;
+
+  /// Fehler: nur mit Abo (Elternbereich)
+  ///
+  /// In de, this message translates to:
+  /// **'Dafür braucht es das Abo.'**
+  String get failurePremiumRequired;
+
+  /// Kinderbereich: Insel gehört zum Abo. Keine Preise, kein Kauf-Knopf (Abschnitt 6).
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Insel ist noch verschlossen. Deine Eltern können sie im Leuchtturm freischalten.'**
+  String get mapIslandPremium;
+
+  /// Karte: es geht erst mit dem Abo weiter
+  ///
+  /// In de, this message translates to:
+  /// **'Die nächste Insel ist noch verschlossen.'**
+  String get premiumAheadTitle;
+
+  /// Karte: was das Kind ohne Abo tun kann
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Eltern können sie im Leuchtturm freischalten. Bis dahin kannst du Kontrollfahrten machen, tauchen und Spiele wiederholen.'**
+  String get premiumAheadBody;
+
+  /// Leuchtturm: Insel gehört zum Abo
+  ///
+  /// In de, this message translates to:
+  /// **'Mit dem Abo'**
+  String get islandStatusPremium;
+
+  /// Leuchtturm: Eintrag zur Abo-Seite
+  ///
+  /// In de, this message translates to:
+  /// **'Abo'**
+  String get lighthouseSubscription;
+
+  /// Überschrift der Abo-Seite
+  ///
+  /// In de, this message translates to:
+  /// **'Abo'**
+  String get subscriptionTitle;
+
+  /// Abo-Stand: kein Abo
+  ///
+  /// In de, this message translates to:
+  /// **'Basis (kostenlos)'**
+  String get subscriptionFree;
+
+  /// Abo-Stand: Abo aktiv
+  ///
+  /// In de, this message translates to:
+  /// **'Abo ist aktiv'**
+  String get subscriptionPremium;
+
+  /// Abo-Stand mit Ablaufdatum
+  ///
+  /// In de, this message translates to:
+  /// **'Abo ist aktiv bis {date}'**
+  String subscriptionPremiumUntil(String date);
+
+  /// Hinweis: Abo stammt vom Testschalter
+  ///
+  /// In de, this message translates to:
+  /// **'Test-Abo (nur in der Testumgebung)'**
+  String get subscriptionTestNote;
+
+  /// Überschrift: was gratis ist
+  ///
+  /// In de, this message translates to:
+  /// **'Kostenlos dabei'**
+  String get subscriptionFreeHeading;
+
+  /// Gratis: Inseln
+  ///
+  /// In de, this message translates to:
+  /// **'Hafen und Tauschinsel'**
+  String get subscriptionFreeIslands;
+
+  /// Gratis: Kinder-Profile
+  ///
+  /// In de, this message translates to:
+  /// **'Ein Kinder-Profil'**
+  String get subscriptionFreeChild;
+
+  /// Gratis: Budget-Teil
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgaben, Taschengeld und Schatztruhe'**
+  String get subscriptionFreeBudget;
+
+  /// Überschrift: was das Abo dazu bringt
+  ///
+  /// In de, this message translates to:
+  /// **'Mit dem Abo'**
+  String get subscriptionPremiumHeading;
+
+  /// Abo: Inseln
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Inseln bis zur Schatzinsel. Neue Inseln kommen automatisch dazu.'**
+  String get subscriptionPremiumIslands;
+
+  /// Abo: Kinder-Profile
+  ///
+  /// In de, this message translates to:
+  /// **'Mehrere Kinder-Profile'**
+  String get subscriptionPremiumChildren;
+
+  /// Hinweis: Abo hängt am Eltern-Konto
+  ///
+  /// In de, this message translates to:
+  /// **'Das Abo gilt für alle Kinder dieses Kontos.'**
+  String get subscriptionAccountNote;
+
+  /// Knopf: Abo kaufen (noch nicht verfügbar)
+  ///
+  /// In de, this message translates to:
+  /// **'Abo abschließen'**
+  String get subscriptionBuy;
+
+  /// Hinweis: Kauf ist noch nicht eingebaut
+  ///
+  /// In de, this message translates to:
+  /// **'Das Abo lässt sich bald direkt hier abschließen. Dafür fehlen noch die Einstellungen in den App-Stores.'**
+  String get subscriptionBuySoon;
+
+  /// Schalter: Test-Abo (nur Testumgebung)
+  ///
+  /// In de, this message translates to:
+  /// **'Abo testweise aktiv'**
+  String get subscriptionTestSwitch;
+
+  /// Erklärung des Test-Schalters
+  ///
+  /// In de, this message translates to:
+  /// **'Nur in der Testumgebung: So lässt sich ausprobieren, was mit und ohne Abo frei ist.'**
+  String get subscriptionTestHint;
+
+  /// Dialog: Kinder-Profil-Grenze ohne Abo
+  ///
+  /// In de, this message translates to:
+  /// **'Weitere Kinder-Profile'**
+  String get childLimitTitle;
+
+  /// Dialog: Erklärung der Grenze
+  ///
+  /// In de, this message translates to:
+  /// **'In der kostenlosen Version gibt es ein Kinder-Profil. Mit dem Abo kannst du weitere anlegen.'**
+  String get childLimitBody;
+
+  /// Dialog: Knopf zur Abo-Seite
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Abo'**
+  String get childLimitButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

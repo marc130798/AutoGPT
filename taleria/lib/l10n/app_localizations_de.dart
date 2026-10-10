@@ -1507,4 +1507,89 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get pendingOverviewTitle => 'Wartet auf deine Bestätigung';
+
+  @override
+  String get failurePremiumRequired => 'Dafür braucht es das Abo.';
+
+  @override
+  String get mapIslandPremium =>
+      'Diese Insel ist noch verschlossen. Deine Eltern können sie im Leuchtturm freischalten.';
+
+  @override
+  String get premiumAheadTitle => 'Die nächste Insel ist noch verschlossen.';
+
+  @override
+  String get premiumAheadBody =>
+      'Deine Eltern können sie im Leuchtturm freischalten. Bis dahin kannst du Kontrollfahrten machen, tauchen und Spiele wiederholen.';
+
+  @override
+  String get islandStatusPremium => 'Mit dem Abo';
+
+  @override
+  String get lighthouseSubscription => 'Abo';
+
+  @override
+  String get subscriptionTitle => 'Abo';
+
+  @override
+  String get subscriptionFree => 'Basis (kostenlos)';
+
+  @override
+  String get subscriptionPremium => 'Abo ist aktiv';
+
+  @override
+  String subscriptionPremiumUntil(String date) {
+    return 'Abo ist aktiv bis $date';
+  }
+
+  @override
+  String get subscriptionTestNote => 'Test-Abo (nur in der Testumgebung)';
+
+  @override
+  String get subscriptionFreeHeading => 'Kostenlos dabei';
+
+  @override
+  String get subscriptionFreeIslands => 'Hafen und Tauschinsel';
+
+  @override
+  String get subscriptionFreeChild => 'Ein Kinder-Profil';
+
+  @override
+  String get subscriptionFreeBudget => 'Aufgaben, Taschengeld und Schatztruhe';
+
+  @override
+  String get subscriptionPremiumHeading => 'Mit dem Abo';
+
+  @override
+  String get subscriptionPremiumIslands => 'Alle Inseln bis zur Schatzinsel. Neue Inseln kommen automatisch dazu.';
+
+  @override
+  String get subscriptionPremiumChildren => 'Mehrere Kinder-Profile';
+
+  @override
+  String get subscriptionAccountNote => 'Das Abo gilt für alle Kinder dieses Kontos.';
+
+  @override
+  String get subscriptionBuy => 'Abo abschließen';
+
+  @override
+  String get subscriptionBuySoon =>
+      'Das Abo lässt sich bald direkt hier abschließen. Dafür fehlen noch die Einstellungen in den App-Stores.';
+
+  @override
+  String get subscriptionTestSwitch => 'Abo testweise aktiv';
+
+  @override
+  String get subscriptionTestHint =>
+      'Nur in der Testumgebung: So lässt sich ausprobieren, was mit und ohne Abo frei ist.';
+
+  @override
+  String get childLimitTitle => 'Weitere Kinder-Profile';
+
+  @override
+  String get childLimitBody =>
+      'In der kostenlosen Version gibt es ein Kinder-Profil. Mit dem Abo kannst du weitere anlegen.';
+
+  @override
+  String get childLimitButton => 'Zum Abo';
 }

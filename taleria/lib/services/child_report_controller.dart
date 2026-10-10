@@ -85,7 +85,7 @@ class ChildReportController extends ChangeNotifier {
       final map = await _content.fetchMap(child.stage);
       final progress = await _progress.fetchProgress(child.id);
       final learning = {for (final t in await _progress.fetchLearningStatus(child.id)) t.stationId: t};
-      final states = islandStates(map, progress);
+      final states = islandStates(map, progress, premium: stats.premium);
       final sorted = [...map]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
 
       final reports = <IslandReport>[];

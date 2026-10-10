@@ -28,6 +28,14 @@ class LighthouseController extends ChangeNotifier {
   /// Level, Fortschritt und letzter Tag an Bord, sobald geladen.
   ChildStats? statsFor(String childId) => _stats[childId];
 
+  Subscription _subscription = Subscription.free;
+
+  /// Abo des Eltern-Kontos (ohne Verbindung: Basis).
+  Subscription get subscription => _subscription;
+
+  /// Gratis gibt es ein Kinder-Profil (CLAUDE.md Abschnitt 8).
+  bool get canAddChild => _subscription.premium || _children.isEmpty;
+
   List<ChildProfile> _children = const [];
   bool _loading = true;
   FailureKind? _loadFailure;
@@ -48,6 +56,23 @@ class LighthouseController extends ChangeNotifier {
     _loading = false;
     notifyListeners();
     await loadPendingTasks();
+    await loadSubscription();
+    await loadStats();
+  }
+
+  Future<void> loadSubscription() async {
+    try {
+      _subscription = await _family.fetchSubscription();
+      notifyListeners();
+    } on AppFailure {
+      // Ohne Verbindung bleibt der letzte Stand; der Server prüft trotzdem.
+    }
+  }
+
+  /// Nur in der Testumgebung: Abo testweise schalten.
+  Future<void> setTestPremium({required bool active}) async {
+    await _family.setTestPremium(active: active);
+    await loadSubscription();
     await loadStats();
   }
 

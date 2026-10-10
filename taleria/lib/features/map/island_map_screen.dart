@@ -49,11 +49,19 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
   Future<void> _onTap(MapIsland island) async {
     final l10n = AppLocalizations.of(context);
     final controller = _controller!;
+    // Ohne Abo bleiben Premium-Inseln zu, auch schon abgeschlossene (kein Kauf-Knopf
+    // im Kinderbereich, nur ein Hinweis auf die Eltern).
+    if (controller.premiumBlocked(island) && controller.stateOf(island) != IslandState.fog) {
+      _hint(l10n.mapIslandPremium);
+      return;
+    }
     switch (controller.stateOf(island)) {
       case IslandState.fog:
         _hint(l10n.mapIslandFog);
       case IslandState.locked:
         _hint(l10n.mapIslandLocked);
+      case IslandState.premium:
+        _hint(l10n.mapIslandPremium);
       case IslandState.open || IslandState.completed:
         await Navigator.of(context).push(
           MaterialPageRoute<void>(
@@ -135,8 +143,8 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
           final pace = controller.stats?.pace;
           return Column(
             children: [
-              if (controller.fogAhead)
-                _FogBanner(onPractice: _practice)
+              if (controller.blockedAhead case final block?)
+                _BlockedBanner(block: block, onPractice: _practice)
               else if (pace != null && !pace.hasWind)
                 _WindBanner(text: l10n.windNeededFor(pace)),
               Expanded(
@@ -185,11 +193,13 @@ class _WindBanner extends StatelessWidget {
   }
 }
 
-/// Alle offenen Inseln geschafft, die nächste liegt im Nebel: keine
-/// Fehlermeldung, sondern Kontrollfahrten, Tauchgänge und Spiele (Abschnitt 8).
-class _FogBanner extends StatelessWidget {
-  const _FogBanner({required this.onPractice});
+/// Alle offenen Inseln geschafft, die nächste liegt im Nebel oder gehört zum
+/// Abo: keine Fehlermeldung, sondern Kontrollfahrten, Tauchgänge und Spiele
+/// (Abschnitt 8). Kein Kauf-Knopf im Kinderbereich.
+class _BlockedBanner extends StatelessWidget {
+  const _BlockedBanner({required this.block, required this.onPractice});
 
+  final RouteBlock block;
   final VoidCallback onPractice;
 
   @override
@@ -205,8 +215,11 @@ class _FogBanner extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(l10n.fogAheadTitle, style: theme.textTheme.titleSmall),
-            Text(l10n.fogAheadBody, style: theme.textTheme.bodySmall),
+            Text(
+              block == RouteBlock.fog ? l10n.fogAheadTitle : l10n.premiumAheadTitle,
+              style: theme.textTheme.titleSmall,
+            ),
+            Text(block == RouteBlock.fog ? l10n.fogAheadBody : l10n.premiumAheadBody, style: theme.textTheme.bodySmall),
             const SizedBox(height: 8),
             FilledButton.icon(
               key: const ValueKey('fog-practice'),
@@ -341,7 +354,7 @@ class _IslandMarker extends StatelessWidget {
                       ),
                       child: ClipOval(
                         child: Opacity(
-                          opacity: state == IslandState.locked ? 0.6 : 1,
+                          opacity: state == IslandState.locked || state == IslandState.premium ? 0.6 : 1,
                           child: TaleriaAsset(AssetKeys.islandBackground(island.slug), fit: BoxFit.cover),
                         ),
                       ),
@@ -351,7 +364,7 @@ class _IslandMarker extends StatelessWidget {
                     const Positioned.fill(
                       child: ClipOval(child: TaleriaAsset(AssetKeys.mapFog, fit: BoxFit.cover)),
                     ),
-                  if (state == IslandState.locked)
+                  if (state == IslandState.locked || state == IslandState.premium)
                     const Positioned(
                       right: -4,
                       bottom: -4,

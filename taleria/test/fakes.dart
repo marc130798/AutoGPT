@@ -30,6 +30,12 @@ class FakeBackend {
   final List<({String childId, String title, int targetCents})> savingsGoals = [];
   final Map<String, int> xpByChild = {};
 
+  /// Eltern-Konten (IDs) mit Abo.
+  final Set<String> premiumParents = {};
+
+  /// Testumgebung: Abo lässt sich testweise schalten.
+  bool testPurchases = true;
+
   AuthUser? currentUser;
   int _nextId = 1;
   String nextCode = 'ABCD2345';
@@ -197,6 +203,11 @@ class FakeFamilyRepository implements FamilyRepository {
   }) async {
     backend.check();
     if (_requireParent().id != parentId) throw const AppFailure(FailureKind.notAllowed);
+    // Wie children_free_limit in der Datenbank: gratis ein Kinder-Profil.
+    final existing = backend.childParent.values.where((p) => p == parentId).length;
+    if (existing >= 1 && !backend.premiumParents.contains(parentId)) {
+      throw const AppFailure(FailureKind.premiumRequired);
+    }
     final child = ChildProfile(id: backend.newId('child'), nickname: nickname, birthYear: birthYear, level: level);
     backend.children.add(child);
     backend.childParent[child.id] = parentId;
@@ -271,6 +282,26 @@ class FakeFamilyRepository implements FamilyRepository {
     final stored = backend.pins[_requireParent().id];
     if (stored == null) return const PinCheckResult(PinCheckStatus.notSet);
     return PinCheckResult(stored == pin ? PinCheckStatus.ok : PinCheckStatus.wrong);
+  }
+
+  @override
+  Future<Subscription> fetchSubscription() async {
+    backend.check();
+    final parent = _requireParent();
+    final premium = backend.premiumParents.contains(parent.id);
+    return Subscription(premium: premium, source: premium ? 'test' : null, testPurchases: backend.testPurchases);
+  }
+
+  @override
+  Future<void> setTestPremium({required bool active}) async {
+    backend.check();
+    if (!backend.testPurchases) throw const AppFailure(FailureKind.notAllowed);
+    final parent = _requireParent();
+    if (active) {
+      backend.premiumParents.add(parent.id);
+    } else {
+      backend.premiumParents.remove(parent.id);
+    }
   }
 
   @override

@@ -10,8 +10,20 @@ enum IslandState {
 
   /// Vorherige Insel noch nicht abgeschlossen.
   locked,
+
+  /// Die Insel wäre dran, gehört aber zum Abo (Eltern schalten sie frei).
+  premium,
   open,
   completed,
+}
+
+/// Warum es auf der Hauptroute gerade nicht weitergeht.
+enum RouteBlock {
+  /// Die nächste Insel liegt im Nebel.
+  fog,
+
+  /// Die nächste Insel gehört zum Abo.
+  premium,
 }
 
 enum StationState {
@@ -24,7 +36,9 @@ enum StationState {
 }
 
 /// Zustand jeder Insel auf der Karte, in der Reihenfolge der Route.
-Map<String, IslandState> islandStates(List<MapIsland> islands, ChildProgress progress) {
+/// [premium]: Das Eltern-Konto hat das Abo. Abgeschlossene Inseln bleiben
+/// abgeschlossen, auch ohne Abo (eingefroren).
+Map<String, IslandState> islandStates(List<MapIsland> islands, ChildProgress progress, {bool premium = true}) {
   final main = [...islands.where((i) => i.isMainRoute)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   final states = <String, IslandState>{};
   for (final island in islands) {
@@ -35,6 +49,7 @@ Map<String, IslandState> islandStates(List<MapIsland> islands, ChildProgress pro
     states[island.id] = switch (island) {
       _ when progress.completedIslandIds.contains(island.id) => IslandState.completed,
       _ when !island.hasContent => IslandState.fog,
+      _ when unlocked && island.isPremium && !premium => IslandState.premium,
       _ when unlocked => IslandState.open,
       _ => IslandState.locked,
     };
@@ -99,13 +114,18 @@ List<StationInfo> stationsBeforeDive(List<StationInfo> stations, StationInfo div
   ];
 }
 
-/// Fortschritt auf der Hauptroute ist am Nebel angekommen: keine offene Insel
-/// mehr, die nächste Insel liegt im Nebel (CLAUDE.md Abschnitt 8).
-bool isFogAhead(List<MapIsland> islands, Map<String, IslandState> states) {
+/// Geht es auf der Hauptroute gerade nicht weiter? Keine offene Insel mehr,
+/// und die nächste liegt im Nebel oder gehört zum Abo (CLAUDE.md Abschnitt 8:
+/// Kontrollfahrten, Tauchgänge und Spiele statt einer Fehlermeldung).
+RouteBlock? routeBlock(List<MapIsland> islands, Map<String, IslandState> states) {
   final main = [...islands.where((i) => i.isMainRoute)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
-  if (main.any((i) => states[i.id] == IslandState.open)) return false;
-  final firstUnfinished = main.where((i) => states[i.id] != IslandState.completed).firstOrNull;
-  return firstUnfinished != null && states[firstUnfinished.id] == IslandState.fog;
+  if (main.any((i) => states[i.id] == IslandState.open)) return null;
+  final next = main.where((i) => states[i.id] != IslandState.completed).firstOrNull;
+  return switch (next == null ? null : states[next.id]) {
+    IslandState.fog => RouteBlock.fog,
+    IslandState.premium => RouteBlock.premium,
+    _ => null,
+  };
 }
 
 /// Die Station vor [station] mit eigenem Fragenpool (für „Weißt du noch?“).

@@ -148,11 +148,39 @@ void main() {
     });
   });
 
-  test('Nebel voraus: keine offene Insel mehr, die nächste liegt im Nebel', () {
-    MapIsland island(String id, int order, {bool content = true}) =>
-        MapIsland(id: id, slug: id, title: id, sortOrder: order, mapX: 0.5, mapY: 0.5, hasContent: content);
-    final islands = [island('a', 1), island('b', 2), island('c', 3, content: false)];
-    expect(isFogAhead(islands, islandStates(islands, const ChildProgress(completedIslandIds: {'a'}))), isFalse);
-    expect(isFogAhead(islands, islandStates(islands, const ChildProgress(completedIslandIds: {'a', 'b'}))), isTrue);
+  group('Wie es auf der Hauptroute weitergeht', () {
+    MapIsland island(String id, int order, {bool content = true, String access = 'free'}) => MapIsland(
+      id: id,
+      slug: id,
+      title: id,
+      sortOrder: order,
+      mapX: 0.5,
+      mapY: 0.5,
+      hasContent: content,
+      access: access,
+    );
+    final islands = [island('a', 1), island('b', 2, access: 'premium'), island('c', 3, content: false)];
+
+    test('Nebel voraus: keine offene Insel mehr, die nächste liegt im Nebel', () {
+      final states = islandStates(islands, const ChildProgress(completedIslandIds: {'a', 'b'}));
+      expect(routeBlock(islands, states), RouteBlock.fog);
+    });
+
+    test('Ohne Abo: die nächste Insel gehört zum Abo, die Insel danach bleibt gesperrt', () {
+      final states = islandStates(islands, const ChildProgress(completedIslandIds: {'a'}), premium: false);
+      expect(states['b'], IslandState.premium);
+      expect(routeBlock(islands, states), RouteBlock.premium);
+    });
+
+    test('Mit Abo ist die Premium-Insel offen', () {
+      final states = islandStates(islands, const ChildProgress(completedIslandIds: {'a'}));
+      expect(states['b'], IslandState.open);
+      expect(routeBlock(islands, states), isNull);
+    });
+
+    test('Abgeschlossene Premium-Inseln bleiben abgeschlossen, auch ohne Abo', () {
+      final states = islandStates(islands, const ChildProgress(completedIslandIds: {'a', 'b'}), premium: false);
+      expect(states['b'], IslandState.completed);
+    });
   });
 }

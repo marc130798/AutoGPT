@@ -2064,5 +2064,114 @@
   "pendingOverviewTitle": "Wartet auf deine Bestätigung",
   "@pendingOverviewTitle": {
     "description": "Leuchtturm: Überschrift offene Aufgaben aller Kinder"
+  },
+  "failurePremiumRequired": "Dafür braucht es das Abo.",
+  "@failurePremiumRequired": {
+    "description": "Fehler: nur mit Abo (Elternbereich)"
+  },
+  "mapIslandPremium": "Diese Insel ist noch verschlossen. Deine Eltern können sie im Leuchtturm freischalten.",
+  "@mapIslandPremium": {
+    "description": "Kinderbereich: Insel gehört zum Abo. Keine Preise, kein Kauf-Knopf (Abschnitt 6)."
+  },
+  "premiumAheadTitle": "Die nächste Insel ist noch verschlossen.",
+  "@premiumAheadTitle": {
+    "description": "Karte: es geht erst mit dem Abo weiter"
+  },
+  "premiumAheadBody": "Deine Eltern können sie im Leuchtturm freischalten. Bis dahin kannst du Kontrollfahrten machen, tauchen und Spiele wiederholen.",
+  "@premiumAheadBody": {
+    "description": "Karte: was das Kind ohne Abo tun kann"
+  },
+  "islandStatusPremium": "Mit dem Abo",
+  "@islandStatusPremium": {
+    "description": "Leuchtturm: Insel gehört zum Abo"
+  },
+  "lighthouseSubscription": "Abo",
+  "@lighthouseSubscription": {
+    "description": "Leuchtturm: Eintrag zur Abo-Seite"
+  },
+  "subscriptionTitle": "Abo",
+  "@subscriptionTitle": {
+    "description": "Überschrift der Abo-Seite"
+  },
+  "subscriptionFree": "Basis (kostenlos)",
+  "@subscriptionFree": {
+    "description": "Abo-Stand: kein Abo"
+  },
+  "subscriptionPremium": "Abo ist aktiv",
+  "@subscriptionPremium": {
+    "description": "Abo-Stand: Abo aktiv"
+  },
+  "subscriptionPremiumUntil": "Abo ist aktiv bis {date}",
+  "@subscriptionPremiumUntil": {
+    "description": "Abo-Stand mit Ablaufdatum",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "subscriptionTestNote": "Test-Abo (nur in der Testumgebung)",
+  "@subscriptionTestNote": {
+    "description": "Hinweis: Abo stammt vom Testschalter"
+  },
+  "subscriptionFreeHeading": "Kostenlos dabei",
+  "@subscriptionFreeHeading": {
+    "description": "Überschrift: was gratis ist"
+  },
+  "subscriptionFreeIslands": "Hafen und Tauschinsel",
+  "@subscriptionFreeIslands": {
+    "description": "Gratis: Inseln"
+  },
+  "subscriptionFreeChild": "Ein Kinder-Profil",
+  "@subscriptionFreeChild": {
+    "description": "Gratis: Kinder-Profile"
+  },
+  "subscriptionFreeBudget": "Aufgaben, Taschengeld und Schatztruhe",
+  "@subscriptionFreeBudget": {
+    "description": "Gratis: Budget-Teil"
+  },
+  "subscriptionPremiumHeading": "Mit dem Abo",
+  "@subscriptionPremiumHeading": {
+    "description": "Überschrift: was das Abo dazu bringt"
+  },
+  "subscriptionPremiumIslands": "Alle Inseln bis zur Schatzinsel. Neue Inseln kommen automatisch dazu.",
+  "@subscriptionPremiumIslands": {
+    "description": "Abo: Inseln"
+  },
+  "subscriptionPremiumChildren": "Mehrere Kinder-Profile",
+  "@subscriptionPremiumChildren": {
+    "description": "Abo: Kinder-Profile"
+  },
+  "subscriptionAccountNote": "Das Abo gilt für alle Kinder dieses Kontos.",
+  "@subscriptionAccountNote": {
+    "description": "Hinweis: Abo hängt am Eltern-Konto"
+  },
+  "subscriptionBuy": "Abo abschließen",
+  "@subscriptionBuy": {
+    "description": "Knopf: Abo kaufen (noch nicht verfügbar)"
+  },
+  "subscriptionBuySoon": "Das Abo lässt sich bald direkt hier abschließen. Dafür fehlen noch die Einstellungen in den App-Stores.",
+  "@subscriptionBuySoon": {
+    "description": "Hinweis: Kauf ist noch nicht eingebaut"
+  },
+  "subscriptionTestSwitch": "Abo testweise aktiv",
+  "@subscriptionTestSwitch": {
+    "description": "Schalter: Test-Abo (nur Testumgebung)"
+  },
+  "subscriptionTestHint": "Nur in der Testumgebung: So lässt sich ausprobieren, was mit und ohne Abo frei ist.",
+  "@subscriptionTestHint": {
+    "description": "Erklärung des Test-Schalters"
+  },
+  "childLimitTitle": "Weitere Kinder-Profile",
+  "@childLimitTitle": {
+    "description": "Dialog: Kinder-Profil-Grenze ohne Abo"
+  },
+  "childLimitBody": "In der kostenlosen Version gibt es ein Kinder-Profil. Mit dem Abo kannst du weitere anlegen.",
+  "@childLimitBody": {
+    "description": "Dialog: Erklärung der Grenze"
+  },
+  "childLimitButton": "Zum Abo",
+  "@childLimitButton": {
+    "description": "Dialog: Knopf zur Abo-Seite"
   }
 }

@@ -13,6 +13,7 @@ import 'child_budget_screen.dart';
 import 'child_detail_screen.dart';
 import 'child_form_screen.dart';
 import 'pin_screens.dart';
+import 'subscription_screen.dart';
 
 /// Leuchtturm: der Bereich für Eltern. Ruhiger, erwachsener Stil.
 class LighthouseScreen extends StatefulWidget {
@@ -47,6 +48,33 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
     super.dispose();
   }
 
+  void _openSubscription() {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => SubscriptionScreen(controller: _controller!)));
+  }
+
+  /// Gratis gibt es ein Kinder-Profil; weitere mit dem Abo.
+  Future<void> _addChild() async {
+    final controller = _controller!;
+    if (controller.canAddChild) {
+      await Navigator.of(context)
+          .push(MaterialPageRoute<void>(builder: (_) => ChildFormScreen(controller: controller)));
+      return;
+    }
+    final l10n = AppLocalizations.of(context);
+    final toSubscription = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.childLimitTitle),
+        content: Text(l10n.childLimitBody),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
+          FilledButton(onPressed: () => Navigator.of(context).pop(true), child: Text(l10n.childLimitButton)),
+        ],
+      ),
+    );
+    if ((toSubscription ?? false) && mounted) _openSubscription();
+  }
+
   Future<void> _deleteAccount() async {
     final l10n = AppLocalizations.of(context);
     final session = AppScope.of(context).session;
@@ -65,9 +93,7 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.lighthouseTitle)),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () =>
-            Navigator.of(context)
-                .push(MaterialPageRoute<void>(builder: (_) => ChildFormScreen(controller: controller))),
+        onPressed: _addChild,
         icon: const Icon(Icons.person_add_alt_1_outlined),
         label: Text(l10n.lighthouseAddChild),
       ),
@@ -159,6 +185,13 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                       ),
                   const SizedBox(height: 32),
                   Text(l10n.lighthouseAccountHeading, style: theme.textTheme.titleLarge),
+                  ListTile(
+                    key: const ValueKey('open-subscription'),
+                    leading: const Icon(Icons.workspace_premium_outlined),
+                    title: Text(l10n.lighthouseSubscription),
+                    subtitle: Text(controller.subscription.premium ? l10n.subscriptionPremium : l10n.subscriptionFree),
+                    onTap: _openSubscription,
+                  ),
                   ListTile(
                     leading: const Icon(Icons.pin_outlined),
                     title: Text(l10n.lighthouseChangePin),
