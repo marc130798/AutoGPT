@@ -55,7 +55,6 @@
       "ort": "Anlegestelle",
       "lernziel": "Tauschen klappt nur, wenn beide genau das wollen, was der andere hat",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.tauschinsel.1",
       "szene": [
         {
           "wer": "tala",
@@ -79,20 +78,24 @@
         {
           "wer": "bruno",
           "text": "Äpfel gebe ich gern her. Aber nur gegen Fisch!",
-          "name": "Bruno"
+          "name": "Bruno",
+          "bild": "story.tauschinsel.1.1"
         },
         {
           "wer": "otti",
           "text": "Fisch habe ich. Ich hätte gern einen Eimer.",
-          "name": "Otti"
+          "name": "Otti",
+          "bild": "story.tauschinsel.1.2"
         },
         {
           "wer": "tala",
-          "text": "Einen Eimer haben wir an Bord!"
+          "text": "Einen Eimer haben wir an Bord!",
+          "bild": "story.tauschinsel.1.3"
         },
         {
           "wer": "talo",
-          "text": "Also: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil. Das nennt man eine Tauschkette."
+          "text": "Also: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil. Das nennt man eine Tauschkette.",
+          "bild": "story.tauschinsel.1.4"
         },
         {
           "wer": "tala",
@@ -273,15 +276,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Bevor du tauschst, frag dich: Was brauche ich wirklich? Und was gebe ich dafür her?"
+          "text": "Bevor du tauschst, frag dich: Was brauche ich wirklich? Und was gebe ich dafür her?",
+          "bild": "story.tauschinsel.2.1"
         },
         {
           "wer": "tala",
-          "text": "Manche Angebote klingen gut, sind es aber nicht. Drei Äpfel für meine schöne Kette? Nein danke!"
+          "text": "Manche Angebote klingen gut, sind es aber nicht. Drei Äpfel für meine schöne Kette? Nein danke!",
+          "bild": "story.tauschinsel.2.2"
         },
         {
           "wer": "talo",
-          "text": "Ein guter Tausch macht beide zufrieden. Und manchmal sagt man besser Nein."
+          "text": "Ein guter Tausch macht beide zufrieden. Und manchmal sagt man besser Nein.",
+          "bild": "story.tauschinsel.2.3"
         }
       ],
       "spiel": {
@@ -454,7 +460,6 @@
       "ort": "Quelle am Berg",
       "lernziel": "Wert hängt von Person und Situation ab",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.tauschinsel.3",
       "szene": [
         {
           "wer": "tala",
@@ -476,15 +481,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Wie viel etwas wert ist, hängt von der Situation ab. Wasser ist oben am Berg in der Hitze mehr wert als unten an der Quelle."
+          "text": "Wie viel etwas wert ist, hängt von der Situation ab. Wasser ist oben am Berg in der Hitze mehr wert als unten an der Quelle.",
+          "bild": "story.tauschinsel.3.1"
         },
         {
           "wer": "tala",
-          "text": "Und es hängt von der Person ab: Ich liebe Fischbrötchen, Talo nicht."
+          "text": "Und es hängt von der Person ab: Ich liebe Fischbrötchen, Talo nicht.",
+          "bild": "story.tauschinsel.3.2"
         },
         {
           "wer": "talo",
-          "text": "Deshalb kann ein Tausch für beide gut sein: Jeder bekommt das, was ihm mehr wert ist."
+          "text": "Deshalb kann ein Tausch für beide gut sein: Jeder bekommt das, was ihm mehr wert ist.",
+          "bild": "story.tauschinsel.3.3"
         }
       ],
       "spiel": {
@@ -678,19 +686,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "An heißen Tagen wollen viele ein Eis. Man sagt: Die Nachfrage ist groß."
+          "text": "An heißen Tagen wollen viele ein Eis. Man sagt: Die Nachfrage ist groß.",
+          "bild": "story.tauschinsel.4.1"
         },
         {
           "wer": "tala",
-          "text": "Und wenn das Eis knapp wird, zahlen manche sogar mehr dafür!"
+          "text": "Und wenn das Eis knapp wird, zahlen manche sogar mehr dafür!",
+          "bild": "story.tauschinsel.4.2"
         },
         {
           "wer": "talo",
-          "text": "An Regentagen will kaum jemand Eis. Dann muss der Preis runter, sonst bleibt das Eis liegen."
+          "text": "An Regentagen will kaum jemand Eis. Dann muss der Preis runter, sonst bleibt das Eis liegen.",
+          "bild": "story.tauschinsel.4.3"
         },
         {
           "wer": "talo",
-          "text": "Angebot heißt: wie viel es von etwas gibt. Nachfrage heißt: wie viele es haben wollen. Beides beeinflusst den Preis."
+          "text": "Angebot heißt: wie viel es von etwas gibt. Nachfrage heißt: wie viele es haben wollen. Beides beeinflusst den Preis.",
+          "bild": "story.tauschinsel.4.4"
         }
       ],
       "spiel": {
@@ -843,7 +855,6 @@
       "ort": "Werkstatt der Netzmacherin",
       "lernziel": "Billig ist nicht immer günstig, vergleichen lohnt sich",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.tauschinsel.5",
       "szene": [
         {
           "wer": "otti",
@@ -869,15 +880,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Rechnen wir mal: Das billige Netz hält einen Monat. Für ein Jahr braucht Otti also 12 Stück."
+          "text": "Rechnen wir mal: Das billige Netz hält einen Monat. Für ein Jahr braucht Otti also 12 Stück.",
+          "bild": "story.tauschinsel.5.1"
         },
         {
           "wer": "tala",
-          "text": "12 mal 5 Taler sind 60 Taler! Das gute Netz kostet nur 20."
+          "text": "12 mal 5 Taler sind 60 Taler! Das gute Netz kostet nur 20.",
+          "bild": "story.tauschinsel.5.2"
         },
         {
           "wer": "talo",
-          "text": "Billig ist also nicht immer günstig. Wer vergleicht, wie lange etwas hält, spart oft Geld."
+          "text": "Billig ist also nicht immer günstig. Wer vergleicht, wie lange etwas hält, spart oft Geld.",
+          "bild": "story.tauschinsel.5.3"
         },
         {
           "wer": "tala",
@@ -988,7 +1002,6 @@
       "ort": "Aussichtsturm",
       "lernziel": "Jede Entscheidung bedeutet einen Verzicht",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.tauschinsel.6",
       "szene": [
         {
           "wer": "tala",
@@ -1006,15 +1019,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Geld kann man nur einmal ausgeben. Wer das Eis kauft, verzichtet aufs Sparen."
+          "text": "Geld kann man nur einmal ausgeben. Wer das Eis kauft, verzichtet aufs Sparen.",
+          "bild": "story.tauschinsel.6.1"
         },
         {
           "wer": "tala",
-          "text": "Und wer spart, verzichtet heute aufs Eis, hat aber später das Fernrohr."
+          "text": "Und wer spart, verzichtet heute aufs Eis, hat aber später das Fernrohr.",
+          "bild": "story.tauschinsel.6.2"
         },
         {
           "wer": "talo",
-          "text": "Es gibt kein Richtig oder Falsch. Wichtig ist, dass du weißt, worauf du verzichtest."
+          "text": "Es gibt kein Richtig oder Falsch. Wichtig ist, dass du weißt, worauf du verzichtest.",
+          "bild": "story.tauschinsel.6.3"
         }
       ],
       "spiel": {
@@ -1162,7 +1178,6 @@
       "ort": "Strandlager bei Olga",
       "lernziel": "Ein fairer Tausch: Beide wissen, was sie bekommen, und sind einverstanden",
       "dauer": "7 bis 10 Min.",
-      "film": "video.station.tauschinsel.7",
       "szene": [
         {
           "wer": "olga",
@@ -1182,20 +1197,24 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Stell dir vor: Ein älteres Kind will einem jüngeren eine seltene Sammelkarte gegen eine ganz häufige abschwatzen."
+          "text": "Stell dir vor: Ein älteres Kind will einem jüngeren eine seltene Sammelkarte gegen eine ganz häufige abschwatzen.",
+          "bild": "story.tauschinsel.7.1"
         },
         {
           "wer": "tala",
-          "text": "Das ist unfair! Das jüngere weiß gar nicht, wie selten seine Karte ist."
+          "text": "Das ist unfair! Das jüngere weiß gar nicht, wie selten seine Karte ist.",
+          "bild": "story.tauschinsel.7.2"
         },
         {
           "wer": "talo",
-          "text": "Fair ist ein Tausch, wenn beide wissen, was sie bekommen, und beide einverstanden sind."
+          "text": "Fair ist ein Tausch, wenn beide wissen, was sie bekommen, und beide einverstanden sind.",
+          "bild": "story.tauschinsel.7.3"
         },
         {
           "wer": "olga",
           "text": "Und wer vorher klärt, ob man zurücktauschen darf, hat später keinen Streit. Hier ist euer Kartenstück!",
-          "name": "Olga"
+          "name": "Olga",
+          "bild": "story.tauschinsel.7.4"
         }
       ],
       "spiel": {

@@ -71,7 +71,7 @@ void main() {
     await tapKey(tester, 'game-done');
   }
 
-  /// Klickt Film, Szene, Erklärung und Spiel durch, bis das Quiz kommt.
+  /// Klickt Szene, Bildergeschichte und Spiel durch, bis das Quiz kommt.
   Future<void> playUntilQuiz(WidgetTester tester) async {
     for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
       if (find.byKey(const ValueKey('choice-question')).evaluate().isNotEmpty) {
@@ -116,9 +116,18 @@ void main() {
     expect(find.text('Hier hat deine Reise begonnen.'), findsOneWidget);
 
     await tapKey(tester, 'station-2');
-    expect(find.text('Film folgt'), findsOneWidget);
-    await tapText(tester, 'Weiter');
+    expect(find.text('Film folgt'), findsNothing, reason: 'Stationen haben keinen Film mehr');
     expect(find.textContaining('goldenen Halstuch'), findsOneWidget);
+    // Bis zur Bildergeschichte: Bild (noch Platzhalter mit Namen) und Erklärung.
+    for (var i = 0; i < 10 && find.byKey(const ValueKey('story-dots')).evaluate().isEmpty; i++) {
+      await tapText(tester, 'Weiter');
+    }
+    expect(find.byKey(const ValueKey('placeholder:story.hafen.2.1')), findsOneWidget);
+    expect(find.textContaining('Das klappt nur selten.'), findsOneWidget);
+    await tapKey(tester, 'story-next');
+    expect(find.byKey(const ValueKey('placeholder:story.hafen.2.2')), findsOneWidget);
+    await tapKey(tester, 'story-back');
+    expect(find.byKey(const ValueKey('placeholder:story.hafen.2.1')), findsOneWidget);
     await playUntilQuiz(tester);
     expect(find.text('Kurzer Check'), findsOneWidget);
     expect(find.text('Frage 1 von 5'), findsOneWidget);

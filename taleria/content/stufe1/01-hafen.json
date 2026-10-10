@@ -39,7 +39,6 @@
       "ort": "Hafenkontor",
       "lernziel": "Geld als Tauschmittel verstehen",
       "dauer": "7 bis 10 Min.",
-      "film": "video.station.hafen.2",
       "szene": [
         {
           "wer": "tala",
@@ -62,19 +61,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Beim Tauschen muss jeder genau das haben, was der andere gerade braucht. Das klappt nur selten."
+          "text": "Beim Tauschen muss jeder genau das haben, was der andere gerade braucht. Das klappt nur selten.",
+          "bild": "story.hafen.2.1"
         },
         {
           "wer": "talo",
-          "text": "Geld nimmt fast jeder an. Der Händler kann damit später sein Mehl kaufen."
+          "text": "Geld nimmt fast jeder an. Der Händler kann damit später sein Mehl kaufen.",
+          "bild": "story.hafen.2.2"
         },
         {
           "wer": "tala",
-          "text": "Und Geld kann man aufheben! Ein Fischbrötchen wird schlecht, ein Taler nicht."
+          "text": "Und Geld kann man aufheben! Ein Fischbrötchen wird schlecht, ein Taler nicht.",
+          "bild": "story.hafen.2.3"
         },
         {
           "wer": "talo",
-          "text": "Mit Geld bekommt außerdem alles einen Preis in derselben Einheit. So kann man Preise vergleichen."
+          "text": "Mit Geld bekommt außerdem alles einen Preis in derselben Einheit. So kann man Preise vergleichen.",
+          "bild": "story.hafen.2.4"
         }
       ],
       "spiel": {
@@ -265,7 +268,6 @@
       "ort": "Altes Lagerhaus",
       "lernziel": "Geld hat sich entwickelt, die Idee ist gleich geblieben",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.hafen.3",
       "szene": [
         {
           "wer": "tala",
@@ -283,19 +285,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Früher haben Menschen mit seltenen Dingen bezahlt, zum Beispiel mit bestimmten Muscheln oder mit Salz."
+          "text": "Früher haben Menschen mit seltenen Dingen bezahlt, zum Beispiel mit bestimmten Muscheln oder mit Salz.",
+          "bild": "story.hafen.3.1"
         },
         {
           "wer": "talo",
-          "text": "Später kamen Münzen aus Metall. Sie halten lange und lassen sich leicht abzählen."
+          "text": "Später kamen Münzen aus Metall. Sie halten lange und lassen sich leicht abzählen.",
+          "bild": "story.hafen.3.2"
         },
         {
           "wer": "tala",
-          "text": "Dann kamen Scheine aus Papier. Viel leichter als ein Sack voller Münzen!"
+          "text": "Dann kamen Scheine aus Papier. Viel leichter als ein Sack voller Münzen!",
+          "bild": "story.hafen.3.3"
         },
         {
           "wer": "talo",
-          "text": "Heute bezahlen viele mit Karte oder Handy. Das Geld kommt dann von einem Konto. Die Idee ist gleich geblieben: Alle nehmen es an."
+          "text": "Heute bezahlen viele mit Karte oder Handy. Das Geld kommt dann von einem Konto. Die Idee ist gleich geblieben: Alle nehmen es an.",
+          "bild": "story.hafen.3.4"
         }
       ],
       "spiel": {
@@ -411,7 +417,8 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Es gibt 8 Euro-Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro."
+          "text": "Es gibt 8 Euro-Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro.",
+          "bild": "story.hafen.4.1"
         },
         {
           "wer": "tala",
@@ -419,15 +426,18 @@
         },
         {
           "wer": "talo",
-          "text": "Der kleinste Schein ist der 5-Euro-Schein. Für größere Beträge gibt es zum Beispiel Scheine für 10, 20 und 50 Euro."
+          "text": "Der kleinste Schein ist der 5-Euro-Schein. Für größere Beträge gibt es zum Beispiel Scheine für 10, 20 und 50 Euro.",
+          "bild": "story.hafen.4.2"
         },
         {
           "wer": "tala",
-          "text": "Mein Tipp: Wer einen Betrag mit möglichst wenigen Münzen legen will, nimmt zuerst die großen."
+          "text": "Mein Tipp: Wer einen Betrag mit möglichst wenigen Münzen legen will, nimmt zuerst die großen.",
+          "bild": "story.hafen.4.3"
         },
         {
           "wer": "talo",
-          "text": "Geld gibt es übrigens auch digital auf einem Konto. Man sieht es nicht, aber es ist genauso viel wert."
+          "text": "Geld gibt es übrigens auch digital auf einem Konto. Man sieht es nicht, aber es ist genauso viel wert.",
+          "bild": "story.hafen.4.4"
         }
       ],
       "spiel": {
@@ -528,7 +538,6 @@
       "ort": "Werft",
       "lernziel": "Geld verdient man durch Arbeit",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.hafen.5",
       "szene": [
         {
           "wer": "bootsbauer",
@@ -547,15 +556,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Die meisten Erwachsenen verdienen ihr Geld mit Arbeit. Dafür bekommen sie Lohn oder Gehalt."
+          "text": "Die meisten Erwachsenen verdienen ihr Geld mit Arbeit. Dafür bekommen sie Lohn oder Gehalt.",
+          "bild": "story.hafen.5.1"
         },
         {
           "wer": "tala",
-          "text": "Die Bootsbauer reparieren Schiffe, der Bäcker backt Brot, die Ärztin hilft Kranken."
+          "text": "Die Bootsbauer reparieren Schiffe, der Bäcker backt Brot, die Ärztin hilft Kranken.",
+          "bild": "story.hafen.5.2"
         },
         {
           "wer": "talo",
-          "text": "Hergestellt wird Euro-Geld nur von bestimmten Stellen. Wer selbst Geld druckt, macht Falschgeld, und das ist verboten."
+          "text": "Hergestellt wird Euro-Geld nur von bestimmten Stellen. Wer selbst Geld druckt, macht Falschgeld, und das ist verboten.",
+          "bild": "story.hafen.5.3"
         },
         {
           "wer": "tala",
@@ -682,7 +694,6 @@
       "ort": "Fischbrötchen-Stand",
       "lernziel": "Ein Preis besteht aus Kosten und Gewinn",
       "dauer": "7 bis 10 Min.",
-      "film": "video.station.hafen.6",
       "szene": [
         {
           "wer": "tala",
@@ -701,19 +712,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Im Preis stecken die Zutaten: Fisch, Brötchen, Zwiebeln."
+          "text": "Im Preis stecken die Zutaten: Fisch, Brötchen, Zwiebeln.",
+          "bild": "story.hafen.6.1"
         },
         {
           "wer": "talo",
-          "text": "Dazu kommen die Miete für den Stand und der Lohn für die Verkäuferin."
+          "text": "Dazu kommen die Miete für den Stand und der Lohn für die Verkäuferin.",
+          "bild": "story.hafen.6.2"
         },
         {
           "wer": "tala",
-          "text": "Und was übrig bleibt, ist der Gewinn! Davon kann der Stand zum Beispiel einen neuen Grill kaufen."
+          "text": "Und was übrig bleibt, ist der Gewinn! Davon kann der Stand zum Beispiel einen neuen Grill kaufen.",
+          "bild": "story.hafen.6.3"
         },
         {
           "wer": "talo",
-          "text": "Ohne Gewinn lohnt sich der Stand nicht. Ist der Preis zu hoch, kaufen die Leute woanders."
+          "text": "Ohne Gewinn lohnt sich der Stand nicht. Ist der Preis zu hoch, kaufen die Leute woanders.",
+          "bild": "story.hafen.6.4"
         }
       ],
       "spiel": {
@@ -853,19 +868,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Preise ungefähr zu kennen hilft. Dann merkst du, wenn etwas zu teuer ist."
+          "text": "Preise ungefähr zu kennen hilft. Dann merkst du, wenn etwas zu teuer ist.",
+          "bild": "story.hafen.7.1"
         },
         {
           "wer": "talo",
-          "text": "Ein Brötchen kostet viel weniger als eine Kinokarte. Und ein Fahrrad kostet ein Vielfaches davon."
+          "text": "Ein Brötchen kostet viel weniger als eine Kinokarte. Und ein Fahrrad kostet ein Vielfaches davon.",
+          "bild": "story.hafen.7.2"
         },
         {
           "wer": "tala",
-          "text": "Ich schaue beim nächsten Einkauf mal ganz genau auf die Preisschilder!"
+          "text": "Ich schaue beim nächsten Einkauf mal ganz genau auf die Preisschilder!",
+          "bild": "story.hafen.7.3"
         },
         {
           "wer": "talo",
-          "text": "Gute Idee. Preise ändern sich mit der Zeit und sind nicht überall gleich. Deshalb lohnt sich Vergleichen."
+          "text": "Gute Idee. Preise ändern sich mit der Zeit und sind nicht überall gleich. Deshalb lohnt sich Vergleichen.",
+          "bild": "story.hafen.7.4"
         }
       ],
       "spiel": {

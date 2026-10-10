@@ -41,12 +41,13 @@ class MapIsland {
 
 /// Eine Zeile Dialog von Talo, Tala oder einer anderen Figur.
 class DialogLine {
-  const DialogLine({required this.speaker, required this.text, this.name});
+  const DialogLine({required this.speaker, required this.text, this.name, this.image});
 
   factory DialogLine.fromJson(Map<String, dynamic> json) => DialogLine(
     speaker: json['speaker'] as String? ?? 'talo',
     text: json['text'] as String? ?? '',
     name: json['name'] as String?,
+    image: json['image'] as String?,
   );
 
   /// Figur, passend zum Asset-Schlüssel `character.<speaker>`.
@@ -55,6 +56,10 @@ class DialogLine {
 
   /// Angezeigter Name, wenn es nicht Talo oder Tala ist.
   final String? name;
+
+  /// Bild der Bildergeschichte (Asset-Schlüssel), nur in der Erklärung.
+  /// Zeilen ohne Bild zeigen das Bild davor.
+  final String? image;
 }
 
 /// Auftrag fürs echte Leben zu einer Insel.
@@ -387,6 +392,9 @@ class StationContent {
   final String? videoKey;
   final List<DialogLine> scene;
   final List<DialogLine> lesson;
+
+  /// Die Erklärung ist eine Bildergeschichte (mindestens eine Zeile hat ein Bild).
+  bool get hasPictureStory => lesson.any((l) => l.image != null);
   final GameInfo? game;
   final DialogLine? summary;
   final int? quizShow;

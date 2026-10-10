@@ -52,18 +52,19 @@ void main() {
     }
   }
 
-  test('Hafen Station 2: Film, Szene, Erklärung, Spiel, Quiz mit 5 Fragen, Ergebnis', () async {
+  test('Hafen Station 2: Szene, Bildergeschichte, Spiel, Quiz mit 5 Fragen, Ergebnis', () async {
     final c = controllerFor('hafen', 2);
     await c.start();
     await pumpEventQueue();
     expect(progress.events.single.event, TrackedEvent.stationStart, reason: 'Messung für die Abbruchquote');
     expect(progress.events.single.stationId, content.station('hafen', 2).id);
-    // Kein „Weißt du noch?“: davor liegt nur das Intro.
-    expect(c.step, StationStep.video);
-    c.next();
+    // Kein „Weißt du noch?“: davor liegt nur das Intro. Kein Film: Die
+    // Erklärung ist eine Bildergeschichte.
     expect(c.step, StationStep.scene);
     c.next();
     expect(c.step, StationStep.lesson);
+    expect(c.station.content.hasPictureStory, isTrue);
+    expect(c.station.content.lesson.first.image, 'story.hafen.2.1');
     c.next();
     expect(c.step, StationStep.game);
     c.next();
@@ -89,7 +90,7 @@ void main() {
     c.nextWarmUp();
     c.answerWarmUp(0);
     c.nextWarmUp();
-    expect(c.step, StationStep.video);
+    expect(c.step, StationStep.scene);
     expect(progress.submissions, 0, reason: 'Aufwärmfragen werden nicht abgegeben');
     await pumpEventQueue();
     expect(progress.recordedAnswers, hasLength(1), reason: 'aber sie fließen in den Wiederholungsplan');

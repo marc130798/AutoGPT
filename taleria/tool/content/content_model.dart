@@ -32,13 +32,17 @@ class ContentException implements Exception {
 }
 
 class Line {
-  Line(this.speaker, this.text, this.name);
+  Line(this.speaker, this.text, this.name, {this.image});
 
   final String speaker;
   final String text;
   final String? name;
 
-  Map<String, dynamic> toDb() => {'speaker': speaker, 'text': text, 'name': ?name};
+  /// Bild der Bildergeschichte zu dieser Zeile (nur in der Erklärung, `"bild"`).
+  /// Zeilen ohne Bild zeigen das Bild davor.
+  final String? image;
+
+  Map<String, dynamic> toDb() => {'speaker': speaker, 'text': text, 'name': ?name, 'image': ?image};
 }
 
 class Question {
@@ -333,6 +337,7 @@ Island parseIsland(String file, String source) {
         text(l as Map<String, dynamic>, 'wer', '$where, Zeile ${i + 1}'),
         text(l, 'text', '$where, Zeile ${i + 1}'),
         l['name'] as String?,
+        image: l['bild'] as String?,
       ),
   ];
 
@@ -486,6 +491,18 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       if (s.video != null) check(knownAssetKeys.contains(s.video), '$sw: Film ${s.video} fehlt im Asset-Manifest');
       for (final line in [...s.scene, ...s.lesson, ?s.summary]) {
         check(knownAssetKeys.contains('character.${line.speaker}'), '$sw: unbekannte Figur "${line.speaker}"');
+      }
+      // Bildergeschichte: Bilder nur in der Erklärung, die erste Zeile braucht eins.
+      for (final line in [...s.scene, ?s.summary]) {
+        check(line.image == null, '$sw: "bild" gibt es nur in der Erklärung');
+      }
+      if (s.lesson.any((l) => l.image != null)) {
+        check(s.lesson.first.image != null, '$sw: die erste Zeile der Erklärung braucht ein "bild"');
+      }
+      for (final line in s.lesson) {
+        if (line.image case final image?) {
+          check(knownAssetKeys.contains(image), '$sw: Bild $image fehlt im Asset-Manifest');
+        }
       }
 
       for (final (i, q) in s.questions.indexed) {

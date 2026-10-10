@@ -16,6 +16,7 @@ import '../../services/encounter_controller.dart' show EncounterRun;
 import 'dialog_sequence.dart';
 import 'dive_header.dart';
 import 'game_views.dart';
+import 'picture_story.dart';
 import 'quiz_view.dart';
 import 'station_stage.dart';
 
@@ -113,6 +114,10 @@ class _StationScreenState extends State<StationScreen> {
             onDone: controller.next,
             stage: true,
           ),
+          StationStep.lesson when content.hasPictureStory => PictureStory(
+            lines: content.lesson,
+            onDone: controller.next,
+          ),
           StationStep.lesson => DialogSequence(lines: content.lesson, onDone: controller.next, stage: true),
           StationStep.game => GameStepView(
             game: content.game!,
@@ -177,6 +182,8 @@ Widget _framed(StationController controller, Widget body) {
   final failedExam = controller.isExam && controller.result != null && !controller.result!.passed;
   return switch (controller.step) {
     StationStep.loading || StationStep.submitting => body,
+    // Die Bildergeschichte liegt ganz auf Papier, das Bild ersetzt die Bühne.
+    StationStep.lesson when controller.station.content.hasPictureStory => StagePanel(child: body),
     // Szene und Lehre bringen ihre Bühne selbst mit (aktueller Sprecher).
     StationStep.scene || StationStep.lesson => body,
     StationStep.warmUp => StagePanel(

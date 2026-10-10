@@ -151,6 +151,8 @@ void main() {
       int questions = 6,
       String speaker = 'talo',
       List<String> wrong = const ['b', 'c'],
+      List<Map<String, dynamic>>? lesson,
+      String? sceneImage,
     }) => {
       'nr': 1,
       'typ': 'game',
@@ -159,11 +161,13 @@ void main() {
       'lernziel': 'Ziel',
       'dauer': '5 Min.',
       'szene': [
-        {'wer': speaker, 'text': 'Hallo'},
+        {'wer': speaker, 'text': 'Hallo', 'bild': ?sceneImage},
       ],
-      'erklaerung': [
-        {'wer': 'tala', 'text': 'So geht das.'},
-      ],
+      'erklaerung':
+          lesson ??
+          [
+            {'wer': 'tala', 'text': 'So geht das.'},
+          ],
       'abschluss': {'wer': 'talo', 'text': 'Fertig.'},
       'quiz_anzahl': 3,
       'fragen': [
@@ -185,6 +189,60 @@ void main() {
 
     test('nicht genau 3 Antworten', () {
       expect(problems(islandWith(station(wrong: ['b']))), contains(contains('genau 2 falsche Antworten')));
+    });
+
+    test('Bildergeschichte: Bilder aus dem Manifest, erste Zeile mit Bild, nur in der Erklärung', () {
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: [
+                {'wer': 'tala', 'text': 'Eins', 'bild': 'story.hafen.2.1'},
+                {'wer': 'talo', 'text': 'Zwei'},
+              ],
+            ),
+          ),
+        ),
+        isEmpty,
+      );
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: [
+                {'wer': 'tala', 'text': 'Eins', 'bild': 'story.gibtsnicht.1'},
+              ],
+            ),
+          ),
+        ),
+        contains(contains('Bild story.gibtsnicht.1 fehlt')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: [
+                {'wer': 'tala', 'text': 'Eins'},
+                {'wer': 'talo', 'text': 'Zwei', 'bild': 'story.hafen.2.1'},
+              ],
+            ),
+          ),
+        ),
+        contains(contains('erste Zeile der Erklärung braucht ein "bild"')),
+      );
+      expect(
+        problems(islandWith(station(sceneImage: 'story.hafen.2.1'))),
+        contains(contains('"bild" gibt es nur in der Erklärung')),
+      );
+    });
+
+    test('Inseln 1 bis 3: jede Erklärung ist eine Bildergeschichte, Stationen ohne Film', () {
+      for (final island in islands.take(3)) {
+        for (final s in island.stations.where((s) => s.lesson.isNotEmpty)) {
+          expect(s.lesson.first.image, isNotNull, reason: '${island.slug} ${s.number}');
+          expect(s.video, isNull, reason: '${island.slug} ${s.number}');
+        }
+      }
     });
 
     test('unbekannter Status', () {

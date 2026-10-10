@@ -71,19 +71,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Bedürfnisse sind Dinge, die man zum Leben braucht: Essen, Trinken, Kleidung und ein Zuhause."
+          "text": "Bedürfnisse sind Dinge, die man zum Leben braucht: Essen, Trinken, Kleidung und ein Zuhause.",
+          "bild": "story.wunschinsel.1.1"
         },
         {
           "wer": "tala",
-          "text": "Und Wünsche sind Dinge, die Spaß machen, aber nicht lebensnotwendig sind. Wie mein Glitzerkompass!"
+          "text": "Und Wünsche sind Dinge, die Spaß machen, aber nicht lebensnotwendig sind. Wie mein Glitzerkompass!",
+          "bild": "story.wunschinsel.1.2"
         },
         {
           "wer": "talo",
-          "text": "Manche Dinge liegen dazwischen, zum Beispiel ein Handy. Es kommt darauf an, wofür man es braucht."
+          "text": "Manche Dinge liegen dazwischen, zum Beispiel ein Handy. Es kommt darauf an, wofür man es braucht.",
+          "bild": "story.wunschinsel.1.3"
         },
         {
           "wer": "tala",
-          "text": "Wünsche sind erlaubt! Aber Bedürfnisse kommen zuerst."
+          "text": "Wünsche sind erlaubt! Aber Bedürfnisse kommen zuerst.",
+          "bild": "story.wunschinsel.1.4"
         }
       ],
       "spiel": {
@@ -222,11 +226,13 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Wenn das Geld nicht für alles reicht, muss man auswählen."
+          "text": "Wenn das Geld nicht für alles reicht, muss man auswählen.",
+          "bild": "story.wunschinsel.2.1"
         },
         {
           "wer": "talo",
-          "text": "Prioritäten setzen heißt: Das Wichtigste kommt zuerst in den Rucksack."
+          "text": "Prioritäten setzen heißt: Das Wichtigste kommt zuerst in den Rucksack.",
+          "bild": "story.wunschinsel.2.2"
         },
         {
           "wer": "tala",
@@ -234,7 +240,8 @@
         },
         {
           "wer": "talo",
-          "text": "Und wer sich für etwas entscheidet, verzichtet auf etwas anderes."
+          "text": "Und wer sich für etwas entscheidet, verzichtet auf etwas anderes.",
+          "bild": "story.wunschinsel.2.3"
         }
       ],
       "spiel": {
@@ -354,7 +361,6 @@
       "ort": "Wunschflaschen-Strand",
       "lernziel": "Warten zeigt, ob man etwas wirklich will",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.wunschinsel.3",
       "szene": [
         {
           "wer": "tala",
@@ -372,7 +378,8 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Bei kleinen Wünschen schläfst du eine Nacht drüber. Bei großen eine ganze Woche."
+          "text": "Bei kleinen Wünschen schläfst du eine Nacht drüber. Bei großen eine ganze Woche.",
+          "bild": "story.wunschinsel.3.1"
         },
         {
           "wer": "tala",
@@ -380,11 +387,13 @@
         },
         {
           "wer": "talo",
-          "text": "Dann ist es ein echter Wunsch. Viele Wünsche sind nach ein paar Tagen aber einfach verschwunden."
+          "text": "Dann ist es ein echter Wunsch. Viele Wünsche sind nach ein paar Tagen aber einfach verschwunden.",
+          "bild": "story.wunschinsel.3.2"
         },
         {
           "wer": "tala",
-          "text": "Ich stecke meinen Wunsch in eine Wunschflasche! Dann fragt mich die App später, ob ich ihn noch will."
+          "text": "Ich stecke meinen Wunsch in eine Wunschflasche! Dann fragt mich die App später, ob ich ihn noch will.",
+          "bild": "story.wunschinsel.3.3"
         }
       ],
       "spiel": {
@@ -462,7 +471,6 @@
       "ort": "Möwenplatz",
       "lernziel": "Gruppendruck erkennen und Nein sagen können",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.wunschinsel.4",
       "szene": [
         {
           "wer": "tala",
@@ -480,19 +488,23 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Wenn man etwas tut, weil alle anderen es tun oder erwarten, nennt man das Gruppendruck."
+          "text": "Wenn man etwas tut, weil alle anderen es tun oder erwarten, nennt man das Gruppendruck.",
+          "bild": "story.wunschinsel.4.1"
         },
         {
           "wer": "tala",
-          "text": "Gruppendruck kann dazu führen, dass man Sachen kauft, die man eigentlich gar nicht will."
+          "text": "Gruppendruck kann dazu führen, dass man Sachen kauft, die man eigentlich gar nicht will.",
+          "bild": "story.wunschinsel.4.2"
         },
         {
           "wer": "talo",
-          "text": "Eine gute Frage ist: Würde ich das auch wollen, wenn es niemand sonst hätte?"
+          "text": "Eine gute Frage ist: Würde ich das auch wollen, wenn es niemand sonst hätte?",
+          "bild": "story.wunschinsel.4.3"
         },
         {
           "wer": "tala",
-          "text": "Und man darf freundlich Nein sagen. Das ist sogar ziemlich stark!"
+          "text": "Und man darf freundlich Nein sagen. Das ist sogar ziemlich stark!",
+          "bild": "story.wunschinsel.4.4"
         }
       ],
       "spiel": {
@@ -605,7 +617,6 @@
       "ort": "Moritz' Höhle",
       "lernziel": "Geld hilft, aber Glück hat viele Quellen",
       "dauer": "6 bis 9 Min.",
-      "film": "video.station.wunschinsel.5",
       "szene": [
         {
           "wer": "moritz",
@@ -625,15 +636,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Geld ist wichtig. Es kann Sorgen nehmen, zum Beispiel um Essen oder ein Zuhause."
+          "text": "Geld ist wichtig. Es kann Sorgen nehmen, zum Beispiel um Essen oder ein Zuhause.",
+          "bild": "story.wunschinsel.5.1"
         },
         {
           "wer": "tala",
-          "text": "Aber die Freude über neue Sachen hält oft nicht lange. Mein Glitzerkompass wäre nach einer Woche bestimmt ganz normal."
+          "text": "Aber die Freude über neue Sachen hält oft nicht lange. Mein Glitzerkompass wäre nach einer Woche bestimmt ganz normal.",
+          "bild": "story.wunschinsel.5.2"
         },
         {
           "wer": "talo",
-          "text": "Freunde, gemeinsame Zeit und Gesundheit machen auch glücklich. Die kann man nicht kaufen."
+          "text": "Freunde, gemeinsame Zeit und Gesundheit machen auch glücklich. Die kann man nicht kaufen.",
+          "bild": "story.wunschinsel.5.3"
         }
       ],
       "spiel": {
@@ -806,15 +820,18 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Ein neues Spielzeug ist toll, aber oft liegt es nach ein paar Wochen in der Ecke."
+          "text": "Ein neues Spielzeug ist toll, aber oft liegt es nach ein paar Wochen in der Ecke.",
+          "bild": "story.wunschinsel.6.1"
         },
         {
           "wer": "tala",
-          "text": "An einen schönen Ausflug erinnere ich mich noch lange. Wie an unsere erste Fahrt mit dem Schiff!"
+          "text": "An einen schönen Ausflug erinnere ich mich noch lange. Wie an unsere erste Fahrt mit dem Schiff!",
+          "bild": "story.wunschinsel.6.2"
         },
         {
           "wer": "talo",
-          "text": "Erlebnisse teilt man mit anderen. Und viele schöne Erlebnisse kosten kaum Geld."
+          "text": "Erlebnisse teilt man mit anderen. Und viele schöne Erlebnisse kosten kaum Geld.",
+          "bild": "story.wunschinsel.6.3"
         }
       ],
       "spiel": {
@@ -967,7 +984,6 @@
       "ort": "Wunschbrunnen",
       "lernziel": "Eine gute Wunschliste hilft beim Planen",
       "dauer": "7 bis 10 Min.",
-      "film": "video.station.wunschinsel.7",
       "szene": [
         {
           "wer": "tala",
@@ -990,20 +1006,24 @@
       "erklaerung": [
         {
           "wer": "talo",
-          "text": "Schreib deine Wünsche auf und schätze, was sie ungefähr kosten."
+          "text": "Schreib deine Wünsche auf und schätze, was sie ungefähr kosten.",
+          "bild": "story.wunschinsel.7.1"
         },
         {
           "wer": "tala",
-          "text": "Dann sortiere ich: Was ist mir am wichtigsten? Das kommt nach oben."
+          "text": "Dann sortiere ich: Was ist mir am wichtigsten? Das kommt nach oben.",
+          "bild": "story.wunschinsel.7.2"
         },
         {
           "wer": "talo",
-          "text": "Für den wichtigsten Wunsch kannst du einen Wunschschatz anlegen und dafür sparen."
+          "text": "Für den wichtigsten Wunsch kannst du einen Wunschschatz anlegen und dafür sparen.",
+          "bild": "story.wunschinsel.7.3"
         },
         {
           "wer": "elsa",
           "text": "Oh, eine kluge Liste! Seht nur, das Kartenstück steigt auf!",
-          "name": "Elsa"
+          "name": "Elsa",
+          "bild": "story.wunschinsel.7.4"
         }
       ],
       "spiel": {
