@@ -266,9 +266,9 @@ Die App muss jederzeit testbar sein, auch wenn Grafiken, Animationen und Filme n
 ### Was von außen kommt (Illustration, Animation, Ton)
 | Was | Format | Ort |
 | --- | --- | --- |
-| Talo und Tala, beweglich | Rive (`.riv`) mit State Machine (idle, talk, happy, sad, wave) | `assets/rive/` |
+| Talo und Tala, beweglich | Einzelbilder je Zustand (PNG, freigestellt: idle, talk, happy, sad, wave), Bewegung im Code; Rive entfällt (3D-Look, siehe Abschnitt 16) | `assets/images/` |
 | Kleine Effekte (Flaschenpost, Möwe) | Lottie (`.json`) | `assets/lottie/` |
-| Karte, Inseln, Hintergründe | SVG oder PNG (2x und 3x) | `assets/images/` |
+| Karte, Inseln, Hintergründe | PNG im 3D-Animationsfilm-Look (Liste und Gemini-Texte in `BILDER.md`) | `assets/images/` |
 | Ankunftsfilme und Intro | MP4 (H.264), 9:16 Hochformat, kurz | Supabase Storage, Pfad in der Datenbank |
 | Sprecherstimmen, Musik, Sounds | AAC oder MP3 | Supabase Storage oder `assets/audio/` |
 
@@ -339,6 +339,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - `INSELN.md` – Inhalte jeder Insel, Quiz-Regeln, Tauchgänge
 - `MARKETING.md` – Inhaltskalender, Ankündigungen, E-Mail-Marketing (für Claude Code nur Abschnitt 5 relevant)
 - `FIGUREN.md` – alle Figuren, Stil und Illustrations-Briefing (für Platzhalter-Namen und Asset-Schlüssel relevant)
+- `BILDER.md` – Bildliste für die Karte mit den Texten für Gemini
 
 ---
 
@@ -347,7 +348,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Rolle von Tala als Zahlmeisterin ist ein Vorschlag.
 - Aussehen von Meister Taleron steht noch aus (alt, weise, freundlich, nicht gruselig).
 - Preis: Startannahme 4,99 bis 6,99 € pro Monat oder 39 bis 59 € pro Jahr pro Familie, noch zu testen.
-- Illustrationen von Talo, Tala und der Karte stehen noch aus. Bis dahin Platzhalter verwenden.
+- Bilder von Talo, Tala und der Karte stehen noch aus (Marc erstellt sie mit Gemini, `BILDER.md`). Bis dahin Platzhalter verwenden.
 - Technik-Stack ist ein Vorschlag und wird vor Projektstart bestätigt.
 
 ---
@@ -542,3 +543,10 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Nur für die Testumgebung: Das Skript bricht ab, wenn `TALERIA_ENV` nicht `test` ist. Die Store-Apps für iOS und Android bleiben das Ziel; die Webseite ist kein Produkt.
 - Alles kommt vom eigenen Server (`--no-web-resources-cdn`), nur die Schrift Roboto lädt Flutter im Browser von Google. Vor einer Beta mit fremden Familien eine eigene Schrift einbinden oder die Store-Apps nutzen.
 - Die Adresse der Webseite nur an Tester weitergeben.
+
+**Design: 3D-Look mit Bildern aus Gemini, entschieden am 10.10.2026:**
+- Marc möchte einen 3D-Animationsfilm-Look wie auf seinen Beispielbildern (Schiff mit Talo und Tala auf See). Den kann der Code nicht selbst zeichnen. Deshalb: **Bilder im 3D-Stil, Bewegung im Code** (Nebel, Wolken, Wellen, Glitzern, segelndes Schiff, Schloss, Flagge). Echtes 3D in der App (Modelle, Spiel-Engine) ist für das MVP zu aufwendig und kommt nicht.
+- Die Bilder erstellt Marc mit Gemini. Welche Bilder, in welchem Format und mit welchem Text steht in `BILDER.md`. Inseln und Schiff entstehen auf pinkem Hintergrund, Wolken auf schwarzem; Claude Code stellt sie frei und baut sie ein.
+- Rive entfällt für die Figuren, weil es nicht zum 3D-Look passt. Stattdessen Einzelbilder pro Zustand und kurze Filme für besondere Momente (`FIGUREN.md`).
+- Beim Beispielbild beachten: Talo darf nicht wie Nick Wilde aus „Zoomania“ aussehen, auf dem Schiff keine Kanonen, Tala ohne Krone und Prinzessinnenkleid.
+- Vor dem Start klären: Nutzungsbedingungen von Gemini für App, Werbung und Merchandise; Schutz von Logo und Hauptfiguren mit einer Fachperson besprechen.

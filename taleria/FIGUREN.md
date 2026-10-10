@@ -1,6 +1,7 @@
 # FIGUREN.md – Figuren und Illustrations-Briefing
 
-Grundlage für Illustratorin oder Illustrator und für die Animation (Rive).
+Grundlage für die Bilder der Figuren (mit Gemini oder einer Illustratorin) und für ihre Bewegung in der App.
+Welche Bilder für die Karte gebraucht werden und was man Gemini dafür schreibt, steht in `BILDER.md`.
 Alle Figuren sind Entwürfe. Namen und Rollen stammen aus `INSELN.md`.
 
 ---
@@ -8,13 +9,14 @@ Alle Figuren sind Entwürfe. Namen und Rollen stammen aus `INSELN.md`.
 ## 1. Stil für die ganze Welt
 
 - **Zielgruppe:** Kinder von 10 bis 14 Jahren. Freundlich und lebendig, aber nicht babyhaft. Ein 13-Jähriger soll die App nicht peinlich finden.
-- **Welt:** Das Meer von Taleria, Schatzsucher-Abenteuer mit leichtem Seefahrer-Flair, keine Piraten mit Waffen.
-- **Technik:** 2D, klare Formen, gut lesbar auf kleinen Handybildschirmen im Hochformat.
-- **Animation:** Hauptfiguren werden als Rive-Dateien animiert. Deshalb in getrennten Ebenen anlegen (Kopf, Augen, Mund, Arme, Kleidung, Accessoires).
+- **Welt:** Das Meer von Taleria, Schatzsucher-Abenteuer mit leichtem Seefahrer-Flair, keine Piraten mit Waffen. Auch auf dem Schiff keine Kanonen (lieber Fässer, Kisten, Fernrohr, Seekarten).
+- **Look (entschieden mit Marc am 10.10.2026):** 3D-Animationsfilm-Look, wie gerenderte Standbilder aus einem Kinofilm für Kinder. Weiche Formen, warme leuchtende Farben, Licht von links oben. Gut lesbar auf kleinen Handybildschirmen im Hochformat. Die Bilder erstellt Marc mit Gemini.
+- **Bewegung:** Jede Hauptfigur bekommt ihre Zustände als einzelne freigestellte Bilder (PNG). Die App bewegt sie leicht (wippen, hüpfen, Bild wechseln). Für besondere Momente (Intro, Ankunft, Schatzkarte) gibt es kurze Filme. Rive ist für den 3D-Look nicht geeignet und entfällt.
+- **Eigenständig:** Keine Figur darf einer bekannten Filmfigur ähneln. Talo soll klar anders aussehen als Nick Wilde aus „Zoomania“ (Disney).
 - **Zustände der Hauptfiguren:** ruhig (idle), sprechen, freuen, traurig, winken, staunen, nachdenken.
 - **Farben:** Jede Hauptfigur hat eine klar erkennbare Grundfarbe und ein Erkennungszeichen.
 - **Vielfalt:** Der Avatar des Kindes bietet verschiedene Hautfarben, Frisuren und Kleidung.
-- **Keine Klischees:** Tala ist mutig und klug, nicht nur die, die gern einkauft. Talo macht auch Fehler.
+- **Keine Klischees:** Tala ist mutig und klug, nicht nur die, die gern einkauft. Talo macht auch Fehler. Tala trägt keine Krone und kein Prinzessinnenkleid, sondern ihr goldenes Halstuch und die Gürteltasche; Buch und Feder als Zahlmeisterin passen gut.
 - **Rechte:** Schriftliche Übertragung aller Nutzungsrechte (App, Werbung, Social Media, Merchandise, Bücher), Urheber und Datum in `ASSETS_LICENSES.md`.
 
 ---
@@ -72,7 +74,7 @@ Alle Figuren sind Entwürfe. Namen und Rollen stammen aus `INSELN.md`.
 | Risiko-Klippen | Alba (Albatros, Wetterwartin), Dieter (Dachs, Schutzhütte) |
 | Zukunftsinsel | Ruben (Rabe, Sternwarte), Bea (Biene, Baumschule) |
 
-Inselbewohner brauchen keine volle Rive-Animation. Für sie reichen 2 bis 3 Posen (stehen, sprechen, freuen).
+Inselbewohner brauchen nur 2 bis 3 Posen (stehen, sprechen, freuen).
 
 ---
 
@@ -88,9 +90,9 @@ Inselbewohner brauchen keine volle Rive-Animation. Für sie reichen 2 bis 3 Pose
 
 ## 6. Reihenfolge für die Beauftragung
 
-1. Talo und Tala (Entwürfe, dann Rive-fähige Endfassung)
-2. Logo, App-Icon, Farbpalette
-3. Schiff und Inselkarte
+1. Inselkarte: Meer, Hafen, Tauschinsel, Wunschinsel, Schiff, Wolken (`BILDER.md`)
+2. Talo und Tala (Entwurf, dann alle Posen im selben Stil)
+3. Logo, App-Icon, Farbpalette
 4. Avatar-Baukasten
 5. Meister Taleron
 6. Hafen, Tauschinsel, Wunschinsel mit ihren Bewohnern
