@@ -583,5 +583,14 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 **Figuren auf den Inseln, begonnen am 10.10.2026 (BILDER.md Abschnitt 4d):**
 - Hafen fertig: Händler (Walross), Verkäuferin am Fischbrötchen-Stand (Seehündin), Bootsbauer (Biber). Tauschinsel fertig: Bruno, Greta, Otti, Olga. Wunschinsel fertig: Elsa, Moritz. Meister Taleron ist jetzt ein Bild (vorher im Manifest als `rive`). Sie erscheinen ohne Code-Änderung in den Sprechblasen der Stationen. Die Perle (`collectible.pearl`) ist dasselbe Bild wie die Muschel mit Perle auf der Startseite. Unterwasserwelt (`underwater.background`, Hochformat) und Fundstück (`collectible.wreck_item`, zweite Fassung mit Anker) sind da.
 - Freistellen von Gegenständen (`--art gegenstand`) jetzt wie bei Figuren: eingeschlossene Lücken und Schatten werden durchsichtig. Helle, zarte Farben bleiben auch bei blasserem Pink-Hintergrund deckend (durchsichtig wird nur, was bloß hellere oder dunklere Hintergrundfarbe ist).
+
+**Stationen im neuen Look, umgesetzt am 10.10.2026:**
+- Hintergrund jeder Station ist das Bild der Insel von innen, beim Tauchgang die Unterwasserwelt (nach oben geschoben, damit oben das Wrack mit den Fischen zu sehen ist). Fehlt das Bild, ein Verlauf von Meer zu Sand.
+- Oben steht eine Bühne vor dem Hintergrund, darunter liegt der Inhalt auf Papier mit goldenem Rand (`lib/features/station/station_stage.dart`).
+- Szene und Erklärung: Wer schon gesprochen hat, steht auf der Bühne (höchstens drei, die zuletzt sprachen), wer gerade spricht, ist vorn und größer. Talo und Tala winken bei der ersten Zeile.
+- Fragen (Aufwärmen, Check, Prüfung): Talo denkt nach, Tala hört zu; nach einer richtigen Antwort freuen sich beide. Nach dem Antippen rollt die Liste von selbst zur Rückmeldung („Richtig!“ und Erklärung), damit Kinder sie auch auf kleinen Bildschirmen sofort sehen.
+- Mini-Spiel: Tala überlegt, Talo steht daneben. Ergebnis: beide freuen sich (bei nicht bestandener Prüfung denken beide nach).
+- Unter Wasser bleibt die Bühne leer, damit man die Unterwasserwelt sieht. Gefundene Perlen glänzen weiß (im Code gezeichnet). Der Film (noch Platzhalter) steht frei vor der Insel.
+- Ablauf, Texte und Schlüssel der Stationen sind unverändert.
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

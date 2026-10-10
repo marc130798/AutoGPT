@@ -3,11 +3,22 @@ import 'package:flutter/material.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
+import 'station_stage.dart';
 
 /// Zeigt Dialogzeilen nacheinander. „Weiter“ blendet die nächste Zeile ein,
 /// nach der letzten ruft der Knopf [onDone] auf.
+///
+/// Mit [stage] stehen die Figuren oben vor dem Hintergrund und das Gespräch
+/// liegt darunter auf Papier ([StagePanel]).
 class DialogSequence extends StatefulWidget {
-  const DialogSequence({super.key, required this.lines, required this.onDone, this.title, this.doneLabel});
+  const DialogSequence({
+    super.key,
+    required this.lines,
+    required this.onDone,
+    this.title,
+    this.doneLabel,
+    this.stage = false,
+  });
 
   final List<DialogLine> lines;
   final VoidCallback onDone;
@@ -15,6 +26,9 @@ class DialogSequence extends StatefulWidget {
 
   /// Beschriftung des letzten Knopfs, Standard „Weiter“.
   final String? doneLabel;
+
+  /// Figuren auf einer Bühne über dem Gespräch zeigen.
+  final bool stage;
 
   @override
   State<DialogSequence> createState() => _DialogSequenceState();
@@ -30,7 +44,7 @@ class _DialogSequenceState extends State<DialogSequence> {
     final lines = widget.lines;
     final last = _shown >= lines.length;
 
-    return Column(
+    final column = Column(
       children: [
         if (widget.title != null)
           Padding(
@@ -58,5 +72,7 @@ class _DialogSequenceState extends State<DialogSequence> {
         ),
       ],
     );
+    if (!widget.stage) return column;
+    return StagePanel(stage: dialogStage(lines, _shown), child: column);
   }
 }

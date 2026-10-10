@@ -71,13 +71,14 @@ class DiveHeader extends StatelessWidget {
           key: const ValueKey('dive-pearls'),
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Gefundene Perlen glänzen, offene sind ein leerer Kreis.
             for (final r in results)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Icon(
-                  r == true ? Icons.circle : Icons.circle_outlined,
-                  color: r == true ? palette.paper : palette.placeholderBorder,
-                  shadows: r == true ? [Shadow(color: palette.seaDeep, blurRadius: 3)] : null,
+                child: SizedBox(
+                  width: 28,
+                  height: 28,
+                  child: r == true ? const _Pearl() : Icon(Icons.circle_outlined, color: palette.placeholderBorder),
                 ),
               ),
           ],
@@ -115,5 +116,36 @@ class DiveHeader extends StatelessWidget {
           ],
         );
     }
+  }
+}
+
+/// Eine schimmernde Perle: weiß mit hellem Glanzpunkt und zartem Rosa am Rand.
+class _Pearl extends StatelessWidget {
+  const _Pearl();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(2),
+      child: DecoratedBox(
+        key: const ValueKey('pearl-found'),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: const RadialGradient(
+            center: Alignment(-0.35, -0.4),
+            radius: 0.9,
+            colors: [Colors.white, Color(0xFFF4EEF0), Color(0xFFD9C8D2)],
+            stops: [0, 0.45, 1],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: context.palette.seaDeep.withValues(alpha: 0.35),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

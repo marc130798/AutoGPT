@@ -11,12 +11,12 @@ import '../../services/station_controller.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
-import '../../core/assets/taleria_asset.dart';
 import '../../services/encounter_controller.dart' show EncounterRun;
 import 'dialog_sequence.dart';
 import 'dive_header.dart';
 import 'game_views.dart';
 import 'quiz_view.dart';
+import 'station_stage.dart';
 
 /// Eine Station von Anfang bis Ende. Gibt beim Schließen das Ergebnis
 /// zurück (oder `null`, wenn das Kind vorher abbricht).
@@ -87,8 +87,13 @@ class _StationScreenState extends State<StationScreen> {
             onNext: controller.nextWarmUp,
           ),
           StationStep.video => VideoPlaceholder(assetKey: content.videoKey!, onContinue: controller.next),
-          StationStep.scene => DialogSequence(lines: content.scene, title: content.place, onDone: controller.next),
-          StationStep.lesson => DialogSequence(lines: content.lesson, onDone: controller.next),
+          StationStep.scene => DialogSequence(
+            lines: content.scene,
+            title: content.place,
+            onDone: controller.next,
+            stage: true,
+          ),
+          StationStep.lesson => DialogSequence(lines: content.lesson, onDone: controller.next, stage: true),
           StationStep.game => GameStepView(
             game: content.game!,
             onDone: controller.next,
@@ -117,16 +122,70 @@ class _StationScreenState extends State<StationScreen> {
         };
         return Scaffold(
           appBar: AppBar(title: Text(content.title)),
-          body: SafeArea(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              child: KeyedSubtree(key: ValueKey(controller.step), child: body),
+          body: StationBackdrop(
+            // Die Insel von innen, beim Tauchgang die Unterwasserwelt.
+            assetKey: controller.isDive
+                ? AssetKeys.underwaterBackground
+                : AssetKeys.islandBackground(widget.island.slug),
+            // Unter Wasser oben das Wrack mit den Fischen zeigen.
+            lift: controller.isDive ? 0.35 : 0,
+            child: SafeArea(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 250),
+                child: KeyedSubtree(key: ValueKey(controller.step), child: _framed(controller, body)),
+              ),
             ),
           ),
         );
       },
     );
   }
+}
+
+/// Legt den Inhalt eines Schritts auf Papier, darüber passende Figuren:
+/// bei Fragen denkt Talo nach (richtig: beide freuen sich), beim Spiel
+/// überlegt Tala, am Ende freuen sich beide. Unter Wasser bleibt die Bühne
+/// leer, damit man die Unterwasserwelt sieht.
+Widget _framed(StationController controller, Widget body) {
+  final dive = controller.isDive;
+  final failedExam = controller.isExam && controller.result != null && !controller.result!.passed;
+  return switch (controller.step) {
+    StationStep.loading || StationStep.submitting => body,
+    // Szene und Lehre bringen ihre Bühne selbst mit (aktueller Sprecher).
+    StationStep.scene || StationStep.lesson => body,
+    StationStep.warmUp => StagePanel(
+      stage: quizStage(answered: controller.warmUp!.answered, correct: controller.warmUp!.answeredCorrectly),
+      child: body,
+    ),
+    StationStep.quiz when dive => StagePanel(stage: const SizedBox.shrink(), child: body),
+    StationStep.quiz => StagePanel(
+      stage: quizStage(answered: controller.quiz!.answered, correct: controller.quiz!.answeredCorrectly),
+      child: body,
+    ),
+    StationStep.game => StagePanel(
+      stage: const FigureStage(
+        figures: [
+          StageFigure(AssetKeys.tala, pose: CharacterPose.think),
+          StageFigure(AssetKeys.talo, active: false),
+        ],
+      ),
+      child: body,
+    ),
+    StationStep.wreck => StagePanel(stage: const SizedBox.shrink(), child: body),
+    StationStep.result when dive => StagePanel(stage: const SizedBox.shrink(), child: body),
+    StationStep.result => StagePanel(
+      stage: FigureStage(
+        figures: [
+          StageFigure(AssetKeys.talo, pose: failedExam ? CharacterPose.think : CharacterPose.happy),
+          StageFigure(AssetKeys.tala, pose: failedExam ? CharacterPose.think : CharacterPose.happy),
+        ],
+      ),
+      child: body,
+    ),
+    // Der Film (oder sein Platzhalter) steht frei vor der Insel.
+    StationStep.video => Padding(padding: const EdgeInsets.all(12), child: body),
+    StationStep.failed => StagePanel(child: body),
+  };
 }
 
 /// Bis Schritt 7 ein Platzhalter für das Mini-Spiel der Station.
@@ -356,8 +415,6 @@ class _WreckView extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             children: [
               Text(l10n.wreckTitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
-              const SizedBox(height: 8),
-              const Center(child: TaleriaAsset(AssetKeys.underwaterBackground, width: 220, height: 90)),
               const SizedBox(height: 12),
               for (final line in task.scene)
                 Padding(padding: const EdgeInsets.only(bottom: 12), child: SpeechBubble.line(line)),
