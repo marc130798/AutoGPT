@@ -310,6 +310,14 @@ und den Ordner `build/web` auf einen Webspace laden (wo, ist noch offen).
 Veröffentlichte Inhalte schützt die Datenbank: Korrekturen gehen, Pflichtstationen und
 Prüfungsfragen lassen sich aber nicht mehr entfernen oder zurückziehen.
 
+## Was du ausprobieren kannst (Rückmeldungen aus dem Test, mit Test-Server)
+
+Die Datenbank bleibt gleich, es braucht keine neue SQL-Datei.
+
+1. Musik: Sie läuft jetzt auch in Schatztruhe, Aufträgen, Orden, Sammlung und im Rundgang „Was ist wo?“. Auf der Insel, in Stationen und bei Begegnungen auf See bleibt es still.
+2. Aufträge: Erledigte zeigen „Erledigt am …“ und „Die 5,00 € kamen in deine Bordkasse.“, gemeldete zeigen „Gemeldet am …“. Im Leuchtturm steht „Bestätigt am …“ und wohin das Geld gebucht wurde.
+3. Schatztruhe: Eine Truhe antippen (oder „Was ist drin?“). Dann siehst du, wie sich der Stand zusammensetzt, zum Beispiel Taschengeld, Belohnungen und Gekauftes. Darunter stehen alle Buchungen dieser Truhe.
+
 ## Was du ausprobieren kannst (Rang-Namen, mit Test-Server)
 
 Vorher die Datenbank aktualisieren: im SQL Editor des **Testprojekts** den Inhalt von

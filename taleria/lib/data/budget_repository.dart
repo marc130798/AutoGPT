@@ -121,7 +121,7 @@ class SupabaseBudgetRepository implements BudgetRepository {
   Future<List<FamilyTask>> fetchTasks(String childId) => guardBackend(() async {
     final rows = await _client
         .from('tasks')
-        .select('id, title, reward_cents, is_chore, status, parent_note, created_at')
+        .select('id, title, reward_cents, is_chore, status, parent_note, created_at, submitted_at, reviewed_at')
         .eq('child_id', childId)
         .order('created_at', ascending: false);
     return [
@@ -134,6 +134,8 @@ class SupabaseBudgetRepository implements BudgetRepository {
           status: TaskStatus.values.byName(r['status'] as String),
           parentNote: r['parent_note'] as String?,
           createdAt: DateTime.parse(r['created_at'] as String).toLocal(),
+          submittedAt: r['submitted_at'] == null ? null : DateTime.parse(r['submitted_at'] as String).toLocal(),
+          reviewedAt: r['reviewed_at'] == null ? null : DateTime.parse(r['reviewed_at'] as String).toLocal(),
         ),
     ];
   });

@@ -70,6 +70,42 @@ void main() {
     expect(sounds.playingMusic, AssetKeys.musicHome);
   });
 
+  testWidgets('Meeresrauschen auf allen Menü-Seiten, auch nach dem Zurückgehen', (tester) async {
+    final (:content, :sounds, :settings) = await startOnHome(tester);
+    Future<void> back() async {
+      tester.state<NavigatorState>(find.byType(Navigator).first).pop();
+      await tester.pumpAndSettle();
+    }
+
+    // Karte und zurück: Die Musik läuft auf der Startseite weiter.
+    await tapText(tester, 'Zur Karte');
+    await back();
+    expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Startseite nach der Karte');
+
+    for (final page in ['Aufträge', 'Orden', 'Sammlung', 'Was ist wo?']) {
+      if (find.text(page).evaluate().isEmpty) {
+        // „Was ist wo?“ steht ganz oben.
+        await tester.dragUntilVisible(find.text(page), find.byType(Scrollable).first, const Offset(0, 200));
+      }
+      await tapText(tester, page);
+      expect(sounds.playingMusic, AssetKeys.musicHome, reason: page);
+      await back();
+      expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'zurück von $page');
+    }
+
+    // Schatztruhe: Dialoge halten die Musik nicht an, die Übersicht einer Truhe auch nicht.
+    await tapText(tester, 'Schatztruhe');
+    expect(sounds.playingMusic, AssetKeys.musicHome);
+    await tapKey(tester, 'pot-open-spend');
+    expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Übersicht der Bordkasse');
+    await back();
+    await tapText(tester, 'Geld in eine andere Truhe legen');
+    expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Dialog über der Schatztruhe');
+    await tapText(tester, 'Abbrechen');
+    await back();
+    expect(sounds.playingMusic, AssetKeys.musicHome);
+  });
+
   testWidgets('Lautsprecher-Knopf schaltet Musik und Töne aus und wieder an', (tester) async {
     final (:content, :sounds, :settings) = await startOnHome(tester);
     expect(find.text('Ton an'), findsOneWidget);

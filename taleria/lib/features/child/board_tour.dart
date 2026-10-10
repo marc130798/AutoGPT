@@ -4,6 +4,7 @@ import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../intro/speech_bubble.dart';
 
@@ -221,11 +222,13 @@ class BoardTourScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.tourButton)),
-      body: SceneBackground(
-        assetKey: AssetKeys.homeBackground,
-        child: SafeArea(child: BoardTour(onDone: () => Navigator.of(context).pop())),
+    return MenuMusic(
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.tourButton)),
+        body: SceneBackground(
+          assetKey: AssetKeys.homeBackground,
+          child: SafeArea(child: BoardTour(onDone: () => Navigator.of(context).pop())),
+        ),
       ),
     );
   }

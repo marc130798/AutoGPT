@@ -594,7 +594,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Ablauf, Texte und Schlüssel der Stationen sind unverändert.
 
 **Musik und Töne, umgesetzt am 10.10.2026 (mit Marc abgestimmt, Paket `audioplayers`):**
-- Musik nur im Hauptmenü: Meeresrauschen mit Möwen (`music.home`, von Marc) auf Startseite und Karte, leise und in Schleife. Auf Insel und Station keine Musik; zurück im Menü läuft sie an derselben Stelle weiter. Im Hintergrund (anderes Programm, Bildschirm aus) pausiert sie.
+- Musik im Hauptmenü: Meeresrauschen mit Möwen (`music.home`, von Marc), leise und in Schleife, auf allen Menü-Seiten des Kindes: Startseite, Karte, Schatztruhe (mit Truhen-Übersicht), Aufträge, Orden, Sammlung und Rundgang. Bis 10.10.2026 lief sie nur auf Startseite und Karte; Marc wollte sie überall außer in den Missionen. Keine Musik in den Missionen (Insel, Station, Tauchgang, Begegnung auf See) und im Leuchtturm. Zurück im Menü läuft sie an derselben Stelle weiter, Dialoge halten sie nicht an. Im Hintergrund (anderes Programm, Bildschirm aus) pausiert sie.
 - Kurze Töne, selbst erzeugt mit `tool/toene_erzeugen.py`: richtige Antwort (`sound.correct`, auch bei Aufwärmen, Wrack und Begegnung auf See), Perle beim Tauchgang (`sound.pearl`), Station geschafft (`sound.station_done`), Insel geschafft (`sound.island_done`). Bei falschen Antworten kein Ton (Kinder sollen sich nicht bestraft fühlen), nach nicht bestandener Prüfung keine Fanfare. Mini-Spiele noch ohne Ton.
 - Lautsprecher-Knopf links oben auf der Startseite: schaltet Musik und Töne aus oder an (gilt für dieses Gerät, bleibt gespeichert). Im Leuchtturm: Schalter „Musik im Hauptmenü“ (gilt für dieses Gerät; Töne bleiben). Eine Einstellung, die Eltern für das Gerät des Kindes aus der Ferne setzen, bräuchte ein Feld in der Datenbank (vorher mit Marc klären).
 - Im Browser darf Ton erst nach dem ersten Antippen starten; die App holt die Musik dann nach (`Sounds.unlock` beim Antippen; auf dem Handy zählt erst das Loslassen).
@@ -628,6 +628,19 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.
 
+**Rückmeldungen aus Marcs Test, umgesetzt am 10.10.2026:**
+- **Musik auf allen Menü-Seiten:** Was genau gilt, steht oben bei „Musik und Töne“.
+- **Fehler behoben:** Nach dem Zurückgehen von der Karte zur Startseite hörte die Musik auf. Beim Zurückgehen meldet Flutter zuerst der Seite darunter, dass sie wieder vorn ist, und erst danach der Seite, die geht. Die gehende Seite hielt die Musik deshalb an. Jetzt hält nur die Seite an, die die Musik zuletzt bestellt hat (`MenuMusic`).
+- **Aufträge mit Datum:**
+  - Im Kinderbereich steht bei gemeldeten Aufträgen „Gemeldet am …“, bei erledigten „Erledigt am …“. Wurde an einem anderen Tag bestätigt, steht „Erledigt am …, bestätigt am …“ da.
+  - Bei einer Belohnung steht dabei: „Die 5,00 € kamen in deine Bordkasse.“
+  - Im Leuchtturm steht bei jeder Aufgabe „Offen seit …“, „Gemeldet am …“, „Bestätigt am …“ oder „Abgelehnt am …“, dazu „5,00 € auf „Ausgeben“ gebucht“.
+  - Die Daten kommen aus `tasks.submitted_at` und `tasks.reviewed_at`. Die Datenbank bleibt unverändert.
+- **Übersicht pro Truhe:**
+  - Wer im Kinderbereich eine Truhe antippt (oder „Was ist drin?“), sieht oben den Stand. Darunter steht „So setzt sich das zusammen“: was dazukam und was wegging, je Art. Beispiele: Taschengeld, Belohnungen für Aufträge, aus anderen Truhen hergelegt, gekauft. Darunter stehen alle Buchungen dieser Truhe.
+  - Die Rechnung steckt in `lib/domain/pot_summary.dart`. Das Kassenbuch lädt nur die neuesten 50 Buchungen; Älteres steht als „Frühere Buchungen“ da, damit die Summe immer zum Stand vom Server passt.
+  - Belohnungen für Aufträge landen wie bisher in der Bordkasse, nicht in der Schatztruhe (Schritt 5a).
+
 ---
 
 ## 17. Aktueller Stand und nächste Schritte (Stand 10.10.2026)
@@ -656,6 +669,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 
 **Nächste Schritte:**
 1. Marc testet die Testversion. Besonders wichtig: Läuft die Musik jetzt auf dem iPhone? Seine Rückmeldungen umsetzen.
+   - Erste Runde erledigt (siehe oben, „Rückmeldungen aus Marcs Test“): Musik auf allen Menü-Seiten, Aufträge mit Datum, Übersicht pro Truhe. Diese Änderungen sind noch in keiner Testversion (ZIP); eine neue baut Claude erst, wenn Marc es sagt.
 2. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
    - `rank.kapitaen`, `badge.wunschinsel` und `collectible.wreck_item` zeigen ein englisches „E“ für Osten. Diese Bilder neu machen, mit „O“ oder ohne Buchstaben.

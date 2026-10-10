@@ -1507,6 +1507,108 @@ abstract class AppLocalizations {
   /// **'Geld in eine andere Truhe legen'**
   String get treasureMove;
 
+  /// Knopf auf einer Truhe: Übersicht öffnen
+  ///
+  /// In de, this message translates to:
+  /// **'Was ist drin?'**
+  String get potDetailsButton;
+
+  /// Überschrift der Übersicht einer Truhe
+  ///
+  /// In de, this message translates to:
+  /// **'So setzt sich das zusammen'**
+  String get potDetailsHeading;
+
+  /// Übersicht einer Truhe: Geld, das hineinkam
+  ///
+  /// In de, this message translates to:
+  /// **'Dazugekommen'**
+  String get potDetailsIn;
+
+  /// Übersicht einer Truhe: Geld, das herausging
+  ///
+  /// In de, this message translates to:
+  /// **'Weggegangen'**
+  String get potDetailsOut;
+
+  /// Übersicht einer Truhe: ältere Buchungen, die nicht einzeln geladen sind
+  ///
+  /// In de, this message translates to:
+  /// **'Frühere Buchungen'**
+  String get potDetailsOlder;
+
+  /// Übersicht einer Truhe: Summe (alle Truhen-Namen sind weiblich)
+  ///
+  /// In de, this message translates to:
+  /// **'Jetzt in der {pot}'**
+  String potDetailsTotal(String pot);
+
+  /// Übersicht einer leeren Truhe
+  ///
+  /// In de, this message translates to:
+  /// **'Hier ist noch nichts passiert. Sobald Geld dazukommt oder weggeht, steht es hier.'**
+  String get potDetailsEmpty;
+
+  /// Übersicht einer Truhe: Liste der einzelnen Buchungen
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Buchungen'**
+  String get potDetailsList;
+
+  /// Übersicht einer Truhe: wie oft
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Mal} other{{count} Mal}}'**
+  String potDetailsCount(int count);
+
+  /// Übersicht einer Truhe: Art der Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld'**
+  String get potSumAllowance;
+
+  /// Übersicht einer Truhe: Art der Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Belohnungen für Aufträge'**
+  String get potSumTask;
+
+  /// Übersicht einer Truhe: umgebucht, hinein
+  ///
+  /// In de, this message translates to:
+  /// **'Aus anderen Truhen hergelegt'**
+  String get potSumTransferIn;
+
+  /// Übersicht einer Truhe: umgebucht, hinaus
+  ///
+  /// In de, this message translates to:
+  /// **'In andere Truhen gelegt'**
+  String get potSumTransferOut;
+
+  /// Übersicht einer Truhe: Art der Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Korrekturen von deinen Eltern'**
+  String get potSumManual;
+
+  /// Übersicht einer Truhe: Art der Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Wunschschätze eingelöst'**
+  String get potSumGoal;
+
+  /// Übersicht einer Truhe: Art der Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Gekauft'**
+  String get potSumPurchase;
+
+  /// Übersicht einer Truhe: Art der Buchung
+  ///
+  /// In de, this message translates to:
+  /// **'Verschenkt'**
+  String get potSumDonation;
+
   /// Knopf: Ausgabe aus der Bordkasse
   ///
   /// In de, this message translates to:
@@ -1830,6 +1932,60 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Super! Jetzt müssen deine Eltern bestätigen.'**
   String get taskSubmitted;
+
+  /// Kinderbereich: wann der Auftrag gemeldet wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Gemeldet am {date}'**
+  String taskSubmittedOn(String date);
+
+  /// Kinderbereich: wann der Auftrag erledigt wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Erledigt am {date}'**
+  String taskDoneOn(String date);
+
+  /// Kinderbereich: gemeldet und an einem anderen Tag bestätigt
+  ///
+  /// In de, this message translates to:
+  /// **'Erledigt am {done}, bestätigt am {confirmed}'**
+  String taskDoneConfirmedOn(String done, String confirmed);
+
+  /// Kinderbereich: wohin die Belohnung gebucht wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Die {amount} kamen in deine Bordkasse.'**
+  String taskRewardBooked(String amount);
+
+  /// Leuchtturm: Aufgabe offen seit
+  ///
+  /// In de, this message translates to:
+  /// **'Offen seit {date}'**
+  String taskParentOpenSince(String date);
+
+  /// Leuchtturm: Aufgabe gemeldet am
+  ///
+  /// In de, this message translates to:
+  /// **'Gemeldet am {date}'**
+  String taskParentSubmittedOn(String date);
+
+  /// Leuchtturm: Aufgabe bestätigt am
+  ///
+  /// In de, this message translates to:
+  /// **'Bestätigt am {date}'**
+  String taskParentApprovedOn(String date);
+
+  /// Leuchtturm: Aufgabe abgelehnt am
+  ///
+  /// In de, this message translates to:
+  /// **'Abgelehnt am {date}'**
+  String taskParentRejectedOn(String date);
+
+  /// Leuchtturm: wohin die Belohnung gebucht wurde
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} auf „{pot}“ gebucht'**
+  String taskParentBooked(String amount, String pot);
 
   /// Titel des Budget-Bereichs im Leuchtturm
   ///

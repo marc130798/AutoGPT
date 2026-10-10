@@ -8,6 +8,7 @@ import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
+import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -55,51 +56,53 @@ class _TasksScreenState extends State<TasksScreen> {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final controller = _controller!;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.tasksTitle)),
-      body: SceneBackground(
-        assetKey: AssetKeys.tasksBackground,
-        child: SafeArea(
-          child: ListenableBuilder(
-            listenable: controller,
-            builder: (context, _) {
-              if (controller.loading) return const Center(child: CircularProgressIndicator());
-              if (controller.failure != null) {
-                return Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+    return MenuMusic(
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.tasksTitle)),
+        body: SceneBackground(
+          assetKey: AssetKeys.tasksBackground,
+          child: SafeArea(
+            child: ListenableBuilder(
+              listenable: controller,
+              builder: (context, _) {
+                if (controller.loading) return const Center(child: CircularProgressIndicator());
+                if (controller.failure != null) {
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(l10n.failure(controller.failure!)),
+                        const SizedBox(height: 16),
+                        FilledButton(onPressed: controller.load, child: Text(l10n.retryButton)),
+                      ],
+                    ),
+                  );
+                }
+                final open = [...controller.tasksWith(TaskStatus.rejected), ...controller.tasksWith(TaskStatus.open)];
+                final waiting = controller.tasksWith(TaskStatus.submitted);
+                final done = controller.tasksWith(TaskStatus.approved);
+                return RefreshIndicator(
+                  onRefresh: controller.load,
+                  child: ListView(
+                    padding: const EdgeInsets.all(16),
                     children: [
-                      Text(l10n.failure(controller.failure!)),
+                      SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.wave, text: l10n.tasksIntroTalo),
+                      const SizedBox(height: 12),
+                      SpeechBubble(speaker: Speaker.tala, text: l10n.tasksIntroTala),
                       const SizedBox(height: 16),
-                      FilledButton(onPressed: controller.load, child: Text(l10n.retryButton)),
+                      if (controller.tasks.isEmpty)
+                        PaperCard(child: Text(l10n.tasksEmpty, style: theme.textTheme.bodyLarge)),
+                      if (open.isNotEmpty) PaperHeading(l10n.tasksOpenHeading),
+                      for (final task in open) _ChildTaskCard(task: task, onSubmit: () => _submit(task)),
+                      if (waiting.isNotEmpty) PaperHeading(l10n.tasksWaitingHeading),
+                      for (final task in waiting) _ChildTaskCard(task: task),
+                      if (done.isNotEmpty) PaperHeading(l10n.tasksDoneHeading),
+                      for (final task in done) _ChildTaskCard(task: task),
                     ],
                   ),
                 );
-              }
-              final open = [...controller.tasksWith(TaskStatus.rejected), ...controller.tasksWith(TaskStatus.open)];
-              final waiting = controller.tasksWith(TaskStatus.submitted);
-              final done = controller.tasksWith(TaskStatus.approved);
-              return RefreshIndicator(
-                onRefresh: controller.load,
-                child: ListView(
-                  padding: const EdgeInsets.all(16),
-                  children: [
-                    SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.wave, text: l10n.tasksIntroTalo),
-                    const SizedBox(height: 12),
-                    SpeechBubble(speaker: Speaker.tala, text: l10n.tasksIntroTala),
-                    const SizedBox(height: 16),
-                    if (controller.tasks.isEmpty)
-                      PaperCard(child: Text(l10n.tasksEmpty, style: theme.textTheme.bodyLarge)),
-                    if (open.isNotEmpty) PaperHeading(l10n.tasksOpenHeading),
-                    for (final task in open) _ChildTaskCard(task: task, onSubmit: () => _submit(task)),
-                    if (waiting.isNotEmpty) PaperHeading(l10n.tasksWaitingHeading),
-                    for (final task in waiting) _ChildTaskCard(task: task),
-                    if (done.isNotEmpty) PaperHeading(l10n.tasksDoneHeading),
-                    for (final task in done) _ChildTaskCard(task: task),
-                  ],
-                ),
-              );
-            },
+              },
+            ),
           ),
         ),
       ),
@@ -136,6 +139,17 @@ class _ChildTaskCard extends StatelessWidget {
               ),
             ],
           ),
+          if (_dateLine(l10n, task) case final line?) ...[
+            const SizedBox(height: 4),
+            Text(line, key: ValueKey('task-date-${task.id}'), style: theme.textTheme.bodyMedium),
+          ],
+          if (task.status == TaskStatus.approved && !task.isChore && task.rewardCents > 0) ...[
+            const SizedBox(height: 2),
+            Text(
+              l10n.taskRewardBooked(formatCents(task.rewardCents)),
+              style: theme.textTheme.bodyMedium?.copyWith(color: palette.success, fontWeight: FontWeight.w700),
+            ),
+          ],
           if (rejected) ...[
             const SizedBox(height: 8),
             Text(
@@ -151,4 +165,20 @@ class _ChildTaskCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Wann der Auftrag gemeldet oder erledigt wurde (sonst `null`). Liegen
+/// Melden und Bestätigen auf verschiedenen Tagen, stehen beide da.
+String? _dateLine(AppLocalizations l10n, FamilyTask task) {
+  final submitted = task.submittedAt == null ? null : formatDate(task.submittedAt!);
+  final reviewed = task.reviewedAt == null ? null : formatDate(task.reviewedAt!);
+  return switch (task.status) {
+    TaskStatus.submitted when submitted != null => l10n.taskSubmittedOn(submitted),
+    TaskStatus.approved when submitted != null && reviewed != null && submitted != reviewed => l10n.taskDoneConfirmedOn(
+      submitted,
+      reviewed,
+    ),
+    TaskStatus.approved when (submitted ?? reviewed) != null => l10n.taskDoneOn((submitted ?? reviewed)!),
+    _ => null,
+  };
 }

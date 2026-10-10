@@ -10,7 +10,7 @@ import '../common/busy_action.dart';
 import '../common/button_spinner.dart';
 import '../common/texts.dart';
 import '../treasure/amount_dialog.dart';
-import '../treasure/treasure_screen.dart' show LedgerTile;
+import '../treasure/ledger_tile.dart';
 
 /// Leuchtturm: Taschengeld, Aufgaben und Kontostand eines Kindes.
 class ChildBudgetScreen extends StatefulWidget {
@@ -199,7 +199,16 @@ class _ParentTaskCard extends StatelessWidget {
                 Text(task.isChore ? l10n.taskChore : formatCents(task.rewardCents)),
               ],
             ),
-            Text(l10n.taskStatus(task.status), style: theme.textTheme.bodySmall),
+            Text(
+              _statusLine(l10n, task),
+              key: ValueKey('parent-task-date-${task.id}'),
+              style: theme.textTheme.bodySmall,
+            ),
+            if (task.status == TaskStatus.approved && !task.isChore && task.rewardCents > 0)
+              Text(
+                l10n.taskParentBooked(formatCents(task.rewardCents), l10n.pot(Pot.spend, parent: true)),
+                style: theme.textTheme.bodySmall,
+              ),
             if (task.parentNote != null) Text(task.parentNote!, style: theme.textTheme.bodySmall),
             Wrap(
               alignment: WrapAlignment.end,
@@ -215,6 +224,17 @@ class _ParentTaskCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Stand der Aufgabe mit Datum, zum Beispiel „Bestätigt am 10.10.2026“.
+String _statusLine(AppLocalizations l10n, FamilyTask task) {
+  final (DateTime? at, String Function(String) withDate, String plain) = switch (task.status) {
+    TaskStatus.open => (task.createdAt, l10n.taskParentOpenSince, l10n.taskStatusOpen),
+    TaskStatus.submitted => (task.submittedAt, l10n.taskParentSubmittedOn, l10n.taskStatusSubmitted),
+    TaskStatus.approved => (task.reviewedAt, l10n.taskParentApprovedOn, l10n.taskStatusApproved),
+    TaskStatus.rejected => (task.reviewedAt, l10n.taskParentRejectedOn, l10n.taskStatusRejected),
+  };
+  return at == null ? plain : withDate(formatDate(at));
 }
 
 class _AllowanceDialog extends StatefulWidget {

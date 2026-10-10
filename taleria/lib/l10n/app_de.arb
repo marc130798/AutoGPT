@@ -1084,6 +1084,84 @@
   "@treasureMove": {
     "description": "Knopf: Geld zwischen Truhen verschieben"
   },
+  "potDetailsButton": "Was ist drin?",
+  "@potDetailsButton": {
+    "description": "Knopf auf einer Truhe: Übersicht öffnen"
+  },
+  "potDetailsHeading": "So setzt sich das zusammen",
+  "@potDetailsHeading": {
+    "description": "Überschrift der Übersicht einer Truhe"
+  },
+  "potDetailsIn": "Dazugekommen",
+  "@potDetailsIn": {
+    "description": "Übersicht einer Truhe: Geld, das hineinkam"
+  },
+  "potDetailsOut": "Weggegangen",
+  "@potDetailsOut": {
+    "description": "Übersicht einer Truhe: Geld, das herausging"
+  },
+  "potDetailsOlder": "Frühere Buchungen",
+  "@potDetailsOlder": {
+    "description": "Übersicht einer Truhe: ältere Buchungen, die nicht einzeln geladen sind"
+  },
+  "potDetailsTotal": "Jetzt in der {pot}",
+  "@potDetailsTotal": {
+    "description": "Übersicht einer Truhe: Summe (alle Truhen-Namen sind weiblich)",
+    "placeholders": {
+      "pot": {
+        "type": "String"
+      }
+    }
+  },
+  "potDetailsEmpty": "Hier ist noch nichts passiert. Sobald Geld dazukommt oder weggeht, steht es hier.",
+  "@potDetailsEmpty": {
+    "description": "Übersicht einer leeren Truhe"
+  },
+  "potDetailsList": "Alle Buchungen",
+  "@potDetailsList": {
+    "description": "Übersicht einer Truhe: Liste der einzelnen Buchungen"
+  },
+  "potDetailsCount": "{count, plural, =1{1 Mal} other{{count} Mal}}",
+  "@potDetailsCount": {
+    "description": "Übersicht einer Truhe: wie oft",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "potSumAllowance": "Taschengeld",
+  "@potSumAllowance": {
+    "description": "Übersicht einer Truhe: Art der Buchung"
+  },
+  "potSumTask": "Belohnungen für Aufträge",
+  "@potSumTask": {
+    "description": "Übersicht einer Truhe: Art der Buchung"
+  },
+  "potSumTransferIn": "Aus anderen Truhen hergelegt",
+  "@potSumTransferIn": {
+    "description": "Übersicht einer Truhe: umgebucht, hinein"
+  },
+  "potSumTransferOut": "In andere Truhen gelegt",
+  "@potSumTransferOut": {
+    "description": "Übersicht einer Truhe: umgebucht, hinaus"
+  },
+  "potSumManual": "Korrekturen von deinen Eltern",
+  "@potSumManual": {
+    "description": "Übersicht einer Truhe: Art der Buchung"
+  },
+  "potSumGoal": "Wunschschätze eingelöst",
+  "@potSumGoal": {
+    "description": "Übersicht einer Truhe: Art der Buchung"
+  },
+  "potSumPurchase": "Gekauft",
+  "@potSumPurchase": {
+    "description": "Übersicht einer Truhe: Art der Buchung"
+  },
+  "potSumDonation": "Verschenkt",
+  "@potSumDonation": {
+    "description": "Übersicht einer Truhe: Art der Buchung"
+  },
   "treasureSpend": "Ich habe etwas gekauft",
   "@treasureSpend": {
     "description": "Knopf: Ausgabe aus der Bordkasse"
@@ -1350,6 +1428,93 @@
   "taskSubmitted": "Super! Jetzt müssen deine Eltern bestätigen.",
   "@taskSubmitted": {
     "description": "Rückmeldung nach dem Melden"
+  },
+  "taskSubmittedOn": "Gemeldet am {date}",
+  "@taskSubmittedOn": {
+    "description": "Kinderbereich: wann der Auftrag gemeldet wurde",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskDoneOn": "Erledigt am {date}",
+  "@taskDoneOn": {
+    "description": "Kinderbereich: wann der Auftrag erledigt wurde",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskDoneConfirmedOn": "Erledigt am {done}, bestätigt am {confirmed}",
+  "@taskDoneConfirmedOn": {
+    "description": "Kinderbereich: gemeldet und an einem anderen Tag bestätigt",
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "confirmed": {
+        "type": "String"
+      }
+    }
+  },
+  "taskRewardBooked": "Die {amount} kamen in deine Bordkasse.",
+  "@taskRewardBooked": {
+    "description": "Kinderbereich: wohin die Belohnung gebucht wurde",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "taskParentOpenSince": "Offen seit {date}",
+  "@taskParentOpenSince": {
+    "description": "Leuchtturm: Aufgabe offen seit",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskParentSubmittedOn": "Gemeldet am {date}",
+  "@taskParentSubmittedOn": {
+    "description": "Leuchtturm: Aufgabe gemeldet am",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskParentApprovedOn": "Bestätigt am {date}",
+  "@taskParentApprovedOn": {
+    "description": "Leuchtturm: Aufgabe bestätigt am",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskParentRejectedOn": "Abgelehnt am {date}",
+  "@taskParentRejectedOn": {
+    "description": "Leuchtturm: Aufgabe abgelehnt am",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskParentBooked": "{amount} auf „{pot}“ gebucht",
+  "@taskParentBooked": {
+    "description": "Leuchtturm: wohin die Belohnung gebucht wurde",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "pot": {
+        "type": "String"
+      }
+    }
   },
   "budgetTitle": "Taschengeld und Aufgaben",
   "@budgetTitle": {

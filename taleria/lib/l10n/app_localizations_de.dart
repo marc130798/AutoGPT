@@ -792,6 +792,62 @@ class AppLocalizationsDe extends AppLocalizations {
   String get treasureMove => 'Geld in eine andere Truhe legen';
 
   @override
+  String get potDetailsButton => 'Was ist drin?';
+
+  @override
+  String get potDetailsHeading => 'So setzt sich das zusammen';
+
+  @override
+  String get potDetailsIn => 'Dazugekommen';
+
+  @override
+  String get potDetailsOut => 'Weggegangen';
+
+  @override
+  String get potDetailsOlder => 'Frühere Buchungen';
+
+  @override
+  String potDetailsTotal(String pot) {
+    return 'Jetzt in der $pot';
+  }
+
+  @override
+  String get potDetailsEmpty => 'Hier ist noch nichts passiert. Sobald Geld dazukommt oder weggeht, steht es hier.';
+
+  @override
+  String get potDetailsList => 'Alle Buchungen';
+
+  @override
+  String potDetailsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count Mal', one: '1 Mal');
+    return '$_temp0';
+  }
+
+  @override
+  String get potSumAllowance => 'Taschengeld';
+
+  @override
+  String get potSumTask => 'Belohnungen für Aufträge';
+
+  @override
+  String get potSumTransferIn => 'Aus anderen Truhen hergelegt';
+
+  @override
+  String get potSumTransferOut => 'In andere Truhen gelegt';
+
+  @override
+  String get potSumManual => 'Korrekturen von deinen Eltern';
+
+  @override
+  String get potSumGoal => 'Wunschschätze eingelöst';
+
+  @override
+  String get potSumPurchase => 'Gekauft';
+
+  @override
+  String get potSumDonation => 'Verschenkt';
+
+  @override
   String get treasureSpend => 'Ich habe etwas gekauft';
 
   @override
@@ -971,6 +1027,51 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get taskSubmitted => 'Super! Jetzt müssen deine Eltern bestätigen.';
+
+  @override
+  String taskSubmittedOn(String date) {
+    return 'Gemeldet am $date';
+  }
+
+  @override
+  String taskDoneOn(String date) {
+    return 'Erledigt am $date';
+  }
+
+  @override
+  String taskDoneConfirmedOn(String done, String confirmed) {
+    return 'Erledigt am $done, bestätigt am $confirmed';
+  }
+
+  @override
+  String taskRewardBooked(String amount) {
+    return 'Die $amount kamen in deine Bordkasse.';
+  }
+
+  @override
+  String taskParentOpenSince(String date) {
+    return 'Offen seit $date';
+  }
+
+  @override
+  String taskParentSubmittedOn(String date) {
+    return 'Gemeldet am $date';
+  }
+
+  @override
+  String taskParentApprovedOn(String date) {
+    return 'Bestätigt am $date';
+  }
+
+  @override
+  String taskParentRejectedOn(String date) {
+    return 'Abgelehnt am $date';
+  }
+
+  @override
+  String taskParentBooked(String amount, String pot) {
+    return '$amount auf „$pot“ gebucht';
+  }
 
   @override
   String get budgetTitle => 'Taschengeld und Aufgaben';

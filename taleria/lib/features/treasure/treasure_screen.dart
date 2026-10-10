@@ -10,10 +10,13 @@ import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
+import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import 'amount_dialog.dart';
+import 'ledger_tile.dart';
+import 'pot_detail_screen.dart';
 import 'wish_bottle_form.dart';
 
 /// Kinderbereich: Bordkasse, Schatztruhe, Glückstruhe, Wunschschätze und
@@ -94,6 +97,12 @@ class _TreasureScreenState extends State<TreasureScreen> {
     if (ok == true && mounted) await runWithFeedback(context, () => c.redeemGoal(goal));
   }
 
+  void _openPot(Pot pot) => Navigator.of(context).push(
+    MaterialPageRoute<void>(
+      builder: (_) => PotDetailScreen(controller: _controller!, pot: pot),
+    ),
+  );
+
   Future<void> _newWish() => showWishBottleDialog(context, onSubmit: _controller!.createWishBottle);
 
   /// Wunschschatz aus einer angespülten Flasche. Ohne Preis (oder unter 1 €) fragt die App danach.
@@ -134,34 +143,37 @@ class _TreasureScreenState extends State<TreasureScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final controller = _controller!;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.treasureTitle)),
-      // Schatzkammer im Bauch des Schiffs; ohne Bild warmes Holz.
-      body: SceneBackground(
-        assetKey: AssetKeys.treasureBackground,
-        child: SafeArea(
-          child: ListenableBuilder(
-            listenable: controller,
-            builder: (context, _) {
-              if (controller.loading) return const Center(child: CircularProgressIndicator());
-              if (controller.failure != null) {
-                return _Failure(kind: controller.failure!, onRetry: controller.load);
-              }
-              return RefreshIndicator(
-                onRefresh: controller.load,
-                child: _TreasureContent(
-                  controller: controller,
-                  onMove: _move,
-                  onSpend: _spend,
-                  onNewGoal: _newGoal,
-                  onRedeem: _redeem,
-                  onDeleteGoal: _deleteGoal,
-                  onNewWish: _newWish,
-                  onKeepWish: _keepWish,
-                  onDropWish: _dropWish,
-                ),
-              );
-            },
+    return MenuMusic(
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.treasureTitle)),
+        // Schatzkammer im Bauch des Schiffs; ohne Bild warmes Holz.
+        body: SceneBackground(
+          assetKey: AssetKeys.treasureBackground,
+          child: SafeArea(
+            child: ListenableBuilder(
+              listenable: controller,
+              builder: (context, _) {
+                if (controller.loading) return const Center(child: CircularProgressIndicator());
+                if (controller.failure != null) {
+                  return _Failure(kind: controller.failure!, onRetry: controller.load);
+                }
+                return RefreshIndicator(
+                  onRefresh: controller.load,
+                  child: _TreasureContent(
+                    controller: controller,
+                    onMove: _move,
+                    onSpend: _spend,
+                    onNewGoal: _newGoal,
+                    onRedeem: _redeem,
+                    onDeleteGoal: _deleteGoal,
+                    onNewWish: _newWish,
+                    onKeepWish: _keepWish,
+                    onDropWish: _dropWish,
+                    onOpenPot: _openPot,
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -180,6 +192,7 @@ class _TreasureContent extends StatelessWidget {
     required this.onNewWish,
     required this.onKeepWish,
     required this.onDropWish,
+    required this.onOpenPot,
   });
 
   final TreasureController controller;
@@ -191,6 +204,7 @@ class _TreasureContent extends StatelessWidget {
   final VoidCallback onNewWish;
   final ValueChanged<WishBottle> onKeepWish;
   final ValueChanged<WishBottle> onDropWish;
+  final ValueChanged<Pot> onOpenPot;
 
   @override
   Widget build(BuildContext context) {
@@ -208,6 +222,7 @@ class _TreasureContent extends StatelessWidget {
           _PotCard(
             pot: pot,
             balance: balances.of(pot),
+            onOpen: () => onOpenPot(pot),
             action: switch (pot) {
               Pot.spend => (l10n.treasureSpend, () => onSpend(Pot.spend)),
               Pot.give => (l10n.treasureGive, () => onSpend(Pot.give)),
@@ -359,82 +374,89 @@ class _Section extends StatelessWidget {
   }
 }
 
+/// Eine Truhe mit Bild, Stand und Erklärung. Antippen (oder „Was ist drin?“)
+/// öffnet die Übersicht, wie sich der Stand zusammensetzt.
 class _PotCard extends StatelessWidget {
-  const _PotCard({required this.pot, required this.balance, required this.action});
+  const _PotCard({required this.pot, required this.balance, required this.action, required this.onOpen});
 
   final Pot pot;
   final int balance;
   final (String, VoidCallback)? action;
+  final VoidCallback onOpen;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final palette = context.palette;
-    final (image, icon, color, hint) = switch (pot) {
-      Pot.spend => (AssetKeys.potSpend, Icons.sailing_outlined, palette.sea, l10n.potSpendHint),
-      Pot.save => (AssetKeys.iconTreasure, Icons.inventory_2_outlined, palette.gold, l10n.potSaveHint),
-      Pot.give => (AssetKeys.potGive, Icons.volunteer_activism_outlined, palette.tala, l10n.potGiveHint),
-    };
-    return Container(
+    return Padding(
       key: ValueKey('pot-${pot.code}'),
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Material(
         color: palette.paper.withValues(alpha: 0.95),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE2C27A), width: 2),
-        boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Bild der Truhe; ohne Bild ein farbiger Kreis mit Symbol.
-          TaleriaAsset(
-            image,
-            width: 76,
-            height: 76,
-            fallback: Center(
-              child: CircleAvatar(
-                radius: 30,
-                backgroundColor: color,
-                child: Icon(icon, color: Colors.white, size: 30),
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
+        elevation: 3,
+        shadowColor: const Color(0x55081C30),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Color(0xFFE2C27A), width: 2),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onOpen,
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        l10n.pot(pot, parent: false),
-                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+                PotImage(pot: pot, size: 76),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              l10n.pot(pot, parent: false),
+                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+                            ),
+                          ),
+                          Text(
+                            formatCents(balance),
+                            key: ValueKey('balance-${pot.code}'),
+                            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      formatCents(balance),
-                      key: ValueKey('balance-${pot.code}'),
-                      style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(hint, style: theme.textTheme.bodyMedium),
-                if (action != null)
-                  TextButton.icon(
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                    onPressed: action!.$2,
-                    icon: const Icon(Icons.edit_note, size: 20),
-                    label: Text(action!.$1),
+                      const SizedBox(height: 4),
+                      Text(potHint(l10n, pot), style: theme.textTheme.bodyMedium),
+                      Wrap(
+                        spacing: 8,
+                        children: [
+                          TextButton.icon(
+                            key: ValueKey('pot-open-${pot.code}'),
+                            style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                            onPressed: onOpen,
+                            icon: const Icon(Icons.list_alt_rounded, size: 20),
+                            label: Text(l10n.potDetailsButton),
+                          ),
+                          if (action != null)
+                            TextButton.icon(
+                              style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                              onPressed: action!.$2,
+                              icon: const Icon(Icons.edit_note, size: 20),
+                              label: Text(action!.$1),
+                            ),
+                        ],
+                      ),
+                    ],
                   ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -521,32 +543,6 @@ class _GoalCard extends StatelessWidget {
               ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// Eine Zeile im Kassenbuch (Kinder- und Elternbereich).
-class LedgerTile extends StatelessWidget {
-  const LedgerTile({super.key, required this.entry, required this.parent});
-
-  final LedgerEntry entry;
-  final bool parent;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final palette = context.palette;
-    final positive = entry.amountCents > 0;
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(entry.note ?? l10n.ledgerType(entry.type)),
-      subtitle: Text(
-        '${l10n.ledgerType(entry.type)} · ${l10n.pot(entry.pot, parent: parent)} · ${formatDate(entry.createdAt)}',
-      ),
-      trailing: Text(
-        '${positive ? '+' : ''}${formatCents(entry.amountCents)}',
-        style: TextStyle(fontWeight: FontWeight.w700, color: positive ? palette.success : palette.ink),
       ),
     );
   }

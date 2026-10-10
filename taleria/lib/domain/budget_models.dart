@@ -81,6 +81,8 @@ class FamilyTask {
     required this.status,
     this.parentNote,
     this.createdAt,
+    this.submittedAt,
+    this.reviewedAt,
   });
 
   final String id;
@@ -90,6 +92,12 @@ class FamilyTask {
   final TaskStatus status;
   final String? parentNote;
   final DateTime? createdAt;
+
+  /// Wann das Kind zuletzt „Erledigt!“ getippt hat.
+  final DateTime? submittedAt;
+
+  /// Wann die Eltern bestätigt oder abgelehnt haben.
+  final DateTime? reviewedAt;
 
   /// Das Kind kann melden: offen oder nach Ablehnung erneut.
   bool get canSubmit => status == TaskStatus.open || status == TaskStatus.rejected;

@@ -120,6 +120,7 @@ class FakeBudget implements BudgetRepository {
         rewardCents: isChore ? 0 : rewardCents,
         isChore: isChore,
         status: TaskStatus.open,
+        createdAt: now,
       ),
     );
   }
@@ -132,6 +133,8 @@ class FakeBudget implements BudgetRepository {
     throw const AppFailure(FailureKind.notAllowed);
   }
 
+  /// Wie auf dem Server: Melden setzt `submitted_at`, Bestätigen und
+  /// Ablehnen setzen `reviewed_at`.
   void _replace(String taskId, TaskStatus status, {String? note}) {
     final (childId, i) = _find(taskId);
     final t = tasks[childId]![i];
@@ -142,6 +145,9 @@ class FakeBudget implements BudgetRepository {
       isChore: t.isChore,
       status: status,
       parentNote: note ?? t.parentNote,
+      createdAt: t.createdAt,
+      submittedAt: status == TaskStatus.submitted ? now : t.submittedAt,
+      reviewedAt: status == TaskStatus.approved || status == TaskStatus.rejected ? now : t.reviewedAt,
     );
   }
 

@@ -74,6 +74,17 @@ extension TaleriaTexts on AppLocalizations {
     LedgerType.donation => ledgerDonation,
   };
 
+  /// Art der Buchung in der Übersicht einer Truhe (Geld hinein oder hinaus).
+  String potSumLabel(LedgerType type, {required bool incoming}) => switch (type) {
+    LedgerType.allowance => potSumAllowance,
+    LedgerType.task => potSumTask,
+    LedgerType.transfer => incoming ? potSumTransferIn : potSumTransferOut,
+    LedgerType.manual => potSumManual,
+    LedgerType.goal => potSumGoal,
+    LedgerType.purchase => potSumPurchase,
+    LedgerType.donation => potSumDonation,
+  };
+
   String taskStatus(TaskStatus status) => switch (status) {
     TaskStatus.open => taskStatusOpen,
     TaskStatus.submitted => taskStatusSubmitted,
