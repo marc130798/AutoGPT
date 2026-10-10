@@ -113,6 +113,30 @@ void main() {
 
     await tapText(tester, 'Zurück zur Insel');
     expect(progress.done, contains('island-hafen/station2'));
+
+    // Nach Station 2 wirft das Schiff Anker: Station 3 wartet auf den Tauchgang.
+    await tapKey(tester, 'station-3');
+    expect(find.text('Diese Station öffnet sich, wenn du die Station davor geschafft hast.'), findsOneWidget);
+    await tapKey(tester, 'dive-1');
+    expect(find.text('Perlentauchen'), findsOneWidget);
+    expect(find.text('Jede richtige Antwort ist eine Perle.'), findsOneWidget);
+    await answerAllCorrectly(tester, content);
+
+    // Das Wrack: erst falsch, dann nochmal versuchen.
+    expect(find.text('Im Wrack'), findsOneWidget);
+    await tapText(tester, 'Münzen glänzen schöner als Waren.');
+    expect(find.text('Nicht ganz.'), findsOneWidget);
+    await tapKey(tester, 'wreck-retry');
+    await tapText(tester, 'Mit Münzen konnte er später bei jedem kaufen, was er brauchte.');
+    await tapKey(tester, 'wreck-done');
+
+    expect(find.text('Wieder an Bord!'), findsOneWidget);
+    expect(find.text('4 Perlen gefunden'), findsOneWidget);
+    await scrollTo(tester, find.byKey(const ValueKey('dive-find')));
+    expect(find.text('Fund für deine Sammlung: Alte Handelsmünze'), findsOneWidget);
+    await tapText(tester, 'Zurück zur Insel');
+    expect(progress.done, contains('island-hafen/dive1'));
+
     await tapKey(tester, 'station-3');
     expect(find.text('Weißt du noch?'), findsOneWidget);
   });

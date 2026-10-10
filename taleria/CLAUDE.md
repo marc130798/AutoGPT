@@ -464,3 +464,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Preise schätzen (Hafen 7):** statt „Handy“ ein Fußball, weil sich die Preisspannen von Handy und Fahrrad überschneiden und die Reihenfolge sonst nicht eindeutig wäre. Alle Preisspannen sind Entwürfe und müssen vor dem Start geprüft werden.
 - **Übungs-Begegnung:** `next_encounter(child, practice)` liefert mit `practice = true` auch ohne fällige Wiederholungen eine Begegnung. Das nutzt die App, wenn die nächste Insel im Nebel liegt.
 - Alle Wrack-Aufgaben, Funde und Spiel-Texte sind Entwürfe von Claude (Status `draft`).
+
+**Schritt 7b (Spiele, Tauchgang, Sammlung und Nebel in der App), umgesetzt am 10.10.2026:**
+- **Inselliste:** Ankerplätze stehen zwischen den Stationen mit Taucher-Symbol und „Ankerplatz“. Die Station danach öffnet sich erst nach dem Tauchgang. Nummern kommen aus `content.number`.
+- **Tauchgang:** Perlentauchen (Fragen wie im Stations-Check, „Jede richtige Antwort ist eine Perle“, abwechselnd aus den Stationen davor) → Wrack (Szene, Aufgabe, nach einer falschen Antwort Erklärung und „Nochmal versuchen“, dann „Wieder auftauchen“) → Ergebnis mit Perlen, Seemeilen und dem Fund, der hervorspringt. Kein „Weißt du noch?“ und kein Film am Ankerplatz. „Weißt du noch?“ an der Station nach dem Ankerplatz fragt die Station vor dem Ankerplatz ab.
+- **Sortieren:** eine Karte nach der anderen, darunter die Körbe als große Knöpfe. Falscher Korb: „Passt nicht ganz“ und „Nochmal versuchen“. Dinge „dazwischen“ passen in jeden Korb und zeigen ihren Hinweis.
+- **Reihenfolge:** Die Dinge liegen gemischt untereinander, das Kind tippt sie der Reihe nach an. Gelegte Dinge wandern mit Nummer und kurzer Erklärung nach oben, ein falscher Tipp zeigt „Noch nicht. Was kommt davor?“. Senkrecht und mit einer Hand bedienbar, wie Abschnitt 11 verlangt.
+- Erst wenn ein Spiel gelöst ist, geht es weiter zum Stations-Check. Spiele ohne eigene Mechanik zeigen weiter den Platzhalter.
+- **Unterwasser-Sammlung:** Knopf auf der Startseite mit Zahl der Funde. Die Seite zeigt die Perlen und alle Funde: gefundene mit Datum, die anderen blass mit „Noch nicht gefunden“.
+- **Nebel voraus:** Sind alle offenen Inseln geschafft und liegt die nächste im Nebel, steht oben auf der Karte „Die nächste Insel liegt noch im Nebel“ mit dem Knopf „Kontrollfahrt starten“ (Begegnung zum Üben). Fertige Inseln, Tauchgänge und Spiele bleiben wiederholbar.

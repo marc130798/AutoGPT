@@ -13,6 +13,9 @@ abstract final class AssetKeys {
 
   static const lighthouse = 'parent.lighthouse';
 
+  static const underwaterBackground = 'underwater.background';
+  static const pearl = 'collectible.pearl';
+
   static const introVideo = 'video.intro';
   static const logo = 'brand.logo';
 
@@ -23,5 +26,18 @@ abstract final class AssetKeys {
 
   /// Alle festen Schlüssel oben, damit ein Test prüfen kann, dass sie im
   /// Manifest stehen.
-  static const all = [talo, tala, taleron, avatar, crewShip, mapBackground, mapFog, mapLock, introVideo, logo];
+  static const all = [
+    talo,
+    tala,
+    taleron,
+    avatar,
+    crewShip,
+    mapBackground,
+    mapFog,
+    mapLock,
+    introVideo,
+    logo,
+    underwaterBackground,
+    pearl,
+  ];
 }

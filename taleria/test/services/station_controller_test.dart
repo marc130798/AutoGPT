@@ -34,7 +34,7 @@ void main() {
       settings: settings,
       child: child,
       island: island,
-      station: stations.firstWhere((s) => s.sortOrder == number),
+      station: content.station(slug, number),
       allStations: stations,
       random: Random(seed),
     );
@@ -71,7 +71,7 @@ void main() {
   });
 
   test('Ab Station 3: zuerst „Weißt du noch?“ mit 2 Fragen der Station davor', () async {
-    progress.done.add('island-hafen/station2');
+    progress.done.addAll(['island-hafen/station2', 'island-hafen/dive1']);
     final c = controllerFor('hafen', 3);
     await c.start();
     expect(c.step, StationStep.warmUp);
@@ -121,7 +121,8 @@ void main() {
   });
 
   test('Falsche Antworten: Station trotzdem geschafft', () async {
-    progress.completeStations('hafen', except: 6);
+    // Erledigt: Station 2 und Ankerplatz 1.
+    progress.completeStations('hafen', except: 8);
     final c = controllerFor('hafen', 3);
     await c.start();
     while (c.step != StationStep.quiz) {
@@ -194,5 +195,69 @@ void main() {
     await c.retryAfterFailure();
     expect(c.step, StationStep.result);
     expect(progress.submissions, 1);
+  });
+
+  StationController diveController(String slug, int number) {
+    final island = content.island(slug);
+    final stations = content.stations[island.id]!;
+    return StationController(
+      content: content,
+      progress: progress,
+      settings: settings,
+      child: child,
+      island: island,
+      station: content.dive(slug, number),
+      allStations: stations,
+      random: Random(5),
+    );
+  }
+
+  test('Ankerplatz 1 im Hafen: Perlentauchen mit 4 Fragen aus Station 2, dann das Wrack', () async {
+    progress
+      ..done.add('island-hafen/station2')
+      ..stationsPerWeek = 2
+      ..wind = 0;
+    final c = diveController('hafen', 1);
+    await c.start();
+    expect(c.step, StationStep.quiz, reason: 'kein „Weißt du noch?“, kein Film');
+    expect(c.quiz!.total, 4);
+    final station2 = content.questions['island-hafen/station2']!.map((q) => q.id).toSet();
+    expect(c.quiz!.questions.every((q) => station2.contains(q.question.id)), isTrue);
+
+    // Drei richtig, eine falsch: drei Perlen.
+    for (var i = 0; i < 4; i++) {
+      final q = c.quiz!.current;
+      c.answerQuiz(i == 0 ? (q.correctDisplayIndex + 1) % 3 : q.correctDisplayIndex);
+      await c.nextQuiz();
+    }
+    expect(c.step, StationStep.wreck);
+    expect(c.wreck!.current.question.question, 'Warum wollte der Händler lieber Münzen als Tauschwaren?');
+
+    // Wrack: erst falsch, dann nochmal, dann richtig.
+    c.answerWreck((c.wreck!.current.correctDisplayIndex + 1) % 3);
+    await c.finishWreck();
+    expect(c.step, StationStep.wreck, reason: 'erst weiter, wenn die Antwort stimmt');
+    c.retryWreck();
+    c.answerWreck(c.wreck!.current.correctDisplayIndex);
+    await c.finishWreck();
+
+    expect(c.step, StationStep.result);
+    expect(c.result!.correct, 3);
+    expect(c.result!.xpAwarded, 50);
+    expect(c.result!.find?.title, 'Alte Handelsmünze');
+    expect(c.result!.windLeft, isNull, reason: 'Ankerplätze brauchen keinen Wind');
+  });
+
+  test('Ankerplatz 2 fragt nur die Stationen seit dem letzten Ankerplatz ab', () async {
+    progress.completeStations('hafen', except: 6);
+    final c = diveController('hafen', 2);
+    await c.start();
+    final allowed = {
+      ...content.questions['island-hafen/station3']!.map((q) => q.id),
+      ...content.questions['island-hafen/station4']!.map((q) => q.id),
+    };
+    expect(c.quiz!.questions.every((q) => allowed.contains(q.question.id)), isTrue);
+    final fromStation3 = c.quiz!.questions.where((q) => q.question.stationId.endsWith('station3')).length;
+    expect(fromStation3, 2, reason: 'beide Stationen kommen gleich oft dran');
   });
 }

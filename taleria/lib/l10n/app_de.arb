@@ -1772,5 +1772,138 @@
   "parentStreakPaused": "Serie pausiert",
   "@parentStreakPaused": {
     "description": "Hinweis: Serie ist pausiert"
+  },
+  "stationDive": "Ankerplatz",
+  "@stationDive": {
+    "description": "Bezeichnung eines Ankerplatzes (Tauchgang) in der Stationsliste"
+  },
+  "diveTitle": "Perlentauchen",
+  "@diveTitle": {
+    "description": "Überschrift der Wiederholungsfragen im Tauchgang"
+  },
+  "diveHint": "Jede richtige Antwort ist eine Perle.",
+  "@diveHint": {
+    "description": "Erklärung Perlentauchen"
+  },
+  "wreckTitle": "Im Wrack",
+  "@wreckTitle": {
+    "description": "Überschrift der Wrack-Aufgabe"
+  },
+  "wreckDone": "Wieder auftauchen",
+  "@wreckDone": {
+    "description": "Knopf nach der gelösten Wrack-Aufgabe"
+  },
+  "diveResultTitle": "Wieder an Bord!",
+  "@diveResultTitle": {
+    "description": "Überschrift nach dem Tauchgang"
+  },
+  "divePearls": "{count, plural, =0{Diesmal keine Perle, beim nächsten Mal klappt es} =1{1 Perle gefunden} other{{count} Perlen gefunden}}",
+  "@divePearls": {
+    "description": "Perlen aus dem Tauchgang",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "diveFind": "Fund für deine Sammlung: {title}",
+  "@diveFind": {
+    "description": "Neuer Fund aus dem Wrack",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "gameSortProgress": "Karte {current} von {total}",
+  "@gameSortProgress": {
+    "description": "Fortschritt im Sortier-Spiel",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gameSortWrong": "Passt nicht ganz. Versuch einen anderen Korb.",
+  "@gameSortWrong": {
+    "description": "Falscher Korb im Sortier-Spiel"
+  },
+  "gameSortRight": "Passt!",
+  "@gameSortRight": {
+    "description": "Richtiger Korb im Sortier-Spiel"
+  },
+  "gameNextCard": "Nächste Karte",
+  "@gameNextCard": {
+    "description": "Knopf: nächste Karte im Sortier-Spiel"
+  },
+  "gameOrderWrong": "Noch nicht. Was kommt davor?",
+  "@gameOrderWrong": {
+    "description": "Falsches Ding im Reihenfolge-Spiel"
+  },
+  "gameOrderPlaced": "{count} von {total} an der richtigen Stelle",
+  "@gameOrderPlaced": {
+    "description": "Fortschritt im Reihenfolge-Spiel",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gameDone": "Geschafft!",
+  "@gameDone": {
+    "description": "Mini-Spiel gelöst"
+  },
+  "collectionButton": "Unterwasser-Sammlung ({count})",
+  "@collectionButton": {
+    "description": "Knopf zur Unterwasser-Sammlung mit Zahl der Funde",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "collectionTitle": "Unterwasser-Sammlung",
+  "@collectionTitle": {
+    "description": "Überschrift der Unterwasser-Sammlung"
+  },
+  "collectionPearls": "{count, plural, =0{Noch keine Perlen} =1{1 Perle} other{{count} Perlen}}",
+  "@collectionPearls": {
+    "description": "Perlen in der Sammlung",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "collectionEmpty": "Noch keine Funde. An jedem Ankerplatz liegt etwas im Wrack.",
+  "@collectionEmpty": {
+    "description": "Hinweis ohne Funde"
+  },
+  "collectionFoundOn": "Gefunden am {date}",
+  "@collectionFoundOn": {
+    "description": "Datum eines Fundes",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "fogAheadTitle": "Die nächste Insel liegt noch im Nebel.",
+  "@fogAheadTitle": {
+    "description": "Hinweis auf der Karte, wenn alle offenen Inseln geschafft sind"
+  },
+  "fogAheadBody": "Bis sie auftaucht, kannst du Kontrollfahrten machen, tauchen und Spiele wiederholen.",
+  "@fogAheadBody": {
+    "description": "Was das Kind tun kann, solange Nebel voraus liegt"
+  },
+  "fogAheadButton": "Kontrollfahrt starten",
+  "@fogAheadButton": {
+    "description": "Knopf: Begegnung zum Üben"
   }
 }

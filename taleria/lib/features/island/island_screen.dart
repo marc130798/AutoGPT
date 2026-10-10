@@ -236,10 +236,12 @@ class _StationTile extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     final locked = state == StationState.locked || state == StationState.noWind;
-    final label = station.isExam ? l10n.stationExam : l10n.stationNumber(station.sortOrder);
+    final label = station.isDive
+        ? l10n.stationDive
+        : (station.isExam ? l10n.stationExam : l10n.stationNumber(station.displayNumber));
 
     return Card(
-      key: ValueKey('station-${station.sortOrder}'),
+      key: ValueKey(station.isDive ? 'dive-${station.displayNumber}' : 'station-${station.displayNumber}'),
       color: locked ? Theme.of(context).colorScheme.surfaceContainerHighest : null,
       child: ListTile(
         minTileHeight: 72,
@@ -256,7 +258,11 @@ class _StationTile extends StatelessWidget {
             StationState.done => const Icon(Icons.check),
             StationState.locked => const Icon(Icons.lock_outline),
             StationState.noWind => const Icon(Icons.air),
-            StationState.open => station.isExam ? const Icon(Icons.flag_outlined) : Text('${station.sortOrder}'),
+            StationState.open => switch (station) {
+              _ when station.isExam => const Icon(Icons.flag_outlined),
+              _ when station.isDive => const Icon(Icons.scuba_diving),
+              _ => Text('${station.displayNumber}'),
+            },
           },
         ),
         title: Text(station.content.title),

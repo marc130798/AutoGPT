@@ -28,6 +28,12 @@ class MapController extends ChangeNotifier {
 
   /// Begegnung auf See, die gerade wartet (Wiederholungen sind fällig), sonst `null`.
   EncounterOffer? get encounter => _offer;
+
+  /// Keine offene Insel mehr, die nächste liegt im Nebel.
+  bool get fogAhead => !_loading && _failure == null && isFogAhead(_islands, _states);
+
+  /// Begegnung zum Üben, wenn Nebel voraus liegt (auch ohne fällige Wiederholungen).
+  Future<EncounterOffer?> practiceEncounter() => _progress.nextEncounter(child.id, practice: true);
   bool get loading => _loading;
   FailureKind? get failure => _failure;
 

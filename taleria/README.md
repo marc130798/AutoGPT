@@ -3,7 +3,14 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 6 gibt
+## Was es nach Schritt 7 gibt
+
+- Ankerplätze nach Station 2, 4 und 6 jeder Insel: Perlentauchen und eine Aufgabe im Wrack
+- Unterwasser-Sammlung mit Perlen und einem Fund pro Ankerplatz
+- Zwei Mini-Spiele mit echter Mechanik: Sortieren (Körbe) und Reihenfolge, in 6 Stationen
+- Nebel voraus: Hinweis auf der Karte und Kontrollfahrt zum Üben statt Warten
+
+## Was es seit Schritt 6 gibt
 
 - Startseite des Kindes: Rang, Seemeilen, Weg zum nächsten Rang, Fahrtwind (Wochen in Folge)
 - „Meine Orden“: ein Orden pro Insel, mit Schatzkarten-Effekt beim Insel-Abschluss
@@ -169,6 +176,25 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 7, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`) und die Inhalte neu laden
+(`supabase/seed.sql` im SQL Editor des Testprojekts ausführen). Danach gibt es die Ankerplätze.
+Zum schnellen Durchspielen im Leuchtturm das Tempo auf „Frei“ stellen.
+
+1. Hafen öffnen: Zwischen den Stationen liegen drei Ankerplätze (Taucher-Symbol).
+2. Nach Station 2 den ersten Ankerplatz spielen: Perlentauchen mit 4 Fragen, dann das Wrack.
+   Im Wrack ruhig zuerst falsch antworten: Es kommt die Erklärung und „Nochmal versuchen“.
+   Am Ende: Perlen, Seemeilen und der Fund „Alte Handelsmünze“.
+3. Station 3 („Geld früher und heute“): Das Spiel ist jetzt ein Zeitstrahl. Dinge der Reihe nach
+   antippen, von früher bis heute.
+4. Station 5 (Berufe zuordnen) und Station 7 (Preise schätzen) sind ebenfalls echte Spiele.
+   Auf der Tauschinsel Station 7 (faire Tausche), auf der Wunschinsel Station 1 (zwei Körbe) und 4
+   (Gruppendruck).
+5. Startseite: „Unterwasser-Sammlung“ zeigt Perlen und Funde.
+6. Wenn Hafen, Tauschinsel und Wunschinsel geschafft sind: Oben auf der Karte steht
+   „Die nächste Insel liegt noch im Nebel“ mit „Kontrollfahrt starten“.
 
 ## Was du ausprobieren kannst (Schritt 6, mit Test-Server)
 

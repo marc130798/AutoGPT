@@ -74,7 +74,8 @@ Map<String, StationState> stationStates(
     states[station.id] = switch (station) {
       _ when done => StationState.done,
       _ when !station.isRequired => StationState.open,
-      _ when allEarlierDone => hasWind ? StationState.open : StationState.noWind,
+      // Ankerplätze brauchen keinen Wind, sie gehören zu den Stationen davor.
+      _ when allEarlierDone => hasWind || station.isDive ? StationState.open : StationState.noWind,
       _ => StationState.locked,
     };
     if (station.isRequired && !done) allEarlierDone = false;
@@ -82,10 +83,37 @@ Map<String, StationState> stationStates(
   return states;
 }
 
+/// Stationen, deren Fragen ein Ankerplatz wiederholt: alle seit dem letzten
+/// Ankerplatz, ohne Intro und Prüfung (wie submit_station() in der Datenbank).
+List<StationInfo> stationsBeforeDive(List<StationInfo> stations, StationInfo dive) {
+  final sorted = [...stations]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+  final previousDive = sorted.where((s) => s.isDive && s.sortOrder < dive.sortOrder).lastOrNull;
+  return [
+    for (final s in sorted)
+      if (s.sortOrder < dive.sortOrder &&
+          s.sortOrder > (previousDive?.sortOrder ?? -1) &&
+          !s.isDive &&
+          !s.isExam &&
+          !s.content.isOnboarding)
+        s,
+  ];
+}
+
+/// Fortschritt auf der Hauptroute ist am Nebel angekommen: keine offene Insel
+/// mehr, die nächste Insel liegt im Nebel (CLAUDE.md Abschnitt 8).
+bool isFogAhead(List<MapIsland> islands, Map<String, IslandState> states) {
+  final main = [...islands.where((i) => i.isMainRoute)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+  if (main.any((i) => states[i.id] == IslandState.open)) return false;
+  final firstUnfinished = main.where((i) => states[i.id] != IslandState.completed).firstOrNull;
+  return firstUnfinished != null && states[firstUnfinished.id] == IslandState.fog;
+}
+
 /// Die Station vor [station] mit eigenem Fragenpool (für „Weißt du noch?“).
 StationInfo? previousQuizStation(List<StationInfo> stations, StationInfo station) {
   final earlier =
-      stations.where((s) => s.sortOrder < station.sortOrder && !s.isExam && !s.content.isOnboarding).toList()
+      stations
+          .where((s) => s.sortOrder < station.sortOrder && !s.isExam && !s.isDive && !s.content.isOnboarding)
+          .toList()
         ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   return earlier.isEmpty ? null : earlier.last;
 }

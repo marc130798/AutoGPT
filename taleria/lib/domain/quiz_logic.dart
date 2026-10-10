@@ -82,6 +82,21 @@ List<QuizQuestion> pickExamQuestions({
   return pick;
 }
 
+/// Tauchgang: [count] Fragen, abwechselnd aus den Pools der Stationen davor,
+/// damit jede Station drankommt. Ergebnis ist gemischt.
+List<QuizQuestion> pickDiveQuestions(List<List<QuizQuestion>> pools, int count, Random random) {
+  final queues = [
+    for (final pool in pools.where((p) => p.isNotEmpty)) [...pool]..shuffle(random),
+  ];
+  final picked = <QuizQuestion>[];
+  while (picked.length < count && queues.any((q) => q.isNotEmpty)) {
+    for (final queue in queues) {
+      if (picked.length < count && queue.isNotEmpty) picked.add(queue.removeLast());
+    }
+  }
+  return picked..shuffle(random);
+}
+
 /// „Weißt du noch?“: 2 kurze Fragen aus dem Pool der vorherigen Station.
 List<QuizQuestion> pickWarmUp(List<QuizQuestion> previousStationPool, Random random) =>
     pickQuestions(previousStationPool, 2, random);

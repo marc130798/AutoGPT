@@ -78,6 +78,29 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
     await _controller!.load();
   }
 
+  /// Nebel voraus: eine Begegnung zum Üben, auch ohne fällige Wiederholungen.
+  Future<void> _practice() async {
+    final controller = _controller!;
+    final navigator = Navigator.of(context);
+    final l10n = AppLocalizations.of(context);
+    try {
+      final offer = controller.encounter ?? await controller.practiceEncounter();
+      if (!mounted) return;
+      if (offer == null) {
+        _hint(l10n.mapEncounterNone);
+        return;
+      }
+      await navigator.push(
+        MaterialPageRoute<void>(
+          builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer),
+        ),
+      );
+      await controller.load();
+    } on AppFailure catch (e) {
+      _hint(l10n.failure(e.kind));
+    }
+  }
+
   void _hint(String text) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -112,7 +135,10 @@ class _IslandMapScreenState extends State<IslandMapScreen> {
           final pace = controller.stats?.pace;
           return Column(
             children: [
-              if (pace != null && !pace.hasWind) _WindBanner(text: l10n.windNeededFor(pace)),
+              if (controller.fogAhead)
+                _FogBanner(onPractice: _practice)
+              else if (pace != null && !pace.hasWind)
+                _WindBanner(text: l10n.windNeededFor(pace)),
               Expanded(
                 child: _MapCanvas(controller: controller, onTap: _onTap, onEncounter: _openEncounter),
               ),
@@ -151,6 +177,42 @@ class _WindBanner extends StatelessWidget {
                   Text(l10n.windMeanwhile, style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Alle offenen Inseln geschafft, die nächste liegt im Nebel: keine
+/// Fehlermeldung, sondern Kontrollfahrten, Tauchgänge und Spiele (Abschnitt 8).
+class _FogBanner extends StatelessWidget {
+  const _FogBanner({required this.onPractice});
+
+  final VoidCallback onPractice;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final palette = context.palette;
+    final theme = Theme.of(context);
+    return Material(
+      key: const ValueKey('fog-banner'),
+      color: palette.paper,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(l10n.fogAheadTitle, style: theme.textTheme.titleSmall),
+            Text(l10n.fogAheadBody, style: theme.textTheme.bodySmall),
+            const SizedBox(height: 8),
+            FilledButton.icon(
+              key: const ValueKey('fog-practice'),
+              onPressed: onPractice,
+              icon: const Icon(Icons.sailing),
+              label: Text(l10n.fogAheadButton),
             ),
           ],
         ),

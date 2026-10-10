@@ -1297,4 +1297,101 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get parentStreakPaused => 'Serie pausiert';
+
+  @override
+  String get stationDive => 'Ankerplatz';
+
+  @override
+  String get diveTitle => 'Perlentauchen';
+
+  @override
+  String get diveHint => 'Jede richtige Antwort ist eine Perle.';
+
+  @override
+  String get wreckTitle => 'Im Wrack';
+
+  @override
+  String get wreckDone => 'Wieder auftauchen';
+
+  @override
+  String get diveResultTitle => 'Wieder an Bord!';
+
+  @override
+  String divePearls(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Perlen gefunden',
+      one: '1 Perle gefunden',
+      zero: 'Diesmal keine Perle, beim nächsten Mal klappt es',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String diveFind(String title) {
+    return 'Fund für deine Sammlung: $title';
+  }
+
+  @override
+  String gameSortProgress(int current, int total) {
+    return 'Karte $current von $total';
+  }
+
+  @override
+  String get gameSortWrong => 'Passt nicht ganz. Versuch einen anderen Korb.';
+
+  @override
+  String get gameSortRight => 'Passt!';
+
+  @override
+  String get gameNextCard => 'Nächste Karte';
+
+  @override
+  String get gameOrderWrong => 'Noch nicht. Was kommt davor?';
+
+  @override
+  String gameOrderPlaced(int count, int total) {
+    return '$count von $total an der richtigen Stelle';
+  }
+
+  @override
+  String get gameDone => 'Geschafft!';
+
+  @override
+  String collectionButton(int count) {
+    return 'Unterwasser-Sammlung ($count)';
+  }
+
+  @override
+  String get collectionTitle => 'Unterwasser-Sammlung';
+
+  @override
+  String collectionPearls(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Perlen',
+      one: '1 Perle',
+      zero: 'Noch keine Perlen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get collectionEmpty => 'Noch keine Funde. An jedem Ankerplatz liegt etwas im Wrack.';
+
+  @override
+  String collectionFoundOn(String date) {
+    return 'Gefunden am $date';
+  }
+
+  @override
+  String get fogAheadTitle => 'Die nächste Insel liegt noch im Nebel.';
+
+  @override
+  String get fogAheadBody => 'Bis sie auftaucht, kannst du Kontrollfahrten machen, tauchen und Spiele wiederholen.';
+
+  @override
+  String get fogAheadButton => 'Kontrollfahrt starten';
 }

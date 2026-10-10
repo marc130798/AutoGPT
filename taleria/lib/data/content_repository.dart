@@ -35,8 +35,12 @@ abstract interface class ProgressRepository {
   /// „Weißt du noch?“: Antworten nur für den Wiederholungsplan.
   Future<void> recordAnswers({required String childId, required List<({String questionId, int answerIndex})> answers});
 
-  /// Begegnung, wenn Wiederholungen fällig sind, sonst `null`.
-  Future<EncounterOffer?> nextEncounter(String childId);
+  /// Begegnung, wenn Wiederholungen fällig sind, sonst `null`. Mit [practice]
+  /// auch ohne fällige Wiederholungen (zum Üben, wenn Nebel voraus liegt).
+  Future<EncounterOffer?> nextEncounter(String childId, {bool practice = false});
+
+  /// Unterwasser-Sammlung: alle sichtbaren Funde, gefundene mit Datum.
+  Future<List<CollectibleInfo>> fetchCollection(String childId);
 
   /// [answers]: die erste Antwort je Frage.
   Future<EncounterResult> submitEncounter({
@@ -212,9 +216,26 @@ class SupabaseProgressRepository implements ProgressRepository {
   );
 
   @override
-  Future<EncounterOffer?> nextEncounter(String childId) => guardBackend(() async {
-    final result = await _client.rpc<Map<String, dynamic>?>('next_encounter', params: {'p_child_id': childId});
+  Future<EncounterOffer?> nextEncounter(String childId, {bool practice = false}) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>?>(
+      'next_encounter',
+      params: {'p_child_id': childId, 'p_practice': practice},
+    );
     return result == null ? null : EncounterOffer.fromJson(result);
+  });
+
+  @override
+  Future<List<CollectibleInfo>> fetchCollection(String childId) => guardBackend(() async {
+    final items = await _client.from('collectibles').select('id, slug, kind, title, asset_key').order('sort_order');
+    final found = await _client.from('child_collectibles').select('collectible_id, found_at').eq('child_id', childId);
+    final foundAt = {for (final r in found) r['collectible_id'] as String: DateTime.parse(r['found_at'] as String)};
+    return [
+      for (final r in items)
+        if (foundAt[r['id']] case final date?)
+          CollectibleInfo.fromJson(r).foundOn(date)
+        else
+          CollectibleInfo.fromJson(r),
+    ];
   });
 
   @override

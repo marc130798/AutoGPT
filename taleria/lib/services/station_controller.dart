@@ -9,11 +9,13 @@ import '../domain/content_models.dart';
 import '../domain/family_models.dart';
 import '../domain/progress_logic.dart';
 import '../domain/quiz_logic.dart';
+import 'encounter_controller.dart' show EncounterRun;
 
 /// Abschnitte einer Station (INSELN.md, Aufbau jeder Station):
 /// Weißt du noch? → Film → Szene → Erklärung → Spiel → Quiz → Ergebnis.
 /// Die Abschlussprüfung hat nur Szene, Quiz und Ergebnis.
-enum StationStep { loading, warmUp, video, scene, lesson, game, quiz, submitting, result, failed }
+/// Ein Ankerplatz hat Perlentauchen (quiz) und das Wrack (wreck).
+enum StationStep { loading, warmUp, video, scene, lesson, game, quiz, wreck, submitting, result, failed }
 
 /// Ein Durchgang durch Fragen mit gemischten Antworten.
 class QuizRun {
@@ -74,16 +76,21 @@ class StationController extends ChangeNotifier {
   StationStep _step = StationStep.loading;
   QuizRun? _warmUp;
   QuizRun? _quiz;
+  EncounterRun? _wreck;
   StationResult? _result;
   FailureKind? _failure;
 
   StationStep get step => _step;
   QuizRun? get warmUp => _warmUp;
   QuizRun? get quiz => _quiz;
+
+  /// Aufgabe im Wrack (nur Ankerplatz): probieren, bis es stimmt.
+  EncounterRun? get wreck => _wreck;
   StationResult? get result => _result;
   FailureKind? get failure => _failure;
   StationContent get content => station.content;
   bool get isExam => station.isExam;
+  bool get isDive => station.isDive;
 
   /// Lädt die Fragen und beginnt mit dem ersten Abschnitt.
   Future<void> start() async {
@@ -101,6 +108,7 @@ class StationController extends ChangeNotifier {
   }
 
   StationStep _firstStep() {
+    if (isDive) return StationStep.quiz;
     if (_warmUp != null) return StationStep.warmUp;
     return _afterWarmUp();
   }
@@ -169,6 +177,28 @@ class StationController extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    final wreckTask = content.dive?.wreck;
+    if (isDive && wreckTask != null) {
+      _wreck = EncounterRun([wreckTask.asQuestion(station.id)], _random);
+      _go(StationStep.wreck);
+      return;
+    }
+    await submit();
+  }
+
+  void answerWreck(int displayIndex) {
+    _wreck?.answer(displayIndex);
+    notifyListeners();
+  }
+
+  void retryWreck() {
+    _wreck?.retry();
+    notifyListeners();
+  }
+
+  /// Wrack geschafft: Tauchgang abgeben.
+  Future<void> finishWreck() async {
+    if (!(_wreck?.finished ?? false)) return;
     await submit();
   }
 
@@ -208,10 +238,17 @@ class StationController extends ChangeNotifier {
   }
 
   Future<void> _prepareQuiz() async {
-    final pool = await _content.fetchQuestions(station.id);
     final previous = await _settings.lastQuizSelection(child.id, station.id);
     final List<QuizQuestion> picked;
     final exam = content.exam;
+    if (isDive) {
+      // Perlentauchen: Fragen der Stationen seit dem letzten Ankerplatz.
+      final pools = [for (final s in stationsBeforeDive(allStations, station)) await _content.fetchQuestions(s.id)];
+      picked = pickDiveQuestions(pools, content.dive?.questions ?? 4, _random);
+      _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q, _random)]);
+      return;
+    }
+    final pool = await _content.fetchQuestions(station.id);
     if (isExam && exam != null) {
       // Rückblick-Fragen aus Prüfungen früherer Inseln (ab Insel 2).
       final reviewPool = exam.review > 0
@@ -233,7 +270,7 @@ class StationController extends ChangeNotifier {
 
   Future<void> _prepareWarmUp() async {
     _warmUp = null;
-    if (isExam) return;
+    if (isExam || isDive) return;
     final previous = previousQuizStation(allStations, station);
     if (previous == null) return;
     final pool = await _content.fetchQuestions(previous.id);

@@ -70,6 +70,8 @@ class ChildStats {
     this.badgeCount = 0,
     this.reviewsDue = 0,
     this.pace = PaceStatus.freeSailing,
+    this.pearls = 0,
+    this.finds = 0,
   });
 
   factory ChildStats.fromJson(Map<String, dynamic> json) => ChildStats(
@@ -83,6 +85,8 @@ class ChildStats {
     streakPaused: json['streak_paused'] as bool? ?? false,
     badgeCount: json['badge_count'] as int? ?? 0,
     reviewsDue: json['reviews_due'] as int? ?? 0,
+    pearls: (json['pearls'] as num?)?.toInt() ?? 0,
+    finds: json['finds'] as int? ?? 0,
     pace: json['pace'] is Map<String, dynamic>
         ? PaceStatus.fromJson(json['pace'] as Map<String, dynamic>)
         : PaceStatus.freeSailing,
@@ -101,6 +105,10 @@ class ChildStats {
   final int badgeCount;
   final int reviewsDue;
   final PaceStatus pace;
+
+  /// Perlen aus Tauchgängen und Funde in der Unterwasser-Sammlung.
+  final int pearls;
+  final int finds;
 
   /// Fehlende Seemeilen bis zum nächsten Rang (`null`, wenn es nicht um Seemeilen geht).
   int? get xpToNextRank => nextRankXp == null ? null : (nextRankXp! - xp).clamp(0, nextRankXp!);
@@ -147,6 +155,42 @@ class BadgeInfo {
 
   BadgeInfo earnedOn(DateTime date) =>
       BadgeInfo(id: id, slug: slug, title: title, assetKey: assetKey, sortOrder: sortOrder, earnedAt: date);
+}
+
+/// Ein Fund für die Unterwasser-Sammlung (nur Optik, nie kaufbar).
+class CollectibleInfo {
+  const CollectibleInfo({
+    required this.id,
+    required this.slug,
+    required this.kind,
+    required this.title,
+    required this.assetKey,
+    this.foundAt,
+  });
+
+  factory CollectibleInfo.fromJson(Map<String, dynamic> json) => CollectibleInfo(
+    id: json['id'] as String,
+    slug: json['slug'] as String,
+    kind: json['kind'] as String? ?? 'wreck_item',
+    title: json['title'] as String,
+    assetKey: json['asset_key'] as String,
+  );
+
+  final String id;
+  final String slug;
+
+  /// pearl, shell oder wreck_item
+  final String kind;
+  final String title;
+  final String assetKey;
+
+  /// `null` = noch nicht gefunden.
+  final DateTime? foundAt;
+
+  bool get found => foundAt != null;
+
+  CollectibleInfo foundOn(DateTime date) =>
+      CollectibleInfo(id: id, slug: slug, kind: kind, title: title, assetKey: assetKey, foundAt: date);
 }
 
 /// Vorlage einer Begegnung auf See (encounters).

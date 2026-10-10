@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:taleria/data/content_repository.dart';
 import 'package:taleria/domain/content_models.dart';
@@ -62,13 +63,32 @@ class FakeContent implements ContentRepository {
           StationInfo(
             id: '$id/station${s.number}',
             islandId: id,
-            sortOrder: s.number,
+            sortOrder: s.number * 10,
             type: StationInfo.parseType(s.type),
             isRequired: true,
             xpReward: s.xp,
             content: StationContent.fromJson(s.toDbContent()),
           ),
-      ];
+        for (final (k, d) in island.dives.indexed)
+          StationInfo(
+            id: '$id/dive${k + 1}',
+            islandId: id,
+            sortOrder: d.after * 10 + 5,
+            type: StationType.reviewStop,
+            isRequired: true,
+            xpReward: files.diveXp,
+            content: StationContent.fromJson(d.toDbContent(k + 1)),
+          ),
+      ]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+      for (final (k, d) in island.dives.indexed) {
+        collectibles['$id/dive${k + 1}'] = CollectibleInfo(
+          id: 'find-${island.slug}-${k + 1}',
+          slug: '${island.slug}-fund-${k + 1}',
+          kind: 'wreck_item',
+          title: d.find,
+          assetKey: 'collectible.wreck_item',
+        );
+      }
       for (final s in island.stations) {
         final stationId = '$id/station${s.number}';
         questions[stationId] = [
@@ -94,6 +114,9 @@ class FakeContent implements ContentRepository {
 
   /// Orden je Insel-ID.
   final Map<String, BadgeInfo> badges = {};
+
+  /// Fund je Ankerplatz-ID.
+  final Map<String, CollectibleInfo> collectibles = {};
   final List<Encounter> encounters = [];
 
   List<QuizQuestion> get allQuestions => questions.values.expand((q) => q).toList();
@@ -103,6 +126,14 @@ class FakeContent implements ContentRepository {
       questions.values.expand((q) => q).firstWhere((q) => q.question == questionText).answers.first;
 
   MapIsland island(String slug) => mapIslands.firstWhere((i) => i.slug == slug);
+
+  /// Station einer Insel nach angezeigter Nummer (ohne Ankerplätze).
+  StationInfo station(String slug, int number) =>
+      stations['island-$slug']!.firstWhere((s) => !s.isDive && s.displayNumber == number);
+
+  /// Ankerplatz einer Insel (1 bis 3).
+  StationInfo dive(String slug, int number) =>
+      stations['island-$slug']!.firstWhere((s) => s.id.endsWith('/dive$number'));
 
   @override
   Future<List<MapIsland>> fetchMap(int stage) async => mapIslands;
@@ -140,6 +171,8 @@ class FakeProgress implements ProgressRepository {
   final Set<String> done = {};
   final Set<String> completedIslands = {};
   final Map<String, DateTime> badgeDates = {};
+  final Map<String, DateTime> findDates = {};
+  final Map<String, int> pearlsByDive = {};
   final Map<String, int> xp = {};
 
   /// Seemeilen aus dem Intro und anderen Quellen.
@@ -198,7 +231,7 @@ class FakeProgress implements ProgressRepository {
     final state = stationStates(stations, ChildProgress(doneStationIds: done), onboardingCompleted: true)[stationId];
     if (state == StationState.locked) throw const AppFailure(FailureKind.notAllowed, 'gesperrt');
     final first = !done.contains(stationId);
-    if (first && station.isRequired && stationsPerWeek != null && wind <= 0) {
+    if (first && station.isRequired && !station.isDive && stationsPerWeek != null && wind <= 0) {
       throw const AppFailure(FailureKind.noWind, 'Das Schiff braucht Wind');
     }
 
@@ -211,8 +244,17 @@ class FakeProgress implements ProgressRepository {
     final passed = !station.isExam || correct >= station.content.exam!.pass;
     var xpAwarded = 0;
     var islandCompleted = false;
+    CollectibleInfo? find;
+    if (station.isDive) {
+      pearlsByDive[stationId] = max(pearlsByDive[stationId] ?? 0, correct);
+      final collectible = content.collectibles[stationId];
+      if (collectible != null && !findDates.containsKey(stationId)) {
+        findDates[stationId] = DateTime(2026, 10, 10);
+        find = collectible;
+      }
+    }
     if (passed) {
-      if (first && stationsPerWeek != null) wind--;
+      if (first && !station.isDive && stationsPerWeek != null) wind--;
       done.add(stationId);
       if (!xp.containsKey(stationId)) {
         xp[stationId] = station.xpReward;
@@ -234,7 +276,8 @@ class FakeProgress implements ProgressRepository {
       islandCompleted: islandCompleted,
       rankUp: rankAfter != rankBefore ? rankAfter : null,
       badge: islandCompleted ? content.badges[islandId] : null,
-      windLeft: stationsPerWeek == null ? null : wind,
+      windLeft: stationsPerWeek == null || station.isDive ? null : wind,
+      find: find,
     );
   }
 
@@ -256,6 +299,8 @@ class FakeProgress implements ProgressRepository {
       streakPaused: streakPaused,
       badgeCount: badgeDates.length,
       reviewsDue: due.length,
+      pearls: pearlsByDive.values.fold(0, (a, b) => a + b),
+      finds: findDates.length,
       pace: stationsPerWeek == null
           ? PaceStatus.freeSailing
           : PaceStatus(
@@ -287,9 +332,18 @@ class FakeProgress implements ProgressRepository {
   }
 
   @override
-  Future<EncounterOffer?> nextEncounter(String childId) async {
+  Future<List<CollectibleInfo>> fetchCollection(String childId) async {
     _check();
-    if (due.isEmpty || content.encounters.isEmpty) return null;
+    return [
+      for (final e in content.collectibles.entries)
+        if (findDates[e.key] case final date?) e.value.foundOn(date) else e.value,
+    ];
+  }
+
+  @override
+  Future<EncounterOffer?> nextEncounter(String childId, {bool practice = false}) async {
+    _check();
+    if ((due.isEmpty && !practice) || content.encounters.isEmpty) return null;
     final encounter = content.encounters.first;
     final ids = [...due, ...seen.where((id) => !due.contains(id))].take(encounter.questionCount).toList();
     if (ids.length < encounter.questionCount) return null;

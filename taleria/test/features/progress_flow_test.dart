@@ -48,12 +48,6 @@ void main() {
     return (content: content, progress: progress);
   }
 
-  Future<void> playUntilQuiz(WidgetTester tester) async {
-    for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
-      await tapText(tester, 'Weiter');
-    }
-  }
-
   Future<void> answerAllCorrectly(WidgetTester tester, FakeContent content) async {
     while (find.byKey(const ValueKey('quiz-question')).evaluate().isNotEmpty) {
       final question = tester.widget<Text>(find.byKey(const ValueKey('quiz-question'))).data!;
@@ -96,10 +90,12 @@ void main() {
     expect(find.text('Film folgt'), findsNothing, reason: 'Station startet nicht');
   });
 
-  testWidgets('Letzter Wind: Station geschafft, neuer Rang, danach wartet die nächste', (tester) async {
+  testWidgets('Letzter Wind: Station 3 mit Zeitstrahl, neuer Rang, danach wartet Station 4', (tester) async {
     final (:content, :progress) = await startOnHome(
       tester,
       prepare: (p) => p
+        // Erledigt: Station 2 und Ankerplatz 1.
+        ..completeStations('hafen', except: 8)
         ..stationsPerWeek = 2
         ..wind = 1
         ..extraXp = 1450
@@ -107,10 +103,25 @@ void main() {
     );
     await tapText(tester, 'Zur Karte');
     await tapKey(tester, 'island-hafen');
-    await tapKey(tester, 'station-2');
-    await playUntilQuiz(tester);
-    await answerAllCorrectly(tester, content);
+    await tapKey(tester, 'station-3');
 
+    // „Weißt du noch?“, dann Film, Szene, Erklärung bis zum Spiel.
+    await answerAllCorrectly(tester, content);
+    for (var i = 0; i < 20 && find.byKey(const ValueKey('game-done')).evaluate().isEmpty; i++) {
+      await tapText(tester, 'Weiter');
+    }
+    expect(find.text('Zeitstrahl'), findsOneWidget);
+    final items = content.station('hafen', 3).content.game!.items;
+    await tapText(tester, items[2].text);
+    expect(find.text('Noch nicht. Was kommt davor?'), findsOneWidget);
+    for (final item in items) {
+      await tapText(tester, item.text);
+    }
+    await scrollTo(tester, find.text('Geschafft!'));
+    expect(find.text('Geschafft!'), findsOneWidget);
+    await tapKey(tester, 'game-done');
+
+    await answerAllCorrectly(tester, content);
     expect(find.text('Station geschafft!'), findsOneWidget);
     await scrollTo(tester, find.byKey(const ValueKey('result-rank-up')));
     expect(find.text('Neuer Rang: Matrose!'), findsOneWidget);
@@ -197,5 +208,36 @@ void main() {
     await tapKey(tester, 'streak-pause');
     expect(progress.streakPaused, isTrue);
     expect(find.text('Serie pausiert'), findsOneWidget);
+  });
+
+  testWidgets('Unterwasser-Sammlung: Perlen und Funde', (tester) async {
+    await startOnHome(
+      tester,
+      prepare: (p) => p
+        ..findDates['island-hafen/dive1'] = DateTime(2026, 10, 10)
+        ..pearlsByDive['island-hafen/dive1'] = 3,
+    );
+    await tapText(tester, 'Unterwasser-Sammlung (1)');
+    expect(find.text('3 Perlen'), findsOneWidget);
+    expect(find.text('Alte Handelsmünze'), findsOneWidget);
+    expect(find.text('Gefunden am 10.10.2026'), findsOneWidget);
+    await scrollTo(tester, find.text('Altes Fotoalbum'));
+    expect(find.text('Noch nicht gefunden'), findsWidgets);
+  });
+
+  testWidgets('Nebel voraus: Hinweis statt Fehler, Kontrollfahrt zum Üben', (tester) async {
+    final (:content, :progress) = await startOnHome(
+      tester,
+      prepare: (p) => p
+        ..completedIslands.addAll(['island-hafen', 'island-tauschinsel', 'island-wunschinsel'])
+        ..seen.addAll([for (var i = 1; i <= 3; i++) 'island-hafen/station2/q$i']),
+    );
+    await tapText(tester, 'Zur Karte');
+    expect(find.text('Die nächste Insel liegt noch im Nebel.'), findsOneWidget);
+    expect(find.text('Meister Taleron taucht auf!'), findsNothing, reason: 'nichts fällig');
+
+    await tapKey(tester, 'fog-practice');
+    expect(find.text('Talo, schau mal! Unter dem Schiff bewegt sich etwas. Etwas sehr Großes.'), findsOneWidget);
+    expect(progress.due, isEmpty);
   });
 }

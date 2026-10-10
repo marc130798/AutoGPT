@@ -2304,6 +2304,144 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Serie pausiert'**
   String get parentStreakPaused;
+
+  /// Bezeichnung eines Ankerplatzes (Tauchgang) in der Stationsliste
+  ///
+  /// In de, this message translates to:
+  /// **'Ankerplatz'**
+  String get stationDive;
+
+  /// Überschrift der Wiederholungsfragen im Tauchgang
+  ///
+  /// In de, this message translates to:
+  /// **'Perlentauchen'**
+  String get diveTitle;
+
+  /// Erklärung Perlentauchen
+  ///
+  /// In de, this message translates to:
+  /// **'Jede richtige Antwort ist eine Perle.'**
+  String get diveHint;
+
+  /// Überschrift der Wrack-Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Im Wrack'**
+  String get wreckTitle;
+
+  /// Knopf nach der gelösten Wrack-Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Wieder auftauchen'**
+  String get wreckDone;
+
+  /// Überschrift nach dem Tauchgang
+  ///
+  /// In de, this message translates to:
+  /// **'Wieder an Bord!'**
+  String get diveResultTitle;
+
+  /// Perlen aus dem Tauchgang
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Diesmal keine Perle, beim nächsten Mal klappt es} =1{1 Perle gefunden} other{{count} Perlen gefunden}}'**
+  String divePearls(int count);
+
+  /// Neuer Fund aus dem Wrack
+  ///
+  /// In de, this message translates to:
+  /// **'Fund für deine Sammlung: {title}'**
+  String diveFind(String title);
+
+  /// Fortschritt im Sortier-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'Karte {current} von {total}'**
+  String gameSortProgress(int current, int total);
+
+  /// Falscher Korb im Sortier-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'Passt nicht ganz. Versuch einen anderen Korb.'**
+  String get gameSortWrong;
+
+  /// Richtiger Korb im Sortier-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'Passt!'**
+  String get gameSortRight;
+
+  /// Knopf: nächste Karte im Sortier-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Karte'**
+  String get gameNextCard;
+
+  /// Falsches Ding im Reihenfolge-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht. Was kommt davor?'**
+  String get gameOrderWrong;
+
+  /// Fortschritt im Reihenfolge-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'{count} von {total} an der richtigen Stelle'**
+  String gameOrderPlaced(int count, int total);
+
+  /// Mini-Spiel gelöst
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft!'**
+  String get gameDone;
+
+  /// Knopf zur Unterwasser-Sammlung mit Zahl der Funde
+  ///
+  /// In de, this message translates to:
+  /// **'Unterwasser-Sammlung ({count})'**
+  String collectionButton(int count);
+
+  /// Überschrift der Unterwasser-Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'Unterwasser-Sammlung'**
+  String get collectionTitle;
+
+  /// Perlen in der Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Noch keine Perlen} =1{1 Perle} other{{count} Perlen}}'**
+  String collectionPearls(int count);
+
+  /// Hinweis ohne Funde
+  ///
+  /// In de, this message translates to:
+  /// **'Noch keine Funde. An jedem Ankerplatz liegt etwas im Wrack.'**
+  String get collectionEmpty;
+
+  /// Datum eines Fundes
+  ///
+  /// In de, this message translates to:
+  /// **'Gefunden am {date}'**
+  String collectionFoundOn(String date);
+
+  /// Hinweis auf der Karte, wenn alle offenen Inseln geschafft sind
+  ///
+  /// In de, this message translates to:
+  /// **'Die nächste Insel liegt noch im Nebel.'**
+  String get fogAheadTitle;
+
+  /// Was das Kind tun kann, solange Nebel voraus liegt
+  ///
+  /// In de, this message translates to:
+  /// **'Bis sie auftaucht, kannst du Kontrollfahrten machen, tauchen und Spiele wiederholen.'**
+  String get fogAheadBody;
+
+  /// Knopf: Begegnung zum Üben
+  ///
+  /// In de, this message translates to:
+  /// **'Kontrollfahrt starten'**
+  String get fogAheadButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

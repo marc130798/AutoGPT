@@ -14,6 +14,7 @@ import '../common/avatar_view.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
 import '../map/island_map_screen.dart';
 import '../progress/badges_screen.dart';
+import '../progress/collection_screen.dart';
 import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
@@ -216,6 +217,12 @@ class _ProgressSectionState extends State<_ProgressSection> {
                 icon: const Icon(Icons.military_tech_outlined),
                 onPressed: () => _open(BadgesScreen(childId: _child.id)),
                 label: Text(l10n.badgesButton(stats.badgeCount)),
+              ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.scuba_diving),
+                onPressed: () => _open(CollectionScreen(childId: _child.id, pearls: stats.pearls)),
+                label: Text(l10n.collectionButton(stats.finds)),
               ),
             ],
           ],

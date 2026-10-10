@@ -11,7 +11,10 @@ import '../../services/station_controller.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
+import '../../core/assets/taleria_asset.dart';
+import '../../services/encounter_controller.dart' show EncounterRun;
 import 'dialog_sequence.dart';
+import 'game_views.dart';
 import 'quiz_view.dart';
 
 /// Eine Station von Anfang bis Ende. Gibt beim Schließen das Ergebnis
@@ -83,13 +86,19 @@ class _StationScreenState extends State<StationScreen> {
           StationStep.video => VideoPlaceholder(assetKey: content.videoKey!, onContinue: controller.next),
           StationStep.scene => DialogSequence(lines: content.scene, title: content.place, onDone: controller.next),
           StationStep.lesson => DialogSequence(lines: content.lesson, onDone: controller.next),
-          StationStep.game => _GamePlaceholder(game: content.game!, onContinue: controller.next),
+          StationStep.game => GameStepView(
+            game: content.game!,
+            onDone: controller.next,
+            placeholder: _GamePlaceholder(game: content.game!, onContinue: controller.next),
+          ),
           StationStep.quiz => QuizView(
             run: controller.quiz!,
-            title: controller.isExam ? l10n.stationExam : l10n.quizCheckTitle,
+            title: controller.isDive ? l10n.diveTitle : (controller.isExam ? l10n.stationExam : l10n.quizCheckTitle),
+            hint: controller.isDive ? l10n.diveHint : null,
             onAnswer: controller.answerQuiz,
             onNext: controller.nextQuiz,
           ),
+          StationStep.wreck => _WreckView(controller: controller),
           StationStep.result => _ResultView(controller: controller, details: widget.details),
           StationStep.failed => _FailedView(
             failure: controller.failure ?? FailureKind.unknown,
@@ -177,7 +186,11 @@ class _ResultView extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             children: [
               Text(
-                failedExam ? l10n.examFailedTitle : (controller.isExam ? l10n.examPassedTitle : l10n.resultTitle),
+                failedExam
+                    ? l10n.examFailedTitle
+                    : (controller.isExam
+                          ? l10n.examPassedTitle
+                          : (controller.isDive ? l10n.diveResultTitle : l10n.resultTitle)),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineSmall,
               ),
@@ -187,6 +200,15 @@ class _ResultView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleMedium,
               ),
+              if (controller.isDive) ...[
+                const SizedBox(height: 8),
+                Text(
+                  l10n.divePearls(result.correct),
+                  key: const ValueKey('dive-pearls'),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium,
+                ),
+              ],
               if (result.xpAwarded > 0) ...[
                 const SizedBox(height: 8),
                 Text(
@@ -220,6 +242,17 @@ class _ResultView extends StatelessWidget {
                 ],
                 const SizedBox(height: 8),
                 Text(l10n.islandCompletedNext, textAlign: TextAlign.center),
+              ],
+              if (result.find != null) ...[
+                const SizedBox(height: 32),
+                Center(child: RewardPop(assetKey: result.find!.assetKey)),
+                const SizedBox(height: 12),
+                Text(
+                  l10n.diveFind(result.find!.title),
+                  key: const ValueKey('dive-find'),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium,
+                ),
               ],
               if (result.rankUp != null) ...[
                 const SizedBox(height: 32),
@@ -279,6 +312,97 @@ class _FailedView extends StatelessWidget {
           FilledButton(onPressed: onRetry, child: Text(l10n.retryButton)),
         ],
       ),
+    );
+  }
+}
+
+/// Aufgabe im Wrack: Szene, eine Frage, probieren, bis es stimmt. Ohne Punkte.
+class _WreckView extends StatelessWidget {
+  const _WreckView({required this.controller});
+
+  final StationController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final EncounterRun run = controller.wreck!;
+    final task = controller.content.dive!.wreck!;
+    final q = run.current;
+    final chosen = run.chosen;
+
+    Color? colorFor(int i) {
+      if (chosen == null) return null;
+      if (run.answeredCorrectly && i == q.correctDisplayIndex) return palette.success;
+      if (i == chosen) return palette.coral;
+      return null;
+    }
+
+    return Column(
+      children: [
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              Text(l10n.wreckTitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+              const SizedBox(height: 8),
+              const Center(child: TaleriaAsset(AssetKeys.underwaterBackground, width: 220, height: 90)),
+              const SizedBox(height: 12),
+              for (final line in task.scene)
+                Padding(padding: const EdgeInsets.only(bottom: 12), child: SpeechBubble.line(line)),
+              Text(q.question.question, key: const ValueKey('wreck-question'), style: theme.textTheme.titleMedium),
+              const SizedBox(height: 12),
+              for (final (i, answer) in q.answers.indexed)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: OutlinedButton(
+                    key: ValueKey('wreck-answer-$i'),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(56),
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      backgroundColor: colorFor(i)?.withValues(alpha: 0.15),
+                      side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
+                    ),
+                    onPressed: chosen == null ? () => controller.answerWreck(i) : null,
+                    child: Text(answer, style: theme.textTheme.bodyLarge),
+                  ),
+                ),
+              if (chosen != null) ...[
+                Text(
+                  run.answeredCorrectly ? l10n.quizCorrect : l10n.quizWrong,
+                  key: const ValueKey('wreck-feedback'),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: run.answeredCorrectly ? palette.success : palette.coral,
+                  ),
+                ),
+                if (q.question.explanation != null) ...[
+                  const SizedBox(height: 4),
+                  Text(q.question.explanation!, style: theme.textTheme.bodyLarge),
+                ],
+              ],
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: SizedBox(
+            width: double.infinity,
+            child: chosen != null && !run.answeredCorrectly
+                ? OutlinedButton(
+                    key: const ValueKey('wreck-retry'),
+                    onPressed: controller.retryWreck,
+                    child: Text(l10n.encounterTryAgain),
+                  )
+                : FilledButton(
+                    key: const ValueKey('wreck-done'),
+                    onPressed: run.finished ? controller.finishWreck : null,
+                    child: Text(l10n.wreckDone),
+                  ),
+          ),
+        ),
+      ],
     );
   }
 }
