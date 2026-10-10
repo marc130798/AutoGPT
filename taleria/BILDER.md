@@ -407,12 +407,12 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 | 20 | `collectible.hafen.1` | Alte Handelsmünze | eine große alte Goldmünze mit einem kleinen Segelschiff darauf, etwas angelaufen | fehlt |
 | 21 | `collectible.hafen.2` | Kleine Münztruhe | eine kleine verschlossene Holztruhe mit Eisenbeschlägen, mit Muscheln und Seepocken bewachsen, aus dem Spalt schauen ein paar Goldmünzen | fehlt |
 | 22 | `collectible.hafen.3` | Rostiges Preisschild | ein altes, rostiges Preisschild aus Metall an einer Schnur | fehlt |
-| 23 | `collectible.tauschinsel.1` | Alter Kompass | ein alter Messing-Kompass mit aufgeklapptem Deckel und einer roten Nadel | fehlt |
+| 23 | `collectible.tauschinsel.1` | Alter Kompass | ein alter Messing-Kompass mit aufgeklapptem Deckel und einer roten Nadel | da |
 | 24 | `collectible.tauschinsel.2` | Logbuch des Händlers | ein altes, zugeklapptes Logbuch mit Ledereinband und einem roten Lesebändchen | fehlt |
-| 25 | `collectible.tauschinsel.3` | Taucherbrille | eine alte Taucherbrille aus Messing und Leder mit rundem, leicht bläulichem Glas | fehlt |
-| 26 | `collectible.wunschinsel.1` | Kapitänskiste | eine kleine verzierte Kapitänskiste mit einem goldenen Anker auf dem geschlossenen Deckel | fehlt |
-| 27 | `collectible.wunschinsel.2` | Flaschenbrief | eine grüne Glasflasche mit Korken, in der ein zusammengerollter Brief liegt | fehlt |
-| 28 | `collectible.wunschinsel.3` | Altes Fotoalbum | ein altes Fotoalbum mit Stoffeinband, aufgeschlagen, darin kleine gemalte Bilder von Schiffen und Inseln | fehlt |
+| 25 | `collectible.tauschinsel.3` | Taucherbrille | eine alte Taucherbrille aus Messing und Leder mit rundem, leicht bläulichem Glas | da |
+| 26 | `collectible.wunschinsel.1` | Kapitänskiste | eine kleine verzierte Kapitänskiste mit einem goldenen Anker auf dem geschlossenen Deckel | da |
+| 27 | `collectible.wunschinsel.2` | Flaschenbrief | eine grüne Glasflasche mit Korken, in der ein zusammengerollter Brief liegt | da |
+| 28 | `collectible.wunschinsel.3` | Altes Fotoalbum | ein altes Fotoalbum mit Stoffeinband, aufgeschlagen, darin kleine gemalte Bilder von Schiffen und Inseln | da |
 
 Welches Bild zu welchem Fund gehört, steht in den Inhaltsdateien (`"fund_bild"` beim Tauchgang).
 
