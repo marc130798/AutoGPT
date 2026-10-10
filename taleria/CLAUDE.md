@@ -536,3 +536,9 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Zuordnung:** Hafen 2 (Tausch-Spiel), Tauschinsel 1, 2, 3, 4, 6 und Wunschinsel 5, 6, 7 sind `choice`; Hafen 4 ist `coins`; Hafen 6 und Wunschinsel 2 sind `pick`; Tauschinsel 5 ist `number`. Der Eisstand (Tauschinsel 4) ist als Entscheidungen gebaut, nicht als freie Simulation. Die Wunschliste (Wunschinsel 7) ist ein Entscheidungs-Spiel; einen eigenen Wunschschatz legt das Kind in der Schatztruhe an.
 - **Tauchgänge:** „Schatztruhe knacken“ (jede Antwort verrät eine Ziffer des Zahlenschlosses, fest pro Ankerplatz; am Ende springt die Truhe auf) und „Fischschwarm“ (jede Antwort schwimmt als Fisch) sind gebaut. Die Fragen und die Wertung (Perlen) sind dieselben wie beim Perlentauchen. „Muscheln zählen“ zeigt bis zu seinem Bau das Perlentauchen (kommt erst ab Insel 4 vor).
 - Alle Spieltexte sind Entwürfe von Claude und müssen vor dem Start geprüft werden. Die Inhaltsprüfung (`tool/build_seed.dart`) prüft jede Spielart: zum Beispiel mindestens eine gute Möglichkeit pro Runde, Beträge bis 50 €, richtige Teile ergeben genau den Preis.
+
+**Web-Testversion fürs iPhone, umgesetzt am 10.10.2026:**
+- Marc hat keinen Mac und kein Apple-Entwicklerkonto. Zum Testen läuft die Kinder- und Eltern-App deshalb auch als Webseite: `bash tool/build_test_web.sh` baut sie mit `env/test.json` und packt sie als `build/taleria_test_web.zip`. Hochladen zum Beispiel bei Netlify Drop, auf dem iPhone in Safari „Zum Home-Bildschirm“.
+- Nur für die Testumgebung: Das Skript bricht ab, wenn `TALERIA_ENV` nicht `test` ist. Die Store-Apps für iOS und Android bleiben das Ziel; die Webseite ist kein Produkt.
+- Alles kommt vom eigenen Server (`--no-web-resources-cdn`), nur die Schrift Roboto lädt Flutter im Browser von Google. Vor einer Beta mit fremden Familien eine eigene Schrift einbinden oder die Store-Apps nutzen.
+- Die Adresse der Webseite nur an Tester weitergeben.

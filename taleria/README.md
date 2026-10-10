@@ -125,13 +125,13 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 | `lib/services/` | Logik: Sitzung, Eltern-Sperre, Leuchtturm, Intro, Karte, Insel, Station |
 | `lib/features/` | Bildschirme, ein Ordner pro Bereich |
 | `lib/admin/`, `lib/main_admin.dart` | Adminbereich (Webseite nur fürs Team, nicht Teil der App) |
-| `web/` | Rahmen der Admin-Webseite |
+| `web/` | Rahmen der Admin-Webseite (die Web-Testversion bekommt eigenen Namen, `tool/build_test_web.sh`) |
 | `lib/l10n/` | Texte der App (zuerst Deutsch) |
 | `assets/` | Grafiken, Animationen, Ton und das Asset-Manifest |
 | `supabase/migrations/` | Aufbau der Datenbank, Schritt für Schritt |
 | `supabase/sql_tests/` | Tests für die Regeln in der Datenbank |
 | `content/stufe1/` | Inhalte der Inseln (Stationen, Szenen, Fragen), Quelle für `supabase/seed.sql` und `supabase/inhalte_live.sql` |
-| `tool/` | Werkzeuge: Datenbank-Tests, Seed-Datei erzeugen |
+| `tool/` | Werkzeuge: Datenbank-Tests, Seed-Datei erzeugen, Web-Testversion bauen |
 | `env/` | Vorlagen für die Zugangsdaten (`*.example.json`) |
 | `test/` | Tests der App |
 
@@ -247,6 +247,27 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Testversion fürs iPhone (ohne App Store)
+
+Solange es keinen Mac und kein Apple-Entwicklerkonto gibt, lässt sich die App als Webseite testen.
+Nur mit der **Testumgebung**, das Skript bricht bei `env/live.json` ab.
+
+```bash
+bash tool/build_test_web.sh
+```
+
+Das erzeugt `build/taleria_test_web.zip`. So kommt sie aufs iPhone:
+
+1. ZIP-Datei am Computer entpacken (Doppelklick). Im Ordner liegt `index.html`.
+2. Bei Netlify ein kostenloses Konto anlegen, dann https://app.netlify.com/drop öffnen und den
+   entpackten Ordner in das Feld ziehen. Netlify zeigt eine Adresse wie `https://…netlify.app`.
+3. Die Adresse auf dem iPhone in **Safari** öffnen → Teilen-Knopf → **Zum Home-Bildschirm**.
+   Taleria startet dann wie eine App, ohne Adressleiste.
+4. Neue Fassung: Skript erneut ausführen, bei Netlify unter *Deploys* den neuen Ordner hineinziehen.
+
+Die Adresse nur an Tester weitergeben. Die Webseite lädt die Schrift Roboto von Google
+(Standard von Flutter im Browser); vor einer Beta mit fremden Familien eine eigene Schrift einbinden.
 
 ## Adminbereich
 
