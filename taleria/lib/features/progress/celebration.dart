@@ -93,17 +93,12 @@ class _IslandRewardEffectState extends State<IslandRewardEffect> with SingleTick
             ),
             if (widget.badgeAssetKey != null)
               SizedBox(
-                height: 112,
+                height: 150,
                 child: Center(
                   child: Transform.scale(
                     scale: badge,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [BoxShadow(color: gold.withValues(alpha: 0.7), blurRadius: 20, spreadRadius: 2)],
-                      ),
-                      child: ClipOval(child: TaleriaAsset(widget.badgeAssetKey!, width: 96, height: 96)),
-                    ),
+                    // Orden mit Band (Hochformat); der Platzhalter ist ein Kreis.
+                    child: TaleriaAsset(widget.badgeAssetKey!, width: 104, height: 146),
                   ),
                 ),
               ),

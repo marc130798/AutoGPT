@@ -80,7 +80,8 @@ class _BadgeTile extends StatelessWidget {
         minTileHeight: 80,
         leading: Opacity(
           opacity: badge.earned ? 1 : 0.3,
-          child: ClipOval(child: TaleriaAsset(badge.assetKey, width: 56, height: 56)),
+          // Orden mit Band (Hochformat); der Platzhalter ist ein Kreis.
+          child: TaleriaAsset(badge.assetKey, width: 56, height: 72),
         ),
         title: Text(badge.title),
         subtitle: Text(badge.earned ? l10n.badgeEarnedOn(formatDate(badge.earnedAt!)) : l10n.badgeNotYet),

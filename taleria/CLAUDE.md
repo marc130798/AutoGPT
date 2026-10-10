@@ -575,3 +575,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Beide gibt es in drei Posen als Bild: winkt, freut sich, denkt nach (`character.talo.wave`, `.happy`, `.think`, genauso für Tala; BILDER.md Abschnitt 4c). Fehlt das Bild einer Pose, zeigt die App das Grundbild der Figur (`CharacterImage`).
 - Verwendet: Startseite (beide winken), Begrüßung in der Einführung (winken), Insel von innen (Talo denkt nach beim Tipp, freut sich, wenn die Insel geschafft ist). Später auch in den Stationen.
 - Freistellen von Figuren (`--art figur`): Der farbige Hintergrund wirft Licht auf das ganze Fell, das wird überall herausgerechnet; der Rand wird ein wenig nach innen gezogen und Lücken zwischen Arm und Kopf werden durchsichtig.
+
+**Rang-Abzeichen, umgesetzt am 10.10.2026:**
+- Die fünf Ränge haben Bilder von Marc (`rank.schiffsjunge` Holz, `rank.matrose` Bronze, `rank.bootsmann` Silber, `rank.steuermann` Gold, `rank.kapitaen` Gold mit Edelsteinen). Sie erscheinen ohne Code-Änderung überall, wo der Rang gezeigt wird: Startseite (Rang und Seemeilen), neuer Rang nach einer Station oder Begegnung, Einführung.
+- Die Orden der ersten drei Inseln haben Bilder von Marc (`badge.hafen`, `badge.tauschinsel`, `badge.wunschinsel`): goldener Orden mit blauem Band, im Hochformat. In der Orden-Sammlung und bei der Feier nach einer geschafften Insel wird er ganz gezeigt (nicht mehr rund ausgeschnitten).

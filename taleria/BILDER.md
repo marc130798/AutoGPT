@@ -255,13 +255,13 @@ Danach auf dieselbe Art „freut sich“ (`.happy`) und „denkt nach“ (`.thin
 
 Den Orden von der Startseite (Bild 12) anhängen, damit alle Abzeichen dazu passen. Von Rang zu Rang wertvoller:
 
-| Datei | Rang | Abzeichen (statt „ABZEICHEN“ einsetzen) |
-| --- | --- | --- |
-| `rank.schiffsjunge` | Schiffsjunge | ein rundes Abzeichen aus hellem Holz mit einem Seilknoten in der Mitte und einem Rand aus Tau |
-| `rank.matrose` | Matrose | ein rundes Abzeichen aus Bronze mit einem kleinen Anker in der Mitte |
-| `rank.bootsmann` | Bootsmann | ein rundes Abzeichen aus Silber mit zwei gekreuzten Rudern in der Mitte |
-| `rank.steuermann` | Steuermann | ein rundes Abzeichen aus Gold mit einem Steuerrad in der Mitte |
-| `rank.kapitaen` | Kapitän | ein prächtiges rundes Abzeichen aus Gold mit einer Kompassrose, kleinen blauen Edelsteinen am Rand und Lorbeerzweigen |
+| Datei | Rang | Abzeichen (statt „ABZEICHEN“ einsetzen) | Stand |
+| --- | --- | --- | --- |
+| `rank.schiffsjunge` | Schiffsjunge | ein rundes Abzeichen aus hellem Holz mit einem Seilknoten in der Mitte und einem Rand aus Tau | da |
+| `rank.matrose` | Matrose | ein rundes Abzeichen aus Bronze mit einem kleinen Anker in der Mitte | da |
+| `rank.bootsmann` | Bootsmann | ein rundes Abzeichen aus Silber mit zwei gekreuzten Rudern in der Mitte | da |
+| `rank.steuermann` | Steuermann | ein rundes Abzeichen aus Gold mit einem Steuerrad in der Mitte | da |
+| `rank.kapitaen` | Kapitän | ein prächtiges rundes Abzeichen aus Gold mit einer Kompassrose, kleinen blauen Edelsteinen am Rand und Lorbeerzweigen | da (mit Buchstaben N, W, E, S; bei Bedarf ohne Buchstaben neu machen) |
 
 ```
 Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt des Ordens ein einzelnes Abzeichen: ABZEICHEN. Ohne Band. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
@@ -271,11 +271,11 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt des Ordens
 
 Bekommt das Kind, wenn es eine Insel schafft. Wieder den Orden von der Startseite anhängen.
 
-| Datei | Orden | Motiv (statt „MOTIV“ einsetzen) |
-| --- | --- | --- |
-| `badge.hafen` | Erster Landgang | ein kleiner rot-weißer Leuchtturm |
-| `badge.tauschinsel` | Meistertauscher | zwei Hände, die einen Apfel gegen einen Fisch tauschen |
-| `badge.wunschinsel` | Klarer Kompass | ein Kompass, dessen Nadel auf einen kleinen goldenen Stern zeigt |
+| Datei | Orden | Motiv (statt „MOTIV“ einsetzen) | Stand |
+| --- | --- | --- | --- |
+| `badge.hafen` | Erster Landgang | ein kleiner rot-weißer Leuchtturm | da |
+| `badge.tauschinsel` | Meistertauscher | zwei Hände, die einen Apfel gegen einen Fisch tauschen | da |
+| `badge.wunschinsel` | Klarer Kompass | ein Kompass, dessen Nadel auf einen kleinen goldenen Stern zeigt | da (mit Buchstaben W, E, S) |
 
 ```
 Gleicher Stil, gleiches Licht und gleicher Bildaufbau wie im angehängten Bild: ein goldener Orden an einem kurzen blauen Stoffband. Das Band ist oben zu einer kleinen Schlaufe gelegt, genau wie im angehängten Bild, und hört dort auf. Auf dem Orden statt des Ankers: MOTIV.
