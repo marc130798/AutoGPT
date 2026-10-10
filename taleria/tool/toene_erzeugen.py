@@ -11,7 +11,9 @@ Legt unter assets/audio/ ab:
 - sound.station_done.mp3  Station geschafft: kurze Fanfare (vier Töne nach oben)
 - sound.island_done.mp3   Insel geschafft: größere Fanfare mit Glitzern
 
-Alle Töne sind weich und freundlich, nie schrill und nie laut (für Kinder).
+Alle Töne sind weich und freundlich, nie schrill und nie laut (für Kinder). Im Browser
+auf dem iPhone lässt sich die Lautstärke nicht im Code senken, darum sind schon die
+Dateien leise.
 """
 
 import os
@@ -66,7 +68,7 @@ def mix(length, *parts):
     return out
 
 
-def finish(samples, peak_db=-4.0):
+def finish(samples, peak_db=-8.0):
     """Leise auslaufen lassen und auf eine angenehme Lautstärke bringen."""
     fade = int(RATE * 0.05)
     samples[-fade:] *= np.linspace(1, 0, fade)
@@ -74,12 +76,12 @@ def finish(samples, peak_db=-4.0):
 
 
 def correct():
-    return finish(mix(0.9, (0, bell(1046.5, 0.8, level=0.8)), (0.11, bell(1568.0, 0.78))), peak_db=-5)
+    return finish(mix(0.9, (0, bell(1046.5, 0.8, level=0.8)), (0.11, bell(1568.0, 0.78))), peak_db=-9)
 
 
 def pearl():
     sparkle = [(0.32 + i * 0.06, bell(f, 0.45, decay=7, level=0.35)) for i, f in enumerate([2637.0, 3136.0, 3520.0])]
-    return finish(mix(1.0, (0, bubble(320, 900)), (0.13, bubble(420, 1150, level=0.8)), *sparkle), peak_db=-6)
+    return finish(mix(1.0, (0, bubble(320, 900)), (0.13, bubble(420, 1150, level=0.8)), *sparkle), peak_db=-10)
 
 
 def station_done():

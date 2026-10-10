@@ -347,7 +347,7 @@ Stand: da (zweite Fassung mit Anker auf der Münze, von Marc gewählt). Tipp, fa
 
 ---
 
-## 4f. Als Nächstes: die Schatztruhe (Deine Truhen)
+## 4f. Die Schatztruhe (Deine Truhen, alle da)
 
 Die Seite „Deine Truhen“ hat jetzt Platz für Bilder. Die Schatztruhe selbst ist die Truhe von der Startseite (Bild 10), die muss nicht neu gemacht werden.
 
@@ -359,6 +359,8 @@ Als Vorlage das Startseiten-Bild anhängen (`design/gemini/home.background.jpg`)
 Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: eine gemütliche Schatzkammer im Bauch eines Holzschiffs. Warme Holzwände und Balken, Laternen mit warmem Licht, Seile, ein paar Fässer und Kisten am Rand, eine alte Seekarte an der Wand. Die Mitte des Bildes ist ruhig und eher leer (heller Holzboden), damit man dort Text gut lesen kann. Hochformat 9:16. Keine Schrift, keine Logos, keine Waffen, keine Figuren.
 ```
 
+Stand: da.
+
 ### Bild 14 bis 17: Truhen und Zeichen
 
 Als Vorlage jeweils die Schatztruhe von der Startseite anhängen (`design/gemini/icon.treasure.jpg`), dann „DING“ ersetzen:
@@ -369,10 +371,10 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Schatz
 
 | Nr. | Datei | Wofür | DING | Stand |
 | --- | --- | --- | --- | --- |
-| 14 | `pot.spend` | Bordkasse | eine kleine hölzerne Geldkassette mit Messingbeschlägen und Tragegriff, der Deckel ist offen, darin ein paar Goldmünzen | fehlt |
-| 15 | `pot.give` | Glückstruhe | eine kleine runde Holztruhe mit einem goldenen Herz auf dem Deckel, der Deckel ist offen, darin ein kleines Geschenk mit roter Schleife und ein paar Goldmünzen | fehlt |
-| 16 | `icon.ledger` | Kassenbuch | ein dickes, altes Buch mit braunem Ledereinband, aufgeschlagen, auf den Seiten nur Linien ohne Schrift, daneben eine Schreibfeder und ein kleines Tintenfass | fehlt |
-| 17 | `icon.wish` | Wunschschätze | ein großer, funkelnder goldener Wunschstern, um den ein paar Goldmünzen liegen | fehlt |
+| 14 | `pot.spend` | Bordkasse | eine kleine hölzerne Geldkassette mit Messingbeschlägen und Tragegriff, der Deckel ist offen, darin ein paar Goldmünzen | da |
+| 15 | `pot.give` | Glückstruhe | eine kleine runde Holztruhe mit einem goldenen Herz auf dem Deckel, der Deckel ist offen, darin ein kleines Geschenk mit roter Schleife und ein paar Goldmünzen | da |
+| 16 | `icon.ledger` | Kassenbuch | ein dickes, altes Buch mit braunem Ledereinband, aufgeschlagen, auf den Seiten nur Linien ohne Schrift, daneben eine Schreibfeder und ein kleines Tintenfass | da |
+| 17 | `icon.wish` | Wunschschätze | ein großer, funkelnder goldener Wunschstern, um den ein paar Goldmünzen liegen | da |
 
 ---
 

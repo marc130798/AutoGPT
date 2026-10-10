@@ -44,9 +44,11 @@ class _TaleriaAppState extends State<TaleriaApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         // Jedes Antippen gibt den Ton frei (Browser spielen erst danach Musik).
+        // Auf dem Handy zählt erst das Loslassen als Antippen.
         builder: (context, child) => Listener(
           behavior: HitTestBehavior.translucent,
           onPointerDown: (_) => widget.services.sounds.unlock(),
+          onPointerUp: (_) => widget.services.sounds.unlock(),
           child: _TabletFrame(child: child ?? const SizedBox.shrink()),
         ),
         home: const SessionGate(),

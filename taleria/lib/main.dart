@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import 'app.dart';
 import 'core/app_scope.dart';
+import 'core/assets/asset_keys.dart';
 import 'core/assets/asset_manifest.dart';
 import 'core/assets/asset_repository.dart';
 import 'core/backend/backend.dart';
@@ -20,6 +21,7 @@ import 'data/error_log_repository.dart';
 import 'data/family_repository.dart';
 import 'data/local_settings.dart';
 import 'services/audio_sounds.dart';
+import 'services/web_sounds_stub.dart' if (dart.library.js_interop) 'services/web_sounds.dart';
 import 'services/error_reporting.dart';
 import 'services/session_controller.dart';
 
@@ -58,7 +60,19 @@ Future<void> main() async {
   );
   // Nicht abwarten: Bis die Sitzung geprüft ist, zeigt die App einen Ladekreis.
   unawaited(session.start());
-  final sounds = AudioSounds(manifest: manifest, assets: assets, settings: settings);
+  // Im Browser einfache Audio-Elemente (iPhone), sonst das Paket audioplayers.
+  final sounds =
+      createWebSounds(
+        manifest: manifest,
+        effects: const [
+          AssetKeys.soundCorrect,
+          AssetKeys.soundPearl,
+          AssetKeys.soundStationDone,
+          AssetKeys.soundIslandDone,
+        ],
+        settings: settings,
+      ) ??
+      AudioSounds(manifest: manifest, assets: assets, settings: settings);
   unawaited(sounds.load());
 
   runApp(
