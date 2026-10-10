@@ -14,11 +14,19 @@ class QuizView extends StatelessWidget {
     required this.onAnswer,
     required this.onNext,
     this.hint,
+    this.header,
+    this.answerIcon,
   });
 
   final QuizRun run;
   final String title;
   final String? hint;
+
+  /// Über der Frage, zum Beispiel Perlen oder das Zahlenschloss beim Tauchgang.
+  final Widget? header;
+
+  /// Vor jeder Antwort, zum Beispiel ein Fisch beim Fischschwarm.
+  final IconData? answerIcon;
   final ValueChanged<int> onAnswer;
   final VoidCallback onNext;
 
@@ -48,6 +56,7 @@ class QuizView extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(hint!, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
               ],
+              if (header != null) ...[const SizedBox(height: 12), header!],
               const SizedBox(height: 8),
               Text(
                 l10n.quizProgress(run.index + 1, run.total),
@@ -70,7 +79,15 @@ class QuizView extends StatelessWidget {
                       side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
                     ),
                     onPressed: chosen == null ? () => onAnswer(i) : null,
-                    child: Text(answer, style: theme.textTheme.bodyLarge),
+                    child: answerIcon == null
+                        ? Text(answer, style: theme.textTheme.bodyLarge)
+                        : Row(
+                            children: [
+                              Icon(answerIcon, color: colorFor(i) ?? palette.sea),
+                              const SizedBox(width: 12),
+                              Expanded(child: Text(answer, style: theme.textTheme.bodyLarge)),
+                            ],
+                          ),
                   ),
                 ),
               if (chosen != null) ...[

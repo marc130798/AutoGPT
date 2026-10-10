@@ -3,6 +3,13 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
+## Was es seit den neuen Mini-Spielen gibt
+
+- Alle 20 Stationen mit Spiel auf Hafen, Tauschinsel und Wunschinsel sind echte Spiele, kein Platzhalter mehr:
+  Entscheidungen (zum Beispiel Tauschkette, Eisstand, Gespräch mit Moritz), Münzen legen,
+  Preis-Säule und Rucksack packen, Netz-Rechnung
+- Tauchgänge: „Schatztruhe knacken“ und „Fischschwarm“ neben dem Perlentauchen
+
 ## Was es seit der Wunschflasche gibt
 
 - Wunschinsel, Station 3: einen eigenen Wunsch in eine Wunschflasche stecken

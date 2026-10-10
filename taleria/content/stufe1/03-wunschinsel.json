@@ -238,9 +238,51 @@
         }
       ],
       "spiel": {
-        "art": "pack",
+        "art": "pick",
         "titel": "Rucksack packen",
-        "beschreibung": "Packe Talas Rucksack mit 10 Talern. Das Wichtigste zuerst."
+        "beschreibung": "Packe Talas Rucksack mit 10 Talern. Das Wichtigste zuerst.",
+        "aufgabe": "Tala hat 10 Taler für ihren Rucksack. Tippe an, was sie mitnimmt. Das Wichtigste zuerst!",
+        "modus": "hoechstens",
+        "betrag": 10,
+        "dinge": [
+          {
+            "text": "Wasserflasche",
+            "preis": 2,
+            "richtig": true,
+            "hinweis": "Ohne Wasser wird die Reise schwer. Die Wasserflasche gehört hinein."
+          },
+          {
+            "text": "Brot für unterwegs",
+            "preis": 3,
+            "richtig": true,
+            "hinweis": "Unterwegs braucht Tala etwas zu essen."
+          },
+          {
+            "text": "Regenjacke",
+            "preis": 4,
+            "richtig": true,
+            "hinweis": "Wenn es regnet, ist Tala froh über die Regenjacke."
+          },
+          {
+            "text": "Glitzerkompass",
+            "preis": 6,
+            "hinweis": "Schön, aber nicht wichtig für die Reise."
+          },
+          {
+            "text": "Comic",
+            "preis": 2,
+            "hinweis": "Nett zum Lesen, aber nicht das Wichtigste."
+          },
+          {
+            "text": "Bonbons",
+            "preis": 1,
+            "hinweis": "Lecker, aber nicht das Wichtigste."
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Zuerst das Wichtige, dann vom Rest, was noch passt. So reicht das Geld für die Reise."
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -595,9 +637,87 @@
         }
       ],
       "spiel": {
-        "art": "conversation",
+        "art": "choice",
         "titel": "Gespräch mit Moritz",
-        "beschreibung": "Unterhalte dich mit Moritz darüber, was ihn glücklich macht."
+        "beschreibung": "Unterhalte dich mit Moritz darüber, was ihn glücklich macht.",
+        "aufgabe": "Unterhalte dich mit Moritz. Es gibt keine falschen Fragen, nur eine Frage zum Schluss.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "moritz",
+                "text": "Willkommen in meiner Höhle! Viel habe ich nicht: ein Buch, eine Decke und gute Freunde. Und ich bin glücklich.",
+                "name": "Moritz"
+              }
+            ],
+            "frage": "Was fragst du Moritz?",
+            "optionen": [
+              {
+                "text": "Was macht dich glücklich?",
+                "gut": true,
+                "antwort": "Moritz: „Zeit mit Freunden, die Sonne am Morgen und ein gutes Buch.“"
+              },
+              {
+                "text": "Wünschst du dir nicht mehr Sachen?",
+                "gut": true,
+                "antwort": "Moritz: „Manchmal schon. Aber die Freude über neue Sachen ist schnell vorbei.“"
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "moritz",
+                "text": "Und du? Was macht dich glücklich?",
+                "name": "Moritz"
+              }
+            ],
+            "frage": "Was antwortest du?",
+            "optionen": [
+              {
+                "text": "Zeit mit meiner Familie und meinen Freunden",
+                "gut": true,
+                "antwort": "Moritz: „Das kenne ich. So etwas kann man nicht kaufen.“"
+              },
+              {
+                "text": "Etwas Neues zu bekommen",
+                "gut": true,
+                "antwort": "Moritz: „Die Freude ist echt. Aber merk dir, wie lange sie hält.“"
+              },
+              {
+                "text": "Draußen spielen",
+                "gut": true,
+                "antwort": "Moritz: „Oh ja! Und das kostet nicht einmal etwas.“"
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Geld kann Sorgen nehmen. Aber macht es allein glücklich?"
+              }
+            ],
+            "frage": "Was stimmt?",
+            "optionen": [
+              {
+                "text": "Geld hilft, aber Glück hat viele Quellen",
+                "gut": true,
+                "antwort": "Genau: Freunde, Zeit und Gesundheit zählen auch."
+              },
+              {
+                "text": "Nur wer viel Geld hat, ist glücklich",
+                "gut": false,
+                "antwort": "Moritz hat wenig und ist trotzdem glücklich."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "moritz",
+          "text": "Danke für das Gespräch! Pass auf dich auf, junge Crew.",
+          "name": "Moritz"
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -698,9 +818,84 @@
         }
       ],
       "spiel": {
-        "art": "album",
+        "art": "choice",
         "titel": "Erinnerungs-Album",
-        "beschreibung": "Vergleiche ein neues Spielzeug mit einem gemeinsamen Ausflug und gestalte ein kleines Album schöner Erlebnisse."
+        "beschreibung": "Vergleiche ein neues Spielzeug mit einem gemeinsamen Ausflug und gestalte ein kleines Album schöner Erlebnisse.",
+        "aufgabe": "Gestalte mit Tala ihr Erinnerungs-Album. Was bleibt lange in Erinnerung?",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Letztes Jahr habe ich ein neues Spielzeug bekommen und war mit allen am Leuchtturm picknicken."
+              }
+            ],
+            "frage": "Woran erinnert sich Tala heute noch am liebsten?",
+            "optionen": [
+              {
+                "text": "An das Picknick am Leuchtturm",
+                "gut": true,
+                "antwort": "Genau. Gemeinsame Erlebnisse bleiben oft lange in Erinnerung."
+              },
+              {
+                "text": "An das neue Spielzeug",
+                "gut": false,
+                "antwort": "Das Spielzeug liegt längst in der Ecke. Das Picknick erzählt Tala immer noch gern."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Welches Bild kleben wir ins Album?"
+              }
+            ],
+            "frage": "Such ein Bild aus.",
+            "optionen": [
+              {
+                "text": "Die Sandburg mit der ganzen Crew",
+                "gut": true,
+                "antwort": "Schön! Daran erinnert ihr euch bestimmt noch lange."
+              },
+              {
+                "text": "Die Nachtfahrt mit der Laterne",
+                "gut": true,
+                "antwort": "Toll! Ein Abenteuer, das ihr zusammen erlebt habt."
+              },
+              {
+                "text": "Das Gewitter, als alle zusammen im Schiff saßen",
+                "gut": true,
+                "antwort": "Spannend! Auch das erzählt man sich noch lange."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Was kostet eigentlich am wenigsten?"
+              }
+            ],
+            "frage": "Was davon kostet oft wenig oder gar nichts?",
+            "optionen": [
+              {
+                "text": "Ein Ausflug an den Strand mit Freunden",
+                "gut": true,
+                "antwort": "Genau. Schöne Erlebnisse müssen nicht teuer sein."
+              },
+              {
+                "text": "Eine teure Spielkonsole",
+                "gut": false,
+                "antwort": "Die kostet viel Geld. Ein Ausflug an den Strand oft gar nichts."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Mein Album ist voller schöner Erlebnisse. Die bleiben länger als jedes Spielzeug."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -812,9 +1007,79 @@
         }
       ],
       "spiel": {
-        "art": "wish_list",
+        "art": "choice",
         "titel": "Wunschliste",
-        "beschreibung": "Schreibe eine Wunschliste mit Preisen, sortiere sie nach Wichtigkeit und übernimm einen Wunsch als Wunschschatz."
+        "beschreibung": "Schreibe eine Wunschliste mit Preisen, sortiere sie nach Wichtigkeit und übernimm einen Wunsch als Wunschschatz.",
+        "aufgabe": "Hilf Tala, eine kluge Wunschliste zu schreiben.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ich schreibe einfach alles auf, was mir einfällt!"
+              }
+            ],
+            "frage": "Was gehört auf eine kluge Wunschliste?",
+            "optionen": [
+              {
+                "text": "Der Wunsch und was er ungefähr kostet",
+                "gut": true,
+                "antwort": "Genau. Mit dem Preis weißt du, wie lange du sparen musst."
+              },
+              {
+                "text": "Nur die teuersten Dinge",
+                "gut": false,
+                "antwort": "Auf eine Wunschliste gehört, was du dir wirklich wünschst, egal ob teuer oder günstig."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Deine Liste ist lang. Wie bringst du Ordnung hinein?"
+              }
+            ],
+            "frage": "Wie sortierst du die Liste?",
+            "optionen": [
+              {
+                "text": "Nach Wichtigkeit",
+                "gut": true,
+                "antwort": "Richtig. Das Wichtigste steht oben, dafür sparst du zuerst."
+              },
+              {
+                "text": "Nach Farben",
+                "gut": false,
+                "antwort": "Farben sagen nichts darüber, was dir am wichtigsten ist."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Auf meiner Liste stehen ein Fahrrad (am wichtigsten), ein Glitzerkompass und ein Comic."
+              }
+            ],
+            "frage": "Wofür spart Tala zuerst?",
+            "optionen": [
+              {
+                "text": "Für das Fahrrad",
+                "gut": true,
+                "antwort": "Genau. Das Wichtigste wird zuerst ein Wunschschatz in der Schatztruhe."
+              },
+              {
+                "text": "Für den Glitzerkompass, weil er so glänzt",
+                "gut": false,
+                "antwort": "Tala hat selbst gesagt: Das Fahrrad ist ihr am wichtigsten."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Eine gute Wunschliste hilft beim Planen. In deiner Schatztruhe kannst du aus einem Wunsch einen Wunschschatz machen."
+        }
       },
       "abschluss": {
         "wer": "talo",

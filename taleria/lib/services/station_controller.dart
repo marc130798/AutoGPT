@@ -40,6 +40,11 @@ class QuizRun {
 
   int get correctCount => [for (final e in _chosen.entries) questions[e.key].isCorrect(e.value)].where((c) => c).length;
 
+  /// Pro Frage: richtig (`true`), falsch (`false`) oder noch offen (`null`).
+  List<bool?> get results => [
+    for (var i = 0; i < questions.length; i++) _chosen[i] == null ? null : questions[i].isCorrect(_chosen[i]!),
+  ];
+
   /// Erste Antwort zählt, danach ist die Frage beantwortet.
   void answer(int displayIndex) => _chosen.putIfAbsent(_index, () => displayIndex);
 

@@ -14,6 +14,7 @@ import '../progress/celebration.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../services/encounter_controller.dart' show EncounterRun;
 import 'dialog_sequence.dart';
+import 'dive_header.dart';
 import 'game_views.dart';
 import 'quiz_view.dart';
 
@@ -75,6 +76,7 @@ class _StationScreenState extends State<StationScreen> {
       listenable: controller,
       builder: (context, _) {
         final content = controller.content;
+        final diveGame = DiveGame.parse(content.dive?.game);
         final body = switch (controller.step) {
           StationStep.loading || StationStep.submitting => const Center(child: CircularProgressIndicator()),
           StationStep.warmUp => QuizView(
@@ -95,8 +97,14 @@ class _StationScreenState extends State<StationScreen> {
           ),
           StationStep.quiz => QuizView(
             run: controller.quiz!,
-            title: controller.isDive ? l10n.diveTitle : (controller.isExam ? l10n.stationExam : l10n.quizCheckTitle),
-            hint: controller.isDive ? l10n.diveHint : null,
+            title: controller.isDive
+                ? diveGame.title(l10n)
+                : (controller.isExam ? l10n.stationExam : l10n.quizCheckTitle),
+            hint: controller.isDive ? diveGame.hint(l10n) : null,
+            header: controller.isDive
+                ? DiveHeader(game: diveGame, results: controller.quiz!.results, stationId: widget.station.id)
+                : null,
+            answerIcon: controller.isDive ? diveGame.answerIcon : null,
             onAnswer: controller.answerQuiz,
             onNext: controller.nextQuiz,
           ),

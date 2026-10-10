@@ -117,27 +117,73 @@ class Station {
   };
 }
 
-/// Mini-Spiele mit eigener Spielmechanik in der App (Schritt 7). Andere
-/// Spielarten zeigen bis zu ihrem Bau einen Platzhalter.
-const builtGames = {'sort', 'order'};
+/// Mini-Spiele mit eigener Spielmechanik in der App. Andere Spielarten zeigen
+/// bis zu ihrem Bau einen Platzhalter. Alle sind reine Daten: Neue Spiele dieser
+/// Arten brauchen kein App-Update.
+///   * sort     Dinge in Körbe sortieren
+///   * order    Dinge in die richtige Reihenfolge bringen
+///   * choice   Entscheidungen: Situation, Möglichkeiten, Rückmeldung
+///   * coins    Beträge mit Münzen und Scheinen legen (auch Wechselgeld)
+///   * pick     Teile auswählen, bis ein Betrag genau stimmt oder das Budget reicht
+///   * number   Rechnen: eine Zahl als Antwort
+const builtGames = {'sort', 'order', 'choice', 'coins', 'pick', 'number'};
+
+/// Euro-Münzen und -Scheine in Cent für das Spiel „coins“.
+const coinValues = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000];
 
 /// Spiel-Daten für stations.content.game (englische Schlüssel).
 Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
   final type = g['art'];
   Map<String, dynamic>? line(Object? raw) =>
       raw is Map<String, dynamic> ? {'speaker': raw['wer'], 'text': raw['text'], 'name': ?raw['name']} : null;
+  List<Map<String, dynamic>> lines(Object? raw) => [for (final l in (raw as List?) ?? const []) line(l)!];
+  List<Map<String, dynamic>> rounds() => ((g['runden'] as List?) ?? const []).cast<Map<String, dynamic>>();
   return {
     'type': type,
     'title': g['titel'],
     'description': g['beschreibung'],
     if (builtGames.contains(type)) ...{
       'task': g['aufgabe'],
-      'items': [
-        for (final d in (g['dinge'] as List).cast<Map<String, dynamic>>())
-          {'text': d['text'], if (type == 'sort') 'basket': d['korb'], 'hint': ?d['hinweis']},
-      ],
+      if (type == 'sort' || type == 'order' || type == 'pick')
+        'items': [
+          for (final d in (g['dinge'] as List).cast<Map<String, dynamic>>())
+            {
+              'text': d['text'],
+              if (type == 'sort') 'basket': d['korb'],
+              if (type == 'pick') ...{'price': d['preis'], 'required': d['richtig'] == true},
+              'hint': ?d['hinweis'],
+            },
+        ],
       if (type == 'sort') 'baskets': g['koerbe'],
       if (type == 'order') ...{'from': g['von'], 'to': g['bis']},
+      if (type == 'pick') ...{'target': g['betrag'], 'exact': g['modus'] == 'genau'},
+      if (type == 'choice')
+        'rounds': [
+          for (final r in rounds())
+            {
+              'scene': lines(r['szene']),
+              'question': r['frage'],
+              'options': [
+                for (final o in (r['optionen'] as List).cast<Map<String, dynamic>>())
+                  {'text': o['text'], 'good': o['gut'] == true, 'reply': o['antwort']},
+              ],
+            },
+        ],
+      if (type == 'coins')
+        'rounds': [
+          for (final r in rounds()) {'question': r['text'], 'amount': r['betrag']},
+        ],
+      if (type == 'number')
+        'rounds': [
+          for (final r in rounds())
+            {
+              'question': r['frage'],
+              'amount': r['antwort'],
+              'unit': ?r['einheit'],
+              'hint': ?r['tipp'],
+              'explanation': r['erklaerung'],
+            },
+        ],
       'done': ?line(g['geschafft']),
     },
   };
@@ -448,7 +494,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
 
       final game = s.game;
       if (game != null && builtGames.contains(game['art'])) {
-        problems.addAll(validateGame(game, sw));
+        problems.addAll(validateGame(game, sw, knownAssetKeys: knownAssetKeys));
       }
 
       if (s.isIntro) {
@@ -515,33 +561,110 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
   return problems;
 }
 
-/// Prüft die Daten eines Mini-Spiels (Sortieren oder Reihenfolge).
-List<String> validateGame(Map<String, dynamic> game, String where) {
+/// Prüft die Daten eines Mini-Spiels. Mit [knownAssetKeys] auch die Figuren in Szenen.
+List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>? knownAssetKeys}) {
   final problems = <String>[];
   void check(bool ok, String message) {
     if (!ok) problems.add(message);
   }
 
-  final w = '$where, Spiel';
-  final items = (game['dinge'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
-  check((game['aufgabe'] as String?)?.trim().isNotEmpty ?? false, '$w: "aufgabe" fehlt');
-  check(game['geschafft'] is Map<String, dynamic>, '$w: "geschafft" fehlt');
-  check(items.every((d) => (d['text'] as String?)?.trim().isNotEmpty ?? false), '$w: jedes Ding braucht einen Text');
-  if (game['art'] == 'sort') {
-    final baskets = (game['koerbe'] as List?) ?? const [];
-    check(baskets.length >= 2 && baskets.length <= 4, '$w: 2 bis 4 Körbe');
-    check(items.length >= 4 && items.length <= 10, '$w: 4 bis 10 Dinge zum Sortieren');
-    for (final d in items) {
-      final basket = d['korb'];
-      check(
-        basket == null || (basket is int && basket >= 0 && basket < baskets.length),
-        '$w: "${d['text']}" hat einen unbekannten Korb',
-      );
-      check(basket != null || d['hinweis'] != null, '$w: "${d['text']}" passt überall hin und braucht einen Hinweis');
+  bool text(Object? value) => value is String && value.trim().isNotEmpty;
+  void speaker(Object? raw, String w) {
+    if (raw is! Map<String, dynamic>) {
+      problems.add('$w: Zeile fehlt');
+      return;
     }
+    check(text(raw['text']), '$w: Text fehlt');
+    if (knownAssetKeys != null) {
+      check(knownAssetKeys.contains('character.${raw['wer']}'), '$w: unbekannte Figur "${raw['wer']}"');
+    }
+  }
+
+  final w = '$where, Spiel';
+  final type = game['art'];
+  check(text(game['aufgabe']), '$w: "aufgabe" fehlt');
+  if (game['geschafft'] is Map<String, dynamic>) {
+    speaker(game['geschafft'], '$w, "geschafft"');
   } else {
-    check(items.length >= 3 && items.length <= 7, '$w: 3 bis 7 Dinge in der Reihenfolge');
-    check(game['von'] is String && game['bis'] is String, '$w: "von" und "bis" fehlen');
+    problems.add('$w: "geschafft" fehlt');
+  }
+  final items = (game['dinge'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+  final rounds = (game['runden'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+
+  switch (type) {
+    case 'sort':
+      check(items.every((d) => text(d['text'])), '$w: jedes Ding braucht einen Text');
+      final baskets = (game['koerbe'] as List?) ?? const [];
+      check(baskets.length >= 2 && baskets.length <= 4, '$w: 2 bis 4 Körbe');
+      check(items.length >= 4 && items.length <= 10, '$w: 4 bis 10 Dinge zum Sortieren');
+      for (final d in items) {
+        final basket = d['korb'];
+        check(
+          basket == null || (basket is int && basket >= 0 && basket < baskets.length),
+          '$w: "${d['text']}" hat einen unbekannten Korb',
+        );
+        check(basket != null || d['hinweis'] != null, '$w: "${d['text']}" passt überall hin und braucht einen Hinweis');
+      }
+    case 'order':
+      check(items.every((d) => text(d['text'])), '$w: jedes Ding braucht einen Text');
+      check(items.length >= 3 && items.length <= 7, '$w: 3 bis 7 Dinge in der Reihenfolge');
+      check(game['von'] is String && game['bis'] is String, '$w: "von" und "bis" fehlen');
+    case 'choice':
+      check(rounds.length >= 2 && rounds.length <= 8, '$w: 2 bis 8 Runden');
+      for (final (i, r) in rounds.indexed) {
+        final rw = '$w, Runde ${i + 1}';
+        check(text(r['frage']), '$rw: "frage" fehlt');
+        for (final (k, l) in ((r['szene'] as List?) ?? const []).indexed) {
+          speaker(l, '$rw, Szene ${k + 1}');
+        }
+        final options = (r['optionen'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+        check(options.length >= 2 && options.length <= 4, '$rw: 2 bis 4 Möglichkeiten');
+        check(options.any((o) => o['gut'] == true), '$rw: mindestens eine gute Möglichkeit');
+        check(
+          options.every((o) => text(o['text']) && text(o['antwort'])),
+          '$rw: jede Möglichkeit braucht Text und Antwort',
+        );
+      }
+    case 'coins':
+      check(rounds.length >= 2 && rounds.length <= 6, '$w: 2 bis 6 Runden');
+      for (final (i, r) in rounds.indexed) {
+        final amount = r['betrag'];
+        check(text(r['text']), '$w, Runde ${i + 1}: "text" fehlt');
+        check(amount is int && amount > 0 && amount <= 5000, '$w, Runde ${i + 1}: Betrag 1 Cent bis 50 Euro');
+      }
+    case 'pick':
+      final target = game['betrag'];
+      check(game['modus'] == 'genau' || game['modus'] == 'hoechstens', '$w: "modus" muss genau oder hoechstens sein');
+      check(target is int && target > 0, '$w: "betrag" fehlt');
+      check(items.length >= 3 && items.length <= 10, '$w: 3 bis 10 Dinge');
+      check(
+        items.every((d) => text(d['text']) && d['preis'] is int && (d['preis'] as int) > 0),
+        '$w: jedes Ding braucht Text und Preis',
+      );
+      final required = items.where((d) => d['richtig'] == true).toList();
+      check(required.isNotEmpty, '$w: mindestens ein richtiges Ding');
+      check(
+        items.where((d) => d['richtig'] != true).every((d) => text(d['hinweis'])),
+        '$w: falsche Dinge brauchen einen Hinweis',
+      );
+      if (target is int && required.isNotEmpty) {
+        final sum = required.fold<int>(0, (s, d) => s + ((d['preis'] as int?) ?? 0));
+        if (game['modus'] == 'genau') {
+          check(sum == target, '$w: die richtigen Dinge ergeben $sum statt $target');
+        } else {
+          check(sum <= target, '$w: die richtigen Dinge kosten $sum, mehr als $target');
+          check(required.every((d) => text(d['hinweis'])), '$w: richtige Dinge brauchen einen Hinweis');
+        }
+      }
+    case 'number':
+      check(rounds.isNotEmpty && rounds.length <= 6, '$w: 1 bis 6 Runden');
+      for (final (i, r) in rounds.indexed) {
+        final rw = '$w, Runde ${i + 1}';
+        check(text(r['frage']) && text(r['erklaerung']), '$rw: "frage" und "erklaerung" nötig');
+        check(r['antwort'] is int && (r['antwort'] as int) >= 0, '$rw: "antwort" muss eine ganze Zahl sein');
+      }
+    default:
+      problems.add('$w: unbekannte Spielart "$type"');
   }
   return problems;
 }

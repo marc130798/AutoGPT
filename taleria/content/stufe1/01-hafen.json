@@ -78,9 +78,86 @@
         }
       ],
       "spiel": {
-        "art": "barter",
+        "art": "choice",
         "titel": "Tausch-Spiel",
-        "beschreibung": "Tala versucht ohne Geld an ein Fischbrötchen zu kommen und merkt, wie umständlich Tauschen ist."
+        "beschreibung": "Tala versucht ohne Geld an ein Fischbrötchen zu kommen und merkt, wie umständlich Tauschen ist.",
+        "aufgabe": "Hilf Tala, ohne Geld an ein Fischbrötchen zu kommen.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "haendler",
+                "text": "Ein Fischbrötchen gibt es nur gegen Mehl. Ein Halstuch brauche ich nicht.",
+                "name": "Händler"
+              }
+            ],
+            "frage": "Was kann Tala tun?",
+            "optionen": [
+              {
+                "text": "Jemanden suchen, der Mehl hat und ein Halstuch will",
+                "gut": true,
+                "antwort": "Gute Idee! Tala braucht jemanden, der genau ihr Halstuch will und Mehl hat."
+              },
+              {
+                "text": "Dem Händler trotzdem das Halstuch geben",
+                "gut": false,
+                "antwort": "Der Händler braucht Mehl für seine Brötchen. Mit einem Halstuch kann er nichts anfangen."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "bootsbauer",
+                "text": "Mehl habe ich. Aber ein Halstuch? Ich brauche Nägel für mein Boot.",
+                "name": "Bootsbauer"
+              }
+            ],
+            "frage": "Was merkt Tala?",
+            "optionen": [
+              {
+                "text": "Tauschen ist umständlich: Jeder will etwas anderes.",
+                "gut": true,
+                "antwort": "Genau. Tala müsste erst Nägel finden, dann Mehl, dann das Fischbrötchen. Das dauert!"
+              },
+              {
+                "text": "Der Bootsbauer ist unfreundlich.",
+                "gut": false,
+                "antwort": "Er ist gar nicht unfreundlich. Er braucht einfach etwas anderes als ein Halstuch."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Puh, das ist ja eine Reise für ein einziges Fischbrötchen!"
+              }
+            ],
+            "frage": "Womit hätte es viel einfacher geklappt?",
+            "optionen": [
+              {
+                "text": "Mit Geld",
+                "gut": true,
+                "antwort": "Richtig! Geld nimmt fast jeder an. Der Händler kauft damit später sein Mehl."
+              },
+              {
+                "text": "Mit einem größeren Halstuch",
+                "gut": false,
+                "antwort": "Auch ein großes Halstuch hilft nicht, wenn der Händler Mehl braucht."
+              },
+              {
+                "text": "Mit lauterem Rufen",
+                "gut": false,
+                "antwort": "Lauter rufen ändert nichts daran, dass der Händler Mehl braucht."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Siehst du? Mit Geld muss nicht jeder genau das haben, was der andere braucht."
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -356,7 +433,30 @@
       "spiel": {
         "art": "coins",
         "titel": "Münzschublade",
-        "beschreibung": "Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben."
+        "beschreibung": "Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben.",
+        "aufgabe": "Tippe Münzen und Scheine an, bis der Betrag stimmt. Tippst du oben auf eine gelegte Münze, nimmst du sie wieder weg.",
+        "runden": [
+          {
+            "text": "Lege 3,50 €. Schaffst du es mit möglichst wenigen Münzen?",
+            "betrag": 350
+          },
+          {
+            "text": "Lege 1,85 € für eine Tüte Kirschen.",
+            "betrag": 185
+          },
+          {
+            "text": "Ein Brötchen kostet 45 Cent. Tala bezahlt mit 1 €. Lege das Wechselgeld.",
+            "betrag": 55
+          },
+          {
+            "text": "Eine Kinokarte kostet 7,50 €. Talo bezahlt mit einem 10-Euro-Schein. Lege das Wechselgeld.",
+            "betrag": 250
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Ich kenne jetzt alle Münzen und kann sogar Wechselgeld herausgeben!"
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -617,9 +717,54 @@
         }
       ],
       "spiel": {
-        "art": "price_stack",
+        "art": "pick",
         "titel": "Preis-Säule",
-        "beschreibung": "Staple Zutaten, Miete, Lohn und Gewinn, bis die Säule genau den Preis ergibt."
+        "beschreibung": "Staple Zutaten, Miete, Lohn und Gewinn, bis die Säule genau den Preis ergibt.",
+        "aufgabe": "Ein Fischbrötchen kostet 10 Taler. Tippe die Teile an, aus denen der Preis besteht, bis die Säule genau 10 Taler hoch ist.",
+        "modus": "genau",
+        "betrag": 10,
+        "dinge": [
+          {
+            "text": "Fisch",
+            "preis": 4,
+            "richtig": true
+          },
+          {
+            "text": "Brötchen",
+            "preis": 1,
+            "richtig": true
+          },
+          {
+            "text": "Miete für den Stand",
+            "preis": 2,
+            "richtig": true
+          },
+          {
+            "text": "Lohn für die Verkäuferin",
+            "preis": 2,
+            "richtig": true
+          },
+          {
+            "text": "Kleiner Gewinn",
+            "preis": 1,
+            "richtig": true
+          },
+          {
+            "text": "Goldene Serviette",
+            "preis": 2,
+            "hinweis": "Eine goldene Serviette gibt es zum Fischbrötchen nicht. Die gehört nicht in den Preis."
+          },
+          {
+            "text": "Talas Lieblingslied",
+            "preis": 1,
+            "hinweis": "Ein Lied kostet den Stand nichts. Das gehört nicht in den Preis."
+          }
+        ],
+        "geschafft": {
+          "wer": "verkaeuferin",
+          "text": "Genau so setzt sich mein Preis zusammen. Der kleine Gewinn ist mein Lohn fürs Kümmern.",
+          "name": "Verkäuferin"
+        }
       },
       "abschluss": {
         "wer": "tala",

@@ -30,13 +30,15 @@ void main() {
     }
   });
 
-  test('Sechs Stationen haben ein echtes Mini-Spiel (Sortieren oder Reihenfolge)', () {
-    final built = [
-      for (final island in islands)
+  test('Alle 20 Spiele der Inseln 1 bis 3 sind echte Spiele, kein Platzhalter mehr', () {
+    final games = [
+      for (final island in islands.take(3))
         for (final s in island.stations)
-          if (builtGames.contains(s.game?['art'])) '${island.slug}/${s.number}',
+          if (s.game != null) s.game!['art'],
     ];
-    expect(built, hasLength(6));
+    expect(games, hasLength(20));
+    expect(games.where((art) => !builtGames.contains(art) && art != 'wish_bottle'), isEmpty);
+    expect(games.toSet(), {'sort', 'order', 'choice', 'coins', 'pick', 'number', 'wish_bottle'});
   });
 
   test('Meister Taleron ist die erste Begegnung, ab dem Start', () {
@@ -266,6 +268,100 @@ void main() {
           'geschafft': {'wer': 'talo', 'text': 'Gut!'},
         }, 'test'),
         contains(contains('"von" und "bis"')),
+      );
+    });
+  });
+
+  group('Die Prüfung findet Fehler in den neuen Spielarten', () {
+    Map<String, dynamic> done = {'wer': 'talo', 'text': 'Gut!'};
+    List<String> problems(Map<String, dynamic> game) =>
+        validateGame({'aufgabe': 'Los', 'geschafft': done, ...game}, 'test', knownAssetKeys: assetKeys);
+    Map<String, dynamic> option(bool good) => {'text': 'Möglichkeit', 'gut': good, 'antwort': 'Antwort'};
+
+    test('Entscheidungen: jede Runde braucht eine gute Möglichkeit', () {
+      final round = {
+        'frage': 'Was tun?',
+        'optionen': [option(true), option(false)],
+      };
+      expect(
+        problems({
+          'art': 'choice',
+          'runden': [round, round],
+        }),
+        isEmpty,
+      );
+      expect(
+        problems({
+          'art': 'choice',
+          'runden': [
+            round,
+            {
+              'frage': 'Was tun?',
+              'optionen': [option(false), option(false)],
+            },
+          ],
+        }),
+        contains(contains('mindestens eine gute Möglichkeit')),
+      );
+    });
+
+    test('Entscheidungen: unbekannte Figur in der Szene', () {
+      expect(
+        problems({
+          'art': 'choice',
+          'runden': [
+            for (var i = 0; i < 2; i++)
+              {
+                'szene': [
+                  {'wer': 'pirat', 'text': 'Arr!'},
+                ],
+                'frage': 'Was tun?',
+                'optionen': [option(true), option(false)],
+              },
+          ],
+        }),
+        contains(contains('unbekannte Figur "pirat"')),
+      );
+    });
+
+    test('Münzen legen: Betrag bis 50 Euro', () {
+      expect(
+        problems({
+          'art': 'coins',
+          'runden': [
+            {'text': 'Lege 3,50 €.', 'betrag': 350},
+            {'text': 'Lege 80 €.', 'betrag': 8000},
+          ],
+        }),
+        contains(contains('Betrag 1 Cent bis 50 Euro')),
+      );
+    });
+
+    test('Auswählen: die richtigen Teile müssen genau den Betrag ergeben', () {
+      expect(
+        problems({
+          'art': 'pick',
+          'modus': 'genau',
+          'betrag': 10,
+          'dinge': [
+            {'text': 'Fisch', 'preis': 4, 'richtig': true},
+            {'text': 'Brötchen', 'preis': 1, 'richtig': true},
+            {'text': 'Serviette', 'preis': 2, 'hinweis': 'Gehört nicht dazu.'},
+          ],
+        }),
+        contains(contains('ergeben 5 statt 10')),
+      );
+    });
+
+    test('Rechnen: Erklärung nötig', () {
+      expect(
+        problems({
+          'art': 'number',
+          'runden': [
+            {'frage': '12 mal 5?', 'antwort': 60},
+          ],
+        }),
+        contains(contains('"erklaerung" nötig')),
       );
     });
   });

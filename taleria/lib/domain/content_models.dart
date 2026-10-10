@@ -139,13 +139,68 @@ class ExamRules {
 
 /// Ein Ding in einem Mini-Spiel (Sortieren oder Reihenfolge).
 class GameItem {
-  const GameItem({required this.text, this.basket, this.hint});
+  const GameItem({required this.text, this.basket, this.hint, this.price, this.required = false});
 
   final String text;
 
   /// Sortieren: richtiger Korb; `null` = passt in jeden Korb (dazwischen).
   final int? basket;
   final String? hint;
+
+  /// Auswählen: Preis in Talern und ob das Ding dazugehört.
+  final int? price;
+  final bool required;
+}
+
+/// Eine Möglichkeit im Entscheidungs-Spiel mit der Rückmeldung darauf.
+class GameOption {
+  const GameOption({required this.text, required this.good, required this.reply});
+
+  final String text;
+
+  /// Gute Wahl? Mehrere Möglichkeiten dürfen gut sein (dann zeigt die Rückmeldung den Verzicht).
+  final bool good;
+  final String reply;
+}
+
+/// Eine Runde: Entscheidung (Szene, Frage, Möglichkeiten), Betrag legen oder Rechenaufgabe.
+class GameRound {
+  const GameRound({
+    required this.question,
+    this.scene = const [],
+    this.options = const [],
+    this.amount,
+    this.unit,
+    this.hint,
+    this.explanation,
+  });
+
+  factory GameRound.fromJson(Map<String, dynamic> json) => GameRound(
+    question: json['question'] as String? ?? '',
+    scene: [for (final l in (json['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
+    options: [
+      for (final o in (json['options'] as List?) ?? const [])
+        GameOption(
+          text: (o as Map<String, dynamic>)['text'] as String? ?? '',
+          good: o['good'] as bool? ?? false,
+          reply: o['reply'] as String? ?? '',
+        ),
+    ],
+    amount: (json['amount'] as num?)?.toInt(),
+    unit: json['unit'] as String?,
+    hint: json['hint'] as String?,
+    explanation: json['explanation'] as String?,
+  );
+
+  final String question;
+  final List<DialogLine> scene;
+  final List<GameOption> options;
+
+  /// Münzen legen: Betrag in Cent. Rechnen: die richtige Zahl.
+  final int? amount;
+  final String? unit;
+  final String? hint;
+  final String? explanation;
 }
 
 class GameInfo {
@@ -159,6 +214,9 @@ class GameInfo {
     this.from,
     this.to,
     this.done,
+    this.rounds = const [],
+    this.target,
+    this.exactTarget = false,
   });
 
   factory GameInfo.fromJson(Map<String, dynamic> game) => GameInfo(
@@ -172,15 +230,21 @@ class GameInfo {
           text: (i as Map<String, dynamic>)['text'] as String? ?? '',
           basket: i['basket'] as int?,
           hint: i['hint'] as String?,
+          price: (i['price'] as num?)?.toInt(),
+          required: i['required'] as bool? ?? false,
         ),
     ],
+    rounds: [for (final r in (game['rounds'] as List?) ?? const []) GameRound.fromJson(r as Map<String, dynamic>)],
+    target: (game['target'] as num?)?.toInt(),
+    exactTarget: game['exact'] as bool? ?? false,
     baskets: [for (final b in (game['baskets'] as List?) ?? const []) b as String],
     from: game['from'] as String?,
     to: game['to'] as String?,
     done: game['done'] is Map<String, dynamic> ? DialogLine.fromJson(game['done'] as Map<String, dynamic>) : null,
   );
 
-  /// sort, order, wish_bottle oder eine Spielart, die erst später gebaut wird (Platzhalter).
+  /// sort, order, choice, coins, pick, number, wish_bottle oder eine Spielart,
+  /// die erst später gebaut wird (Platzhalter).
   final String type;
   final String title;
   final String? description;
@@ -191,10 +255,21 @@ class GameInfo {
   final String? to;
   final DialogLine? done;
 
+  /// Entscheidungen, Beträge oder Rechenaufgaben.
+  final List<GameRound> rounds;
+
+  /// Auswählen: Zielbetrag in Talern, genau ([exactTarget]) oder höchstens (Budget).
+  final int? target;
+  final bool exactTarget;
+
   /// Hat die App für diese Spielart schon eine Spielmechanik?
   bool get isPlayable => switch (type) {
     'sort' => baskets.length >= 2 && items.isNotEmpty,
     'order' => items.length >= 2,
+    'choice' => rounds.isNotEmpty && rounds.every((r) => r.options.any((o) => o.good)),
+    'coins' => rounds.isNotEmpty && rounds.every((r) => (r.amount ?? 0) > 0),
+    'pick' => items.isNotEmpty && target != null && items.every((i) => i.price != null),
+    'number' => rounds.isNotEmpty && rounds.every((r) => r.amount != null),
     'wish_bottle' => true,
     _ => false,
   };

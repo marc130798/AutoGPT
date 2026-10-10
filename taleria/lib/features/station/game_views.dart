@@ -8,6 +8,11 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import '../treasure/wish_bottle_form.dart';
+import 'choice_game_view.dart';
+import 'coins_game_view.dart';
+import 'game_frame.dart';
+import 'number_game_view.dart';
+import 'pick_game_view.dart';
 
 /// Mini-Spiel einer Station. Spielarten ohne eigene Mechanik zeigen den
 /// Platzhalter [placeholder]. [onDone] führt weiter zum Stations-Check.
@@ -26,46 +31,14 @@ class GameStepView extends StatelessWidget {
     if (!game.isPlayable) return placeholder;
     return switch (game.type) {
       'sort' => SortGameView(game: game, onDone: onDone),
+      'choice' => ChoiceGameView(game: game, onDone: onDone),
+      'coins' => CoinsGameView(game: game, onDone: onDone),
+      'pick' => PickGameView(game: game, onDone: onDone),
+      'number' => NumberGameView(game: game, onDone: onDone),
       'wish_bottle' when onWish != null => WishBottleGameView(game: game, onWish: onWish!, onDone: onDone),
       'wish_bottle' => placeholder,
       _ => OrderGameView(game: game, onDone: onDone),
     };
-  }
-}
-
-/// Gemeinsamer Rahmen: Titel, Aufgabe, Inhalt, Knopf unten.
-class _GameFrame extends StatelessWidget {
-  const _GameFrame({required this.game, required this.children, required this.button});
-
-  final GameInfo game;
-  final List<Widget> children;
-  final Widget button;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      children: [
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
-              if (game.task != null) ...[
-                const SizedBox(height: 4),
-                Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
-              ],
-              const SizedBox(height: 16),
-              ...children,
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: SizedBox(width: double.infinity, child: button),
-        ),
-      ],
-    );
   }
 }
 
@@ -115,7 +88,7 @@ class _SortGameViewState extends State<SortGameView> {
       );
     }
 
-    return _GameFrame(
+    return GameFrame(
       game: widget.game,
       button: button,
       children: [
@@ -203,7 +176,7 @@ class _OrderGameViewState extends State<OrderGameView> {
     final game = _game!;
     final items = widget.game.items;
 
-    return _GameFrame(
+    return GameFrame(
       game: widget.game,
       button: FilledButton(
         key: const ValueKey('game-done'),
@@ -295,7 +268,7 @@ class _WishBottleGameViewState extends State<WishBottleGameView> {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final thrown = _thrown;
-    return _GameFrame(
+    return GameFrame(
       game: widget.game,
       button: thrown == null
           ? TextButton(key: const ValueKey('game-skip'), onPressed: widget.onDone, child: Text(l10n.wishBottleSkip))

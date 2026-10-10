@@ -58,10 +58,27 @@ void main() {
     return (content: content, progress: progress);
   }
 
+  /// Entscheidungs-Spiel: probiert die Möglichkeiten durch, bis eine gute dabei ist.
+  Future<void> solveChoice(WidgetTester tester) async {
+    while (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) {
+      for (var option = 0; option < 4; option++) {
+        await tapKey(tester, 'choice-option-$option');
+        if (find.byKey(const ValueKey('game-retry')).evaluate().isEmpty) break;
+        await tapKey(tester, 'game-retry');
+      }
+      if (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) await tapKey(tester, 'game-next');
+    }
+    await tapKey(tester, 'game-done');
+  }
+
   /// Klickt Film, Szene, Erklärung und Spiel durch, bis das Quiz kommt.
   Future<void> playUntilQuiz(WidgetTester tester) async {
     for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
-      await tapText(tester, 'Weiter');
+      if (find.byKey(const ValueKey('choice-question')).evaluate().isNotEmpty) {
+        await solveChoice(tester);
+      } else {
+        await tapText(tester, 'Weiter');
+      }
     }
   }
 

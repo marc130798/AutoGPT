@@ -2300,5 +2300,195 @@
         "type": "int"
       }
     }
+  },
+  "gameChoiceProgress": "Situation {current} von {total}",
+  "@gameChoiceProgress": {
+    "description": "Spiel Entscheidungen: Fortschritt",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gameTaskProgress": "Aufgabe {current} von {total}",
+  "@gameTaskProgress": {
+    "description": "Spiele Münzen legen und Rechnen: Fortschritt",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "gameNextSituation": "Nächste Situation",
+  "@gameNextSituation": {
+    "description": "Spiel Entscheidungen: weiter zur nächsten Runde"
+  },
+  "gameNextTask": "Nächste Aufgabe",
+  "@gameNextTask": {
+    "description": "Spiele Münzen legen und Rechnen: weiter zur nächsten Aufgabe"
+  },
+  "gameCoinsPlaced": "Gelegt: {sum} von {target}",
+  "@gameCoinsPlaced": {
+    "description": "Spiel Münzen legen: Summe der gelegten Münzen und Zielbetrag",
+    "placeholders": {
+      "sum": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "gameCoinsNothing": "Noch nichts gelegt. Tippe unten auf Münzen und Scheine.",
+  "@gameCoinsNothing": {
+    "description": "Spiel Münzen legen: Ablage ist leer"
+  },
+  "gameCoinsTooMuch": "Zu viel! Tippe oben auf eine Münze, um sie wegzunehmen.",
+  "@gameCoinsTooMuch": {
+    "description": "Spiel Münzen legen: Summe zu hoch"
+  },
+  "gameCoinsExact": "Genau richtig!",
+  "@gameCoinsExact": {
+    "description": "Spiel Münzen legen: Betrag stimmt"
+  },
+  "gameCoinsFewer": "Geschafft! Mit {count} Münzen und Scheinen ginge es auch.",
+  "@gameCoinsFewer": {
+    "description": "Spiel Münzen legen: richtig, aber es ginge mit weniger Münzen",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameCoinsClear": "Alles zurücklegen",
+  "@gameCoinsClear": {
+    "description": "Spiel Münzen legen: alle gelegten Münzen entfernen"
+  },
+  "coinCents": "{value} ct",
+  "@coinCents": {
+    "description": "Beschriftung einer Münze unter 1 Euro",
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "coinEuros": "{value} €",
+  "@coinEuros": {
+    "description": "Beschriftung einer Münze oder eines Scheins ab 1 Euro",
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "gameTaler": "{count} Taler",
+  "@gameTaler": {
+    "description": "Preis in Talern (Spielwährung in Taleria)",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gamePickExactSum": "Zusammen: {sum} von {target} Talern",
+  "@gamePickExactSum": {
+    "description": "Spiel Auswählen (genau): Summe und Zielbetrag",
+    "placeholders": {
+      "sum": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "gamePickBudgetSum": "Zusammen: {sum} Taler, du hast {target} Taler",
+  "@gamePickBudgetSum": {
+    "description": "Spiel Auswählen (Budget): Summe und Budget",
+    "placeholders": {
+      "sum": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "gameCheck": "Prüfen",
+  "@gameCheck": {
+    "description": "Knopf in Spielen: Lösung prüfen"
+  },
+  "gamePickTooMuch": "Das ist zu teuer. Lass etwas weg.",
+  "@gamePickTooMuch": {
+    "description": "Spiel Auswählen: Budget überschritten"
+  },
+  "gamePickTooLittle": "Da fehlt noch etwas.",
+  "@gamePickTooLittle": {
+    "description": "Spiel Auswählen: Zielbetrag noch nicht erreicht"
+  },
+  "gamePickSolved": "Passt!",
+  "@gamePickSolved": {
+    "description": "Spiel Auswählen: geschafft"
+  },
+  "gameNumberLabel": "Deine Antwort",
+  "@gameNumberLabel": {
+    "description": "Spiel Rechnen: Eingabefeld"
+  },
+  "gameNumberWrong": "Noch nicht ganz.",
+  "@gameNumberWrong": {
+    "description": "Spiel Rechnen: falsche Zahl"
+  },
+  "gameNumberTip": "Tipp: {tip}",
+  "@gameNumberTip": {
+    "description": "Spiel Rechnen: Tipp nach einer falschen Antwort",
+    "placeholders": {
+      "tip": {
+        "type": "String"
+      }
+    }
+  },
+  "gameNumberShowSolution": "Lösung zeigen",
+  "@gameNumberShowSolution": {
+    "description": "Spiel Rechnen: Lösung anzeigen nach einem falschen Versuch"
+  },
+  "gameNumberRight": "Richtig!",
+  "@gameNumberRight": {
+    "description": "Spiel Rechnen: richtige Zahl"
+  },
+  "gameNumberSolution": "Lösung: {value}",
+  "@gameNumberSolution": {
+    "description": "Spiel Rechnen: angezeigte Lösung",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "diveChestTitle": "Schatztruhe knacken",
+  "@diveChestTitle": {
+    "description": "Tauchgang: Überschrift der Spielart Schatztruhe knacken"
+  },
+  "diveChestHint": "Jede Antwort verrät eine Ziffer des Codes. Jede richtige Antwort ist eine Perle.",
+  "@diveChestHint": {
+    "description": "Tauchgang Schatztruhe knacken: Erklärung"
+  },
+  "diveChestOpen": "Die Truhe springt auf!",
+  "@diveChestOpen": {
+    "description": "Tauchgang Schatztruhe knacken: alle Ziffern gefunden"
+  },
+  "diveFishTitle": "Fischschwarm",
+  "@diveFishTitle": {
+    "description": "Tauchgang: Überschrift der Spielart Fischschwarm"
+  },
+  "diveFishHint": "Jeder Fisch trägt eine Antwort. Tippe den richtigen an. Jede richtige Antwort ist eine Perle.",
+  "@diveFishHint": {
+    "description": "Tauchgang Fischschwarm: Erklärung"
   }
 }

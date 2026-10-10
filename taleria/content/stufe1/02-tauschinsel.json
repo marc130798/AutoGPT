@@ -100,9 +100,90 @@
         }
       ],
       "spiel": {
-        "art": "barter_chain",
+        "art": "choice",
         "titel": "Tauschkette",
-        "beschreibung": "Baue die Tauschkette: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil."
+        "beschreibung": "Baue die Tauschkette: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil.",
+        "aufgabe": "Tala braucht ein Seil. Baue mit ihr die Tauschkette.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "greta",
+                "text": "Mein Seil? Gern, aber nur gegen Äpfel.",
+                "name": "Greta"
+              },
+              {
+                "wer": "tala",
+                "text": "Äpfel hab ich nicht. Ich hab nur einen Eimer."
+              }
+            ],
+            "frage": "Wer hat Äpfel?",
+            "optionen": [
+              {
+                "text": "Bruno",
+                "gut": true,
+                "antwort": "Richtig, Bruno hat Äpfel. Aber was will er dafür?"
+              },
+              {
+                "text": "Otti",
+                "gut": false,
+                "antwort": "Otti ist Fischerin. Sie hat Fisch, aber keine Äpfel."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "bruno",
+                "text": "Äpfel gebe ich nur gegen frischen Fisch.",
+                "name": "Bruno"
+              }
+            ],
+            "frage": "Wo bekommt Tala Fisch?",
+            "optionen": [
+              {
+                "text": "Bei Otti, sie braucht einen Eimer",
+                "gut": true,
+                "antwort": "Super! Otti will einen Eimer, und den hat Tala."
+              },
+              {
+                "text": "Bei Greta",
+                "gut": false,
+                "antwort": "Greta hat ein Seil, aber keinen Fisch."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Jetzt haben wir alles zusammen. In welcher Reihenfolge tauschen wir?"
+              }
+            ],
+            "frage": "Wie geht die Tauschkette?",
+            "optionen": [
+              {
+                "text": "Eimer → Fisch → Äpfel → Seil",
+                "gut": true,
+                "antwort": "Genau so! Otti bekommt den Eimer, Bruno den Fisch, Greta die Äpfel. Und Tala hat ihr Seil."
+              },
+              {
+                "text": "Eimer → Seil",
+                "gut": false,
+                "antwort": "Greta will keinen Eimer, nur Äpfel."
+              },
+              {
+                "text": "Äpfel → Eimer → Seil",
+                "gut": false,
+                "antwort": "Am Anfang hat Tala gar keine Äpfel, nur den Eimer."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Drei Tausche für ein Seil! Mit Geld wäre das schneller gegangen."
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -204,9 +285,104 @@
         }
       ],
       "spiel": {
-        "art": "barter_rounds",
+        "art": "choice",
         "titel": "Tauschmarkt",
-        "beschreibung": "Starte mit drei Dingen und ertausche in mehreren Runden eine Laterne. Jeder Händler will etwas anderes, manche Angebote sind schlecht."
+        "beschreibung": "Starte mit drei Dingen und ertausche in mehreren Runden eine Laterne. Jeder Händler will etwas anderes, manche Angebote sind schlecht.",
+        "aufgabe": "Du startest mit Muscheln, einer Mütze und einer Flöte. Ertausche eine Laterne für die Nachtfahrt.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "haendler",
+                "text": "Laternen gibt es bei mir nur gegen Kerzen.",
+                "name": "Laternen-Händler"
+              }
+            ],
+            "frage": "Was brauchst du also zuerst?",
+            "optionen": [
+              {
+                "text": "Kerzen",
+                "gut": true,
+                "antwort": "Genau. Erst Kerzen besorgen, dann bekommst du die Laterne."
+              },
+              {
+                "text": "Mehr Muscheln",
+                "gut": false,
+                "antwort": "Der Händler will Kerzen. Mehr Muscheln helfen dir nicht."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "bruno",
+                "text": "Drei Äpfel für deine Flöte, deine Mütze und alle deine Muscheln!",
+                "name": "Bruno"
+              }
+            ],
+            "frage": "Nimmst du das Angebot an?",
+            "optionen": [
+              {
+                "text": "Nein, das ist viel zu viel für drei Äpfel",
+                "gut": true,
+                "antwort": "Gut aufgepasst! Du würdest alles hergeben und Äpfel brauchst du gar nicht."
+              },
+              {
+                "text": "Ja, sofort",
+                "gut": false,
+                "antwort": "Dann hast du nichts mehr und immer noch keine Kerzen. Vor einem Tausch lohnt es sich zu überlegen."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "greta",
+                "text": "Ich hätte Kerzen. Mir ist kalt, eine Mütze wäre schön.",
+                "name": "Greta"
+              }
+            ],
+            "frage": "Was gibst du Greta?",
+            "optionen": [
+              {
+                "text": "Die Mütze",
+                "gut": true,
+                "antwort": "Fair für beide: Greta bekommt ihre Mütze, du die Kerzen. Die Mütze brauchst du gerade nicht."
+              },
+              {
+                "text": "Die Flöte",
+                "gut": false,
+                "antwort": "Greta will etwas gegen die Kälte. Mit einer Flöte kann sie nichts anfangen."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "haendler",
+                "text": "Kerzen! Wunderbar, die Laterne gehört dir.",
+                "name": "Laternen-Händler"
+              }
+            ],
+            "frage": "Was hast du beim Tauschmarkt gelernt?",
+            "optionen": [
+              {
+                "text": "Erst überlegen: Was brauche ich, was gebe ich her?",
+                "gut": true,
+                "antwort": "Genau so. Und schlechte Angebote darf man ablehnen."
+              },
+              {
+                "text": "Immer das erste Angebot nehmen",
+                "gut": false,
+                "antwort": "Dann hättest du bei Bruno alles für drei Äpfel hergegeben."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Die Laterne leuchtet! Gut überlegt getauscht."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -312,9 +488,104 @@
         }
       ],
       "spiel": {
-        "art": "decision",
+        "art": "choice",
         "titel": "Was ist wem wie viel wert?",
-        "beschreibung": "Entscheide in verschiedenen Situationen, wem etwas wie viel wert ist."
+        "beschreibung": "Entscheide in verschiedenen Situationen, wem etwas wie viel wert ist.",
+        "aufgabe": "Entscheide in jeder Situation, wem etwas wie viel wert ist.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Hier unten am Strand gibt es überall Wasser. Jemand will 5 Taler für eine Flasche."
+              }
+            ],
+            "frage": "Ist die Flasche hier viel wert?",
+            "optionen": [
+              {
+                "text": "Nein, hier gibt es genug Wasser",
+                "gut": true,
+                "antwort": "Richtig. Was es überall gibt, ist für niemanden besonders wertvoll."
+              },
+              {
+                "text": "Ja, Wasser ist immer gleich viel wert",
+                "gut": false,
+                "antwort": "Wasser ist wichtig, aber hier gibt es so viel davon, dass niemand 5 Taler zahlen würde."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Puh, der Aufstieg war heiß. Und oben auf dem Berg gibt es keine Quelle."
+              }
+            ],
+            "frage": "Wie viel ist eine Flasche Wasser jetzt wert?",
+            "optionen": [
+              {
+                "text": "Viel, jetzt ist sie ein kleiner Schatz",
+                "gut": true,
+                "antwort": "Genau. Dieselbe Flasche ist hier oben viel mehr wert, weil man sie dringend braucht."
+              },
+              {
+                "text": "Genauso wenig wie unten am Strand",
+                "gut": false,
+                "antwort": "Hier oben hat niemand Wasser, und alle haben Durst. Deshalb ist es jetzt viel wert."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ich liebe Fischbrötchen!"
+              },
+              {
+                "wer": "talo",
+                "text": "Ich mag gar keinen Fisch."
+              }
+            ],
+            "frage": "Wem ist ein Fischbrötchen mehr wert?",
+            "optionen": [
+              {
+                "text": "Tala",
+                "gut": true,
+                "antwort": "Richtig. Wert hängt auch davon ab, wer etwas bekommt."
+              },
+              {
+                "text": "Beiden gleich viel",
+                "gut": false,
+                "antwort": "Talo mag keinen Fisch. Für ihn ist das Fischbrötchen kaum etwas wert."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Es regnet in Strömen, und ich habe meinen Schirm vergessen!"
+              }
+            ],
+            "frage": "Wann ist ein Regenschirm am meisten wert?",
+            "optionen": [
+              {
+                "text": "Wenn es regnet und man keinen hat",
+                "gut": true,
+                "antwort": "Genau. Wert hängt von der Person und der Situation ab."
+              },
+              {
+                "text": "Bei Sonnenschein",
+                "gut": false,
+                "antwort": "Bei Sonnenschein braucht ihn kaum jemand."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Wert ist nicht für jeden gleich. Es kommt auf die Person und die Situation an."
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -423,9 +694,84 @@
         }
       ],
       "spiel": {
-        "art": "market_sim",
+        "art": "choice",
         "titel": "Eisstand",
-        "beschreibung": "Setze den Preis für dein Eis an heißen und an verregneten Tagen und sieh, wie viele Kunden kommen."
+        "beschreibung": "Setze den Preis für dein Eis an heißen und an verregneten Tagen und sieh, wie viele Kunden kommen.",
+        "aufgabe": "Du betreibst den Eisstand. Setze an jedem Tag einen Preis für eine Kugel und schau, was passiert.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Heute ist es heiß! Vor dem Stand steht eine lange Schlange. Wir haben nur noch 20 Kugeln."
+              }
+            ],
+            "frage": "Welchen Preis setzt du für eine Kugel?",
+            "optionen": [
+              {
+                "text": "2 Taler",
+                "gut": true,
+                "antwort": "Am Abend sind fast alle Kugeln verkauft. Wenn viele etwas wollen und es knapp ist, kann der Preis höher sein."
+              },
+              {
+                "text": "1 Taler",
+                "gut": false,
+                "antwort": "Nach wenigen Minuten ist alles weg, und viele gehen leer aus. Viele hätten auch mehr bezahlt."
+              },
+              {
+                "text": "8 Taler",
+                "gut": false,
+                "antwort": "So teuer will kaum jemand Eis. Die meisten gehen weiter, das Eis schmilzt."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Heute regnet es. Kaum jemand ist am Strand, und wir haben viel Eis."
+              }
+            ],
+            "frage": "Welchen Preis setzt du heute?",
+            "optionen": [
+              {
+                "text": "1 Taler",
+                "gut": true,
+                "antwort": "Ein paar Leute kaufen trotzdem ein Eis. Wenn wenige etwas wollen, muss der Preis niedriger sein."
+              },
+              {
+                "text": "3 Taler",
+                "gut": false,
+                "antwort": "Bei Regen will kaum jemand Eis. Bei 3 Talern kauft heute niemand."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "An heißen Tagen ging das Eis weg wie nichts, bei Regen kaum."
+              }
+            ],
+            "frage": "Was hast du am Eisstand gemerkt?",
+            "optionen": [
+              {
+                "text": "Wollen viele etwas, steigt der Preis. Wollen wenige etwas, sinkt er.",
+                "gut": true,
+                "antwort": "Genau das nennt man Angebot und Nachfrage."
+              },
+              {
+                "text": "Der Preis ist immer gleich",
+                "gut": false,
+                "antwort": "Am heißen Tag und am Regentag hat ein anderer Preis gepasst."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Wenn viele etwas wollen und es knapp ist, steigt der Preis. Wollen wenige etwas, sinkt er."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -539,9 +885,38 @@
         }
       ],
       "spiel": {
-        "art": "calc",
+        "art": "number",
         "titel": "Netz-Rechnung",
-        "beschreibung": "Rechne aus, welches Netz über ein Jahr günstiger ist."
+        "beschreibung": "Rechne aus, welches Netz über ein Jahr günstiger ist.",
+        "aufgabe": "Hilf Otti beim Rechnen. Tippe deine Antwort als Zahl ein.",
+        "runden": [
+          {
+            "frage": "Das billige Netz kostet 5 Taler und hält einen Monat. Wie viele Taler kostet es, ein ganzes Jahr lang immer ein billiges Netz zu haben?",
+            "antwort": 60,
+            "einheit": "Taler",
+            "tipp": "Ein Jahr hat 12 Monate.",
+            "erklaerung": "12 Netze mal 5 Taler sind 60 Taler."
+          },
+          {
+            "frage": "Das gute Netz kostet 20 Taler und hält ein ganzes Jahr. Wie viele Taler spart Otti in einem Jahr mit dem guten Netz?",
+            "antwort": 40,
+            "einheit": "Taler",
+            "tipp": "Rechne 60 minus 20.",
+            "erklaerung": "60 Taler minus 20 Taler sind 40 Taler. Das gute Netz ist am Ende günstiger."
+          },
+          {
+            "frage": "Eine billige Taucherbrille kostet 3 Taler und hält 3 Monate. Wie viele Taler kostet sie für ein ganzes Jahr?",
+            "antwort": 12,
+            "einheit": "Taler",
+            "tipp": "Wie oft passen 3 Monate in ein Jahr?",
+            "erklaerung": "In ein Jahr passen 4 mal 3 Monate. 4 Brillen mal 3 Taler sind 12 Taler."
+          }
+        ],
+        "geschafft": {
+          "wer": "otti",
+          "text": "Ich nehme das gute Netz. Billig ist nicht immer günstig!",
+          "name": "Otti"
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -643,9 +1018,79 @@
         }
       ],
       "spiel": {
-        "art": "tradeoff",
+        "art": "choice",
         "titel": "Entscheidungen",
-        "beschreibung": "Triff mehrere Entscheidungen und sieh jedes Mal, worauf du verzichtest."
+        "beschreibung": "Triff mehrere Entscheidungen und sieh jedes Mal, worauf du verzichtest.",
+        "aufgabe": "Triff Entscheidungen und schau, worauf du jedes Mal verzichtest.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ich habe 5 Taler. Ein Eis kostet 2 Taler. Aber ich spare doch auf das Fernrohr …"
+              }
+            ],
+            "frage": "Was macht Tala?",
+            "optionen": [
+              {
+                "text": "Ein Eis kaufen",
+                "gut": true,
+                "antwort": "Lecker! Dafür dauert es länger, bis das Fernrohr gekauft ist."
+              },
+              {
+                "text": "Für das Fernrohr sparen",
+                "gut": true,
+                "antwort": "Das Fernrohr rückt näher. Dafür gibt es heute kein Eis."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Samstagnachmittag! Willst du mit den anderen am Strand spielen oder mir am Schiff helfen? Dafür bekommst du 2 Taler."
+              }
+            ],
+            "frage": "Was machst du?",
+            "optionen": [
+              {
+                "text": "Am Strand spielen",
+                "gut": true,
+                "antwort": "Ein schöner Nachmittag mit Freunden. Dafür gibt es keine 2 Taler."
+              },
+              {
+                "text": "Am Schiff helfen",
+                "gut": true,
+                "antwort": "2 Taler verdient! Dafür hast du heute nicht mit den anderen gespielt."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ich will alles: das Eis, das Fernrohr und auch noch frei haben!"
+              }
+            ],
+            "frage": "Was stimmt bei jeder Entscheidung?",
+            "optionen": [
+              {
+                "text": "Man verzichtet immer auf etwas anderes",
+                "gut": true,
+                "antwort": "Genau. Jede Entscheidung bedeutet einen Verzicht. Deshalb lohnt es sich, gut zu überlegen."
+              },
+              {
+                "text": "Man kann immer alles haben",
+                "gut": false,
+                "antwort": "Leider nicht. Geld und Zeit reichen nie für alles gleichzeitig."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Jede Entscheidung bedeutet einen Verzicht. Überleg, was dir wichtiger ist."
+        }
       },
       "abschluss": {
         "wer": "tala",

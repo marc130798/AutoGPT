@@ -1682,4 +1682,117 @@ class AppLocalizationsDe extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String gameChoiceProgress(int current, int total) {
+    return 'Situation $current von $total';
+  }
+
+  @override
+  String gameTaskProgress(int current, int total) {
+    return 'Aufgabe $current von $total';
+  }
+
+  @override
+  String get gameNextSituation => 'Nächste Situation';
+
+  @override
+  String get gameNextTask => 'Nächste Aufgabe';
+
+  @override
+  String gameCoinsPlaced(String sum, String target) {
+    return 'Gelegt: $sum von $target';
+  }
+
+  @override
+  String get gameCoinsNothing => 'Noch nichts gelegt. Tippe unten auf Münzen und Scheine.';
+
+  @override
+  String get gameCoinsTooMuch => 'Zu viel! Tippe oben auf eine Münze, um sie wegzunehmen.';
+
+  @override
+  String get gameCoinsExact => 'Genau richtig!';
+
+  @override
+  String gameCoinsFewer(int count) {
+    return 'Geschafft! Mit $count Münzen und Scheinen ginge es auch.';
+  }
+
+  @override
+  String get gameCoinsClear => 'Alles zurücklegen';
+
+  @override
+  String coinCents(int value) {
+    return '$value ct';
+  }
+
+  @override
+  String coinEuros(int value) {
+    return '$value €';
+  }
+
+  @override
+  String gameTaler(int count) {
+    return '$count Taler';
+  }
+
+  @override
+  String gamePickExactSum(int sum, int target) {
+    return 'Zusammen: $sum von $target Talern';
+  }
+
+  @override
+  String gamePickBudgetSum(int sum, int target) {
+    return 'Zusammen: $sum Taler, du hast $target Taler';
+  }
+
+  @override
+  String get gameCheck => 'Prüfen';
+
+  @override
+  String get gamePickTooMuch => 'Das ist zu teuer. Lass etwas weg.';
+
+  @override
+  String get gamePickTooLittle => 'Da fehlt noch etwas.';
+
+  @override
+  String get gamePickSolved => 'Passt!';
+
+  @override
+  String get gameNumberLabel => 'Deine Antwort';
+
+  @override
+  String get gameNumberWrong => 'Noch nicht ganz.';
+
+  @override
+  String gameNumberTip(String tip) {
+    return 'Tipp: $tip';
+  }
+
+  @override
+  String get gameNumberShowSolution => 'Lösung zeigen';
+
+  @override
+  String get gameNumberRight => 'Richtig!';
+
+  @override
+  String gameNumberSolution(String value) {
+    return 'Lösung: $value';
+  }
+
+  @override
+  String get diveChestTitle => 'Schatztruhe knacken';
+
+  @override
+  String get diveChestHint => 'Jede Antwort verrät eine Ziffer des Codes. Jede richtige Antwort ist eine Perle.';
+
+  @override
+  String get diveChestOpen => 'Die Truhe springt auf!';
+
+  @override
+  String get diveFishTitle => 'Fischschwarm';
+
+  @override
+  String get diveFishHint =>
+      'Jeder Fisch trägt eine Antwort. Tippe den richtigen an. Jede richtige Antwort ist eine Perle.';
 }

@@ -2898,6 +2898,186 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'{count, plural, =1{Eine Wunschflasche ist angespült! Schau in der Schatztruhe nach.} other{{count} Wunschflaschen sind angespült! Schau in der Schatztruhe nach.}}'**
   String childHomeWishDue(int count);
+
+  /// Spiel Entscheidungen: Fortschritt
+  ///
+  /// In de, this message translates to:
+  /// **'Situation {current} von {total}'**
+  String gameChoiceProgress(int current, int total);
+
+  /// Spiele Münzen legen und Rechnen: Fortschritt
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgabe {current} von {total}'**
+  String gameTaskProgress(int current, int total);
+
+  /// Spiel Entscheidungen: weiter zur nächsten Runde
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Situation'**
+  String get gameNextSituation;
+
+  /// Spiele Münzen legen und Rechnen: weiter zur nächsten Aufgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Aufgabe'**
+  String get gameNextTask;
+
+  /// Spiel Münzen legen: Summe der gelegten Münzen und Zielbetrag
+  ///
+  /// In de, this message translates to:
+  /// **'Gelegt: {sum} von {target}'**
+  String gameCoinsPlaced(String sum, String target);
+
+  /// Spiel Münzen legen: Ablage ist leer
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nichts gelegt. Tippe unten auf Münzen und Scheine.'**
+  String get gameCoinsNothing;
+
+  /// Spiel Münzen legen: Summe zu hoch
+  ///
+  /// In de, this message translates to:
+  /// **'Zu viel! Tippe oben auf eine Münze, um sie wegzunehmen.'**
+  String get gameCoinsTooMuch;
+
+  /// Spiel Münzen legen: Betrag stimmt
+  ///
+  /// In de, this message translates to:
+  /// **'Genau richtig!'**
+  String get gameCoinsExact;
+
+  /// Spiel Münzen legen: richtig, aber es ginge mit weniger Münzen
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft! Mit {count} Münzen und Scheinen ginge es auch.'**
+  String gameCoinsFewer(int count);
+
+  /// Spiel Münzen legen: alle gelegten Münzen entfernen
+  ///
+  /// In de, this message translates to:
+  /// **'Alles zurücklegen'**
+  String get gameCoinsClear;
+
+  /// Beschriftung einer Münze unter 1 Euro
+  ///
+  /// In de, this message translates to:
+  /// **'{value} ct'**
+  String coinCents(int value);
+
+  /// Beschriftung einer Münze oder eines Scheins ab 1 Euro
+  ///
+  /// In de, this message translates to:
+  /// **'{value} €'**
+  String coinEuros(int value);
+
+  /// Preis in Talern (Spielwährung in Taleria)
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Taler'**
+  String gameTaler(int count);
+
+  /// Spiel Auswählen (genau): Summe und Zielbetrag
+  ///
+  /// In de, this message translates to:
+  /// **'Zusammen: {sum} von {target} Talern'**
+  String gamePickExactSum(int sum, int target);
+
+  /// Spiel Auswählen (Budget): Summe und Budget
+  ///
+  /// In de, this message translates to:
+  /// **'Zusammen: {sum} Taler, du hast {target} Taler'**
+  String gamePickBudgetSum(int sum, int target);
+
+  /// Knopf in Spielen: Lösung prüfen
+  ///
+  /// In de, this message translates to:
+  /// **'Prüfen'**
+  String get gameCheck;
+
+  /// Spiel Auswählen: Budget überschritten
+  ///
+  /// In de, this message translates to:
+  /// **'Das ist zu teuer. Lass etwas weg.'**
+  String get gamePickTooMuch;
+
+  /// Spiel Auswählen: Zielbetrag noch nicht erreicht
+  ///
+  /// In de, this message translates to:
+  /// **'Da fehlt noch etwas.'**
+  String get gamePickTooLittle;
+
+  /// Spiel Auswählen: geschafft
+  ///
+  /// In de, this message translates to:
+  /// **'Passt!'**
+  String get gamePickSolved;
+
+  /// Spiel Rechnen: Eingabefeld
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Antwort'**
+  String get gameNumberLabel;
+
+  /// Spiel Rechnen: falsche Zahl
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht ganz.'**
+  String get gameNumberWrong;
+
+  /// Spiel Rechnen: Tipp nach einer falschen Antwort
+  ///
+  /// In de, this message translates to:
+  /// **'Tipp: {tip}'**
+  String gameNumberTip(String tip);
+
+  /// Spiel Rechnen: Lösung anzeigen nach einem falschen Versuch
+  ///
+  /// In de, this message translates to:
+  /// **'Lösung zeigen'**
+  String get gameNumberShowSolution;
+
+  /// Spiel Rechnen: richtige Zahl
+  ///
+  /// In de, this message translates to:
+  /// **'Richtig!'**
+  String get gameNumberRight;
+
+  /// Spiel Rechnen: angezeigte Lösung
+  ///
+  /// In de, this message translates to:
+  /// **'Lösung: {value}'**
+  String gameNumberSolution(String value);
+
+  /// Tauchgang: Überschrift der Spielart Schatztruhe knacken
+  ///
+  /// In de, this message translates to:
+  /// **'Schatztruhe knacken'**
+  String get diveChestTitle;
+
+  /// Tauchgang Schatztruhe knacken: Erklärung
+  ///
+  /// In de, this message translates to:
+  /// **'Jede Antwort verrät eine Ziffer des Codes. Jede richtige Antwort ist eine Perle.'**
+  String get diveChestHint;
+
+  /// Tauchgang Schatztruhe knacken: alle Ziffern gefunden
+  ///
+  /// In de, this message translates to:
+  /// **'Die Truhe springt auf!'**
+  String get diveChestOpen;
+
+  /// Tauchgang: Überschrift der Spielart Fischschwarm
+  ///
+  /// In de, this message translates to:
+  /// **'Fischschwarm'**
+  String get diveFishTitle;
+
+  /// Tauchgang Fischschwarm: Erklärung
+  ///
+  /// In de, this message translates to:
+  /// **'Jeder Fisch trägt eine Antwort. Tippe den richtigen an. Jede richtige Antwort ist eine Perle.'**
+  String get diveFishHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
