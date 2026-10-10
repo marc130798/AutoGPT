@@ -59,4 +59,18 @@ cat "$ROOT/supabase/sql_tests/00_supabase_stub.sql" "$ROOT"/supabase/migrations/
 cat "$ROOT/supabase/sql_tests/05_test_helpers.sql" "$ROOT/supabase/sql_tests/seed/seed_check.sql" \
   | "${SEED_PSQL[@]}" 2>&1 | sed -n -e "s/^NOTICE:  //p" -e "/ERROR/p"
 
+# Einrichtung ohne Kommandozeile: alle Migrationen in einer Datei, dann die Seed-Daten.
+echo "Einrichtung in einem Durchgang:"
+run "$PG_BIN/createdb" -h "$WORK" -p "$PORT" -U postgres setupcheck
+SETUP_PSQL=(run "$PG_BIN/psql" -h "$WORK" -p "$PORT" -U postgres -d setupcheck -v ON_ERROR_STOP=1 -q -t -A)
+cat "$ROOT/supabase/sql_tests/00_supabase_stub.sql" "$ROOT/supabase/datenbank_einrichten.sql" "$ROOT/supabase/seed.sql" \
+  | "${SETUP_PSQL[@]}" 2>&1 | sed -e "/already exists, skipping/d"
+MIGRATIONS="$(ls "$ROOT"/supabase/migrations/*.sql | wc -l)"
+RECORDED="$("${SETUP_PSQL[@]}" -c "select count(*) from supabase_migrations.schema_migrations")"
+if [[ "$MIGRATIONS" != "$RECORDED" ]]; then
+  echo "FEHLER: $MIGRATIONS Migrationen, aber $RECORDED in der Liste der Supabase CLI"
+  exit 1
+fi
+echo "ok: datenbank_einrichten.sql richtet die Datenbank ein und trägt $RECORDED Migrationen ein"
+
 echo "Alle Datenbank-Tests bestanden."

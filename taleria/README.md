@@ -97,6 +97,31 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 | `env/` | Vorlagen für die Zugangsdaten (`*.example.json`) |
 | `test/` | Tests der App |
 
+## Testprojekt einrichten ohne Kommandozeile (nur im Browser)
+
+Für Marc: So entsteht die Test-Datenbank, ganz ohne Programme auf dem Computer.
+
+1. Auf <https://supabase.com> ein Konto anlegen und **New project** wählen:
+   Name `taleria-test`, Region **Central EU (Frankfurt)**, kostenloser Tarif.
+   Das Datenbank-Passwort gut aufheben und niemandem schicken. Etwa 2 Minuten warten.
+2. Links **Authentication** → **Sign In / Providers**:
+   - **Allow anonymous sign-ins** einschalten (so melden sich Kinder-Geräte an).
+   - Im Testprojekt **Confirm email** ausschalten. Dann klappt die Eltern-Anmeldung sofort,
+     ohne Bestätigungs-E-Mail (der kostenlose Tarif verschickt nur wenige E-Mails pro Stunde).
+     Im Live-Projekt bleibt es später eingeschaltet.
+   - Die Mindestlänge für Passwörter auf **10** stellen (bei den Einstellungen für E-Mail und Passwörter).
+3. Links **SQL Editor** → neue Abfrage. Den ganzen Inhalt von `supabase/datenbank_einrichten.sql`
+   einfügen und **Run** klicken. Es sollte „Success“ erscheinen.
+4. Noch eine neue Abfrage: den ganzen Inhalt von `supabase/seed.sql` einfügen und **Run** klicken.
+   Damit sind Inseln, Stationen und Fragen da (nur im Testprojekt, nie im Live-Projekt).
+5. **Project Settings** → **API Keys**: die **Project URL** und den **Publishable key**
+   (beginnt mit `sb_publishable_`) kopieren. Den **Secret key** nie weitergeben.
+
+Kommen später neue Migrationen dazu, können sie mit der Supabase CLI (`npx supabase db push`)
+nachgeholt werden: `datenbank_einrichten.sql` trägt die eingespielten Migrationen dafür ein.
+Die Datei entsteht automatisch aus `supabase/migrations/` (`dart run tool/build_setup_sql.dart`),
+ein Test prüft, dass sie aktuell ist.
+
 ## Einmalig einrichten
 
 ### 1. Flutter installieren
