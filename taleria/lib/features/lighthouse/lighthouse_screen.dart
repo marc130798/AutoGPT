@@ -166,7 +166,8 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                               if (child.shipName != null) l10n.lighthouseChildShip(child.shipName!),
                               if (!child.onboardingCompleted) l10n.lighthouseIntroPending,
                               if (controller.statsFor(child.id) case final stats?) ...[
-                                if (stats.rank != null) l10n.parentLevel(stats.rank!.level, l10n.rank(stats.rank)),
+                                if (stats.rank != null)
+                                  l10n.parentLevel(stats.rank!.level, l10n.rank(stats.rank, child.rankForm)),
                                 stats.lastActiveAt == null
                                     ? l10n.lastActiveNever
                                     : l10n.lastActive(formatDate(stats.lastActiveAt!)),

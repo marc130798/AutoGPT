@@ -64,6 +64,8 @@ class FakeBackend {
     String nickname = 'Mila',
     int birthYear = 2015,
     bool onboardingCompleted = true,
+    RankForm? rankForm,
+    bool rankFormChosen = true,
   }) {
     final child = ChildProfile(
       id: newId('child'),
@@ -73,6 +75,8 @@ class FakeBackend {
       onboardingCompleted: onboardingCompleted,
       shipName: onboardingCompleted ? 'Seestern' : null,
       avatar: onboardingCompleted ? const AvatarConfig() : null,
+      // Wer das Intro hinter sich hat, hat auch die Form der Rang-Namen gewählt.
+      rankForm: rankForm ?? (onboardingCompleted && rankFormChosen ? RankForm.junge : null),
     );
     children.add(child);
     childParent[child.id] = parent.id;
@@ -385,21 +389,10 @@ class FakeChildRepository implements ChildRepository {
   }
 
   @override
-  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName}) async {
+  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName, RankForm? rankForm}) async {
     _requireAccess(childId);
     final old = backend.childById(childId);
-    backend.replaceChild(
-      ChildProfile(
-        id: old.id,
-        nickname: old.nickname,
-        birthYear: old.birthYear,
-        level: old.level,
-        stage: old.stage,
-        avatar: avatar ?? old.avatar,
-        shipName: shipName ?? old.shipName,
-        onboardingCompleted: old.onboardingCompleted,
-      ),
-    );
+    backend.replaceChild(old.copyWith(avatar: avatar, shipName: shipName, rankForm: rankForm));
   }
 
   @override
@@ -412,18 +405,7 @@ class FakeChildRepository implements ChildRepository {
   Future<int> completeOnboarding(String childId) async {
     _requireAccess(childId);
     final old = backend.childById(childId);
-    backend.replaceChild(
-      ChildProfile(
-        id: old.id,
-        nickname: old.nickname,
-        birthYear: old.birthYear,
-        level: old.level,
-        stage: old.stage,
-        avatar: old.avatar,
-        shipName: old.shipName,
-        onboardingCompleted: true,
-      ),
-    );
+    backend.replaceChild(old.copyWith(onboardingCompleted: true));
     if (backend.xpByChild.containsKey(childId)) return 0;
     backend.xpByChild[childId] = 50;
     return 50;

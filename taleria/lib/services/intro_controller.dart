@@ -6,16 +6,18 @@ import '../domain/family_models.dart';
 import '../domain/validators.dart';
 
 /// Abschnitte des Intros (Station 1 des Hafens, INSELN.md):
-/// Film, Talo und Tala erzählen, Avatar, Schiffstaufe, Rundgang,
-/// erster Wunschschatz, Abschluss, Karte öffnet sich.
-enum IntroStep { film, story, avatar, ship, tour, wish, done, map }
+/// Film, Talo und Tala erzählen, Avatar, Rang-Namen (Schiffsjunge oder
+/// Schiffsmädchen), Schiffstaufe, Rundgang, erster Wunschschatz, Abschluss,
+/// Karte öffnet sich.
+enum IntroStep { film, story, avatar, rankForm, ship, tour, wish, done, map }
 
 /// Ablauf des Intros. Speichert jeden Abschnitt sofort, damit nach einem
 /// Abbruch nichts verloren geht. Kennt kein Aussehen.
 class IntroController extends ChangeNotifier {
   IntroController({required this._repository, required this.child})
     : _avatar = child.avatar ?? const AvatarConfig(),
-      _shipName = child.shipName ?? '';
+      _shipName = child.shipName ?? '',
+      _rankForm = child.rankForm;
 
   final ChildRepository _repository;
   final ChildProfile child;
@@ -23,6 +25,7 @@ class IntroController extends ChangeNotifier {
   IntroStep _step = IntroStep.film;
   AvatarConfig _avatar;
   String _shipName;
+  RankForm? _rankForm;
   bool _busy = false;
   int _earnedXp = 0;
   bool _wishCreated = false;
@@ -30,6 +33,9 @@ class IntroController extends ChangeNotifier {
   IntroStep get step => _step;
   AvatarConfig get avatar => _avatar;
   String get shipName => _shipName;
+
+  /// Wie die Ränge heißen (Schiffsjunge … oder Schiffsmädchen …).
+  RankForm? get rankForm => _rankForm;
   bool get busy => _busy;
 
   /// Seemeilen aus dem Abschluss (für die Anzeige „+50 Seemeilen“).
@@ -46,8 +52,14 @@ class IntroController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveAvatar() => _run(IntroStep.avatar, IntroStep.ship, () {
+  Future<void> saveAvatar() => _run(IntroStep.avatar, IntroStep.rankForm, () {
     return _repository.updateLook(child.id, avatar: _avatar);
+  });
+
+  /// Das Kind wählt, wie seine Ränge heißen. Wird sofort gespeichert.
+  Future<void> chooseRankForm(RankForm form) => _run(IntroStep.rankForm, IntroStep.ship, () async {
+    await _repository.updateLook(child.id, rankForm: form);
+    _rankForm = form;
   });
 
   Future<void> christenShip(String name) {

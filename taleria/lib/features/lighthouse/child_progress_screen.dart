@@ -79,7 +79,9 @@ class _ChildProgressScreenState extends State<ChildProgressScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            rank == null ? l10n.rank(null) : l10n.parentLevel(rank.level, l10n.rank(rank)),
+                            rank == null
+                                ? l10n.rank(null, widget.child.rankForm)
+                                : l10n.parentLevel(rank.level, l10n.rank(rank, widget.child.rankForm)),
                             style: theme.textTheme.titleMedium,
                           ),
                           const SizedBox(height: 4),

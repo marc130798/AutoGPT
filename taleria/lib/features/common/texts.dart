@@ -81,7 +81,16 @@ extension TaleriaTexts on AppLocalizations {
     TaskStatus.rejected => taskStatusRejected,
   };
 
-  String rank(Rank? rank) => rankName(rank?.code ?? 'none');
+  /// Name eines Rangs in der Form, die das Kind gewählt hat (Schiffsjunge
+  /// oder Schiffsmädchen …). Noch nicht gewählt: beide Formen.
+  String rank(Rank? rank, RankForm? form) {
+    final code = rank?.code ?? 'none';
+    return switch (form) {
+      RankForm.junge => rankName(code),
+      RankForm.maedchen => rankNameMaedchen(code),
+      null => rankNameOpen(code),
+    };
+  }
 
   /// Tempo als Geschichte (CLAUDE.md Abschnitt 8): „Das Schiff braucht Wind,
   /// die nächste Station erreichst du am Donnerstag.“ Nie als Countdown.

@@ -310,6 +310,17 @@ und den Ordner `build/web` auf einen Webspace laden (wo, ist noch offen).
 Veröffentlichte Inhalte schützt die Datenbank: Korrekturen gehen, Pflichtstationen und
 Prüfungsfragen lassen sich aber nicht mehr entfernen oder zurückziehen.
 
+## Was du ausprobieren kannst (Rang-Namen, mit Test-Server)
+
+Vorher die Datenbank aktualisieren: im SQL Editor des **Testprojekts** den Inhalt von
+`supabase/migrations/20261010000100_rangform.sql` ausführen (geht auch zweimal) und danach
+`supabase/seed.sql` (jedes Fundstück bekommt sein eigenes Bild).
+
+1. Ein neues Kind wählt in der Einführung nach dem Avatar „Schiffsjunge“ oder „Schiffsmädchen“.
+2. Ein Kind, das schon vorher gespielt hat, fragt Tala einmal auf der Startseite.
+3. Danach heißen alle Ränge passend, zum Beispiel „Noch 1.450 Seemeilen bis Matrosin“.
+4. Im Leuchtturm auf der Kinderseite unter „Rang-Namen“ lässt es sich ändern.
+
 ## Was du ausprobieren kannst (Wunschflasche, mit Test-Server)
 
 Vorher die Datenbank aktualisieren (`npx supabase db push`, oder bei einem neuen Testprojekt

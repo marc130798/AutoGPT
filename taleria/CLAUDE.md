@@ -63,7 +63,7 @@ Im Code verwenden wir englische Namen. Die Texte in der App kommen aus diesem Gl
 | `savings_goal` | Wunschschatz | Sparziel |
 | `coin` | Taler | Taler |
 | `xp` | Seemeilen | Fortschritt |
-| `rank` | Rang (Schiffsjunge, Matrose, Bootsmann, Steuermann, Kapitän) | Level |
+| `rank` | Rang in der Form, die das Kind wählt: Schiffsjunge, Matrose, Bootsmann, Steuermann, Kapitän oder Schiffsmädchen, Matrosin, Bootsfrau, Steuerfrau, Kapitänin | Level |
 | `badge` | Orden | Abzeichen |
 | `streak` | Fahrtwind | Serie |
 | `certificate` | Goldene Schatzkarte | Finanzführerschein Stufe 1 |
@@ -619,5 +619,11 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Talo und Tala zeigen nacheinander jeden Bereich der Startseite mit seinem Bild, sagen, was er ist und wo er liegt („Wo? Auf der Startseite unter der Karte, links“): Karte, Rang mit Seemeilen und Fahrtwind, Schatztruhe, Aufträge, Orden, Sammlung, Leuchtturm und Ton. Weiter und Zurück, Punkte zeigen die Station.
 - Zu finden oben auf der Startseite (Knopf „Was ist wo?“ neben dem Ton-Knopf) und in der Einführung (ersetzt den alten Rundgang mit Symbolen und dem „Logbuch“, das es auf der Startseite nicht gibt).
 - Technik: `lib/features/child/board_tour.dart` (`BoardTour`, `BoardTourScreen`, `tourStops`); runde Knöpfe oben auf der Startseite teilen sich `DeckRoundButton` (`sound_button.dart`).
+
+**Rang-Namen für Mädchen und Jungen, umgesetzt am 10.10.2026 (Hinweis von Marc, mit ihm abgestimmt):**
+- Das Kind wählt in der Einführung nach dem Avatar, wie seine Ränge heißen: Schiffsjunge, Matrose, Bootsmann, Steuermann, Kapitän oder Schiffsmädchen, Matrosin, Bootsfrau, Steuerfrau, Kapitänin. Es ist die Wahl des Kindes, kein Geschlecht.
+- Neue Spalte `children.rank_form` (`junge`, `maedchen`, `null` = noch nicht gewählt), Migration `20261010000100_rangform.sql` (mehrfach ausführbar). Ändern nur über `update_child_look(…, p_rank_form)`, das dürfen Kinder-Gerät und Eltern.
+- Kinder, die vorher angefangen haben, fragt Tala einmal auf der Startseite. Bis dahin stehen beide Formen da („Schiffsjunge/Schiffsmädchen“). Eltern können es im Leuchtturm auf der Kinderseite unter „Rang-Namen“ ändern.
+- Alle Anzeigen (Startseite, neuer Rang nach Station und Begegnung, Abschluss der Einführung, Leuchtturm) nutzen `l10n.rank(rank, form)`. Die Ränge selbst und die Bilder `rank.<code>` bleiben gleich. Talo bleibt „der Kapitän“ (seine Figur).
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

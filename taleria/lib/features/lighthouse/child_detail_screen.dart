@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../domain/family_models.dart';
+import '../../domain/progress_models.dart';
 import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/lighthouse_controller.dart';
@@ -156,7 +157,45 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                PaceCard(childId: child.id),
+                // Rang-Namen: Schiffsjunge … oder Schiffsmädchen … (Wahl des Kindes, hier änderbar).
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(l10n.lighthouseRankForm, style: theme.textTheme.titleMedium),
+                        const SizedBox(height: 4),
+                        Text(l10n.lighthouseRankFormHint, style: theme.textTheme.bodySmall),
+                        const SizedBox(height: 12),
+                        SegmentedButton<RankForm>(
+                          key: const ValueKey('parent-rank-form'),
+                          emptySelectionAllowed: true,
+                          showSelectedIcon: false,
+                          segments: [
+                            for (final form in RankForm.values)
+                              ButtonSegment(
+                                value: form,
+                                label: Text(
+                                  '${l10n.rank(Rank.schiffsjunge, form)} …',
+                                  key: ValueKey('parent-rank-form-${form.name}'),
+                                ),
+                              ),
+                          ],
+                          selected: {?child.rankForm},
+                          onSelectionChanged: (selection) {
+                            if (selection.isEmpty) return;
+                            runWithFeedback(context, () async {
+                              await AppScope.of(context).children!.updateLook(child.id, rankForm: selection.first);
+                              await widget.controller.load();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                PaceCard(childId: child.id, rankForm: child.rankForm),
                 Card(
                   child: ListTile(
                     minTileHeight: 64,

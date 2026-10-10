@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/texts.dart';
 
 /// Rang, Seemeilen, Weg zum nächsten Rang und Fahrtwind (Kinderbereich).
 class StatsCard extends StatelessWidget {
-  const StatsCard({super.key, required this.stats});
+  const StatsCard({super.key, required this.stats, required this.rankForm});
 
   final ChildStats stats;
+
+  /// Schiffsjunge … oder Schiffsmädchen … (Wahl des Kindes).
+  final RankForm? rankForm;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +32,9 @@ class StatsCard extends StatelessWidget {
     } else if (next == null) {
       nextText = l10n.statsTopRank;
     } else if (stats.nextRankNeedsCertificate) {
-      nextText = l10n.statsNextRankCertificate;
+      nextText = l10n.statsNextRankCertificate(l10n.rank(next, rankForm));
     } else {
-      nextText = l10n.statsNextRank(stats.xpToNextRank ?? 0, l10n.rank(next));
+      nextText = l10n.statsNextRank(stats.xpToNextRank ?? 0, l10n.rank(next, rankForm));
     }
 
     // Papier mit goldenem Rand wie die Kacheln der Startseite.
@@ -60,7 +64,11 @@ class StatsCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l10n.rank(rank), key: const ValueKey('stats-rank'), style: theme.textTheme.titleLarge),
+                      Text(
+                        l10n.rank(rank, rankForm),
+                        key: const ValueKey('stats-rank'),
+                        style: theme.textTheme.titleLarge,
+                      ),
                       Text(
                         l10n.statsXp(stats.xp),
                         style: theme.textTheme.titleMedium?.copyWith(color: palette.gold, fontWeight: FontWeight.w800),

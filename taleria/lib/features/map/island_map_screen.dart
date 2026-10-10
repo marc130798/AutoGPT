@@ -210,7 +210,7 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
     }
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer),
+        builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm),
       ),
     );
     await _controller!.load();
@@ -230,7 +230,7 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       }
       await navigator.push(
         MaterialPageRoute<void>(
-          builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer),
+          builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm),
         ),
       );
       await controller.load();

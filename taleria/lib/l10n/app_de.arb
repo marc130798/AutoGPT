@@ -745,9 +745,14 @@
       }
     }
   },
-  "doneRank": "Dein Rang: Schiffsjunge",
+  "doneRank": "Dein Rang: {rank}",
   "@doneRank": {
-    "description": "Erster Rang nach dem Intro (Glossar)"
+    "description": "Intro-Abschluss: erster Rang in der gewählten Form",
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
   },
   "doneXp": "+{xp} Seemeilen",
   "@doneXp": {
@@ -1535,15 +1540,20 @@
       }
     }
   },
-  "statsNextRankCertificate": "Finde die Goldene Schatzkarte, dann wirst du Kapitän.",
+  "statsNextRankCertificate": "Finde die Goldene Schatzkarte, dann wirst du {rank}.",
   "@statsNextRankCertificate": {
-    "description": "Hinweis: Kapitän nur mit der Goldenen Schatzkarte"
+    "description": "Hinweis: Kapitän oder Kapitänin nur mit der Goldenen Schatzkarte",
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
   },
   "statsTopRank": "Du hast den höchsten Rang erreicht!",
   "@statsTopRank": {
     "description": "Hinweis beim Rang Kapitän"
   },
-  "statsNoRank": "Nach dem Intro wirst du Schiffsjunge.",
+  "statsNoRank": "Nach dem Intro bekommst du deinen ersten Rang.",
   "@statsNoRank": {
     "description": "Hinweis vor dem ersten Rang"
   },
@@ -2580,7 +2590,7 @@
   "@tourRankWhere": {
     "description": "Rundgang: wo Rang und Seemeilen stehen"
   },
-  "tourRankBody": "Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, vom Schiffsjungen bis zum Kapitän. Spielst du jede Woche, bekommst du Fahrtwind.",
+  "tourRankBody": "Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind.",
   "@tourRankBody": {
     "description": "Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind"
   },
@@ -2635,5 +2645,51 @@
   "tourLighthouseBody": "Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.",
   "@tourLighthouseBody": {
     "description": "Rundgang: Talo erklärt Leuchtturm, Ton und den Rundgang-Knopf"
+  },
+  "rankNameMaedchen": "{rank, select, schiffsjunge{Schiffsmädchen} matrose{Matrosin} bootsmann{Bootsfrau} steuermann{Steuerfrau} kapitaen{Kapitänin} other{Neu an Bord}}",
+  "@rankNameMaedchen": {
+    "description": "Rang-Namen in der Form, die Mädchen meist wählen (Glossar)",
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "rankNameOpen": "{rank, select, schiffsjunge{Schiffsjunge/Schiffsmädchen} matrose{Matrose/Matrosin} bootsmann{Bootsmann/Bootsfrau} steuermann{Steuermann/Steuerfrau} kapitaen{Kapitän/Kapitänin} other{Neu an Bord}}",
+  "@rankNameOpen": {
+    "description": "Rang-Namen, solange das Kind die Form noch nicht gewählt hat: beide Formen",
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "rankFormTitle": "Dein Rang",
+  "@rankFormTitle": {
+    "description": "Einführung und Startseite: Überschrift der Wahl Schiffsjunge oder Schiffsmädchen"
+  },
+  "rankFormQuestion": "Jetzt gehörst du zur Crew! Neue Crew-Mitglieder bekommen ihren ersten Rang. Wie soll deiner heißen?",
+  "@rankFormQuestion": {
+    "description": "Tala fragt, ob die Ränge Schiffsjunge … oder Schiffsmädchen … heißen sollen"
+  },
+  "rankFormLadderJunge": "Danach: Matrose, Bootsmann, Steuermann, Kapitän",
+  "@rankFormLadderJunge": {
+    "description": "Unter der Wahl Schiffsjunge: die weiteren Ränge"
+  },
+  "rankFormLadderMaedchen": "Danach: Matrosin, Bootsfrau, Steuerfrau, Kapitänin",
+  "@rankFormLadderMaedchen": {
+    "description": "Unter der Wahl Schiffsmädchen: die weiteren Ränge"
+  },
+  "rankFormHint": "Du kannst es später ändern: Deine Eltern können das im Leuchtturm umstellen.",
+  "@rankFormHint": {
+    "description": "Hinweis unter der Wahl der Rang-Namen"
+  },
+  "lighthouseRankForm": "Rang-Namen",
+  "@lighthouseRankForm": {
+    "description": "Leuchtturm, Kinderseite: Einstellung, wie die Ränge heißen"
+  },
+  "lighthouseRankFormHint": "Dein Kind hat das in der Einführung gewählt. Hier kannst du es ändern.",
+  "@lighthouseRankFormHint": {
+    "description": "Leuchtturm: Erklärung unter der Einstellung Rang-Namen"
   }
 }

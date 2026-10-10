@@ -23,6 +23,7 @@ void main() {
     intro.joinCrew();
     intro.updateAvatar(const AvatarConfig(hat: Hat.bandana));
     await intro.saveAvatar();
+    await intro.chooseRankForm(RankForm.maedchen);
     await intro.christenShip(' Seestern ');
     intro.tourFinished();
   }
@@ -35,12 +36,27 @@ void main() {
     expect(intro.step, IntroStep.wish);
     expect(backend.childById(mila.id).avatar?.hat, Hat.bandana);
     expect(backend.childById(mila.id).shipName, 'Seestern');
+    expect(backend.childById(mila.id).rankForm, RankForm.maedchen);
+    expect(intro.rankForm, RankForm.maedchen);
+  });
+
+  test('Rang-Namen: erst nach dem Avatar, vor der Schiffstaufe', () async {
+    intro.filmFinished();
+    intro.joinCrew();
+    await intro.chooseRankForm(RankForm.junge); // geht noch nicht
+    expect(backend.childById(mila.id).rankForm, isNull);
+    await intro.saveAvatar();
+    expect(intro.step, IntroStep.rankForm);
+    await intro.chooseRankForm(RankForm.junge);
+    expect(intro.step, IntroStep.ship);
+    expect(backend.childById(mila.id).rankForm, RankForm.junge);
   });
 
   test('Ungültiger Schiffsname wird nicht gesendet', () async {
     intro.filmFinished();
     intro.joinCrew();
     await intro.saveAvatar();
+    await intro.chooseRankForm(RankForm.junge);
     expect(() => intro.christenShip('!'), throwsArgumentError);
     expect(intro.step, IntroStep.ship);
   });
@@ -70,6 +86,7 @@ void main() {
     again.filmFinished();
     again.joinCrew();
     await again.saveAvatar();
+    await again.chooseRankForm(RankForm.maedchen);
     await again.christenShip('Seestern');
     again.tourFinished();
     await again.skipWish();
@@ -86,7 +103,7 @@ void main() {
 
     backend.failWith = null;
     await intro.saveAvatar();
-    expect(intro.step, IntroStep.ship);
+    expect(intro.step, IntroStep.rankForm);
   });
 
   test('Fremdes Kind: Server lehnt ab', () async {

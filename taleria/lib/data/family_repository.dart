@@ -55,7 +55,7 @@ class SupabaseFamilyRepository implements FamilyRepository {
   // Nie "*" abfragen: die PIN-Prüfsumme ist für die App gesperrt.
   static const _parentColumns = 'id, user_id, has_parent_pin';
   static const _childColumns =
-      'id, nickname, birth_year, level_setting, stage, avatar, ship_name, onboarding_completed_at';
+      'id, nickname, birth_year, level_setting, stage, avatar, ship_name, onboarding_completed_at, rank_form';
 
   @override
   Future<ParentAccount?> fetchParent() => guardBackend(() async {
@@ -182,6 +182,7 @@ class SupabaseFamilyRepository implements FamilyRepository {
       avatar: avatar == null || avatar.isEmpty ? null : AvatarConfig.fromJson(avatar),
       shipName: row['ship_name'] as String?,
       onboardingCompleted: row['onboarding_completed_at'] != null,
+      rankForm: RankForm.parse(row['rank_form']),
     );
   }
 }

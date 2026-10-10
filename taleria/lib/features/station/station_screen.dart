@@ -354,7 +354,7 @@ class _ResultView extends StatelessWidget {
                 Center(child: RewardPop(assetKey: AssetKeys.rank(result.rankUp!.code))),
                 const SizedBox(height: 12),
                 Text(
-                  l10n.rankUpTitle(l10n.rank(result.rankUp)),
+                  l10n.rankUpTitle(l10n.rank(result.rankUp, controller.child.rankForm)),
                   key: const ValueKey('result-rank-up'),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineSmall,

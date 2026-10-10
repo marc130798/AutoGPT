@@ -1105,11 +1105,11 @@ abstract class AppLocalizations {
   /// **'Willkommen in der Crew, {nickname}!'**
   String doneTitle(String nickname);
 
-  /// Erster Rang nach dem Intro (Glossar)
+  /// Intro-Abschluss: erster Rang in der gewählten Form
   ///
   /// In de, this message translates to:
-  /// **'Dein Rang: Schiffsjunge'**
-  String get doneRank;
+  /// **'Dein Rang: {rank}'**
+  String doneRank(String rank);
 
   /// Gutgeschriebene Seemeilen
   ///
@@ -2053,11 +2053,11 @@ abstract class AppLocalizations {
   /// **'Noch {xp} Seemeilen bis {rank}'**
   String statsNextRank(int xp, String rank);
 
-  /// Hinweis: Kapitän nur mit der Goldenen Schatzkarte
+  /// Hinweis: Kapitän oder Kapitänin nur mit der Goldenen Schatzkarte
   ///
   /// In de, this message translates to:
-  /// **'Finde die Goldene Schatzkarte, dann wirst du Kapitän.'**
-  String get statsNextRankCertificate;
+  /// **'Finde die Goldene Schatzkarte, dann wirst du {rank}.'**
+  String statsNextRankCertificate(String rank);
 
   /// Hinweis beim Rang Kapitän
   ///
@@ -2068,7 +2068,7 @@ abstract class AppLocalizations {
   /// Hinweis vor dem ersten Rang
   ///
   /// In de, this message translates to:
-  /// **'Nach dem Intro wirst du Schiffsjunge.'**
+  /// **'Nach dem Intro bekommst du deinen ersten Rang.'**
   String get statsNoRank;
 
   /// Fahrtwind (Serie) in Wochen, Kinderbereich
@@ -3202,7 +3202,7 @@ abstract class AppLocalizations {
   /// Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind
   ///
   /// In de, this message translates to:
-  /// **'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, vom Schiffsjungen bis zum Kapitän. Spielst du jede Woche, bekommst du Fahrtwind.'**
+  /// **'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind.'**
   String get tourRankBody;
 
   /// Rundgang: wo die Schatztruhe ist
@@ -3282,6 +3282,60 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.'**
   String get tourLighthouseBody;
+
+  /// Rang-Namen in der Form, die Mädchen meist wählen (Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'{rank, select, schiffsjunge{Schiffsmädchen} matrose{Matrosin} bootsmann{Bootsfrau} steuermann{Steuerfrau} kapitaen{Kapitänin} other{Neu an Bord}}'**
+  String rankNameMaedchen(String rank);
+
+  /// Rang-Namen, solange das Kind die Form noch nicht gewählt hat: beide Formen
+  ///
+  /// In de, this message translates to:
+  /// **'{rank, select, schiffsjunge{Schiffsjunge/Schiffsmädchen} matrose{Matrose/Matrosin} bootsmann{Bootsmann/Bootsfrau} steuermann{Steuermann/Steuerfrau} kapitaen{Kapitän/Kapitänin} other{Neu an Bord}}'**
+  String rankNameOpen(String rank);
+
+  /// Einführung und Startseite: Überschrift der Wahl Schiffsjunge oder Schiffsmädchen
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Rang'**
+  String get rankFormTitle;
+
+  /// Tala fragt, ob die Ränge Schiffsjunge … oder Schiffsmädchen … heißen sollen
+  ///
+  /// In de, this message translates to:
+  /// **'Jetzt gehörst du zur Crew! Neue Crew-Mitglieder bekommen ihren ersten Rang. Wie soll deiner heißen?'**
+  String get rankFormQuestion;
+
+  /// Unter der Wahl Schiffsjunge: die weiteren Ränge
+  ///
+  /// In de, this message translates to:
+  /// **'Danach: Matrose, Bootsmann, Steuermann, Kapitän'**
+  String get rankFormLadderJunge;
+
+  /// Unter der Wahl Schiffsmädchen: die weiteren Ränge
+  ///
+  /// In de, this message translates to:
+  /// **'Danach: Matrosin, Bootsfrau, Steuerfrau, Kapitänin'**
+  String get rankFormLadderMaedchen;
+
+  /// Hinweis unter der Wahl der Rang-Namen
+  ///
+  /// In de, this message translates to:
+  /// **'Du kannst es später ändern: Deine Eltern können das im Leuchtturm umstellen.'**
+  String get rankFormHint;
+
+  /// Leuchtturm, Kinderseite: Einstellung, wie die Ränge heißen
+  ///
+  /// In de, this message translates to:
+  /// **'Rang-Namen'**
+  String get lighthouseRankForm;
+
+  /// Leuchtturm: Erklärung unter der Einstellung Rang-Namen
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Kind hat das in der Einführung gewählt. Hier kannst du es ändern.'**
+  String get lighthouseRankFormHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

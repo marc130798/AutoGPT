@@ -558,7 +558,9 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get doneRank => 'Dein Rang: Schiffsjunge';
+  String doneRank(String rank) {
+    return 'Dein Rang: $rank';
+  }
 
   @override
   String doneXp(int xp) {
@@ -1115,13 +1117,15 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get statsNextRankCertificate => 'Finde die Goldene Schatzkarte, dann wirst du Kapitän.';
+  String statsNextRankCertificate(String rank) {
+    return 'Finde die Goldene Schatzkarte, dann wirst du $rank.';
+  }
 
   @override
   String get statsTopRank => 'Du hast den höchsten Rang erreicht!';
 
   @override
-  String get statsNoRank => 'Nach dem Intro wirst du Schiffsjunge.';
+  String get statsNoRank => 'Nach dem Intro bekommst du deinen ersten Rang.';
 
   @override
   String streakWeeks(int weeks) {
@@ -1870,7 +1874,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourRankBody =>
-      'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, vom Schiffsjungen bis zum Kapitän. Spielst du jede Woche, bekommst du Fahrtwind.';
+      'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind.';
 
   @override
   String get tourChestWhere => 'Auf der Startseite unter der Karte, links';
@@ -1914,4 +1918,52 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get tourLighthouseBody =>
       'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.';
+
+  @override
+  String rankNameMaedchen(String rank) {
+    String _temp0 = intl.Intl.selectLogic(rank, {
+      'schiffsjunge': 'Schiffsmädchen',
+      'matrose': 'Matrosin',
+      'bootsmann': 'Bootsfrau',
+      'steuermann': 'Steuerfrau',
+      'kapitaen': 'Kapitänin',
+      'other': 'Neu an Bord',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String rankNameOpen(String rank) {
+    String _temp0 = intl.Intl.selectLogic(rank, {
+      'schiffsjunge': 'Schiffsjunge/Schiffsmädchen',
+      'matrose': 'Matrose/Matrosin',
+      'bootsmann': 'Bootsmann/Bootsfrau',
+      'steuermann': 'Steuermann/Steuerfrau',
+      'kapitaen': 'Kapitän/Kapitänin',
+      'other': 'Neu an Bord',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get rankFormTitle => 'Dein Rang';
+
+  @override
+  String get rankFormQuestion =>
+      'Jetzt gehörst du zur Crew! Neue Crew-Mitglieder bekommen ihren ersten Rang. Wie soll deiner heißen?';
+
+  @override
+  String get rankFormLadderJunge => 'Danach: Matrose, Bootsmann, Steuermann, Kapitän';
+
+  @override
+  String get rankFormLadderMaedchen => 'Danach: Matrosin, Bootsfrau, Steuerfrau, Kapitänin';
+
+  @override
+  String get rankFormHint => 'Du kannst es später ändern: Deine Eltern können das im Leuchtturm umstellen.';
+
+  @override
+  String get lighthouseRankForm => 'Rang-Namen';
+
+  @override
+  String get lighthouseRankFormHint => 'Dein Kind hat das in der Einführung gewählt. Hier kannst du es ändern.';
 }

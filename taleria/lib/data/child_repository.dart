@@ -1,13 +1,14 @@
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import '../domain/avatar.dart';
+import '../domain/family_models.dart';
 import 'backend_errors.dart';
 
 /// Was ein Kind (oder seine Eltern für es) selbst speichern darf:
-/// Avatar, Schiffsname, Wunschschätze und der Abschluss des Intros.
+/// Avatar, Schiffsname, Form der Rang-Namen, Wunschschätze und der Abschluss des Intros.
 /// Die Rechte prüft die Datenbank (can_act_for_child).
 abstract interface class ChildRepository {
-  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName});
+  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName, RankForm? rankForm});
 
   Future<void> createSavingsGoal(String childId, {required String title, required int targetCents});
 
@@ -22,10 +23,15 @@ class SupabaseChildRepository implements ChildRepository {
   final sb.SupabaseClient _client;
 
   @override
-  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName}) => guardBackend(
+  Future<void> updateLook(String childId, {AvatarConfig? avatar, String? shipName, RankForm? rankForm}) => guardBackend(
     () => _client.rpc<void>(
       'update_child_look',
-      params: {'p_child_id': childId, 'p_avatar': avatar?.toJson(), 'p_ship_name': shipName?.trim()},
+      params: {
+        'p_child_id': childId,
+        'p_avatar': avatar?.toJson(),
+        'p_ship_name': shipName?.trim(),
+        'p_rank_form': rankForm?.name,
+      },
     ),
   );
 

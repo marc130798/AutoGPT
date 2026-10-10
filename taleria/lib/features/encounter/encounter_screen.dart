@@ -18,9 +18,12 @@ import '../station/dialog_sequence.dart';
 /// erklärt, und das Kind versucht es gleich noch einmal. Gibt beim Schließen
 /// das Ergebnis zurück (oder `null`, wenn das Kind vorher abbricht).
 class EncounterScreen extends StatefulWidget {
-  const EncounterScreen({super.key, required this.childId, required this.offer});
+  const EncounterScreen({super.key, required this.childId, required this.offer, this.rankForm});
 
   final String childId;
+
+  /// Für den Namen eines neuen Rangs (Schiffsjunge … oder Schiffsmädchen …).
+  final RankForm? rankForm;
   final EncounterOffer offer;
 
   @override
@@ -72,7 +75,7 @@ class _EncounterScreenState extends State<EncounterScreen> {
             ],
           ),
           EncounterStep.question => _RiddleView(controller: controller),
-          EncounterStep.result => _ResultView(controller: controller),
+          EncounterStep.result => _ResultView(controller: controller, rankForm: widget.rankForm),
           EncounterStep.failed => Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
@@ -209,9 +212,10 @@ class _RiddleView extends StatelessWidget {
 }
 
 class _ResultView extends StatelessWidget {
-  const _ResultView({required this.controller});
+  const _ResultView({required this.controller, required this.rankForm});
 
   final EncounterController controller;
+  final RankForm? rankForm;
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +254,7 @@ class _ResultView extends StatelessWidget {
                 Center(child: RewardPop(assetKey: AssetKeys.rank(result.rankUp!.code))),
                 const SizedBox(height: 12),
                 Text(
-                  l10n.rankUpTitle(l10n.rank(result.rankUp)),
+                  l10n.rankUpTitle(l10n.rank(result.rankUp, rankForm)),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.headlineSmall,
                 ),

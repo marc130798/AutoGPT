@@ -16,6 +16,20 @@ enum LevelSetting {
       LevelSetting.values.firstWhere((l) => l.code == code, orElse: () => LevelSetting.beginner);
 }
 
+/// Wie die Ränge des Kindes heißen (das Kind wählt, nicht das Geschlecht):
+/// Schiffsjunge … Kapitän oder Schiffsmädchen … Kapitänin.
+enum RankForm {
+  junge,
+  maedchen;
+
+  /// Wert in der Datenbank (`children.rank_form`), `null` = noch nicht gewählt.
+  static RankForm? parse(Object? code) => switch (code) {
+    'junge' => RankForm.junge,
+    'maedchen' => RankForm.maedchen,
+    _ => null,
+  };
+}
+
 class ParentAccount {
   const ParentAccount({required this.id, required this.userId, required this.hasPin});
 
@@ -36,6 +50,7 @@ class ChildProfile {
     this.avatar,
     this.shipName,
     this.onboardingCompleted = false,
+    this.rankForm,
   });
 
   final String id;
@@ -55,15 +70,27 @@ class ChildProfile {
   /// Intro (Station 1 des Hafens) abgeschlossen?
   final bool onboardingCompleted;
 
-  ChildProfile copyWith({String? nickname, int? birthYear, LevelSetting? level}) => ChildProfile(
+  /// Form der Rang-Namen, `null`, solange das Kind noch nicht gewählt hat.
+  final RankForm? rankForm;
+
+  ChildProfile copyWith({
+    String? nickname,
+    int? birthYear,
+    LevelSetting? level,
+    AvatarConfig? avatar,
+    String? shipName,
+    bool? onboardingCompleted,
+    RankForm? rankForm,
+  }) => ChildProfile(
     id: id,
     nickname: nickname ?? this.nickname,
     birthYear: birthYear ?? this.birthYear,
     level: level ?? this.level,
     stage: stage,
-    avatar: avatar,
-    shipName: shipName,
-    onboardingCompleted: onboardingCompleted,
+    avatar: avatar ?? this.avatar,
+    shipName: shipName ?? this.shipName,
+    onboardingCompleted: onboardingCompleted ?? this.onboardingCompleted,
+    rankForm: rankForm ?? this.rankForm,
   );
 }
 

@@ -7,15 +7,18 @@ import '../../core/assets/taleria_asset.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
+import '../../domain/progress_models.dart';
 import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/intro_controller.dart';
 import '../../services/session_controller.dart';
 import '../child/board_tour.dart';
 import '../child/lighthouse_button.dart';
+import '../child/rank_form_choice.dart';
 import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
 import '../common/button_spinner.dart';
+import '../common/texts.dart';
 import '../map/map_screen.dart';
 import 'speech_bubble.dart';
 
@@ -56,6 +59,7 @@ class _IntroFlowScreenState extends State<IntroFlowScreen> {
           IntroStep.film => VideoPlaceholder(assetKey: AssetKeys.introVideo, onContinue: controller.filmFinished),
           IntroStep.story => _StoryStep(onJoin: controller.joinCrew),
           IntroStep.avatar => _AvatarStep(controller: controller),
+          IntroStep.rankForm => _RankFormStep(controller: controller),
           IntroStep.ship => _ShipStep(controller: controller),
           IntroStep.tour => BoardTour(onDone: controller.tourFinished),
           IntroStep.wish => _WishStep(controller: controller),
@@ -336,6 +340,39 @@ class _Section extends StatelessWidget {
 }
 
 // -----------------------------------------------------------------------------
+// Rang-Namen
+// -----------------------------------------------------------------------------
+
+/// Tala fragt, wie die Ränge heißen sollen: Schiffsjunge … oder Schiffsmädchen ….
+class _RankFormStep extends StatelessWidget {
+  const _RankFormStep({required this.controller});
+
+  final IntroController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Text(l10n.rankFormTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
+        const SizedBox(height: 16),
+        SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.rankFormQuestion),
+        const SizedBox(height: 20),
+        RankFormChoice(
+          selected: controller.rankForm,
+          busy: controller.busy,
+          onChoose: (form) => runWithFeedback(context, () => controller.chooseRankForm(form)),
+        ),
+        const SizedBox(height: 16),
+        Text(l10n.rankFormHint, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+      ],
+    );
+  }
+}
+
+// -----------------------------------------------------------------------------
 // Schiffstaufe
 // -----------------------------------------------------------------------------
 
@@ -551,9 +588,14 @@ class _DoneStep extends StatelessWidget {
                 style: theme.textTheme.headlineSmall,
               ),
               const SizedBox(height: 24),
-              Center(child: TaleriaAsset(AssetKeys.rank('schiffsjunge'), width: 88, height: 88)),
+              Center(child: TaleriaAsset(AssetKeys.rank(Rank.schiffsjunge.code), width: 88, height: 88)),
               const SizedBox(height: 8),
-              Text(l10n.doneRank, textAlign: TextAlign.center, style: theme.textTheme.titleMedium),
+              Text(
+                l10n.doneRank(l10n.rank(Rank.schiffsjunge, controller.rankForm)),
+                key: const ValueKey('intro-done-rank'),
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleMedium,
+              ),
               if (controller.earnedXp > 0) ...[
                 const SizedBox(height: 8),
                 Text(

@@ -54,6 +54,12 @@ void main() {
     await tapText(tester, 'Strohhut');
     await tapText(tester, 'So sehe ich aus!');
 
+    // Rang-Namen: Mila wählt Schiffsmädchen
+    expect(find.text('Dein Rang'), findsOneWidget);
+    expect(find.text('Danach: Matrosin, Bootsfrau, Steuerfrau, Kapitänin'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('rank-form-maedchen')));
+    await tester.pumpAndSettle();
+
     // Schiffstaufe: zu kurzer Name, dann Vorschlag
     expect(find.text('Taufe dein Schiff'), findsOneWidget);
     await tester.enterText(find.byKey(const ValueKey('ship-name-field')), 'X');
@@ -91,7 +97,7 @@ void main() {
 
     // Abschluss
     expect(find.text('Willkommen in der Crew, Mila!'), findsOneWidget);
-    expect(find.text('Dein Rang: Schiffsjunge'), findsOneWidget);
+    expect(find.text('Dein Rang: Schiffsmädchen'), findsOneWidget);
     expect(find.text('+50 Seemeilen'), findsOneWidget);
     expect(find.text('Dein Wunschschatz liegt in der Schatztruhe.'), findsOneWidget);
 
@@ -109,6 +115,7 @@ void main() {
     final mila = backend.children.single;
     expect(mila.onboardingCompleted, isTrue);
     expect(mila.shipName, 'Goldmöwe');
+    expect(mila.rankForm, RankForm.maedchen);
     expect(mila.avatar?.hat, Hat.straw);
     expect(mila.avatar?.hairStyle, HairStyle.curly);
     expect(backend.savingsGoals.single.title, 'Fahrradhelm');

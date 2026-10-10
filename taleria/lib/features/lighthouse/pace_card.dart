@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/child_stats_controller.dart';
 import '../common/busy_action.dart';
@@ -9,9 +10,10 @@ import '../common/texts.dart';
 /// Leuchtturm: Fortschritt in Kürze, Tempo (Stationen pro Woche) und Pause
 /// der Serie. Elternwörter laut Glossar: Level, Fortschritt, Abzeichen, Serie, Tempo.
 class PaceCard extends StatefulWidget {
-  const PaceCard({super.key, required this.childId});
+  const PaceCard({super.key, required this.childId, required this.rankForm});
 
   final String childId;
+  final RankForm? rankForm;
 
   @override
   State<PaceCard> createState() => _PaceCardState();
@@ -74,7 +76,9 @@ class _PaceCardState extends State<PaceCard> {
                 Text(l10n.paceHeading, style: theme.textTheme.titleMedium),
                 const SizedBox(height: 8),
                 Text(
-                  rank == null ? l10n.rank(null) : l10n.parentLevel(rank.level, l10n.rank(rank)),
+                  rank == null
+                      ? l10n.rank(null, widget.rankForm)
+                      : l10n.parentLevel(rank.level, l10n.rank(rank, widget.rankForm)),
                   style: theme.textTheme.bodyLarge,
                 ),
                 Text(l10n.parentProgressXp(stats.xp)),

@@ -13,16 +13,22 @@ import '../../l10n/app_localizations.dart';
 import '../../services/child_stats_controller.dart';
 import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
+import '../common/busy_action.dart';
+import '../common/menu_music.dart';
+import '../common/scene_background.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
+import '../intro/speech_bubble.dart';
 import '../map/island_map_screen.dart';
 import '../progress/badges_screen.dart';
 import '../progress/collection_screen.dart';
 import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
-import '../common/menu_music.dart';
 import 'board_tour.dart';
+
 import 'lighthouse_button.dart';
+
+import 'rank_form_choice.dart';
 import 'sound_button.dart';
 
 /// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck mit Talo,
@@ -72,6 +78,8 @@ class ChildHomeScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   _WelcomeCard(nickname: child.nickname, shipName: child.shipName),
                   const SizedBox(height: 16),
+                  // Wer vor dieser Frage schon gespielt hat, wählt einmal hier.
+                  if (child.rankForm == null) ...[_RankFormCard(childId: child.id), const SizedBox(height: 16)],
                   _ProgressSection(
                     state: state,
                     budgetRow: IntrinsicHeight(
@@ -105,6 +113,47 @@ class ChildHomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Einmalige Frage, wie die Ränge heißen sollen (für Kinder, die vor der
+/// Frage in der Einführung angefangen haben). Verschwindet nach der Wahl.
+class _RankFormCard extends StatefulWidget {
+  const _RankFormCard({required this.childId});
+
+  final String childId;
+
+  @override
+  State<_RankFormCard> createState() => _RankFormCardState();
+}
+
+class _RankFormCardState extends State<_RankFormCard> {
+  bool _busy = false;
+
+  Future<void> _choose(RankForm form) async {
+    final services = AppScope.of(context);
+    setState(() => _busy = true);
+    await runWithFeedback(context, () async {
+      await services.children!.updateLook(widget.childId, rankForm: form);
+      await services.session.refresh();
+    });
+    if (mounted) setState(() => _busy = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return PaperCard(
+      key: const ValueKey('home-rank-form'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.think, text: l10n.rankFormQuestion),
+          const SizedBox(height: 16),
+          RankFormChoice(busy: _busy, onChoose: _choose),
+        ],
       ),
     );
   }
@@ -549,7 +598,7 @@ class _ProgressSectionState extends State<_ProgressSection> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (stats != null) ...[StatsCard(stats: stats), const SizedBox(height: 16)],
+            if (stats != null) ...[StatsCard(stats: stats, rankForm: _child.rankForm), const SizedBox(height: 16)],
             _MapTile(onTap: () => _open(IslandMapScreen(child: _child))),
             const SizedBox(height: 12),
             widget.budgetRow,

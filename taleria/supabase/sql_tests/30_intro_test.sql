@@ -43,6 +43,34 @@ select test_helpers.expect_error(
   $$select public.update_child_look('c3000000-0000-0000-0000-000000000002', '{}', 'Fremd')$$,
   'nicht gefunden', 'Kinder-Gerät kann fremde Profile nicht ändern');
 
+-- Form der Rang-Namen (Schiffsjunge oder Schiffsmädchen)
+select test_helpers.expect_true(
+  (select rank_form is null from public.children), 'Neues Kind: Form der Rang-Namen noch nicht gewählt');
+select public.update_child_look('c3000000-0000-0000-0000-000000000001', null, null, 'maedchen');
+select test_helpers.expect_true(
+  (select rank_form = 'maedchen' and ship_name = 'Seestern' and avatar ->> 'hat' = 'captain' from public.children),
+  'Kinder-Gerät wählt die Form der Rang-Namen, Avatar und Schiff bleiben');
+select public.update_child_look('c3000000-0000-0000-0000-000000000001', null, 'Seestern');
+select test_helpers.expect_true(
+  (select rank_form = 'maedchen' from public.children), 'Ohne Angabe bleibt die gewählte Form');
+select test_helpers.expect_error(
+  $$select public.update_child_look('c3000000-0000-0000-0000-000000000001', null, null, 'pirat')$$,
+  'children_rank_form_check', 'Nur junge oder maedchen');
+select test_helpers.expect_error(
+  $$select public.update_child_look('c3000000-0000-0000-0000-000000000002', null, null, 'junge')$$,
+  'nicht gefunden', 'Kinder-Gerät ändert die Form nicht bei fremden Kindern');
+select test_helpers.expect_error(
+  $$update public.children set rank_form = 'junge'$$,
+  'permission denied', 'Direkt ändern geht nicht, nur über update_child_look');
+
+select test_helpers.login('a3000000-0000-0000-0000-000000000001');
+select public.update_child_look('c3000000-0000-0000-0000-000000000001', null, null, 'junge');
+select test_helpers.expect_true(
+  (select rank_form = 'junge' from public.children where id = 'c3000000-0000-0000-0000-000000000001'),
+  'Eltern ändern die Form im Leuchtturm');
+select public.update_child_look('c3000000-0000-0000-0000-000000000001', null, null, 'maedchen');
+select test_helpers.login('d3000000-0000-0000-0000-000000000001', 'aal1', true);
+
 -- ---------------------------------------------------------------------------
 -- Erster Wunschschatz
 -- ---------------------------------------------------------------------------
