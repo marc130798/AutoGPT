@@ -346,9 +346,9 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 ## 15. Offene Punkte
 
 - Rolle von Tala als Zahlmeisterin ist ein Vorschlag.
-- Aussehen von Meister Taleron steht noch aus (alt, weise, freundlich, nicht gruselig).
+- Aussehen von Meister Taleron: erledigt, Bild von Marc (`character.taleron`, Abschnitt 16).
 - Preis: Startannahme 4,99 bis 6,99 € pro Monat oder 39 bis 59 € pro Jahr pro Familie, noch zu testen.
-- Bilder von Talo, Tala und der Karte stehen noch aus (Marc erstellt sie mit Gemini, `BILDER.md`). Bis dahin Platzhalter verwenden.
+- Bilder von Talo, Tala und der Karte: erledigt (Stand in `BILDER.md`). Wo noch ein Bild fehlt, zeigt die App weiter den Platzhalter.
 - Technik-Stack ist ein Vorschlag und wird vor Projektstart bestätigt.
 
 ---
@@ -627,3 +627,53 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Alle Anzeigen (Startseite, neuer Rang nach Station und Begegnung, Abschluss der Einführung, Leuchtturm) nutzen `l10n.rank(rank, form)`. Die Ränge selbst und die Bilder `rank.<code>` bleiben gleich. Talo bleibt „der Kapitän“ (seine Figur).
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.
+
+---
+
+## 17. Aktueller Stand und nächste Schritte (Stand 10.10.2026)
+
+Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Abschnitt 16.
+
+**Stand:**
+- Die MVP-Schritte 1 bis 11 sind gebaut. Schritt 9 gibt es nur ohne Kauf (9a).
+- Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
+- Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
+- Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
+- Alle Tests sind grün: 308 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
+
+**Letzte Testversion (10.10.2026):**
+- Datei: `build/taleria_test_web.zip`, 26,5 MB. Das Skript lässt ungenutzte Web-Dateien weg, damit die Datei unter 30 MB bleibt.
+- Vorher im Testprojekt ausführen: erst `20261010000100_rangform.sql`, dann `supabase/seed.sql`.
+- Danach die ZIP bei Netlify unter Deploys hochladen.
+
+**Arbeitsweise mit Marc (zusätzlich zu Abschnitt 1):**
+- Vor jedem Schritt sagen, was als Nächstes kommt.
+- Eine Testversion (ZIP) nur bauen, wenn Marc es sagt.
+- Bilder macht Marc mit Gemini, auf pinkem Hintergrund (#FF00FF). Bei rosa Figuren nimmt er einen grünen Hintergrund.
+- Claude stellt die Bilder mit `tool/bilder_freistellen.py` frei.
+- Schickt Marc Bilder, während Claude noch arbeitet, kommen sie nicht an. Er schickt sie dann noch einmal neu.
+
+**Nächste Schritte:**
+1. Marc testet die Testversion. Besonders wichtig: Läuft die Musik jetzt auf dem iPhone? Seine Rückmeldungen umsetzen.
+2. Kleine offene Punkte:
+   - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
+   - `rank.kapitaen`, `badge.wunschinsel` und `collectible.wreck_item` zeigen ein englisches „E“ für Osten. Diese Bilder neu machen, mit „O“ oder ohne Buchstaben.
+   - Töne für die Mini-Spiele.
+   - Musik-Einstellung der Eltern für das Kinder-Gerät aus der Ferne. Dafür braucht es ein Feld in der Datenbank, vorher Marc fragen.
+3. Vor einer Beta mit fremden Familien:
+   - „Powered by Netlify“ entfernen.
+   - Eine eigene Schrift einbinden, statt Roboto von Google.
+   - Datenschutzerklärung, Impressum und AGB rechtlich prüfen lassen.
+   - Die Nutzungsbedingungen von Gemini klären.
+   - Die Entwürfe prüfen: Marc und eine Fachperson. Danach den `status` in den Inhaltsdateien setzen und die Live-Datenbank nur über `supabase/inhalte_live.sql` füllen.
+4. Später:
+   - Schritt 9b: Kaufen mit RevenueCat, sobald Store-Konten und Preise da sind.
+   - Filme: Intro und Ankunftsfilme.
+   - Inhalte für die Inseln 4 bis 15.
+   - Das Tauch-Spiel „Muscheln zählen“.
+   - Die Urkunde als PDF.
+   - Passwort zurücksetzen.
+   - QR-Code zum Anmelden.
+   - Captcha.
+   - Nach der Beta Schritt 12: der eigene Adminbereich.
