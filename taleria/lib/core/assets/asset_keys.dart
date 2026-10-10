@@ -18,6 +18,14 @@ abstract final class AssetKeys {
 
   static const lighthouse = 'parent.lighthouse';
 
+  /// Startseite des Kindes: Hintergrund und Bilder der Kacheln (BILDER.md, Abschnitt 4).
+  static const homeBackground = 'home.background';
+  static const iconMap = 'icon.map';
+  static const iconTreasure = 'icon.treasure';
+  static const iconTasks = 'icon.tasks';
+  static const iconBadges = 'icon.badges';
+  static const iconCollection = 'icon.collection';
+
   static const underwaterBackground = 'underwater.background';
   static const pearl = 'collectible.pearl';
 
@@ -44,6 +52,13 @@ abstract final class AssetKeys {
     mapFog,
     mapLock,
     ...mapClouds,
+    lighthouse,
+    homeBackground,
+    iconMap,
+    iconTreasure,
+    iconTasks,
+    iconBadges,
+    iconCollection,
     introVideo,
     logo,
     underwaterBackground,

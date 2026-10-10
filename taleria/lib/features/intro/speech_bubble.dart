@@ -9,8 +9,8 @@ import '../../l10n/app_localizations.dart';
 
 enum Speaker { talo, tala }
 
-/// Eine Figur mit Sprechblase. Die Figur ist heute ein Platzhalter und
-/// später die Rive-Animation (Zustand „sprechen“).
+/// Eine Figur mit Sprechblase. Die Figur ist ihr Bild (oder der Platzhalter),
+/// später das Bild für den Zustand „sprechen“ (FIGUREN.md).
 class SpeechBubble extends StatelessWidget {
   const SpeechBubble({super.key, required this.speaker, required this.text}) : line = null;
 
@@ -36,7 +36,25 @@ class SpeechBubble extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        TaleriaAsset(assetKey, width: 72, height: 72),
+        // Bild im runden Rahmen, nur Kopf und Schultern (die Bilder zeigen die ganze Figur).
+        Container(
+          width: 72,
+          height: 72,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color.withValues(alpha: 0.2),
+            border: Border.all(color: color, width: 3),
+          ),
+          child: ClipOval(
+            child: TaleriaAsset(
+              assetKey,
+              width: 72,
+              height: 72,
+              fit: BoxFit.cover,
+              alignment: const Alignment(0, -0.75),
+            ),
+          ),
+        ),
         const SizedBox(width: 12),
         Expanded(
           child: Container(

@@ -1859,6 +1859,14 @@
   "@gameDone": {
     "description": "Mini-Spiel gelöst"
   },
+  "childHomeBadgesTile": "Orden",
+  "@childHomeBadgesTile": {
+    "description": "Kachel auf der Startseite des Kindes zur Orden-Sammlung"
+  },
+  "childHomeCollectionTile": "Sammlung",
+  "@childHomeCollectionTile": {
+    "description": "Kachel auf der Startseite des Kindes zur Unterwasser-Sammlung"
+  },
   "collectionButton": "Unterwasser-Sammlung ({count})",
   "@collectionButton": {
     "description": "Knopf zur Unterwasser-Sammlung mit Zahl der Funde",

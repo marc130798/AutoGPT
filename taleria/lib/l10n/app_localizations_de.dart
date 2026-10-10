@@ -1359,6 +1359,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gameDone => 'Geschafft!';
 
   @override
+  String get childHomeBadgesTile => 'Orden';
+
+  @override
+  String get childHomeCollectionTile => 'Sammlung';
+
+  @override
   String collectionButton(int count) {
     return 'Unterwasser-Sammlung ($count)';
   }

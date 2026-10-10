@@ -7,11 +7,15 @@ Aufruf im Ordner taleria/ (braucht Python 3 mit Pillow und numpy):
     python3 tool/bilder_freistellen.py --art schiff bild.jpg ship.crew
     python3 tool/bilder_freistellen.py --art wolke  bild.jpg map.cloud.1
     python3 tool/bilder_freistellen.py --art meer   bild.jpg map.background
+    python3 tool/bilder_freistellen.py --art figur  bild.jpg character.talo
+    python3 tool/bilder_freistellen.py --art gegenstand  bild.jpg icon.treasure
+    python3 tool/bilder_freistellen.py --art hintergrund bild.jpg home.background
 
-- insel, schiff: einfarbiger (pinker) Hintergrund wird durchsichtig. Nur Fläche,
+- insel, schiff, figur, gegenstand: einfarbiger (pinker oder grüner) Hintergrund wird durchsichtig. Nur Fläche,
   die mit dem Bildrand verbunden ist, damit pinke Dinge auf der Insel bleiben.
   Weicher Rand, pinker Farbsaum wird herausgerechnet.
 - wolke: weiß auf schwarz, die Helligkeit wird zur Deckkraft.
+- hintergrund: ganzes Bild (zum Beispiel für die Startseite), nur verkleinert, als JPG.
 - meer: wird mit seinem Spiegelbild zu einer Kachel, die man nahtlos
   untereinander setzen kann (JPG, damit die Datei klein bleibt).
 
@@ -28,7 +32,7 @@ from PIL import Image
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'assets', 'images')
 
 # Breite in Pixeln für die App (etwa dreifache Anzeigegröße auf dem Handy).
-MAX_WIDTH = {'insel': 768, 'schiff': 512, 'wolke': 640, 'meer': 768}
+MAX_WIDTH = {'insel': 768, 'schiff': 512, 'figur': 512, 'gegenstand': 384, 'wolke': 640, 'meer': 768, 'hintergrund': 900}
 
 
 def border_connected(mask, seeds=None):
@@ -73,13 +77,19 @@ def key_out_background(rgb, low=40.0, high=110.0):
     toward_gray = np.clip(1 - a / 0.6, 0, 1)
     foreground = foreground * (1 - toward_gray) + gray * toward_gray
 
-    # Pinker Schimmer, den der Hintergrund auf Sand und Holz am Rand wirft:
-    # in einem Streifen am Rand den Magenta-Anteil herausnehmen.
+    # Farbschimmer, den der Hintergrund auf Sand, Holz oder Fell am Rand wirft:
+    # in einem Streifen am Rand den Anteil der Hintergrundfarbe herausnehmen.
     near_edge = grow(alpha < 0.5, 24)
     r, g, b = foreground[..., 0], foreground[..., 1], foreground[..., 2]
-    magenta = np.clip(np.minimum(r, b) - g, 0, None) * near_edge
-    foreground[..., 2] = b - magenta
-    foreground[..., 0] = r - magenta * 0.35
+    if background[1] > max(background[0], background[2]):
+        # grüner Hintergrund (zum Beispiel bei der rosa Tala)
+        green = np.clip(g - np.maximum(r, b), 0, None) * near_edge
+        foreground[..., 1] = g - green
+    else:
+        # pinker Hintergrund
+        magenta = np.clip(np.minimum(r, b) - g, 0, None) * near_edge
+        foreground[..., 2] = b - magenta
+        foreground[..., 0] = r - magenta * 0.35
     return np.dstack([foreground, alpha * 255])
 
 
@@ -150,7 +160,11 @@ def main():
     rgb = np.asarray(Image.open(args.quelle).convert('RGB'), dtype=np.float64)
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    if args.art == 'meer':
+    if args.art == 'hintergrund':
+        image = shrink(Image.fromarray(rgb.astype(np.uint8), 'RGB'), MAX_WIDTH['hintergrund'])
+        target = os.path.join(OUT_DIR, args.schluessel + '.jpg')
+        image.save(target, quality=84, optimize=True)
+    elif args.art == 'meer':
         flat = flatten_light(rgb)
         tile = np.concatenate([flat, flat[::-1]], axis=0)
         image = shrink(Image.fromarray(tile.astype(np.uint8), 'RGB'), MAX_WIDTH['meer'])

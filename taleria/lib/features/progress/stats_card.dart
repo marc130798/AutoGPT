@@ -33,8 +33,15 @@ class StatsCard extends StatelessWidget {
       nextText = l10n.statsNextRank(stats.xpToNextRank ?? 0, l10n.rank(next));
     }
 
-    return Card(
+    // Papier mit goldenem Rand wie die Kacheln der Startseite.
+    return Container(
       key: const ValueKey('stats-card'),
+      decoration: BoxDecoration(
+        color: palette.paper.withValues(alpha: 0.95),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.7), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

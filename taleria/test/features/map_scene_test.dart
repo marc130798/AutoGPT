@@ -40,6 +40,8 @@ void main() {
     await tapText(tester, 'Ich habe einen Code');
     await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
     await tapText(tester, 'An Bord gehen');
+    await tester.ensureVisible(find.text('Zur Karte'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Zur Karte'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));

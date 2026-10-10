@@ -67,7 +67,7 @@ void main() {
     expect(find.text('Noch 1.450 Seemeilen bis Matrose'), findsOneWidget);
     expect(find.text('Noch kein Fahrtwind'), findsOneWidget);
 
-    await tapText(tester, 'Meine Orden (0)');
+    await tapKey(tester, 'home-badges');
     expect(find.text('Noch keine Orden. Schließe deine erste Insel ab!'), findsOneWidget);
     expect(find.text('Erster Landgang'), findsOneWidget);
     expect(find.text('Noch nicht gefunden'), findsNWidgets(3));
@@ -221,7 +221,7 @@ void main() {
         ..findDates['island-hafen/dive1'] = DateTime(2026, 10, 10)
         ..pearlsByDive['island-hafen/dive1'] = 3,
     );
-    await tapText(tester, 'Unterwasser-Sammlung (1)');
+    await tapKey(tester, 'home-collection');
     expect(find.text('3 Perlen'), findsOneWidget);
     expect(find.text('Alte Handelsmünze'), findsOneWidget);
     expect(find.text('Gefunden am 10.10.2026'), findsOneWidget);

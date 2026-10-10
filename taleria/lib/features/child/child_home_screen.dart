@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
+import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
 import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -20,8 +21,10 @@ import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
 import 'lighthouse_button.dart';
 
-/// Kinderbereich nach dem Intro: Avatar, Schiff und der Weg zur Karte.
-/// Keine Preise, keine Kauf-Knöpfe, keine Links nach außen.
+/// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck mit Talo,
+/// Tala, dem Avatar im Bullauge, dem eigenen Schiff und großen Bild-Kacheln
+/// (Bilder aus BILDER.md, Abschnitt 4). Keine Preise, keine Kauf-Knöpfe,
+/// keine Links nach außen.
 class ChildHomeScreen extends StatelessWidget {
   const ChildHomeScreen({super.key, required this.state});
 
@@ -30,57 +33,324 @@ class ChildHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     final child = state.child;
 
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            ListView(
-              padding: const EdgeInsets.fromLTRB(24, 72, 24, 24),
+      body: Stack(
+        children: [
+          const Positioned.fill(child: _DeckBackground()),
+          SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const TaleriaAsset(AssetKeys.talo, width: 88, height: 88),
-                    const SizedBox(width: 12),
-                    AvatarView(avatar: child.avatar ?? const AvatarConfig(), size: 140),
-                    const SizedBox(width: 12),
-                    const TaleriaAsset(AssetKeys.tala, width: 88, height: 88),
-                  ],
+                Align(
+                  alignment: Alignment.topRight,
+                  child: LighthouseButton(state: state),
                 ),
-                const SizedBox(height: 24),
-                Text(
-                  l10n.childHomeWelcome(child.nickname),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.headlineMedium,
-                ),
-                if (child.shipName != null) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.childHomeShip(child.shipName!),
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium,
+                const SizedBox(height: 8),
+                _CrewHeader(avatar: child.avatar ?? const AvatarConfig()),
+                const SizedBox(height: 12),
+                _WelcomeCard(nickname: child.nickname, shipName: child.shipName),
+                const SizedBox(height: 16),
+                _ProgressSection(
+                  state: state,
+                  budgetRow: IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(child: _TreasureButton(childId: child.id)),
+                        const SizedBox(width: 12),
+                        Expanded(child: _TasksButton(childId: child.id)),
+                      ],
+                    ),
                   ),
-                ],
-                const SizedBox(height: 24),
-                _ProgressSection(state: state),
-                const SizedBox(height: 12),
-                _TreasureButton(childId: child.id),
-                const SizedBox(height: 12),
-                _TasksButton(childId: child.id),
-                const SizedBox(height: 24),
-                TextButton(
-                  onPressed: () =>
-                      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
-                  child: Text(l10n.childHomeIntroAgain),
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: context.palette.paper.withValues(alpha: 0.88),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: TextButton(
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
+                      child: Text(l10n.childHomeIntroAgain),
+                    ),
+                  ),
                 ),
               ],
             ),
-            Positioned(top: 8, right: 8, child: LighthouseButton(state: state)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Hintergrund: Blick vom Schiffsdeck aufs Meer. Ohne Bild ein Verlauf von
+/// Himmel über Meer zu Holz.
+class _DeckBackground extends StatelessWidget {
+  const _DeckBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return const TaleriaAsset(
+      AssetKeys.homeBackground,
+      fit: BoxFit.cover,
+      alignment: Alignment.bottomCenter,
+      fallback: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF8FD3F4), Color(0xFF3FB6D3), Color(0xFFC8A06A)],
+            stops: [0, 0.6, 1],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Talo links, der Avatar des Kindes im Bullauge in der Mitte, Tala rechts.
+class _CrewHeader extends StatelessWidget {
+  const _CrewHeader({required this.avatar});
+
+  final AvatarConfig avatar;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        const Expanded(
+          child: Align(alignment: Alignment.bottomCenter, child: TaleriaAsset(AssetKeys.talo, width: 112, height: 140)),
+        ),
+        Container(
+          width: 132,
+          height: 132,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: palette.paper,
+            border: Border.all(color: const Color(0xFFB8862B), width: 7),
+            boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 10, offset: Offset(0, 4))],
+          ),
+          child: ClipOval(
+            child: Center(child: AvatarView(avatar: avatar, size: 112)),
+          ),
+        ),
+        const Expanded(
+          child: Align(alignment: Alignment.bottomCenter, child: TaleriaAsset(AssetKeys.tala, width: 112, height: 140)),
+        ),
+      ],
+    );
+  }
+}
+
+/// Begrüßung und das eigene Schiff mit seinem Namen.
+class _WelcomeCard extends StatelessWidget {
+  const _WelcomeCard({required this.nickname, required this.shipName});
+
+  final String nickname;
+  final String? shipName;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+      decoration: BoxDecoration(
+        color: palette.paper.withValues(alpha: 0.94),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.7), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
+      ),
+      child: Column(
+        children: [
+          Text(
+            l10n.childHomeWelcome(nickname),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
+          ),
+          if (shipName != null) ...[
+            const SizedBox(height: 6),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const TaleriaAsset(AssetKeys.crewShip, width: 64, height: 56),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    l10n.childHomeShip(shipName!),
+                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
+            ),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+/// Große Kachel mit Bild für die Startseite (Schatztruhe, Aufträge, Orden,
+/// Sammlung). [count] erscheint als Zahl am Bild: golden für Sammelstände,
+/// korallenrot, wenn etwas auf das Kind wartet ([attention]).
+class _HomeTile extends StatelessWidget {
+  const _HomeTile({
+    super.key,
+    required this.image,
+    required this.fallbackIcon,
+    required this.label,
+    required this.onTap,
+    this.count = 0,
+    this.attention = false,
+    this.hint,
+    this.hintKey,
+    this.semanticLabel,
+  });
+
+  final String image;
+  final IconData fallbackIcon;
+  final String label;
+  final VoidCallback onTap;
+  final int count;
+  final bool attention;
+  final String? hint;
+  final Key? hintKey;
+  final String? semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      child: Material(
+        color: palette.paper.withValues(alpha: 0.95),
+        elevation: 3,
+        shadowColor: const Color(0x66081C30),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.7), width: 2),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 76,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      TaleriaAsset(image, height: 76, fallback: Icon(fallbackIcon, size: 52, color: palette.seaDeep)),
+                      if (count > 0)
+                        Positioned(
+                          top: -6,
+                          right: -18,
+                          child: _CountBubble(count: count, attention: attention),
+                        ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
+                ),
+                if (hint != null) ...[
+                  const SizedBox(height: 4),
+                  Text(hint!, key: hintKey, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CountBubble extends StatelessWidget {
+  const _CountBubble({required this.count, required this.attention});
+
+  final int count;
+  final bool attention;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Container(
+      constraints: const BoxConstraints(minWidth: 28),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: attention ? palette.coral : palette.gold,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: palette.paper, width: 2),
+      ),
+      child: Text(
+        '$count',
+        textAlign: TextAlign.center,
+        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14),
+      ),
+    );
+  }
+}
+
+/// Die große Kachel zur Karte, das Wichtigste auf der Startseite.
+class _MapTile extends StatelessWidget {
+  const _MapTile({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return Material(
+      color: palette.seaDeep,
+      elevation: 4,
+      shadowColor: const Color(0x66081C30),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(22),
+        side: BorderSide(color: palette.gold, width: 2.5),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+          child: Row(
+            children: [
+              TaleriaAsset(
+                AssetKeys.iconMap,
+                width: 120,
+                height: 84,
+                fallback: Icon(Icons.map, size: 56, color: palette.paper),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  l10n.childHomeMapButton,
+                  style: theme.textTheme.headlineSmall?.copyWith(color: palette.paper, fontWeight: FontWeight.w800),
+                ),
+              ),
+              Icon(Icons.chevron_right_rounded, color: palette.gold, size: 36),
+            ],
+          ),
         ),
       ),
     );
@@ -130,25 +400,15 @@ class _TreasureButtonState extends State<_TreasureButton> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        OutlinedButton.icon(
-          icon: Badge(isLabelVisible: _due > 0, label: Text('$_due'), child: const Icon(Icons.inventory_2_outlined)),
-          onPressed: _open,
-          label: Text(l10n.childHomeTreasureButton),
-        ),
-        if (_due > 0)
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              l10n.childHomeWishDue(_due),
-              key: const ValueKey('child-home-wish-due'),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ),
-      ],
+    return _HomeTile(
+      image: AssetKeys.iconTreasure,
+      fallbackIcon: Icons.inventory_2_outlined,
+      label: l10n.childHomeTreasureButton,
+      onTap: _open,
+      count: _due,
+      attention: true,
+      hint: _due > 0 ? l10n.childHomeWishDue(_due) : null,
+      hintKey: const ValueKey('child-home-wish-due'),
     );
   }
 }
@@ -196,25 +456,15 @@ class _TasksButtonState extends State<_TasksButton> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        OutlinedButton.icon(
-          icon: Badge(isLabelVisible: _open > 0, label: Text('$_open'), child: const Icon(Icons.checklist)),
-          onPressed: _openTasks,
-          label: Text(l10n.childHomeTasksButton),
-        ),
-        if (_open > 0)
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              l10n.childHomeTasksOpen(_open),
-              key: const ValueKey('child-home-open-tasks'),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ),
-      ],
+    return _HomeTile(
+      image: AssetKeys.iconTasks,
+      fallbackIcon: Icons.checklist,
+      label: l10n.childHomeTasksButton,
+      onTap: _openTasks,
+      count: _open,
+      attention: true,
+      hint: _open > 0 ? l10n.childHomeTasksOpen(_open) : null,
+      hintKey: const ValueKey('child-home-open-tasks'),
     );
   }
 }
@@ -222,9 +472,12 @@ class _TasksButtonState extends State<_TasksButton> {
 /// Rang, Seemeilen und Fahrtwind, dazu der Weg zur Karte und zu den Orden.
 /// Lädt neu, wenn das Kind von der Karte oder den Orden zurückkommt.
 class _ProgressSection extends StatefulWidget {
-  const _ProgressSection({required this.state});
+  const _ProgressSection({required this.state, required this.budgetRow});
 
   final SessionChild state;
+
+  /// Schatztruhe und Aufträge, zwischen Karte und Orden.
+  final Widget budgetRow;
 
   @override
   State<_ProgressSection> createState() => _ProgressSectionState();
@@ -268,22 +521,40 @@ class _ProgressSectionState extends State<_ProgressSection> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (stats != null) ...[StatsCard(stats: stats), const SizedBox(height: 16)],
-            FilledButton(
-              onPressed: () => _open(IslandMapScreen(child: _child)),
-              child: Text(l10n.childHomeMapButton),
-            ),
+            _MapTile(onTap: () => _open(IslandMapScreen(child: _child))),
+            const SizedBox(height: 12),
+            widget.budgetRow,
             if (stats != null) ...[
               const SizedBox(height: 12),
-              OutlinedButton.icon(
-                icon: const Icon(Icons.military_tech_outlined),
-                onPressed: () => _open(BadgesScreen(childId: _child.id)),
-                label: Text(l10n.badgesButton(stats.badgeCount)),
-              ),
-              const SizedBox(height: 12),
-              OutlinedButton.icon(
-                icon: const Icon(Icons.scuba_diving),
-                onPressed: () => _open(CollectionScreen(childId: _child.id, pearls: stats.pearls)),
-                label: Text(l10n.collectionButton(stats.finds)),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: _HomeTile(
+                        key: const ValueKey('home-badges'),
+                        image: AssetKeys.iconBadges,
+                        fallbackIcon: Icons.military_tech_outlined,
+                        label: l10n.childHomeBadgesTile,
+                        semanticLabel: l10n.badgesButton(stats.badgeCount),
+                        count: stats.badgeCount,
+                        onTap: () => _open(BadgesScreen(childId: _child.id)),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _HomeTile(
+                        key: const ValueKey('home-collection'),
+                        image: AssetKeys.iconCollection,
+                        fallbackIcon: Icons.scuba_diving,
+                        label: l10n.childHomeCollectionTile,
+                        semanticLabel: l10n.collectionButton(stats.finds),
+                        count: stats.finds,
+                        onTap: () => _open(CollectionScreen(childId: _child.id, pearls: stats.pearls)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ],

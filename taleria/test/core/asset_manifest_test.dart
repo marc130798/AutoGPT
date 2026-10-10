@@ -52,7 +52,8 @@ void main() {
       final talo = manifest.lookup(AssetKeys.talo);
       expect(talo.placeholder.label, 'Talo');
       expect(talo.placeholder.shape, PlaceholderShape.circle);
-      expect(talo.type, AssetType.rive);
+      // Seit dem 3D-Look ein Bild (FIGUREN.md), der Platzhalter bleibt der orange Kreis.
+      expect(talo.type, AssetType.image);
     });
 
     test('Bilder liegen unter assets/images/ und heißen wie ihr Schlüssel', () {

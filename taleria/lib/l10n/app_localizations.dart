@@ -2395,6 +2395,18 @@ abstract class AppLocalizations {
   /// **'Geschafft!'**
   String get gameDone;
 
+  /// Kachel auf der Startseite des Kindes zur Orden-Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'Orden'**
+  String get childHomeBadgesTile;
+
+  /// Kachel auf der Startseite des Kindes zur Unterwasser-Sammlung
+  ///
+  /// In de, this message translates to:
+  /// **'Sammlung'**
+  String get childHomeCollectionTile;
+
   /// Knopf zur Unterwasser-Sammlung mit Zahl der Funde
   ///
   /// In de, this message translates to:

@@ -230,4 +230,4 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 - Die Originale von Gemini liegen in `design/gemini/` (gleicher Name wie der Schlüssel). So lassen sie sich jederzeit neu freistellen.
 - Alle Bilder vor dem Einbau in `ASSETS_LICENSES.md` eintragen.
 
-**Stand 10.10.2026:** Bild 1 bis 6 sind da und eingebaut (eine längliche Wolke).
+**Stand 10.10.2026:** Bild 1 bis 6 sind da und eingebaut (eine längliche Wolke). Für die Startseite sind Bild 7 bis 13 eingebaut, dazu die Entwürfe von Talo und Tala (Bild 14 und 15).

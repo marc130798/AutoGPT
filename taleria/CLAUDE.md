@@ -557,3 +557,10 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Fahrt:** Das Gerät merkt sich, an welcher Insel das Schiff zuletzt lag (`LocalSettings.lastShipIsland`). Ist seitdem eine neue Insel offen, segelt das Schiff nach dem Nebel-Start entlang der Route dorthin (etwa 3,5 Sekunden, mit Kielwasser), danach springt das Schloss auf.
 - Bilder aus `BILDER.md` ersetzen Inseln (`map.island.<slug>`), Schiff (`ship.crew`), Wolke (`map.cloud.1`, nur die längliche, gespiegelt und verschieden groß; runde Wolken wollte Marc nicht) und Meer (`map.background`, als Kachel). Fehlt ein Bild, zeichnet der Code einen Ersatz im selben Aufbau. Freistellen mit `tool/bilder_freistellen.py`.
 - Bei „Bewegung reduzieren“ steht alles still, ohne Nebel-Start und ohne Fahrt. In Widget-Tests ist die Bewegung aus (`AppServices.sceneMotion`), eigene Tests prüfen sie mit `pump` und Zeitangabe.
+
+**Startseite des Kindes im 3D-Look, umgesetzt am 10.10.2026:**
+- Hintergrund ist Marcs Bild vom Schiffsdeck (`home.background`). Oben rechts der Leuchtturm als Bild mit „Leuchtturm“ darunter (`parent.lighthouse`, auf dem Eltern-Gerät PIN, auf dem Kinder-Gerät Hinweis wie bisher).
+- Darunter Talo links, der Avatar des Kindes im Bullauge in der Mitte, Tala rechts. Begrüßung und „Dein Schiff: …“ mit dem Schiffsbild auf einer Papierkarte, darunter Rang und Seemeilen.
+- Große Bild-Kacheln statt schlichter Knöpfe (Vorschlag von Claude, Bilder von Marc): „Zur Karte“ (dunkelblau, das Wichtigste), Schatztruhe und Aufträge (korallenrote Zahl, wenn etwas wartet), Orden und Sammlung (goldene Zahl). Bildschlüssel `icon.map`, `icon.treasure`, `icon.tasks`, `icon.badges`, `icon.collection`.
+- Talo und Tala sind jetzt Bilder (`character.talo`, `character.tala`, vorerst die Entwürfe). In Sprechblasen zeigt die App nur Kopf und Schultern im runden Rahmen. Der Platzhalter bleibt der farbige Kreis.
+- Bilder mit grünem Hintergrund (Tala, weil sie selbst rosa ist) stellt `tool/bilder_freistellen.py` genauso frei; der grüne Schimmer am Rand wird herausgerechnet.

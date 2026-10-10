@@ -2,8 +2,8 @@
   "version": 1,
   "assets": {
     "character.talo": {
-      "type": "rive",
-      "path": "assets/rive/talo.riv",
+      "type": "image",
+      "path": "assets/images/character.talo.png",
       "placeholder": {
         "label": "Talo",
         "color": "#E8792B",
@@ -11,8 +11,8 @@
       }
     },
     "character.tala": {
-      "type": "rive",
-      "path": "assets/rive/tala.riv",
+      "type": "image",
+      "path": "assets/images/character.tala.png",
       "placeholder": {
         "label": "Tala",
         "color": "#F29CB7",
@@ -871,6 +871,60 @@
       "placeholder": {
         "label": "Leuchtturm",
         "color": "#C0392B",
+        "shape": "rounded"
+      }
+    },
+    "home.background": {
+      "type": "image",
+      "path": "assets/images/home.background.jpg",
+      "placeholder": {
+        "label": "Startseite",
+        "color": "#7FC8E8",
+        "shape": "rectangle"
+      }
+    },
+    "icon.map": {
+      "type": "image",
+      "path": "assets/images/icon.map.png",
+      "placeholder": {
+        "label": "Karte",
+        "color": "#D9C49A",
+        "shape": "rounded"
+      }
+    },
+    "icon.treasure": {
+      "type": "image",
+      "path": "assets/images/icon.treasure.png",
+      "placeholder": {
+        "label": "Schatztruhe",
+        "color": "#B07A45",
+        "shape": "rounded"
+      }
+    },
+    "icon.tasks": {
+      "type": "image",
+      "path": "assets/images/icon.tasks.png",
+      "placeholder": {
+        "label": "Aufträge",
+        "color": "#E8D6AE",
+        "shape": "rounded"
+      }
+    },
+    "icon.badges": {
+      "type": "image",
+      "path": "assets/images/icon.badges.png",
+      "placeholder": {
+        "label": "Orden",
+        "color": "#D4A62A",
+        "shape": "rounded"
+      }
+    },
+    "icon.collection": {
+      "type": "image",
+      "path": "assets/images/icon.collection.png",
+      "placeholder": {
+        "label": "Sammlung",
+        "color": "#8FA3B5",
         "shape": "rounded"
       }
     },
