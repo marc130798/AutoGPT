@@ -343,7 +343,7 @@ Als Vorlage den Orden mit dem Anker anhängen (`design/gemini/icon.badges.jpg`).
 Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt des Ordens: ein kleiner Haufen Fundstücke vom Meeresgrund, eine alte Goldmünze, ein kleiner Messing-Kompass und eine hübsche Muschel, mit etwas grünem Seetang. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
 ```
 
-Stand: da, aber fotorealistisch und mit Kopf und Buchstaben auf der Münze. Vor dem Start neu machen, dazu an den Text anhängen: „Im verspielten 3D-Animationsfilm-Look mit runden, weichen Formen, nicht fotorealistisch. Auf der Münze ein kleiner Anker statt eines Gesichts, ohne Buchstaben.“
+Stand: da (zweite Fassung mit Anker auf der Münze, von Marc gewählt). Tipp, falls ein Bild zu fotorealistisch wird: „Im verspielten 3D-Animationsfilm-Look mit runden, weichen Formen, nicht fotorealistisch.“ an den Text anhängen.
 
 ---
 
