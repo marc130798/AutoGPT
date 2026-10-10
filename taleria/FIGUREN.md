@@ -25,8 +25,8 @@ Alle Figuren sind Entwürfe. Namen und Rollen stammen aus `INSELN.md`.
 
 | Figur | Tier | Rolle | Aussehen und Erkennungszeichen | Charakter |
 | --- | --- | --- | --- | --- |
-| **Talo** | Fuchs | Kapitän und Navigator | Goldrotes Fell, weiße Schwanzspitze, dunkelblaue Jacke, Kompass um den Hals | Denkt voraus, ruhig, neugierig, manchmal zu vorsichtig oder besserwisserisch |
-| **Tala** | Schwein, weiblich | Zahlmeisterin | Rosa, goldenes Halstuch, Gürteltasche mit dem Schlüssel zur Schatztruhe | Mutig, herzlich, laut, begeisterungsfähig, kauft gern spontan, verhandelt gut |
+| **Talo** | Fuchs | Kapitän und Navigator | Goldrotes Fell, weiße Schwanzspitze, große bernsteinfarbene Augen, dunkelblaue Kapitänsjacke mit Goldknöpfen, kleine dunkelblaue Mütze mit Anker, Messing-Kompass an einer Kette um den Hals (Bild `character.talo`, Entwurf vom 10.10.2026) | Denkt voraus, ruhig, neugierig, manchmal zu vorsichtig oder besserwisserisch |
+| **Tala** | Schwein, weiblich | Zahlmeisterin | Rosa, gleich alt wie Talo, korallenrote Schleife am Ohr, goldenes Halstuch als Schleife, türkise Weste über blau-weiß gestreiftem Hemd, kurzer dunkelblauer Rock über Leggings, braune Stiefel, Gürtel mit Ledertasche und goldenem Schlüssel zur Schatztruhe, Rechnungsbuch mit Feder (Bild `character.tala`, zweite Fassung vom 10.10.2026, von Marc gewählt) | Mutig, herzlich, laut, begeisterungsfähig, kauft gern spontan, verhandelt gut |
 | **Meister Taleron** | Freundliches Seeungeheuer | Hüter des Meeres | Uralt und groß, aber sanft: runde Augen, Bart aus Seetang oder Muscheln, vielleicht eine kleine Brille. Nicht gruselig | Weise, geduldig, humorvoll, stellt Rätsel |
 | **Avatar des Kindes** | Mensch oder Tier nach Wahl (offen) | Neues Crewmitglied | Baukasten: Gesicht, Hautfarbe, Frisur, Kleidung, Hut | Das Kind selbst |
 
