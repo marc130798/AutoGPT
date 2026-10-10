@@ -206,8 +206,8 @@ Tippt das Kind auf der Karte auf eine Insel, füllt sie den ganzen Bildschirm. A
 | Insel | Datei | Stand |
 | --- | --- | --- |
 | Hafen | `island.hafen.background` | da (10.10.2026) |
-| Tauschinsel | `island.tauschinsel.background` | fehlt |
-| Wunschinsel | `island.wunschinsel.background` | fehlt |
+| Tauschinsel | `island.tauschinsel.background` | da (10.10.2026) |
+| Wunschinsel | `island.wunschinsel.background` | da (10.10.2026) |
 
 **Tauschinsel** (Kartenbild der Tauschinsel anhängen):
 
@@ -226,6 +226,54 @@ Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus ein
 ```
 
 Den Verlauf des Wegs zeichnet Claude Code im Bild nach und trägt ihn im Manifest ein (`route`). Darauf verteilt die App die Wegmarken.
+
+---
+
+## 4c. Als Nächstes: Posen, Ränge, Orden
+
+### Talo und Tala winkend → `character.talo.wave`, `character.tala.wave`
+
+Jeweils das fertige Bild der Figur anhängen (`design/gemini/character.talo.jpg`, `character.tala.jpg`).
+
+```
+Gleiche Figur wie im angehängten Bild, gleicher Stil, gleiche Kleidung und gleiche Größe. Er winkt fröhlich mit einer Hand und lacht. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+```
+Gleiche Figur wie im angehängten Bild, gleicher Stil, gleiche Kleidung und gleiche Größe. Sie winkt fröhlich mit einer Hand und lacht, das Buch hält sie in der anderen Hand. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Grün (#00FF00), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+Danach auf dieselbe Art „freut sich“ (`.happy`) und „denkt nach“ (`.think`) für die Stationen.
+
+### Fünf Rang-Abzeichen → `rank.schiffsjunge` … `rank.kapitaen`
+
+Den Orden von der Startseite (Bild 12) anhängen, damit alle Abzeichen dazu passen. Von Rang zu Rang wertvoller:
+
+| Datei | Rang | Abzeichen (statt „ABZEICHEN“ einsetzen) |
+| --- | --- | --- |
+| `rank.schiffsjunge` | Schiffsjunge | ein rundes Abzeichen aus hellem Holz mit einem Seilknoten in der Mitte und einem Rand aus Tau |
+| `rank.matrose` | Matrose | ein rundes Abzeichen aus Bronze mit einem kleinen Anker in der Mitte |
+| `rank.bootsmann` | Bootsmann | ein rundes Abzeichen aus Silber mit zwei gekreuzten Rudern in der Mitte |
+| `rank.steuermann` | Steuermann | ein rundes Abzeichen aus Gold mit einem Steuerrad in der Mitte |
+| `rank.kapitaen` | Kapitän | ein prächtiges rundes Abzeichen aus Gold mit einer Kompassrose, kleinen blauen Edelsteinen am Rand und Lorbeerzweigen |
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt des Ordens ein einzelnes Abzeichen: ABZEICHEN. Ohne Band. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+### Orden der Inseln → `badge.hafen`, `badge.tauschinsel`, `badge.wunschinsel`
+
+Bekommt das Kind, wenn es eine Insel schafft. Wieder den Orden von der Startseite anhängen.
+
+| Datei | Orden | Motiv (statt „MOTIV“ einsetzen) |
+| --- | --- | --- |
+| `badge.hafen` | Erster Landgang | ein kleiner rot-weißer Leuchtturm |
+| `badge.tauschinsel` | Meistertauscher | zwei Hände, die einen Apfel gegen einen Fisch tauschen |
+| `badge.wunschinsel` | Klarer Kompass | ein Kompass, dessen Nadel auf einen kleinen goldenen Stern zeigt |
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild: ein goldener Orden an einem blauen Band, aber auf dem Orden statt des Ankers MOTIV. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
 
 ---
 

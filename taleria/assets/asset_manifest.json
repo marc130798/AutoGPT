@@ -345,21 +345,55 @@
     },
     "island.tauschinsel.background": {
       "type": "image",
-      "path": "assets/images/island.tauschinsel.background.png",
+      "path": "assets/images/island.tauschinsel.background.jpg",
       "placeholder": {
         "label": "Tauschinsel",
         "color": "#4FA36B",
         "shape": "rectangle"
-      }
+      },
+      "route": [
+        [0.5, 0.85],
+        [0.45, 0.8],
+        [0.33, 0.77],
+        [0.25, 0.72],
+        [0.3, 0.66],
+        [0.45, 0.62],
+        [0.6, 0.58],
+        [0.69, 0.52],
+        [0.66, 0.45],
+        [0.6, 0.39],
+        [0.47, 0.34],
+        [0.33, 0.33],
+        [0.26, 0.28],
+        [0.28, 0.22],
+        [0.38, 0.19],
+        [0.48, 0.17]
+      ]
     },
     "island.wunschinsel.background": {
       "type": "image",
-      "path": "assets/images/island.wunschinsel.background.png",
+      "path": "assets/images/island.wunschinsel.background.jpg",
       "placeholder": {
         "label": "Wunschinsel",
         "color": "#4FA36B",
         "shape": "rectangle"
-      }
+      },
+      "route": [
+        [0.5, 0.88],
+        [0.55, 0.82],
+        [0.55, 0.75],
+        [0.5, 0.68],
+        [0.45, 0.62],
+        [0.5, 0.55],
+        [0.56, 0.49],
+        [0.54, 0.42],
+        [0.55, 0.36],
+        [0.62, 0.3],
+        [0.7, 0.25],
+        [0.71, 0.19],
+        [0.64, 0.15],
+        [0.55, 0.12]
+      ]
     },
     "island.spar-insel.background": {
       "type": "image",

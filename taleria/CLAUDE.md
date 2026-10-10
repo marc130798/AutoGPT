@@ -566,7 +566,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Bilder mit grünem Hintergrund (Tala, weil sie selbst rosa ist) stellt `tool/bilder_freistellen.py` genauso frei; der grüne Schimmer am Rand wird herausgerechnet.
 
 **Insel von innen, umgesetzt am 10.10.2026:**
-- Die Insel füllt den Bildschirm als Bild im Hochformat (`island.<slug>.background`, zuerst der Hafen). Darauf liegen alle Pflichtstationen (auch Ankerplätze und Prüfung) als runde Wegmarken in gleichen Abständen auf dem Weg vom Steg nach oben, abwechselnd etwas links und rechts daneben, damit sie sich nicht berühren.
+- Die Insel füllt den Bildschirm als Bild im Hochformat (`island.<slug>.background`; Hafen, Tauschinsel und Wunschinsel sind da). Darauf liegen alle Pflichtstationen (auch Ankerplätze und Prüfung) als runde Wegmarken in gleichen Abständen auf dem Weg vom Steg nach oben, abwechselnd etwas links und rechts daneben, damit sie sich nicht berühren.
 - Wegmarken: geschafft goldener Haken; die nächste Station weiß mit Nummer, sie leuchtet und pulsiert leicht; gesperrt grau mit Nummer, Anker oder Flagge und kleinem Schloss; ohne Wind mit kleinem Wind-Zeichen. Antippen wie bisher: öffnen oder Hinweis.
 - Der Weg gehört zum Bild und steht im Asset-Manifest (`route`, Punkte von 0 bis 1). Fehlt das Bild, zeigt die App einen grünen Grund mit gezeichnetem Sandweg und einem Standard-Weg.
 - Oben sagt Talo, was als Nächstes dran ist (oder dass die Insel geschafft ist), darunter bei Bedarf der Wind-Hinweis. Unter dem Bild stehen wie bisher Lernziel und die Liste „Stationen“ mit allen Titeln; Bonus-Stationen (Flaschenpost) stehen nur in der Liste.
