@@ -33,6 +33,10 @@ class MapCloud extends StatelessWidget {
 }
 
 /// Die Insel, wie sie auf der Karte liegt: Bild oder gezeichnete Ersatz-Insel.
+///
+/// Das Bild füllt die Breite und steht unten auf der Kante des Felds. Hohe
+/// Dinge wie ein Turm ragen oben über das Feld hinaus, so sind alle Inseln
+/// gleich breit, egal wie hoch sie sind.
 class IslandArt extends StatelessWidget {
   const IslandArt({super.key, required this.slug, required this.width, required this.height});
 
@@ -42,11 +46,16 @@ class IslandArt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TaleriaAsset(
-      AssetKeys.mapIsland(slug),
-      width: width,
-      height: height,
-      fallback: CustomPaint(size: Size(width, height), painter: FallbackIslandPainter(slug)),
+    return OverflowBox(
+      alignment: Alignment.bottomCenter,
+      minHeight: 0,
+      maxHeight: double.infinity,
+      child: TaleriaAsset(
+        AssetKeys.mapIsland(slug),
+        width: width,
+        fit: BoxFit.fitWidth,
+        fallback: CustomPaint(size: Size(width, height), painter: FallbackIslandPainter(slug)),
+      ),
     );
   }
 }
@@ -141,9 +150,9 @@ class _RibbonTailsPainter extends CustomPainter {
 
 /// Gesperrte Inseln wirken blasser und etwas bläulich.
 const _dimmed = ColorFilter.matrix(<double>[
-  0.45, 0.3, 0.08, 0, 6, //
-  0.15, 0.55, 0.08, 0, 10,
-  0.15, 0.3, 0.42, 0, 24,
+  0.5, 0.3, 0.08, 0, 4, //
+  0.18, 0.58, 0.08, 0, 6,
+  0.18, 0.32, 0.42, 0, 12,
   0, 0, 0, 1, 0,
 ]);
 

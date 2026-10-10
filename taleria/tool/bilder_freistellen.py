@@ -31,13 +31,14 @@ OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'assets', 'images')
 MAX_WIDTH = {'insel': 768, 'schiff': 512, 'wolke': 640, 'meer': 768}
 
 
-def border_connected(mask):
-    """Teil von mask, der über Nachbarpixel mit dem Bildrand verbunden ist."""
-    reached = np.zeros_like(mask)
-    reached[0, :] = mask[0, :]
-    reached[-1, :] = mask[-1, :]
-    reached[:, 0] = mask[:, 0]
-    reached[:, -1] = mask[:, -1]
+def border_connected(mask, seeds=None):
+    """Teil von mask, der über Nachbarpixel mit dem Bildrand (oder mit seeds)
+    verbunden ist."""
+    reached = np.zeros_like(mask) if seeds is None else (seeds & mask)
+    reached[0, :] |= mask[0, :]
+    reached[-1, :] |= mask[-1, :]
+    reached[:, 0] |= mask[:, 0]
+    reached[:, -1] |= mask[:, -1]
     while True:
         grown = reached.copy()
         grown[1:, :] |= reached[:-1, :]
@@ -56,7 +57,10 @@ def key_out_background(rgb, low=40.0, high=110.0):
     border = np.concatenate([rgb[0, :], rgb[-1, :], rgb[:, 0], rgb[:, -1]])
     background = np.median(border, axis=0)
     distance = np.sqrt(((rgb - background) ** 2).sum(axis=2))
-    region = border_connected(distance < high)
+    # Vom Rand aus, dazu eingeschlossene Lücken in reiner Hintergrundfarbe
+    # (zum Beispiel zwischen den Balken eines Turms). Pinke Dinge auf der Insel
+    # sind nie so nah an der Hintergrundfarbe und bleiben.
+    region = border_connected(distance < high, seeds=distance < 35)
     alpha = np.ones((h, w))
     alpha[region] = np.clip((distance[region] - low) / (high - low), 0, 1)
 
@@ -68,16 +72,52 @@ def key_out_background(rgb, low=40.0, high=110.0):
     gray = foreground.mean(axis=2, keepdims=True)
     toward_gray = np.clip(1 - a / 0.6, 0, 1)
     foreground = foreground * (1 - toward_gray) + gray * toward_gray
+
+    # Pinker Schimmer, den der Hintergrund auf Sand und Holz am Rand wirft:
+    # in einem Streifen am Rand den Magenta-Anteil herausnehmen.
+    near_edge = grow(alpha < 0.5, 24)
+    r, g, b = foreground[..., 0], foreground[..., 1], foreground[..., 2]
+    magenta = np.clip(np.minimum(r, b) - g, 0, None) * near_edge
+    foreground[..., 2] = b - magenta
+    foreground[..., 0] = r - magenta * 0.35
     return np.dstack([foreground, alpha * 255])
+
+
+def grow(mask, steps):
+    """Maske um steps Pixel in alle Richtungen erweitern."""
+    grown = mask.copy()
+    for _ in range(steps):
+        step = grown.copy()
+        step[1:, :] |= grown[:-1, :]
+        step[:-1, :] |= grown[1:, :]
+        step[:, 1:] |= grown[:, :-1]
+        step[:, :-1] |= grown[:, 1:]
+        grown = step
+    return grown
 
 
 def light_to_alpha(rgb):
-    """Weiße Wolke auf Schwarz: Helligkeit wird Deckkraft."""
+    """Weiße Wolke auf Schwarz: Helligkeit wird Deckkraft.
+
+    Farbstiche (zum Beispiel ein goldener Lichtschein am Rand) werden fast
+    ganz zu Weiß, damit die Wolken über dem Meer neutral wirken."""
     brightness = rgb.max(axis=2)
-    alpha = np.clip((brightness - 10) / 230, 0, 1) ** 0.9
+    alpha = np.clip((brightness - 28) / 210, 0, 1) ** 0.9
     safe = np.maximum(alpha[..., None], 1e-3)
     foreground = np.clip(rgb / safe, 0, 255)
+    gray = foreground.mean(axis=2, keepdims=True)
+    foreground = foreground * 0.25 + gray * 0.75
     return np.dstack([foreground, alpha * 255])
+
+
+def flatten_light(rgb):
+    """Gleicht großflächige Helligkeit aus (zum Beispiel Sonnenglanz in einer
+    Ecke), die Wellen bleiben. So wiederholt sich das Meer ohne helle Flecken."""
+    image = Image.fromarray(rgb.astype(np.uint8), 'RGB')
+    small = image.resize((8, 14), Image.BILINEAR).resize(image.size, Image.BICUBIC)
+    low = np.asarray(small, dtype=np.float64)
+    mean = rgb.reshape(-1, 3).mean(axis=0)
+    return np.clip(rgb * (mean / np.maximum(low, 1)), 0, 255)
 
 
 def crop_to_content(rgba, margin=6):
@@ -111,7 +151,8 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
 
     if args.art == 'meer':
-        tile = np.concatenate([rgb, rgb[::-1]], axis=0)
+        flat = flatten_light(rgb)
+        tile = np.concatenate([flat, flat[::-1]], axis=0)
         image = shrink(Image.fromarray(tile.astype(np.uint8), 'RGB'), MAX_WIDTH['meer'])
         target = os.path.join(OUT_DIR, args.schluessel + '.jpg')
         image.save(target, quality=82, optimize=True)

@@ -147,4 +147,7 @@ Solange ein Bild fehlt, zeichnet die App einen einfachen Ersatz (CLAUDE.md Absch
 - Inseln (768 px breit) und Schiff (512 px): PNG mit durchsichtigem Hintergrund. Durchsichtig wird nur die einfarbige Fläche, die mit dem Bildrand verbunden ist (pinke Dinge auf der Insel bleiben), mit weichem Rand und ohne pinken Farbsaum, zugeschnitten auf den Inhalt.
 - Meer (`map.background`): JPG, 768 px breit, aus Bild und Spiegelbild zu einer Kachel zusammengesetzt, die sich nahtlos wiederholt.
 - Wolken (640 px): PNG, die Helligkeit wird zur Deckkraft (weiß auf schwarz).
+- Die Originale von Gemini liegen in `design/gemini/` (gleicher Name wie der Schlüssel). So lassen sie sich jederzeit neu freistellen.
 - Alle Bilder vor dem Einbau in `ASSETS_LICENSES.md` eintragen.
+
+**Stand 10.10.2026:** Bild 1 bis 8 sind da und eingebaut.

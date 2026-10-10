@@ -255,9 +255,10 @@ class IslandWaterPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final t = sceneSeconds(clock);
-    final center = Offset(size.width / 2, size.height * 0.6);
+    // Der runde Sandsockel der Inselbilder: unten im Feld, so breit wie das Feld.
+    final center = Offset(size.width / 2, size.height - size.width * 0.31);
     final rx = size.width * 0.5;
-    final squash = 0.56;
+    const squash = 0.6;
 
     if (glow) {
       final pulse = 0.75 + 0.25 * osc(t, 20, phase);
@@ -658,8 +659,8 @@ class FallbackIslandPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final w = size.width, h = size.height;
     final rnd = Random(stableSeed(slug));
-    final c = Offset(w / 2, h * 0.6);
-    final rx = w * 0.47, ry = rx * 0.56, thick = h * 0.08;
+    final c = Offset(w / 2, h - w * 0.31);
+    final rx = w * 0.47, ry = rx * 0.56, thick = w * 0.05;
 
     final side = _fill(SceneColors.sandSide);
     canvas.drawOval(Rect.fromCenter(center: c + Offset(0, thick), width: rx * 2, height: ry * 2), side);

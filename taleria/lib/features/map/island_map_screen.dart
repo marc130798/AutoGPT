@@ -553,7 +553,8 @@ class _MapScene extends StatelessWidget {
         // Wasserbild aus BILDER.md, falls es da ist (sonst nur der gezeichnete Grund).
         const Positioned.fill(
           child: Opacity(
-            opacity: 0.88,
+            // Der gezeichnete Grund (dunkler in der Tiefe) scheint leicht durch.
+            opacity: 0.78,
             child: TaleriaAsset(
               AssetKeys.mapBackground,
               fit: BoxFit.fitWidth,
