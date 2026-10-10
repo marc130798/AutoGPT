@@ -23,6 +23,16 @@ abstract interface class LocalSettings {
   Future<String?> lastShipIsland(String childId);
 
   Future<void> setLastShipIsland(String childId, String islandId);
+
+  /// Ton an (Lautsprecher-Knopf des Kindes). Standard: an.
+  Future<bool> soundOn();
+
+  Future<void> setSoundOn(bool on);
+
+  /// Musik im Hauptmenü erlaubt (Schalter im Leuchtturm). Standard: ja.
+  Future<bool> musicAllowed();
+
+  Future<void> setMusicAllowed(bool allowed);
 }
 
 class SharedPreferencesSettings implements LocalSettings {
@@ -68,6 +78,30 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setLastShipIsland(String childId, String islandId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ship.$childId', islandId);
+  }
+
+  @override
+  Future<bool> soundOn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('sound.on') ?? true;
+  }
+
+  @override
+  Future<void> setSoundOn(bool on) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('sound.on', on);
+  }
+
+  @override
+  Future<bool> musicAllowed() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('sound.music') ?? true;
+  }
+
+  @override
+  Future<void> setMusicAllowed(bool allowed) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('sound.music', allowed);
   }
 
   @override

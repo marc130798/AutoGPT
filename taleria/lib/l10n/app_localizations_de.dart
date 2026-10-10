@@ -1806,4 +1806,23 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get diveFishHint =>
       'Jeder Fisch trägt eine Antwort. Tippe den richtigen an. Jede richtige Antwort ist eine Perle.';
+
+  @override
+  String get soundOnLabel => 'Ton an';
+
+  @override
+  String get soundOffLabel => 'Ton aus';
+
+  @override
+  String get soundTurnOff => 'Ton ausschalten';
+
+  @override
+  String get soundTurnOn => 'Ton einschalten';
+
+  @override
+  String get lighthouseMusic => 'Musik im Hauptmenü';
+
+  @override
+  String get lighthouseMusicHint =>
+      'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.';
 }

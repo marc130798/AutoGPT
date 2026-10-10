@@ -58,3 +58,6 @@ env/*.json
 supabase/.branches
 supabase/.temp
 supabase/.env
+
+# Ton-Dateien der App (die .gitignore ganz oben im Repository schließt *.mp3 aus)
+!*.mp3

@@ -20,7 +20,9 @@ import '../progress/collection_screen.dart';
 import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
+import '../common/menu_music.dart';
 import 'lighthouse_button.dart';
+import 'sound_button.dart';
 
 /// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck mit Talo,
 /// Tala, dem Avatar im Bullauge, dem eigenen Schiff und großen Bild-Kacheln
@@ -36,54 +38,62 @@ class ChildHomeScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final child = state.child;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          const Positioned.fill(child: _DeckBackground()),
-          SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: LighthouseButton(state: state),
-                ),
-                const SizedBox(height: 8),
-                _CrewHeader(avatar: child.avatar ?? const AvatarConfig()),
-                const SizedBox(height: 12),
-                _WelcomeCard(nickname: child.nickname, shipName: child.shipName),
-                const SizedBox(height: 16),
-                _ProgressSection(
-                  state: state,
-                  budgetRow: IntrinsicHeight(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(child: _TreasureButton(childId: child.id)),
-                        const SizedBox(width: 12),
-                        Expanded(child: _TasksButton(childId: child.id)),
-                      ],
+    // Meeresrauschen, solange die Startseite vorn ist.
+    return MenuMusic(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            const Positioned.fill(child: _DeckBackground()),
+            SafeArea(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SoundButton(),
+                      const Spacer(),
+                      LighthouseButton(state: state),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  _CrewHeader(avatar: child.avatar ?? const AvatarConfig()),
+                  const SizedBox(height: 12),
+                  _WelcomeCard(nickname: child.nickname, shipName: child.shipName),
+                  const SizedBox(height: 16),
+                  _ProgressSection(
+                    state: state,
+                    budgetRow: IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(child: _TreasureButton(childId: child.id)),
+                          const SizedBox(width: 12),
+                          Expanded(child: _TasksButton(childId: child.id)),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: context.palette.paper.withValues(alpha: 0.88),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: TextButton(
-                      onPressed: () =>
-                          Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
-                      child: Text(l10n.childHomeIntroAgain),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: context.palette.paper.withValues(alpha: 0.88),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: TextButton(
+                        onPressed: () =>
+                            Navigator.of(context)
+                                .push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
+                        child: Text(l10n.childHomeIntroAgain),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

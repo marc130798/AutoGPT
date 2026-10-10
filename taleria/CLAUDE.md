@@ -592,5 +592,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Mini-Spiel: Tala überlegt, Talo steht daneben. Ergebnis: beide freuen sich (bei nicht bestandener Prüfung denken beide nach).
 - Unter Wasser bleibt die Bühne leer, damit man die Unterwasserwelt sieht. Gefundene Perlen glänzen weiß (im Code gezeichnet). Der Film (noch Platzhalter) steht frei vor der Insel.
 - Ablauf, Texte und Schlüssel der Stationen sind unverändert.
+
+**Musik und Töne, umgesetzt am 10.10.2026 (mit Marc abgestimmt, Paket `audioplayers`):**
+- Musik nur im Hauptmenü: Meeresrauschen mit Möwen (`music.home`, von Marc) auf Startseite und Karte, leise und in Schleife. Auf Insel und Station keine Musik; zurück im Menü läuft sie an derselben Stelle weiter. Im Hintergrund (anderes Programm, Bildschirm aus) pausiert sie.
+- Kurze Töne, selbst erzeugt mit `tool/toene_erzeugen.py`: richtige Antwort (`sound.correct`, auch bei Aufwärmen, Wrack und Begegnung auf See), Perle beim Tauchgang (`sound.pearl`), Station geschafft (`sound.station_done`), Insel geschafft (`sound.island_done`). Bei falschen Antworten kein Ton (Kinder sollen sich nicht bestraft fühlen), nach nicht bestandener Prüfung keine Fanfare. Mini-Spiele noch ohne Ton.
+- Lautsprecher-Knopf links oben auf der Startseite: schaltet Musik und Töne aus oder an (gilt für dieses Gerät, bleibt gespeichert). Im Leuchtturm: Schalter „Musik im Hauptmenü“ (gilt für dieses Gerät; Töne bleiben). Eine Einstellung, die Eltern für das Gerät des Kindes aus der Ferne setzen, bräuchte ein Feld in der Datenbank (vorher mit Marc klären).
+- Im Browser darf Ton erst nach dem ersten Antippen starten; die App holt die Musik dann nach (`Sounds.unlock` beim ersten Tippen).
+- Technik: `lib/services/sounds.dart` (Regeln, in Tests still und mitschreibend), `lib/services/audio_sounds.dart` (Abspielen), `lib/features/common/menu_music.dart` (Musik je Bildschirm). Neue Musik mit `tool/musik_vorbereiten.py` zur nahtlosen Schleife machen und in `ASSETS_LICENSES.md` eintragen.
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

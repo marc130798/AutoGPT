@@ -3096,6 +3096,42 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Jeder Fisch trägt eine Antwort. Tippe den richtigen an. Jede richtige Antwort ist eine Perle.'**
   String get diveFishHint;
+
+  /// Startseite des Kindes: Beschriftung unter dem Lautsprecher-Knopf, wenn der Ton an ist
+  ///
+  /// In de, this message translates to:
+  /// **'Ton an'**
+  String get soundOnLabel;
+
+  /// Startseite des Kindes: Beschriftung unter dem Lautsprecher-Knopf, wenn der Ton aus ist
+  ///
+  /// In de, this message translates to:
+  /// **'Ton aus'**
+  String get soundOffLabel;
+
+  /// Hinweis und Vorlesetext für den Lautsprecher-Knopf, wenn der Ton an ist
+  ///
+  /// In de, this message translates to:
+  /// **'Ton ausschalten'**
+  String get soundTurnOff;
+
+  /// Hinweis und Vorlesetext für den Lautsprecher-Knopf, wenn der Ton aus ist
+  ///
+  /// In de, this message translates to:
+  /// **'Ton einschalten'**
+  String get soundTurnOn;
+
+  /// Leuchtturm: Schalter für die Musik auf Startseite und Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Musik im Hauptmenü'**
+  String get lighthouseMusic;
+
+  /// Leuchtturm: Erklärung unter dem Musik-Schalter
+  ///
+  /// In de, this message translates to:
+  /// **'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.'**
+  String get lighthouseMusicHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

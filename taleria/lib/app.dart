@@ -6,6 +6,7 @@ import 'core/config/orientation_policy.dart';
 import 'core/theme/taleria_palette.dart';
 import 'core/theme/taleria_theme.dart';
 import 'features/common/hide_hints_on_push.dart';
+import 'features/common/menu_music.dart';
 import 'features/start/session_gate.dart';
 import 'l10n/app_localizations.dart';
 
@@ -28,7 +29,7 @@ class _TaleriaAppState extends State<TaleriaApp> {
       services: widget.services,
       child: MaterialApp(
         scaffoldMessengerKey: _messengerKey,
-        navigatorObservers: [_hideHints],
+        navigatorObservers: [_hideHints, menuRouteObserver],
         onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
         debugShowCheckedModeBanner: false,
         // Gebaut wird nur Stufe 1. Sobald es Kinder-Profile gibt, kommt die
@@ -42,7 +43,12 @@ class _TaleriaAppState extends State<TaleriaApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        builder: (context, child) => _TabletFrame(child: child ?? const SizedBox.shrink()),
+        // Jedes Antippen gibt den Ton frei (Browser spielen erst danach Musik).
+        builder: (context, child) => Listener(
+          behavior: HitTestBehavior.translucent,
+          onPointerDown: (_) => widget.services.sounds.unlock(),
+          child: _TabletFrame(child: child ?? const SizedBox.shrink()),
+        ),
         home: const SessionGate(),
       ),
     );

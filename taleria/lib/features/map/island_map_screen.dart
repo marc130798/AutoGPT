@@ -13,6 +13,7 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/map_controller.dart';
+import '../common/menu_music.dart';
 import '../common/texts.dart';
 import '../encounter/encounter_screen.dart';
 import '../island/island_screen.dart';
@@ -248,55 +249,58 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final controller = _controller!;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.mapTitle)),
-      body: ListenableBuilder(
-        listenable: controller,
-        builder: (context, _) {
-          if (controller.loading) {
+    // Meeresrauschen wie auf der Startseite, ohne Unterbrechung.
+    return MenuMusic(
+      child: Scaffold(
+        appBar: AppBar(title: Text(l10n.mapTitle)),
+        body: ListenableBuilder(
+          listenable: controller,
+          builder: (context, _) {
+            if (controller.loading) {
+              return Stack(
+                children: [
+                  if (_motion)
+                    Positioned.fill(
+                      child: FogIntro(progress: _intro, onSkip: () {}),
+                    ),
+                  const Center(child: CircularProgressIndicator()),
+                ],
+              );
+            }
+            if (controller.failure != null) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(l10n.failure(controller.failure!), textAlign: TextAlign.center),
+                      const SizedBox(height: 16),
+                      FilledButton(onPressed: controller.load, child: Text(l10n.retryButton)),
+                    ],
+                  ),
+                ),
+              );
+            }
+            final pace = controller.stats?.pace;
             return Stack(
               children: [
-                if (_motion)
-                  Positioned.fill(
-                    child: FogIntro(progress: _intro, onSkip: () {}),
-                  ),
-                const Center(child: CircularProgressIndicator()),
-              ],
-            );
-          }
-          if (controller.failure != null) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                Column(
                   children: [
-                    Text(l10n.failure(controller.failure!), textAlign: TextAlign.center),
-                    const SizedBox(height: 16),
-                    FilledButton(onPressed: controller.load, child: Text(l10n.retryButton)),
+                    if (controller.blockedAhead case final block?)
+                      _BlockedBanner(block: block, onPractice: _practice)
+                    else if (pace != null && !pace.hasWind)
+                      _WindBanner(text: l10n.windNeededFor(pace)),
+                    Expanded(child: _buildMap(controller)),
                   ],
                 ),
-              ),
+                Positioned.fill(
+                  child: FogIntro(progress: _intro, onSkip: () => _intro.value = 1),
+                ),
+              ],
             );
-          }
-          final pace = controller.stats?.pace;
-          return Stack(
-            children: [
-              Column(
-                children: [
-                  if (controller.blockedAhead case final block?)
-                    _BlockedBanner(block: block, onPractice: _practice)
-                  else if (pace != null && !pace.hasWind)
-                    _WindBanner(text: l10n.windNeededFor(pace)),
-                  Expanded(child: _buildMap(controller)),
-                ],
-              ),
-              Positioned.fill(
-                child: FogIntro(progress: _intro, onSkip: () => _intro.value = 1),
-              ),
-            ],
-          );
-        },
+          },
+        ),
       ),
     );
   }

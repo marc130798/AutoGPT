@@ -131,6 +131,10 @@ class FakeContent implements ContentRepository {
   String rightAnswerFor(String questionText) =>
       questions.values.expand((q) => q).firstWhere((q) => q.question == questionText).answers.first;
 
+  /// Eine falsche Antwort zu einem Fragetext.
+  String wrongAnswerFor(String questionText) =>
+      questions.values.expand((q) => q).firstWhere((q) => q.question == questionText).answers.last;
+
   MapIsland island(String slug) => mapIslands.firstWhere((i) => i.slug == slug);
 
   /// Station einer Insel nach angezeigter Nummer (ohne Ankerplätze).

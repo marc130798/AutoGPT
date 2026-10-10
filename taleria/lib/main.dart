@@ -19,6 +19,7 @@ import 'data/content_repository.dart';
 import 'data/error_log_repository.dart';
 import 'data/family_repository.dart';
 import 'data/local_settings.dart';
+import 'services/audio_sounds.dart';
 import 'services/error_reporting.dart';
 import 'services/session_controller.dart';
 
@@ -57,6 +58,8 @@ Future<void> main() async {
   );
   // Nicht abwarten: Bis die Sitzung geprüft ist, zeigt die App einen Ladekreis.
   unawaited(session.start());
+  final sounds = AudioSounds(manifest: manifest, assets: assets, settings: settings);
+  unawaited(sounds.load());
 
   runApp(
     TaleriaApp(
@@ -73,6 +76,7 @@ Future<void> main() async {
         progress: client == null ? null : SupabaseProgressRepository(client),
         settings: settings,
         budget: client == null ? null : SupabaseBudgetRepository(client),
+        sounds: sounds,
       ),
     ),
   );

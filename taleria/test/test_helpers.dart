@@ -10,6 +10,7 @@ import 'package:taleria/core/assets/asset_repository.dart';
 import 'package:taleria/core/backend/backend.dart';
 import 'package:taleria/core/config/app_config.dart';
 import 'package:taleria/services/session_controller.dart';
+import 'package:taleria/services/sounds.dart';
 
 import 'fake_budget.dart';
 import 'fake_content.dart';
@@ -69,6 +70,7 @@ TaleriaApp buildTestApp({
   FakeProgress? progress,
   FakeBudget? budget,
   bool sceneMotion = false,
+  Sounds? sounds,
 }) {
   final family = backend == null ? null : FakeFamilyRepository(backend);
   final localSettings = settings ?? FakeLocalSettings();
@@ -97,6 +99,7 @@ TaleriaApp buildTestApp({
       budget: budget ?? (backend == null ? null : FakeBudget()),
       random: Random(42),
       sceneMotion: sceneMotion,
+      sounds: sounds ?? Sounds(settings: localSettings),
     ),
   );
 }

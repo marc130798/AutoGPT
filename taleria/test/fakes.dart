@@ -321,6 +321,20 @@ class FakeLocalSettings implements LocalSettings {
   final Map<String, Set<String>> quizSelections = {};
   final Set<String> arrivals = {};
   final Map<String, String> ships = {};
+  bool sound = true;
+  bool music = true;
+
+  @override
+  Future<bool> soundOn() async => sound;
+
+  @override
+  Future<void> setSoundOn(bool on) async => sound = on;
+
+  @override
+  Future<bool> musicAllowed() async => music;
+
+  @override
+  Future<void> setMusicAllowed(bool allowed) async => music = allowed;
 
   @override
   Future<String?> lastShipIsland(String childId) async => ships[childId];

@@ -36,6 +36,13 @@ abstract final class AssetKeys {
   static const underwaterBackground = 'underwater.background';
   static const pearl = 'collectible.pearl';
 
+  /// Musik und Töne (`tool/musik_vorbereiten.py`, `tool/toene_erzeugen.py`).
+  static const musicHome = 'music.home';
+  static const soundCorrect = 'sound.correct';
+  static const soundPearl = 'sound.pearl';
+  static const soundStationDone = 'sound.station_done';
+  static const soundIslandDone = 'sound.island_done';
+
   static const introVideo = 'video.intro';
   static const logo = 'brand.logo';
 
@@ -70,6 +77,11 @@ abstract final class AssetKeys {
     iconCollection,
     introVideo,
     logo,
+    musicHome,
+    soundCorrect,
+    soundPearl,
+    soundStationDone,
+    soundIslandDone,
     underwaterBackground,
     pearl,
   ];

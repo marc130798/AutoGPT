@@ -7,6 +7,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/sounds.dart';
 import '../../services/station_controller.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -42,6 +43,20 @@ class StationScreen extends StatefulWidget {
 
 class _StationScreenState extends State<StationScreen> {
   StationController? _controller;
+  StationStep? _lastStep;
+
+  Sounds get _sounds => AppScope.of(context).sounds;
+
+  /// Am Ende eine Fanfare: groß, wenn die Insel geschafft ist. Nach einer
+  /// nicht bestandenen Prüfung keine.
+  void _onStep() {
+    final controller = _controller!;
+    if (controller.step == _lastStep) return;
+    _lastStep = controller.step;
+    final result = controller.result;
+    if (controller.step != StationStep.result || result == null || !result.passed) return;
+    _sounds.effect(result.islandCompleted ? AssetKeys.soundIslandDone : AssetKeys.soundStationDone);
+  }
 
   @override
   void didChangeDependencies() {
@@ -58,12 +73,14 @@ class _StationScreenState extends State<StationScreen> {
         allStations: widget.allStations,
         budget: services.budget,
         random: services.random,
-      )..start();
+      )..addListener(_onStep);
+      _controller!.start();
     }
   }
 
   @override
   void dispose() {
+    _controller?.removeListener(_onStep);
     _controller?.dispose();
     super.dispose();
   }
@@ -83,7 +100,10 @@ class _StationScreenState extends State<StationScreen> {
             run: controller.warmUp!,
             title: l10n.warmUpTitle,
             hint: l10n.warmUpHint,
-            onAnswer: controller.answerWarmUp,
+            onAnswer: (i) {
+              controller.answerWarmUp(i);
+              if (controller.warmUp!.answeredCorrectly) _sounds.effect(AssetKeys.soundCorrect);
+            },
             onNext: controller.nextWarmUp,
           ),
           StationStep.video => VideoPlaceholder(assetKey: content.videoKey!, onContinue: controller.next),
@@ -110,7 +130,13 @@ class _StationScreenState extends State<StationScreen> {
                 ? DiveHeader(game: diveGame, results: controller.quiz!.results, stationId: widget.station.id)
                 : null,
             answerIcon: controller.isDive ? diveGame.answerIcon : null,
-            onAnswer: controller.answerQuiz,
+            onAnswer: (i) {
+              controller.answerQuiz(i);
+              // Beim Tauchgang ist jede richtige Antwort eine Perle.
+              if (controller.quiz!.answeredCorrectly) {
+                _sounds.effect(controller.isDive ? AssetKeys.soundPearl : AssetKeys.soundCorrect);
+              }
+            },
             onNext: controller.nextQuiz,
           ),
           StationStep.wreck => _WreckView(controller: controller),
@@ -432,7 +458,14 @@ class _WreckView extends StatelessWidget {
                       backgroundColor: colorFor(i)?.withValues(alpha: 0.15),
                       side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
                     ),
-                    onPressed: chosen == null ? () => controller.answerWreck(i) : null,
+                    onPressed: chosen == null
+                        ? () {
+                            controller.answerWreck(i);
+                            if (controller.wreck!.answeredCorrectly) {
+                              AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+                            }
+                          }
+                        : null,
                     child: Text(answer, style: theme.textTheme.bodyLarge),
                   ),
                 ),

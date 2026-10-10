@@ -192,6 +192,17 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                     subtitle: Text(controller.subscription.premium ? l10n.subscriptionPremium : l10n.subscriptionFree),
                     onTap: _openSubscription,
                   ),
+                  ListenableBuilder(
+                    listenable: services.sounds,
+                    builder: (context, _) => SwitchListTile(
+                      key: const ValueKey('music-switch'),
+                      secondary: const Icon(Icons.music_note_outlined),
+                      title: Text(l10n.lighthouseMusic),
+                      subtitle: Text(l10n.lighthouseMusicHint),
+                      value: services.sounds.musicAllowed,
+                      onChanged: services.sounds.setMusicAllowed,
+                    ),
+                  ),
                   ListTile(
                     leading: const Icon(Icons.pin_outlined),
                     title: Text(l10n.lighthouseChangePin),

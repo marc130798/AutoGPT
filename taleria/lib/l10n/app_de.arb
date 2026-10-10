@@ -2507,5 +2507,29 @@
   "diveFishHint": "Jeder Fisch trägt eine Antwort. Tippe den richtigen an. Jede richtige Antwort ist eine Perle.",
   "@diveFishHint": {
     "description": "Tauchgang Fischschwarm: Erklärung"
+  },
+  "soundOnLabel": "Ton an",
+  "@soundOnLabel": {
+    "description": "Startseite des Kindes: Beschriftung unter dem Lautsprecher-Knopf, wenn der Ton an ist"
+  },
+  "soundOffLabel": "Ton aus",
+  "@soundOffLabel": {
+    "description": "Startseite des Kindes: Beschriftung unter dem Lautsprecher-Knopf, wenn der Ton aus ist"
+  },
+  "soundTurnOff": "Ton ausschalten",
+  "@soundTurnOff": {
+    "description": "Hinweis und Vorlesetext für den Lautsprecher-Knopf, wenn der Ton an ist"
+  },
+  "soundTurnOn": "Ton einschalten",
+  "@soundTurnOn": {
+    "description": "Hinweis und Vorlesetext für den Lautsprecher-Knopf, wenn der Ton aus ist"
+  },
+  "lighthouseMusic": "Musik im Hauptmenü",
+  "@lighthouseMusic": {
+    "description": "Leuchtturm: Schalter für die Musik auf Startseite und Karte"
+  },
+  "lighthouseMusicHint": "Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.",
+  "@lighthouseMusicHint": {
+    "description": "Leuchtturm: Erklärung unter dem Musik-Schalter"
   }
 }

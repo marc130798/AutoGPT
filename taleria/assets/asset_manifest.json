@@ -1034,6 +1034,51 @@
         "shape": "rounded"
       }
     },
+    "music.home": {
+      "type": "audio",
+      "path": "assets/audio/music.home.mp3",
+      "placeholder": {
+        "label": "Musik Hauptmenü",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.correct": {
+      "type": "audio",
+      "path": "assets/audio/sound.correct.mp3",
+      "placeholder": {
+        "label": "Ton: richtig",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.pearl": {
+      "type": "audio",
+      "path": "assets/audio/sound.pearl.mp3",
+      "placeholder": {
+        "label": "Ton: Perle",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.station_done": {
+      "type": "audio",
+      "path": "assets/audio/sound.station_done.mp3",
+      "placeholder": {
+        "label": "Ton: Station geschafft",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.island_done": {
+      "type": "audio",
+      "path": "assets/audio/sound.island_done.mp3",
+      "placeholder": {
+        "label": "Ton: Insel geschafft",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
     "brand.logo": {
       "type": "image",
       "path": "assets/images/brand.logo.png",

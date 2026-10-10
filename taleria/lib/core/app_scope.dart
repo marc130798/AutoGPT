@@ -8,6 +8,7 @@ import '../data/content_repository.dart';
 import '../data/family_repository.dart';
 import '../data/local_settings.dart';
 import '../services/session_controller.dart';
+import '../services/sounds.dart';
 import 'assets/asset_manifest.dart';
 import 'assets/asset_repository.dart';
 import 'backend/backend.dart';
@@ -30,7 +31,9 @@ class AppServices {
     this.manifestError,
     this.sceneMotion = true,
     Random? random,
-  }) : random = random ?? _defaultRandom;
+    Sounds? sounds,
+  }) : random = random ?? _defaultRandom,
+       sounds = sounds ?? Sounds();
 
   static final _defaultRandom = Random();
 
@@ -59,6 +62,9 @@ class AppServices {
 
   /// Kleine Einstellungen auf diesem Gerät.
   final LocalSettings settings;
+
+  /// Musik im Hauptmenü und kurze Töne. Ohne Angabe still (Tests).
+  final Sounds sounds;
 
   /// Zufall für die Quiz-Auswahl (in Tests fest vorgegeben).
   final Random random;

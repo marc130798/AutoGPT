@@ -154,7 +154,12 @@ class _RiddleView extends StatelessWidget {
                       backgroundColor: colorFor(i)?.withValues(alpha: 0.15),
                       side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
                     ),
-                    onPressed: chosen == null ? () => controller.answer(i) : null,
+                    onPressed: chosen == null
+                        ? () {
+                            controller.answer(i);
+                            if (run.answeredCorrectly) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+                          }
+                        : null,
                     child: Text(answer, style: theme.textTheme.bodyLarge),
                   ),
                 ),
