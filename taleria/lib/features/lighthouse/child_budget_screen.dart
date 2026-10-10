@@ -50,7 +50,7 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
   Future<void> _createTask() async {
     await showDialog<void>(
       context: context,
-      builder: (_) => _TaskDialog(controller: _controller!, parentId: widget.parentId),
+      builder: (_) => TaskDialog(controller: _controller!, parentId: widget.parentId),
     );
   }
 
@@ -324,19 +324,22 @@ class _AllowanceDialogState extends State<_AllowanceDialog> {
   }
 }
 
-class _TaskDialog extends StatefulWidget {
-  const _TaskDialog({required this.controller, required this.parentId});
+class TaskDialog extends StatefulWidget {
+  const TaskDialog({super.key, required this.controller, required this.parentId, this.initialTitle});
 
   final TreasureController controller;
   final String parentId;
 
+  /// Vorschlag für den Titel, zum Beispiel ein Auftrag fürs echte Leben.
+  final String? initialTitle;
+
   @override
-  State<_TaskDialog> createState() => _TaskDialogState();
+  State<TaskDialog> createState() => _TaskDialogState();
 }
 
-class _TaskDialogState extends State<_TaskDialog> {
+class _TaskDialogState extends State<TaskDialog> {
   final _formKey = GlobalKey<FormState>();
-  final _title = TextEditingController();
+  late final _title = TextEditingController(text: widget.initialTitle);
   final _reward = TextEditingController();
   bool _chore = false;
   bool _busy = false;
@@ -363,7 +366,7 @@ class _TaskDialogState extends State<_TaskDialog> {
     );
     if (!mounted) return;
     setState(() => _busy = false);
-    if (ok) navigator.pop();
+    if (ok) navigator.pop(true);
   }
 
   @override

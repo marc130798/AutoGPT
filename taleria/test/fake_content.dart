@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:taleria/data/content_repository.dart';
 import 'package:taleria/domain/content_models.dart';
 import 'package:taleria/domain/family_models.dart';
+import 'package:taleria/domain/learning_status.dart';
 import 'package:taleria/domain/progress_logic.dart';
 import 'package:taleria/domain/progress_models.dart';
 
@@ -80,6 +81,9 @@ class FakeContent implements ContentRepository {
             content: StationContent.fromJson(d.toDbContent(k + 1)),
           ),
       ]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+      for (final (i, text) in island.prompts.indexed) {
+        prompts.add(ConversationPrompt(id: '$id/prompt${i + 1}', islandId: id, text: text));
+      }
       for (final (k, d) in island.dives.indexed) {
         collectibles['$id/dive${k + 1}'] = CollectibleInfo(
           id: 'find-${island.slug}-${k + 1}',
@@ -117,6 +121,7 @@ class FakeContent implements ContentRepository {
 
   /// Fund je Ankerplatz-ID.
   final Map<String, CollectibleInfo> collectibles = {};
+  final List<ConversationPrompt> prompts = [];
   final List<Encounter> encounters = [];
 
   List<QuizQuestion> get allQuestions => questions.values.expand((q) => q).toList();
@@ -146,6 +151,12 @@ class FakeContent implements ContentRepository {
 
   @override
   Future<List<QuizQuestion>> fetchQuestions(String stationId) async => questions[stationId] ?? const [];
+
+  @override
+  Future<List<ConversationPrompt>> fetchPrompts(List<String> islandIds) async => [
+    for (final p in prompts)
+      if (islandIds.contains(p.islandId)) p,
+  ];
 
   @override
   Future<List<QuizQuestion>> fetchQuestionsByIds(List<String> ids) async {
@@ -193,6 +204,10 @@ class FakeProgress implements ProgressRepository {
   bool reviewXpToday = false;
   int streakWeeks = 0;
   bool streakPaused = false;
+  DateTime? lastActiveAt;
+
+  /// Lernstand pro Station (wie learning_status() in der Datenbank).
+  final Map<String, TopicLearning> learning = {};
 
   int get totalXp => extraXp + xp.values.fold(0, (a, b) => a + b);
 
@@ -214,7 +229,11 @@ class FakeProgress implements ProgressRepository {
   @override
   Future<ChildProgress> fetchProgress(String childId) async {
     _check();
-    return ChildProgress(doneStationIds: {...done}, completedIslandIds: {...completedIslands});
+    return ChildProgress(
+      doneStationIds: {...done},
+      completedIslandIds: {...completedIslands},
+      islandCompletedAt: {for (final id in completedIslands) id: badgeDates[id] ?? DateTime(2026, 10, 9)},
+    );
   }
 
   @override
@@ -300,6 +319,7 @@ class FakeProgress implements ProgressRepository {
       badgeCount: badgeDates.length,
       reviewsDue: due.length,
       pearls: pearlsByDive.values.fold(0, (a, b) => a + b),
+      lastActiveAt: lastActiveAt,
       finds: findDates.length,
       pace: stationsPerWeek == null
           ? PaceStatus.freeSailing
@@ -329,6 +349,12 @@ class FakeProgress implements ProgressRepository {
     _check();
     recordedAnswers.add(answers);
     seen.addAll(answers.map((a) => a.questionId));
+  }
+
+  @override
+  Future<List<TopicLearning>> fetchLearningStatus(String childId) async {
+    _check();
+    return learning.values.toList();
   }
 
   @override

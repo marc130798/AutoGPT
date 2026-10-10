@@ -2442,6 +2442,168 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Kontrollfahrt starten'**
   String get fogAheadButton;
+
+  /// Leuchtturm: Eintrag zur Fortschritts-Seite eines Kindes
+  ///
+  /// In de, this message translates to:
+  /// **'Fortschritt und Lernstand'**
+  String get childDetailProgress;
+
+  /// Leuchtturm: Eintrag zu den Gesprächsideen
+  ///
+  /// In de, this message translates to:
+  /// **'Kombüsen-Fragen'**
+  String get childDetailKitchen;
+
+  /// Untertitel des Eintrags Kombüsen-Fragen
+  ///
+  /// In de, this message translates to:
+  /// **'Gesprächsideen und Aufträge fürs echte Leben'**
+  String get childDetailKitchenHint;
+
+  /// Überschrift der Fortschritts-Seite
+  ///
+  /// In de, this message translates to:
+  /// **'{nickname}: Fortschritt'**
+  String progressTitle(String nickname);
+
+  /// Sammlung des Kindes für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'{finds, plural, =0{Noch keine Fundstücke} =1{1 Fundstück} other{{finds} Fundstücke}} · Perlen: {pearls}'**
+  String parentCollection(int finds, int pearls);
+
+  /// Letzter Tag mit Station oder Wiederholung
+  ///
+  /// In de, this message translates to:
+  /// **'Zuletzt aktiv am {date}'**
+  String lastActive(String date);
+
+  /// Kind hat noch nichts gespielt
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht gespielt'**
+  String get lastActiveNever;
+
+  /// Überschrift der Inselliste im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Inseln'**
+  String get islandsHeading;
+
+  /// Insel abgeschlossen
+  ///
+  /// In de, this message translates to:
+  /// **'Abgeschlossen am {date}'**
+  String islandStatusCompleted(String date);
+
+  /// Fortschritt auf einer Insel (mit Wiederholungs-Stationen)
+  ///
+  /// In de, this message translates to:
+  /// **'{done} von {total} Stationen geschafft'**
+  String islandStatusProgress(int done, int total);
+
+  /// Insel noch nicht erreicht
+  ///
+  /// In de, this message translates to:
+  /// **'Noch gesperrt'**
+  String get islandStatusLocked;
+
+  /// Insel im Nebel (Elternwort laut Glossar)
+  ///
+  /// In de, this message translates to:
+  /// **'Inhalt folgt'**
+  String get islandStatusFog;
+
+  /// Überschrift Lernstand
+  ///
+  /// In de, this message translates to:
+  /// **'Lernstand'**
+  String get learningHeading;
+
+  /// Erklärung des Lernstands für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.'**
+  String get learningHint;
+
+  /// Lernstand eines Themas: sicher
+  ///
+  /// In de, this message translates to:
+  /// **'Sicher'**
+  String get topicSecure;
+
+  /// Lernstand eines Themas: richtig, aber noch nicht wiederholt
+  ///
+  /// In de, this message translates to:
+  /// **'Wird geübt'**
+  String get topicLearning;
+
+  /// Lernstand eines Themas: zuletzt teils falsch
+  ///
+  /// In de, this message translates to:
+  /// **'Wackelt noch'**
+  String get topicShaky;
+
+  /// Lernstand eines Themas: noch keine Fragen
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht dran'**
+  String get topicNotStarted;
+
+  /// Anzahl beantworteter Fragen eines Themas
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Frage beantwortet} other{{count} Fragen beantwortet}}'**
+  String topicAnswered(int count);
+
+  /// Überschrift der Gesprächsideen
+  ///
+  /// In de, this message translates to:
+  /// **'Kombüsen-Fragen'**
+  String get kitchenTitle;
+
+  /// Einleitung Kombüsen-Fragen
+  ///
+  /// In de, this message translates to:
+  /// **'Gesprächsideen für den Familientisch, passend zu dem, was {nickname} gerade lernt.'**
+  String kitchenIntro(String nickname);
+
+  /// Noch keine Insel erreicht
+  ///
+  /// In de, this message translates to:
+  /// **'Sobald {nickname} die erste Insel betritt, gibt es hier Gesprächsideen.'**
+  String kitchenNone(String nickname);
+
+  /// Markierung der aktuellen Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Gerade dran'**
+  String get kitchenCurrent;
+
+  /// Überschrift des Auftrags einer Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Auftrag fürs echte Leben'**
+  String get realLifeTaskHeading;
+
+  /// Knopf: Auftrag fürs echte Leben als Aufgabe anlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Als Aufgabe anlegen'**
+  String get realLifeTaskCreate;
+
+  /// Bestätigung nach dem Anlegen
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgabe angelegt. Sie steht jetzt bei {nickname} unter den Aufträgen.'**
+  String realLifeTaskCreated(String nickname);
+
+  /// Leuchtturm: Überschrift offene Aufgaben aller Kinder
+  ///
+  /// In de, this message translates to:
+  /// **'Wartet auf deine Bestätigung'**
+  String get pendingOverviewTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

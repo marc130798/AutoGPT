@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import '../domain/content_models.dart';
+import '../domain/learning_status.dart';
 import '../domain/progress_models.dart';
 import 'backend_errors.dart';
 
@@ -20,6 +21,9 @@ abstract interface class ContentRepository {
 
   /// Bestimmte Fragen (für Begegnungen auf See), in der Reihenfolge von [ids].
   Future<List<QuizQuestion>> fetchQuestionsByIds(List<String> ids);
+
+  /// Kombüsen-Fragen zu den Inseln (für den Leuchtturm).
+  Future<List<ConversationPrompt>> fetchPrompts(List<String> islandIds);
 }
 
 /// Fortschritt eines Kindes: Stationen abgeben, Seemeilen, Rang, Orden,
@@ -41,6 +45,9 @@ abstract interface class ProgressRepository {
 
   /// Unterwasser-Sammlung: alle sichtbaren Funde, gefundene mit Datum.
   Future<List<CollectibleInfo>> fetchCollection(String childId);
+
+  /// Eltern: Lernstand pro Thema aus dem Wiederholungsplan.
+  Future<List<TopicLearning>> fetchLearningStatus(String childId);
 
   /// [answers]: die erste Antwort je Frage.
   Future<EncounterResult> submitEncounter({
@@ -143,6 +150,20 @@ class SupabaseContentRepository implements ContentRepository {
     return [for (final id in ids) ?byId[id]];
   });
 
+  @override
+  Future<List<ConversationPrompt>> fetchPrompts(List<String> islandIds) => guardBackend(() async {
+    if (islandIds.isEmpty) return const <ConversationPrompt>[];
+    final rows = await _client
+        .from('conversation_prompts')
+        .select('id, island_id, text')
+        .inFilter('island_id', islandIds)
+        .order('created_at');
+    return [
+      for (final r in rows)
+        ConversationPrompt(id: r['id'] as String, islandId: r['island_id'] as String, text: r['text'] as String),
+    ];
+  });
+
   static QuizQuestion _question(Map<String, dynamic> r) => QuizQuestion(
     id: r['id'] as String,
     stationId: r['station_id'] as String,
@@ -166,10 +187,13 @@ class SupabaseProgressRepository implements ProgressRepository {
         .select('station_id')
         .eq('child_id', childId)
         .eq('status', 'done');
-    final islands = await _client.from('island_completions').select('island_id').eq('child_id', childId);
+    final islands = await _client.from('island_completions').select('island_id, completed_at').eq('child_id', childId);
     return ChildProgress(
       doneStationIds: {for (final r in done) r['station_id'] as String},
       completedIslandIds: {for (final r in islands) r['island_id'] as String},
+      islandCompletedAt: {
+        for (final r in islands) r['island_id'] as String: DateTime.parse(r['completed_at'] as String),
+      },
     );
   });
 
@@ -222,6 +246,12 @@ class SupabaseProgressRepository implements ProgressRepository {
       params: {'p_child_id': childId, 'p_practice': practice},
     );
     return result == null ? null : EncounterOffer.fromJson(result);
+  });
+
+  @override
+  Future<List<TopicLearning>> fetchLearningStatus(String childId) => guardBackend(() async {
+    final rows = await _client.rpc<List<dynamic>>('learning_status', params: {'p_child_id': childId});
+    return [for (final r in rows.cast<Map<String, dynamic>>()) TopicLearning.fromJson(r)];
   });
 
   @override

@@ -9,6 +9,8 @@ import '../common/busy_action.dart';
 import '../common/texts.dart';
 import 'child_budget_screen.dart';
 import 'child_form_screen.dart';
+import 'child_progress_screen.dart';
+import 'kitchen_screen.dart';
 import 'pace_card.dart';
 
 /// Ein Kinder-Profil im Leuchtturm: Gerät anmelden, hier spielen lassen,
@@ -126,6 +128,34 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                     ),
                   ],
                 ),
+                Card(
+                  child: ListTile(
+                    key: const ValueKey('child-progress'),
+                    minTileHeight: 64,
+                    leading: const Icon(Icons.insights_outlined),
+                    title: Text(l10n.childDetailProgress),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () =>
+                        Navigator.of(context)
+                            .push(MaterialPageRoute<void>(builder: (_) => ChildProgressScreen(child: child))),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    key: const ValueKey('child-kitchen'),
+                    minTileHeight: 64,
+                    leading: const Icon(Icons.restaurant_outlined),
+                    title: Text(l10n.childDetailKitchen),
+                    subtitle: Text(l10n.childDetailKitchenHint),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => KitchenScreen(child: child, parentId: widget.controller.parent.id),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 PaceCard(childId: child.id),
                 Card(
                   child: ListTile(

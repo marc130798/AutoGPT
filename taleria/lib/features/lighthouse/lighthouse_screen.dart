@@ -9,6 +9,7 @@ import '../common/busy_action.dart';
 import '../common/environment_banner.dart';
 import '../common/texts.dart';
 import '../dev/asset_gallery_screen.dart';
+import 'child_budget_screen.dart';
 import 'child_detail_screen.dart';
 import 'child_form_screen.dart';
 import 'pin_screens.dart';
@@ -33,6 +34,7 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
       _controller = LighthouseController(
         family: AppScope.of(context).family!,
         budget: AppScope.of(context).budget,
+        progress: AppScope.of(context).progress,
         parent: widget.parent,
       );
       _controller!.load();
@@ -80,6 +82,37 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                 children: [
                   const EnvironmentBanner(),
                   const SizedBox(height: 16),
+                  if (controller.pendingTotal > 0) ...[
+                    Card(
+                      key: const ValueKey('pending-overview'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                            child: Text(l10n.pendingOverviewTitle, style: theme.textTheme.titleMedium),
+                          ),
+                          for (final child in controller.children)
+                            if (controller.pendingFor(child.id) > 0)
+                              ListTile(
+                                leading: const Icon(Icons.task_alt),
+                                title: Text(child.nickname),
+                                subtitle: Text(l10n.pendingTasks(controller.pendingFor(child.id))),
+                                trailing: const Icon(Icons.chevron_right),
+                                onTap: () async {
+                                  await Navigator.of(context).push(
+                                    MaterialPageRoute<void>(
+                                      builder: (_) => ChildBudgetScreen(child: child, parentId: controller.parent.id),
+                                    ),
+                                  );
+                                  await controller.loadPendingTasks();
+                                },
+                              ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                   Text(l10n.lighthouseChildrenHeading, style: theme.textTheme.titleLarge),
                   const SizedBox(height: 8),
                   if (controller.loading)
@@ -106,6 +139,12 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                               l10n.childSubtitle(child.birthYear, l10n.level(child.level)),
                               if (child.shipName != null) l10n.lighthouseChildShip(child.shipName!),
                               if (!child.onboardingCompleted) l10n.lighthouseIntroPending,
+                              if (controller.statsFor(child.id) case final stats?) ...[
+                                if (stats.rank != null) l10n.parentLevel(stats.rank!.level, l10n.rank(stats.rank)),
+                                stats.lastActiveAt == null
+                                    ? l10n.lastActiveNever
+                                    : l10n.lastActive(formatDate(stats.lastActiveAt!)),
+                              ],
                               if (controller.pendingFor(child.id) > 0)
                                 l10n.pendingTasks(controller.pendingFor(child.id)),
                             ].join('\n'),

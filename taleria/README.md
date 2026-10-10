@@ -3,7 +3,13 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 7 gibt
+## Was es nach Schritt 8 gibt
+
+- Leuchtturm: offene Aufgaben aller Kinder oben, pro Kind Level und letzter Spieltag
+- Fortschritt pro Insel und Lernstand pro Thema („Sicher“, „Wird geübt“, „Wackelt noch“)
+- Kombüsen-Fragen als Gesprächsideen, dazu der Auftrag fürs echte Leben als Aufgabe
+
+## Was es seit Schritt 7 gibt
 
 - Ankerplätze nach Station 2, 4 und 6 jeder Insel: Perlentauchen und eine Aufgabe im Wrack
 - Unterwasser-Sammlung mit Perlen und einem Fund pro Ankerplatz
@@ -176,6 +182,20 @@ flutter run --dart-define-from-file=env/test.json
 ```
 
 Oben auf dem Startbildschirm steht dann „Testumgebung · Server verbunden, Datenbank bereit“.
+
+## Was du ausprobieren kannst (Schritt 8, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`). Neue Inhalte gibt es nicht.
+
+1. Kinder-Gerät: ein paar Stationen spielen, ruhig auch mit falschen Antworten.
+2. Eltern-Gerät: Leuchtturm öffnen. In der Kinderliste stehen Level und „Zuletzt aktiv am …“.
+3. Kind antippen, „Fortschritt und Lernstand“: oben die Übersicht, darunter die Inseln.
+   Den Hafen aufklappen: jede Station mit „Sicher“, „Wird geübt“, „Wackelt noch“ oder „Noch nicht dran“.
+   „Sicher“ erscheint erst, wenn Fragen nach Tagen in Wiederholungen richtig beantwortet wurden.
+4. Zurück, „Kombüsen-Fragen“: Gesprächsideen zum Hafen und der Auftrag „Preis-Detektiv“.
+   „Als Aufgabe anlegen“ tippen, Belohnung eintragen, speichern: Das Kind sieht den Auftrag.
+5. Kinder-Gerät: den Auftrag als „Erledigt!“ melden. Eltern-Gerät: Oben im Leuchtturm steht
+   „Wartet auf deine Bestätigung“.
 
 ## Was du ausprobieren kannst (Schritt 7, mit Test-Server)
 

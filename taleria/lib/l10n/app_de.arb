@@ -1905,5 +1905,164 @@
   "fogAheadButton": "Kontrollfahrt starten",
   "@fogAheadButton": {
     "description": "Knopf: Begegnung zum Üben"
+  },
+  "childDetailProgress": "Fortschritt und Lernstand",
+  "@childDetailProgress": {
+    "description": "Leuchtturm: Eintrag zur Fortschritts-Seite eines Kindes"
+  },
+  "childDetailKitchen": "Kombüsen-Fragen",
+  "@childDetailKitchen": {
+    "description": "Leuchtturm: Eintrag zu den Gesprächsideen"
+  },
+  "childDetailKitchenHint": "Gesprächsideen und Aufträge fürs echte Leben",
+  "@childDetailKitchenHint": {
+    "description": "Untertitel des Eintrags Kombüsen-Fragen"
+  },
+  "progressTitle": "{nickname}: Fortschritt",
+  "@progressTitle": {
+    "description": "Überschrift der Fortschritts-Seite",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "parentCollection": "{finds, plural, =0{Noch keine Fundstücke} =1{1 Fundstück} other{{finds} Fundstücke}} · Perlen: {pearls}",
+  "@parentCollection": {
+    "description": "Sammlung des Kindes für Eltern",
+    "placeholders": {
+      "finds": {
+        "type": "int"
+      },
+      "pearls": {
+        "type": "int"
+      }
+    }
+  },
+  "lastActive": "Zuletzt aktiv am {date}",
+  "@lastActive": {
+    "description": "Letzter Tag mit Station oder Wiederholung",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lastActiveNever": "Noch nicht gespielt",
+  "@lastActiveNever": {
+    "description": "Kind hat noch nichts gespielt"
+  },
+  "islandsHeading": "Inseln",
+  "@islandsHeading": {
+    "description": "Überschrift der Inselliste im Leuchtturm"
+  },
+  "islandStatusCompleted": "Abgeschlossen am {date}",
+  "@islandStatusCompleted": {
+    "description": "Insel abgeschlossen",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "islandStatusProgress": "{done} von {total} Stationen geschafft",
+  "@islandStatusProgress": {
+    "description": "Fortschritt auf einer Insel (mit Wiederholungs-Stationen)",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "islandStatusLocked": "Noch gesperrt",
+  "@islandStatusLocked": {
+    "description": "Insel noch nicht erreicht"
+  },
+  "islandStatusFog": "Inhalt folgt",
+  "@islandStatusFog": {
+    "description": "Insel im Nebel (Elternwort laut Glossar)"
+  },
+  "learningHeading": "Lernstand",
+  "@learningHeading": {
+    "description": "Überschrift Lernstand"
+  },
+  "learningHint": "Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.",
+  "@learningHint": {
+    "description": "Erklärung des Lernstands für Eltern"
+  },
+  "topicSecure": "Sicher",
+  "@topicSecure": {
+    "description": "Lernstand eines Themas: sicher"
+  },
+  "topicLearning": "Wird geübt",
+  "@topicLearning": {
+    "description": "Lernstand eines Themas: richtig, aber noch nicht wiederholt"
+  },
+  "topicShaky": "Wackelt noch",
+  "@topicShaky": {
+    "description": "Lernstand eines Themas: zuletzt teils falsch"
+  },
+  "topicNotStarted": "Noch nicht dran",
+  "@topicNotStarted": {
+    "description": "Lernstand eines Themas: noch keine Fragen"
+  },
+  "topicAnswered": "{count, plural, =1{1 Frage beantwortet} other{{count} Fragen beantwortet}}",
+  "@topicAnswered": {
+    "description": "Anzahl beantworteter Fragen eines Themas",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kitchenTitle": "Kombüsen-Fragen",
+  "@kitchenTitle": {
+    "description": "Überschrift der Gesprächsideen"
+  },
+  "kitchenIntro": "Gesprächsideen für den Familientisch, passend zu dem, was {nickname} gerade lernt.",
+  "@kitchenIntro": {
+    "description": "Einleitung Kombüsen-Fragen",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "kitchenNone": "Sobald {nickname} die erste Insel betritt, gibt es hier Gesprächsideen.",
+  "@kitchenNone": {
+    "description": "Noch keine Insel erreicht",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "kitchenCurrent": "Gerade dran",
+  "@kitchenCurrent": {
+    "description": "Markierung der aktuellen Insel"
+  },
+  "realLifeTaskHeading": "Auftrag fürs echte Leben",
+  "@realLifeTaskHeading": {
+    "description": "Überschrift des Auftrags einer Insel"
+  },
+  "realLifeTaskCreate": "Als Aufgabe anlegen",
+  "@realLifeTaskCreate": {
+    "description": "Knopf: Auftrag fürs echte Leben als Aufgabe anlegen"
+  },
+  "realLifeTaskCreated": "Aufgabe angelegt. Sie steht jetzt bei {nickname} unter den Aufträgen.",
+  "@realLifeTaskCreated": {
+    "description": "Bestätigung nach dem Anlegen",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingOverviewTitle": "Wartet auf deine Bestätigung",
+  "@pendingOverviewTitle": {
+    "description": "Leuchtturm: Überschrift offene Aufgaben aller Kinder"
   }
 }

@@ -1,22 +1,32 @@
 import 'package:flutter/foundation.dart';
 
 import '../data/budget_repository.dart';
+import '../data/content_repository.dart';
 import '../data/family_repository.dart';
 import '../domain/family_models.dart';
+import '../domain/progress_models.dart';
 import '../domain/validators.dart';
 
 /// Kinder-Profile im Leuchtturm: laden, anlegen, ändern, löschen, Codes.
 class LighthouseController extends ChangeNotifier {
-  LighthouseController({required this._family, required this.parent, this._budget});
+  LighthouseController({required this._family, required this.parent, this._budget, this._progress});
 
   final FamilyRepository _family;
   final BudgetRepository? _budget;
+  final ProgressRepository? _progress;
   final ParentAccount parent;
 
   Map<String, int> _pendingTasks = const {};
+  Map<String, ChildStats> _stats = const {};
 
   /// Wie viele gemeldete Aufgaben bei diesem Kind auf Bestätigung warten.
   int pendingFor(String childId) => _pendingTasks[childId] ?? 0;
+
+  /// Gemeldete Aufgaben aller Kinder zusammen.
+  int get pendingTotal => _children.fold(0, (sum, c) => sum + pendingFor(c.id));
+
+  /// Level, Fortschritt und letzter Tag an Bord, sobald geladen.
+  ChildStats? statsFor(String childId) => _stats[childId];
 
   List<ChildProfile> _children = const [];
   bool _loading = true;
@@ -38,6 +48,23 @@ class LighthouseController extends ChangeNotifier {
     _loading = false;
     notifyListeners();
     await loadPendingTasks();
+    await loadStats();
+  }
+
+  /// Kurze Übersicht pro Kind. Nur ein Hinweis: Fehler werden weggelassen.
+  Future<void> loadStats() async {
+    final progress = _progress;
+    if (progress == null) return;
+    final stats = <String, ChildStats>{};
+    for (final child in _children.where((c) => c.onboardingCompleted)) {
+      try {
+        stats[child.id] = await progress.fetchStats(child.id);
+      } on AppFailure {
+        // Ohne Verbindung einfach ohne Übersicht.
+      }
+    }
+    _stats = stats;
+    notifyListeners();
   }
 
   Future<void> loadPendingTasks() async {

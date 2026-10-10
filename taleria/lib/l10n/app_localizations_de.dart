@@ -1394,4 +1394,117 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get fogAheadButton => 'Kontrollfahrt starten';
+
+  @override
+  String get childDetailProgress => 'Fortschritt und Lernstand';
+
+  @override
+  String get childDetailKitchen => 'Kombüsen-Fragen';
+
+  @override
+  String get childDetailKitchenHint => 'Gesprächsideen und Aufträge fürs echte Leben';
+
+  @override
+  String progressTitle(String nickname) {
+    return '$nickname: Fortschritt';
+  }
+
+  @override
+  String parentCollection(int finds, int pearls) {
+    String _temp0 = intl.Intl.pluralLogic(
+      finds,
+      locale: localeName,
+      other: '$finds Fundstücke',
+      one: '1 Fundstück',
+      zero: 'Noch keine Fundstücke',
+    );
+    return '$_temp0 · Perlen: $pearls';
+  }
+
+  @override
+  String lastActive(String date) {
+    return 'Zuletzt aktiv am $date';
+  }
+
+  @override
+  String get lastActiveNever => 'Noch nicht gespielt';
+
+  @override
+  String get islandsHeading => 'Inseln';
+
+  @override
+  String islandStatusCompleted(String date) {
+    return 'Abgeschlossen am $date';
+  }
+
+  @override
+  String islandStatusProgress(int done, int total) {
+    return '$done von $total Stationen geschafft';
+  }
+
+  @override
+  String get islandStatusLocked => 'Noch gesperrt';
+
+  @override
+  String get islandStatusFog => 'Inhalt folgt';
+
+  @override
+  String get learningHeading => 'Lernstand';
+
+  @override
+  String get learningHint =>
+      'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.';
+
+  @override
+  String get topicSecure => 'Sicher';
+
+  @override
+  String get topicLearning => 'Wird geübt';
+
+  @override
+  String get topicShaky => 'Wackelt noch';
+
+  @override
+  String get topicNotStarted => 'Noch nicht dran';
+
+  @override
+  String topicAnswered(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Fragen beantwortet',
+      one: '1 Frage beantwortet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get kitchenTitle => 'Kombüsen-Fragen';
+
+  @override
+  String kitchenIntro(String nickname) {
+    return 'Gesprächsideen für den Familientisch, passend zu dem, was $nickname gerade lernt.';
+  }
+
+  @override
+  String kitchenNone(String nickname) {
+    return 'Sobald $nickname die erste Insel betritt, gibt es hier Gesprächsideen.';
+  }
+
+  @override
+  String get kitchenCurrent => 'Gerade dran';
+
+  @override
+  String get realLifeTaskHeading => 'Auftrag fürs echte Leben';
+
+  @override
+  String get realLifeTaskCreate => 'Als Aufgabe anlegen';
+
+  @override
+  String realLifeTaskCreated(String nickname) {
+    return 'Aufgabe angelegt. Sie steht jetzt bei $nickname unter den Aufträgen.';
+  }
+
+  @override
+  String get pendingOverviewTitle => 'Wartet auf deine Bestätigung';
 }

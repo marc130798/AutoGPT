@@ -52,6 +52,23 @@ class DialogLine {
   final String? name;
 }
 
+/// Auftrag fürs echte Leben zu einer Insel.
+class RealLifeTask {
+  const RealLifeTask({required this.title, required this.text});
+
+  final String title;
+  final String text;
+}
+
+/// Kombüsen-Frage: Gesprächsidee für die Familie zu einer Insel.
+class ConversationPrompt {
+  const ConversationPrompt({required this.id, required this.islandId, required this.text});
+
+  final String id;
+  final String islandId;
+  final String text;
+}
+
 class IslandDetails {
   const IslandDetails({
     required this.id,
@@ -61,11 +78,13 @@ class IslandDetails {
     this.arrivalVideoKey,
     this.arrivalScene = const [],
     this.badge,
+    this.realLifeTask,
   });
 
   factory IslandDetails.fromRow(Map<String, dynamic> row) {
     final content = (row['content'] as Map<String, dynamic>?) ?? const {};
     final arrival = content['arrival'] as Map<String, dynamic>?;
+    final task = content['real_life_task'] as Map<String, dynamic>?;
     return IslandDetails(
       id: row['id'] as String,
       slug: row['slug'] as String,
@@ -76,6 +95,9 @@ class IslandDetails {
         for (final l in (arrival?['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>),
       ],
       badge: content['badge'] as String?,
+      realLifeTask: task == null
+          ? null
+          : RealLifeTask(title: task['title'] as String? ?? '', text: task['text'] as String? ?? ''),
     );
   }
 
@@ -88,6 +110,9 @@ class IslandDetails {
 
   /// Name des Ordens für diese Insel.
   final String? badge;
+
+  /// Auftrag fürs echte Leben (Eltern bestätigen, INSELN.md).
+  final RealLifeTask? realLifeTask;
 
   bool get hasArrival => arrivalScene.isNotEmpty || arrivalVideoKey != null;
 }
@@ -356,10 +381,17 @@ class QuizQuestion {
 
 /// Was das Kind schon geschafft hat.
 class ChildProgress {
-  const ChildProgress({this.doneStationIds = const {}, this.completedIslandIds = const {}});
+  const ChildProgress({
+    this.doneStationIds = const {},
+    this.completedIslandIds = const {},
+    this.islandCompletedAt = const {},
+  });
 
   final Set<String> doneStationIds;
   final Set<String> completedIslandIds;
+
+  /// Wann eine Insel abgeschlossen wurde (für den Leuchtturm).
+  final Map<String, DateTime> islandCompletedAt;
 }
 
 /// Antwort des Servers nach dem Abgeben einer Station.
