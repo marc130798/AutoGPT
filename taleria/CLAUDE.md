@@ -581,6 +581,6 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Die Orden der ersten drei Inseln haben Bilder von Marc (`badge.hafen`, `badge.tauschinsel`, `badge.wunschinsel`): goldener Orden mit blauem Band, im Hochformat. In der Orden-Sammlung und bei der Feier nach einer geschafften Insel wird er ganz gezeigt (nicht mehr rund ausgeschnitten).
 
 **Figuren auf den Inseln, begonnen am 10.10.2026 (BILDER.md Abschnitt 4d):**
-- Hafen fertig: Händler (Walross), Verkäuferin am Fischbrötchen-Stand (Seehündin), Bootsbauer (Biber). Sie erscheinen ohne Code-Änderung in den Sprechblasen der Stationen. Tauschinsel, Wunschinsel und Meister Taleron folgen.
+- Hafen fertig: Händler (Walross), Verkäuferin am Fischbrötchen-Stand (Seehündin), Bootsbauer (Biber). Tauschinsel fertig: Bruno, Greta, Otti, Olga. Sie erscheinen ohne Code-Änderung in den Sprechblasen der Stationen. Wunschinsel (Elsa, Moritz) und Meister Taleron folgen; für Taleron steht im Manifest noch die Art `rive`, das wird beim Einbau auf Bild umgestellt.
 - In der Sprechblase zeigt der runde Rahmen jetzt das obere Ende des Bildes, damit der ganze Kopf zu sehen ist.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

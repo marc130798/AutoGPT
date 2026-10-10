@@ -304,19 +304,19 @@ Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, wei
 
 Die Tiere der Hafen-Figuren hat Claude Code vorgeschlagen und Marc so gemacht (jetzt auch in FIGUREN.md), die anderen standen schon in FIGUREN.md.
 
-Tipp: Bei Figuren mit viel Weiß oder Grau (zum Beispiel einer weißen Schürze) besser grünen Hintergrund (#00FF00) nehmen, außer die Figur trägt selbst Grün. Pink färbt Weiß rosa, Grün lässt sich sauberer herausrechnen.
+Tipp: Bei Figuren mit viel Weiß oder Grau (zum Beispiel einer weißen Schürze) oder mit Lila und Rosa besser grünen Hintergrund (#00FF00) nehmen, außer die Figur trägt selbst Grün. Pink färbt Weiß rosa und verfälscht Lila, Grün lässt sich sauberer herausrechnen. Dann im Text „reines Pink-Magenta (#FF00FF)“ durch „reines Grün (#00FF00)“ ersetzen.
 
 | Datei | Figur | Beschreibung (statt „FIGUR“ einsetzen) | Stand |
 | --- | --- | --- | --- |
 | `character.haendler` | Händler im Hafen | ein gemütliches Walross mit großem Schnurrbart, grüner Kaufmannsweste über weißem Hemd und kleiner runder Brille, es hält ein dickes Buch unter dem Arm | da |
 | `character.verkaeuferin` | Verkäuferin am Fischbrötchen-Stand | eine fröhliche Seehündin mit weißer Schürze und rot-weiß kariertem Kopftuch, sie hält ein Tablett mit Fischbrötchen | da |
 | `character.bootsbauer` | Bootsbauer | ein kräftiger Biber mit Zimmermannsweste und Bleistift hinter dem Ohr, er trägt ein Holzbrett unter dem Arm | da |
-| `character.bruno` | Bruno, Obstbauer | ein großer, gemütlicher Braunbär mit Strohhut und grüner Latzhose, er hält einen Korb voller roter Äpfel | fehlt |
-| `character.greta` | Greta, Seilmacherin | eine weiße Ziege mit kleinen Hörnern, rotem Kopftuch und Lederschürze, über der Schulter trägt sie aufgerollte Seile | fehlt |
-| `character.otti` | Otti, Fischer | ein Fischotter mit gelber Regenjacke und Fischermütze, er hält einen geflochtenen Korb mit glänzenden Fischen | fehlt |
-| `character.olga` | Olga, Inselälteste | eine alte, freundliche Landschildkröte mit Brille und Wollschal, sie stützt sich auf einen Stock aus Treibholz und hält eine aufgerollte alte Karte | fehlt |
-| `character.elsa` | Elsa, Glitzerladen | eine Elster mit glänzend blau-schwarzem Gefieder und lila Weste, behängt mit vielen glitzernden Ketten und Ringen | fehlt |
-| `character.moritz` | Moritz, zufrieden mit wenig | ein Murmeltier in einem einfachen Hemd mit bunten Flicken, es lächelt zufrieden und hält eine Tasse Tee | fehlt |
+| `character.bruno` | Bruno, Obstbauer | ein großer, gemütlicher Braunbär mit Strohhut und grüner Latzhose, er hält einen Korb voller roter Äpfel | da |
+| `character.greta` | Greta, Seilmacherin | eine weiße Ziege mit kleinen Hörnern, rotem Kopftuch und Lederschürze, über der Schulter trägt sie aufgerollte Seile | da |
+| `character.otti` | Otti, Fischer | ein Fischotter mit gelber Regenjacke und Fischermütze, er hält einen geflochtenen Korb mit glänzenden Fischen | da |
+| `character.olga` | Olga, Inselälteste | eine alte, freundliche Landschildkröte mit Brille und Wollschal, sie stützt sich auf einen Stock aus Treibholz und hält eine aufgerollte alte Karte | da |
+| `character.elsa` | Elsa, Glitzerladen | eine Elster mit glänzend schwarz-weißem Gefieder mit blauem Schimmer und lila Weste, behängt mit vielen glitzernden goldenen Ketten und Ringen (**grüner Hintergrund**, sonst leidet das Lila) | fehlt |
+| `character.moritz` | Moritz, zufrieden mit wenig | ein Murmeltier in einem einfachen hellbraunen Hemd mit bunten Flicken in Blau, Gelb und Grün, es lächelt zufrieden und hält eine Tasse Tee | fehlt |
 | `character.taleron` | Meister Taleron | ein großes, uraltes, freundliches Seeungeheuer mit türkisgrünen Schuppen, langem Bart aus Seetang mit kleinen Muscheln und runder Brille, es sitzt gemütlich und hat den langen Schwanz um sich gelegt, sanft und gar nicht gruselig | fehlt |
 
 ---
