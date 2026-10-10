@@ -146,7 +146,7 @@ class SupabaseBudgetRepository implements BudgetRepository {
         .from('savings_goals')
         .select('id, title, target_cents, reached_at')
         .eq('child_id', childId)
-        .order('created_at');
+        .order('created_at', ascending: true);
     return [
       for (final r in rows)
         SavingsGoal(

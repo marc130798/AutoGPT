@@ -70,7 +70,7 @@ class SupabaseFamilyRepository implements FamilyRepository {
 
   @override
   Future<List<ChildProfile>> fetchChildren() => guardBackend(() async {
-    final rows = await _client.from('children').select(_childColumns).order('created_at');
+    final rows = await _client.from('children').select(_childColumns).order('created_at', ascending: true);
     return rows.map(_childFromRow).toList();
   });
 

@@ -641,6 +641,9 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Die Rechnung steckt in `lib/domain/pot_summary.dart`. Das Kassenbuch lädt nur die neuesten 50 Buchungen; Älteres steht als „Frühere Buchungen“ da, damit die Summe immer zum Stand vom Server passt.
   - Belohnungen für Aufträge landen wie bisher in der Bordkasse, nicht in der Schatztruhe (Schritt 5a).
 
+**Rückmeldungen aus Marcs Test, zweite Runde (10.10.2026):**
+- **Fehler behoben, falsche Reihenfolge:** `supabase_flutter` sortiert mit `.order(...)` ohne Angabe **absteigend**. Darum standen die Stationen auf der Insel verkehrt herum: Station 1 lag oben, die Prüfung unten am Steg. Orden und Unterwasser-Sammlung waren auch umgedreht, ebenso Kombüsen-Fragen, Wunschschätze und die Kinderliste. Jetzt steht überall `ascending: true` (oder ausdrücklich `false`), und der `IslandController` sortiert die Stationen zusätzlich selbst. Regel: `.order()` nie ohne `ascending`.
+
 ---
 
 ## 17. Aktueller Stand und nächste Schritte (Stand 10.10.2026)

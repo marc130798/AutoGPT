@@ -54,7 +54,8 @@ class IslandController extends ChangeNotifier {
       final progress = await _progress.fetchProgress(child.id);
       _pace = await _loadPace();
       _details = details;
-      _stations = stations;
+      // Vom Steg nach oben, egal in welcher Reihenfolge der Server liefert.
+      _stations = [...stations]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
       _states = stationStates(
         stations,
         progress,

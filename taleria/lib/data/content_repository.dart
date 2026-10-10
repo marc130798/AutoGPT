@@ -113,7 +113,7 @@ class SupabaseContentRepository implements ContentRepository {
         .from('stations')
         .select('id, island_id, sort_order, type, is_required, xp_reward, content')
         .eq('island_id', islandId)
-        .order('sort_order');
+        .order('sort_order', ascending: true);
     return [
       for (final r in rows)
         StationInfo(
@@ -161,7 +161,7 @@ class SupabaseContentRepository implements ContentRepository {
         .from('conversation_prompts')
         .select('id, island_id, text')
         .inFilter('island_id', islandIds)
-        .order('created_at');
+        .order('created_at', ascending: true);
     return [
       for (final r in rows)
         ConversationPrompt(id: r['id'] as String, islandId: r['island_id'] as String, text: r['text'] as String),
@@ -234,7 +234,7 @@ class SupabaseProgressRepository implements ProgressRepository {
 
   @override
   Future<List<BadgeInfo>> fetchBadges(String childId) => guardBackend(() async {
-    final badges = await _client.from('badges').select('id, slug, title, asset_key, sort_order').order('sort_order');
+    final badges = await _client.from('badges').select('id, slug, title, asset_key, sort_order').order('sort_order', ascending: true);
     final earned = await _client.from('child_badges').select('badge_id, earned_at').eq('child_id', childId);
     final earnedAt = {for (final r in earned) r['badge_id'] as String: DateTime.parse(r['earned_at'] as String)};
     return [
@@ -268,7 +268,7 @@ class SupabaseProgressRepository implements ProgressRepository {
 
   @override
   Future<List<CollectibleInfo>> fetchCollection(String childId) => guardBackend(() async {
-    final items = await _client.from('collectibles').select('id, slug, kind, title, asset_key').order('sort_order');
+    final items = await _client.from('collectibles').select('id, slug, kind, title, asset_key').order('sort_order', ascending: true);
     final found = await _client.from('child_collectibles').select('collectible_id, found_at').eq('child_id', childId);
     final foundAt = {for (final r in found) r['collectible_id'] as String: DateTime.parse(r['found_at'] as String)};
     return [
