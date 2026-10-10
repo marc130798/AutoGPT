@@ -56,7 +56,7 @@ class SpeechBubble extends StatelessWidget {
               width: 72,
               height: 72,
               fit: BoxFit.cover,
-              alignment: const Alignment(0, -0.75),
+              alignment: Alignment.topCenter,
             ),
           ),
         ),

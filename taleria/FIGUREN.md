@@ -50,7 +50,7 @@ Alle Figuren sind Entwürfe. Namen und Rollen stammen aus `INSELN.md`.
 
 | Insel | Figur | Tier | Rolle |
 | --- | --- | --- | --- |
-| Hafen | Händler am Kontor, Verkäuferin am Fischbrötchen-Stand, Bootsbauer | offen | Nebenfiguren ohne festen Namen |
+| Hafen | Händler am Kontor, Verkäuferin am Fischbrötchen-Stand, Bootsbauer | Walross, Seehündin, Biber | Nebenfiguren ohne festen Namen |
 | Tauschinsel | Bruno | Bär | Obstbauer |
 | Tauschinsel | Greta | Ziege | Seilmacherin |
 | Tauschinsel | Otti | Otter | Fischer |

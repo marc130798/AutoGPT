@@ -70,6 +70,12 @@ def key_out_background(rgb, low=40.0, high=110.0, figure=False):
     region = border_connected(distance < high, seeds=distance < (70 if figure else 35))
     alpha = np.ones((h, w))
     alpha[region] = np.clip((distance[region] - low) / (high - low), 0, 1)
+    if figure:
+        # Schatten auf dem Boden (nur dunkleres Pink oder Grün): ganz weg, damit
+        # die Figur nicht auf einem grauen Fleck steht.
+        k = (rgb @ background) / (background @ background)
+        residual = np.sqrt(((rgb - k[..., None] * background) ** 2).sum(axis=2))
+        alpha[region & (residual < 24)] = 0
 
     # Farbe ohne Hintergrund: Pixel = a * Vordergrund + (1 - a) * Hintergrund.
     a = alpha[..., None]
@@ -97,7 +103,8 @@ def key_out_background(rgb, low=40.0, high=110.0, figure=False):
         # pinker Hintergrund
         magenta = np.clip(np.minimum(r, b) - g, 0, None) * near_edge
         foreground[..., 2] = b - magenta
-        foreground[..., 0] = r - magenta * 0.35
+        # Bei Figuren auch Rot ganz herausnehmen, sonst bleiben Weiß und Fell rosa.
+        foreground[..., 0] = r - magenta * (1.0 if figure else 0.35)
     # Feiner Saum aus Hintergrundfarbe am Rand (bei Fell und Haaren): Rand ein
     # wenig nach innen ziehen (bei 1024 Pixeln drei Pixel). Die Farben bleiben.
     choke = round(max(h, w) / 400) if figure else 0

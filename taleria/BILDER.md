@@ -302,13 +302,15 @@ Für jede Figur das fertige Bild von Talo anhängen (`design/gemini/character.ta
 Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur: FIGUR. Freundlicher Blick, lächelt. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
 ```
 
-Die Tiere der Hafen-Figuren sind ein Vorschlag von Claude Code (in FIGUREN.md noch offen), die anderen stehen so in FIGUREN.md.
+Die Tiere der Hafen-Figuren hat Claude Code vorgeschlagen und Marc so gemacht (jetzt auch in FIGUREN.md), die anderen standen schon in FIGUREN.md.
+
+Tipp: Bei Figuren mit viel Weiß oder Grau (zum Beispiel einer weißen Schürze) besser grünen Hintergrund (#00FF00) nehmen, außer die Figur trägt selbst Grün. Pink färbt Weiß rosa, Grün lässt sich sauberer herausrechnen.
 
 | Datei | Figur | Beschreibung (statt „FIGUR“ einsetzen) | Stand |
 | --- | --- | --- | --- |
-| `character.haendler` | Händler im Hafen | ein gemütliches Walross mit großem Schnurrbart, grüner Kaufmannsweste über weißem Hemd und kleiner runder Brille, es hält ein dickes Buch unter dem Arm | fehlt |
-| `character.verkaeuferin` | Verkäuferin am Fischbrötchen-Stand | eine fröhliche Seehündin mit weißer Schürze und rot-weiß kariertem Kopftuch, sie hält ein Tablett mit Fischbrötchen | fehlt |
-| `character.bootsbauer` | Bootsbauer | ein kräftiger Biber mit Zimmermannsweste und Bleistift hinter dem Ohr, er trägt ein Holzbrett unter dem Arm | fehlt |
+| `character.haendler` | Händler im Hafen | ein gemütliches Walross mit großem Schnurrbart, grüner Kaufmannsweste über weißem Hemd und kleiner runder Brille, es hält ein dickes Buch unter dem Arm | da |
+| `character.verkaeuferin` | Verkäuferin am Fischbrötchen-Stand | eine fröhliche Seehündin mit weißer Schürze und rot-weiß kariertem Kopftuch, sie hält ein Tablett mit Fischbrötchen | da |
+| `character.bootsbauer` | Bootsbauer | ein kräftiger Biber mit Zimmermannsweste und Bleistift hinter dem Ohr, er trägt ein Holzbrett unter dem Arm | da |
 | `character.bruno` | Bruno, Obstbauer | ein großer, gemütlicher Braunbär mit Strohhut und grüner Latzhose, er hält einen Korb voller roter Äpfel | fehlt |
 | `character.greta` | Greta, Seilmacherin | eine weiße Ziege mit kleinen Hörnern, rotem Kopftuch und Lederschürze, über der Schulter trägt sie aufgerollte Seile | fehlt |
 | `character.otti` | Otti, Fischer | ein Fischotter mit gelber Regenjacke und Fischermütze, er hält einen geflochtenen Korb mit glänzenden Fischen | fehlt |

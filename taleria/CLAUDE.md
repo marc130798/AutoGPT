@@ -579,3 +579,8 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 **Rang-Abzeichen, umgesetzt am 10.10.2026:**
 - Die fünf Ränge haben Bilder von Marc (`rank.schiffsjunge` Holz, `rank.matrose` Bronze, `rank.bootsmann` Silber, `rank.steuermann` Gold, `rank.kapitaen` Gold mit Edelsteinen). Sie erscheinen ohne Code-Änderung überall, wo der Rang gezeigt wird: Startseite (Rang und Seemeilen), neuer Rang nach einer Station oder Begegnung, Einführung.
 - Die Orden der ersten drei Inseln haben Bilder von Marc (`badge.hafen`, `badge.tauschinsel`, `badge.wunschinsel`): goldener Orden mit blauem Band, im Hochformat. In der Orden-Sammlung und bei der Feier nach einer geschafften Insel wird er ganz gezeigt (nicht mehr rund ausgeschnitten).
+
+**Figuren auf den Inseln, begonnen am 10.10.2026 (BILDER.md Abschnitt 4d):**
+- Hafen fertig: Händler (Walross), Verkäuferin am Fischbrötchen-Stand (Seehündin), Bootsbauer (Biber). Sie erscheinen ohne Code-Änderung in den Sprechblasen der Stationen. Tauschinsel, Wunschinsel und Meister Taleron folgen.
+- In der Sprechblase zeigt der runde Rahmen jetzt das obere Ende des Bildes, damit der ganze Kopf zu sehen ist.
+- Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.
