@@ -229,7 +229,7 @@ Den Verlauf des Wegs zeichnet Claude Code im Bild nach und trägt ihn im Manifes
 
 ---
 
-## 4c. Als Nächstes: Posen, Ränge, Orden
+## 4c. Posen, Ränge, Orden (alle da)
 
 ### Talo und Tala winkend → `character.talo.wave`, `character.tala.wave`
 
@@ -284,6 +284,38 @@ Leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine 
 ```
 
 Ist das Band trotzdem abgeschnitten, im selben Gemini-Chat nachschieben: „Bitte weiter herauszoomen. Das ganze blaue Band muss zu sehen sein, mit freiem Platz bis zum Rand.“
+
+---
+
+## 4d. Als Nächstes: die Figuren auf den ersten drei Inseln
+
+Diese Figuren sprechen in den Stationen mit dem Kind. Bis jetzt sieht man dort nur einen farbigen Kreis mit Namen. Insel für Insel:
+
+- **Schritt A, Hafen:** Händler, Verkäuferin, Bootsbauer
+- **Schritt B, Tauschinsel:** Bruno, Greta, Otti, Olga
+- **Schritt C, Wunschinsel:** Elsa, Moritz
+- **Schritt D:** Meister Taleron
+
+Für jede Figur das fertige Bild von Talo anhängen (`design/gemini/character.talo.jpg`), damit alle im gleichen Stil sind. Dann diesen Text, „FIGUR“ durch die Beschreibung aus der Tabelle ersetzen:
+
+```
+Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur: FIGUR. Freundlicher Blick, lächelt. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+Die Tiere der Hafen-Figuren sind ein Vorschlag von Claude Code (in FIGUREN.md noch offen), die anderen stehen so in FIGUREN.md.
+
+| Datei | Figur | Beschreibung (statt „FIGUR“ einsetzen) | Stand |
+| --- | --- | --- | --- |
+| `character.haendler` | Händler im Hafen | ein gemütliches Walross mit großem Schnurrbart, grüner Kaufmannsweste über weißem Hemd und kleiner runder Brille, es hält ein dickes Buch unter dem Arm | fehlt |
+| `character.verkaeuferin` | Verkäuferin am Fischbrötchen-Stand | eine fröhliche Seehündin mit weißer Schürze und rot-weiß kariertem Kopftuch, sie hält ein Tablett mit Fischbrötchen | fehlt |
+| `character.bootsbauer` | Bootsbauer | ein kräftiger Biber mit Zimmermannsweste und Bleistift hinter dem Ohr, er trägt ein Holzbrett unter dem Arm | fehlt |
+| `character.bruno` | Bruno, Obstbauer | ein großer, gemütlicher Braunbär mit Strohhut und grüner Latzhose, er hält einen Korb voller roter Äpfel | fehlt |
+| `character.greta` | Greta, Seilmacherin | eine weiße Ziege mit kleinen Hörnern, rotem Kopftuch und Lederschürze, über der Schulter trägt sie aufgerollte Seile | fehlt |
+| `character.otti` | Otti, Fischer | ein Fischotter mit gelber Regenjacke und Fischermütze, er hält einen geflochtenen Korb mit glänzenden Fischen | fehlt |
+| `character.olga` | Olga, Inselälteste | eine alte, freundliche Landschildkröte mit Brille und Wollschal, sie stützt sich auf einen Stock aus Treibholz und hält eine aufgerollte alte Karte | fehlt |
+| `character.elsa` | Elsa, Glitzerladen | eine Elster mit glänzend blau-schwarzem Gefieder und lila Weste, behängt mit vielen glitzernden Ketten und Ringen | fehlt |
+| `character.moritz` | Moritz, zufrieden mit wenig | ein Murmeltier in einem einfachen Hemd mit bunten Flicken, es lächelt zufrieden und hält eine Tasse Tee | fehlt |
+| `character.taleron` | Meister Taleron | ein großes, uraltes, freundliches Seeungeheuer mit türkisgrünen Schuppen, langem Bart aus Seetang mit kleinen Muscheln und runder Brille, es sitzt gemütlich und hat den langen Schwanz um sich gelegt, sanft und gar nicht gruselig | fehlt |
 
 ---
 
