@@ -89,7 +89,51 @@
       "spiel": {
         "art": "sort",
         "titel": "Zwei Körbe",
-        "beschreibung": "Sortiere Dinge in den Korb für Bedürfnisse oder für Wünsche. Über Dinge dazwischen sprechen Talo und Tala."
+        "beschreibung": "Sortiere Dinge in den Korb für Bedürfnisse oder für Wünsche.",
+        "aufgabe": "Tippe auf eine Karte und dann auf den passenden Korb.",
+        "koerbe": [
+          "Brauche ich",
+          "Wünsche ich mir"
+        ],
+        "dinge": [
+          {
+            "text": "Essen",
+            "korb": 0
+          },
+          {
+            "text": "Wasser",
+            "korb": 0
+          },
+          {
+            "text": "Eine warme Jacke im Winter",
+            "korb": 0
+          },
+          {
+            "text": "Ein Zuhause",
+            "korb": 0
+          },
+          {
+            "text": "Eine Spielkonsole",
+            "korb": 1
+          },
+          {
+            "text": "Ein Glitzerkompass",
+            "korb": 1
+          },
+          {
+            "text": "Das fünfte Paar Turnschuhe",
+            "korb": 1
+          },
+          {
+            "text": "Ein Handy",
+            "korb": null,
+            "hinweis": "Darüber kann man streiten: Ein Handy hilft, die Eltern zu erreichen. Das neueste Modell ist aber ein Wunsch."
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Bedürfnisse kommen zuerst. Wünsche sind erlaubt, wenn das Wichtige da ist."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -410,9 +454,44 @@
         }
       ],
       "spiel": {
-        "art": "situations",
+        "art": "sort",
         "titel": "Gruppendruck erkennen",
-        "beschreibung": "Erkenne Situationen mit Gruppendruck und übe Antworten."
+        "beschreibung": "Erkenne Situationen mit Gruppendruck.",
+        "aufgabe": "Ist das Gruppendruck oder eine eigene Entscheidung? Tippe auf eine Karte und dann auf den passenden Korb.",
+        "koerbe": [
+          "Gruppendruck",
+          "Eigene Entscheidung"
+        ],
+        "dinge": [
+          {
+            "text": "Alle Möwen tragen rote Mützen. Tala will plötzlich auch eine, obwohl sie Mützen nicht mag.",
+            "korb": 0
+          },
+          {
+            "text": "Lina spart für ein Fahrrad, weil sie gern Rad fährt.",
+            "korb": 1
+          },
+          {
+            "text": "Ben kauft das teure Spiel, weil die anderen sonst über ihn lachen.",
+            "korb": 0
+          },
+          {
+            "text": "Mo schläft eine Nacht drüber und entscheidet dann, ob er die Sammelkarten wirklich will.",
+            "korb": 1
+          },
+          {
+            "text": "In der Klasse heißt es: Wer die Marken-Turnschuhe nicht hat, gehört nicht dazu.",
+            "korb": 0
+          },
+          {
+            "text": "Ella sagt: Danke, ich brauche das nicht. Und sie bleibt dabei.",
+            "korb": 1
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Gruppendruck erkennen ist der erste Schritt. Dann darfst du ruhig Nein sagen."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -1028,6 +1107,86 @@
           "station": 7
         }
       ]
+    }
+  ],
+  "tauchgaenge": [
+    {
+      "nach": 2,
+      "titel": "Die Kiste des Kapitäns",
+      "spiel": "fischschwarm",
+      "fragen": 4,
+      "fund": "Kapitänskiste",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "talo",
+            "text": "In diese Kiste passen nur fünf Dinge für eine lange Reise."
+          },
+          {
+            "wer": "tala",
+            "text": "Fünf Dinge? Ich hätte gern zwanzig!"
+          }
+        ],
+        "frage": "Was gehört zuerst in die Kiste?",
+        "richtig": "Wasser, Essen, eine warme Jacke, Verbandszeug und eine Karte",
+        "falsch": [
+          "Fünf Comics",
+          "Eine Spielkonsole und vier Kuscheltiere"
+        ],
+        "erklaerung": "Zuerst kommt, was man wirklich braucht. Wünsche dürfen mit, wenn noch Platz ist."
+      }
+    },
+    {
+      "nach": 4,
+      "titel": "Der Brief des Matrosen",
+      "spiel": "perlentauchen",
+      "fragen": 4,
+      "fund": "Flaschenbrief",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Ein Brief! Ein Matrose schreibt: Ich habe alles gekauft, was die anderen hatten. Jetzt ist mein Geld weg."
+          },
+          {
+            "wer": "talo",
+            "text": "Welchen Rat würdest du ihm geben?"
+          }
+        ],
+        "frage": "Welcher Rat hilft dem Matrosen am meisten?",
+        "richtig": "Vor jedem Kauf überlegen, ob er es selbst will oder nur, weil die anderen es haben.",
+        "falsch": [
+          "Immer sofort kaufen, was die anderen haben.",
+          "Nie wieder etwas kaufen."
+        ],
+        "erklaerung": "Gruppendruck ist stark. Eine Nacht drüber schlafen hilft, die eigenen Wünsche zu erkennen."
+      }
+    },
+    {
+      "nach": 6,
+      "titel": "Das Album der alten Crew",
+      "spiel": "schatztruhe",
+      "fragen": 4,
+      "fund": "Altes Fotoalbum",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "talo",
+            "text": "Ein Fotoalbum der alten Crew und eine Kiste voller vergessener Sachen."
+          },
+          {
+            "wer": "tala",
+            "text": "In der Kiste liegt Spielzeug, das keiner mehr anschaut. Aber im Album lachen alle!"
+          }
+        ],
+        "frage": "Was hat die alte Crew am glücklichsten gemacht?",
+        "richtig": "Gemeinsame Abenteuer und Feste, an die sie sich gern erinnern",
+        "falsch": [
+          "Die vielen Sachen in der Kiste",
+          "Möglichst viel Geld auszugeben"
+        ],
+        "erklaerung": "Dinge sind schnell vergessen, gemeinsame Erlebnisse bleiben in Erinnerung."
+      }
     }
   ]
 }

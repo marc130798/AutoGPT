@@ -14,6 +14,9 @@ const stationTypes = {'video', 'quiz', 'game', 'practice', 'review_stop', 'exam'
 /// Mindestgröße eines Stations-Check-Pools (CLAUDE.md, Abschnitt 11).
 const minCheckPool = 6;
 
+/// Seemeilen für einen Tauchgang.
+const diveXp = 50;
+
 class ContentException implements Exception {
   ContentException(this.message);
 
@@ -94,6 +97,7 @@ class Station {
   /// Inhalt für stations.content (englische Schlüssel, wie die App sie liest).
   Map<String, dynamic> toDbContent() => {
     'title': title,
+    'number': number,
     'place': place,
     'goal': goal,
     'minutes': minutes,
@@ -101,10 +105,86 @@ class Station {
     'video_key': ?video,
     if (scene.isNotEmpty) 'scene': [for (final l in scene) l.toDb()],
     if (lesson.isNotEmpty) 'lesson': [for (final l in lesson) l.toDb()],
-    if (game != null) 'game': {'type': game!['art'], 'title': game!['titel'], 'description': game!['beschreibung']},
+    if (game != null) 'game': gameToDb(game!),
     if (summary != null) 'summary': summary!.toDb(),
     if (quizShow != null) 'quiz': {'show': quizShow},
     if (isExam) 'exam': {'show': examShow, 'review': examReview, 'pass': examPass},
+  };
+}
+
+/// Mini-Spiele mit eigener Spielmechanik in der App (Schritt 7). Andere
+/// Spielarten zeigen bis zu ihrem Bau einen Platzhalter.
+const builtGames = {'sort', 'order'};
+
+/// Spiel-Daten für stations.content.game (englische Schlüssel).
+Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
+  final type = g['art'];
+  Map<String, dynamic>? line(Object? raw) =>
+      raw is Map<String, dynamic> ? {'speaker': raw['wer'], 'text': raw['text'], 'name': ?raw['name']} : null;
+  return {
+    'type': type,
+    'title': g['titel'],
+    'description': g['beschreibung'],
+    if (builtGames.contains(type)) ...{
+      'task': g['aufgabe'],
+      'items': [
+        for (final d in (g['dinge'] as List).cast<Map<String, dynamic>>())
+          {'text': d['text'], if (type == 'sort') 'basket': d['korb'], 'hint': ?d['hinweis']},
+      ],
+      if (type == 'sort') 'baskets': g['koerbe'],
+      if (type == 'order') ...{'from': g['von'], 'to': g['bis']},
+      'done': ?line(g['geschafft']),
+    },
+  };
+}
+
+/// Spielarten der Tauchgänge (INSELN.md). Bis eine Spielart gebaut ist, zeigt
+/// die App das Perlentauchen.
+const diveGames = {
+  'perlentauchen': 'pearls',
+  'schatztruhe': 'treasure_chest',
+  'fischschwarm': 'fish_swarm',
+  'muscheln': 'shell_count',
+};
+
+/// Ankerplatz mit Tauchgang nach einer Station (CLAUDE.md Abschnitt 8).
+class Dive {
+  Dive({
+    required this.after,
+    required this.title,
+    required this.game,
+    required this.questions,
+    required this.find,
+    required this.wreckScene,
+    required this.wreckQuestion,
+  });
+
+  /// Nummer der Station, nach der der Ankerplatz liegt.
+  final int after;
+  final String title;
+  final String game;
+  final int questions;
+
+  /// Fund für die Unterwasser-Sammlung.
+  final String find;
+  final List<Line> wreckScene;
+  final Question wreckQuestion;
+
+  Map<String, dynamic> toDbContent(int number) => {
+    'title': title,
+    'kind': 'dive',
+    'number': number,
+    'dive': {
+      'game': diveGames[game] ?? 'pearls',
+      'questions': questions,
+      'wreck': {
+        'scene': [for (final l in wreckScene) l.toDb()],
+        'question': wreckQuestion.question,
+        'answers': wreckQuestion.answers,
+        'correct_index': 0,
+        'explanation': wreckQuestion.explanation,
+      },
+    },
   };
 }
 
@@ -126,6 +206,7 @@ class Island {
     required this.task,
     required this.prompts,
     required this.stations,
+    this.dives = const [],
   });
 
   final String file;
@@ -146,6 +227,7 @@ class Island {
   final Map<String, dynamic>? task;
   final List<String> prompts;
   final List<Station> stations;
+  final List<Dive> dives;
 
   /// Inhalt für islands.content.
   Map<String, dynamic> toDbContent() => {
@@ -250,6 +332,28 @@ Island parseIsland(String file, String source) {
     task: json['auftrag'] as Map<String, dynamic>?,
     prompts: [for (final p in (json['kombuesen_fragen'] as List? ?? const [])) p as String],
     stations: stations,
+    dives: [
+      for (final raw in (json['tauchgaenge'] as List?) ?? const [])
+        () {
+          final d = raw as Map<String, dynamic>;
+          final where = '$file, Tauchgang nach Station ${d['nach']}';
+          final wrack = d['wrack'] as Map<String, dynamic>? ?? const {};
+          return Dive(
+            after: d['nach'] as int,
+            title: text(d, 'titel', where),
+            game: text(d, 'spiel', where),
+            questions: d['fragen'] as int? ?? 4,
+            find: text(d, 'fund', where),
+            wreckScene: lines(wrack['szene'], '$where, Wrack'),
+            wreckQuestion: Question(
+              question: text(wrack, 'frage', '$where, Wrack'),
+              right: text(wrack, 'richtig', '$where, Wrack'),
+              wrong: [for (final w in (wrack['falsch'] as List? ?? const [])) w as String],
+              explanation: text(wrack, 'erklaerung', '$where, Wrack'),
+            ),
+          );
+        }(),
+    ],
   );
 }
 
@@ -322,6 +426,11 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       final texts = s.questions.map((q) => q.question.trim()).toList();
       check(texts.toSet().length == texts.length, '$sw: eine Frage kommt doppelt vor');
 
+      final game = s.game;
+      if (game != null && builtGames.contains(game['art'])) {
+        problems.addAll(validateGame(game, sw));
+      }
+
       if (s.isIntro) {
         check(s.questions.isEmpty, '$sw: das Intro hat keine Fragen');
         check(s.number == 1 && island.order == 1, '$sw: das Intro ist Station 1 der ersten Insel');
@@ -360,6 +469,59 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
         );
       }
     }
+
+    // Ankerplätze: nach Station 2, 4 und 6 (Schatzinsel ohne), Fragen aus den Stationen davor.
+    final afters = [for (final d in island.dives) d.after];
+    check(afters.toSet().length == afters.length, '$w: zwei Tauchgänge nach derselben Station');
+    var previous = 0;
+    for (final d in island.dives) {
+      final dw = '$w, Tauchgang nach Station ${d.after}';
+      check(regular.contains(d.after), '$dw: muss nach einer normalen Station liegen');
+      check(diveGames.containsKey(d.game), '$dw: unbekanntes Spiel "${d.game}"');
+      check(d.questions >= 3 && d.questions <= 4, '$dw: 3 bis 4 Fragen');
+      check(d.find.trim().length >= 2 && d.find.length <= 60, '$dw: Fund braucht einen Namen (bis 60 Zeichen)');
+      final pool = island.stations
+          .where((s) => !s.isExam && s.number > previous && s.number <= d.after)
+          .expand((s) => s.questions)
+          .length;
+      check(pool >= d.questions, '$dw: zu wenige Fragen in den Stationen davor ($pool)');
+      check(d.wreckQuestion.wrong.length == 2, '$dw: Wrack-Aufgabe braucht genau 2 falsche Antworten');
+      for (final line in d.wreckScene) {
+        check(knownAssetKeys.contains('character.${line.speaker}'), '$dw: unbekannte Figur "${line.speaker}"');
+      }
+      previous = d.after;
+    }
+  }
+  return problems;
+}
+
+/// Prüft die Daten eines Mini-Spiels (Sortieren oder Reihenfolge).
+List<String> validateGame(Map<String, dynamic> game, String where) {
+  final problems = <String>[];
+  void check(bool ok, String message) {
+    if (!ok) problems.add(message);
+  }
+
+  final w = '$where, Spiel';
+  final items = (game['dinge'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+  check((game['aufgabe'] as String?)?.trim().isNotEmpty ?? false, '$w: "aufgabe" fehlt');
+  check(game['geschafft'] is Map<String, dynamic>, '$w: "geschafft" fehlt');
+  check(items.every((d) => (d['text'] as String?)?.trim().isNotEmpty ?? false), '$w: jedes Ding braucht einen Text');
+  if (game['art'] == 'sort') {
+    final baskets = (game['koerbe'] as List?) ?? const [];
+    check(baskets.length >= 2 && baskets.length <= 4, '$w: 2 bis 4 Körbe');
+    check(items.length >= 4 && items.length <= 10, '$w: 4 bis 10 Dinge zum Sortieren');
+    for (final d in items) {
+      final basket = d['korb'];
+      check(
+        basket == null || (basket is int && basket >= 0 && basket < baskets.length),
+        '$w: "${d['text']}" hat einen unbekannten Korb',
+      );
+      check(basket != null || d['hinweis'] != null, '$w: "${d['text']}" passt überall hin und braucht einen Hinweis');
+    }
+  } else {
+    check(items.length >= 3 && items.length <= 7, '$w: 3 bis 7 Dinge in der Reihenfolge');
+    check(game['von'] is String && game['bis'] is String, '$w: "von" und "bis" fehlen');
   }
   return problems;
 }
@@ -536,7 +698,7 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
           'insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)',
         )
         ..writeln(
-          "values ($sid, $iid, ${s.number}, ${_lit(s.type)}, true, ${s.xp}, ${_json(s.toDbContent())}, 'draft')",
+          "values ($sid, $iid, ${s.number * 10}, ${_lit(s.type)}, true, ${s.xp}, ${_json(s.toDbContent())}, 'draft')",
         )
         ..writeln('on conflict (id) do update set')
         ..writeln('  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,')
@@ -559,6 +721,29 @@ String buildSeedSql(List<Island> islands, {List<Encounter> encounters = const []
           ..writeln('  explanation = excluded.explanation, covers_station = excluded.covers_station;');
       }
       b.writeln();
+    }
+
+    // Ankerplätze zwischen den Stationen (Reihenfolge: Station × 10, Ankerplatz + 5).
+    for (final (k, d) in island.dives.indexed) {
+      final did = _id('stage$stage/${island.slug}/dive${k + 1}');
+      b
+        ..writeln('-- Ankerplatz ${k + 1}: ${d.title}')
+        ..writeln(
+          'insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)',
+        )
+        ..writeln(
+          "values ($did, $iid, ${d.after * 10 + 5}, 'review_stop', true, $diveXp, ${_json(d.toDbContent(k + 1))}, 'draft')",
+        )
+        ..writeln('on conflict (id) do update set')
+        ..writeln('  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content;')
+        ..writeln('insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)')
+        ..writeln(
+          "values (${_id('stage$stage/${island.slug}/dive${k + 1}/find')}, ${_lit('${island.slug}-fund-${k + 1}')}, "
+          "'wreck_item', ${_lit(d.find)}, 'collectible.wreck_item', $did, ${island.order * 10 + k + 1}, 'draft')",
+        )
+        ..writeln('on conflict (id) do update set')
+        ..writeln('  title = excluded.title, station_id = excluded.station_id, sort_order = excluded.sort_order;')
+        ..writeln();
     }
 
     // Fragen, die aus der Datei entfernt wurden, auch aus der Datenbank löschen.

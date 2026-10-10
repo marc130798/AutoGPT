@@ -141,7 +141,7 @@ Alle Tabellen mit `id uuid`, `created_at`, `updated_at`.
 - `encounter_runs` – `child_id`, `encounter_id`, `correct_count`, `total`, `finished_at`
 - `pace_state` – `child_id`, `wind` (neue Stationen, die das Kind gerade beginnen darf), `checked_on`
 - `child_streaks` – `child_id`, `weeks`, `last_week`, `paused` (Fahrtwind)
-- `collectibles` – `slug`, `kind` (pearl, shell, wreck_item), `title_key`, `asset_key`, `rarity` (nur Optik)
+- `collectibles` – `slug`, `kind` (pearl, shell, wreck_item), `title`, `asset_key`, `rarity` (nur Optik), `station_id` (Ankerplatz, an dem der Fund liegt), `sort_order`, `status`
 - `child_collectibles` – `child_id`, `collectible_id`, `found_at`, `source_station_id`
 
 **Budget und Aufgaben (alles virtuell)**
@@ -453,3 +453,14 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **„Weißt du noch?“** schickt die Antworten nach dem Aufwärmen an `record_answers()` (nur Wiederholungsplan, keine Wertung). Ein Fehler dabei stört das Kind nicht.
 - **Leuchtturm:** Auf der Kinderseite die Karte „Tempo und Serie“ mit Level und Rang, Fortschritt in Seemeilen, Abzeichen, Serie, Tempo (2, 3, 4 oder Frei) und dem Schalter „Serie pausieren“ (Elternwörter laut Glossar).
 - Die App prüft Wind und Freischalten vorab mit denselben Regeln wie der Server; der Server lehnt trotzdem ab, wenn kein Wind da ist (Meldung „Das Schiff braucht Wind.“).
+
+**Schritt 7a (Tauchgänge, Sammlung und Spiel-Daten in Datenbank und Inhalten), umgesetzt am 10.10.2026:**
+- **Ankerplätze sind Pflichtstationen** (`type = review_stop`) nach Station 2, 4 und 6 jeder Insel. Damit sie zwischen die Stationen passen, ist die Reihenfolge jetzt Stationsnummer × 10 (Station 3 = 30), Ankerplätze liegen dazwischen (25, 45, 65). Die angezeigte Nummer steht in `content.number`. Die IDs der Stationen bleiben gleich, Fortschritt geht nicht verloren.
+- **Tauchgang:** Fragen nur aus den Stationen seit dem letzten Ankerplatz (ohne Prüfung), Anzahl in `content.dive.questions` (Inseln 1 bis 3: 4). Erledigt nach dem Durchgang, Fehler kosten nichts, 50 Seemeilen einmalig. Die Wrack-Aufgabe (`content.dive.wreck`) wertet die App ohne Punkte: Das Kind probiert, bis es stimmt, und bekommt die Erklärung.
+- **Ankerplätze brauchen keinen Wind.** Sie gehören zu den beiden Stationen davor. Damit bleibt es bei etwa einem Jahr für Stufe 1, ohne dass das Kind bis Samstag warten muss. Der Samstag aus Abschnitt 8 ist damit eine Empfehlung, keine Sperre.
+- **Unterwasser-Sammlung:** Jeder Ankerplatz hat einen Fund (`collectibles`, Fundstück aus dem Wrack), den das Kind beim ersten Tauchgang bekommt. **Perlen** sind die richtigen Antworten im besten Tauchgang je Ankerplatz (höchstens 4 pro Ankerplatz). `child_stats()` liefert `pearls` und `finds`.
+- **Tauch-Spielarten:** In den Inhaltsdateien steht für jeden Tauchgang die Spielart aus INSELN.md (Perlentauchen, Schatztruhe knacken, Fischschwarm sortieren, Muscheln zählen). Gebaut sind in Schritt 7 Perlentauchen und das Wrack; die anderen Spielarten zeigen bis zu ihrem Bau das Perlentauchen.
+- **Mini-Spiele als Daten:** zwei Spielarten mit eigener Mechanik, „Sortieren“ (`sort`, Dinge in 2 bis 4 Körbe, Dinge „dazwischen“ passen in jeden Korb und haben einen Hinweis) und „Reihenfolge“ (`order`, 3 bis 7 Dinge von … bis …). Damit spielen 6 Stationen ein echtes Spiel: Hafen 3 (Zeitstrahl), 5 (Berufe zuordnen), 7 (Preise schätzen), Tauschinsel 7 (faire Tausche), Wunschinsel 1 (zwei Körbe), 4 (Gruppendruck). Die anderen Spiele zeigen weiter den Platzhalter. Neue Spiele dieser beiden Arten brauchen kein App-Update.
+- **Preise schätzen (Hafen 7):** statt „Handy“ ein Fußball, weil sich die Preisspannen von Handy und Fahrrad überschneiden und die Reihenfolge sonst nicht eindeutig wäre. Alle Preisspannen sind Entwürfe und müssen vor dem Start geprüft werden.
+- **Übungs-Begegnung:** `next_encounter(child, practice)` liefert mit `practice = true` auch ohne fällige Wiederholungen eine Begegnung. Das nutzt die App, wenn die nächste Insel im Nebel liegt.
+- Alle Wrack-Aufgaben, Funde und Spiel-Texte sind Entwürfe von Claude (Status `draft`).

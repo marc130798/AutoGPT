@@ -222,9 +222,34 @@
         }
       ],
       "spiel": {
-        "art": "timeline",
+        "art": "order",
         "titel": "Zeitstrahl",
-        "beschreibung": "Ordne Muscheln, Münzen, Papiergeld sowie Karte und Handy auf einem Zeitstrahl von früher bis heute."
+        "beschreibung": "Ordne Muscheln, Münzen, Papiergeld sowie Karte und Handy auf einem Zeitstrahl von früher bis heute.",
+        "aufgabe": "Tippe die Dinge der Reihe nach an: zuerst das älteste Geld.",
+        "von": "Früher",
+        "bis": "Heute",
+        "dinge": [
+          {
+            "text": "Muscheln und Salz",
+            "hinweis": "Ganz früher bezahlten Menschen mit seltenen Dingen aus der Natur."
+          },
+          {
+            "text": "Münzen aus Metall",
+            "hinweis": "Münzen halten lange und lassen sich leicht abzählen."
+          },
+          {
+            "text": "Scheine aus Papier",
+            "hinweis": "Scheine sind viel leichter als ein Sack voller Münzen."
+          },
+          {
+            "text": "Karte und Handy",
+            "hinweis": "Heute kommt das Geld oft von einem Konto."
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Genau so! Das Geld hat sich verändert, die Idee ist gleich geblieben: Alle nehmen es an."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -438,9 +463,54 @@
         }
       ],
       "spiel": {
-        "art": "matching",
+        "art": "sort",
         "titel": "Berufe zuordnen",
-        "beschreibung": "Ordne jedem Beruf zu, was er für andere leistet."
+        "beschreibung": "Ordne jedem Beruf zu, was er für andere leistet.",
+        "aufgabe": "Tippe auf eine Karte und dann auf den passenden Beruf.",
+        "koerbe": [
+          "Bäckerin",
+          "Ärztin",
+          "Bootsbauer",
+          "Lehrer"
+        ],
+        "dinge": [
+          {
+            "text": "Backt frühmorgens frisches Brot",
+            "korb": 0
+          },
+          {
+            "text": "Backt einen Kuchen für ein Fest",
+            "korb": 0
+          },
+          {
+            "text": "Hilft, wenn jemand krank ist",
+            "korb": 1
+          },
+          {
+            "text": "Verbindet eine Wunde",
+            "korb": 1
+          },
+          {
+            "text": "Repariert das Fischerboot",
+            "korb": 2
+          },
+          {
+            "text": "Baut ein neues Ruderboot",
+            "korb": 2
+          },
+          {
+            "text": "Erklärt Rechnen und Lesen",
+            "korb": 3
+          },
+          {
+            "text": "Bereitet den Unterricht vor",
+            "korb": 3
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Jeder leistet etwas, das andere brauchen. Dafür bekommen sie Lohn."
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -654,9 +724,38 @@
         }
       ],
       "spiel": {
-        "art": "estimate",
+        "art": "order",
         "titel": "Preise schätzen",
-        "beschreibung": "Schätze Preise von Brötchen, Eis, Kinokarte, Fahrrad und Handy und sortiere sie von günstig bis teuer. Die Preisspannen müssen vor dem Start geprüft und regelmäßig aktualisiert werden."
+        "beschreibung": "Schätze Preise von Alltagsdingen und sortiere sie von günstig bis teuer. Die Preise sind ungefähre Spannen.",
+        "aufgabe": "Tippe die Dinge der Reihe nach an: zuerst das günstigste.",
+        "von": "Günstig",
+        "bis": "Teuer",
+        "dinge": [
+          {
+            "text": "Ein Brötchen",
+            "hinweis": "Etwa 40 Cent bis 1 Euro."
+          },
+          {
+            "text": "Eine Kugel Eis",
+            "hinweis": "Etwa 1,50 bis 2,50 Euro."
+          },
+          {
+            "text": "Eine Kinokarte",
+            "hinweis": "Etwa 8 bis 14 Euro."
+          },
+          {
+            "text": "Ein Fußball",
+            "hinweis": "Etwa 15 bis 40 Euro."
+          },
+          {
+            "text": "Ein Fahrrad",
+            "hinweis": "Etwa 250 bis 800 Euro."
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Gut geschätzt! Preise sind nicht überall gleich, aber ein Gefühl dafür hilft beim Einkaufen."
+        }
       },
       "abschluss": {
         "wer": "tala",
@@ -949,6 +1048,86 @@
           "station": 7
         }
       ]
+    }
+  ],
+  "tauchgaenge": [
+    {
+      "nach": 2,
+      "titel": "Das alte Handelsschiff",
+      "spiel": "perlentauchen",
+      "fragen": 4,
+      "fund": "Alte Handelsmünze",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Ein altes Handelsschiff! Überall liegen Waren, aber nirgends steht ein Preis."
+          },
+          {
+            "wer": "talo",
+            "text": "Im Logbuch steht: Am Ende wollte der Händler nur noch Münzen statt Tauschwaren. Warum wohl?"
+          }
+        ],
+        "frage": "Warum wollte der Händler lieber Münzen als Tauschwaren?",
+        "richtig": "Mit Münzen konnte er später bei jedem kaufen, was er brauchte.",
+        "falsch": [
+          "Münzen glänzen schöner als Waren.",
+          "Tauschen war auf dem Meer verboten."
+        ],
+        "erklaerung": "Geld nimmt fast jeder an. Der Händler musste niemanden mehr suchen, der genau seine Waren wollte."
+      }
+    },
+    {
+      "nach": 4,
+      "titel": "Die Münztruhe im Laderaum",
+      "spiel": "schatztruhe",
+      "fragen": 4,
+      "fund": "Kleine Münztruhe",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Eine Truhe voller Münzen! Wie viel ist das wohl in heutigem Geld?"
+          },
+          {
+            "wer": "talo",
+            "text": "Umgerechnet liegen darin zwei 1-Euro-Münzen, eine 50-Cent-Münze und drei 10-Cent-Münzen."
+          }
+        ],
+        "frage": "Wie viel Geld ist in der Truhe?",
+        "richtig": "2,80 Euro",
+        "falsch": [
+          "2,53 Euro",
+          "5,30 Euro"
+        ],
+        "erklaerung": "2 Euro plus 50 Cent plus 30 Cent sind 2,80 Euro. Mit heutigen Münzen geht das zum Beispiel so: eine 2-Euro-Münze, eine 50-Cent-Münze, eine 20-Cent-Münze und eine 10-Cent-Münze."
+      }
+    },
+    {
+      "nach": 6,
+      "titel": "Der versunkene Fischbrötchen-Stand",
+      "spiel": "fischschwarm",
+      "fragen": 4,
+      "fund": "Rostiges Preisschild",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Hier unten liegt ein ganzer Fischbrötchen-Stand! Auf dem Schild steht: 4 Euro."
+          },
+          {
+            "wer": "talo",
+            "text": "Weißt du noch, was alles in so einem Preis steckt?"
+          }
+        ],
+        "frage": "Wer hat an einem Fischbrötchen für 4 Euro mitverdient?",
+        "richtig": "Der Fischer, der Bäcker, wer den Stand vermietet hat, und die Verkäuferin",
+        "falsch": [
+          "Nur die Verkäuferin",
+          "Niemand, der Preis war ausgedacht"
+        ],
+        "erklaerung": "Im Preis stecken Fisch, Brötchen, Miete und Lohn. Was übrig bleibt, ist der Gewinn."
+      }
     }
   ]
 }

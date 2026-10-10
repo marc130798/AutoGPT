@@ -754,9 +754,47 @@
         }
       ],
       "spiel": {
-        "art": "situations",
+        "art": "sort",
         "titel": "Faire Tausche",
-        "beschreibung": "Erkenne faire und unfaire Tausche auf dem Schulhof und schlage faire vor. Am Ende tauscht die Crew fair mit Olga."
+        "beschreibung": "Erkenne faire und unfaire Tausche auf dem Schulhof.",
+        "aufgabe": "Ist dieser Tausch fair? Tippe auf eine Karte und dann auf den passenden Korb.",
+        "koerbe": [
+          "Fair",
+          "Nicht fair"
+        ],
+        "dinge": [
+          {
+            "text": "Mia tauscht zwei doppelte Karten gegen eine, die sie sich wünscht. Beide freuen sich.",
+            "korb": 0
+          },
+          {
+            "text": "Ein großes Kind sagt einem kleinen, seine seltene Karte sei nichts wert, und tauscht sie gegen eine alte.",
+            "korb": 1,
+            "hinweis": "Das große Kind hat das kleine getäuscht. Fair ist das nicht."
+          },
+          {
+            "text": "Ben und Ali schauen sich die Karten genau an und sind beide einverstanden.",
+            "korb": 0
+          },
+          {
+            "text": "Lea drängelt: Tausch sofort, sonst bist du nicht mehr meine Freundin!",
+            "korb": 1,
+            "hinweis": "Wer droht, lässt dem anderen keine freie Wahl."
+          },
+          {
+            "text": "Tim sagt vorher, dass seine Karte einen Knick hat. Jonas will trotzdem tauschen.",
+            "korb": 0
+          },
+          {
+            "text": "Noah verschweigt, dass an seiner Karte eine Ecke fehlt.",
+            "korb": 1,
+            "hinweis": "Wer etwas verschweigt, tauscht nicht fair."
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Fair ist ein Tausch, wenn beide wissen, was sie bekommen, und beide einverstanden sind."
+        }
       },
       "abschluss": {
         "wer": "talo",
@@ -1051,6 +1089,86 @@
           "station": 7
         }
       ]
+    }
+  ],
+  "tauchgaenge": [
+    {
+      "nach": 2,
+      "titel": "Das Wrack voller Waren",
+      "spiel": "perlentauchen",
+      "fragen": 4,
+      "fund": "Alter Kompass",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Im Kapitänszimmer liegt ein alter Kompass! Aber der Krebs davor gibt ihn nur gegen ein Seil her."
+          },
+          {
+            "wer": "talo",
+            "text": "Wir haben einen Eimer. Der Fischer tauscht Fisch gegen einen Eimer, die Händlerin gibt ein Seil für Fisch."
+          }
+        ],
+        "frage": "Wie kommt ihr an den Kompass?",
+        "richtig": "Eimer gegen Fisch, Fisch gegen Seil, Seil gegen Kompass",
+        "falsch": [
+          "Den Eimer direkt gegen den Kompass tauschen",
+          "Das Seil gegen Fisch und den Fisch gegen den Eimer tauschen"
+        ],
+        "erklaerung": "Beim Tauschen braucht man oft Umwege, bis jeder bekommt, was er will. Mit Geld ginge es in einem Schritt."
+      }
+    },
+    {
+      "nach": 4,
+      "titel": "Das Logbuch des Händlers",
+      "spiel": "fischschwarm",
+      "fragen": 4,
+      "fund": "Logbuch des Händlers",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "talo",
+            "text": "Im Logbuch stehen Preise aus Sommer und Winter."
+          },
+          {
+            "wer": "tala",
+            "text": "Feuerholz kostete im Winter 3 Taler, im Sommer nur 1 Taler. Komisch!"
+          }
+        ],
+        "frage": "Warum war Feuerholz im Winter teurer?",
+        "richtig": "Im Winter wollten viele Leute Holz zum Heizen.",
+        "falsch": [
+          "Im Winter war das Holz größer.",
+          "Der Händler hatte im Sommer schlechte Laune."
+        ],
+        "erklaerung": "Wenn viele etwas haben wollen, steigt der Preis. Wert hängt von der Situation ab."
+      }
+    },
+    {
+      "nach": 6,
+      "titel": "Zwei Taucherbrillen",
+      "spiel": "schatztruhe",
+      "fragen": 4,
+      "fund": "Taucherbrille",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Zwei Taucherbrillen! Die billige kostet 5 Taler, die gute 12 Taler."
+          },
+          {
+            "wer": "talo",
+            "text": "Im Zettel daneben steht: Die billige geht dreimal im Jahr kaputt, die gute hält das ganze Jahr."
+          }
+        ],
+        "frage": "Welche Brille ist über ein Jahr günstiger?",
+        "richtig": "Die gute, denn dreimal 5 Taler sind 15 Taler.",
+        "falsch": [
+          "Die billige, denn 5 ist weniger als 12.",
+          "Beide kosten im Jahr gleich viel."
+        ],
+        "erklaerung": "Billig kann teuer werden, wenn man öfter neu kaufen muss. Für die gute Brille verzichtest du am Anfang auf mehr Geld, sparst aber am Ende."
+      }
     }
   ]
 }

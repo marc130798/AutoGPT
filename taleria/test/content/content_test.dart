@@ -23,6 +23,22 @@ void main() {
     );
   });
 
+  test('Inseln 1 bis 3: Ankerplätze nach Station 2, 4 und 6, je mit Wrack und Fund', () {
+    for (final island in islands.take(3)) {
+      expect([for (final d in island.dives) d.after], [2, 4, 6], reason: island.slug);
+      expect(island.dives.map((d) => d.find).toSet(), hasLength(3), reason: '${island.slug}: drei verschiedene Funde');
+    }
+  });
+
+  test('Sechs Stationen haben ein echtes Mini-Spiel (Sortieren oder Reihenfolge)', () {
+    final built = [
+      for (final island in islands)
+        for (final s in island.stations)
+          if (builtGames.contains(s.game?['art'])) '${island.slug}/${s.number}',
+    ];
+    expect(built, hasLength(6));
+  });
+
   test('Meister Taleron ist die erste Begegnung, ab dem Start', () {
     final taleron = encounters.singleWhere((e) => e.type == 'taleron');
     expect(taleron.afterIsland, isNull);
@@ -129,6 +145,58 @@ void main() {
 
     test('nicht genau 3 Antworten', () {
       expect(problems(islandWith(station(wrong: ['b']))), contains(contains('genau 2 falsche Antworten')));
+    });
+  });
+
+  group('Die Prüfung findet Fehler in Spielen', () {
+    Map<String, dynamic> sortGame(List<Map<String, dynamic>> items) => {
+      'art': 'sort',
+      'aufgabe': 'Sortiere',
+      'koerbe': ['A', 'B'],
+      'dinge': items,
+      'geschafft': {'wer': 'talo', 'text': 'Gut!'},
+    };
+    final four = [
+      for (var i = 0; i < 4; i++) <String, dynamic>{'text': 'Ding $i', 'korb': i % 2},
+    ];
+
+    test('gültiges Sortier-Spiel', () => expect(validateGame(sortGame(four), 'test'), isEmpty));
+    test('unbekannter Korb', () {
+      expect(
+        validateGame(
+          sortGame([
+            ...four,
+            {'text': 'X', 'korb': 5},
+          ]),
+          'test',
+        ),
+        contains(contains('unbekannten Korb')),
+      );
+    });
+    test('passt überall hin, aber ohne Hinweis', () {
+      expect(
+        validateGame(
+          sortGame([
+            ...four,
+            {'text': 'X', 'korb': null},
+          ]),
+          'test',
+        ),
+        contains(contains('Hinweis')),
+      );
+    });
+    test('Reihenfolge braucht von und bis', () {
+      expect(
+        validateGame({
+          'art': 'order',
+          'aufgabe': 'Ordne',
+          'dinge': [
+            for (var i = 0; i < 3; i++) {'text': 'Ding $i'},
+          ],
+          'geschafft': {'wer': 'talo', 'text': 'Gut!'},
+        }, 'test'),
+        contains(contains('"von" und "bis"')),
+      );
     });
   });
 

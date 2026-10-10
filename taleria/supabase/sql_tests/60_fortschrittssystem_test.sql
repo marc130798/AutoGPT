@@ -322,12 +322,13 @@ select test_helpers.expect_true(
    from generate_series(1, 10)),
   'Das Fischerboot taucht erst nach Insel B auf');
 select test_helpers.expect_true(
-  (select bool_and(r.due_at <= now())
-   from public.question_reviews r
-   where r.child_id = 'c7000000-0000-0000-0000-000000000001'
-     and r.question_id in (
-       select jsonb_array_elements_text(public.next_encounter('c7000000-0000-0000-0000-000000000001') -> 'question_ids')::uuid
-     )),
+  (with offer as materialized (
+     select public.next_encounter('c7000000-0000-0000-0000-000000000001') as e
+   )
+   select count(*) = 3 and bool_and(r.due_at <= now())
+   from offer, jsonb_array_elements_text(offer.e -> 'question_ids') q(id)
+   join public.question_reviews r
+     on r.question_id = q.id::uuid and r.child_id = 'c7000000-0000-0000-0000-000000000001'),
   'Fällige Fragen kommen zuerst');
 
 select test_helpers.expect_error(
