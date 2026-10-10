@@ -33,6 +33,16 @@ class ChildStatsController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Kinderbereich geöffnet (Messung „Rückkehr nach 1 und 4 Wochen“).
+  /// Ein Fehler dabei stört das Kind nie.
+  Future<void> markAppOpened() async {
+    try {
+      await _progress.trackEvent(childId, TrackedEvent.appOpen);
+    } on AppFailure {
+      // Messung ist zweitrangig.
+    }
+  }
+
   /// Eltern: 2, 3 oder 4 Stationen pro Woche, `null` = freie Fahrt.
   Future<void> setPace(int? stationsPerWeek) async {
     await _progress.setPace(childId, stationsPerWeek);

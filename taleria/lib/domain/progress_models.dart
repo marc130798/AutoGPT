@@ -28,6 +28,20 @@ enum Rank {
   }
 }
 
+/// Datenschutzfreundliche Messung (Schritt 11): höchstens ein Eintrag pro Kind,
+/// Ereignis, Station und Tag, ohne Uhrzeit und ohne Geräte-Daten.
+enum TrackedEvent {
+  /// Kinderbereich geöffnet (für „Rückkehr nach 1 und 4 Wochen“).
+  appOpen('app_open'),
+
+  /// Station oder Prüfung begonnen (für die Abbruchquote pro Station).
+  stationStart('station_start');
+
+  const TrackedEvent(this.code);
+
+  final String code;
+}
+
 /// Tempo: Wind für neue Stationen (CLAUDE.md Abschnitt 8).
 class PaceStatus {
   const PaceStatus({required this.free, this.stationsPerWeek, this.wind, this.nextRelease});

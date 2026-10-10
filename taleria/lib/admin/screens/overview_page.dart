@@ -75,6 +75,25 @@ class _OverviewPageState extends State<OverviewPage> {
                           detail: AdminTexts.premium(o.premiumStore, o.premiumManual, o.premiumTest),
                         ),
                         AdminNumberCard(
+                          title: AdminTexts.returnWeek1,
+                          value: AdminTexts.percentOrDash(
+                            AdminOverview.percent(o.returnWeek1Returned, o.returnWeek1Cohort),
+                          ),
+                          detail: AdminTexts.returned(o.returnWeek1Returned, o.returnWeek1Cohort, 14),
+                        ),
+                        AdminNumberCard(
+                          title: AdminTexts.returnWeek4,
+                          value: AdminTexts.percentOrDash(
+                            AdminOverview.percent(o.returnWeek4Returned, o.returnWeek4Cohort),
+                          ),
+                          detail: AdminTexts.returned(o.returnWeek4Returned, o.returnWeek4Cohort, 35),
+                        ),
+                        AdminNumberCard(
+                          title: AdminTexts.appErrors7d,
+                          value: '${o.appErrors7d}',
+                          detail: AdminTexts.appErrorsDetail(o.appErrors7d),
+                        ),
+                        AdminNumberCard(
                           title: AdminTexts.budget,
                           value: '${o.childrenWithAllowance}',
                           detail: AdminTexts.budgetUsage(o.childrenWithAllowance, o.tasksApproved28d),

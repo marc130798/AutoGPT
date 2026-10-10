@@ -12,11 +12,14 @@ import 'core/backend/backend.dart';
 import 'core/config/app_config.dart';
 import 'core/config/orientation_policy.dart';
 import 'data/auth_repository.dart';
+import 'data/backend_errors.dart';
 import 'data/budget_repository.dart';
 import 'data/child_repository.dart';
 import 'data/content_repository.dart';
+import 'data/error_log_repository.dart';
 import 'data/family_repository.dart';
 import 'data/local_settings.dart';
+import 'services/error_reporting.dart';
 import 'services/session_controller.dart';
 
 Future<void> main() async {
@@ -26,6 +29,12 @@ Future<void> main() async {
   await _lockOrientation();
 
   final client = await initBackend(config);
+  if (client != null) {
+    // Fehlerprotokoll für die Beta: ohne Nutzer, ohne Gerät, ohne Drittanbieter.
+    final reporter = AppErrorReporter(SupabaseErrorLogRepository(client), platform: AppErrorReporter.platformName());
+    installErrorReporting(reporter);
+    onUnexpectedBackendError = (error, stack) => unawaited(reporter.report(error, stack));
+  }
 
   final assets = AssetRepository();
   TaleriaAssetManifest manifest;

@@ -32,6 +32,9 @@ enum AdminRole {
   bool get changesFamilies => this == owner;
 
   bool get seesAuditLog => this == owner;
+
+  /// Fehlerprotokoll der App.
+  bool get seesAppErrors => this == owner;
 }
 
 /// Wer ist angemeldet (admin_whoami())?
@@ -102,6 +105,11 @@ class AdminOverview {
     required this.premiumTest,
     required this.childrenWithAllowance,
     required this.tasksApproved28d,
+    this.returnWeek1Cohort = 0,
+    this.returnWeek1Returned = 0,
+    this.returnWeek4Cohort = 0,
+    this.returnWeek4Returned = 0,
+    this.appErrors7d = 0,
   });
 
   factory AdminOverview.fromJson(Map<String, dynamic> json) => AdminOverview(
@@ -118,6 +126,11 @@ class AdminOverview {
     premiumTest: _int(json['premium_test']),
     childrenWithAllowance: _int(json['children_with_allowance']),
     tasksApproved28d: _int(json['tasks_approved_28d']),
+    returnWeek1Cohort: _int(json['return_week1_cohort']),
+    returnWeek1Returned: _int(json['return_week1_returned']),
+    returnWeek4Cohort: _int(json['return_week4_cohort']),
+    returnWeek4Returned: _int(json['return_week4_returned']),
+    appErrors7d: _int(json['app_errors_7d']),
   );
 
   final int families;
@@ -141,6 +154,21 @@ class AdminOverview {
   final int premiumTest;
   final int childrenWithAllowance;
   final int tasksApproved28d;
+
+  /// Rückkehr nach 1 Woche: Kinder, deren erster Tag mindestens 14 Tage her ist,
+  /// und wie viele davon in Woche 2 (Tag 7 bis 13) wieder da waren.
+  final int returnWeek1Cohort;
+  final int returnWeek1Returned;
+
+  /// Rückkehr nach 4 Wochen: erster Tag mindestens 35 Tage her, wieder da an Tag 28 bis 34.
+  final int returnWeek4Cohort;
+  final int returnWeek4Returned;
+
+  /// Gemeldete Fehler der App in den letzten 7 Tagen.
+  final int appErrors7d;
+
+  /// Anteil in Prozent, `null` solange noch niemand lange genug dabei ist.
+  static int? percent(int part, int total) => total == 0 ? null : (part * 100 / total).round();
 }
 
 /// Status eines Inhalts (draft, review, published).
@@ -163,6 +191,7 @@ class StationStats {
     required this.isRequired,
     required this.questions,
     required this.done,
+    this.started = 0,
   });
 
   factory StationStats.fromJson(Map<String, dynamic> json) => StationStats(
@@ -173,6 +202,7 @@ class StationStats {
     status: ContentStatus.parse(json['status']),
     isRequired: json['is_required'] as bool? ?? true,
     questions: _int(json['questions']),
+    started: _int(json['started']),
     done: _int(json['done']),
   );
 
@@ -184,8 +214,14 @@ class StationStats {
   final bool isRequired;
   final int questions;
 
+  /// So viele Kinder haben die Station begonnen (gemessen seit Schritt 11).
+  final int started;
+
   /// So viele Kinder haben die Station geschafft.
   final int done;
+
+  /// Begonnen, aber (noch) nicht geschafft.
+  int get notFinished => started > done ? started - done : 0;
 
   bool get isDive => type == 'review_stop';
   bool get isExam => type == 'exam';
@@ -398,6 +434,37 @@ class AuditEntry {
   final String targetType;
   final String? targetId;
   final String reason;
+}
+
+/// Ein Fehler aus dem Fehlerprotokoll der App (admin_app_errors()).
+class AppErrorInfo {
+  const AppErrorInfo({
+    required this.platform,
+    required this.error,
+    required this.total,
+    required this.days,
+    required this.lastSeenAt,
+    this.stack,
+  });
+
+  factory AppErrorInfo.fromJson(Map<String, dynamic> json) => AppErrorInfo(
+    platform: json['platform'] as String? ?? 'other',
+    error: json['error'] as String? ?? '',
+    stack: json['stack'] as String?,
+    total: _int(json['total']),
+    days: _int(json['days']),
+    lastSeenAt: DateTime.parse(json['last_seen_at'] as String),
+  );
+
+  /// ios, android, web oder other
+  final String platform;
+  final String error;
+  final String? stack;
+
+  /// Wie oft gemeldet, an wie vielen Tagen.
+  final int total;
+  final int days;
+  final DateTime lastSeenAt;
 }
 
 /// Einstellungen der Datenbank, die nur in die Testumgebung gehören.

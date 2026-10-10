@@ -69,6 +69,9 @@ abstract interface class ProgressRepository {
     required String stationId,
     required List<({String questionId, int answerIndex})> answers,
   });
+
+  /// Messung (track_event): [stationId] nur bei [TrackedEvent.stationStart].
+  Future<void> trackEvent(String childId, TrackedEvent event, {String? stationId});
 }
 
 class SupabaseContentRepository implements ContentRepository {
@@ -197,6 +200,14 @@ class SupabaseProgressRepository implements ProgressRepository {
       },
     );
   });
+
+  @override
+  Future<void> trackEvent(String childId, TrackedEvent event, {String? stationId}) => guardBackend(
+    () => _client.rpc<void>(
+      'track_event',
+      params: {'p_child_id': childId, 'p_event': event.code, 'p_station_id': stationId},
+    ),
+  );
 
   @override
   Future<StationResult> submitStation({

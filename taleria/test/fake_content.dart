@@ -432,6 +432,15 @@ class FakeProgress implements ProgressRepository {
     streakPaused = paused;
   }
 
+  /// Gemeldete Ereignisse der Messung (ohne Prüfung auf „einmal am Tag“).
+  final List<({String childId, TrackedEvent event, String? stationId})> events = [];
+
+  @override
+  Future<void> trackEvent(String childId, TrackedEvent event, {String? stationId}) async {
+    _check();
+    events.add((childId: childId, event: event, stationId: stationId));
+  }
+
   /// Markiert alle Stationen einer Insel bis auf die letzten [except] als erledigt.
   void completeStations(String slug, {int except = 0}) {
     final stations = content.stations['island-$slug']!.where((s) => !s.content.isOnboarding).toList();

@@ -145,6 +145,9 @@ class FakeAdminRepository implements AdminRepository {
       premiumTest: 1,
       childrenWithAllowance: 6,
       tasksApproved28d: 21,
+      returnWeek1Cohort: 8,
+      returnWeek1Returned: 6,
+      appErrors7d: 3,
     );
   }
 
@@ -185,6 +188,7 @@ class FakeAdminRepository implements AdminRepository {
               status: ContentStatus.published,
               isRequired: true,
               questions: 10,
+              started: 14,
               done: 12,
             ),
           ],
@@ -265,6 +269,21 @@ class FakeAdminRepository implements AdminRepository {
   Future<List<AuditEntry>> auditLog({int limit = 100}) async {
     _require({AdminRole.owner});
     return audit.take(limit).toList();
+  }
+
+  @override
+  Future<List<AppErrorInfo>> appErrors({int days = 14}) async {
+    _require({AdminRole.owner});
+    return [
+      AppErrorInfo(
+        platform: 'ios',
+        error: 'Null check operator used on a null value',
+        stack: '#0 IslandMapScreen.build',
+        total: 3,
+        days: 2,
+        lastSeenAt: DateTime.utc(2026, 10, 10, 9, 30),
+      ),
+    ];
   }
 }
 

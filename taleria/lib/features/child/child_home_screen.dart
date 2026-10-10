@@ -181,6 +181,7 @@ class _ProgressSectionState extends State<_ProgressSection> {
     final progress = AppScope.of(context).progress;
     if (_controller == null && progress != null) {
       _controller = ChildStatsController(progress: progress, childId: _child.id)..load();
+      unawaited(_controller!.markAppOpened());
     }
   }
 

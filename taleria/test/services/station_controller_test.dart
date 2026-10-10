@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/domain/family_models.dart';
+import 'package:taleria/domain/progress_models.dart';
 import 'package:taleria/services/station_controller.dart';
 
 import '../fake_content.dart';
@@ -52,6 +53,9 @@ void main() {
   test('Hafen Station 2: Film, Szene, Erklärung, Spiel, Quiz mit 5 Fragen, Ergebnis', () async {
     final c = controllerFor('hafen', 2);
     await c.start();
+    await pumpEventQueue();
+    expect(progress.events.single.event, TrackedEvent.stationStart, reason: 'Messung für die Abbruchquote');
+    expect(progress.events.single.stationId, content.station('hafen', 2).id);
     // Kein „Weißt du noch?“: davor liegt nur das Intro.
     expect(c.step, StationStep.video);
     c.next();
@@ -259,5 +263,14 @@ void main() {
     expect(c.quiz!.questions.every((q) => allowed.contains(q.question.id)), isTrue);
     final fromStation3 = c.quiz!.questions.where((q) => q.question.stationId.endsWith('station3')).length;
     expect(fromStation3, 2, reason: 'beide Stationen kommen gleich oft dran');
+  });
+
+  test('Station ohne sichtbare Fragen: Fehler mit „Nochmal versuchen“ statt Absturz', () async {
+    final station = content.station('hafen', 2);
+    content.questions[station.id] = const [];
+    final c = controllerFor('hafen', 2);
+    await c.start();
+    expect(c.step, StationStep.failed);
+    expect(c.failure, FailureKind.unknown);
   });
 }

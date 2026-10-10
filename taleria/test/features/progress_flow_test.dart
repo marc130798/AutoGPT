@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taleria/domain/progress_models.dart';
 
 import '../fake_content.dart';
 import '../fakes.dart';
@@ -57,7 +58,10 @@ void main() {
   }
 
   testWidgets('Startseite: Rang, Seemeilen, Fahrtwind und Orden-Sammlung', (tester) async {
-    await startOnHome(tester);
+    final started = await startOnHome(tester);
+    expect(started.progress.events.map((e) => e.event), [
+      TrackedEvent.appOpen,
+    ], reason: 'Messung: Kinderbereich geöffnet, ohne Station');
     expect(tester.widget<Text>(find.byKey(const ValueKey('stats-rank'))).data, 'Schiffsjunge');
     expect(find.text('50 Seemeilen'), findsOneWidget);
     expect(find.text('Noch 1.450 Seemeilen bis Matrose'), findsOneWidget);

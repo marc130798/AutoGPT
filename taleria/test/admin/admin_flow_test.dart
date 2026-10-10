@@ -29,6 +29,9 @@ void main() {
       expect(find.text(AdminTexts.families), findsOneWidget);
       expect(find.text('12'), findsOneWidget);
       expect(find.text(AdminTexts.premium(1, 2, 1)), findsOneWidget);
+      expect(find.text('75 %'), findsOneWidget, reason: 'Rückkehr nach 1 Woche: 6 von 8');
+      expect(find.text(AdminTexts.returned(6, 8, 14)), findsOneWidget);
+      expect(find.text('Noch niemand ist 35 Tage dabei.'), findsOneWidget, reason: 'Rückkehr nach 4 Wochen');
       expect(find.text('chefin@test.invalid · Owner'), findsOneWidget);
     });
 
@@ -71,9 +74,9 @@ void main() {
       await enterCode(tester, FakeAdminAuth.validCode);
     }
 
-    testWidgets('Owner sieht alle vier Bereiche', (tester) async {
+    testWidgets('Owner sieht alle fünf Bereiche', (tester) async {
       await loginAs(tester, AdminRole.owner);
-      for (final name in ['overview', 'content', 'support', 'audit']) {
+      for (final name in ['overview', 'content', 'support', 'audit', 'errors']) {
         expect(find.byKey(ValueKey('nav-$name')), findsOneWidget, reason: name);
       }
     });
@@ -81,7 +84,7 @@ void main() {
     testWidgets('Redaktion sieht nur Inhalte', (tester) async {
       await loginAs(tester, AdminRole.editor);
       expect(find.byKey(const ValueKey('nav-content')), findsOneWidget);
-      for (final name in ['overview', 'support', 'audit']) {
+      for (final name in ['overview', 'support', 'audit', 'errors']) {
         expect(find.byKey(ValueKey('nav-$name')), findsNothing, reason: name);
       }
       expect(find.text('1. Hafen von Taleria'), findsOneWidget);
@@ -142,7 +145,7 @@ void main() {
       await tester.tap(find.text('1. Hafen von Taleria'));
       await tester.pumpAndSettle();
       expect(find.text('geschafft von 15'), findsOneWidget);
-      expect(find.text('geschafft von 12 (−3)'), findsOneWidget);
+      expect(find.text('begonnen von 14 · geschafft von 12 (−3)'), findsOneWidget);
       expect(find.text('Was ist Inflation?'), findsOneWidget);
       expect(find.text('Hafen von Taleria, Station 2 · 11 von 20 falsch (55 %)'), findsOneWidget);
       expect(find.text(AdminTexts.noQuestionStats), findsOneWidget, reason: 'keine leichten Fragen');
@@ -247,5 +250,20 @@ void main() {
       expect(find.textContaining(AdminTexts.auditAction('family.delete')), findsOneWidget);
       expect(find.textContaining('Löschwunsch per E-Mail'), findsWidgets);
     });
+  });
+
+  testWidgets('Fehlerprotokoll der App mit Stack zum Aufklappen', (tester) async {
+    final auth = FakeAdminAuth(enrolled: {'chefin@test.invalid'});
+    await pumpAdminApp(tester, auth: auth, repository: FakeAdminRepository(auth));
+    await signIn(tester);
+    await enterCode(tester, FakeAdminAuth.validCode);
+    await tester.tap(find.byKey(const ValueKey('nav-errors')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Null check operator used on a null value'), findsOneWidget);
+    expect(find.textContaining('ios · 3× an 2 Tagen'), findsOneWidget);
+    await tester.tap(find.text('Null check operator used on a null value'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('#0 IslandMapScreen.build'), findsOneWidget);
   });
 }

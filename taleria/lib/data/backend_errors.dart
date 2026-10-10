@@ -5,6 +5,10 @@ import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import '../domain/family_models.dart';
 
+/// Wird bei unerwarteten Daten vom Server aufgerufen (Fehlerprotokoll, Schritt 11).
+/// Setzt lib/main.dart; ohne Server bleibt es leer.
+void Function(Object error, StackTrace stack)? onUnexpectedBackendError;
+
 /// Führt eine Server-Anfrage aus und übersetzt Fehler in [AppFailure].
 /// So muss die Oberfläche nichts über Supabase wissen.
 Future<T> guardBackend<T>(Future<T> Function() action) async {
@@ -12,6 +16,11 @@ Future<T> guardBackend<T>(Future<T> Function() action) async {
     return await action();
   } on AppFailure {
     rethrow;
+  } on TypeError catch (e, stack) {
+    // Unerwartete Daten vom Server (zum Beispiel ein leeres Feld): lieber eine
+    // Fehlermeldung mit „Nochmal versuchen“ als ein Ladekreis, der nie aufhört.
+    onUnexpectedBackendError?.call(e, stack);
+    throw AppFailure(FailureKind.unknown, '$e');
   } on sb.AuthException catch (e) {
     throw AppFailure(authFailureKind(e), '${e.code}: ${e.message}');
   } on sb.PostgrestException catch (e) {

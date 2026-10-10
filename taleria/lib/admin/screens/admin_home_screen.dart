@@ -6,12 +6,13 @@ import '../admin_texts.dart';
 import '../domain/admin_models.dart';
 import '../services/admin_loader.dart';
 import '../services/admin_session.dart';
+import 'app_errors_page.dart';
 import 'audit_page.dart';
 import 'content_page.dart';
 import 'overview_page.dart';
 import 'support_page.dart';
 
-enum _Section { overview, content, support, audit }
+enum _Section { overview, content, support, audit, errors }
 
 /// Startseite nach der Anmeldung. Welche Bereiche es gibt, hängt von der Rolle ab.
 class AdminHomeScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     if (role.seesContent) _Section.content,
     if (role.seesSupport) _Section.support,
     if (role.seesAuditLog) _Section.audit,
+    if (role.seesAppErrors) _Section.errors,
   ];
 
   @override
@@ -107,6 +109,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     _Section.content => const ContentPage(),
                     _Section.support => SupportPage(role: identity.role),
                     _Section.audit => const AuditPage(),
+                    _Section.errors => const AppErrorsPage(),
                   },
                 ),
               ],
@@ -122,6 +125,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     _Section.content => Icons.map_outlined,
     _Section.support => Icons.support_agent,
     _Section.audit => Icons.receipt_long,
+    _Section.errors => Icons.bug_report_outlined,
   };
 
   static String _label(_Section s) => switch (s) {
@@ -129,6 +133,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     _Section.content => AdminTexts.content,
     _Section.support => AdminTexts.support,
     _Section.audit => AdminTexts.auditLog,
+    _Section.errors => AdminTexts.appErrors,
   };
 }
 

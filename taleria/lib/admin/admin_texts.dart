@@ -52,6 +52,7 @@ abstract final class AdminTexts {
   static const content = 'Inhalte';
   static const support = 'Support';
   static const auditLog = 'Protokoll';
+  static const appErrors = 'Fehler';
   static const reload = 'Neu laden';
   static const environmentTest = 'TESTUMGEBUNG';
   static const environmentLive = 'LIVE';
@@ -79,9 +80,18 @@ abstract final class AdminTexts {
   static String premium(int store, int manual, int test) => 'Store: $store, von Hand: $manual, Test: $test';
   static String budgetUsage(int allowance, int tasks) =>
       'Taschengeld eingerichtet: $allowance\nAufgaben bestätigt (28 Tage): $tasks';
+  static const returnWeek1 = 'Rückkehr nach 1 Woche';
+  static const returnWeek4 = 'Rückkehr nach 4 Wochen';
+  static String percentOrDash(int? percent) => percent == null ? '–' : '$percent %';
+  static String returned(int returned, int cohort, int days) => cohort == 0
+      ? 'Noch niemand ist $days Tage dabei.'
+      : '$returned von $cohort Kindern, die seit mindestens $days Tagen dabei sind';
+  static const appErrors7d = 'Fehler in der App';
+  static String appErrorsDetail(int count) => count == 0 ? 'keine in 7 Tagen' : 'Meldungen in 7 Tagen';
   static const overviewNote =
       'Nur zusammengefasste Zahlen, keine Einzelprofile von Kindern. Aktiv heißt: Station, Begegnung '
-      'oder Wiederholung. Rückkehr nach 1 und 4 Wochen kommt mit der Messung in Schritt 11.';
+      'oder Wiederholung. Rückkehr: Das Kind öffnet die App in Woche 2 (Tag 7 bis 13) oder Woche 5 '
+      '(Tag 28 bis 34) nach seinem ersten Tag wieder. Gemessen wird seit Schritt 11, nur tageweise.';
 
   // Inhalte
   static String stage(int stage) => 'Stufe $stage';
@@ -107,8 +117,11 @@ abstract final class AdminTexts {
   }
 
   static String stationLine(StationStats s) => '${contentStatus(s.status)} · ${s.questions} Fragen';
-  static String stationDone(int done, int? drop) =>
-      drop == null || drop <= 0 ? 'geschafft von $done' : 'geschafft von $done (−$drop)';
+  static String stationDone(StationStats s, int? drop) {
+    final done = drop == null || drop <= 0 ? 'geschafft von ${s.done}' : 'geschafft von ${s.done} (−$drop)';
+    return s.started == 0 ? done : 'begonnen von ${s.started} · $done';
+  }
+
   static String onboardedChildren(int count) => '$count Kinder haben das Intro abgeschlossen.';
   static const hardest = 'Schwierigste Fragen';
   static const easiest = 'Leichteste Fragen';
@@ -125,7 +138,8 @@ abstract final class AdminTexts {
   static const contentNote =
       'Inhalte ändern: in den Inhaltsdateien (content/stufe1) mit „status“ entwurf, pruefung oder freigegeben. '
       'Daraus entstehen supabase/seed.sql (Testumgebung) und supabase/inhalte_live.sql (Live-Datenbank). '
-      'Der Rückgang von Station zu Station zeigt, wo Kinder aufhören oder auf Wind warten.';
+      'Der Rückgang von Station zu Station zeigt, wo Kinder aufhören oder auf Wind warten. '
+      '„Begonnen“ wird seit Schritt 11 gemessen; begonnen, aber nicht geschafft heißt: abgebrochen oder noch dabei.';
 
   // Support
   static const supportHint =
@@ -188,6 +202,14 @@ abstract final class AdminTexts {
   static String auditWho(AuditEntry e) =>
       '${e.adminEmail ?? 'unbekannt'}${e.adminRole == null ? '' : ' (${role(e.adminRole!)})'}';
   static String auditTarget(AuditEntry e) => e.targetId == null ? '' : ' · Konto ${e.targetId!.substring(0, 8)}';
+
+  // Fehlerprotokoll der App
+  static const appErrorsEmpty = 'Keine Fehler in den letzten 14 Tagen.';
+  static const appErrorsNote =
+      'Fehler, die die App selbst gemeldet hat: nur Fehlertext, gekürzter Stack und Plattform, '
+      'ohne Nutzer und ohne Gerät. Gespeichert 90 Tage.';
+  static String appErrorLine(AppErrorInfo e) =>
+      '${e.platform} · ${e.total}× an ${e.days} ${e.days == 1 ? 'Tag' : 'Tagen'} · zuletzt ${dateTime(e.lastSeenAt)}';
 
   // Fehler
   static String failure(AdminFailure failure) => switch (failure.kind) {

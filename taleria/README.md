@@ -3,7 +3,14 @@
 Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
-## Was es nach Schritt 10 gibt
+## Was es nach Schritt 11 gibt
+
+- Messung ohne Drittanbieter: Rückkehr nach 1 und 4 Wochen, begonnene und geschaffte Stationen
+  (nur tageweise, nur Summen in der Admin-Seite)
+- Fehlerprotokoll: Die App meldet Abstürze selbst, ohne Nutzer und ohne Gerät (Admin-Seite → „Fehler“)
+- Behoben: Hinweise unten am Bildschirm verdecken keine Knöpfe mehr auf der nächsten Seite
+
+## Was es seit Schritt 10 gibt
 
 - Adminbereich als eigene Webseite (nicht in der App): Anmeldung nur mit Zwei-Faktor-App
 - Übersicht mit Familien, aktiven Kindern und Abos, Statistik pro Insel, Station und Frage
@@ -267,6 +274,17 @@ und den Ordner `build/web` auf einen Webspace laden (wo, ist noch offen).
 
 Veröffentlichte Inhalte schützt die Datenbank: Korrekturen gehen, Pflichtstationen und
 Prüfungsfragen lassen sich aber nicht mehr entfernen oder zurückziehen.
+
+## Was du ausprobieren kannst (Schritt 11, mit Test-Server)
+
+Vorher die Datenbank aktualisieren (`npx supabase db push`, oder bei einem neuen Testprojekt
+`supabase/datenbank_einrichten.sql`). Neue Inhalte gibt es nicht.
+
+1. Im Kinderbereich die Startseite öffnen und eine Station beginnen.
+2. Admin-Seite → „Inhalte“: bei dieser Station steht „begonnen von 1“.
+3. Admin-Seite → „Übersicht“: „Rückkehr nach 1 Woche“ zeigt erst Zahlen, wenn Kinder seit
+   mindestens 14 Tagen dabei sind. Vorher steht dort „Noch niemand ist 14 Tage dabei.“
+4. Admin-Seite → „Fehler“: Hier erscheinen Fehler, die die App selbst gemeldet hat.
 
 ## Was du ausprobieren kannst (Schritt 10, mit Test-Server)
 

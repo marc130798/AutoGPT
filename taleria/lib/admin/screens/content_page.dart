@@ -141,7 +141,7 @@ class _IslandTile extends StatelessWidget {
               title: Text(AdminTexts.stationLabel(s)),
               subtitle: Text(AdminTexts.stationLine(s), style: Theme.of(context).textTheme.bodySmall),
               trailing: Text(
-                AdminTexts.stationDone(s.done, i == 0 ? null : island.stations[i - 1].done - s.done),
+                AdminTexts.stationDone(s, i == 0 ? null : island.stations[i - 1].done - s.done),
                 key: ValueKey('done-${s.id}'),
               ),
             ),

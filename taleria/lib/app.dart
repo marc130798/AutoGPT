@@ -5,19 +5,30 @@ import 'core/app_scope.dart';
 import 'core/config/orientation_policy.dart';
 import 'core/theme/taleria_palette.dart';
 import 'core/theme/taleria_theme.dart';
+import 'features/common/hide_hints_on_push.dart';
 import 'features/start/session_gate.dart';
 import 'l10n/app_localizations.dart';
 
-class TaleriaApp extends StatelessWidget {
+class TaleriaApp extends StatefulWidget {
   const TaleriaApp({super.key, required this.services});
 
   final AppServices services;
 
   @override
+  State<TaleriaApp> createState() => _TaleriaAppState();
+}
+
+class _TaleriaAppState extends State<TaleriaApp> {
+  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
+  late final _hideHints = HideHintsOnPush(_messengerKey);
+
+  @override
   Widget build(BuildContext context) {
     return AppScope(
-      services: services,
+      services: widget.services,
       child: MaterialApp(
+        scaffoldMessengerKey: _messengerKey,
+        navigatorObservers: [_hideHints],
         onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
         debugShowCheckedModeBanner: false,
         // Gebaut wird nur Stufe 1. Sobald es Kinder-Profile gibt, kommt die

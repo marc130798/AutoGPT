@@ -8,6 +8,7 @@ import '../data/local_settings.dart';
 import '../domain/content_models.dart';
 import '../domain/family_models.dart';
 import '../domain/progress_logic.dart';
+import '../domain/progress_models.dart';
 import '../domain/quiz_logic.dart';
 import 'encounter_controller.dart' show EncounterRun;
 
@@ -101,9 +102,19 @@ class StationController extends ChangeNotifier {
       await _prepareQuiz();
       await _prepareWarmUp();
       _go(_firstStep());
+      unawaited(_trackStart());
     } on AppFailure catch (e) {
       _failure = e.kind;
       _go(StationStep.failed);
+    }
+  }
+
+  /// Messung für die Abbruchquote. Ein Fehler dabei stört das Kind nie.
+  Future<void> _trackStart() async {
+    try {
+      await _progress.trackEvent(child.id, TrackedEvent.stationStart, stationId: station.id);
+    } on AppFailure {
+      // Messung ist zweitrangig.
     }
   }
 
@@ -245,6 +256,7 @@ class StationController extends ChangeNotifier {
       // Perlentauchen: Fragen der Stationen seit dem letzten Ankerplatz.
       final pools = [for (final s in stationsBeforeDive(allStations, station)) await _content.fetchQuestions(s.id)];
       picked = pickDiveQuestions(pools, content.dive?.questions ?? 4, _random);
+      if (picked.isEmpty) throw const AppFailure(FailureKind.unknown, 'Keine Fragen für den Tauchgang');
       _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q, _random)]);
       return;
     }
@@ -264,6 +276,7 @@ class StationController extends ChangeNotifier {
     } else {
       picked = pickQuestions(pool, content.quizShow ?? 3, _random, previousIds: previous);
     }
+    if (picked.isEmpty) throw const AppFailure(FailureKind.unknown, 'Keine Fragen für diese Station');
     await _settings.setLastQuizSelection(child.id, station.id, {for (final q in picked) q.id});
     _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q, _random)]);
   }

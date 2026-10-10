@@ -30,6 +30,9 @@ abstract interface class AdminRepository {
   Future<void> deleteFamily({required String parentId, required String reason});
 
   Future<List<AuditEntry>> auditLog({int limit = 100});
+
+  /// Fehler der App in den letzten [days] Tagen, häufigste zuerst.
+  Future<List<AppErrorInfo>> appErrors({int days = 14});
 }
 
 class SupabaseAdminRepository implements AdminRepository {
@@ -95,5 +98,11 @@ class SupabaseAdminRepository implements AdminRepository {
   Future<List<AuditEntry>> auditLog({int limit = 100}) => guardAdmin(() async {
     final rows = await _client.rpc<dynamic>('admin_audit_recent', params: {'p_limit': limit});
     return [for (final r in rows as List) AuditEntry.fromJson(r as Map<String, dynamic>)];
+  });
+
+  @override
+  Future<List<AppErrorInfo>> appErrors({int days = 14}) => guardAdmin(() async {
+    final rows = await _client.rpc<dynamic>('admin_app_errors', params: {'p_days': days});
+    return [for (final r in rows as List) AppErrorInfo.fromJson(r as Map<String, dynamic>)];
   });
 }
