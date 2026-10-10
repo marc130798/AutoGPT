@@ -33,6 +33,14 @@ abstract final class AssetKeys {
   static const iconBadges = 'icon.badges';
   static const iconCollection = 'icon.collection';
 
+  /// Schatztruhe (Kinderbereich): Hintergrund und Bilder (BILDER.md, Abschnitt 4f).
+  /// Die Schatztruhe selbst zeigt [iconTreasure].
+  static const treasureBackground = 'treasure.background';
+  static const potSpend = 'pot.spend';
+  static const potGive = 'pot.give';
+  static const iconLedger = 'icon.ledger';
+  static const iconWish = 'icon.wish';
+
   static const underwaterBackground = 'underwater.background';
   static const pearl = 'collectible.pearl';
 
@@ -75,6 +83,11 @@ abstract final class AssetKeys {
     iconTasks,
     iconBadges,
     iconCollection,
+    treasureBackground,
+    potSpend,
+    potGive,
+    iconLedger,
+    iconWish,
     introVideo,
     logo,
     musicHome,

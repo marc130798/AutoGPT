@@ -11,7 +11,8 @@ import '../test_helpers.dart';
 void main() {
   Future<void> tapText(WidgetTester tester, String text) async {
     if (find.text(text).evaluate().isEmpty) {
-      await tester.dragUntilVisible(find.text(text), find.byType(Scrollable).first, const Offset(0, -200));
+      // Liste der obersten Seite (darunter liegen noch die vorigen Seiten).
+      await tester.dragUntilVisible(find.text(text), find.byType(Scrollable).last, const Offset(0, -200));
     }
     await Scrollable.ensureVisible(tester.element(find.text(text).last), alignment: 0.5);
     await tester.pumpAndSettle();
@@ -91,10 +92,8 @@ void main() {
 
     // --- Kind: Truhen, Umbuchen, Wunschschatz ---
     await tapText(tester, 'Schatztruhe');
-    expect(find.text(formatCents(500)), findsWidgets, reason: 'Heuer in der Bordkasse');
-    expect(find.textContaining('Deine Heuer: ${formatCents(500)} pro Woche'), findsOneWidget);
-
-    await tapText(tester, 'Umbuchen');
+    expect(find.text(formatCents(500)), findsWidgets, reason: 'Taschengeld in der Bordkasse');
+    await tapText(tester, 'Geld in eine andere Truhe legen');
     await enter(tester, 'amount-dialog-amount', '20');
     await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
     await tester.pumpAndSettle();
@@ -104,6 +103,16 @@ void main() {
     await tester.pumpAndSettle();
     expect(budget.balance(mila.id, Pot.spend), 300);
     expect(budget.balance(mila.id, Pot.save), 200);
+
+    // Die Truhen stehen oben, das Taschengeld darunter (Liste der obersten Seite).
+    await tester.dragUntilVisible(
+      find.textContaining('Dein Taschengeld'),
+      find.byType(Scrollable).last,
+      const Offset(0, -200),
+    );
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Dein Taschengeld: ${formatCents(500)} pro Woche'), findsOneWidget);
+    expect(find.textContaining('Heuer'), findsNothing, reason: 'Kinder verstehen „Taschengeld“ besser');
 
     await tapText(tester, 'Neuer Wunschschatz');
     await enter(tester, 'amount-dialog-title', 'Ball');

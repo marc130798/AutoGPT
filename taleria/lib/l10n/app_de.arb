@@ -1071,33 +1071,33 @@
   "@potGiveChild": {
     "description": "Truhe zum Verschenken (Glossar)"
   },
-  "potSpendHint": "Zum Ausgeben",
+  "potSpendHint": "Zum Ausgeben. Davon kaufst du dir kleine Dinge, zum Beispiel ein Eis.",
   "@potSpendHint": {
     "description": "Erklärung der Bordkasse"
   },
-  "potSaveHint": "Zum Sparen für deine Wunschschätze",
+  "potSaveHint": "Zum Sparen. Hier sammelst du für deine Wunschschätze, also für Dinge, die mehr kosten.",
   "@potSaveHint": {
     "description": "Erklärung der Schatztruhe"
   },
-  "potGiveHint": "Zum Verschenken und Spenden",
+  "potGiveHint": "Zum Verschenken. Damit machst du anderen eine Freude, zum Beispiel mit einem Geschenk.",
   "@potGiveHint": {
     "description": "Erklärung der Glückstruhe"
   },
-  "treasureMove": "Umbuchen",
+  "treasureMove": "Geld in eine andere Truhe legen",
   "@treasureMove": {
     "description": "Knopf: Geld zwischen Truhen verschieben"
   },
-  "treasureSpend": "Ausgabe eintragen",
+  "treasureSpend": "Ich habe etwas gekauft",
   "@treasureSpend": {
     "description": "Knopf: Ausgabe aus der Bordkasse"
   },
-  "treasureGive": "Geschenk eintragen",
+  "treasureGive": "Ich habe etwas verschenkt",
   "@treasureGive": {
     "description": "Knopf: Geschenk aus der Glückstruhe"
   },
-  "treasureAllowance": "Deine Heuer: {amount} {interval}",
+  "treasureAllowance": "Dein Taschengeld: {amount} {interval}",
   "@treasureAllowance": {
-    "description": "Heuer im Kinderbereich",
+    "description": "Taschengeld im Kinderbereich",
     "placeholders": {
       "amount": {
         "type": "String"
@@ -1107,18 +1107,18 @@
       }
     }
   },
-  "treasureAllowanceNext": "Nächste Heuer am {date}",
+  "treasureAllowanceNext": "Das nächste Taschengeld kommt am {date}.",
   "@treasureAllowanceNext": {
-    "description": "Datum der nächsten Heuer",
+    "description": "Datum des nächsten Taschengelds",
     "placeholders": {
       "date": {
         "type": "String"
       }
     }
   },
-  "treasureNoAllowance": "Noch keine Heuer. Frag deine Eltern!",
+  "treasureNoAllowance": "Du bekommst hier noch kein Taschengeld. Frag deine Eltern, ob sie es eintragen.",
   "@treasureNoAllowance": {
-    "description": "Hinweis ohne Heuer"
+    "description": "Hinweis ohne Taschengeld"
   },
   "treasureVirtual": "Alle Beträge sind virtuell. Die App zählt mit, das echte Geld bekommst du von deinen Eltern.",
   "@treasureVirtual": {
@@ -1126,17 +1126,17 @@
   },
   "allowanceWeekly": "pro Woche",
   "@allowanceWeekly": {
-    "description": "Rhythmus der Heuer: wöchentlich"
+    "description": "Rhythmus des Taschengelds: wöchentlich"
   },
   "allowanceMonthly": "pro Monat",
   "@allowanceMonthly": {
-    "description": "Rhythmus der Heuer: monatlich"
+    "description": "Rhythmus des Taschengelds: monatlich"
   },
   "goalsHeading": "Wunschschätze",
   "@goalsHeading": {
     "description": "Überschrift Wunschschätze (Glossar)"
   },
-  "goalsEmpty": "Noch kein Wunschschatz. Lege einen an!",
+  "goalsEmpty": "Du hast noch keinen Wunschschatz. Was wünschst du dir?",
   "@goalsEmpty": {
     "description": "Hinweis ohne Wunschschätze"
   },
@@ -1207,11 +1207,11 @@
   "@ledgerHeading": {
     "description": "Überschrift der Buchungen"
   },
-  "ledgerEmpty": "Noch keine Buchungen.",
+  "ledgerEmpty": "Hier ist noch nichts passiert.",
   "@ledgerEmpty": {
     "description": "Hinweis ohne Buchungen"
   },
-  "ledgerAllowance": "Heuer",
+  "ledgerAllowance": "Taschengeld",
   "@ledgerAllowance": {
     "description": "Buchungsart im Kinderbereich"
   },
@@ -1219,7 +1219,7 @@
   "@ledgerTask": {
     "description": "Buchungsart im Kinderbereich"
   },
-  "ledgerTransfer": "Umgebucht",
+  "ledgerTransfer": "Umgepackt",
   "@ledgerTransfer": {
     "description": "Buchungsart im Kinderbereich"
   },
@@ -1231,15 +1231,15 @@
   "@ledgerGoal": {
     "description": "Buchungsart im Kinderbereich"
   },
-  "ledgerPurchase": "Ausgabe",
+  "ledgerPurchase": "Gekauft",
   "@ledgerPurchase": {
     "description": "Buchungsart"
   },
-  "ledgerDonation": "Geschenk",
+  "ledgerDonation": "Verschenkt",
   "@ledgerDonation": {
     "description": "Buchungsart"
   },
-  "moveTitle": "Umbuchen",
+  "moveTitle": "Geld in eine andere Truhe legen",
   "@moveTitle": {
     "description": "Titel des Umbuchen-Dialogs"
   },
@@ -1288,11 +1288,11 @@
   "@bookButton": {
     "description": "Knopf: Buchung ausführen"
   },
-  "spendTitle": "Ausgabe eintragen",
+  "spendTitle": "Was hast du gekauft?",
   "@spendTitle": {
     "description": "Titel: Ausgabe aus der Bordkasse"
   },
-  "giveTitle": "Geschenk eintragen",
+  "giveTitle": "Was hast du verschenkt?",
   "@giveTitle": {
     "description": "Titel: Geschenk aus der Glückstruhe"
   },
@@ -2531,5 +2531,21 @@
   "lighthouseMusicHint": "Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.",
   "@lighthouseMusicHint": {
     "description": "Leuchtturm: Erklärung unter dem Musik-Schalter"
+  },
+  "treasureTalaIntro": "Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.",
+  "@treasureTalaIntro": {
+    "description": "Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen"
+  },
+  "goalsIntro": "Ein Wunschschatz ist etwas, das du dir wünschst und wofür du sparst, zum Beispiel ein Ball für 15 €. Der Balken zeigt, wie viel davon schon in deiner Schatztruhe liegt.",
+  "@goalsIntro": {
+    "description": "Schatztruhe: Erklärung, was ein Wunschschatz ist"
+  },
+  "ledgerIntro": "Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.",
+  "@ledgerIntro": {
+    "description": "Schatztruhe: Erklärung, was das Kassenbuch ist"
+  },
+  "allowanceHeading": "Taschengeld",
+  "@allowanceHeading": {
+    "description": "Schatztruhe: Überschrift über dem Taschengeld (Kinderwort, früher „Heuer“)"
   }
 }

@@ -783,35 +783,35 @@ class AppLocalizationsDe extends AppLocalizations {
   String get potGiveChild => 'Glückstruhe';
 
   @override
-  String get potSpendHint => 'Zum Ausgeben';
+  String get potSpendHint => 'Zum Ausgeben. Davon kaufst du dir kleine Dinge, zum Beispiel ein Eis.';
 
   @override
-  String get potSaveHint => 'Zum Sparen für deine Wunschschätze';
+  String get potSaveHint => 'Zum Sparen. Hier sammelst du für deine Wunschschätze, also für Dinge, die mehr kosten.';
 
   @override
-  String get potGiveHint => 'Zum Verschenken und Spenden';
+  String get potGiveHint => 'Zum Verschenken. Damit machst du anderen eine Freude, zum Beispiel mit einem Geschenk.';
 
   @override
-  String get treasureMove => 'Umbuchen';
+  String get treasureMove => 'Geld in eine andere Truhe legen';
 
   @override
-  String get treasureSpend => 'Ausgabe eintragen';
+  String get treasureSpend => 'Ich habe etwas gekauft';
 
   @override
-  String get treasureGive => 'Geschenk eintragen';
+  String get treasureGive => 'Ich habe etwas verschenkt';
 
   @override
   String treasureAllowance(String amount, String interval) {
-    return 'Deine Heuer: $amount $interval';
+    return 'Dein Taschengeld: $amount $interval';
   }
 
   @override
   String treasureAllowanceNext(String date) {
-    return 'Nächste Heuer am $date';
+    return 'Das nächste Taschengeld kommt am $date.';
   }
 
   @override
-  String get treasureNoAllowance => 'Noch keine Heuer. Frag deine Eltern!';
+  String get treasureNoAllowance => 'Du bekommst hier noch kein Taschengeld. Frag deine Eltern, ob sie es eintragen.';
 
   @override
   String get treasureVirtual =>
@@ -827,7 +827,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get goalsHeading => 'Wunschschätze';
 
   @override
-  String get goalsEmpty => 'Noch kein Wunschschatz. Lege einen an!';
+  String get goalsEmpty => 'Du hast noch keinen Wunschschatz. Was wünschst du dir?';
 
   @override
   String get goalNew => 'Neuer Wunschschatz';
@@ -871,16 +871,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get ledgerHeading => 'Kassenbuch';
 
   @override
-  String get ledgerEmpty => 'Noch keine Buchungen.';
+  String get ledgerEmpty => 'Hier ist noch nichts passiert.';
 
   @override
-  String get ledgerAllowance => 'Heuer';
+  String get ledgerAllowance => 'Taschengeld';
 
   @override
   String get ledgerTask => 'Auftrag';
 
   @override
-  String get ledgerTransfer => 'Umgebucht';
+  String get ledgerTransfer => 'Umgepackt';
 
   @override
   String get ledgerManual => 'Korrektur';
@@ -889,13 +889,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get ledgerGoal => 'Wunschschatz eingelöst';
 
   @override
-  String get ledgerPurchase => 'Ausgabe';
+  String get ledgerPurchase => 'Gekauft';
 
   @override
-  String get ledgerDonation => 'Geschenk';
+  String get ledgerDonation => 'Verschenkt';
 
   @override
-  String get moveTitle => 'Umbuchen';
+  String get moveTitle => 'Geld in eine andere Truhe legen';
 
   @override
   String get moveFrom => 'Von';
@@ -930,10 +930,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get bookButton => 'Buchen';
 
   @override
-  String get spendTitle => 'Ausgabe eintragen';
+  String get spendTitle => 'Was hast du gekauft?';
 
   @override
-  String get giveTitle => 'Geschenk eintragen';
+  String get giveTitle => 'Was hast du verschenkt?';
 
   @override
   String get tasksTitle => 'Aufträge';
@@ -1825,4 +1825,16 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get lighthouseMusicHint =>
       'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.';
+
+  @override
+  String get treasureTalaIntro =>
+      'Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.';
+
+  @override
+  String get goalsIntro =>
+      'Ein Wunschschatz ist etwas, das du dir wünschst und wofür du sparst, zum Beispiel ein Ball für 15 €. Der Balken zeigt, wie viel davon schon in deiner Schatztruhe liegt.';
+
+  @override
+  String get ledgerIntro =>
+      'Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.';
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/assets/asset_keys.dart';
+import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/budget_models.dart';
 import '../../domain/family_models.dart';
@@ -9,11 +11,13 @@ import '../../l10n/app_localizations.dart';
 import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
 import '../common/texts.dart';
+import '../intro/speech_bubble.dart';
 import 'amount_dialog.dart';
 import 'wish_bottle_form.dart';
 
 /// Kinderbereich: Bordkasse, Schatztruhe, Glückstruhe, Wunschschätze und
-/// Kassenbuch. Keine Kauf-Knöpfe, alle Beträge sind virtuell.
+/// Kassenbuch, jeweils mit Bild und kinderleichter Erklärung; oben erklärt
+/// Tala (die Zahlmeisterin). Keine Kauf-Knöpfe, alle Beträge sind virtuell.
 class TreasureScreen extends StatefulWidget {
   const TreasureScreen({super.key, required this.childId});
 
@@ -131,30 +135,50 @@ class _TreasureScreenState extends State<TreasureScreen> {
     final controller = _controller!;
     return Scaffold(
       appBar: AppBar(title: Text(l10n.treasureTitle)),
-      body: SafeArea(
-        child: ListenableBuilder(
-          listenable: controller,
-          builder: (context, _) {
-            if (controller.loading) return const Center(child: CircularProgressIndicator());
-            if (controller.failure != null) {
-              return _Failure(kind: controller.failure!, onRetry: controller.load);
-            }
-            return RefreshIndicator(
-              onRefresh: controller.load,
-              child: _TreasureContent(
-                controller: controller,
-                onMove: _move,
-                onSpend: _spend,
-                onNewGoal: _newGoal,
-                onRedeem: _redeem,
-                onDeleteGoal: _deleteGoal,
-                onNewWish: _newWish,
-                onKeepWish: _keepWish,
-                onDropWish: _dropWish,
+      body: Stack(
+        children: [
+          // Schatzkammer im Bauch des Schiffs; ohne Bild warmes Holz.
+          Positioned.fill(
+            child: TaleriaAsset(
+              AssetKeys.treasureBackground,
+              fit: BoxFit.cover,
+              fallback: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFFE9D3AE), Color(0xFFC79A63)],
+                  ),
+                ),
               ),
-            );
-          },
-        ),
+            ),
+          ),
+          SafeArea(
+            child: ListenableBuilder(
+              listenable: controller,
+              builder: (context, _) {
+                if (controller.loading) return const Center(child: CircularProgressIndicator());
+                if (controller.failure != null) {
+                  return _Failure(kind: controller.failure!, onRetry: controller.load);
+                }
+                return RefreshIndicator(
+                  onRefresh: controller.load,
+                  child: _TreasureContent(
+                    controller: controller,
+                    onMove: _move,
+                    onSpend: _spend,
+                    onNewGoal: _newGoal,
+                    onRedeem: _redeem,
+                    onDeleteGoal: _deleteGoal,
+                    onNewWish: _newWish,
+                    onKeepWish: _keepWish,
+                    onDropWish: _dropWish,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -193,6 +217,8 @@ class _TreasureContent extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.wave, text: l10n.treasureTalaIntro),
+        const SizedBox(height: 16),
         for (final pot in Pot.values)
           _PotCard(
             pot: pot,
@@ -204,62 +230,146 @@ class _TreasureContent extends StatelessWidget {
             },
           ),
         const SizedBox(height: 4),
-        OutlinedButton.icon(onPressed: onMove, icon: const Icon(Icons.swap_vert), label: Text(l10n.treasureMove)),
-        const SizedBox(height: 12),
-        Text(
-          allowance == null
-              ? l10n.treasureNoAllowance
-              : '${l10n.treasureAllowance(formatCents(allowance.amountCents), l10n.interval(allowance.interval))}\n'
-                    '${l10n.treasureAllowanceNext(formatDate(allowance.nextRunAt))}',
-          style: theme.textTheme.bodyLarge,
-        ),
-        const SizedBox(height: 24),
-        Text(l10n.goalsHeading, style: theme.textTheme.titleLarge),
-        const SizedBox(height: 8),
-        if (controller.goals.isEmpty) Text(l10n.goalsEmpty),
-        for (final goal in [...controller.openGoals, ...controller.reachedGoals])
-          _GoalCard(
-            goal: goal,
-            saved: balances.save,
-            onRedeem: () => onRedeem(goal),
-            onDelete: () => onDeleteGoal(goal),
-          ),
-        const SizedBox(height: 8),
-        OutlinedButton.icon(onPressed: onNewGoal, icon: const Icon(Icons.add), label: Text(l10n.goalNew)),
-        if (controller.wishBottlesUnlocked) ...[
-          const SizedBox(height: 24),
-          Text(l10n.wishBottlesHeading, style: theme.textTheme.titleLarge),
-          const SizedBox(height: 4),
-          Text(l10n.wishBottlesIntro),
-          const SizedBox(height: 8),
-          if (controller.dueWishBottles.isEmpty && controller.driftingWishBottles.isEmpty) Text(l10n.wishBottlesEmpty),
-          for (final bottle in controller.dueWishBottles)
-            _WishDueCard(bottle: bottle, onKeep: () => onKeepWish(bottle), onDrop: () => onDropWish(bottle)),
-          for (final bottle in controller.driftingWishBottles)
-            ListTile(
-              key: ValueKey('wish-drifting-${bottle.id}'),
-              contentPadding: EdgeInsets.zero,
-              leading: const Icon(Icons.water_drop_outlined),
-              title: Text(bottle.title),
-              subtitle: Text(l10n.wishBottleDrifting(formatDate(bottle.remindAt))),
-              trailing: TextButton(onPressed: () => onDropWish(bottle), child: Text(l10n.wishBottleDrop)),
-            ),
-          const SizedBox(height: 8),
-          OutlinedButton.icon(
-            key: const ValueKey('wish-new'),
-            onPressed: onNewWish,
-            icon: const Icon(Icons.water_drop_outlined),
-            label: Text(l10n.wishBottleNew),
-          ),
-        ],
-        const SizedBox(height: 24),
-        Text(l10n.ledgerHeading, style: theme.textTheme.titleLarge),
-        const SizedBox(height: 8),
-        if (controller.ledger.isEmpty) Text(l10n.ledgerEmpty),
-        for (final entry in controller.ledger) LedgerTile(entry: entry, parent: false),
+        FilledButton.tonalIcon(onPressed: onMove, icon: const Icon(Icons.swap_vert), label: Text(l10n.treasureMove)),
         const SizedBox(height: 16),
-        Text(l10n.treasureVirtual, style: theme.textTheme.bodySmall),
+        _Section(
+          imageKey: null,
+          fallbackIcon: Icons.event_repeat,
+          title: l10n.allowanceHeading,
+          children: [
+            Text(
+              allowance == null
+                  ? l10n.treasureNoAllowance
+                  : '${l10n.treasureAllowance(formatCents(allowance.amountCents), l10n.interval(allowance.interval))}\n'
+                        '${l10n.treasureAllowanceNext(formatDate(allowance.nextRunAt))}',
+              style: theme.textTheme.bodyLarge,
+            ),
+          ],
+        ),
+        _Section(
+          imageKey: AssetKeys.iconWish,
+          fallbackIcon: Icons.star_rounded,
+          title: l10n.goalsHeading,
+          intro: l10n.goalsIntro,
+          children: [
+            if (controller.goals.isEmpty) Text(l10n.goalsEmpty, style: theme.textTheme.bodyLarge),
+            for (final goal in [...controller.openGoals, ...controller.reachedGoals])
+              _GoalCard(
+                goal: goal,
+                saved: balances.save,
+                onRedeem: () => onRedeem(goal),
+                onDelete: () => onDeleteGoal(goal),
+              ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(onPressed: onNewGoal, icon: const Icon(Icons.add), label: Text(l10n.goalNew)),
+          ],
+        ),
+        if (controller.wishBottlesUnlocked)
+          _Section(
+            imageKey: null,
+            fallbackIcon: Icons.water_drop_outlined,
+            title: l10n.wishBottlesHeading,
+            intro: l10n.wishBottlesIntro,
+            children: [
+              if (controller.dueWishBottles.isEmpty && controller.driftingWishBottles.isEmpty)
+                Text(l10n.wishBottlesEmpty),
+              for (final bottle in controller.dueWishBottles)
+                _WishDueCard(bottle: bottle, onKeep: () => onKeepWish(bottle), onDrop: () => onDropWish(bottle)),
+              for (final bottle in controller.driftingWishBottles)
+                ListTile(
+                  key: ValueKey('wish-drifting-${bottle.id}'),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.water_drop_outlined),
+                  title: Text(bottle.title),
+                  subtitle: Text(l10n.wishBottleDrifting(formatDate(bottle.remindAt))),
+                  trailing: TextButton(onPressed: () => onDropWish(bottle), child: Text(l10n.wishBottleDrop)),
+                ),
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                key: const ValueKey('wish-new'),
+                onPressed: onNewWish,
+                icon: const Icon(Icons.water_drop_outlined),
+                label: Text(l10n.wishBottleNew),
+              ),
+            ],
+          ),
+        _Section(
+          imageKey: AssetKeys.iconLedger,
+          fallbackIcon: Icons.menu_book_rounded,
+          title: l10n.ledgerHeading,
+          intro: l10n.ledgerIntro,
+          children: [
+            if (controller.ledger.isEmpty) Text(l10n.ledgerEmpty, style: theme.textTheme.bodyLarge),
+            for (final entry in controller.ledger) LedgerTile(entry: entry, parent: false),
+          ],
+        ),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: context.palette.paper.withValues(alpha: 0.9),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(l10n.treasureVirtual, style: theme.textTheme.bodySmall),
+        ),
       ],
+    );
+  }
+}
+
+/// Ein Abschnitt auf Papier: Bild, Überschrift, kurze Erklärung, Inhalt.
+class _Section extends StatelessWidget {
+  const _Section({
+    required this.imageKey,
+    required this.fallbackIcon,
+    required this.title,
+    required this.children,
+    this.intro,
+  });
+
+  /// Bild neben der Überschrift; ohne Bild das Symbol [fallbackIcon].
+  final String? imageKey;
+  final IconData fallbackIcon;
+  final String title;
+  final String? intro;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final icon = CircleAvatar(
+      radius: 26,
+      backgroundColor: palette.sand,
+      child: Icon(fallbackIcon, color: palette.seaDeep, size: 28),
+    );
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: palette.paper.withValues(alpha: 0.95),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFE2C27A), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 56,
+                height: 56,
+                child: imageKey == null ? icon : TaleriaAsset(imageKey!, width: 56, height: 56, fallback: icon),
+              ),
+              const SizedBox(width: 12),
+              Expanded(child: Text(title, style: theme.textTheme.titleLarge)),
+            ],
+          ),
+          if (intro != null) ...[const SizedBox(height: 8), Text(intro!, style: theme.textTheme.bodyMedium)],
+          const SizedBox(height: 12),
+          ...children,
+        ],
+      ),
     );
   }
 }
@@ -276,45 +386,70 @@ class _PotCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final palette = context.palette;
-    final (icon, color, hint) = switch (pot) {
-      Pot.spend => (Icons.sailing_outlined, palette.sea, l10n.potSpendHint),
-      Pot.save => (Icons.inventory_2_outlined, palette.gold, l10n.potSaveHint),
-      Pot.give => (Icons.volunteer_activism_outlined, palette.tala, l10n.potGiveHint),
+    final (image, icon, color, hint) = switch (pot) {
+      Pot.spend => (AssetKeys.potSpend, Icons.sailing_outlined, palette.sea, l10n.potSpendHint),
+      Pot.save => (AssetKeys.iconTreasure, Icons.inventory_2_outlined, palette.gold, l10n.potSaveHint),
+      Pot.give => (AssetKeys.potGive, Icons.volunteer_activism_outlined, palette.tala, l10n.potGiveHint),
     };
-    return Card(
+    return Container(
       key: ValueKey('pot-${pot.code}'),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 26,
-              backgroundColor: color,
-              child: Icon(icon, color: Colors.white),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n.pot(pot, parent: false), style: theme.textTheme.titleMedium),
-                  Text(hint, style: theme.textTheme.bodySmall),
-                  if (action != null)
-                    TextButton(
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                      onPressed: action!.$2,
-                      child: Text(action!.$1),
-                    ),
-                ],
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: palette.paper.withValues(alpha: 0.95),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFE2C27A), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Bild der Truhe; ohne Bild ein farbiger Kreis mit Symbol.
+          TaleriaAsset(
+            image,
+            width: 76,
+            height: 76,
+            fallback: Center(
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: color,
+                child: Icon(icon, color: Colors.white, size: 30),
               ),
             ),
-            Text(
-              formatCents(balance),
-              key: ValueKey('balance-${pot.code}'),
-              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.pot(pot, parent: false),
+                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+                      ),
+                    ),
+                    Text(
+                      formatCents(balance),
+                      key: ValueKey('balance-${pot.code}'),
+                      style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(hint, style: theme.textTheme.bodyMedium),
+                if (action != null)
+                  TextButton.icon(
+                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                    onPressed: action!.$2,
+                    icon: const Icon(Icons.edit_note, size: 20),
+                    label: Text(action!.$1),
+                  ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

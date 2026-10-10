@@ -1034,6 +1034,51 @@
         "shape": "rounded"
       }
     },
+    "treasure.background": {
+      "type": "image",
+      "path": "assets/images/treasure.background.jpg",
+      "placeholder": {
+        "label": "Schatzkammer",
+        "color": "#8A5A2B",
+        "shape": "rectangle"
+      }
+    },
+    "pot.spend": {
+      "type": "image",
+      "path": "assets/images/pot.spend.png",
+      "placeholder": {
+        "label": "Bordkasse",
+        "color": "#2E86AB",
+        "shape": "circle"
+      }
+    },
+    "pot.give": {
+      "type": "image",
+      "path": "assets/images/pot.give.png",
+      "placeholder": {
+        "label": "Glückstruhe",
+        "color": "#F29CB7",
+        "shape": "circle"
+      }
+    },
+    "icon.ledger": {
+      "type": "image",
+      "path": "assets/images/icon.ledger.png",
+      "placeholder": {
+        "label": "Kassenbuch",
+        "color": "#7A5C3E",
+        "shape": "rounded"
+      }
+    },
+    "icon.wish": {
+      "type": "image",
+      "path": "assets/images/icon.wish.png",
+      "placeholder": {
+        "label": "Wunschschatz",
+        "color": "#C9A227",
+        "shape": "circle"
+      }
+    },
     "music.home": {
       "type": "audio",
       "path": "assets/audio/music.home.mp3",

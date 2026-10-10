@@ -56,7 +56,7 @@ Im Code verwenden wir englische Namen. Die Texte in der App kommen aus diesem Gl
 | Code | Kinderbereich | Elternbereich |
 | --- | --- | --- |
 | `task` | Auftrag | Aufgabe |
-| `allowance` | Heuer | Taschengeld |
+| `allowance` | Taschengeld (bis 10.10.2026 „Heuer“, Kinder verstanden das Wort nicht) | Taschengeld |
 | `pot_spend` | Bordkasse | Ausgeben |
 | `pot_save` | Schatztruhe | Sparen |
 | `pot_give` | Glückstruhe | Verschenken |
@@ -435,7 +435,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Leuchtturm:** In der Kinderliste und auf der Kinderseite steht, wie viele Aufgaben auf Bestätigung warten. Die neue Seite „Taschengeld und Aufgaben“ hat: Aufgaben bestätigen, ablehnen (mit freiwilliger Nachricht) oder löschen, neue Aufgabe anlegen (mit Belohnung oder als Pflicht), Taschengeld festlegen, ändern oder beenden (Betrag, wöchentlich oder monatlich, Datum der ersten Zahlung), Kontostand der drei Truhen, Korrektur buchen (mit Minus ein Abzug) und das Kassenbuch.
 - **Fällige Heuer** bucht die App beim Öffnen der Truhen oder der Elternseite nach (`process_due_allowances`).
 - **Nicht genug Guthaben** wird schon in der App geprüft und vom Server noch einmal; die Meldung ist „So viel ist nicht in der Truhe.“
-- Die Oberfläche benutzt im Kinderbereich die Kinderwörter (Heuer, Aufträge, Truhen) und im Leuchtturm die Elternwörter (Taschengeld, Aufgaben), wie im Glossar.
+- Die Oberfläche benutzt im Kinderbereich die Kinderwörter (Aufträge, Truhen) und im Leuchtturm die Elternwörter (Aufgaben), wie im Glossar. Taschengeld heißt seit 10.10.2026 in beiden Bereichen „Taschengeld“.
 
 **Schritt 6a (Fortschrittssystem in der Datenbank), umgesetzt am 09.10.2026:**
 - **Alle Tage zählen in deutscher Zeit** (Europe/Berlin), auch Freigabetage, Wiederholungstermine und Fahrtwind-Wochen.
@@ -599,5 +599,11 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Lautsprecher-Knopf links oben auf der Startseite: schaltet Musik und Töne aus oder an (gilt für dieses Gerät, bleibt gespeichert). Im Leuchtturm: Schalter „Musik im Hauptmenü“ (gilt für dieses Gerät; Töne bleiben). Eine Einstellung, die Eltern für das Gerät des Kindes aus der Ferne setzen, bräuchte ein Feld in der Datenbank (vorher mit Marc klären).
 - Im Browser darf Ton erst nach dem ersten Antippen starten; die App holt die Musik dann nach (`Sounds.unlock` beim ersten Tippen).
 - Technik: `lib/services/sounds.dart` (Regeln, in Tests still und mitschreibend), `lib/services/audio_sounds.dart` (Abspielen), `lib/features/common/menu_music.dart` (Musik je Bildschirm). Neue Musik mit `tool/musik_vorbereiten.py` zur nahtlosen Schleife machen und in `ASSETS_LICENSES.md` eintragen.
+
+**Schatztruhe kinderleicht, umgesetzt am 10.10.2026 (Wunsch von Marc):**
+- „Heuer“ heißt im Kinderbereich jetzt „Taschengeld“ (Glossar angepasst). Buchungsarten im Kassenbuch kinderleicht: Taschengeld, Auftrag, Umgepackt, Gekauft, Verschenkt, Wunschschatz eingelöst, Korrektur.
+- Oben erklärt Tala (die Zahlmeisterin) in einer Sprechblase die drei Truhen. Jede Truhe hat ein Bild und einen Satz mit Beispiel (Bordkasse: „zum Beispiel ein Eis“). Knöpfe sagen, was passiert: „Ich habe etwas gekauft“, „Ich habe etwas verschenkt“, „Geld in eine andere Truhe legen“.
+- Abschnitte auf Papier mit Bild und Erklärung: Taschengeld, Wunschschätze („etwas, das du dir wünschst und wofür du sparst“), Wunschflaschen, Kassenbuch („alles, was mit deinem Geld passiert ist“).
+- Bildplätze (BILDER.md Abschnitt 4f): `treasure.background`, `pot.spend`, `pot.give`, `icon.ledger`, `icon.wish`; die Schatztruhe zeigt `icon.treasure`. Ohne Bild Holz-Verlauf und farbige Kreise mit Symbol.
 - In der Sprechblase liegt die Figur größer hinter dem runden Rahmen (116 statt 72), oben in der Mitte: Kopf und Schultern, breite und schmale Figuren wirken gleich groß. Fehlt das Bild, steht der Platzhalter in Rahmengröße darin.
 - Freistellen von Figuren: Schatten auf dem Boden fällt weg, der pinke Schimmer wird auch aus Rot herausgerechnet.

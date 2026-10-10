@@ -1498,55 +1498,55 @@ abstract class AppLocalizations {
   /// Erklärung der Bordkasse
   ///
   /// In de, this message translates to:
-  /// **'Zum Ausgeben'**
+  /// **'Zum Ausgeben. Davon kaufst du dir kleine Dinge, zum Beispiel ein Eis.'**
   String get potSpendHint;
 
   /// Erklärung der Schatztruhe
   ///
   /// In de, this message translates to:
-  /// **'Zum Sparen für deine Wunschschätze'**
+  /// **'Zum Sparen. Hier sammelst du für deine Wunschschätze, also für Dinge, die mehr kosten.'**
   String get potSaveHint;
 
   /// Erklärung der Glückstruhe
   ///
   /// In de, this message translates to:
-  /// **'Zum Verschenken und Spenden'**
+  /// **'Zum Verschenken. Damit machst du anderen eine Freude, zum Beispiel mit einem Geschenk.'**
   String get potGiveHint;
 
   /// Knopf: Geld zwischen Truhen verschieben
   ///
   /// In de, this message translates to:
-  /// **'Umbuchen'**
+  /// **'Geld in eine andere Truhe legen'**
   String get treasureMove;
 
   /// Knopf: Ausgabe aus der Bordkasse
   ///
   /// In de, this message translates to:
-  /// **'Ausgabe eintragen'**
+  /// **'Ich habe etwas gekauft'**
   String get treasureSpend;
 
   /// Knopf: Geschenk aus der Glückstruhe
   ///
   /// In de, this message translates to:
-  /// **'Geschenk eintragen'**
+  /// **'Ich habe etwas verschenkt'**
   String get treasureGive;
 
-  /// Heuer im Kinderbereich
+  /// Taschengeld im Kinderbereich
   ///
   /// In de, this message translates to:
-  /// **'Deine Heuer: {amount} {interval}'**
+  /// **'Dein Taschengeld: {amount} {interval}'**
   String treasureAllowance(String amount, String interval);
 
-  /// Datum der nächsten Heuer
+  /// Datum des nächsten Taschengelds
   ///
   /// In de, this message translates to:
-  /// **'Nächste Heuer am {date}'**
+  /// **'Das nächste Taschengeld kommt am {date}.'**
   String treasureAllowanceNext(String date);
 
-  /// Hinweis ohne Heuer
+  /// Hinweis ohne Taschengeld
   ///
   /// In de, this message translates to:
-  /// **'Noch keine Heuer. Frag deine Eltern!'**
+  /// **'Du bekommst hier noch kein Taschengeld. Frag deine Eltern, ob sie es eintragen.'**
   String get treasureNoAllowance;
 
   /// Hinweis: Geld ist virtuell
@@ -1555,13 +1555,13 @@ abstract class AppLocalizations {
   /// **'Alle Beträge sind virtuell. Die App zählt mit, das echte Geld bekommst du von deinen Eltern.'**
   String get treasureVirtual;
 
-  /// Rhythmus der Heuer: wöchentlich
+  /// Rhythmus des Taschengelds: wöchentlich
   ///
   /// In de, this message translates to:
   /// **'pro Woche'**
   String get allowanceWeekly;
 
-  /// Rhythmus der Heuer: monatlich
+  /// Rhythmus des Taschengelds: monatlich
   ///
   /// In de, this message translates to:
   /// **'pro Monat'**
@@ -1576,7 +1576,7 @@ abstract class AppLocalizations {
   /// Hinweis ohne Wunschschätze
   ///
   /// In de, this message translates to:
-  /// **'Noch kein Wunschschatz. Lege einen an!'**
+  /// **'Du hast noch keinen Wunschschatz. Was wünschst du dir?'**
   String get goalsEmpty;
 
   /// Knopf: Wunschschatz anlegen
@@ -1648,13 +1648,13 @@ abstract class AppLocalizations {
   /// Hinweis ohne Buchungen
   ///
   /// In de, this message translates to:
-  /// **'Noch keine Buchungen.'**
+  /// **'Hier ist noch nichts passiert.'**
   String get ledgerEmpty;
 
   /// Buchungsart im Kinderbereich
   ///
   /// In de, this message translates to:
-  /// **'Heuer'**
+  /// **'Taschengeld'**
   String get ledgerAllowance;
 
   /// Buchungsart im Kinderbereich
@@ -1666,7 +1666,7 @@ abstract class AppLocalizations {
   /// Buchungsart im Kinderbereich
   ///
   /// In de, this message translates to:
-  /// **'Umgebucht'**
+  /// **'Umgepackt'**
   String get ledgerTransfer;
 
   /// Buchungsart
@@ -1684,19 +1684,19 @@ abstract class AppLocalizations {
   /// Buchungsart
   ///
   /// In de, this message translates to:
-  /// **'Ausgabe'**
+  /// **'Gekauft'**
   String get ledgerPurchase;
 
   /// Buchungsart
   ///
   /// In de, this message translates to:
-  /// **'Geschenk'**
+  /// **'Verschenkt'**
   String get ledgerDonation;
 
   /// Titel des Umbuchen-Dialogs
   ///
   /// In de, this message translates to:
-  /// **'Umbuchen'**
+  /// **'Geld in eine andere Truhe legen'**
   String get moveTitle;
 
   /// Feld: Truhe, aus der umgebucht wird
@@ -1762,13 +1762,13 @@ abstract class AppLocalizations {
   /// Titel: Ausgabe aus der Bordkasse
   ///
   /// In de, this message translates to:
-  /// **'Ausgabe eintragen'**
+  /// **'Was hast du gekauft?'**
   String get spendTitle;
 
   /// Titel: Geschenk aus der Glückstruhe
   ///
   /// In de, this message translates to:
-  /// **'Geschenk eintragen'**
+  /// **'Was hast du verschenkt?'**
   String get giveTitle;
 
   /// Titel der Aufträge im Kinderbereich (Glossar)
@@ -1873,7 +1873,7 @@ abstract class AppLocalizations {
   /// **'Verschenken'**
   String get parentPotGive;
 
-  /// Überschrift Taschengeld im Leuchtturm (Glossar)
+  /// Schatztruhe: Überschrift über dem Taschengeld (Kinderwort, früher „Heuer“)
   ///
   /// In de, this message translates to:
   /// **'Taschengeld'**
@@ -3132,6 +3132,24 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.'**
   String get lighthouseMusicHint;
+
+  /// Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen
+  ///
+  /// In de, this message translates to:
+  /// **'Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.'**
+  String get treasureTalaIntro;
+
+  /// Schatztruhe: Erklärung, was ein Wunschschatz ist
+  ///
+  /// In de, this message translates to:
+  /// **'Ein Wunschschatz ist etwas, das du dir wünschst und wofür du sparst, zum Beispiel ein Ball für 15 €. Der Balken zeigt, wie viel davon schon in deiner Schatztruhe liegt.'**
+  String get goalsIntro;
+
+  /// Schatztruhe: Erklärung, was das Kassenbuch ist
+  ///
+  /// In de, this message translates to:
+  /// **'Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.'**
+  String get ledgerIntro;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
