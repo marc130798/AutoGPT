@@ -451,6 +451,18 @@ Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen, keine 
 Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
 ```
 
+Gemini lehnte das am 11.10.2026 ab („Interessen von Drittanbietern“). Zweiter Versuch in einem neuen Chat, nur mit dem Händler als Vorlage:
+
+```
+Gleiche Figur und gleicher Stil wie im angehängten Bild: Der Händler, ein gemütliches Walross mit grüner Weste und runder Brille, steht vorn an der Reling seines eigenen Handelsschiffs und winkt fröhlich. Das Schiff ist breit und bauchig, aus dunklem Holz, mit einem Mast und einem großen ockergelben Segel. An Deck stehen Fässer, Kisten und Säcke mit Waren. Blick leicht schräg von oben, das Schiff fährt nach links. Das Walross ist gut zu erkennen, etwa ein Drittel so hoch wie das Schiff. Kein Wasser, keine Bugwelle. Das Schiff füllt etwa drei Viertel der Bildbreite. Quadratisches Bild.
+
+Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen, keine Kanonen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+```
+
+Klappt auch das nicht: das Schiff ohne Figur (nur das Crew-Schiff als Vorlage, Satz mit dem Walross weglassen). Die App setzt dann den Kopf des Händlers als kleines Rundbild an das Schiff.
+
 ### Bild 54: Das Fischerboot → `ship.fischer`
 
 ```
