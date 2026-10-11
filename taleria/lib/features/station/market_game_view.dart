@@ -123,22 +123,40 @@ class _MarketGameViewState extends State<MarketGameView> {
           ),
         ],
         const SizedBox(height: 12),
-        // Stände zum Auswählen.
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          alignment: WrapAlignment.center,
+        // Stände zum Auswählen, nebeneinander.
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (final (i, s) in stands.indexed)
-              ChoiceChip(
-                key: ValueKey('market-stand-$i'),
-                selected: i == _stand,
-                avatar: FigureHead(s.figure, size: 28),
-                label: Text(s.name),
-                onSelected: (_) => setState(() {
-                  _stand = i;
-                  _lastBuy = null;
-                }),
+              Expanded(
+                child: Semantics(
+                  button: true,
+                  selected: i == _stand,
+                  child: InkWell(
+                    key: ValueKey('market-stand-$i'),
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () => setState(() {
+                      _stand = i;
+                      _lastBuy = null;
+                    }),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                      decoration: BoxDecoration(
+                        color: i == _stand ? palette.sand.withValues(alpha: 0.7) : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: i == _stand ? palette.gold : palette.placeholderBorder),
+                      ),
+                      child: Column(
+                        children: [
+                          FigureHead(s.figure, size: 40, highlight: i == _stand),
+                          const SizedBox(height: 2),
+                          Text(s.name, textAlign: TextAlign.center, maxLines: 2, style: theme.textTheme.labelMedium),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
           ],
         ),
@@ -150,14 +168,8 @@ class _MarketGameViewState extends State<MarketGameView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  children: [
-                    FigureHead(stand.figure, size: 48, highlight: true),
-                    const SizedBox(width: 12),
-                    Expanded(child: Text(stand.name, style: theme.textTheme.titleMedium)),
-                  ],
-                ),
-                const SizedBox(height: 8),
+                Text(stand.name, style: theme.textTheme.titleMedium),
+                const SizedBox(height: 4),
                 for (final (k, offer) in stand.offers.indexed)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),

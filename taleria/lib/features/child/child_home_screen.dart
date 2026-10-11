@@ -16,6 +16,7 @@ import '../../services/child_stats_controller.dart';
 import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
+import '../common/game_sign.dart';
 import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
@@ -28,6 +29,7 @@ import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
 import 'board_tour.dart';
+import 'games_screen.dart';
 
 import 'lighthouse_button.dart';
 
@@ -294,9 +296,13 @@ class _HomeTile extends StatelessWidget {
     this.hint,
     this.hintKey,
     this.semanticLabel,
+    this.art,
   });
 
   final String image;
+
+  /// Statt des Bilds [image] ein gezeichnetes Zeichen (zum Beispiel das Spiel-Zeichen).
+  final Widget? art;
   final IconData fallbackIcon;
   final String label;
   final VoidCallback onTap;
@@ -335,7 +341,12 @@ class _HomeTile extends StatelessWidget {
                     clipBehavior: Clip.none,
                     alignment: Alignment.center,
                     children: [
-                      TaleriaAsset(image, height: 76, fallback: Icon(fallbackIcon, size: 52, color: palette.seaDeep)),
+                      art ??
+                          TaleriaAsset(
+                            image,
+                            height: 76,
+                            fallback: Icon(fallbackIcon, size: 52, color: palette.seaDeep),
+                          ),
                       if (count > 0)
                         Positioned(
                           top: -6,
@@ -662,6 +673,18 @@ class _ProgressSectionState extends State<_ProgressSection> {
                             : null,
                         hintKey: const ValueKey('child-home-new-finds'),
                         onTap: () => _openCollection(stats),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _HomeTile(
+                        key: const ValueKey('home-games'),
+                        image: '',
+                        art: const GameSign(size: 64),
+                        fallbackIcon: Icons.sports_esports_rounded,
+                        label: l10n.childHomeGamesTile,
+                        semanticLabel: l10n.childHomeGamesTile,
+                        onTap: () => _open(GamesScreen(child: _child)),
                       ),
                     ),
                   ],

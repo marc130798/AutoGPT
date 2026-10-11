@@ -246,6 +246,10 @@ void main() {
   testWidgets('Knöpfe in Karte und Quiz sind groß genug', (tester) async {
     await startOnMap(tester);
     await tapKey(tester, 'island-hafen');
+    // Echte Mini-Spiele (Kasse an Station 4, Markt an Station 7) tragen das Spiel-Zeichen.
+    expect(find.byKey(const ValueKey('station-game-island-hafen/station4')), findsOneWidget);
+    expect(find.byKey(const ValueKey('station-game-island-hafen/station7')), findsOneWidget);
+    expect(find.byKey(const ValueKey('station-game-island-hafen/station2')), findsNothing);
     await tapKey(tester, 'station-2');
     await playUntilQuiz(tester);
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));

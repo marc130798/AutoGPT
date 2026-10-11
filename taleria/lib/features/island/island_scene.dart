@@ -9,6 +9,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/game_sign.dart';
 
 /// Weg, wenn das Inselbild keinen eigenen hat (oder noch fehlt): in Kurven
 /// vom Steg unten bis nach oben.
@@ -269,13 +270,17 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
       StationState.noWind => Icons.air,
       _ => null,
     };
+    // Echtes Mini-Spiel: Spiel-Zeichen oben rechts.
+    final game = station.content.game?.isRealGame ?? false;
     final name = station.isDive
         ? l10n.stationDive
         : (station.isExam ? l10n.stationExam : l10n.stationNumber(station.displayNumber));
 
     return Semantics(
       button: true,
-      label: '$name: ${station.content.title}${done ? ' · ${l10n.stationDone}' : ''}',
+      label:
+          '$name: ${station.content.title}${game ? ' · ${l10n.islandStationGame}' : ''}'
+          '${done ? ' · ${l10n.stationDone}' : ''}',
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
@@ -305,6 +310,12 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
                   alignment: Alignment.center,
                   children: [
                     child!,
+                    if (game)
+                      Positioned(
+                        right: -10,
+                        top: -10,
+                        child: GameSign(key: ValueKey('station-game-${station.id}'), size: 26),
+                      ),
                     if (badge != null)
                       Positioned(
                         right: -6,

@@ -224,6 +224,31 @@ void main() {
     expect(find.text('Serie pausiert'), findsOneWidget);
   });
 
+  testWidgets('Spiele: geschaffte Mini-Spiele nochmal spielen, die anderen warten auf ihrer Insel', (tester) async {
+    await startOnHome(tester, prepare: (p) => p.completeStations('hafen'));
+    await tapKey(tester, 'home-games');
+    expect(find.text('Mini-Spiele'), findsOneWidget);
+    for (final title in ['Fischbrötchen-Kasse', 'Markt-Einkauf']) {
+      await scrollTo(tester, find.text(title));
+    }
+    expect(find.text('Hafen von Taleria, Station 4'), findsOneWidget);
+    await scrollTo(tester, find.text('Eisstand'));
+    expect(find.textContaining('Noch nicht geschafft:'), findsNWidgets(2));
+
+    // Gesperrte Spiele lassen sich nicht öffnen.
+    await tapKey(tester, 'games-island-tauschinsel/station1');
+    expect(find.text('Mini-Spiele'), findsOneWidget);
+
+    await tapKey(tester, 'games-island-hafen/station4');
+    expect(find.text('Mini-Spiel!'), findsOneWidget);
+    expect(find.text('Nur zum Spaß: Hier gibt es keine Seemeilen.'), findsOneWidget);
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Kunde 1 von 6'), findsOneWidget);
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(find.text('Mini-Spiele'), findsOneWidget);
+  });
+
   testWidgets('Unterwasser-Sammlung: Perlen und Funde', (tester) async {
     await startOnHome(
       tester,

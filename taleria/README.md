@@ -3,6 +3,14 @@
 Lern-App, mit der Kinder (8 bis 12) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
+## Was es seit den echten Mini-Spielen gibt
+
+- Vier echte Spiele mit Startbild „Mini-Spiel!“ und bis zu drei Sternen:
+  Fischbrötchen-Kasse (Hafen 4), Markt-Einkauf (Hafen 7), Tauschkette (Tauschinsel 1),
+  Eisstand (Tauschinsel 4)
+- Auf der Insel tragen diese Stationen ein Spiel-Zeichen; die anderen Tipp-Aufgaben heißen „Übung“
+- Startseite: Kachel „Spiele“, dort kann man geschaffte Spiele nochmal spielen (ohne Seemeilen)
+
 ## Was es seit den neuen Mini-Spielen gibt
 
 - Alle 20 Stationen mit Spiel auf Hafen, Tauschinsel und Wunschinsel sind echte Spiele, kein Platzhalter mehr:
@@ -416,7 +424,7 @@ Zum schnellen Durchspielen im Leuchtturm das Tempo auf „Frei“ stellen.
    Am Ende: Perlen, Seemeilen und der Fund „Alte Handelsmünze“.
 3. Station 3 („Geld früher und heute“): Das Spiel ist jetzt ein Zeitstrahl. Dinge der Reihe nach
    antippen, von früher bis heute.
-4. Station 5 (Berufe zuordnen) und Station 7 (Preise schätzen) sind ebenfalls echte Spiele.
+4. Station 5 (Berufe zuordnen) ist eine Übung, Station 4 (Kasse) und 7 (Markt-Einkauf) sind echte Spiele.
    Auf der Tauschinsel Station 7 (faire Tausche), auf der Wunschinsel Station 1 (zwei Körbe) und 4
    (Gruppendruck).
 5. Startseite: „Unterwasser-Sammlung“ zeigt Perlen und Funde.

@@ -32,12 +32,21 @@ class _IceStandGameViewState extends State<IceStandGameView> {
   /// Zählt die Versuche, damit die Kugeln bei jedem Öffnen neu erscheinen.
   int _tries = 0;
 
+  /// Ergebnis-Karte: Nach dem Öffnen scrollt die Seite dorthin.
+  final _resultKey = GlobalKey();
+
   void _open() {
     final result = _game.open();
     if (result.earned == _game.bestEarned(_game.day)) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
     setState(() {
       _showResult = true;
       _tries++;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final target = _resultKey.currentContext;
+      if (target != null && mounted) {
+        Scrollable.ensureVisible(target, duration: const Duration(milliseconds: 300), alignment: 0.9);
+      }
     });
   }
 
@@ -162,7 +171,10 @@ class _IceStandGameViewState extends State<IceStandGameView> {
         ),
         if (result != null) ...[
           const SizedBox(height: 12),
-          _IceResult(key: ValueKey('ice-result-$_tries'), result: result, verdict: _verdict(l10n, result)),
+          KeyedSubtree(
+            key: _resultKey,
+            child: _IceResult(key: ValueKey('ice-result-$_tries'), result: result, verdict: _verdict(l10n, result)),
+          ),
           if (!game.bestFoundToday || game.bestPrices(day).length > 1)
             TextButton(
               key: const ValueKey('ice-try-again'),

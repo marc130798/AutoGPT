@@ -91,17 +91,13 @@ class _TillGameViewState extends State<TillGameView> {
           key: ValueKey('till-customer-${game.index}'),
         ),
         if (widget.game.items.isNotEmpty) ...[
-          const SizedBox(height: 8),
-          Text(l10n.tillPriceBoard, textAlign: TextAlign.center, style: theme.textTheme.labelMedium),
-          const SizedBox(height: 4),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            alignment: WrapAlignment.center,
-            children: [
-              for (final item in widget.game.items)
-                Chip(visualDensity: VisualDensity.compact, label: Text('${item.text} ${formatCents(item.price ?? 0)}')),
-            ],
+          const SizedBox(height: 6),
+          // Preistafel klein in einer Zeile, damit die Münzen ohne Scrollen zu sehen sind.
+          Text(
+            '${l10n.tillPriceBoard}: ${[for (final item in widget.game.items) '${item.text} ${formatCents(item.price ?? 0)}'].join(' · ')}',
+            key: const ValueKey('till-board'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodySmall,
           ),
         ],
         const SizedBox(height: 12),
