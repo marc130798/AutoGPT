@@ -81,7 +81,7 @@
           "richtig": "Er steigt.",
           "falsch": [
             "Er sinkt.",
-            "Das Eis wird verschenkt."
+            "Er bleibt gleich."
           ],
           "erklaerung": "Wenn viele etwas haben wollen (große Nachfrage), steigt oft der Preis."
         },
@@ -90,7 +90,7 @@
           "richtig": "Sie senkt den Preis.",
           "falsch": [
             "Sie verdoppelt den Preis.",
-            "Sie wirft das Eis weg."
+            "Sie macht mehr Eis."
           ],
           "erklaerung": "Ist die Nachfrage klein, muss der Preis runter, sonst bleibt das Eis liegen."
         },
@@ -117,7 +117,7 @@
           "richtig": "Nein, man sollte vergleichen.",
           "falsch": [
             "Ja, teuer ist immer am besten.",
-            "Ja, aber nur bei Eis."
+            "Nein, Billiges ist immer besser."
           ],
           "erklaerung": "Teuer ist nicht automatisch gut. Vergleichen ist das Wichtigste."
         }
@@ -154,11 +154,11 @@
           "erklaerung": "Fair ist ein Tausch, wenn beide wissen, was sie bekommen, und beide einverstanden sind."
         },
         {
-          "frage": "Ein älteres Kind will einem jüngeren eine seltene Karte gegen eine häufige abschwatzen. Wie ist das?",
-          "richtig": "Unfair",
+          "frage": "Ein älteres Kind will einem jüngeren eine seltene Karte gegen eine häufige abschwatzen. Was ist das?",
+          "richtig": "Unfair, weil das jüngere den Wert nicht kennt",
           "falsch": [
-            "Fair",
-            "Egal"
+            "Fair, Tausch ist Tausch",
+            "Fair, wenn beide schnell zustimmen"
           ],
           "erklaerung": "Das jüngere Kind weiß nicht, wie selten seine Karte ist. So ein Tausch ist unfair."
         },
@@ -304,28 +304,28 @@
       "fragen": [
         {
           "frage": "Welches davon ist ein Bedürfnis?",
-          "richtig": "Ein Dach über dem Kopf",
+          "richtig": "Eine Regenjacke für den Schulweg im Herbst",
           "falsch": [
-            "Ein Glitzerkompass",
-            "Ein Videospiel"
+            "Eine zweite Regenjacke in der Lieblingsfarbe",
+            "Ein neues Videospiel"
           ],
-          "erklaerung": "Ein Zuhause braucht jeder zum Leben."
+          "erklaerung": "Gegen Regen braucht man eine Jacke. Eine zweite in der Lieblingsfarbe ist schön, aber ein Wunsch."
         },
         {
           "frage": "Welches davon ist ein Wunsch?",
-          "richtig": "Ein neues Spielzeug",
+          "richtig": "Markenturnschuhe, obwohl die alten noch passen",
           "falsch": [
-            "Trinkwasser",
-            "Etwas zu essen"
+            "Neue Schuhe, weil die alten zu klein sind",
+            "Ein Pausenbrot für die Schule"
           ],
-          "erklaerung": "Ein Spielzeug macht Freude, zum Leben braucht man es aber nicht."
+          "erklaerung": "Passende Schuhe und Essen braucht man. Neue Markenschuhe, obwohl die alten passen, sind ein Wunsch."
         },
         {
           "frage": "Was kommt zuerst, wenn das Geld knapp ist?",
           "richtig": "Die Bedürfnisse",
           "falsch": [
             "Die Wünsche",
-            "Das, was am meisten glitzert"
+            "Das, was gerade im Angebot ist"
           ],
           "erklaerung": "Erst das Nötige, dann das Schöne."
         },
@@ -333,8 +333,8 @@
           "frage": "Sind Wünsche schlecht?",
           "richtig": "Nein, Wünsche sind erlaubt.",
           "falsch": [
-            "Ja, immer",
-            "Nur an Geburtstagen"
+            "Ja, man sollte nur Bedürfnisse kaufen.",
+            "Nein, Wünsche gehen immer vor."
           ],
           "erklaerung": "Wünsche sind in Ordnung, wenn die Bedürfnisse gedeckt sind."
         },
@@ -342,8 +342,8 @@
           "frage": "Warum ist ein Handy schwer einzuordnen?",
           "richtig": "Weil es je nach Situation Bedürfnis oder Wunsch sein kann",
           "falsch": [
-            "Weil es so klein ist",
-            "Weil es klingelt"
+            "Weil es sehr teuer ist",
+            "Weil es fast jeder hat"
           ],
           "erklaerung": "Für manche ist es nötig, etwa um die Eltern zu erreichen, für andere vor allem Spaß."
         },
@@ -351,8 +351,8 @@
           "frage": "Warme Winterstiefel im Dezember sind …",
           "richtig": "ein Bedürfnis.",
           "falsch": [
-            "ein Wunsch.",
-            "ein Spielzeug."
+            "ein Wunsch, weil sie teuer sind.",
+            "unwichtig, weil der Winter kurz ist."
           ],
           "erklaerung": "Im Winter braucht man warme Schuhe."
         }
@@ -467,26 +467,26 @@
           "frage": "Was bedeutet „Prioritäten setzen“?",
           "richtig": "Das Wichtigste zuerst",
           "falsch": [
-            "Das Teuerste zuerst",
-            "Alles auf einmal"
+            "Das Billigste zuerst",
+            "Das, was am meisten Spaß macht, zuerst"
           ],
           "erklaerung": "Prioritäten zeigen, was am wichtigsten ist."
         },
         {
-          "frage": "Warum muss man manchmal auswählen?",
-          "richtig": "Weil das Geld nicht für alles reicht",
+          "frage": "Tala hat 12 Taler. Wasser kostet 3, Proviant 4, eine Taschenlampe 5, eine Glitzerbrille 6. Wasser und Proviant müssen mit. Was passt noch?",
+          "richtig": "Die Taschenlampe",
           "falsch": [
-            "Weil Rucksäcke böse sind",
-            "Weil Auswählen Pflicht ist"
+            "Die Glitzerbrille",
+            "Taschenlampe und Glitzerbrille"
           ],
-          "erklaerung": "Geld ist begrenzt, Wünsche sind es oft nicht."
+          "erklaerung": "Wasser und Proviant kosten 7 Taler, es bleiben 5. Das reicht genau für die Taschenlampe."
         },
         {
           "frage": "Tala packt die Glitzerbrille statt Proviant ein. Was ist das Problem?",
           "richtig": "Auf der Wanderung fehlt ihr etwas Wichtiges.",
           "falsch": [
             "Es gibt kein Problem.",
-            "Die Brille ist zu dunkel."
+            "Die Brille war zu billig."
           ],
           "erklaerung": "Wer Unwichtiges zuerst kauft, hat für Wichtiges kein Geld mehr."
         },
@@ -494,8 +494,8 @@
           "frage": "Wie kannst du deine Wünsche ordnen?",
           "richtig": "Nach Wichtigkeit, das Wichtigste oben",
           "falsch": [
-            "Nach Farbe",
-            "Nach dem Alphabet"
+            "Nach dem Preis, das Teuerste oben",
+            "Nach dem, was Freunde gut finden"
           ],
           "erklaerung": "Eine Reihenfolge nach Wichtigkeit hilft beim Entscheiden."
         },
@@ -577,8 +577,8 @@
           "frage": "Wie lange wartest du ungefähr bei einem kleinen Wunsch?",
           "richtig": "Eine Nacht",
           "falsch": [
-            "Ein Jahr",
-            "Eine Sekunde"
+            "Eine Woche",
+            "Einen Monat"
           ],
           "erklaerung": "Bei kleinen Wünschen reicht eine Nacht."
         },
@@ -586,8 +586,8 @@
           "frage": "Wie lange wartest du ungefähr bei einem großen Wunsch?",
           "richtig": "Eine Woche",
           "falsch": [
-            "Gar nicht",
-            "Eine Minute"
+            "Eine Nacht",
+            "Ein ganzes Jahr"
           ],
           "erklaerung": "Je größer der Wunsch, desto länger lohnt sich das Überlegen."
         },
@@ -595,7 +595,7 @@
           "frage": "Was passiert oft mit Wünschen, wenn man wartet?",
           "richtig": "Manche verschwinden von selbst.",
           "falsch": [
-            "Sie werden doppelt so groß.",
+            "Sie werden immer stärker.",
             "Sie werden automatisch billiger."
           ],
           "erklaerung": "Viele Wünsche sind nach ein paar Tagen gar nicht mehr wichtig."
@@ -604,8 +604,8 @@
           "frage": "Tala will den Kompass nach einer Woche immer noch. Was bedeutet das?",
           "richtig": "Es ist ein echter Wunsch.",
           "falsch": [
-            "Sie hat die Regel falsch gemacht.",
-            "Der Kompass ist kaputt."
+            "Sie muss noch ein Jahr warten.",
+            "Sie sollte ihn sofort vergessen."
           ],
           "erklaerung": "Bleibt der Wunsch, kann man überlegen, dafür zu sparen."
         },
@@ -613,8 +613,8 @@
           "frage": "Wozu ist die Wunschflasche gut?",
           "richtig": "Um einen Wunsch aufzuschreiben und später noch einmal zu prüfen",
           "falsch": [
-            "Um Limonade zu trinken",
-            "Um Wünsche ins Meer zu werfen"
+            "Damit der Wunsch schneller in Erfüllung geht",
+            "Damit man den Wunsch vergisst"
           ],
           "erklaerung": "Die Wunschflasche hilft beim Warten."
         }
@@ -714,7 +714,7 @@
           "frage": "Alle in der Klasse haben dieselben Turnschuhe. Welche Frage hilft dir?",
           "richtig": "Würde ich sie auch wollen, wenn sie niemand hätte?",
           "falsch": [
-            "Wie bekomme ich drei Paar?",
+            "Wie viel kosten sie bei den anderen?",
             "Wer hat die teuersten?"
           ],
           "erklaerung": "Diese Frage zeigt, ob man etwas wirklich will."
@@ -723,8 +723,8 @@
           "frage": "Was ist Gruppendruck?",
           "richtig": "Wenn man etwas tut, weil andere es erwarten",
           "falsch": [
-            "Wenn eine Gruppe Druckbuchstaben schreibt",
-            "Wenn es im Bus eng ist"
+            "Wenn eine Gruppe gemeinsam einkauft",
+            "Wenn man allein entscheidet, was man will"
           ],
           "erklaerung": "Gruppendruck kann zu Entscheidungen führen, die man eigentlich nicht will."
         },
@@ -732,8 +732,8 @@
           "frage": "Was ist eine gute Antwort, wenn dich jemand drängt, etwas zu kaufen?",
           "richtig": "„Nein danke, das brauche ich nicht.“",
           "falsch": [
-            "„Ich kaufe gleich zwei!“",
-            "Gar nichts sagen und sofort kaufen"
+            "„Okay, damit ihr mich mögt.“",
+            "„Ich schaue, was es kostet, und kaufe es dann.“"
           ],
           "erklaerung": "Ein freundliches Nein ist stark."
         },
@@ -742,7 +742,7 @@
           "richtig": "Weil alle Möwen eine trugen",
           "falsch": [
             "Weil ihr kalt war",
-            "Weil rote Mützen schneller machen"
+            "Weil die Mütze im Angebot war"
           ],
           "erklaerung": "Sie wollte dazugehören, nicht weil sie die Mütze brauchte."
         },
@@ -750,8 +750,8 @@
           "frage": "Ist es schlimm, nicht alles zu haben, was andere haben?",
           "richtig": "Nein, jeder darf eigene Entscheidungen treffen.",
           "falsch": [
-            "Ja, sehr schlimm",
-            "Ja, dann darf man nicht mitspielen"
+            "Ja, man gehört sonst nicht dazu.",
+            "Nur bei Kleidung ist das schlimm."
           ],
           "erklaerung": "Echte Freunde mögen dich wegen dir, nicht wegen deiner Sachen."
         },
@@ -759,8 +759,8 @@
           "frage": "Woran merkst du, dass du unter Gruppendruck stehst?",
           "richtig": "Du willst etwas nur, weil andere es haben.",
           "falsch": [
-            "Du hast Hunger.",
-            "Es regnet."
+            "Du hast lange darüber nachgedacht.",
+            "Du brauchst es für die Schule."
           ],
           "erklaerung": "Kommt der Wunsch nur von den anderen, ist das Gruppendruck."
         }
@@ -910,7 +910,7 @@
           "richtig": "Weil er Freunde und schöne Zeit hat",
           "falsch": [
             "Weil er heimlich reich ist",
-            "Weil er den ganzen Tag schläft"
+            "Weil er nicht weiß, was man kaufen kann"
           ],
           "erklaerung": "Glück hängt nicht nur vom Besitz ab."
         },
@@ -924,13 +924,13 @@
           "erklaerung": "Man gewöhnt sich schnell an Neues."
         },
         {
-          "frage": "Was kann man nicht kaufen?",
+          "frage": "Was davon kann man nicht kaufen?",
           "richtig": "Echte Freundschaft",
           "falsch": [
-            "Ein Eis",
-            "Einen Ball"
+            "Ein Kinoticket für einen Ausflug",
+            "Ein Geschenk für eine Freundin"
           ],
-          "erklaerung": "Freundschaft entsteht durch Zeit und Vertrauen, nicht durch Geld."
+          "erklaerung": "Mit Geld kann man etwas für Freunde kaufen. Die Freundschaft selbst kann man nicht kaufen."
         },
         {
           "frage": "Welcher Satz stimmt?",
@@ -945,8 +945,8 @@
           "frage": "Was macht viele Menschen glücklich?",
           "richtig": "Zeit mit Familie und Freunden",
           "falsch": [
-            "Möglichst viele Kassenbons",
-            "Allein Geld zählen"
+            "Möglichst viele neue Sachen",
+            "Immer das Neueste zu haben"
           ],
           "erklaerung": "Gemeinsame Zeit gehört für viele zu den schönsten Dingen."
         }
@@ -1081,8 +1081,8 @@
           "frage": "Was bleibt oft länger in Erinnerung?",
           "richtig": "Ein Tag am See mit Freunden",
           "falsch": [
-            "Ein neuer Radiergummi",
-            "Eine Werbeanzeige"
+            "Ein neues T-Shirt",
+            "Ein neues Spiel fürs Handy"
           ],
           "erklaerung": "Gemeinsame Erlebnisse bleiben lange im Gedächtnis."
         },
@@ -1091,7 +1091,7 @@
           "richtig": "Man teilt sie mit anderen und erinnert sich gern daran.",
           "falsch": [
             "Weil sie immer teuer sind",
-            "Weil man sie im Schrank aufbewahren kann"
+            "Weil man sie später verkaufen kann"
           ],
           "erklaerung": "Erinnerungen verbinden Menschen."
         },
@@ -1108,8 +1108,8 @@
           "frage": "Was passiert oft mit neuen Spielsachen nach einiger Zeit?",
           "richtig": "Man spielt seltener damit.",
           "falsch": [
-            "Sie werden immer spannender.",
-            "Sie verwandeln sich in Gold."
+            "Man spielt immer öfter damit.",
+            "Sie werden immer spannender."
           ],
           "erklaerung": "Neues wird schnell normal."
         },
@@ -1117,8 +1117,8 @@
           "frage": "Wofür ist ein Erinnerungs-Album gut?",
           "richtig": "Um schöne Erlebnisse festzuhalten",
           "falsch": [
-            "Um Rechnungen zu sammeln",
-            "Um Hausaufgaben zu verstecken"
+            "Um zu zeigen, was etwas gekostet hat",
+            "Um Wunschlisten aufzuschreiben"
           ],
           "erklaerung": "Ein Album hilft, sich an Schönes zu erinnern."
         },
@@ -1127,7 +1127,7 @@
           "richtig": "Beides ist in Ordnung, aber der Ausflug bleibt oft länger in Erinnerung.",
           "falsch": [
             "Nur das Spielzeug ist vernünftig.",
-            "Ausflüge sind verboten."
+            "Nur der Ausflug ist richtig."
           ],
           "erklaerung": "Es ist deine Entscheidung. Erlebnisse halten aber oft länger."
         }
@@ -1277,8 +1277,8 @@
           "frage": "Warum schreibt man die Preise dazu?",
           "richtig": "Damit man sieht, wie viel man sparen muss",
           "falsch": [
-            "Weil Zahlen hübsch aussehen",
-            "Damit die Liste länger wird"
+            "Damit man das Teuerste zuerst kauft",
+            "Damit die Eltern alles bezahlen"
           ],
           "erklaerung": "Mit Preisen kann man planen."
         },
@@ -1295,8 +1295,8 @@
           "frage": "Was kannst du mit deinem wichtigsten Wunsch machen?",
           "richtig": "Einen Wunschschatz anlegen und dafür sparen",
           "falsch": [
-            "Ihn sofort vergessen",
-            "Ihn heimlich kaufen"
+            "Ihn sofort kaufen, auch ohne genug Geld",
+            "Warten, bis ihn jemand schenkt"
           ],
           "erklaerung": "Ein Wunschschatz macht aus einem Wunsch ein Ziel."
         },
@@ -1313,8 +1313,8 @@
           "frage": "Warum ist eine Wunschliste besser, als alles sofort zu kaufen?",
           "richtig": "Man denkt nach und gibt Geld für das Wichtigste aus.",
           "falsch": [
-            "Weil Listen immer Spaß machen",
-            "Weil man dann nichts mehr bekommt"
+            "Weil man dann mehr kaufen kann",
+            "Weil Wünsche dann billiger werden"
           ],
           "erklaerung": "Planen hilft, das eigene Geld klug einzusetzen."
         }
@@ -1353,7 +1353,7 @@
           "richtig": "Etwas, das man zum Leben braucht",
           "falsch": [
             "Etwas, das gerade alle haben",
-            "Etwas, das glitzert"
+            "Etwas, das man sich lange wünscht"
           ],
           "erklaerung": "Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse.",
           "station": 1
@@ -1373,7 +1373,7 @@
           "richtig": "Damit zuerst das Wichtige bezahlt wird",
           "falsch": [
             "Damit man nie etwas Schönes kauft",
-            "Weil Wünsche verboten sind"
+            "Damit man nur noch Bedürfnisse kauft"
           ],
           "erklaerung": "Wünsche sind in Ordnung, Bedürfnisse kommen zuerst.",
           "station": 1
@@ -1393,7 +1393,7 @@
           "richtig": "Den wichtigsten auswählen",
           "falsch": [
             "Alle drei kaufen",
-            "Gar nicht nachdenken"
+            "Zwei kaufen und den Rest leihen"
           ],
           "erklaerung": "10 Taler reichen nur für einen.",
           "station": 2
@@ -1423,7 +1423,7 @@
           "richtig": "Vor einem Kauf erst drüber schlafen",
           "falsch": [
             "Immer sofort kaufen",
-            "Nur nachts einkaufen"
+            "Nur kaufen, was im Angebot ist"
           ],
           "erklaerung": "Mit etwas Abstand entscheidet man besser.",
           "station": 3
@@ -1433,7 +1433,7 @@
           "richtig": "Man merkt, ob man es wirklich will.",
           "falsch": [
             "Die Sachen werden beim Warten billiger.",
-            "Man vergisst, wo der Laden ist."
+            "Man bekommt dann mehr Taschengeld."
           ],
           "erklaerung": "Viele Wünsche verschwinden nach ein paar Tagen von selbst.",
           "station": 3
@@ -1442,8 +1442,8 @@
           "frage": "Wie lange wartet man bei großen Wünschen?",
           "richtig": "Länger, zum Beispiel eine Woche",
           "falsch": [
-            "Gar nicht",
-            "Eine Minute"
+            "Eine Nacht, wie bei kleinen Wünschen",
+            "Mindestens ein ganzes Jahr"
           ],
           "erklaerung": "Je teurer, desto länger lohnt sich das Überlegen.",
           "station": 3
@@ -1463,7 +1463,7 @@
           "richtig": "Wenn man etwas tut, weil andere es erwarten",
           "falsch": [
             "Wenn eine Gruppe ein Foto macht",
-            "Druck im Ohr beim Tauchen"
+            "Wenn man in einer Gruppe besser lernt"
           ],
           "erklaerung": "Gruppendruck kann zu Käufen führen, die man gar nicht will.",
           "station": 4
@@ -1473,7 +1473,7 @@
           "richtig": "Ruhig sagen, dass du es nicht brauchst",
           "falsch": [
             "Sofort alles nachkaufen",
-            "Die anderen auslachen"
+            "Es kaufen, aber niemandem zeigen"
           ],
           "erklaerung": "Freundlich Nein sagen ist stark.",
           "station": 4
@@ -1492,8 +1492,8 @@
           "frage": "Warum hält die Freude über ein neues Spielzeug oft nicht lange?",
           "richtig": "Weil man sich schnell daran gewöhnt",
           "falsch": [
-            "Weil Spielzeug verboten ist",
-            "Weil es nachts verschwindet"
+            "Weil es meistens schnell kaputtgeht",
+            "Weil Eltern es wegräumen"
           ],
           "erklaerung": "Neues wird schnell normal.",
           "station": 5
@@ -1502,8 +1502,8 @@
           "frage": "Was macht Moritz glücklich, obwohl er wenig besitzt?",
           "richtig": "Seine Freunde und die Zeit mit ihnen",
           "falsch": [
-            "Ein riesiger Goldschatz",
-            "Ein teures Handy"
+            "Seine vielen Sachen",
+            "Dass er nie arbeiten muss"
           ],
           "erklaerung": "Moritz zeigt, dass Glück nicht vom Besitz abhängt.",
           "station": 5
@@ -1512,8 +1512,8 @@
           "frage": "Was bleibt oft länger in Erinnerung?",
           "richtig": "Ein gemeinsamer Ausflug",
           "falsch": [
-            "Ein neues Paar Socken",
-            "Ein Kassenbon"
+            "Ein neues Paar Turnschuhe",
+            "Eine neue Hülle fürs Handy"
           ],
           "erklaerung": "Erlebnisse teilt man und erinnert sich gern daran.",
           "station": 6
@@ -1539,13 +1539,13 @@
           "station": 7
         },
         {
-          "frage": "Du wünschst dir ein Fahrrad für 120 Taler. Was ist der erste kluge Schritt?",
-          "richtig": "Einen Wunschschatz anlegen und einen Sparplan überlegen",
+          "frage": "Du wünschst dir ein Fahrrad für 120 €. Du legst jeden Monat 15 € in deinen Wunschschatz. Wie lange dauert es?",
+          "richtig": "8 Monate",
           "falsch": [
-            "Es sofort kaufen, ohne Geld zu haben",
-            "Den Wunsch vergessen"
+            "12 Monate",
+            "15 Monate"
           ],
-          "erklaerung": "Mit einem Plan wird aus einem Wunsch ein Ziel.",
+          "erklaerung": "120 € geteilt durch 15 € sind 8. Nach 8 Monaten ist genug im Wunschschatz.",
           "station": 7
         }
       ]

@@ -503,12 +503,12 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/sea1/q1')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Warum nehmen Händler lieber Geld als Waren zum Tauschen?', '["Fast jeder nimmt Geld an.","Geld ist schwerer als Waren.","Mit Geld muss man nie rechnen."]'::jsonb, 0, 'Beim Tauschen muss jeder genau das haben, was der andere braucht. Geld nimmt fast jeder an.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/sea1/q1')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Warum nehmen Händler lieber Geld als Waren zum Tauschen?', '["Fast jeder nimmt Geld an.","Weil Waren nichts wert sind.","Weil Geld nie an Wert verliert."]'::jsonb, 0, 'Beim Tauschen muss jeder genau das haben, was der andere braucht. Geld nimmt fast jeder an.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/sea1/q2')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Womit haben Menschen früher bezahlt, bevor es Münzen gab?', '["Mit seltenen Dingen wie Muscheln oder Salz","Mit Bankkarten","Mit Handys"]'::jsonb, 0, 'Früher waren seltene Dinge wie bestimmte Muscheln oder Salz das Geld.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/sea1/q2')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Warum hat man früher oft mit Muscheln oder Salz bezahlt?', '["Weil sie selten waren und viele sie haben wollten","Weil sie besonders schwer waren","Weil Tauschen damals verboten war"]'::jsonb, 0, 'Bezahlt wurde mit Dingen, die knapp und begehrt waren. Nur dann nimmt sie jeder gern an.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -518,7 +518,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/sea1/q4')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Wie verdienen die meisten Erwachsenen ihr Geld?', '["Mit Arbeit, dafür bekommen sie Lohn oder Gehalt","Sie drucken es selbst.","Sie bekommen es geschenkt, wann sie wollen."]'::jsonb, 0, 'Die meisten Erwachsenen arbeiten und bekommen dafür Lohn oder Gehalt. Geld selbst drucken ist verboten.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/sea1/q4')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Wie verdienen die meisten Erwachsenen ihr Geld?', '["Mit Arbeit, dafür bekommen sie Lohn oder Gehalt","Sie bekommen es von der Bank geschenkt.","Jeder Erwachsene bekommt vom Staat gleich viel."]'::jsonb, 0, 'Die meisten Erwachsenen arbeiten und bekommen dafür Lohn oder Gehalt. Geld selbst drucken ist verboten.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -528,7 +528,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/sea1/q6')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Was passiert, wenn ein Stand viel zu hohe Preise verlangt?', '["Die Leute kaufen woanders.","Alle kaufen trotzdem doppelt so viel.","Der Stand bekommt Geld geschenkt."]'::jsonb, 0, 'Ist der Preis zu hoch, kaufen die Leute woanders. Deshalb muss ein Preis passen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/sea1/q6')::uuid, md5('taleria:stage1/tauschinsel/sea1')::uuid, 'Was passiert, wenn ein Stand viel zu hohe Preise verlangt?', '["Die Leute kaufen woanders.","Der Stand verdient automatisch mehr.","Die anderen Stände werden auch teurer."]'::jsonb, 0, 'Ist der Preis zu hoch, kaufen die Leute woanders. Deshalb muss ein Preis passen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -565,7 +565,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/sea2/q6')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Was kostet meistens am meisten?', '["Ein Fahrrad","Ein Brötchen","Eine Kinokarte"]'::jsonb, 0, 'Ein Fahrrad kostet ein Vielfaches von einem Brötchen oder einer Kinokarte.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/sea2/q6')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Otti verkauft 4 Fische für zusammen 10 €. Wie viel kostet ein Fisch?', '["2,50 €","2,40 €","4 €"]'::jsonb, 0, '10 € geteilt durch 4 sind 2,50 €. Probe: 4 mal 2,50 € sind 10 €.', null, 'draft', '{"question":"Otti verkauft 4 Fische für zusammen 12 €. Wie viel kostet ein Fisch?","answers":["3 €","4 €","8 €"],"correct_index":0,"explanation":"12 € geteilt durch 4 sind 3 €. Probe: 4 mal 3 € sind 12 €."}'::jsonb)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -576,7 +576,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station1/q1')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Warum braucht Tala auf der Tauschinsel eine Tauschkette?', '["Weil Greta etwas will, das Tala nicht direkt hat","Weil Ketten hübsch aussehen","Weil Talo es befohlen hat"]'::jsonb, 0, 'Will der andere nicht, was man hat, muss man über mehrere Tausche gehen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station1/q1')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Warum braucht Tala auf der Tauschinsel eine Tauschkette?', '["Weil Greta etwas will, das Tala nicht direkt hat","Weil Tauschen schneller geht als Bezahlen","Weil Greta nur Taler annimmt"]'::jsonb, 0, 'Will der andere nicht, was man hat, muss man über mehrere Tausche gehen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -588,25 +588,25 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station1/q3')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Warum sind Talas Taler auf der Tauschinsel nichts wert?', '["Weil dort niemand Taler annimmt","Weil sie zu klein sind","Weil sie aus Schokolade sind"]'::jsonb, 0, 'Geld hat nur einen Wert, wenn andere es annehmen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station1/q3')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Warum sind Talas Taler auf der Tauschinsel nichts wert?', '["Weil dort niemand Taler annimmt","Weil Talas Taler gefälscht sind","Weil man dort mit Euro bezahlt"]'::jsonb, 0, 'Geld hat nur einen Wert, wenn andere es annehmen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station1/q4')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Was ist beim Tauschen ohne Geld oft das größte Problem?', '["Man muss jemanden finden, der genau das will, was man hat.","Man darf dabei nicht reden.","Tauschen ist verboten."]'::jsonb, 0, 'Beide Seiten müssen zueinander passen. Das ist selten.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station1/q4')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Was ist beim Tauschen ohne Geld oft das größte Problem?', '["Man muss jemanden finden, der genau das will, was man hat.","Man bekommt immer weniger zurück, als man gibt.","Man braucht dafür immer einen Händler."]'::jsonb, 0, 'Beide Seiten müssen zueinander passen. Das ist selten.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station1/q5')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Wie viele Tausche braucht Tala für das Seil?', '["Drei","Einen","Zehn"]'::jsonb, 0, 'Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil: drei Tausche.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station1/q5')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Wie viele Tausche braucht Tala für das Seil?', '["Drei","Einen","Zwei"]'::jsonb, 0, 'Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil: drei Tausche.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station1/q6')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Wie wäre es mit Geld einfacher?', '["Tala könnte Greta direkt bezahlen.","Gar nicht","Dann bräuchte sie zwei Seile."]'::jsonb, 0, 'Mit Geld braucht man keine Tauschkette, weil fast jeder Geld annimmt.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station1/q6')::uuid, md5('taleria:stage1/tauschinsel/station1')::uuid, 'Wie wäre es mit Geld einfacher?', '["Tala könnte Greta direkt bezahlen.","Greta würde dann gar nichts mehr verkaufen.","Tala müsste trotzdem erst Fisch besorgen."]'::jsonb, 0, 'Mit Geld braucht man keine Tauschkette, weil fast jeder Geld annimmt.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -618,13 +618,13 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station2/q1')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Was solltest du vor einem Tausch klären?', '["Was ich brauche und was ich dafür hergebe","Wie das Wetter wird","Wer zuerst blinzelt"]'::jsonb, 0, 'Wer weiß, was er will, tauscht klüger.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station2/q1')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Was solltest du vor einem Tausch klären?', '["Was ich brauche und was ich dafür hergebe","Ob der andere nett aussieht","Wer zuerst etwas anbietet"]'::jsonb, 0, 'Wer weiß, was er will, tauscht klüger.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station2/q2')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Ein Händler bietet dir eine kaputte Laterne gegen deinen besten Korb. Was tust du?', '["Ablehnen oder nachverhandeln","Sofort tauschen","Den Korb ins Meer werfen"]'::jsonb, 0, 'Man muss nicht jedes Angebot annehmen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station2/q2')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Ein Händler bietet dir eine kaputte Laterne gegen deinen besten Korb. Was tust du?', '["Ablehnen oder nachverhandeln","Sofort tauschen, damit er nicht beleidigt ist","Den Korb tauschen und hoffen, dass die Laterne noch geht"]'::jsonb, 0, 'Man muss nicht jedes Angebot annehmen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -636,7 +636,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station2/q4')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Darf man bei einem Tausch Nein sagen?', '["Ja, immer","Nein, nie","Nur am Wochenende"]'::jsonb, 0, 'Ein Tausch ist freiwillig. Nein sagen ist erlaubt.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station2/q4')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Ein Händler drängt: „Tausch sofort, sonst ist mein Angebot weg!“ Was ist klug?', '["In Ruhe überlegen, ob sich der Tausch lohnt","Sofort tauschen, bevor es zu spät ist","Noch etwas drauflegen, damit er wartet"]'::jsonb, 0, 'Wer drängelt, will oft verhindern, dass du nachdenkst. Ein guter Tausch ist auch in fünf Minuten noch gut.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -648,7 +648,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station2/q6')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Wann ist ein Tausch schlecht für dich?', '["Wenn du viel mehr hergibst, als du bekommst","Immer, Tauschen ist schlecht","Wenn die Laterne leuchtet"]'::jsonb, 0, 'Gibt man viel ab und bekommt wenig, lohnt sich der Tausch nicht.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station2/q6')::uuid, md5('taleria:stage1/tauschinsel/station2')::uuid, 'Wann ist ein Tausch schlecht für dich?', '["Wenn du viel mehr hergibst, als du bekommst","Immer, Tauschen ist schlecht","Wenn der andere auch zufrieden ist"]'::jsonb, 0, 'Gibt man viel ab und bekommt wenig, lohnt sich der Tausch nicht.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -672,19 +672,19 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station3/q3')::uuid, md5('taleria:stage1/tauschinsel/station3')::uuid, 'Warum kann ein Tausch für beide gut sein?', '["Weil jeder das bekommt, was ihm mehr wert ist","Weil einer immer verliert","Weil Tauschen immer Spaß macht"]'::jsonb, 0, 'Dinge sind für verschiedene Menschen unterschiedlich viel wert.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station3/q3')::uuid, md5('taleria:stage1/tauschinsel/station3')::uuid, 'Warum kann ein Tausch für beide gut sein?', '["Weil jeder das bekommt, was ihm mehr wert ist","Weil einer immer verliert","Weil beide genau gleich viel bekommen"]'::jsonb, 0, 'Dinge sind für verschiedene Menschen unterschiedlich viel wert.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station3/q4')::uuid, md5('taleria:stage1/tauschinsel/station3')::uuid, 'Ein Sonnenschirm am Strand im Hochsommer ist …', '["viel wert, weil viele Schatten brauchen.","nichts wert.","nur nachts wertvoll."]'::jsonb, 0, 'Wenn viele etwas brauchen, steigt sein Wert.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station3/q4')::uuid, md5('taleria:stage1/tauschinsel/station3')::uuid, 'Ein Sonnenschirm am Strand im Hochsommer ist …', '["viel wert, weil viele Schatten brauchen.","genauso viel wert wie im Winter.","wertlos, weil es so viele davon gibt."]'::jsonb, 0, 'Wenn viele etwas brauchen, steigt sein Wert.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station3/q5')::uuid, md5('taleria:stage1/tauschinsel/station3')::uuid, 'Was beeinflusst, wie viel dir etwas wert ist?', '["Was du magst und was du gerade brauchst","Nur die Farbe","Gar nichts"]'::jsonb, 0, 'Vorlieben und die Situation bestimmen den Wert.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station3/q5')::uuid, md5('taleria:stage1/tauschinsel/station3')::uuid, 'Was beeinflusst, wie viel dir etwas wert ist?', '["Was du magst und was du gerade brauchst","Nur der Preis im Laden","Nur wie groß die Sache ist"]'::jsonb, 0, 'Vorlieben und die Situation bestimmen den Wert.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -702,37 +702,37 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station4/q1')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Es ist sehr heiß und alle wollen Eis. Wie nennt man das?', '["Große Nachfrage","Großes Angebot","Großen Hunger auf Suppe"]'::jsonb, 0, 'Nachfrage bedeutet, wie viele etwas haben wollen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station4/q1')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Es ist sehr heiß und alle wollen Eis. Wie nennt man das?', '["Große Nachfrage","Großes Angebot","Niedriger Preis"]'::jsonb, 0, 'Nachfrage bedeutet, wie viele etwas haben wollen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station4/q2')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Der Eisstand hat nur noch wenig Eis, aber viele Kunden. Was passiert oft?', '["Der Preis steigt.","Das Eis wird verschenkt.","Der Stand schließt sofort."]'::jsonb, 0, 'Ist etwas knapp und begehrt, steigt meist der Preis.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station4/q2')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Der Eisstand hat nur noch wenig Eis, aber viele Kunden. Was passiert oft?', '["Der Preis steigt.","Der Preis sinkt.","Der Preis bleibt immer gleich."]'::jsonb, 0, 'Ist etwas knapp und begehrt, steigt meist der Preis.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station4/q3')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'An einem Regentag kommt kaum jemand zum Eisstand. Was ist klug?', '["Den Preis senken oder weniger Eis machen","Den Preis verdoppeln","Im Regen laut rufen, bis jemand kommt"]'::jsonb, 0, 'Bei wenig Nachfrage sinkt der Preis oder man bietet weniger an.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station4/q3')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'An einem Regentag kommt kaum jemand zum Eisstand. Was ist klug?', '["Den Preis senken oder weniger Eis machen","Den Preis verdoppeln","Mehr Eis herstellen"]'::jsonb, 0, 'Bei wenig Nachfrage sinkt der Preis oder man bietet weniger an.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station4/q4')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Was bedeutet „Angebot“?', '["Wie viel von etwas zu haben ist","Wie viele etwas haben wollen","Ein besonders leckeres Eis"]'::jsonb, 0, 'Das Angebot ist die Menge, die es zu kaufen gibt.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station4/q4')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Was bedeutet „Angebot“?', '["Wie viel von etwas zu haben ist","Wie viele etwas haben wollen","Wie teuer etwas ist"]'::jsonb, 0, 'Das Angebot ist die Menge, die es zu kaufen gibt.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station4/q5')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Warum sind manche Früchte zu bestimmten Jahreszeiten teurer?', '["Weil es dann weniger davon gibt","Weil sie dann größer sind","Weil sie dann verboten sind"]'::jsonb, 0, 'Gibt es weniger von etwas, wollen es aber genauso viele, wird es oft teurer.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station4/q5')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Am Eisstand gibt es 20 Kugeln. Bei 2 Talern wollen 30 Tiere ein Eis. Was passiert?', '["10 Tiere gehen leer aus.","Alle 30 bekommen ein Eis.","Es bleiben 10 Kugeln übrig."]'::jsonb, 0, 'Nur 20 Kugeln für 30 Tiere: 10 bekommen keins. Wollen mehr etwas, als da ist, kann der Preis steigen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station4/q6')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Tala verlangt für eine Kugel Eis einen sehr hohen Preis. Was passiert wahrscheinlich?', '["Weniger Kunden kaufen bei ihr.","Mehr Kunden kommen.","Das Eis schmilzt langsamer."]'::jsonb, 0, 'Ist der Preis zu hoch, kaufen viele lieber nicht oder woanders.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station4/q6')::uuid, md5('taleria:stage1/tauschinsel/station4')::uuid, 'Tala verlangt für eine Kugel Eis einen sehr hohen Preis. Was passiert wahrscheinlich?', '["Weniger Kunden kaufen bei ihr.","Mehr Kunden kommen.","Sie verkauft trotzdem gleich viel."]'::jsonb, 0, 'Ist der Preis zu hoch, kaufen viele lieber nicht oder woanders.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -750,7 +750,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station5/q2')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Was solltest du beim Vergleichen außer dem Preis noch beachten?', '["Wie lange etwas hält","Wie laut es ist","Gar nichts"]'::jsonb, 0, 'Die Haltbarkeit gehört zum Vergleich dazu.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station5/q2')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Was solltest du beim Vergleichen außer dem Preis noch beachten?', '["Wie lange etwas hält","Wie bunt die Verpackung ist","Wie viele andere es schon gekauft haben"]'::jsonb, 0, 'Die Haltbarkeit gehört zum Vergleich dazu.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -762,19 +762,19 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station5/q4')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Ist etwas Teures immer besser?', '["Nein, vergleichen hilft.","Ja, immer","Nur bei Fischernetzen"]'::jsonb, 0, 'Ein hoher Preis allein sagt nicht, dass etwas gut ist.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station5/q4')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Ist etwas Teures immer besser?', '["Nein, vergleichen hilft.","Ja, teuer heißt immer gute Qualität.","Nein, das Billigste ist immer am besten."]'::jsonb, 0, 'Ein hoher Preis allein sagt nicht, dass etwas gut ist.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station5/q5')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Was bedeutet „günstig“?', '["Für das, was man bekommt, nicht zu viel bezahlen","Immer das Billigste nehmen","Etwas, das glitzert"]'::jsonb, 0, 'Günstig heißt: Preis und Leistung passen gut zusammen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station5/q5')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Was bedeutet „günstig“?', '["Für das, was man bekommt, nicht zu viel bezahlen","Immer das Billigste nehmen","Etwas, das gerade im Angebot ist"]'::jsonb, 0, 'Günstig heißt: Preis und Leistung passen gut zusammen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station5/q6')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Wie findest du heraus, ob sich etwas Teureres lohnt?', '["Vergleichen, wie lange es hält und was es kann","Würfeln","Den Verkäufer nach seiner Lieblingsfarbe fragen"]'::jsonb, 0, 'Wer vergleicht, entscheidet besser.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station5/q6')::uuid, md5('taleria:stage1/tauschinsel/station5')::uuid, 'Ein Ball für 8 Taler hält 4 Monate, einer für 20 Taler ein ganzes Jahr. Was ist für ein Jahr günstiger?', '["Der Ball für 20 Taler","Der Ball für 8 Taler","Beide kosten gleich viel"]'::jsonb, 0, 'Vom billigen Ball braucht man im Jahr drei: 3 mal 8 Taler sind 24 Taler. Das ist mehr als 20 Taler.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -804,7 +804,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station6/q4')::uuid, md5('taleria:stage1/tauschinsel/station6')::uuid, 'Tala spart mehrere Wochen, statt Eis zu kaufen. Was bekommt sie dafür?', '["Später das Fernrohr","Gar nichts","Drei Eis gratis"]'::jsonb, 0, 'Wer heute verzichtet, kann sich später etwas Größeres leisten.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station6/q4')::uuid, md5('taleria:stage1/tauschinsel/station6')::uuid, 'Tala spart mehrere Wochen, statt Eis zu kaufen. Was bekommt sie dafür?', '["Später das Fernrohr","Gar nichts","Das Eis und das Fernrohr"]'::jsonb, 0, 'Wer heute verzichtet, kann sich später etwas Größeres leisten.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -816,7 +816,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station6/q6')::uuid, md5('taleria:stage1/tauschinsel/station6')::uuid, 'Warum kann man nicht alles haben, was man sich wünscht?', '["Weil das Geld nicht für alles reicht","Weil Wünsche verboten sind","Weil Läden nachts zuhaben"]'::jsonb, 0, 'Geld ist begrenzt. Deshalb muss man auswählen.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station6/q6')::uuid, md5('taleria:stage1/tauschinsel/station6')::uuid, 'Ein Eis kostet 2 Taler. Tala kauft jede Woche eins. Wie viel könnte sie in 5 Wochen stattdessen sparen?', '["10 Taler","7 Taler","2 Taler"]'::jsonb, 0, '5 Wochen mal 2 Taler sind 10 Taler. Kleine Ausgaben summieren sich.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -840,13 +840,13 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station7/q3')::uuid, md5('taleria:stage1/tauschinsel/station7')::uuid, 'Was solltet ihr vor einem Tausch absprechen?', '["Ob man zurücktauschen darf","Wer die schönere Jacke hat","Wie spät es ist"]'::jsonb, 0, 'Klare Absprachen verhindern späteren Streit.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station7/q3')::uuid, md5('taleria:stage1/tauschinsel/station7')::uuid, 'Was solltet ihr vor einem Tausch absprechen?', '["Ob man zurücktauschen darf","Wer von euch älter ist","Wer zuerst seine Karte zeigt"]'::jsonb, 0, 'Klare Absprachen verhindern späteren Streit.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station7/q4')::uuid, md5('taleria:stage1/tauschinsel/station7')::uuid, 'Dein Freund bietet dir einen unfairen Tausch an. Was kannst du tun?', '["Freundlich Nein sagen oder einen fairen Tausch vorschlagen","Ihn anschreien","Heimlich seine Karte nehmen"]'::jsonb, 0, 'Man kann Nein sagen und trotzdem freundlich bleiben.', null, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station7/q4')::uuid, md5('taleria:stage1/tauschinsel/station7')::uuid, 'Dein Freund bietet dir einen unfairen Tausch an. Was kannst du tun?', '["Freundlich Nein sagen oder einen fairen Tausch vorschlagen","Trotzdem tauschen, damit er dein Freund bleibt","Ihm nie wieder etwas zeigen"]'::jsonb, 0, 'Man kann Nein sagen und trotzdem freundlich bleiben.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -870,7 +870,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q1')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Warum konnte Tala auf der Tauschinsel nicht mit Talern bezahlen?', '["Weil dort niemand Geld annimmt","Weil die Taler nass waren","Weil Talo sie versteckt hatte"]'::jsonb, 0, 'Geld funktioniert nur, wenn alle es annehmen.', 1, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q1')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Warum konnte Tala auf der Tauschinsel nicht mit Talern bezahlen?', '["Weil dort niemand Geld annimmt","Weil die Taler zu wenig wert waren","Weil man dort nur mit Euro bezahlt"]'::jsonb, 0, 'Geld funktioniert nur, wenn alle es annehmen.', 1, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -882,7 +882,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q3')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was ist eine Tauschkette?', '["Mehrere Tausche hintereinander, bis man hat, was man braucht","Eine Halskette aus Gold","Ein Seil zum Festbinden"]'::jsonb, 0, 'Jeder Tausch ist ein Glied der Kette.', 1, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q3')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was ist eine Tauschkette?', '["Mehrere Tausche hintereinander, bis man hat, was man braucht","Ein Tausch, bei dem beide genau gleich viel bekommen","Ein Tausch mit vielen Leuten gleichzeitig"]'::jsonb, 0, 'Jeder Tausch ist ein Glied der Kette.', 1, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -912,7 +912,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q8')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Warum ist ein Regenschirm an einem Regentag mehr wert als bei Sonne?', '["Weil ihn dann viele brauchen","Weil er nass ist","Weil er dann größer wird"]'::jsonb, 0, 'Wenn viele etwas brauchen, wird es wertvoller.', 3, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q8')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Warum ist ein Regenschirm an einem Regentag mehr wert als bei Sonne?', '["Weil ihn dann viele brauchen","Weil Regenschirme dann teurer hergestellt werden","Weil er bei Sonne schneller kaputtgeht"]'::jsonb, 0, 'Wenn viele etwas brauchen, wird es wertvoller.', 3, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -924,19 +924,19 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q10')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Im Winter will kaum jemand Eis. Was macht der Eisverkäufer wahrscheinlich?', '["Er senkt den Preis oder verkauft weniger.","Er verdoppelt den Preis.","Er verkauft nur noch Sand."]'::jsonb, 0, 'Wenig Nachfrage: Der Preis sinkt oder es wird weniger angeboten.', 4, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q10')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Im Winter will kaum jemand Eis. Was macht der Eisverkäufer wahrscheinlich?', '["Er senkt den Preis oder verkauft weniger.","Er verdoppelt den Preis.","Er stellt mehr Eis her als im Sommer."]'::jsonb, 0, 'Wenig Nachfrage: Der Preis sinkt oder es wird weniger angeboten.', 4, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q11')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was bedeutet „Angebot“?', '["Wie viel von einer Sache zu haben ist","Wie freundlich ein Verkäufer ist","Ein Geschenk"]'::jsonb, 0, 'Das Angebot ist die Menge, die verkauft wird.', 4, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q11')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was bedeutet „Angebot“?', '["Wie viel von einer Sache zu haben ist","Wie viele etwas haben wollen","Wie teuer etwas ist"]'::jsonb, 0, 'Das Angebot ist die Menge, die verkauft wird.', 4, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q12')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was bedeutet „Nachfrage“?', '["Wie viele etwas haben wollen","Wenn man zweimal nachfragt","Eine Quizfrage"]'::jsonb, 0, 'Die Nachfrage zeigt, wie begehrt etwas ist.', 4, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q12')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was bedeutet „Nachfrage“?', '["Wie viele etwas haben wollen","Wie viel von einer Sache zu haben ist","Wie teuer etwas ist"]'::jsonb, 0, 'Die Nachfrage zeigt, wie begehrt etwas ist.', 4, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -954,7 +954,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q15')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Ist das Teuerste immer das Beste?', '["Nein, man sollte vergleichen.","Ja, immer.","Ja, außer bei Eis."]'::jsonb, 0, 'Ein hoher Preis sagt noch nicht, dass etwas gut ist.', 5, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q15')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Ist das Teuerste immer das Beste?', '["Nein, man sollte vergleichen.","Ja, immer.","Nein, das Billigste ist immer besser."]'::jsonb, 0, 'Ein hoher Preis sagt noch nicht, dass etwas gut ist.', 5, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -966,7 +966,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q17')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was hilft dir bei einer schwierigen Kaufentscheidung?', '["Überlegen, was mir wichtiger ist","Würfeln","Immer das Erste nehmen"]'::jsonb, 0, 'Wer weiß, was ihm wichtig ist, entscheidet leichter.', 6, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q17')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was hilft dir bei einer schwierigen Kaufentscheidung?', '["Überlegen, was mir wichtiger ist","Immer das Teurere nehmen","Das nehmen, was die anderen kaufen"]'::jsonb, 0, 'Wer weiß, was ihm wichtig ist, entscheidet leichter.', 6, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -984,7 +984,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/tauschinsel/station8/q20')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was solltet ihr vor einem Tausch unter Freunden klären?', '["Ob man den Tausch später rückgängig machen darf","Wer schneller rennen kann","Welche Musik ihr hört"]'::jsonb, 0, 'Klare Absprachen verhindern Streit.', 7, 'draft', null)
+values (md5('taleria:stage1/tauschinsel/station8/q20')::uuid, md5('taleria:stage1/tauschinsel/station8')::uuid, 'Was solltet ihr vor einem Tausch unter Freunden klären?', '["Ob man den Tausch später rückgängig machen darf","Wer die seltenere Karte hat","Wer zuerst tauschen darf"]'::jsonb, 0, 'Klare Absprachen verhindern Streit.', 7, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1071,12 +1071,12 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/sea1/q2')::uuid, md5('taleria:stage1/wunschinsel/sea1')::uuid, 'An einem heißen Tag wollen alle ein Eis. Was passiert oft mit dem Preis?', '["Er steigt.","Er sinkt.","Das Eis wird verschenkt."]'::jsonb, 0, 'Wenn viele etwas haben wollen (große Nachfrage), steigt oft der Preis.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/sea1/q2')::uuid, md5('taleria:stage1/wunschinsel/sea1')::uuid, 'An einem heißen Tag wollen alle ein Eis. Was passiert oft mit dem Preis?', '["Er steigt.","Er sinkt.","Er bleibt gleich."]'::jsonb, 0, 'Wenn viele etwas haben wollen (große Nachfrage), steigt oft der Preis.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/sea1/q3')::uuid, md5('taleria:stage1/wunschinsel/sea1')::uuid, 'An einem Regentag will kaum jemand Eis. Was macht die Eisverkäuferin am besten?', '["Sie senkt den Preis.","Sie verdoppelt den Preis.","Sie wirft das Eis weg."]'::jsonb, 0, 'Ist die Nachfrage klein, muss der Preis runter, sonst bleibt das Eis liegen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/sea1/q3')::uuid, md5('taleria:stage1/wunschinsel/sea1')::uuid, 'An einem Regentag will kaum jemand Eis. Was macht die Eisverkäuferin am besten?', '["Sie senkt den Preis.","Sie verdoppelt den Preis.","Sie macht mehr Eis."]'::jsonb, 0, 'Ist die Nachfrage klein, muss der Preis runter, sonst bleibt das Eis liegen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -1091,7 +1091,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/sea1/q6')::uuid, md5('taleria:stage1/wunschinsel/sea1')::uuid, 'Ist Teures automatisch gut?', '["Nein, man sollte vergleichen.","Ja, teuer ist immer am besten.","Ja, aber nur bei Eis."]'::jsonb, 0, 'Teuer ist nicht automatisch gut. Vergleichen ist das Wichtigste.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/sea1/q6')::uuid, md5('taleria:stage1/wunschinsel/sea1')::uuid, 'Ist Teures automatisch gut?', '["Nein, man sollte vergleichen.","Ja, teuer ist immer am besten.","Nein, Billiges ist immer besser."]'::jsonb, 0, 'Teuer ist nicht automatisch gut. Vergleichen ist das Wichtigste.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -1108,7 +1108,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/sea2/q2')::uuid, md5('taleria:stage1/wunschinsel/sea2')::uuid, 'Ein älteres Kind will einem jüngeren eine seltene Karte gegen eine häufige abschwatzen. Wie ist das?', '["Unfair","Fair","Egal"]'::jsonb, 0, 'Das jüngere Kind weiß nicht, wie selten seine Karte ist. So ein Tausch ist unfair.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/sea2/q2')::uuid, md5('taleria:stage1/wunschinsel/sea2')::uuid, 'Ein älteres Kind will einem jüngeren eine seltene Karte gegen eine häufige abschwatzen. Was ist das?', '["Unfair, weil das jüngere den Wert nicht kennt","Fair, Tausch ist Tausch","Fair, wenn beide schnell zustimmen"]'::jsonb, 0, 'Das jüngere Kind weiß nicht, wie selten seine Karte ist. So ein Tausch ist unfair.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
@@ -1139,37 +1139,37 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station1/q1')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Welches davon ist ein Bedürfnis?', '["Ein Dach über dem Kopf","Ein Glitzerkompass","Ein Videospiel"]'::jsonb, 0, 'Ein Zuhause braucht jeder zum Leben.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station1/q1')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Welches davon ist ein Bedürfnis?', '["Eine Regenjacke für den Schulweg im Herbst","Eine zweite Regenjacke in der Lieblingsfarbe","Ein neues Videospiel"]'::jsonb, 0, 'Gegen Regen braucht man eine Jacke. Eine zweite in der Lieblingsfarbe ist schön, aber ein Wunsch.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station1/q2')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Welches davon ist ein Wunsch?', '["Ein neues Spielzeug","Trinkwasser","Etwas zu essen"]'::jsonb, 0, 'Ein Spielzeug macht Freude, zum Leben braucht man es aber nicht.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station1/q2')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Welches davon ist ein Wunsch?', '["Markenturnschuhe, obwohl die alten noch passen","Neue Schuhe, weil die alten zu klein sind","Ein Pausenbrot für die Schule"]'::jsonb, 0, 'Passende Schuhe und Essen braucht man. Neue Markenschuhe, obwohl die alten passen, sind ein Wunsch.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station1/q3')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Was kommt zuerst, wenn das Geld knapp ist?', '["Die Bedürfnisse","Die Wünsche","Das, was am meisten glitzert"]'::jsonb, 0, 'Erst das Nötige, dann das Schöne.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station1/q3')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Was kommt zuerst, wenn das Geld knapp ist?', '["Die Bedürfnisse","Die Wünsche","Das, was gerade im Angebot ist"]'::jsonb, 0, 'Erst das Nötige, dann das Schöne.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station1/q4')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Sind Wünsche schlecht?', '["Nein, Wünsche sind erlaubt.","Ja, immer","Nur an Geburtstagen"]'::jsonb, 0, 'Wünsche sind in Ordnung, wenn die Bedürfnisse gedeckt sind.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station1/q4')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Sind Wünsche schlecht?', '["Nein, Wünsche sind erlaubt.","Ja, man sollte nur Bedürfnisse kaufen.","Nein, Wünsche gehen immer vor."]'::jsonb, 0, 'Wünsche sind in Ordnung, wenn die Bedürfnisse gedeckt sind.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station1/q5')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Warum ist ein Handy schwer einzuordnen?', '["Weil es je nach Situation Bedürfnis oder Wunsch sein kann","Weil es so klein ist","Weil es klingelt"]'::jsonb, 0, 'Für manche ist es nötig, etwa um die Eltern zu erreichen, für andere vor allem Spaß.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station1/q5')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Warum ist ein Handy schwer einzuordnen?', '["Weil es je nach Situation Bedürfnis oder Wunsch sein kann","Weil es sehr teuer ist","Weil es fast jeder hat"]'::jsonb, 0, 'Für manche ist es nötig, etwa um die Eltern zu erreichen, für andere vor allem Spaß.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station1/q6')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Warme Winterstiefel im Dezember sind …', '["ein Bedürfnis.","ein Wunsch.","ein Spielzeug."]'::jsonb, 0, 'Im Winter braucht man warme Schuhe.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station1/q6')::uuid, md5('taleria:stage1/wunschinsel/station1')::uuid, 'Warme Winterstiefel im Dezember sind …', '["ein Bedürfnis.","ein Wunsch, weil sie teuer sind.","unwichtig, weil der Winter kurz ist."]'::jsonb, 0, 'Im Winter braucht man warme Schuhe.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1187,25 +1187,25 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station2/q2')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Was bedeutet „Prioritäten setzen“?', '["Das Wichtigste zuerst","Das Teuerste zuerst","Alles auf einmal"]'::jsonb, 0, 'Prioritäten zeigen, was am wichtigsten ist.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station2/q2')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Was bedeutet „Prioritäten setzen“?', '["Das Wichtigste zuerst","Das Billigste zuerst","Das, was am meisten Spaß macht, zuerst"]'::jsonb, 0, 'Prioritäten zeigen, was am wichtigsten ist.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station2/q3')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Warum muss man manchmal auswählen?', '["Weil das Geld nicht für alles reicht","Weil Rucksäcke böse sind","Weil Auswählen Pflicht ist"]'::jsonb, 0, 'Geld ist begrenzt, Wünsche sind es oft nicht.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station2/q3')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Tala hat 12 Taler. Wasser kostet 3, Proviant 4, eine Taschenlampe 5, eine Glitzerbrille 6. Wasser und Proviant müssen mit. Was passt noch?', '["Die Taschenlampe","Die Glitzerbrille","Taschenlampe und Glitzerbrille"]'::jsonb, 0, 'Wasser und Proviant kosten 7 Taler, es bleiben 5. Das reicht genau für die Taschenlampe.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station2/q4')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Tala packt die Glitzerbrille statt Proviant ein. Was ist das Problem?', '["Auf der Wanderung fehlt ihr etwas Wichtiges.","Es gibt kein Problem.","Die Brille ist zu dunkel."]'::jsonb, 0, 'Wer Unwichtiges zuerst kauft, hat für Wichtiges kein Geld mehr.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station2/q4')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Tala packt die Glitzerbrille statt Proviant ein. Was ist das Problem?', '["Auf der Wanderung fehlt ihr etwas Wichtiges.","Es gibt kein Problem.","Die Brille war zu billig."]'::jsonb, 0, 'Wer Unwichtiges zuerst kauft, hat für Wichtiges kein Geld mehr.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station2/q5')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Wie kannst du deine Wünsche ordnen?', '["Nach Wichtigkeit, das Wichtigste oben","Nach Farbe","Nach dem Alphabet"]'::jsonb, 0, 'Eine Reihenfolge nach Wichtigkeit hilft beim Entscheiden.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station2/q5')::uuid, md5('taleria:stage1/wunschinsel/station2')::uuid, 'Wie kannst du deine Wünsche ordnen?', '["Nach Wichtigkeit, das Wichtigste oben","Nach dem Preis, das Teuerste oben","Nach dem, was Freunde gut finden"]'::jsonb, 0, 'Eine Reihenfolge nach Wichtigkeit hilft beim Entscheiden.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1229,31 +1229,31 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station3/q2')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Wie lange wartest du ungefähr bei einem kleinen Wunsch?', '["Eine Nacht","Ein Jahr","Eine Sekunde"]'::jsonb, 0, 'Bei kleinen Wünschen reicht eine Nacht.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station3/q2')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Wie lange wartest du ungefähr bei einem kleinen Wunsch?', '["Eine Nacht","Eine Woche","Einen Monat"]'::jsonb, 0, 'Bei kleinen Wünschen reicht eine Nacht.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station3/q3')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Wie lange wartest du ungefähr bei einem großen Wunsch?', '["Eine Woche","Gar nicht","Eine Minute"]'::jsonb, 0, 'Je größer der Wunsch, desto länger lohnt sich das Überlegen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station3/q3')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Wie lange wartest du ungefähr bei einem großen Wunsch?', '["Eine Woche","Eine Nacht","Ein ganzes Jahr"]'::jsonb, 0, 'Je größer der Wunsch, desto länger lohnt sich das Überlegen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station3/q4')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Was passiert oft mit Wünschen, wenn man wartet?', '["Manche verschwinden von selbst.","Sie werden doppelt so groß.","Sie werden automatisch billiger."]'::jsonb, 0, 'Viele Wünsche sind nach ein paar Tagen gar nicht mehr wichtig.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station3/q4')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Was passiert oft mit Wünschen, wenn man wartet?', '["Manche verschwinden von selbst.","Sie werden immer stärker.","Sie werden automatisch billiger."]'::jsonb, 0, 'Viele Wünsche sind nach ein paar Tagen gar nicht mehr wichtig.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station3/q5')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Tala will den Kompass nach einer Woche immer noch. Was bedeutet das?', '["Es ist ein echter Wunsch.","Sie hat die Regel falsch gemacht.","Der Kompass ist kaputt."]'::jsonb, 0, 'Bleibt der Wunsch, kann man überlegen, dafür zu sparen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station3/q5')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Tala will den Kompass nach einer Woche immer noch. Was bedeutet das?', '["Es ist ein echter Wunsch.","Sie muss noch ein Jahr warten.","Sie sollte ihn sofort vergessen."]'::jsonb, 0, 'Bleibt der Wunsch, kann man überlegen, dafür zu sparen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station3/q6')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Wozu ist die Wunschflasche gut?', '["Um einen Wunsch aufzuschreiben und später noch einmal zu prüfen","Um Limonade zu trinken","Um Wünsche ins Meer zu werfen"]'::jsonb, 0, 'Die Wunschflasche hilft beim Warten.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station3/q6')::uuid, md5('taleria:stage1/wunschinsel/station3')::uuid, 'Wozu ist die Wunschflasche gut?', '["Um einen Wunsch aufzuschreiben und später noch einmal zu prüfen","Damit der Wunsch schneller in Erfüllung geht","Damit man den Wunsch vergisst"]'::jsonb, 0, 'Die Wunschflasche hilft beim Warten.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1265,37 +1265,37 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station4/q1')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Alle in der Klasse haben dieselben Turnschuhe. Welche Frage hilft dir?', '["Würde ich sie auch wollen, wenn sie niemand hätte?","Wie bekomme ich drei Paar?","Wer hat die teuersten?"]'::jsonb, 0, 'Diese Frage zeigt, ob man etwas wirklich will.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station4/q1')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Alle in der Klasse haben dieselben Turnschuhe. Welche Frage hilft dir?', '["Würde ich sie auch wollen, wenn sie niemand hätte?","Wie viel kosten sie bei den anderen?","Wer hat die teuersten?"]'::jsonb, 0, 'Diese Frage zeigt, ob man etwas wirklich will.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station4/q2')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Was ist Gruppendruck?', '["Wenn man etwas tut, weil andere es erwarten","Wenn eine Gruppe Druckbuchstaben schreibt","Wenn es im Bus eng ist"]'::jsonb, 0, 'Gruppendruck kann zu Entscheidungen führen, die man eigentlich nicht will.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station4/q2')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Was ist Gruppendruck?', '["Wenn man etwas tut, weil andere es erwarten","Wenn eine Gruppe gemeinsam einkauft","Wenn man allein entscheidet, was man will"]'::jsonb, 0, 'Gruppendruck kann zu Entscheidungen führen, die man eigentlich nicht will.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station4/q3')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Was ist eine gute Antwort, wenn dich jemand drängt, etwas zu kaufen?', '["„Nein danke, das brauche ich nicht.“","„Ich kaufe gleich zwei!“","Gar nichts sagen und sofort kaufen"]'::jsonb, 0, 'Ein freundliches Nein ist stark.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station4/q3')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Was ist eine gute Antwort, wenn dich jemand drängt, etwas zu kaufen?', '["„Nein danke, das brauche ich nicht.“","„Okay, damit ihr mich mögt.“","„Ich schaue, was es kostet, und kaufe es dann.“"]'::jsonb, 0, 'Ein freundliches Nein ist stark.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station4/q4')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Warum wollte Tala plötzlich eine rote Mütze?', '["Weil alle Möwen eine trugen","Weil ihr kalt war","Weil rote Mützen schneller machen"]'::jsonb, 0, 'Sie wollte dazugehören, nicht weil sie die Mütze brauchte.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station4/q4')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Warum wollte Tala plötzlich eine rote Mütze?', '["Weil alle Möwen eine trugen","Weil ihr kalt war","Weil die Mütze im Angebot war"]'::jsonb, 0, 'Sie wollte dazugehören, nicht weil sie die Mütze brauchte.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station4/q5')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Ist es schlimm, nicht alles zu haben, was andere haben?', '["Nein, jeder darf eigene Entscheidungen treffen.","Ja, sehr schlimm","Ja, dann darf man nicht mitspielen"]'::jsonb, 0, 'Echte Freunde mögen dich wegen dir, nicht wegen deiner Sachen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station4/q5')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Ist es schlimm, nicht alles zu haben, was andere haben?', '["Nein, jeder darf eigene Entscheidungen treffen.","Ja, man gehört sonst nicht dazu.","Nur bei Kleidung ist das schlimm."]'::jsonb, 0, 'Echte Freunde mögen dich wegen dir, nicht wegen deiner Sachen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station4/q6')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Woran merkst du, dass du unter Gruppendruck stehst?', '["Du willst etwas nur, weil andere es haben.","Du hast Hunger.","Es regnet."]'::jsonb, 0, 'Kommt der Wunsch nur von den anderen, ist das Gruppendruck.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station4/q6')::uuid, md5('taleria:stage1/wunschinsel/station4')::uuid, 'Woran merkst du, dass du unter Gruppendruck stehst?', '["Du willst etwas nur, weil andere es haben.","Du hast lange darüber nachgedacht.","Du brauchst es für die Schule."]'::jsonb, 0, 'Kommt der Wunsch nur von den anderen, ist das Gruppendruck.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1313,7 +1313,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station5/q2')::uuid, md5('taleria:stage1/wunschinsel/station5')::uuid, 'Warum ist Moritz zufrieden, obwohl er wenig besitzt?', '["Weil er Freunde und schöne Zeit hat","Weil er heimlich reich ist","Weil er den ganzen Tag schläft"]'::jsonb, 0, 'Glück hängt nicht nur vom Besitz ab.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station5/q2')::uuid, md5('taleria:stage1/wunschinsel/station5')::uuid, 'Warum ist Moritz zufrieden, obwohl er wenig besitzt?', '["Weil er Freunde und schöne Zeit hat","Weil er heimlich reich ist","Weil er nicht weiß, was man kaufen kann"]'::jsonb, 0, 'Glück hängt nicht nur vom Besitz ab.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1325,7 +1325,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station5/q4')::uuid, md5('taleria:stage1/wunschinsel/station5')::uuid, 'Was kann man nicht kaufen?', '["Echte Freundschaft","Ein Eis","Einen Ball"]'::jsonb, 0, 'Freundschaft entsteht durch Zeit und Vertrauen, nicht durch Geld.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station5/q4')::uuid, md5('taleria:stage1/wunschinsel/station5')::uuid, 'Was davon kann man nicht kaufen?', '["Echte Freundschaft","Ein Kinoticket für einen Ausflug","Ein Geschenk für eine Freundin"]'::jsonb, 0, 'Mit Geld kann man etwas für Freunde kaufen. Die Freundschaft selbst kann man nicht kaufen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1337,7 +1337,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station5/q6')::uuid, md5('taleria:stage1/wunschinsel/station5')::uuid, 'Was macht viele Menschen glücklich?', '["Zeit mit Familie und Freunden","Möglichst viele Kassenbons","Allein Geld zählen"]'::jsonb, 0, 'Gemeinsame Zeit gehört für viele zu den schönsten Dingen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station5/q6')::uuid, md5('taleria:stage1/wunschinsel/station5')::uuid, 'Was macht viele Menschen glücklich?', '["Zeit mit Familie und Freunden","Möglichst viele neue Sachen","Immer das Neueste zu haben"]'::jsonb, 0, 'Gemeinsame Zeit gehört für viele zu den schönsten Dingen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1349,13 +1349,13 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station6/q1')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Was bleibt oft länger in Erinnerung?', '["Ein Tag am See mit Freunden","Ein neuer Radiergummi","Eine Werbeanzeige"]'::jsonb, 0, 'Gemeinsame Erlebnisse bleiben lange im Gedächtnis.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station6/q1')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Was bleibt oft länger in Erinnerung?', '["Ein Tag am See mit Freunden","Ein neues T-Shirt","Ein neues Spiel fürs Handy"]'::jsonb, 0, 'Gemeinsame Erlebnisse bleiben lange im Gedächtnis.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station6/q2')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Warum sind Erlebnisse oft besonders wertvoll?', '["Man teilt sie mit anderen und erinnert sich gern daran.","Weil sie immer teuer sind","Weil man sie im Schrank aufbewahren kann"]'::jsonb, 0, 'Erinnerungen verbinden Menschen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station6/q2')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Warum sind Erlebnisse oft besonders wertvoll?', '["Man teilt sie mit anderen und erinnert sich gern daran.","Weil sie immer teuer sind","Weil man sie später verkaufen kann"]'::jsonb, 0, 'Erinnerungen verbinden Menschen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1367,19 +1367,19 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station6/q4')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Was passiert oft mit neuen Spielsachen nach einiger Zeit?', '["Man spielt seltener damit.","Sie werden immer spannender.","Sie verwandeln sich in Gold."]'::jsonb, 0, 'Neues wird schnell normal.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station6/q4')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Was passiert oft mit neuen Spielsachen nach einiger Zeit?', '["Man spielt seltener damit.","Man spielt immer öfter damit.","Sie werden immer spannender."]'::jsonb, 0, 'Neues wird schnell normal.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station6/q5')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Wofür ist ein Erinnerungs-Album gut?', '["Um schöne Erlebnisse festzuhalten","Um Rechnungen zu sammeln","Um Hausaufgaben zu verstecken"]'::jsonb, 0, 'Ein Album hilft, sich an Schönes zu erinnern.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station6/q5')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Wofür ist ein Erinnerungs-Album gut?', '["Um schöne Erlebnisse festzuhalten","Um zu zeigen, was etwas gekostet hat","Um Wunschlisten aufzuschreiben"]'::jsonb, 0, 'Ein Album hilft, sich an Schönes zu erinnern.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station6/q6')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Du hast 20 Taler: neues Spielzeug oder Ausflug mit Freunden. Was stimmt?', '["Beides ist in Ordnung, aber der Ausflug bleibt oft länger in Erinnerung.","Nur das Spielzeug ist vernünftig.","Ausflüge sind verboten."]'::jsonb, 0, 'Es ist deine Entscheidung. Erlebnisse halten aber oft länger.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station6/q6')::uuid, md5('taleria:stage1/wunschinsel/station6')::uuid, 'Du hast 20 Taler: neues Spielzeug oder Ausflug mit Freunden. Was stimmt?', '["Beides ist in Ordnung, aber der Ausflug bleibt oft länger in Erinnerung.","Nur das Spielzeug ist vernünftig.","Nur der Ausflug ist richtig."]'::jsonb, 0, 'Es ist deine Entscheidung. Erlebnisse halten aber oft länger.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1397,7 +1397,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station7/q2')::uuid, md5('taleria:stage1/wunschinsel/station7')::uuid, 'Warum schreibt man die Preise dazu?', '["Damit man sieht, wie viel man sparen muss","Weil Zahlen hübsch aussehen","Damit die Liste länger wird"]'::jsonb, 0, 'Mit Preisen kann man planen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station7/q2')::uuid, md5('taleria:stage1/wunschinsel/station7')::uuid, 'Warum schreibt man die Preise dazu?', '["Damit man sieht, wie viel man sparen muss","Damit man das Teuerste zuerst kauft","Damit die Eltern alles bezahlen"]'::jsonb, 0, 'Mit Preisen kann man planen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1409,7 +1409,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station7/q4')::uuid, md5('taleria:stage1/wunschinsel/station7')::uuid, 'Was kannst du mit deinem wichtigsten Wunsch machen?', '["Einen Wunschschatz anlegen und dafür sparen","Ihn sofort vergessen","Ihn heimlich kaufen"]'::jsonb, 0, 'Ein Wunschschatz macht aus einem Wunsch ein Ziel.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station7/q4')::uuid, md5('taleria:stage1/wunschinsel/station7')::uuid, 'Was kannst du mit deinem wichtigsten Wunsch machen?', '["Einen Wunschschatz anlegen und dafür sparen","Ihn sofort kaufen, auch ohne genug Geld","Warten, bis ihn jemand schenkt"]'::jsonb, 0, 'Ein Wunschschatz macht aus einem Wunsch ein Ziel.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1421,7 +1421,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station7/q6')::uuid, md5('taleria:stage1/wunschinsel/station7')::uuid, 'Warum ist eine Wunschliste besser, als alles sofort zu kaufen?', '["Man denkt nach und gibt Geld für das Wichtigste aus.","Weil Listen immer Spaß machen","Weil man dann nichts mehr bekommt"]'::jsonb, 0, 'Planen hilft, das eigene Geld klug einzusetzen.', null, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station7/q6')::uuid, md5('taleria:stage1/wunschinsel/station7')::uuid, 'Warum ist eine Wunschliste besser, als alles sofort zu kaufen?', '["Man denkt nach und gibt Geld für das Wichtigste aus.","Weil man dann mehr kaufen kann","Weil Wünsche dann billiger werden"]'::jsonb, 0, 'Planen hilft, das eigene Geld klug einzusetzen.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1433,7 +1433,7 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q1')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was ist ein Bedürfnis?', '["Etwas, das man zum Leben braucht","Etwas, das gerade alle haben","Etwas, das glitzert"]'::jsonb, 0, 'Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse.', 1, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q1')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was ist ein Bedürfnis?', '["Etwas, das man zum Leben braucht","Etwas, das gerade alle haben","Etwas, das man sich lange wünscht"]'::jsonb, 0, 'Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse.', 1, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1445,7 +1445,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q3')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Warum ist es wichtig, Bedürfnisse und Wünsche zu unterscheiden?', '["Damit zuerst das Wichtige bezahlt wird","Damit man nie etwas Schönes kauft","Weil Wünsche verboten sind"]'::jsonb, 0, 'Wünsche sind in Ordnung, Bedürfnisse kommen zuerst.', 1, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q3')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Warum ist es wichtig, Bedürfnisse und Wünsche zu unterscheiden?', '["Damit zuerst das Wichtige bezahlt wird","Damit man nie etwas Schönes kauft","Damit man nur noch Bedürfnisse kauft"]'::jsonb, 0, 'Wünsche sind in Ordnung, Bedürfnisse kommen zuerst.', 1, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1457,7 +1457,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q5')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Du hast 10 Taler und drei Wünsche für je 6 Taler. Was tust du?', '["Den wichtigsten auswählen","Alle drei kaufen","Gar nicht nachdenken"]'::jsonb, 0, '10 Taler reichen nur für einen.', 2, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q5')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Du hast 10 Taler und drei Wünsche für je 6 Taler. Was tust du?', '["Den wichtigsten auswählen","Alle drei kaufen","Zwei kaufen und den Rest leihen"]'::jsonb, 0, '10 Taler reichen nur für einen.', 2, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1475,19 +1475,19 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q8')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was besagt die Warte-Regel?', '["Vor einem Kauf erst drüber schlafen","Immer sofort kaufen","Nur nachts einkaufen"]'::jsonb, 0, 'Mit etwas Abstand entscheidet man besser.', 3, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q8')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was besagt die Warte-Regel?', '["Vor einem Kauf erst drüber schlafen","Immer sofort kaufen","Nur kaufen, was im Angebot ist"]'::jsonb, 0, 'Mit etwas Abstand entscheidet man besser.', 3, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q9')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Warum hilft Warten vor einem Kauf?', '["Man merkt, ob man es wirklich will.","Die Sachen werden beim Warten billiger.","Man vergisst, wo der Laden ist."]'::jsonb, 0, 'Viele Wünsche verschwinden nach ein paar Tagen von selbst.', 3, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q9')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Warum hilft Warten vor einem Kauf?', '["Man merkt, ob man es wirklich will.","Die Sachen werden beim Warten billiger.","Man bekommt dann mehr Taschengeld."]'::jsonb, 0, 'Viele Wünsche verschwinden nach ein paar Tagen von selbst.', 3, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q10')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Wie lange wartet man bei großen Wünschen?', '["Länger, zum Beispiel eine Woche","Gar nicht","Eine Minute"]'::jsonb, 0, 'Je teurer, desto länger lohnt sich das Überlegen.', 3, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q10')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Wie lange wartet man bei großen Wünschen?', '["Länger, zum Beispiel eine Woche","Eine Nacht, wie bei kleinen Wünschen","Mindestens ein ganzes Jahr"]'::jsonb, 0, 'Je teurer, desto länger lohnt sich das Überlegen.', 3, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1499,13 +1499,13 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q12')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was ist Gruppendruck?', '["Wenn man etwas tut, weil andere es erwarten","Wenn eine Gruppe ein Foto macht","Druck im Ohr beim Tauchen"]'::jsonb, 0, 'Gruppendruck kann zu Käufen führen, die man gar nicht will.', 4, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q12')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was ist Gruppendruck?', '["Wenn man etwas tut, weil andere es erwarten","Wenn eine Gruppe ein Foto macht","Wenn man in einer Gruppe besser lernt"]'::jsonb, 0, 'Gruppendruck kann zu Käufen führen, die man gar nicht will.', 4, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q13')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Wie kannst du auf Gruppendruck reagieren?', '["Ruhig sagen, dass du es nicht brauchst","Sofort alles nachkaufen","Die anderen auslachen"]'::jsonb, 0, 'Freundlich Nein sagen ist stark.', 4, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q13')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Wie kannst du auf Gruppendruck reagieren?', '["Ruhig sagen, dass du es nicht brauchst","Sofort alles nachkaufen","Es kaufen, aber niemandem zeigen"]'::jsonb, 0, 'Freundlich Nein sagen ist stark.', 4, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1517,19 +1517,19 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q15')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Warum hält die Freude über ein neues Spielzeug oft nicht lange?', '["Weil man sich schnell daran gewöhnt","Weil Spielzeug verboten ist","Weil es nachts verschwindet"]'::jsonb, 0, 'Neues wird schnell normal.', 5, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q15')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Warum hält die Freude über ein neues Spielzeug oft nicht lange?', '["Weil man sich schnell daran gewöhnt","Weil es meistens schnell kaputtgeht","Weil Eltern es wegräumen"]'::jsonb, 0, 'Neues wird schnell normal.', 5, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q16')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was macht Moritz glücklich, obwohl er wenig besitzt?', '["Seine Freunde und die Zeit mit ihnen","Ein riesiger Goldschatz","Ein teures Handy"]'::jsonb, 0, 'Moritz zeigt, dass Glück nicht vom Besitz abhängt.', 5, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q16')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was macht Moritz glücklich, obwohl er wenig besitzt?', '["Seine Freunde und die Zeit mit ihnen","Seine vielen Sachen","Dass er nie arbeiten muss"]'::jsonb, 0, 'Moritz zeigt, dass Glück nicht vom Besitz abhängt.', 5, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q17')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was bleibt oft länger in Erinnerung?', '["Ein gemeinsamer Ausflug","Ein neues Paar Socken","Ein Kassenbon"]'::jsonb, 0, 'Erlebnisse teilt man und erinnert sich gern daran.', 6, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q17')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Was bleibt oft länger in Erinnerung?', '["Ein gemeinsamer Ausflug","Ein neues Paar Turnschuhe","Eine neue Hülle fürs Handy"]'::jsonb, 0, 'Erlebnisse teilt man und erinnert sich gern daran.', 6, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
@@ -1547,7 +1547,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/wunschinsel/station8/q20')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Du wünschst dir ein Fahrrad für 120 Taler. Was ist der erste kluge Schritt?', '["Einen Wunschschatz anlegen und einen Sparplan überlegen","Es sofort kaufen, ohne Geld zu haben","Den Wunsch vergessen"]'::jsonb, 0, 'Mit einem Plan wird aus einem Wunsch ein Ziel.', 7, 'draft', null)
+values (md5('taleria:stage1/wunschinsel/station8/q20')::uuid, md5('taleria:stage1/wunschinsel/station8')::uuid, 'Du wünschst dir ein Fahrrad für 120 €. Du legst jeden Monat 15 € in deinen Wunschschatz. Wie lange dauert es?', '["8 Monate","12 Monate","15 Monate"]'::jsonb, 0, '120 € geteilt durch 15 € sind 8. Nach 8 Monaten ist genug im Wunschschatz.', 7, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,

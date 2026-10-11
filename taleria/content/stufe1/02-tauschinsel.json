@@ -77,19 +77,19 @@
           "frage": "Warum nehmen Händler lieber Geld als Waren zum Tauschen?",
           "richtig": "Fast jeder nimmt Geld an.",
           "falsch": [
-            "Geld ist schwerer als Waren.",
-            "Mit Geld muss man nie rechnen."
+            "Weil Waren nichts wert sind.",
+            "Weil Geld nie an Wert verliert."
           ],
           "erklaerung": "Beim Tauschen muss jeder genau das haben, was der andere braucht. Geld nimmt fast jeder an."
         },
         {
-          "frage": "Womit haben Menschen früher bezahlt, bevor es Münzen gab?",
-          "richtig": "Mit seltenen Dingen wie Muscheln oder Salz",
+          "frage": "Warum hat man früher oft mit Muscheln oder Salz bezahlt?",
+          "richtig": "Weil sie selten waren und viele sie haben wollten",
           "falsch": [
-            "Mit Bankkarten",
-            "Mit Handys"
+            "Weil sie besonders schwer waren",
+            "Weil Tauschen damals verboten war"
           ],
-          "erklaerung": "Früher waren seltene Dinge wie bestimmte Muscheln oder Salz das Geld."
+          "erklaerung": "Bezahlt wurde mit Dingen, die knapp und begehrt waren. Nur dann nimmt sie jeder gern an."
         },
         {
           "frage": "Warum kann man Geld gut aufheben?",
@@ -104,8 +104,8 @@
           "frage": "Wie verdienen die meisten Erwachsenen ihr Geld?",
           "richtig": "Mit Arbeit, dafür bekommen sie Lohn oder Gehalt",
           "falsch": [
-            "Sie drucken es selbst.",
-            "Sie bekommen es geschenkt, wann sie wollen."
+            "Sie bekommen es von der Bank geschenkt.",
+            "Jeder Erwachsene bekommt vom Staat gleich viel."
           ],
           "erklaerung": "Die meisten Erwachsenen arbeiten und bekommen dafür Lohn oder Gehalt. Geld selbst drucken ist verboten."
         },
@@ -122,8 +122,8 @@
           "frage": "Was passiert, wenn ein Stand viel zu hohe Preise verlangt?",
           "richtig": "Die Leute kaufen woanders.",
           "falsch": [
-            "Alle kaufen trotzdem doppelt so viel.",
-            "Der Stand bekommt Geld geschenkt."
+            "Der Stand verdient automatisch mehr.",
+            "Die anderen Stände werden auch teurer."
           ],
           "erklaerung": "Ist der Preis zu hoch, kaufen die Leute woanders. Deshalb muss ein Preis passen."
         }
@@ -237,13 +237,22 @@
           "erklaerung": "Acht mal 50 Cent sind 4 €. Das ist weniger als 5 €."
         },
         {
-          "frage": "Was kostet meistens am meisten?",
-          "richtig": "Ein Fahrrad",
+          "frage": "Otti verkauft 4 Fische für zusammen 10 €. Wie viel kostet ein Fisch?",
+          "richtig": "2,50 €",
           "falsch": [
-            "Ein Brötchen",
-            "Eine Kinokarte"
+            "2,40 €",
+            "4 €"
           ],
-          "erklaerung": "Ein Fahrrad kostet ein Vielfaches von einem Brötchen oder einer Kinokarte."
+          "erklaerung": "10 € geteilt durch 4 sind 2,50 €. Probe: 4 mal 2,50 € sind 10 €.",
+          "einsteiger": {
+            "frage": "Otti verkauft 4 Fische für zusammen 12 €. Wie viel kostet ein Fisch?",
+            "richtig": "3 €",
+            "falsch": [
+              "4 €",
+              "8 €"
+            ],
+            "erklaerung": "12 € geteilt durch 4 sind 3 €. Probe: 4 mal 3 € sind 12 €."
+          }
         }
       ]
     }
@@ -450,8 +459,8 @@
           "frage": "Warum braucht Tala auf der Tauschinsel eine Tauschkette?",
           "richtig": "Weil Greta etwas will, das Tala nicht direkt hat",
           "falsch": [
-            "Weil Ketten hübsch aussehen",
-            "Weil Talo es befohlen hat"
+            "Weil Tauschen schneller geht als Bezahlen",
+            "Weil Greta nur Taler annimmt"
           ],
           "erklaerung": "Will der andere nicht, was man hat, muss man über mehrere Tausche gehen."
         },
@@ -468,8 +477,8 @@
           "frage": "Warum sind Talas Taler auf der Tauschinsel nichts wert?",
           "richtig": "Weil dort niemand Taler annimmt",
           "falsch": [
-            "Weil sie zu klein sind",
-            "Weil sie aus Schokolade sind"
+            "Weil Talas Taler gefälscht sind",
+            "Weil man dort mit Euro bezahlt"
           ],
           "erklaerung": "Geld hat nur einen Wert, wenn andere es annehmen."
         },
@@ -477,8 +486,8 @@
           "frage": "Was ist beim Tauschen ohne Geld oft das größte Problem?",
           "richtig": "Man muss jemanden finden, der genau das will, was man hat.",
           "falsch": [
-            "Man darf dabei nicht reden.",
-            "Tauschen ist verboten."
+            "Man bekommt immer weniger zurück, als man gibt.",
+            "Man braucht dafür immer einen Händler."
           ],
           "erklaerung": "Beide Seiten müssen zueinander passen. Das ist selten."
         },
@@ -487,7 +496,7 @@
           "richtig": "Drei",
           "falsch": [
             "Einen",
-            "Zehn"
+            "Zwei"
           ],
           "erklaerung": "Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil: drei Tausche."
         },
@@ -495,8 +504,8 @@
           "frage": "Wie wäre es mit Geld einfacher?",
           "richtig": "Tala könnte Greta direkt bezahlen.",
           "falsch": [
-            "Gar nicht",
-            "Dann bräuchte sie zwei Seile."
+            "Greta würde dann gar nichts mehr verkaufen.",
+            "Tala müsste trotzdem erst Fisch besorgen."
           ],
           "erklaerung": "Mit Geld braucht man keine Tauschkette, weil fast jeder Geld annimmt."
         }
@@ -652,8 +661,8 @@
           "frage": "Was solltest du vor einem Tausch klären?",
           "richtig": "Was ich brauche und was ich dafür hergebe",
           "falsch": [
-            "Wie das Wetter wird",
-            "Wer zuerst blinzelt"
+            "Ob der andere nett aussieht",
+            "Wer zuerst etwas anbietet"
           ],
           "erklaerung": "Wer weiß, was er will, tauscht klüger."
         },
@@ -661,8 +670,8 @@
           "frage": "Ein Händler bietet dir eine kaputte Laterne gegen deinen besten Korb. Was tust du?",
           "richtig": "Ablehnen oder nachverhandeln",
           "falsch": [
-            "Sofort tauschen",
-            "Den Korb ins Meer werfen"
+            "Sofort tauschen, damit er nicht beleidigt ist",
+            "Den Korb tauschen und hoffen, dass die Laterne noch geht"
           ],
           "erklaerung": "Man muss nicht jedes Angebot annehmen."
         },
@@ -676,13 +685,13 @@
           "erklaerung": "Ein guter Tausch ist für beide fair."
         },
         {
-          "frage": "Darf man bei einem Tausch Nein sagen?",
-          "richtig": "Ja, immer",
+          "frage": "Ein Händler drängt: „Tausch sofort, sonst ist mein Angebot weg!“ Was ist klug?",
+          "richtig": "In Ruhe überlegen, ob sich der Tausch lohnt",
           "falsch": [
-            "Nein, nie",
-            "Nur am Wochenende"
+            "Sofort tauschen, bevor es zu spät ist",
+            "Noch etwas drauflegen, damit er wartet"
           ],
-          "erklaerung": "Ein Tausch ist freiwillig. Nein sagen ist erlaubt."
+          "erklaerung": "Wer drängelt, will oft verhindern, dass du nachdenkst. Ein guter Tausch ist auch in fünf Minuten noch gut."
         },
         {
           "frage": "Tala braucht eine Laterne. Welches Angebot hilft ihr am meisten?",
@@ -698,7 +707,7 @@
           "richtig": "Wenn du viel mehr hergibst, als du bekommst",
           "falsch": [
             "Immer, Tauschen ist schlecht",
-            "Wenn die Laterne leuchtet"
+            "Wenn der andere auch zufrieden ist"
           ],
           "erklaerung": "Gibt man viel ab und bekommt wenig, lohnt sich der Tausch nicht."
         }
@@ -876,7 +885,7 @@
           "richtig": "Weil jeder das bekommt, was ihm mehr wert ist",
           "falsch": [
             "Weil einer immer verliert",
-            "Weil Tauschen immer Spaß macht"
+            "Weil beide genau gleich viel bekommen"
           ],
           "erklaerung": "Dinge sind für verschiedene Menschen unterschiedlich viel wert."
         },
@@ -884,8 +893,8 @@
           "frage": "Ein Sonnenschirm am Strand im Hochsommer ist …",
           "richtig": "viel wert, weil viele Schatten brauchen.",
           "falsch": [
-            "nichts wert.",
-            "nur nachts wertvoll."
+            "genauso viel wert wie im Winter.",
+            "wertlos, weil es so viele davon gibt."
           ],
           "erklaerung": "Wenn viele etwas brauchen, steigt sein Wert."
         },
@@ -893,8 +902,8 @@
           "frage": "Was beeinflusst, wie viel dir etwas wert ist?",
           "richtig": "Was du magst und was du gerade brauchst",
           "falsch": [
-            "Nur die Farbe",
-            "Gar nichts"
+            "Nur der Preis im Laden",
+            "Nur wie groß die Sache ist"
           ],
           "erklaerung": "Vorlieben und die Situation bestimmen den Wert."
         },
@@ -1102,7 +1111,7 @@
           "richtig": "Große Nachfrage",
           "falsch": [
             "Großes Angebot",
-            "Großen Hunger auf Suppe"
+            "Niedriger Preis"
           ],
           "erklaerung": "Nachfrage bedeutet, wie viele etwas haben wollen."
         },
@@ -1110,8 +1119,8 @@
           "frage": "Der Eisstand hat nur noch wenig Eis, aber viele Kunden. Was passiert oft?",
           "richtig": "Der Preis steigt.",
           "falsch": [
-            "Das Eis wird verschenkt.",
-            "Der Stand schließt sofort."
+            "Der Preis sinkt.",
+            "Der Preis bleibt immer gleich."
           ],
           "erklaerung": "Ist etwas knapp und begehrt, steigt meist der Preis."
         },
@@ -1120,7 +1129,7 @@
           "richtig": "Den Preis senken oder weniger Eis machen",
           "falsch": [
             "Den Preis verdoppeln",
-            "Im Regen laut rufen, bis jemand kommt"
+            "Mehr Eis herstellen"
           ],
           "erklaerung": "Bei wenig Nachfrage sinkt der Preis oder man bietet weniger an."
         },
@@ -1129,25 +1138,25 @@
           "richtig": "Wie viel von etwas zu haben ist",
           "falsch": [
             "Wie viele etwas haben wollen",
-            "Ein besonders leckeres Eis"
+            "Wie teuer etwas ist"
           ],
           "erklaerung": "Das Angebot ist die Menge, die es zu kaufen gibt."
         },
         {
-          "frage": "Warum sind manche Früchte zu bestimmten Jahreszeiten teurer?",
-          "richtig": "Weil es dann weniger davon gibt",
+          "frage": "Am Eisstand gibt es 20 Kugeln. Bei 2 Talern wollen 30 Tiere ein Eis. Was passiert?",
+          "richtig": "10 Tiere gehen leer aus.",
           "falsch": [
-            "Weil sie dann größer sind",
-            "Weil sie dann verboten sind"
+            "Alle 30 bekommen ein Eis.",
+            "Es bleiben 10 Kugeln übrig."
           ],
-          "erklaerung": "Gibt es weniger von etwas, wollen es aber genauso viele, wird es oft teurer."
+          "erklaerung": "Nur 20 Kugeln für 30 Tiere: 10 bekommen keins. Wollen mehr etwas, als da ist, kann der Preis steigen."
         },
         {
           "frage": "Tala verlangt für eine Kugel Eis einen sehr hohen Preis. Was passiert wahrscheinlich?",
           "richtig": "Weniger Kunden kaufen bei ihr.",
           "falsch": [
             "Mehr Kunden kommen.",
-            "Das Eis schmilzt langsamer."
+            "Sie verkauft trotzdem gleich viel."
           ],
           "erklaerung": "Ist der Preis zu hoch, kaufen viele lieber nicht oder woanders."
         }
@@ -1257,8 +1266,8 @@
           "frage": "Was solltest du beim Vergleichen außer dem Preis noch beachten?",
           "richtig": "Wie lange etwas hält",
           "falsch": [
-            "Wie laut es ist",
-            "Gar nichts"
+            "Wie bunt die Verpackung ist",
+            "Wie viele andere es schon gekauft haben"
           ],
           "erklaerung": "Die Haltbarkeit gehört zum Vergleich dazu."
         },
@@ -1275,8 +1284,8 @@
           "frage": "Ist etwas Teures immer besser?",
           "richtig": "Nein, vergleichen hilft.",
           "falsch": [
-            "Ja, immer",
-            "Nur bei Fischernetzen"
+            "Ja, teuer heißt immer gute Qualität.",
+            "Nein, das Billigste ist immer am besten."
           ],
           "erklaerung": "Ein hoher Preis allein sagt nicht, dass etwas gut ist."
         },
@@ -1285,18 +1294,18 @@
           "richtig": "Für das, was man bekommt, nicht zu viel bezahlen",
           "falsch": [
             "Immer das Billigste nehmen",
-            "Etwas, das glitzert"
+            "Etwas, das gerade im Angebot ist"
           ],
           "erklaerung": "Günstig heißt: Preis und Leistung passen gut zusammen."
         },
         {
-          "frage": "Wie findest du heraus, ob sich etwas Teureres lohnt?",
-          "richtig": "Vergleichen, wie lange es hält und was es kann",
+          "frage": "Ein Ball für 8 Taler hält 4 Monate, einer für 20 Taler ein ganzes Jahr. Was ist für ein Jahr günstiger?",
+          "richtig": "Der Ball für 20 Taler",
           "falsch": [
-            "Würfeln",
-            "Den Verkäufer nach seiner Lieblingsfarbe fragen"
+            "Der Ball für 8 Taler",
+            "Beide kosten gleich viel"
           ],
-          "erklaerung": "Wer vergleicht, entscheidet besser."
+          "erklaerung": "Vom billigen Ball braucht man im Jahr drei: 3 mal 8 Taler sind 24 Taler. Das ist mehr als 20 Taler."
         }
       ]
     },
@@ -1452,7 +1461,7 @@
           "richtig": "Später das Fernrohr",
           "falsch": [
             "Gar nichts",
-            "Drei Eis gratis"
+            "Das Eis und das Fernrohr"
           ],
           "erklaerung": "Wer heute verzichtet, kann sich später etwas Größeres leisten."
         },
@@ -1466,13 +1475,13 @@
           "erklaerung": "Jeder entscheidet nach dem, was ihm wichtig ist."
         },
         {
-          "frage": "Warum kann man nicht alles haben, was man sich wünscht?",
-          "richtig": "Weil das Geld nicht für alles reicht",
+          "frage": "Ein Eis kostet 2 Taler. Tala kauft jede Woche eins. Wie viel könnte sie in 5 Wochen stattdessen sparen?",
+          "richtig": "10 Taler",
           "falsch": [
-            "Weil Wünsche verboten sind",
-            "Weil Läden nachts zuhaben"
+            "7 Taler",
+            "2 Taler"
           ],
-          "erklaerung": "Geld ist begrenzt. Deshalb muss man auswählen."
+          "erklaerung": "5 Wochen mal 2 Taler sind 10 Taler. Kleine Ausgaben summieren sich."
         }
       ]
     },
@@ -1594,8 +1603,8 @@
           "frage": "Was solltet ihr vor einem Tausch absprechen?",
           "richtig": "Ob man zurücktauschen darf",
           "falsch": [
-            "Wer die schönere Jacke hat",
-            "Wie spät es ist"
+            "Wer von euch älter ist",
+            "Wer zuerst seine Karte zeigt"
           ],
           "erklaerung": "Klare Absprachen verhindern späteren Streit."
         },
@@ -1603,8 +1612,8 @@
           "frage": "Dein Freund bietet dir einen unfairen Tausch an. Was kannst du tun?",
           "richtig": "Freundlich Nein sagen oder einen fairen Tausch vorschlagen",
           "falsch": [
-            "Ihn anschreien",
-            "Heimlich seine Karte nehmen"
+            "Trotzdem tauschen, damit er dein Freund bleibt",
+            "Ihm nie wieder etwas zeigen"
           ],
           "erklaerung": "Man kann Nein sagen und trotzdem freundlich bleiben."
         },
@@ -1662,8 +1671,8 @@
           "frage": "Warum konnte Tala auf der Tauschinsel nicht mit Talern bezahlen?",
           "richtig": "Weil dort niemand Geld annimmt",
           "falsch": [
-            "Weil die Taler nass waren",
-            "Weil Talo sie versteckt hatte"
+            "Weil die Taler zu wenig wert waren",
+            "Weil man dort nur mit Euro bezahlt"
           ],
           "erklaerung": "Geld funktioniert nur, wenn alle es annehmen.",
           "station": 1
@@ -1682,8 +1691,8 @@
           "frage": "Was ist eine Tauschkette?",
           "richtig": "Mehrere Tausche hintereinander, bis man hat, was man braucht",
           "falsch": [
-            "Eine Halskette aus Gold",
-            "Ein Seil zum Festbinden"
+            "Ein Tausch, bei dem beide genau gleich viel bekommen",
+            "Ein Tausch mit vielen Leuten gleichzeitig"
           ],
           "erklaerung": "Jeder Tausch ist ein Glied der Kette.",
           "station": 1
@@ -1732,8 +1741,8 @@
           "frage": "Warum ist ein Regenschirm an einem Regentag mehr wert als bei Sonne?",
           "richtig": "Weil ihn dann viele brauchen",
           "falsch": [
-            "Weil er nass ist",
-            "Weil er dann größer wird"
+            "Weil Regenschirme dann teurer hergestellt werden",
+            "Weil er bei Sonne schneller kaputtgeht"
           ],
           "erklaerung": "Wenn viele etwas brauchen, wird es wertvoller.",
           "station": 3
@@ -1753,7 +1762,7 @@
           "richtig": "Er senkt den Preis oder verkauft weniger.",
           "falsch": [
             "Er verdoppelt den Preis.",
-            "Er verkauft nur noch Sand."
+            "Er stellt mehr Eis her als im Sommer."
           ],
           "erklaerung": "Wenig Nachfrage: Der Preis sinkt oder es wird weniger angeboten.",
           "station": 4
@@ -1762,8 +1771,8 @@
           "frage": "Was bedeutet „Angebot“?",
           "richtig": "Wie viel von einer Sache zu haben ist",
           "falsch": [
-            "Wie freundlich ein Verkäufer ist",
-            "Ein Geschenk"
+            "Wie viele etwas haben wollen",
+            "Wie teuer etwas ist"
           ],
           "erklaerung": "Das Angebot ist die Menge, die verkauft wird.",
           "station": 4
@@ -1772,8 +1781,8 @@
           "frage": "Was bedeutet „Nachfrage“?",
           "richtig": "Wie viele etwas haben wollen",
           "falsch": [
-            "Wenn man zweimal nachfragt",
-            "Eine Quizfrage"
+            "Wie viel von einer Sache zu haben ist",
+            "Wie teuer etwas ist"
           ],
           "erklaerung": "Die Nachfrage zeigt, wie begehrt etwas ist.",
           "station": 4
@@ -1803,7 +1812,7 @@
           "richtig": "Nein, man sollte vergleichen.",
           "falsch": [
             "Ja, immer.",
-            "Ja, außer bei Eis."
+            "Nein, das Billigste ist immer besser."
           ],
           "erklaerung": "Ein hoher Preis sagt noch nicht, dass etwas gut ist.",
           "station": 5
@@ -1822,8 +1831,8 @@
           "frage": "Was hilft dir bei einer schwierigen Kaufentscheidung?",
           "richtig": "Überlegen, was mir wichtiger ist",
           "falsch": [
-            "Würfeln",
-            "Immer das Erste nehmen"
+            "Immer das Teurere nehmen",
+            "Das nehmen, was die anderen kaufen"
           ],
           "erklaerung": "Wer weiß, was ihm wichtig ist, entscheidet leichter.",
           "station": 6
@@ -1852,8 +1861,8 @@
           "frage": "Was solltet ihr vor einem Tausch unter Freunden klären?",
           "richtig": "Ob man den Tausch später rückgängig machen darf",
           "falsch": [
-            "Wer schneller rennen kann",
-            "Welche Musik ihr hört"
+            "Wer die seltenere Karte hat",
+            "Wer zuerst tauschen darf"
           ],
           "erklaerung": "Klare Absprachen verhindern Streit.",
           "station": 7

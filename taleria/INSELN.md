@@ -219,26 +219,26 @@ Bestanden ab 8 von 10 richtigen, beliebig oft wiederholbar mit neuer Auswahl. Mi
 
 | Nr. | Station | Frage | Richtig | Falsch | Falsch | Erklärung |
 | --- | --- | --- | --- | --- | --- | --- |
-| T1 | 1 | Warum konnte Tala auf der Tauschinsel nicht mit Talern bezahlen? | Weil dort niemand Geld annimmt | Weil die Taler nass waren | Weil Talo sie versteckt hatte | Geld funktioniert nur, wenn alle es annehmen. |
+| T1 | 1 | Warum konnte Tala auf der Tauschinsel nicht mit Talern bezahlen? | Weil dort niemand Geld annimmt | Weil die Taler zu wenig wert waren | Weil man dort nur mit Euro bezahlt | Geld funktioniert nur, wenn alle es annehmen. |
 | T2 | 1 | Greta will Äpfel, Tala hat nur Fisch. Was kann Tala tun? | Erst Fisch gegen Äpfel tauschen, dann Äpfel gegen das Seil | Das Seil einfach mitnehmen | Sofort aufgeben | Über eine Tauschkette kommt man auch ans Ziel, wenn es länger dauert. |
-| T3 | 1 | Was ist eine Tauschkette? | Mehrere Tausche hintereinander, bis man hat, was man braucht | Eine Halskette aus Gold | Ein Seil zum Festbinden | Jeder Tausch ist ein Glied der Kette. |
+| T3 | 1 | Was ist eine Tauschkette? | Mehrere Tausche hintereinander, bis man hat, was man braucht | Ein Tausch, bei dem beide genau gleich viel bekommen | Ein Tausch mit vielen Leuten gleichzeitig | Jeder Tausch ist ein Glied der Kette. |
 | T4 | 2 | Was solltest du dir vor einem Tausch überlegen? | Was ich wirklich brauche und was ich dafür hergebe | Welche Farbe der andere mag | Gar nichts, einfach schnell tauschen | Wer vorher nachdenkt, macht bessere Tausche. |
 | T5 | 2 | Woran erkennst du einen guten Tausch? | Am Ende sind beide zufrieden. | Nur einer hat gewonnen. | Einer ist traurig. | Ein guter Tausch ist für beide Seiten gut. |
 | T6 | 3 | Wann ist eine Flasche Wasser besonders viel wert? | Nach einer langen Wanderung in der Hitze | Direkt nachdem man getrunken hat | Wenn man im Regen steht | Der Wert hängt von der Situation ab. |
 | T7 | 3 | Tala liebt Fischbrötchen, Talo mag sie nicht. Was zeigt das? | Dieselbe Sache ist nicht für jeden gleich viel wert. | Talo hat nie Hunger. | Fischbrötchen sind wertlos. | Jeder Mensch hat eigene Vorlieben, deshalb schätzt jeder Dinge anders. |
-| T8 | 3 | Warum ist ein Regenschirm an einem Regentag mehr wert als bei Sonne? | Weil ihn dann viele brauchen | Weil er nass ist | Weil er dann größer wird | Wenn viele etwas brauchen, wird es wertvoller. |
+| T8 | 3 | Warum ist ein Regenschirm an einem Regentag mehr wert als bei Sonne? | Weil ihn dann viele brauchen | Weil Regenschirme dann teurer hergestellt werden | Weil er bei Sonne schneller kaputtgeht | Wenn viele etwas brauchen, wird es wertvoller. |
 | T9 | 4 | Es ist heiß, alle wollen Eis, aber es gibt nur wenig. Was passiert oft mit dem Preis? | Er steigt. | Er sinkt. | Das Eis wird verschenkt. | Viele wollen etwas, das knapp ist: Dann steigt meist der Preis. |
-| T10 | 4 | Im Winter will kaum jemand Eis. Was macht der Eisverkäufer wahrscheinlich? | Er senkt den Preis oder verkauft weniger. | Er verdoppelt den Preis. | Er verkauft nur noch Sand. | Wenig Nachfrage: Der Preis sinkt oder es wird weniger angeboten. |
-| T11 | 4 | Was bedeutet „Angebot“? | Wie viel von einer Sache zu haben ist | Wie freundlich ein Verkäufer ist | Ein Geschenk | Das Angebot ist die Menge, die verkauft wird. |
-| T12 | 4 | Was bedeutet „Nachfrage“? | Wie viele etwas haben wollen | Wenn man zweimal nachfragt | Eine Quizfrage | Die Nachfrage zeigt, wie begehrt etwas ist. |
+| T10 | 4 | Im Winter will kaum jemand Eis. Was macht der Eisverkäufer wahrscheinlich? | Er senkt den Preis oder verkauft weniger. | Er verdoppelt den Preis. | Er stellt mehr Eis her als im Sommer. | Wenig Nachfrage: Der Preis sinkt oder es wird weniger angeboten. |
+| T11 | 4 | Was bedeutet „Angebot“? | Wie viel von einer Sache zu haben ist | Wie viele etwas haben wollen | Wie teuer etwas ist | Das Angebot ist die Menge, die verkauft wird. |
+| T12 | 4 | Was bedeutet „Nachfrage“? | Wie viele etwas haben wollen | Wie viel von einer Sache zu haben ist | Wie teuer etwas ist | Die Nachfrage zeigt, wie begehrt etwas ist. |
 | T13 | 5 | Ein Netz für 5 Taler hält einen Monat, eines für 20 Taler hält ein Jahr. Was ist auf ein Jahr gerechnet günstiger? | Das Netz für 20 Taler | Das Netz für 5 Taler | Beide kosten gleich viel | 12 billige Netze kosten 60 Taler, das gute nur 20. |
 | T14 | 5 | Was bedeutet der Spruch „Wer billig kauft, kauft zweimal“? | Billige Dinge gehen manchmal schnell kaputt, dann muss man neu kaufen. | Man soll alles zweimal kaufen. | Billige Sachen sind immer schlecht. | Billig kann teuer werden. Aber nicht alles Billige ist schlecht, vergleichen hilft. |
-| T15 | 5 | Ist das Teuerste immer das Beste? | Nein, man sollte vergleichen. | Ja, immer. | Ja, außer bei Eis. | Ein hoher Preis sagt noch nicht, dass etwas gut ist. |
+| T15 | 5 | Ist das Teuerste immer das Beste? | Nein, man sollte vergleichen. | Ja, immer. | Nein, das Billigste ist immer besser. | Ein hoher Preis sagt noch nicht, dass etwas gut ist. |
 | T16 | 6 | Tala hat 5 Taler: Eis jetzt oder sparen fürs Fernrohr. Was stimmt? | Kauft sie das Eis, verzichtet sie aufs Sparen. | Sie kann mit denselben 5 Talern beides haben. | Das spielt keine Rolle. | Geld kann man nur einmal ausgeben. Jede Entscheidung heißt Verzicht. |
-| T17 | 6 | Was hilft dir bei einer schwierigen Kaufentscheidung? | Überlegen, was mir wichtiger ist | Würfeln | Immer das Erste nehmen | Wer weiß, was ihm wichtig ist, entscheidet leichter. |
+| T17 | 6 | Was hilft dir bei einer schwierigen Kaufentscheidung? | Überlegen, was mir wichtiger ist | Immer das Teurere nehmen | Das nehmen, was die anderen kaufen | Wer weiß, was ihm wichtig ist, entscheidet leichter. |
 | T18 | 7 | Was ist ein fairer Tausch? | Beide wissen, was sie bekommen, und sind einverstanden. | Einer trickst den anderen aus. | Man nimmt dem Jüngeren etwas weg. | Fair heißt ehrlich und freiwillig. |
 | T19 | 7 | Ein Freund will deine seltene Sammelkarte gegen eine ganz häufige tauschen. Was ist eine gute Reaktion? | Freundlich Nein sagen oder einen fairen Tausch vorschlagen | Sofort tauschen, damit er nicht sauer wird | Ihn auslachen | Man darf Nein sagen und trotzdem freundlich bleiben. |
-| T20 | 7 | Was solltet ihr vor einem Tausch unter Freunden klären? | Ob man den Tausch später rückgängig machen darf | Wer schneller rennen kann | Welche Musik ihr hört | Klare Absprachen verhindern Streit. |
+| T20 | 7 | Was solltet ihr vor einem Tausch unter Freunden klären? | Ob man den Tausch später rückgängig machen darf | Wer die seltenere Karte hat | Wer zuerst tauschen darf | Klare Absprachen verhindern Streit. |
 
 ### Auftrag fürs echte Leben (Eltern bestätigen)
 **„Fairer Tausch“:** Tausche mit jemandem aus der Familie etwas (Buch, Spielzeug, Sammelkarte). Erzählt euch vorher gegenseitig, warum euch die Sachen etwas wert sind, und klärt, ob man zurücktauschen darf.
@@ -312,26 +312,26 @@ Für alle folgenden Inseln gilt, wenn nicht anders angegeben: Zugang Premium, je
 
 | Nr. | St. | Frage | Richtig | Falsch | Falsch | Erklärung |
 | --- | --- | --- | --- | --- | --- | --- |
-| W1 | 1 | Was ist ein Bedürfnis? | Etwas, das man zum Leben braucht | Etwas, das gerade alle haben | Etwas, das glitzert | Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse. |
+| W1 | 1 | Was ist ein Bedürfnis? | Etwas, das man zum Leben braucht | Etwas, das gerade alle haben | Etwas, das man sich lange wünscht | Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse. |
 | W2 | 1 | Was ist ein Wunsch und kein Bedürfnis? | Eine neue Spielkonsole | Trinkwasser | Eine warme Jacke im Winter | Eine Konsole macht Spaß, zum Leben braucht man sie nicht. |
-| W3 | 1 | Warum ist es wichtig, Bedürfnisse und Wünsche zu unterscheiden? | Damit zuerst das Wichtige bezahlt wird | Damit man nie etwas Schönes kauft | Weil Wünsche verboten sind | Wünsche sind in Ordnung, Bedürfnisse kommen zuerst. |
+| W3 | 1 | Warum ist es wichtig, Bedürfnisse und Wünsche zu unterscheiden? | Damit zuerst das Wichtige bezahlt wird | Damit man nie etwas Schönes kauft | Damit man nur noch Bedürfnisse kauft | Wünsche sind in Ordnung, Bedürfnisse kommen zuerst. |
 | W4 | 1 | Ist ein Handy ein Bedürfnis oder ein Wunsch? | Das kommt auf die Situation an. | Immer ein Bedürfnis wie Wasser | Immer nur ein Wunsch | Manche Dinge liegen dazwischen. |
-| W5 | 2 | Du hast 10 Taler und drei Wünsche für je 6 Taler. Was tust du? | Den wichtigsten auswählen | Alle drei kaufen | Gar nicht nachdenken | 10 Taler reichen nur für einen. |
+| W5 | 2 | Du hast 10 Taler und drei Wünsche für je 6 Taler. Was tust du? | Den wichtigsten auswählen | Alle drei kaufen | Zwei kaufen und den Rest leihen | 10 Taler reichen nur für einen. |
 | W6 | 2 | Was heißt „Prioritäten setzen“? | Entscheiden, was am wichtigsten ist | Alles gleichzeitig machen | Immer das Billigste kaufen | Wer Prioritäten setzt, gibt sein Geld für das Wichtigste aus. |
 | W7 | 2 | Wenn du dich für einen Wunsch entscheidest, … | verzichtest du auf einen anderen. | bekommst du alle anderen gratis. | ist das Geld danach noch da. | Geld kann man nur einmal ausgeben. |
-| W8 | 3 | Was besagt die Warte-Regel? | Vor einem Kauf erst drüber schlafen | Immer sofort kaufen | Nur nachts einkaufen | Mit etwas Abstand entscheidet man besser. |
-| W9 | 3 | Warum hilft Warten vor einem Kauf? | Man merkt, ob man es wirklich will. | Die Sachen werden beim Warten billiger. | Man vergisst, wo der Laden ist. | Viele Wünsche verschwinden nach ein paar Tagen von selbst. |
-| W10 | 3 | Wie lange wartet man bei großen Wünschen? | Länger, zum Beispiel eine Woche | Gar nicht | Eine Minute | Je teurer, desto länger lohnt sich das Überlegen. |
+| W8 | 3 | Was besagt die Warte-Regel? | Vor einem Kauf erst drüber schlafen | Immer sofort kaufen | Nur kaufen, was im Angebot ist | Mit etwas Abstand entscheidet man besser. |
+| W9 | 3 | Warum hilft Warten vor einem Kauf? | Man merkt, ob man es wirklich will. | Die Sachen werden beim Warten billiger. | Man bekommt dann mehr Taschengeld. | Viele Wünsche verschwinden nach ein paar Tagen von selbst. |
+| W10 | 3 | Wie lange wartet man bei großen Wünschen? | Länger, zum Beispiel eine Woche | Eine Nacht, wie bei kleinen Wünschen | Mindestens ein ganzes Jahr | Je teurer, desto länger lohnt sich das Überlegen. |
 | W11 | 4 | Alle in deiner Klasse haben eine bestimmte Trinkflasche. Welche Frage hilft dir? | Brauche ich sie wirklich oder will ich nur dazugehören? | Wie bekomme ich zwei davon? | Wer hat die teuerste? | Diese Frage hilft gegen Gruppendruck. |
-| W12 | 4 | Was ist Gruppendruck? | Wenn man etwas tut, weil andere es erwarten | Wenn eine Gruppe ein Foto macht | Druck im Ohr beim Tauchen | Gruppendruck kann zu Käufen führen, die man gar nicht will. |
-| W13 | 4 | Wie kannst du auf Gruppendruck reagieren? | Ruhig sagen, dass du es nicht brauchst | Sofort alles nachkaufen | Die anderen auslachen | Freundlich Nein sagen ist stark. |
+| W12 | 4 | Was ist Gruppendruck? | Wenn man etwas tut, weil andere es erwarten | Wenn eine Gruppe ein Foto macht | Wenn man in einer Gruppe besser lernt | Gruppendruck kann zu Käufen führen, die man gar nicht will. |
+| W13 | 4 | Wie kannst du auf Gruppendruck reagieren? | Ruhig sagen, dass du es nicht brauchst | Sofort alles nachkaufen | Es kaufen, aber niemandem zeigen | Freundlich Nein sagen ist stark. |
 | W14 | 5 | Was stimmt über Geld und Glück? | Geld kann Sorgen nehmen, aber Freunde und Zeit machen auch glücklich. | Wer am meisten Geld hat, ist immer am glücklichsten. | Geld macht immer unglücklich. | Glück hat viele Quellen. |
-| W15 | 5 | Warum hält die Freude über ein neues Spielzeug oft nicht lange? | Weil man sich schnell daran gewöhnt | Weil Spielzeug verboten ist | Weil es nachts verschwindet | Neues wird schnell normal. |
-| W16 | 5 | Was macht Moritz glücklich, obwohl er wenig besitzt? | Seine Freunde und die Zeit mit ihnen | Ein riesiger Goldschatz | Ein teures Handy | Moritz zeigt, dass Glück nicht vom Besitz abhängt. |
-| W17 | 6 | Was bleibt oft länger in Erinnerung? | Ein gemeinsamer Ausflug | Ein neues Paar Socken | Ein Kassenbon | Erlebnisse teilt man und erinnert sich gern daran. |
+| W15 | 5 | Warum hält die Freude über ein neues Spielzeug oft nicht lange? | Weil man sich schnell daran gewöhnt | Weil es meistens schnell kaputtgeht | Weil Eltern es wegräumen | Neues wird schnell normal. |
+| W16 | 5 | Was macht Moritz glücklich, obwohl er wenig besitzt? | Seine Freunde und die Zeit mit ihnen | Seine vielen Sachen | Dass er nie arbeiten muss | Moritz zeigt, dass Glück nicht vom Besitz abhängt. |
+| W17 | 6 | Was bleibt oft länger in Erinnerung? | Ein gemeinsamer Ausflug | Ein neues Paar Turnschuhe | Eine neue Hülle fürs Handy | Erlebnisse teilt man und erinnert sich gern daran. |
 | W18 | 6 | Warum können Erlebnisse mehr wert sein als Dinge? | Man erinnert sich gern daran und teilt sie mit anderen. | Weil Erlebnisse immer gratis sind | Weil Dinge immer kaputtgehen | Erinnerungen bleiben, auch wenn Dinge alt werden. |
 | W19 | 7 | Was gehört auf eine gute Wunschliste? | Wünsche mit Preis, sortiert nach Wichtigkeit | Alles, was in der Werbung kommt | Nur Sachen von Freunden | So sieht man, was man sich leisten kann. |
-| W20 | 7 | Du wünschst dir ein Fahrrad für 120 Taler. Was ist der erste kluge Schritt? | Einen Wunschschatz anlegen und einen Sparplan überlegen | Es sofort kaufen, ohne Geld zu haben | Den Wunsch vergessen | Mit einem Plan wird aus einem Wunsch ein Ziel. |
+| W20 | 7 | Du wünschst dir ein Fahrrad für 120 €. Du legst jeden Monat 15 € in deinen Wunschschatz. Wie lange dauert es? | 8 Monate | 12 Monate | 15 Monate | 120 € geteilt durch 15 € sind 8. Nach 8 Monaten ist genug im Wunschschatz. |
 
 **Auftrag fürs echte Leben:** „Wunschflasche“: Steck einen Wunsch in die Wunschflasche und schau nach einer Woche mit deinen Eltern nach, ob du ihn noch willst.
 
