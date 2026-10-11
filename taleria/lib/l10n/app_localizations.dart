@@ -2653,6 +2653,12 @@ abstract class AppLocalizations {
   /// **'Sammlung'**
   String get childHomeCollectionTile;
 
+  /// Hinweis unter der Sammlung: Funde, die das Kind noch nicht angeschaut hat
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 neuer Fund} other{{count} neue Funde}}'**
+  String childHomeNewFinds(int count);
+
   /// Knopf zur Unterwasser-Sammlung mit Zahl der Funde
   ///
   /// In de, this message translates to:

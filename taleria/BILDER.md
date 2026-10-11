@@ -420,6 +420,57 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 
 Welches Bild zu welchem Fund gehört, steht in den Inhaltsdateien (`"fund_bild"` beim Tauchgang).
 
+## 4i. Begegnungen und Stopps auf See (vor der Tauschinsel)
+
+Besprochen mit Marc am 11.10.2026: Auf der Karte sieht man bisher nur runde Köpfe für die Stopps, und Meister Taleron sitzt wie eine Statue im Meer. Besser: Taleron taucht halb aus dem Wasser auf (so ist er auch beschrieben: Er zeigt sich nur halb), und die Stopps zeigen ihr Schiff mit der Figur an Bord. Alle Bilder freigestellt auf Pink, die App setzt sie aufs Meer.
+
+| Nr. | Datei | Bild | Vorlagen | Stand |
+| --- | --- | --- | --- | --- |
+| 52 | `encounter.taleron` | Meister Taleron taucht auf | character.taleron | fehlt |
+| 53 | `ship.haendler` | Das Händlerschiff (Stopp vor der Tauschinsel) | ship.crew, character.haendler | fehlt |
+| 54 | `ship.fischer` | Das Fischerboot (Stopp vor der Tauschinsel) | ship.crew, character.otti | fehlt |
+| 55 | `ship.greta` | Gretas Händlerboot (Stopp vor der Wunschinsel) | ship.crew, character.greta | fehlt |
+
+### Bild 52: Meister Taleron taucht auf → `encounter.taleron`
+
+```
+Gleiche Figur wie im angehängten Bild, gleicher Stil, gleiche Farben: Meister Taleron, das freundliche Seeungeheuer. Er taucht gerade aus dem Meer auf: Man sieht nur Kopf, Bart aus Seetang und Oberkörper bis zur Brust, dazu zwei Bögen seines langen Schwanzes, die hinter ihm aus dem Wasser ragen. Direkt um ihn herum ein kleiner Ring aus weißer Gischt und ein paar Wassertropfen. Er lächelt freundlich und hebt grüßend eine Pfote. Sanft und gar nicht gruselig. Quadratisches Bild, die Figur vollständig in der Mitte.
+
+Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten. Kein Meer bis zum Bildrand, nur der kleine Gischtring direkt um ihn.
+```
+
+### Bild 53: Das Händlerschiff → `ship.haendler`
+
+```
+Gleicher Stil, gleicher Blickwinkel und gleiches Licht wie im ersten angehängten Bild (das Schiff der Crew), aber ein anderes Schiff: ein breites, bauchiges Handelsschiff aus dunklem Holz mit einem Mast und einem großen ockergelben Segel. An Deck viele Fässer, Kisten und Säcke mit Waren. Vorn an der Reling steht der Händler aus dem zweiten Bild (das Walross mit grüner Weste) und winkt. Er ist gut zu erkennen, etwa ein Drittel so hoch wie das Schiff. Das Schiff fährt nach links. Kein Wasser, keine Bugwelle. Das Schiff füllt etwa drei Viertel der Bildbreite. Quadratisches Bild.
+
+Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen, keine Kanonen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+```
+
+### Bild 54: Das Fischerboot → `ship.fischer`
+
+```
+Gleicher Stil, gleicher Blickwinkel und gleiches Licht wie im ersten angehängten Bild (das Schiff der Crew), aber ein anderes Boot: ein kleines, rundliches Fischerboot aus hellblau gestrichenem Holz mit einem kleinen Mast und einem geflickten weißen Segel. An Bord Fischernetze, eine Kiste mit glänzenden Fischen und eine kleine Waage. Im Boot steht Otti aus dem zweiten Bild (der Otter mit gelber Regenjacke) und winkt. Er ist gut zu erkennen, etwa halb so hoch wie das Boot. Das Boot fährt nach rechts. Kein Wasser, keine Bugwelle. Das Boot füllt etwa drei Viertel der Bildbreite. Quadratisches Bild.
+
+Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+```
+
+### Bild 55: Gretas Händlerboot → `ship.greta`
+
+```
+Gleicher Stil, gleicher Blickwinkel und gleiches Licht wie im ersten angehängten Bild (das Schiff der Crew), aber ein anderes Boot: ein schmales Segelboot aus rötlichem Holz mit einem dreieckigen roten Segel. An Bord liegen viele aufgerollte Seile in verschiedenen Farben. Im Boot steht Greta aus dem zweiten Bild (die weiße Ziege mit rotem Kopftuch) und winkt. Sie ist gut zu erkennen, etwa halb so hoch wie das Boot. Das Boot fährt nach links. Kein Wasser, keine Bugwelle. Das Boot füllt etwa drei Viertel der Bildbreite. Quadratisches Bild.
+
+Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+```
+
 ## 4h. Bildergeschichten in den Stationen (Hafen zuerst)
 
 Entschieden mit Marc am 10.10.2026: Statt eines Films erklärt jede Station ihr Thema als **Bildergeschichte**. Das Kind blättert durch 3 bis 5 Bilder, zu jedem sagen Talo, Tala oder eine Inselfigur ein bis zwei Sätze (die Texte stehen schon in den Inhaltsdateien unter `"erklaerung"`). Filme gibt es nur noch für das Intro und die Ankunft auf den Inseln.

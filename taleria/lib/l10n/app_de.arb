@@ -2118,6 +2118,15 @@
   "@childHomeCollectionTile": {
     "description": "Kachel auf der Startseite des Kindes zur Unterwasser-Sammlung"
   },
+  "childHomeNewFinds": "{count, plural, =1{1 neuer Fund} other{{count} neue Funde}}",
+  "@childHomeNewFinds": {
+    "description": "Hinweis unter der Sammlung: Funde, die das Kind noch nicht angeschaut hat",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "collectionButton": "Unterwasser-Sammlung ({count})",
   "@collectionButton": {
     "description": "Knopf zur Unterwasser-Sammlung mit Zahl der Funde",

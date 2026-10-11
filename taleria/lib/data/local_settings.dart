@@ -24,6 +24,12 @@ abstract interface class LocalSettings {
 
   Future<void> setLastShipIsland(String childId, String islandId);
 
+  /// Wie viele Funde der Unterwasser-Sammlung das Kind schon gesehen hat.
+  /// Nur neuere Funde leuchten auf der Startseite als Zahl auf.
+  Future<int> collectionSeen(String childId);
+
+  Future<void> setCollectionSeen(String childId, int finds);
+
   /// Ton an (Lautsprecher-Knopf des Kindes). Standard: an.
   Future<bool> soundOn();
 
@@ -78,6 +84,18 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setLastShipIsland(String childId, String islandId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ship.$childId', islandId);
+  }
+
+  @override
+  Future<int> collectionSeen(String childId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('collection.$childId') ?? 0;
+  }
+
+  @override
+  Future<void> setCollectionSeen(String childId, int finds) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('collection.$childId', finds);
   }
 
   @override

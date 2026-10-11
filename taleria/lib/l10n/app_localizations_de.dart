@@ -1527,6 +1527,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get childHomeCollectionTile => 'Sammlung';
 
   @override
+  String childHomeNewFinds(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count neue Funde', one: '1 neuer Fund');
+    return '$_temp0';
+  }
+
+  @override
   String collectionButton(int count) {
     return 'Unterwasser-Sammlung ($count)';
   }

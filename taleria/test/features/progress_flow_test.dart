@@ -228,6 +228,10 @@ void main() {
         ..findDates['island-hafen/dive1'] = DateTime(2026, 10, 10)
         ..pearlsByDive['island-hafen/dive1'] = 3,
     );
+    // Ein neuer Fund leuchtet auf der Startseite, bis das Kind die Sammlung öffnet.
+    final tile = find.byKey(const ValueKey('home-collection'));
+    expect(find.descendant(of: tile, matching: find.text('1')), findsOneWidget);
+    expect(find.text('1 neuer Fund'), findsOneWidget);
     await tapKey(tester, 'home-collection');
     expect(find.text('3 Perlen'), findsOneWidget);
     // Jeder Fund hat ein eigenes Bild; ohne Bilddatei trägt der Platzhalter denselben Namen.
@@ -238,6 +242,15 @@ void main() {
     expect(find.text('Gefunden am 10.10.2026'), findsOneWidget);
     await scrollTo(tester, find.byKey(const ValueKey('find-wunschinsel-fund-3')));
     expect(find.text('Noch nicht gefunden'), findsWidgets);
+
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(of: tile, matching: find.text('1')),
+      findsNothing,
+      reason: 'schon gesehen',
+    );
+    expect(find.text('1 neuer Fund'), findsNothing);
   });
 
   testWidgets('Nebel voraus: Hinweis statt Fehler, Kontrollfahrt zum Üben', (tester) async {

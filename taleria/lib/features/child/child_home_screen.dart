@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
 import '../../domain/family_models.dart';
+import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/child_stats_controller.dart';
 import '../../services/session_controller.dart';
@@ -565,6 +567,9 @@ class _ProgressSection extends StatefulWidget {
 class _ProgressSectionState extends State<_ProgressSection> {
   ChildStatsController? _controller;
 
+  /// Funde, die das Kind in der Sammlung schon gesehen hat (auf diesem Gerät).
+  int _collectionSeen = 0;
+
   ChildProfile get _child => widget.state.child;
 
   @override
@@ -574,7 +579,21 @@ class _ProgressSectionState extends State<_ProgressSection> {
     if (_controller == null && progress != null) {
       _controller = ChildStatsController(progress: progress, childId: _child.id)..load();
       unawaited(_controller!.markAppOpened());
+      unawaited(_loadCollectionSeen());
     }
+  }
+
+  Future<void> _loadCollectionSeen() async {
+    final seen = await AppScope.of(context).settings.collectionSeen(_child.id);
+    if (mounted) setState(() => _collectionSeen = seen);
+  }
+
+  /// Öffnet die Sammlung; danach gelten alle Funde als gesehen.
+  Future<void> _openCollection(ChildStats stats) async {
+    final settings = AppScope.of(context).settings;
+    setState(() => _collectionSeen = stats.finds);
+    await settings.setCollectionSeen(_child.id, stats.finds);
+    await _open(CollectionScreen(childId: _child.id, pearls: stats.pearls));
   }
 
   @override
@@ -629,14 +648,20 @@ class _ProgressSectionState extends State<_ProgressSection> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
+                      // Die Zahl leuchtet nur für neue Funde, die das Kind noch nicht gesehen hat.
                       child: _HomeTile(
                         key: const ValueKey('home-collection'),
                         image: AssetKeys.iconCollection,
                         fallbackIcon: Icons.scuba_diving,
                         label: l10n.childHomeCollectionTile,
                         semanticLabel: l10n.collectionButton(stats.finds),
-                        count: stats.finds,
-                        onTap: () => _open(CollectionScreen(childId: _child.id, pearls: stats.pearls)),
+                        count: max(0, stats.finds - _collectionSeen),
+                        attention: true,
+                        hint: stats.finds > _collectionSeen
+                            ? l10n.childHomeNewFinds(stats.finds - _collectionSeen)
+                            : null,
+                        hintKey: const ValueKey('child-home-new-finds'),
+                        onTap: () => _openCollection(stats),
                       ),
                     ),
                   ],
