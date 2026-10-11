@@ -472,6 +472,26 @@
         "geschafft": {
           "wer": "tala",
           "text": "Ich kenne jetzt alle Münzen und kann sogar Wechselgeld herausgeben!"
+        },
+        "einsteiger": {
+          "runden": [
+            {
+              "text": "Lege 8 €. Schaffst du es mit möglichst wenigen Münzen und Scheinen?",
+              "betrag": 800
+            },
+            {
+              "text": "Lege 80 Cent mit möglichst wenigen Münzen.",
+              "betrag": 80
+            },
+            {
+              "text": "Ein Ball kostet 7 €. Tala bezahlt mit einem 10-Euro-Schein. Lege das Wechselgeld.",
+              "betrag": 300
+            },
+            {
+              "text": "Eine Kinokarte kostet 9 €. Talo bezahlt mit einem 20-Euro-Schein. Lege das Wechselgeld.",
+              "betrag": 1100
+            }
+          ]
         }
       },
       "minispiel": {
@@ -542,6 +562,67 @@
           "wer": "verkaeuferin",
           "name": "Verkäuferin",
           "text": "Danke für deine Hilfe! Jeder hat genau das richtige Wechselgeld bekommen."
+        },
+        "einsteiger": {
+          "preistafel": [
+            {
+              "text": "Fischbrötchen",
+              "preis": 300
+            },
+            {
+              "text": "Brötchen",
+              "preis": 100
+            },
+            {
+              "text": "Limo",
+              "preis": 200
+            },
+            {
+              "text": "Apfelsaft",
+              "preis": 200
+            }
+          ],
+          "kunden": [
+            {
+              "wer": "talo",
+              "text": "Ein Fischbrötchen, bitte!",
+              "preis": 300,
+              "bezahlt": 500
+            },
+            {
+              "wer": "haendler",
+              "name": "Händler",
+              "text": "Eine Limo für mich.",
+              "preis": 200,
+              "bezahlt": 500
+            },
+            {
+              "wer": "tala",
+              "text": "Ein Brötchen, bitte.",
+              "preis": 100,
+              "bezahlt": 200
+            },
+            {
+              "wer": "bootsbauer",
+              "name": "Bootsbauer",
+              "text": "Zwei Fischbrötchen für die Werkstatt.",
+              "preis": 600,
+              "bezahlt": 1000
+            },
+            {
+              "wer": "talo",
+              "text": "Ein Fischbrötchen und einen Apfelsaft.",
+              "preis": 500,
+              "bezahlt": 1000
+            },
+            {
+              "wer": "haendler",
+              "name": "Händler",
+              "text": "Drei Fischbrötchen für meine Mannschaft.",
+              "preis": 900,
+              "bezahlt": 2000
+            }
+          ]
         }
       },
       "abschluss": {
@@ -557,7 +638,16 @@
             "2,5 €",
             "25 €"
           ],
-          "erklaerung": "Hinter dem Komma stehen immer zwei Stellen für die Cent: 5 Cent werden zu 05."
+          "erklaerung": "Hinter dem Komma stehen immer zwei Stellen für die Cent: 5 Cent werden zu 05.",
+          "einsteiger": {
+            "frage": "Wie viele Cent sind 2 Euro?",
+            "richtig": "200 Cent",
+            "falsch": [
+              "20 Cent",
+              "2 Cent"
+            ],
+            "erklaerung": "1 Euro sind 100 Cent, 2 Euro also 200 Cent."
+          }
         },
         {
           "frage": "Was ist mehr: 1,50 € oder 105 Cent?",
@@ -566,7 +656,16 @@
             "105 Cent",
             "Beides gleich viel"
           ],
-          "erklaerung": "1,50 € sind 150 Cent. Das ist mehr als 105 Cent."
+          "erklaerung": "1,50 € sind 150 Cent. Das ist mehr als 105 Cent.",
+          "einsteiger": {
+            "frage": "Was ist mehr: 2 € oder 150 Cent?",
+            "richtig": "2 €",
+            "falsch": [
+              "150 Cent",
+              "Beides gleich viel"
+            ],
+            "erklaerung": "2 € sind 200 Cent. Das ist mehr als 150 Cent."
+          }
         },
         {
           "frage": "Ein Heft kostet 1,30 €, ein Stift 0,90 €. Wie viel kostet beides zusammen?",
@@ -575,7 +674,16 @@
             "2,10 €",
             "1,20 €"
           ],
-          "erklaerung": "1,30 € plus 0,90 € sind 2,20 €. Tipp: Rechne erst die Cent zusammen, 30 plus 90 sind 120 Cent."
+          "erklaerung": "1,30 € plus 0,90 € sind 2,20 €. Tipp: Rechne erst die Cent zusammen, 30 plus 90 sind 120 Cent.",
+          "einsteiger": {
+            "frage": "Ein Heft kostet 3 €, ein Stift 2 €. Wie viel kostet beides zusammen?",
+            "richtig": "5 €",
+            "falsch": [
+              "6 €",
+              "1 €"
+            ],
+            "erklaerung": "3 € plus 2 € sind 5 €."
+          }
         },
         {
           "frage": "Du zahlst mit einem 5-Euro-Schein für etwas, das 3,50 Euro kostet. Wie viel bekommst du zurück?",
@@ -584,7 +692,16 @@
             "2,50 Euro",
             "50 Cent"
           ],
-          "erklaerung": "5 Euro minus 3,50 Euro sind 1,50 Euro."
+          "erklaerung": "5 Euro minus 3,50 Euro sind 1,50 Euro.",
+          "einsteiger": {
+            "frage": "Du zahlst mit einem 10-Euro-Schein für etwas, das 7 Euro kostet. Wie viel bekommst du zurück?",
+            "richtig": "3 Euro",
+            "falsch": [
+              "4 Euro",
+              "17 Euro"
+            ],
+            "erklaerung": "10 Euro minus 7 Euro sind 3 Euro."
+          }
         },
         {
           "frage": "Drei Kugeln Eis kosten zusammen 4,50 €. Wie viel kostet eine Kugel?",
@@ -593,7 +710,16 @@
             "1,20 €",
             "1,80 €"
           ],
-          "erklaerung": "4,50 € geteilt durch 3 sind 1,50 €, denn 3 mal 1,50 € sind 4,50 €."
+          "erklaerung": "4,50 € geteilt durch 3 sind 1,50 €, denn 3 mal 1,50 € sind 4,50 €.",
+          "einsteiger": {
+            "frage": "Drei Kugeln Eis kosten zusammen 6 €. Wie viel kostet eine Kugel?",
+            "richtig": "2 €",
+            "falsch": [
+              "3 €",
+              "18 €"
+            ],
+            "erklaerung": "6 € geteilt durch 3 sind 2 €, denn 3 mal 2 € sind 6 €."
+          }
         },
         {
           "frage": "Gibt es Geld auch, ohne dass man es anfassen kann?",
@@ -995,6 +1121,30 @@
         "geschafft": {
           "wer": "talo",
           "text": "Gut geschätzt! Preise sind nicht überall gleich, aber ein Gefühl dafür hilft beim Einkaufen."
+        },
+        "einsteiger": {
+          "dinge": [
+            {
+              "text": "Ein Brötchen",
+              "hinweis": "Etwa 40 Cent bis 1 Euro."
+            },
+            {
+              "text": "Eine Kugel Eis",
+              "hinweis": "Etwa 2 Euro."
+            },
+            {
+              "text": "Eine Kinokarte",
+              "hinweis": "Etwa 8 bis 14 Euro."
+            },
+            {
+              "text": "Ein Fußball",
+              "hinweis": "Etwa 15 bis 40 Euro."
+            },
+            {
+              "text": "Ein Fahrrad",
+              "hinweis": "Etwa 250 bis 800 Euro."
+            }
+          ]
         }
       },
       "minispiel": {
@@ -1076,6 +1226,67 @@
         "geschafft": {
           "wer": "tala",
           "text": "Alles gekauft, und es ist sogar Geld übrig! Vergleichen lohnt sich."
+        },
+        "einsteiger": {
+          "beschreibung": "Mit 12 € alles auf der Einkaufsliste kaufen. Wer die Preise an den Ständen vergleicht, kommt mit dem Geld aus.",
+          "aufgabe": "Die Crew macht ein Picknick. Kaufe alles auf Talas Liste. Du hast 12 €. Vergleiche die Preise an den Ständen!",
+          "geld": 1200,
+          "staende": [
+            {
+              "wer": "haendler",
+              "name": "Hafenladen",
+              "angebote": [
+                {
+                  "ding": "Brötchen",
+                  "preis": 200
+                },
+                {
+                  "ding": "Tüte Äpfel",
+                  "preis": 300
+                },
+                {
+                  "ding": "Flasche Saft",
+                  "preis": 200
+                },
+                {
+                  "ding": "Bonbons",
+                  "preis": 100
+                }
+              ]
+            },
+            {
+              "wer": "verkaeuferin",
+              "name": "Fischbrötchen-Stand",
+              "angebote": [
+                {
+                  "ding": "Brötchen",
+                  "preis": 100
+                },
+                {
+                  "ding": "Flasche Saft",
+                  "preis": 300
+                },
+                {
+                  "ding": "Fischbrötchen",
+                  "preis": 300
+                }
+              ]
+            },
+            {
+              "wer": "bootsbauer",
+              "name": "Obststand",
+              "angebote": [
+                {
+                  "ding": "Tüte Äpfel",
+                  "preis": 200
+                },
+                {
+                  "ding": "Flasche Saft",
+                  "preis": 300
+                }
+              ]
+            }
+          ]
         }
       },
       "abschluss": {
@@ -1206,7 +1417,16 @@
             "45 €"
           ],
           "erklaerung": "Die Cent stehen mit zwei Stellen hinter dem Komma: 4,05 €.",
-          "station": 4
+          "station": 4,
+          "einsteiger": {
+            "frage": "Wie viele Cent sind 4 Euro?",
+            "richtig": "400 Cent",
+            "falsch": [
+              "40 Cent",
+              "4 Cent"
+            ],
+            "erklaerung": "1 Euro sind 100 Cent, 4 Euro also 400 Cent."
+          }
         },
         {
           "frage": "Warum haben sich Münzen gegenüber Muscheln und Salz durchgesetzt?",
@@ -1246,7 +1466,16 @@
             "2.040 Cent"
           ],
           "erklaerung": "2 Euro sind 200 Cent, dazu 40 Cent: zusammen 240 Cent.",
-          "station": 4
+          "station": 4,
+          "einsteiger": {
+            "frage": "Wie viele 1-Euro-Münzen sind so viel wert wie ein 5-Euro-Schein?",
+            "richtig": "5",
+            "falsch": [
+              "1",
+              "10"
+            ],
+            "erklaerung": "Ein 5-Euro-Schein ist 5 Euro wert, also so viel wie fünf 1-Euro-Münzen."
+          }
         },
         {
           "frage": "Wie viele verschiedene Euro-Münzen gibt es?",
@@ -1266,7 +1495,16 @@
             "7,60 €"
           ],
           "erklaerung": "20 € minus 12,60 € sind 7,40 €. Probe: 12,60 € plus 7,40 € sind 20 €.",
-          "station": 4
+          "station": 4,
+          "einsteiger": {
+            "frage": "Ein Fahrradschloss kostet 13 €. Du zahlst mit einem 20-Euro-Schein. Wie viel bekommst du zurück?",
+            "richtig": "7 €",
+            "falsch": [
+              "8 €",
+              "33 €"
+            ],
+            "erklaerung": "20 € minus 13 € sind 7 €. Probe: 13 € plus 7 € sind 20 €."
+          }
         },
         {
           "frage": "Wie legst du 3,50 Euro mit möglichst wenigen Münzen?",
@@ -1276,7 +1514,16 @@
             "Drei 1-Euro-Münzen und fünf 10-Cent-Münzen"
           ],
           "erklaerung": "Große Münzen zuerst nehmen, dann braucht man am wenigsten.",
-          "station": 4
+          "station": 4,
+          "einsteiger": {
+            "frage": "Wie legst du 8 Euro mit möglichst wenigen Münzen und Scheinen?",
+            "richtig": "Ein 5-Euro-Schein, 2 Euro und 1 Euro",
+            "falsch": [
+              "Acht 1-Euro-Münzen",
+              "Vier 2-Euro-Münzen"
+            ],
+            "erklaerung": "Große Scheine und Münzen zuerst nehmen, dann braucht man am wenigsten: 5 Euro plus 2 Euro plus 1 Euro."
+          }
         },
         {
           "frage": "Du bezahlst 2 Euro für etwas, das 1,20 Euro kostet. Wie viel Wechselgeld bekommst du?",
@@ -1286,7 +1533,16 @@
             "20 Cent"
           ],
           "erklaerung": "2 Euro minus 1,20 Euro sind 80 Cent.",
-          "station": 4
+          "station": 4,
+          "einsteiger": {
+            "frage": "Du bezahlst mit einer 1-Euro-Münze für etwas, das 40 Cent kostet. Wie viel Wechselgeld bekommst du?",
+            "richtig": "60 Cent",
+            "falsch": [
+              "40 Cent",
+              "1 Euro"
+            ],
+            "erklaerung": "1 Euro sind 100 Cent. 100 Cent minus 40 Cent sind 60 Cent."
+          }
         },
         {
           "frage": "Woher bekommen die meisten Erwachsenen ihr Geld?",
@@ -1423,7 +1679,26 @@
           "2,53 Euro",
           "5,30 Euro"
         ],
-        "erklaerung": "2 Euro plus 50 Cent plus 30 Cent sind 2,80 Euro. Mit heutigen Münzen geht das zum Beispiel so: eine 2-Euro-Münze, eine 50-Cent-Münze, eine 20-Cent-Münze und eine 10-Cent-Münze."
+        "erklaerung": "2 Euro plus 50 Cent plus 30 Cent sind 2,80 Euro. Mit heutigen Münzen geht das zum Beispiel so: eine 2-Euro-Münze, eine 50-Cent-Münze, eine 20-Cent-Münze und eine 10-Cent-Münze.",
+        "einsteiger": {
+          "szene": [
+            {
+              "wer": "tala",
+              "text": "Eine Truhe voller Münzen! Wie viel ist das wohl in heutigem Geld?"
+            },
+            {
+              "wer": "talo",
+              "text": "Umgerechnet liegen darin zwei 2-Euro-Münzen und drei 1-Euro-Münzen."
+            }
+          ],
+          "frage": "Wie viel Geld ist in der Truhe?",
+          "richtig": "7 Euro",
+          "falsch": [
+            "5 Euro",
+            "4 Euro"
+          ],
+          "erklaerung": "Zwei mal 2 Euro sind 4 Euro, dazu drei mal 1 Euro: zusammen 7 Euro."
+        }
       }
     },
     {

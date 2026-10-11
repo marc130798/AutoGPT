@@ -41,5 +41,14 @@ String formatCents(int cents) {
   return '${negative ? '-' : ''}$grouped,$rest €';
 }
 
+/// Betrag ohne Komma für Einsteiger: 300 → „3 €“, 80 → „80 ct“,
+/// 120 → „1 € 20 ct“ (zum Beispiel, während Münzen gelegt werden).
+String formatWholeCents(int cents) {
+  final euros = cents ~/ 100, rest = cents % 100;
+  if (rest == 0) return '$euros\u00A0€';
+  if (euros == 0) return '$rest\u00A0ct';
+  return '$euros\u00A0€ $rest\u00A0ct';
+}
+
 /// Cent als Eingabetext für Formulare: 250 → „2,50“.
 String centsToInput(int cents) => '${cents ~/ 100},${(cents % 100).toString().padLeft(2, '0')}';

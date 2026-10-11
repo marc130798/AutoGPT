@@ -115,6 +115,7 @@ class FakeContent implements ContentRepository {
               answers: q.answers,
               correctIndex: 0,
               explanation: q.explanation,
+              beginner: _beginner(q),
             ),
         ];
       }
@@ -130,6 +131,7 @@ class FakeContent implements ContentRepository {
               correctIndex: 0,
               explanation: q.explanation,
               coversStation: q.station,
+              beginner: _beginner(q),
             ),
         ];
       }
@@ -152,12 +154,16 @@ class FakeContent implements ContentRepository {
   List<QuizQuestion> get allQuestions => questions.values.expand((q) => q).toList();
 
   /// Richtige Antwort zu einem Fragetext (für Tests, die richtig antworten).
-  String rightAnswerFor(String questionText) =>
-      questions.values.expand((q) => q).firstWhere((q) => q.question == questionText).answers.first;
+  String rightAnswerFor(String questionText) => _byText(questionText).answers.first;
 
   /// Eine falsche Antwort zu einem Fragetext.
-  String wrongAnswerFor(String questionText) =>
-      questions.values.expand((q) => q).firstWhere((q) => q.question == questionText).answers.last;
+  String wrongAnswerFor(String questionText) => _byText(questionText).answers.last;
+
+  /// Frage nach ihrem Text, auch als Zwillingsfrage für Einsteiger.
+  QuizQuestion _byText(String questionText) => questions.values
+      .expand((q) => q)
+      .expand((q) => [q, q.forLevel(LevelSetting.beginner)])
+      .firstWhere((q) => q.question == questionText);
 
   MapIsland island(String slug) => mapIslands.firstWhere((i) => i.slug == slug);
 
@@ -507,4 +513,10 @@ class FakeProgress implements ProgressRepository {
     seen.addAll(ids);
     due.addAll(ids);
   }
+}
+
+/// Zwillingsfrage für Einsteiger wie in quiz_questions.beginner.
+({String question, List<String> answers, String? explanation})? _beginner(files.Question q) {
+  final easy = q.beginner;
+  return easy == null ? null : (question: easy.question, answers: easy.answers, explanation: easy.explanation);
 }

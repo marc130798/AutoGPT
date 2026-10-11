@@ -124,7 +124,7 @@ class _StationScreenState extends State<StationScreen> {
           ),
           StationStep.lesson => DialogSequence(lines: content.lesson, onDone: controller.next, stage: true),
           StationStep.game => GameStepView(
-            game: content.game!,
+            game: content.game!.forLevel(controller.child.level),
             onDone: controller.next,
             onWish: AppScope.of(context).budget == null ? null : controller.createWishBottle,
             placeholder: _GamePlaceholder(game: content.game!, onContinue: controller.next),
@@ -513,7 +513,7 @@ class _WreckView extends StatelessWidget {
     final theme = Theme.of(context);
     final palette = context.palette;
     final EncounterRun run = controller.wreck!;
-    final task = controller.content.dive!.wreck!;
+    final task = controller.content.dive!.wreck!.forLevel(controller.child.level);
     final q = run.current;
     final chosen = run.chosen;
 

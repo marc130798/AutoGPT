@@ -30,6 +30,9 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
   late final List<int> _years;
   int? _birthYear;
   late LevelSetting _level;
+
+  /// Hat der Elternteil die Stufe selbst gewählt? Sonst folgt sie dem Alter.
+  bool _levelChosen = false;
   bool _busy = false;
 
   @override
@@ -103,7 +106,14 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                   border: const OutlineInputBorder(),
                 ),
                 items: [for (final year in _years) DropdownMenuItem(value: year, child: Text('$year'))],
-                onChanged: (year) => setState(() => _birthYear = year),
+                onChanged: (year) => setState(() {
+                  _birthYear = year;
+                  // Neues Kind: Ab 10 Jahren mit Komma rechnen, bis der Elternteil selbst wählt.
+                  if (widget.child == null && !_levelChosen && year != null) {
+                    final age = (widget.now ?? DateTime.now()).year - year;
+                    _level = age >= 10 ? LevelSetting.advanced : LevelSetting.beginner;
+                  }
+                }),
                 validator: (year) => year == null ? l10n.birthYearMissing : null,
               ),
               const SizedBox(height: 24),
@@ -114,8 +124,13 @@ class _ChildFormScreenState extends State<ChildFormScreen> {
                   for (final level in LevelSetting.values) ButtonSegment(value: level, label: Text(l10n.level(level))),
                 ],
                 selected: {_level},
-                onSelectionChanged: (selection) => setState(() => _level = selection.first),
+                onSelectionChanged: (selection) => setState(() {
+                  _level = selection.first;
+                  _levelChosen = true;
+                }),
               ),
+              const SizedBox(height: 8),
+              Text(l10n.levelHint, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 32),
               FilledButton(
                 onPressed: _busy ? null : _submit,

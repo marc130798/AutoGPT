@@ -82,6 +82,7 @@ class EncounterController extends ChangeNotifier {
     required this._progress,
     required this.childId,
     required this.offer,
+    this.level = LevelSetting.advanced,
     Random? random,
   }) : _random = random ?? Random();
 
@@ -90,6 +91,9 @@ class EncounterController extends ChangeNotifier {
   final Random _random;
   final String childId;
   final EncounterOffer offer;
+
+  /// Einsteiger bekommen die Fragen mit ganzen Zahlen.
+  final LevelSetting level;
 
   EncounterStep _step = EncounterStep.loading;
   EncounterRun? _run;
@@ -110,7 +114,7 @@ class EncounterController extends ChangeNotifier {
       if (questions.length != offer.questionIds.length || questions.isEmpty) {
         throw const AppFailure(FailureKind.unknown, 'Fragen der Begegnung fehlen');
       }
-      _run = EncounterRun(questions, _random);
+      _run = EncounterRun([for (final q in questions) q.forLevel(level)], _random);
       _go(offer.openingScene.isEmpty ? EncounterStep.question : EncounterStep.intro);
     } on AppFailure catch (e) {
       _failure = e.kind;

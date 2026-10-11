@@ -74,8 +74,14 @@ void main() {
   /// Münzen legen: liest den Zielbetrag ab und legt ihn mit den größten Münzen zuerst.
   Future<void> solveCoins(WidgetTester tester) async {
     while (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) {
+      // „Gelegt: … von 3,50 €“, bei Einsteigern „von 8 €“ oder „von 80 ct“.
       final sum = tester.widget<Text>(find.byKey(const ValueKey('coins-sum'))).data!;
-      final target = int.parse(RegExp(r'von (\d+),(\d\d)').firstMatch(sum)!.groups([1, 2]).join());
+      final goal = sum.substring(sum.indexOf('von ') + 4).replaceAll('\u00A0', ' ');
+      final comma = RegExp(r'^(\d+),(\d\d)').firstMatch(goal);
+      final euros = RegExp(r'(\d+) €').firstMatch(goal), cents = RegExp(r'(\d+) ct').firstMatch(goal);
+      final target = comma != null
+          ? int.parse(comma.group(1)!) * 100 + int.parse(comma.group(2)!)
+          : int.parse(euros?.group(1) ?? '0') * 100 + int.parse(cents?.group(1) ?? '0');
       var rest = target;
       for (final v in [2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1]) {
         while (rest >= v) {
@@ -266,11 +272,8 @@ void main() {
     for (var i = 0; i < 10; i++) {
       final question = tester.widget<Text>(find.byKey(const ValueKey('quiz-question'))).data!;
       final right = content.rightAnswerFor(question);
-      final wrong = content.questions.values
-          .expand((q) => q)
-          .firstWhere((q) => q.question == question)
-          .answers
-          .firstWhere((a) => a != right);
+      final wrong = content.wrongAnswerFor(question);
+      expect(wrong, isNot(right));
       await tapText(tester, wrong);
       expect(find.text('Nicht ganz.'), findsOneWidget);
       await tapText(tester, i == 9 ? 'Fertig' : 'Nächste Frage');

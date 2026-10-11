@@ -5,6 +5,7 @@ import 'package:taleria/core/app_scope.dart';
 import 'package:taleria/core/theme/taleria_theme.dart';
 import 'package:taleria/domain/budget_models.dart';
 import 'package:taleria/domain/content_models.dart';
+import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/domain/money.dart';
 import 'package:taleria/features/station/dive_header.dart';
 import 'package:taleria/features/station/game_views.dart';
@@ -225,6 +226,21 @@ void main() {
     expect(find.textContaining('genau das richtige Wechselgeld'), findsOneWidget);
     await tapKey(tester, 'game-done');
     expect(done, isTrue);
+  });
+
+  testWidgets('Kasse für Einsteiger: ganze Euro ohne Komma', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('hafen', 4).content.miniGame!.forLevel(LevelSetting.beginner);
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+    expect(find.textContaining('Das macht 3 €. Ich gebe dir 5 €.'), findsOneWidget);
+    await tapKey(tester, 'coin-100');
+    await tapKey(tester, 'till-give');
+    expect(find.text('Da fehlen noch 1 €.'), findsOneWidget);
+    await tapKey(tester, 'coin-100');
+    await tapKey(tester, 'till-give');
+    expect(find.text('Stimmt genau, danke!'), findsOneWidget);
   });
 
   testWidgets('Markt-Einkauf (Hafen 7): nicht auf der Liste, Geld reicht nicht, zurücklegen, vergleichen', (

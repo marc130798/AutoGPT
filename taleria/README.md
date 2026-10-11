@@ -10,6 +10,8 @@ Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
   Eisstand (Tauschinsel 4)
 - Auf der Insel tragen diese Stationen ein Spiel-Zeichen; die anderen Tipp-Aufgaben heißen „Übung“
 - Startseite: Kachel „Spiele“, dort kann man geschaffte Spiele nochmal spielen (ohne Seemeilen)
+- Die Spiele sind ein Bonus am Ende der Station, die kurze Übung davor bleibt Pflicht
+- Einsteiger (im Leuchtturm einstellbar) rechnen nur mit ganzen Zahlen, Fortgeschrittene auch mit Komma
 
 ## Was es seit den neuen Mini-Spielen gibt
 

@@ -154,7 +154,11 @@ class GameReplayScreen extends StatelessWidget {
         assetKey: AssetKeys.islandBackground(entry.island.slug),
         child: SafeArea(
           child: StagePanel(
-            child: RealGameFlow(game: entry.game, replay: true, onDone: () => Navigator.of(context).pop()),
+            child: RealGameFlow(
+              game: entry.game.forLevel(level),
+              replay: true,
+              onDone: () => Navigator.of(context).pop(),
+            ),
           ),
         ),
       ),

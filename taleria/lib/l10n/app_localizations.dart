@@ -4056,6 +4056,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Jetzt spielen'**
   String get bonusGamePlay;
+
+  /// Leuchtturm, Kinder-Profil: was Einsteiger und Fortgeschritten bedeuten
+  ///
+  /// In de, this message translates to:
+  /// **'Einsteiger rechnen nur mit ganzen Zahlen (3 €, 80 Cent). Fortgeschrittene rechnen auch mit Komma (3,50 €). Unsere Empfehlung: ab 10 Jahren Fortgeschritten. Du kannst es jederzeit ändern.'**
+  String get levelHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -162,7 +162,16 @@
             "6,50 €",
             "7 €"
           ],
-          "erklaerung": "3 mal 2 € sind 6 €, dazu 3 mal 50 Cent, also 1,50 €: zusammen 7,50 €."
+          "erklaerung": "3 mal 2 € sind 6 €, dazu 3 mal 50 Cent, also 1,50 €: zusammen 7,50 €.",
+          "einsteiger": {
+            "frage": "Ein Fisch kostet 3 €. Wie viel kosten 4 Fische?",
+            "richtig": "12 €",
+            "falsch": [
+              "7 €",
+              "10 €"
+            ],
+            "erklaerung": "4 mal 3 € sind 12 €."
+          }
         },
         {
           "frage": "Wie viele Cent sind 3,05 €?",
@@ -171,7 +180,16 @@
             "35 Cent",
             "350 Cent"
           ],
-          "erklaerung": "3 Euro sind 300 Cent, dazu 5 Cent: zusammen 305 Cent."
+          "erklaerung": "3 Euro sind 300 Cent, dazu 5 Cent: zusammen 305 Cent.",
+          "einsteiger": {
+            "frage": "Wie viele 50-Cent-Münzen sind zusammen 2 Euro?",
+            "richtig": "4",
+            "falsch": [
+              "2",
+              "20"
+            ],
+            "erklaerung": "Zwei 50-Cent-Münzen sind 1 Euro. Für 2 Euro braucht man also vier."
+          }
         },
         {
           "frage": "Ein Fisch kostet 3,40 €. Jemand zahlt mit einem 5-Euro-Schein. Wie viel Wechselgeld bekommt er?",
@@ -180,7 +198,16 @@
             "2,60 €",
             "1,40 €"
           ],
-          "erklaerung": "5 € minus 3,40 € sind 1,60 €. Probe: 3,40 € plus 1,60 € sind 5 €."
+          "erklaerung": "5 € minus 3,40 € sind 1,60 €. Probe: 3,40 € plus 1,60 € sind 5 €.",
+          "einsteiger": {
+            "frage": "Ein Fisch kostet 6 €. Jemand zahlt mit einem 10-Euro-Schein. Wie viel Wechselgeld bekommt er?",
+            "richtig": "4 €",
+            "falsch": [
+              "3 €",
+              "16 €"
+            ],
+            "erklaerung": "10 € minus 6 € sind 4 €. Probe: 6 € plus 4 € sind 10 €."
+          }
         },
         {
           "frage": "Welche Münzen ergeben zusammen genau 1,70 €?",
@@ -189,7 +216,16 @@
             "1 Euro und 50 Cent",
             "Zwei 50-Cent-Münzen und 20 Cent"
           ],
-          "erklaerung": "1 Euro plus 50 Cent plus 20 Cent sind 1,70 €."
+          "erklaerung": "1 Euro plus 50 Cent plus 20 Cent sind 1,70 €.",
+          "einsteiger": {
+            "frage": "Welche Münzen ergeben zusammen genau 5 €?",
+            "richtig": "2 Euro, 2 Euro und 1 Euro",
+            "falsch": [
+              "2 Euro und 2 Euro",
+              "Zwei 1-Euro-Münzen und 2 Euro"
+            ],
+            "erklaerung": "2 Euro plus 2 Euro plus 1 Euro sind 5 €."
+          }
         },
         {
           "frage": "Was ist mehr wert: ein 5-Euro-Schein oder acht 50-Cent-Münzen?",

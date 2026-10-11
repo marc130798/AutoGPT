@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
-import '../../domain/money.dart';
 import '../../domain/real_games.dart';
 import '../../l10n/app_localizations.dart';
 import 'figure_head.dart';
@@ -55,8 +54,8 @@ class _MarketGameViewState extends State<MarketGameView> {
     if (game.finished) {
       final more = game.spent - game.cheapestTotal;
       feedback = more <= 0
-          ? l10n.marketBest(formatCents(game.left))
-          : l10n.marketCouldSave(formatCents(game.left), formatCents(more));
+          ? l10n.marketBest(widget.game.money(game.left))
+          : l10n.marketCouldSave(widget.game.money(game.left), widget.game.money(more));
       feedbackColor = palette.success;
     } else if (game.stuck) {
       feedback = l10n.marketStuck;
@@ -94,7 +93,7 @@ class _MarketGameViewState extends State<MarketGameView> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        l10n.marketMoneyLeft(formatCents(game.left)),
+                        l10n.marketMoneyLeft(widget.game.money(game.left)),
                         key: const ValueKey('market-left'),
                         style: theme.textTheme.titleMedium,
                       ),
@@ -180,7 +179,10 @@ class _MarketGameViewState extends State<MarketGameView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(offer.item, style: theme.textTheme.titleSmall),
-                              Text(l10n.marketPerPiece(formatCents(offer.price)), style: theme.textTheme.bodySmall),
+                              Text(
+                                l10n.marketPerPiece(widget.game.money(offer.price)),
+                                style: theme.textTheme.bodySmall,
+                              ),
                             ],
                           ),
                         ),
@@ -219,7 +221,11 @@ class _MarketGameViewState extends State<MarketGameView> {
           if (bought != null)
             Flexible(
               child: Text(
-                l10n.marketBoughtLine(need.count, formatCents(bought.price), formatCents(bought.price * need.count)),
+                l10n.marketBoughtLine(
+                  need.count,
+                  widget.game.money(bought.price),
+                  widget.game.money(bought.price * need.count),
+                ),
                 textAlign: TextAlign.end,
                 style: theme.textTheme.bodySmall,
               ),

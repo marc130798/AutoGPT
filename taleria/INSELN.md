@@ -38,6 +38,8 @@ Entschieden mit Marc am 11.10.2026: Stufe 1 ist für Kinder von 8 bis 12 Jahren 
 - **Nicht überfordern:** Kurze Sätze, höchstens etwa 15 Wörter. Ein neues Wort wird beim ersten Mal erklärt. Keine Prozentrechnung mit krummen Zahlen; Prozent nur als „10 von 100“ oder „ein Zehntel“.
 - **Schwere Themen** (Zinsen, Inflation, Schulden, Risiko, Investieren) immer an einer kleinen Geschichte aus dem Alltag erklären: Taschengeld, Sparschwein, Fahrrad, Fußballkarten, Klassenfahrt. Keine Fachbegriffe ohne Beispiel.
 - **Ton:** freundlich, nicht babyhaft. Ein 12-Jähriger soll sich ernst genommen fühlen.
+- **Einsteiger und Fortgeschrittene (11.10.2026):** Im Leuchtturm stellen die Eltern pro Kind „Einsteiger“ (nur ganze Zahlen: 3 €, 80 Cent) oder „Fortgeschritten“ (auch mit Komma: 3,50 €) ein; neue Kinder ab 10 Jahren starten mit „Fortgeschritten“. Jede Frage, jede Wrack-Aufgabe und jedes Spiel mit einer Kommazahl braucht deshalb in der Inhaltsdatei eine Fassung `"einsteiger"` mit ganzen Zahlen: bei Fragen `frage`, `richtig`, `falsch`, `erklaerung` (gleich viele Antworten), bei Spielen die Felder, die sich ändern (zum Beispiel `runden`, `kunden`, `preistafel`, `geld`, `staende`). Das Prüfwerkzeug meldet fehlende Fassungen. Die Erklärungen der Stationen bleiben für alle gleich, auch das Lesen von Preisen mit Komma.
+- **Mini-Spiele sind ein Bonus (11.10.2026):** Jede Station hat ihre kurze Übung (`spiel`, Pflicht). Ein echtes Mini-Spiel steht unter `minispiel` und kommt am Ende der Station als Bonus; man muss es nicht spielen, um weiterzukommen.
 
 ## Quiz-Regeln (gelten für alle Inseln)
 

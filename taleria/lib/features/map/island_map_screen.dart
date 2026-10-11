@@ -239,8 +239,16 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       _hint(AppLocalizations.of(context).mapEncounterNone);
       return;
     }
-    await Navigator.of(context)
-        .push(fogRoute<void>(EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm)));
+    await Navigator.of(context).push(
+      fogRoute<void>(
+        EncounterScreen(
+          childId: widget.child.id,
+          offer: offer,
+          rankForm: widget.child.rankForm,
+          level: widget.child.level,
+        ),
+      ),
+    );
     await _controller!.load();
   }
 
@@ -257,7 +265,14 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
         return;
       }
       await navigator.push(
-        fogRoute<void>(EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm)),
+        fogRoute<void>(
+          EncounterScreen(
+            childId: widget.child.id,
+            offer: offer,
+            rankForm: widget.child.rankForm,
+            level: widget.child.level,
+          ),
+        ),
       );
       await controller.load();
     } on AppFailure catch (e) {

@@ -20,12 +20,21 @@ import '../station/station_stage.dart';
 /// erklärt, und das Kind versucht es gleich noch einmal. Gibt beim Schließen
 /// das Ergebnis zurück (oder `null`, wenn das Kind vorher abbricht).
 class EncounterScreen extends StatefulWidget {
-  const EncounterScreen({super.key, required this.childId, required this.offer, this.rankForm});
+  const EncounterScreen({
+    super.key,
+    required this.childId,
+    required this.offer,
+    this.rankForm,
+    this.level = LevelSetting.advanced,
+  });
 
   final String childId;
 
   /// Für den Namen eines neuen Rangs (Schiffsjunge … oder Schiffsmädchen …).
   final RankForm? rankForm;
+
+  /// Einsteiger bekommen die Fragen mit ganzen Zahlen.
+  final LevelSetting level;
   final EncounterOffer offer;
 
   @override
@@ -45,6 +54,7 @@ class _EncounterScreenState extends State<EncounterScreen> {
         progress: services.progress!,
         childId: widget.childId,
         offer: widget.offer,
+        level: widget.level,
         random: services.random,
       )..start();
     }

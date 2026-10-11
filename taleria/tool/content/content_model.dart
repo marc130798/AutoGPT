@@ -47,12 +47,35 @@ class Line {
 }
 
 class Question {
-  Question({required this.question, required this.right, required this.wrong, required this.explanation, this.station});
+  Question({
+    required this.question,
+    required this.right,
+    required this.wrong,
+    required this.explanation,
+    this.station,
+    this.beginner,
+  });
 
   final String question;
   final String right;
   final List<String> wrong;
   final String explanation;
+
+  /// Fassung für Einsteiger mit ganzen Zahlen (`"einsteiger"`), nötig bei Beträgen mit Komma.
+  final Question? beginner;
+
+  /// Für quiz_questions.beginner und Wrack-Aufgaben: wie die Datenbank sie speichert.
+  Map<String, dynamic>? get beginnerDb => beginner == null
+      ? null
+      : {
+          'question': beginner!.question,
+          'answers': beginner!.answers,
+          'correct_index': 0,
+          'explanation': beginner!.explanation,
+        };
+
+  /// Alle Texte der Frage (zum Prüfen auf Kommazahlen).
+  String get allText => [question, ...answers, explanation].join(' ');
 
   /// Bei Prüfungsfragen: zu welcher Station die Frage gehört.
   final int? station;
@@ -154,6 +177,7 @@ const coinValues = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000];
 /// Spiel-Daten für stations.content.game (englische Schlüssel).
 Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
   final type = g['art'];
+  final easy = beginnerGame(g);
   Map<String, dynamic>? line(Object? raw) =>
       raw is Map<String, dynamic> ? {'speaker': raw['wer'], 'text': raw['text'], 'name': ?raw['name']} : null;
   List<Map<String, dynamic>> lines(Object? raw) => [for (final l in (raw as List?) ?? const []) line(l)!];
@@ -257,8 +281,46 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
         'dead_end': ?line(g['sackgasse']),
       },
       'done': ?line(g['geschafft']),
+      if (easy != null) 'beginner': gameToDb(easy),
     },
   };
+}
+
+/// Spiel für Einsteiger: die Felder aus `"einsteiger"` ersetzen die normalen.
+Map<String, dynamic>? beginnerGame(Map<String, dynamic> g) {
+  final easy = g['einsteiger'];
+  if (easy is! Map<String, dynamic>) return null;
+  return {...g, ...easy}..remove('einsteiger');
+}
+
+/// Betrag mit Komma im Text, zum Beispiel 3,50 €.
+final commaNumber = RegExp(r'\d,\d');
+
+/// Ganze Zahl für Einsteiger: ganze Euro oder nur Cent (unter 1 Euro).
+bool wholeCents(Object? cents) => cents is int && (cents < 100 || cents % 100 == 0);
+
+/// Beträge in Cent in einem Spiel (Münzen legen, Kasse, Markt).
+List<Object?> gameAmounts(Map<String, dynamic> g) {
+  List<Map<String, dynamic>> list(Object? raw) => ((raw as List?) ?? const []).cast<Map<String, dynamic>>();
+  return switch (g['art']) {
+    'coins' => [for (final r in list(g['runden'])) r['betrag']],
+    'till' => [
+      for (final k in list(g['kunden'])) ...[k['preis'], k['bezahlt']],
+      for (final d in list(g['preistafel'])) d['preis'],
+    ],
+    'market' => [
+      g['geld'],
+      for (final st in list(g['staende']))
+        for (final o in list(st['angebote'])) o['preis'],
+    ],
+    _ => const [],
+  };
+}
+
+/// Braucht das Spiel eine Fassung mit ganzen Zahlen (Komma im Text oder Cent-Beträge)?
+bool gameNeedsBeginner(Map<String, dynamic> g) {
+  final plain = {...g}..remove('einsteiger');
+  return commaNumber.hasMatch(jsonEncode(plain)) || !gameAmounts(plain).every(wholeCents);
 }
 
 /// Spielarten der Tauchgänge (INSELN.md). Bis eine Spielart gebaut ist, zeigt
@@ -279,6 +341,7 @@ class Dive {
     required this.questions,
     required this.find,
     required this.wreckScene,
+    this.wreckSceneBeginner,
     required this.wreckQuestion,
     this.findImage = 'collectible.wreck_item',
   });
@@ -295,6 +358,9 @@ class Dive {
   /// Bild des Funds (`fund_bild`), ohne Angabe das allgemeine Fundstück.
   final String findImage;
   final List<Line> wreckScene;
+
+  /// Szene der Einsteiger-Fassung, sonst dieselbe wie [wreckScene].
+  final List<Line>? wreckSceneBeginner;
   final Question wreckQuestion;
 
   Map<String, dynamic> toDbContent(int number) => {
@@ -310,6 +376,8 @@ class Dive {
         'answers': wreckQuestion.answers,
         'correct_index': 0,
         'explanation': wreckQuestion.explanation,
+        if (wreckQuestion.beginnerDb case final easy?)
+          'beginner': {'scene': [for (final l in wreckSceneBeginner ?? wreckScene) l.toDb()], ...easy},
       },
     },
   };
@@ -470,15 +538,23 @@ Island parseIsland(String file, String source) {
       ),
   ];
 
+  Question question(Map<String, dynamic> q, String where) {
+    final easy = q['einsteiger'];
+    return Question(
+      question: text(q, 'frage', where),
+      right: text(q, 'richtig', where),
+      wrong: [for (final w in (q['falsch'] as List? ?? const [])) w as String],
+      explanation: text(q, 'erklaerung', where),
+      station: q['station'] as int?,
+      beginner: easy is Map<String, dynamic>
+          ? question({...q, ...easy}..remove('einsteiger'), '$where, Einsteiger')
+          : null,
+    );
+  }
+
   List<Question> questions(Object? raw, String where) => [
     for (final (i, q) in ((raw as List?) ?? const []).indexed)
-      Question(
-        question: text(q as Map<String, dynamic>, 'frage', '$where, Frage ${i + 1}'),
-        right: text(q, 'richtig', '$where, Frage ${i + 1}'),
-        wrong: [for (final w in (q['falsch'] as List? ?? const [])) w as String],
-        explanation: text(q, 'erklaerung', '$where, Frage ${i + 1}'),
-        station: q['station'] as int?,
-      ),
+      question(q as Map<String, dynamic>, '$where, Frage ${i + 1}'),
   ];
 
   final karte = json['karte'] as Map<String, dynamic>?;
@@ -565,12 +641,10 @@ Island parseIsland(String file, String source) {
             find: text(d, 'fund', where),
             findImage: d['fund_bild'] as String? ?? 'collectible.wreck_item',
             wreckScene: lines(wrack['szene'], '$where, Wrack'),
-            wreckQuestion: Question(
-              question: text(wrack, 'frage', '$where, Wrack'),
-              right: text(wrack, 'richtig', '$where, Wrack'),
-              wrong: [for (final w in (wrack['falsch'] as List? ?? const [])) w as String],
-              explanation: text(wrack, 'erklaerung', '$where, Wrack'),
-            ),
+            wreckSceneBeginner: (wrack['einsteiger'] as Map<String, dynamic>?)?['szene'] == null
+                ? null
+                : lines((wrack['einsteiger'] as Map<String, dynamic>)['szene'], '$where, Wrack, Einsteiger'),
+            wreckQuestion: question(wrack, '$where, Wrack'),
           );
         }(),
     ],
@@ -583,6 +657,26 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
   final problems = <String>[];
   void check(bool ok, String message) {
     if (!ok) problems.add(message);
+  }
+
+  // Einsteiger rechnen nur mit ganzen Zahlen (Marc, 11.10.2026): Jede Frage
+  // mit Kommazahl braucht eine Zwillingsfrage ohne Komma.
+  void whole(Question q, String w) {
+    final easy = q.beginner;
+    check(!commaNumber.hasMatch(q.allText) || easy != null, '$w: Kommazahl, aber keine Fassung für Einsteiger ("einsteiger")');
+    if (easy == null) return;
+    check(!commaNumber.hasMatch(easy.allText), '$w, Einsteiger: noch eine Kommazahl');
+    check(easy.wrong.length == 2, '$w, Einsteiger: genau 2 falsche Antworten nötig');
+    check(easy.answers.toSet().length == easy.answers.length, '$w, Einsteiger: Antworten doppelt');
+  }
+
+  void wholeGame(Map<String, dynamic>? g, String w) {
+    if (g == null) return;
+    final easy = beginnerGame(g);
+    check(!gameNeedsBeginner(g) || easy != null, '$w: Kommazahl oder Cent-Betrag, aber keine Fassung für Einsteiger');
+    if (easy == null) return;
+    check(!gameNeedsBeginner(easy), '$w, Einsteiger: noch Kommazahlen oder Beträge, die keine ganzen Euro sind');
+    problems.addAll(validateGame(easy, '$w, Einsteiger', knownAssetKeys: knownAssetKeys));
   }
 
   final slugPattern = RegExp(r'^[a-z0-9]+(-[a-z0-9]+)*$');
@@ -665,6 +759,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       for (final (i, q) in s.questions.indexed) {
         final qw = '$sw, Frage ${i + 1}';
         check(q.wrong.length == 2, '$qw: genau 2 falsche Antworten nötig (3 Antworten insgesamt)');
+        whole(q, qw);
         check(q.answers.map((a) => a.trim()).toSet().length == q.answers.length, '$qw: Antworten doppelt');
         check(q.answers.every((a) => a.trim().isNotEmpty), '$qw: leere Antwort');
       }
@@ -677,6 +772,8 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       }
       // Die Übung ist Pflicht, das echte Mini-Spiel ein Bonus danach (Marc, 11.10.2026).
       check(game == null || !realGames.contains(game['art']), '$sw: echte Mini-Spiele gehören unter "minispiel"');
+      wholeGame(game, '$sw, Spiel');
+      wholeGame(s.miniGame, '$sw, Mini-Spiel');
       final mini = s.miniGame;
       if (mini != null) {
         check(realGames.contains(mini['art']), '$sw: "minispiel" muss ein echtes Mini-Spiel sein (${realGames.join(', ')})');
@@ -740,6 +837,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
           .length;
       check(pool >= d.questions, '$dw: zu wenige Fragen in den Stationen davor ($pool)');
       check(d.wreckQuestion.wrong.length == 2, '$dw: Wrack-Aufgabe braucht genau 2 falsche Antworten');
+      whole(d.wreckQuestion, '$dw, Wrack');
       for (final line in d.wreckScene) {
         check(knownAssetKeys.contains('character.${line.speaker}'), '$dw: unbekannte Figur "${line.speaker}"');
       }
@@ -769,6 +867,7 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       }
       for (final (i, q) in st.questions.indexed) {
         check(q.wrong.length == 2, '$sw, Frage ${i + 1}: genau 2 falsche Antworten nötig (3 Antworten insgesamt)');
+        whole(q, '$sw, Frage ${i + 1}');
       }
     }
   }
@@ -1227,16 +1326,17 @@ String buildSeedSql(
         questionIds.add(_id(qname));
         b
           ..writeln(
-            'insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)',
+            'insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)',
           )
           ..writeln(
-            "values (${_id(qname)}, $sid, ${_lit(q.question)}, ${_json(q.answers)}, 0, ${_lit(q.explanation)}, null, $status)",
+            "values (${_id(qname)}, $sid, ${_lit(q.question)}, ${_json(q.answers)}, 0, ${_lit(q.explanation)}, null, $status, "
+            "${q.beginnerDb == null ? 'null' : _json(q.beginnerDb!)})",
           )
           ..writeln('on conflict (id) do update set')
           ..writeln(
             '  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,',
           )
-          ..writeln('  explanation = excluded.explanation, status = excluded.status;');
+          ..writeln('  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;');
       }
       b.writeln();
     }
@@ -1257,18 +1357,21 @@ String buildSeedSql(
         questionIds.add(_id(qname));
         b
           ..writeln(
-            'insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)',
+            'insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)',
           )
           ..writeln(
             'values (${_id(qname)}, $sid, ${_lit(q.question)}, ${_json(q.answers)}, 0, ${_lit(q.explanation)}, '
-            "${q.station ?? 'null'}, $status)",
+            "${q.station ?? 'null'}, $status, ${q.beginnerDb == null ? 'null' : _json(q.beginnerDb!)})",
           )
           ..writeln('on conflict (id) do update set')
           ..writeln(
             '  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,',
           )
           ..writeln(
-            '  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;',
+            '  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,',
+          )
+          ..writeln(
+            '  beginner = excluded.beginner;',
           );
       }
       b.writeln();

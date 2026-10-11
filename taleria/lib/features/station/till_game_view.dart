@@ -5,7 +5,6 @@ import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
-import '../../domain/money.dart';
 import '../../domain/real_games.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
@@ -67,8 +66,8 @@ class _TillGameViewState extends State<TillGameView> {
 
     final (String? feedback, Color? color) = switch (game.check) {
       TillCheck.right => (l10n.tillRight, palette.success),
-      TillCheck.tooMuch => (l10n.tillTooMuch(formatCents(game.difference)), palette.coral),
-      TillCheck.tooLittle => (l10n.tillTooLittle(formatCents(game.difference)), palette.coral),
+      TillCheck.tooMuch => (l10n.tillTooMuch(widget.game.money(game.difference)), palette.coral),
+      TillCheck.tooLittle => (l10n.tillTooLittle(widget.game.money(game.difference)), palette.coral),
       null => (null, null),
     };
 
@@ -86,7 +85,8 @@ class _TillGameViewState extends State<TillGameView> {
           DialogLine(
             speaker: customer.figure,
             name: customer.name,
-            text: '${customer.text} ${l10n.tillPays(formatCents(customer.price), formatCents(customer.paid))}',
+            text:
+                '${customer.text} ${l10n.tillPays(widget.game.money(customer.price), widget.game.money(customer.paid))}',
           ),
           key: ValueKey('till-customer-${game.index}'),
         ),
@@ -94,7 +94,7 @@ class _TillGameViewState extends State<TillGameView> {
           const SizedBox(height: 6),
           // Preistafel klein in einer Zeile, damit die Münzen ohne Scrollen zu sehen sind.
           Text(
-            '${l10n.tillPriceBoard}: ${[for (final item in widget.game.items) '${item.text} ${formatCents(item.price ?? 0)}'].join(' · ')}',
+            '${l10n.tillPriceBoard}: ${[for (final item in widget.game.items) '${item.text} ${widget.game.money(item.price ?? 0)}'].join(' · ')}',
             key: const ValueKey('till-board'),
             textAlign: TextAlign.center,
             style: theme.textTheme.bodySmall,
@@ -108,7 +108,7 @@ class _TillGameViewState extends State<TillGameView> {
             child: Column(
               children: [
                 Text(
-                  l10n.tillTray(formatCents(game.sum)),
+                  l10n.tillTray(widget.game.money(game.sum)),
                   key: const ValueKey('till-sum'),
                   style: theme.textTheme.titleMedium,
                 ),

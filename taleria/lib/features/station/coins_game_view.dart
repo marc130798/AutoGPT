@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
-import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
@@ -78,7 +77,7 @@ class _CoinsGameViewState extends State<CoinsGameView> {
             child: Column(
               children: [
                 Text(
-                  l10n.gameCoinsPlaced(formatCents(game.sum), formatCents(game.target)),
+                  l10n.gameCoinsPlaced(widget.game.money(game.sum), widget.game.money(game.target)),
                   key: const ValueKey('coins-sum'),
                   style: theme.textTheme.titleMedium,
                 ),

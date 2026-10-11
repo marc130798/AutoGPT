@@ -729,4 +729,28 @@ void main() {
       );
     });
   });
+
+  test('Einsteiger: jede Frage und jedes Spiel mit Kommazahl hat eine Fassung mit ganzen Zahlen', () {
+    var twins = 0;
+    for (final island in islands.take(3)) {
+      final questions = [
+        for (final s in island.stations) ...s.questions,
+        for (final st in island.seaStops) ...st.questions,
+        for (final d in island.dives) d.wreckQuestion,
+      ];
+      for (final q in questions) {
+        if (commaNumber.hasMatch(q.allText)) {
+          expect(q.beginner, isNotNull, reason: q.question);
+          expect(commaNumber.hasMatch(q.beginner!.allText), isFalse, reason: q.beginner!.question);
+          twins++;
+        }
+      }
+      for (final s in island.stations) {
+        for (final g in [s.game, s.miniGame].nonNulls) {
+          if (gameNeedsBeginner(g)) expect(gameNeedsBeginner(beginnerGame(g)!), isFalse, reason: '${g['titel']}');
+        }
+      }
+    }
+    expect(twins, 15);
+  });
 }

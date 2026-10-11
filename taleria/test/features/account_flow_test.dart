@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taleria/domain/family_models.dart';
 
 import '../fakes.dart';
 import '../test_helpers.dart';
@@ -75,8 +76,11 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('${DateTime.now().year - 10}').last);
     await tester.pumpAndSettle();
+    // Mit 10 Jahren schlägt die App „Fortgeschritten“ vor (Rechnen mit Komma).
+    expect(find.textContaining('Einsteiger rechnen nur mit ganzen Zahlen'), findsOneWidget);
     await tapText(tester, 'Speichern');
     expect(find.text('Mila'), findsOneWidget);
+    expect(backend.children.single.level, LevelSetting.advanced);
 
     // Code erzeugen
     await tapText(tester, 'Mila');

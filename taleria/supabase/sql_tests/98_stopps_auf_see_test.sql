@@ -80,3 +80,29 @@ select test_helpers.expect_error(
   'stations_type_check', 'Unbekannte Stationstypen bleiben verboten');
 
 do $$ begin raise notice 'ok: Stopps auf See'; end $$;
+
+-- Einsteiger-Fragen (20261011000200): Zwilling mit gleicher Antwortzahl und Stelle.
+-- Alles in einem Block, der am Ende zurückgerollt wird.
+do $$
+declare
+  v_station uuid;
+  v_question uuid;
+begin
+  begin
+    select id into v_station from public.stations limit 1;
+    insert into public.quiz_questions (station_id, question, answers, correct_index, beginner)
+    values (v_station, 'Was kostet es mit Komma?', '["1,50 €", "2,50 €", "3 €"]', 0,
+            '{"question": "Was kostet es ganz?", "answers": ["2 €", "3 €", "4 €"], "correct_index": 0}')
+    returning id into v_question;
+    begin
+      update public.quiz_questions set beginner = '{"question": "Falsch", "answers": ["1 €"], "correct_index": 0}'
+      where id = v_question;
+      raise exception 'Zwilling mit anderer Antwortzahl wurde angenommen';
+    exception when check_violation then null;
+    end;
+    raise exception 'zurueckrollen';
+  exception when others then
+    if sqlerrm <> 'zurueckrollen' then raise; end if;
+  end;
+  raise notice 'ok: Einsteiger-Fragen brauchen gleich viele Antworten';
+end $$;

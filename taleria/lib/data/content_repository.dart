@@ -86,7 +86,8 @@ class SupabaseContentRepository implements ContentRepository {
 
   final sb.SupabaseClient _client;
 
-  static const _questionColumns = 'id, station_id, question, answers, correct_index, explanation, covers_station';
+  static const _questionColumns =
+      'id, station_id, question, answers, correct_index, explanation, covers_station, beginner';
 
   @override
   Future<List<MapIsland>> fetchMap(int stage) => guardBackend(() async {
@@ -184,6 +185,14 @@ class SupabaseContentRepository implements ContentRepository {
     correctIndex: r['correct_index'] as int,
     explanation: r['explanation'] as String?,
     coversStation: r['covers_station'] as int?,
+    beginner: switch (r['beginner']) {
+      final Map<String, dynamic> b => (
+        question: b['question'] as String? ?? '',
+        answers: [for (final a in (b['answers'] as List?) ?? const []) a as String],
+        explanation: b['explanation'] as String?,
+      ),
+      _ => null,
+    },
   );
 }
 

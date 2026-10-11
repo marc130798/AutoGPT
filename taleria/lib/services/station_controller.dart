@@ -209,7 +209,7 @@ class StationController extends ChangeNotifier {
     }
     final wreckTask = content.dive?.wreck;
     if (isDive && wreckTask != null) {
-      _wreck = EncounterRun([wreckTask.asQuestion(station.id)], _random);
+      _wreck = EncounterRun([wreckTask.forLevel(child.level).asQuestion(station.id)], _random);
       _go(StationStep.wreck);
       return;
     }
@@ -276,7 +276,7 @@ class StationController extends ChangeNotifier {
       final pools = [for (final s in stationsBeforeDive(allStations, station)) await _content.fetchQuestions(s.id)];
       picked = pickDiveQuestions(pools, content.dive?.questions ?? 4, _random);
       if (picked.isEmpty) throw const AppFailure(FailureKind.unknown, 'Keine Fragen für den Tauchgang');
-      _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q, _random)]);
+      _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q.forLevel(child.level), _random)]);
       return;
     }
     final pool = await _content.fetchQuestions(station.id);
@@ -297,7 +297,7 @@ class StationController extends ChangeNotifier {
     }
     if (picked.isEmpty) throw const AppFailure(FailureKind.unknown, 'Keine Fragen für diese Station');
     await _settings.setLastQuizSelection(child.id, station.id, {for (final q in picked) q.id});
-    _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q, _random)]);
+    _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q.forLevel(child.level), _random)]);
   }
 
   Future<void> _prepareWarmUp() async {
@@ -307,7 +307,9 @@ class StationController extends ChangeNotifier {
     if (previous == null) return;
     final pool = await _content.fetchQuestions(previous.id);
     if (pool.length < 2) return;
-    _warmUp = QuizRun([for (final q in pickWarmUp(pool, _random)) ShuffledQuestion.shuffle(q, _random)]);
+    _warmUp = QuizRun([
+      for (final q in pickWarmUp(pool, _random)) ShuffledQuestion.shuffle(q.forLevel(child.level), _random),
+    ]);
   }
 
   void _go(StationStep step) {

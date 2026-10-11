@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
+import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Gemeinsamer Rahmen aller Mini-Spiele: Titel, Aufgabe, Inhalt, Knopf unten.
@@ -56,4 +57,9 @@ class GameFrame extends StatelessWidget {
       ],
     );
   }
+}
+
+/// Beträge im Spiel: Einsteiger sehen ganze Zahlen („3 €“, „80 ct“), sonst mit Komma.
+extension GameMoney on GameInfo {
+  String money(int cents) => wholeNumbers ? formatWholeCents(cents) : formatCents(cents);
 }

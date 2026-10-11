@@ -1,6 +1,7 @@
 /// Inhalte und Fortschritt auf der Inselkarte. Ohne Aussehen, ohne Supabase.
 library;
 
+import 'family_models.dart';
 import 'progress_models.dart';
 
 /// Eine Insel auf der Karte (aus map_islands()).
@@ -342,9 +343,15 @@ class GameInfo {
     this.goal,
     this.traders = const [],
     this.deadEnd,
+    this.beginner,
+    this.wholeNumbers = false,
   });
 
-  factory GameInfo.fromJson(Map<String, dynamic> game) => GameInfo(
+  factory GameInfo.fromJson(Map<String, dynamic> game, {bool wholeNumbers = false}) => GameInfo(
+    wholeNumbers: wholeNumbers,
+    beginner: game['beginner'] is Map<String, dynamic>
+        ? GameInfo.fromJson(game['beginner'] as Map<String, dynamic>, wholeNumbers: true)
+        : null,
     type: game['type'] as String? ?? '',
     title: game['title'] as String? ?? '',
     description: game['description'] as String?,
@@ -432,6 +439,15 @@ class GameInfo {
   final List<Trader> traders;
   final DialogLine? deadEnd;
 
+  /// Fassung mit ganzen Zahlen für Einsteiger, falls das Spiel Kommazahlen hat.
+  final GameInfo? beginner;
+
+  /// Beträge ohne Komma anzeigen (Einsteiger): „3 €“, „80 ct“.
+  final bool wholeNumbers;
+
+  /// Das Spiel für ein Kind: Einsteiger bekommen die Fassung mit ganzen Zahlen.
+  GameInfo forLevel(LevelSetting level) => level == LevelSetting.beginner && beginner != null ? beginner! : this;
+
   /// Echtes Mini-Spiel (nicht nur eine Übung)?
   bool get isRealGame => realGames.contains(type);
 
@@ -460,7 +476,24 @@ class WreckTask {
     required this.correctIndex,
     this.scene = const [],
     this.explanation,
+    this.beginner,
   });
+
+  factory WreckTask.fromJson(Map<String, dynamic> wreck) => WreckTask(
+    scene: [for (final l in (wreck['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
+    question: wreck['question'] as String? ?? '',
+    answers: [for (final a in (wreck['answers'] as List?) ?? const []) a as String],
+    correctIndex: wreck['correct_index'] as int? ?? 0,
+    explanation: wreck['explanation'] as String?,
+    beginner: wreck['beginner'] is Map<String, dynamic>
+        ? WreckTask.fromJson(wreck['beginner'] as Map<String, dynamic>)
+        : null,
+  );
+
+  /// Fassung mit ganzen Zahlen für Einsteiger.
+  final WreckTask? beginner;
+
+  WreckTask forLevel(LevelSetting level) => level == LevelSetting.beginner && beginner != null ? beginner! : this;
 
   final List<DialogLine> scene;
   final String question;
@@ -573,15 +606,7 @@ class StationContent {
           : DiveInfo(
               game: dive['game'] as String? ?? 'pearls',
               questions: dive['questions'] as int? ?? 4,
-              wreck: wreck == null
-                  ? null
-                  : WreckTask(
-                      scene: lines(wreck['scene']),
-                      question: wreck['question'] as String? ?? '',
-                      answers: [for (final a in (wreck['answers'] as List?) ?? const []) a as String],
-                      correctIndex: wreck['correct_index'] as int? ?? 0,
-                      explanation: wreck['explanation'] as String?,
-                    ),
+              wreck: wreck == null ? null : WreckTask.fromJson(wreck),
             ),
     );
   }
@@ -681,7 +706,28 @@ class QuizQuestion {
     required this.correctIndex,
     this.explanation,
     this.coversStation,
+    this.beginner,
   });
+
+  /// Zwillingsfrage mit ganzen Zahlen für Einsteiger (quiz_questions.beginner):
+  /// Frage, Antworten (gleiche Anzahl, richtige an derselben Stelle) und Erklärung.
+  final ({String question, List<String> answers, String? explanation})? beginner;
+
+  /// Die Frage für ein Kind: Einsteiger bekommen den Zwilling ohne Komma.
+  /// Gleiche Kennung und gleiche richtige Stelle, damit die Auswertung gleich bleibt.
+  QuizQuestion forLevel(LevelSetting level) {
+    final easy = beginner;
+    if (level != LevelSetting.beginner || easy == null || easy.answers.length != answers.length) return this;
+    return QuizQuestion(
+      id: id,
+      stationId: stationId,
+      question: easy.question,
+      answers: easy.answers,
+      correctIndex: correctIndex,
+      explanation: easy.explanation,
+      coversStation: coversStation,
+    );
+  }
 
   final String id;
   final String stationId;

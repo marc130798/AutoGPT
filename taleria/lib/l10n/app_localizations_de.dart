@@ -2447,4 +2447,8 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get bonusGamePlay => 'Jetzt spielen';
+
+  @override
+  String get levelHint =>
+      'Einsteiger rechnen nur mit ganzen Zahlen (3 €, 80 Cent). Fortgeschrittene rechnen auch mit Komma (3,50 €). Unsere Empfehlung: ab 10 Jahren Fortgeschritten. Du kannst es jederzeit ändern.';
 }
