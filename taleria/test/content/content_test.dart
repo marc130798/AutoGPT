@@ -45,7 +45,7 @@ void main() {
         for (final s in island.stations)
           if (s.miniGame != null) s.miniGame!['art'],
     ];
-    expect(minis, ['till', 'market', 'trade_chain', 'ice_stand']);
+    expect(minis, ['till', 'market', 'trade_chain', 'ice_stand', 'backpack']);
   });
 
   test('Meister Taleron ist die erste Begegnung, ab dem Start', () {

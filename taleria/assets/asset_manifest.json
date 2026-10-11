@@ -919,6 +919,105 @@
         "shape": "rounded"
       }
     },
+    "game.backpack": {
+      "type": "image",
+      "path": "assets/images/game.backpack.jpg",
+      "placeholder": {
+        "label": "Bild: Tala packt ihren Rucksack",
+        "color": "#7FA8C9",
+        "shape": "rectangle"
+      }
+    },
+    "game.backpack.waterfall": {
+      "type": "image",
+      "path": "assets/images/game.backpack.waterfall.jpg",
+      "placeholder": {
+        "label": "Bild: Wanderung zum Wasserfall",
+        "color": "#7FA8C9",
+        "shape": "rectangle"
+      }
+    },
+    "game.backpack.beach": {
+      "type": "image",
+      "path": "assets/images/game.backpack.beach.jpg",
+      "placeholder": {
+        "label": "Bild: Tag am Strand",
+        "color": "#E8C27A",
+        "shape": "rectangle"
+      }
+    },
+    "game.backpack.night": {
+      "type": "image",
+      "path": "assets/images/game.backpack.night.jpg",
+      "placeholder": {
+        "label": "Bild: Nachts zum Leuchtturm",
+        "color": "#3B5578",
+        "shape": "rectangle"
+      }
+    },
+    "item.wasserflasche": {
+      "type": "image",
+      "path": "assets/images/item.wasserflasche.png",
+      "placeholder": {
+        "label": "Wasserflasche",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.regenjacke": {
+      "type": "image",
+      "path": "assets/images/item.regenjacke.png",
+      "placeholder": {
+        "label": "Regenjacke",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.sonnenhut": {
+      "type": "image",
+      "path": "assets/images/item.sonnenhut.png",
+      "placeholder": {
+        "label": "Sonnenhut",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.taschenlampe": {
+      "type": "image",
+      "path": "assets/images/item.taschenlampe.png",
+      "placeholder": {
+        "label": "Taschenlampe",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.glitzerbrille": {
+      "type": "image",
+      "path": "assets/images/item.glitzerbrille.png",
+      "placeholder": {
+        "label": "Glitzer-Sonnenbrille",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.fernglas": {
+      "type": "image",
+      "path": "assets/images/item.fernglas.png",
+      "placeholder": {
+        "label": "Fernglas",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.kissen": {
+      "type": "image",
+      "path": "assets/images/item.kissen.png",
+      "placeholder": {
+        "label": "Kissen",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
     "story.wunschinsel.1.1": {
       "type": "image",
       "path": "assets/images/story.wunschinsel.1.1.jpg",

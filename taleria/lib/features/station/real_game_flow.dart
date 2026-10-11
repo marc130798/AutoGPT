@@ -8,6 +8,7 @@ import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/game_sign.dart';
 import '../intro/speech_bubble.dart';
+import 'backpack_game_view.dart';
 import 'ice_stand_game_view.dart';
 import 'market_game_view.dart';
 import 'till_game_view.dart';
@@ -72,6 +73,7 @@ class _RealGameFlowState extends State<RealGameFlow> {
     'till' => TillGameView(game: widget.game, onFinished: _finished),
     'market' => MarketGameView(game: widget.game, onFinished: _finished),
     'ice_stand' => IceStandGameView(game: widget.game, onFinished: _finished),
+    'backpack' => BackpackGameView(game: widget.game, onFinished: _finished),
     _ => TradeChainGameView(game: widget.game, onFinished: _finished),
   };
 }

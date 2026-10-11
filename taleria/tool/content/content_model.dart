@@ -165,8 +165,9 @@ class Station {
 ///   * market      Markt-Einkauf: Einkaufsliste, Geld, Preise an Ständen vergleichen
 ///   * ice_stand   Eisstand: an jedem Tag einen Preis setzen (Angebot und Nachfrage)
 ///   * trade_chain Tauschkette: tauschen, bis man das Ziel-Ding hat
+///   * backpack    Rucksack packen: für jeden Ausflug mit Talern einpacken, was man wirklich braucht
 const builtGames = {'sort', 'order', 'choice', 'coins', 'pick', 'number', ...realGames};
-const realGames = {'till', 'market', 'ice_stand', 'trade_chain'};
+const realGames = {'till', 'market', 'ice_stand', 'trade_chain', 'backpack'};
 
 /// Wetter am Eisstand: Inhaltsdatei → Datenbank.
 const iceWeather = {'sonne': 'sun', 'wolken': 'clouds', 'regen': 'rain'};
@@ -281,6 +282,25 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
             {'figure': t['wer'], 'name': t['name'], 'has': t['hat'], 'wants': t['will']},
         ],
         'dead_end': ?line(g['sackgasse']),
+      },
+      if (type == 'backpack') ...{
+        'items': [
+          for (final d in ((g['dinge'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {'text': d['text'], 'price': d['preis']},
+        ],
+        'trips': [
+          for (final a in ((g['ausfluege'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'title': a['titel'],
+              'scene': lines(a['szene']),
+              'image': ?a['bild'],
+              'budget': a['taler'],
+              'needs': [
+                for (final b in ((a['braucht'] as List?) ?? const []).cast<Map<String, dynamic>>())
+                  {'item': b['ding'], 'missing': b['fehlt']},
+              ],
+            },
+        ],
       },
       'done': ?line(g['geschafft']),
       if (easy != null) 'beginner': gameToDb(easy),
@@ -928,6 +948,7 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
       game['startbild'],
       ...((game['bilder'] as Map<String, dynamic>?) ?? const {}).values,
       for (final st in ((game['staende'] as List?) ?? const []).cast<Map<String, dynamic>>()) st['bild'],
+      for (final a in ((game['ausfluege'] as List?) ?? const []).cast<Map<String, dynamic>>()) a['bild'],
     ].whereType<String>();
     for (final image in images) {
       check(knownAssetKeys.contains(image), '$w: unbekanntes Bild "$image"');
@@ -1117,6 +1138,57 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
         return false;
       }
       if (text(start) && text(goal)) check(solvable(start as String, {}), '$w: vom Start kommt man nicht zum Ziel');
+    case 'backpack':
+      check(items.length >= 5 && items.length <= 10, '$w: 5 bis 10 Dinge im Packhaus');
+      final prices = <String, int>{};
+      for (final (i, d) in items.indexed) {
+        final price = d['preis'];
+        check(
+          text(d['text']) && price is int && price >= 1 && price <= 20,
+          '$w, Ding ${i + 1}: "text" und "preis" (1 bis 20 Taler)',
+        );
+        if (text(d['text']) && price is int) {
+          check(!prices.containsKey(d['text']), '$w: "${d['text']}" gibt es doppelt');
+          prices['${d['text']}'] = price;
+        }
+      }
+      final all = prices.values.fold(0, (a, b) => a + b);
+      final trips = (game['ausfluege'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(trips.length >= 2 && trips.length <= 4, '$w: 2 bis 4 Ausflüge');
+      final needed = <String>{};
+      for (final (i, a) in trips.indexed) {
+        final aw = '$w, Ausflug ${i + 1}';
+        check(text(a['titel']), '$aw: "titel" fehlt');
+        final scene = (a['szene'] as List?) ?? const [];
+        check(scene.isNotEmpty, '$aw: "szene" fehlt (daraus erkennt das Kind, was es braucht)');
+        for (final (k, l) in scene.indexed) {
+          speaker(l, '$aw, Szene ${k + 1}');
+        }
+        final budget = a['taler'];
+        check(budget is int && budget > 0, '$aw: "taler" muss eine Zahl ab 1 sein');
+        final needs = (a['braucht'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+        check(needs.isNotEmpty && needs.length <= 4, '$aw: 1 bis 4 Dinge unter "braucht"');
+        var cost = 0;
+        for (final b in needs) {
+          final item = b['ding'];
+          check(prices.containsKey(item), '$aw: "$item" gibt es nicht im Packhaus');
+          check(text(b['fehlt']), '$aw: bei "$item" fehlt "fehlt" (was passiert ohne)');
+          cost += prices[item] ?? 0;
+          needed.add('$item');
+        }
+        if (budget is int) {
+          check(cost <= budget, '$aw: das Nötige kostet $cost Taler, mehr als $budget');
+          // Abwägen: Alles zusammen passt nie hinein.
+          check(budget < all, '$aw: mit $budget Talern passt alles hinein, es gibt nichts abzuwägen');
+        }
+        // Verlockung: Mindestens ein Ding wird auf diesem Ausflug nicht gebraucht.
+        check(needs.length < prices.length, '$aw: jedes Ding wird gebraucht, nichts verlockt');
+      }
+      // Wünsche: Mindestens ein Ding braucht Tala auf keinem Ausflug.
+      check(
+        prices.keys.any((d) => !needed.contains(d)),
+        '$w: jedes Ding wird irgendwo gebraucht, kein reiner Wunsch dabei',
+      );
     default:
       problems.add('$w: unbekannte Spielart "$type"');
   }

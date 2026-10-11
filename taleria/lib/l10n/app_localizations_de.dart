@@ -2451,4 +2451,61 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get levelHint =>
       'Einsteiger rechnen nur mit ganzen Zahlen (3 €, 80 Cent). Fortgeschrittene rechnen auch mit Komma (3,50 €). Unsere Empfehlung: ab 10 Jahren Fortgeschritten. Du kannst es jederzeit ändern.';
+
+  @override
+  String backpackTrip(int number, int total) {
+    return 'Ausflug $number von $total';
+  }
+
+  @override
+  String backpackLeft(int left, int budget) {
+    return 'Noch $left von $budget Talern';
+  }
+
+  @override
+  String get backpackBag => 'Talas Rucksack';
+
+  @override
+  String get backpackEmpty => 'Der Rucksack ist noch leer.';
+
+  @override
+  String get backpackUnpackHint => 'Antippen nimmt etwas wieder heraus.';
+
+  @override
+  String get backpackShelf => 'Im Packhaus';
+
+  @override
+  String backpackUnpack(String item) {
+    return '$item wieder herausnehmen';
+  }
+
+  @override
+  String get backpackNotEnough => 'Dafür reichen die Taler nicht mehr. Nimm etwas anderes heraus.';
+
+  @override
+  String get backpackGo => 'Losgehen';
+
+  @override
+  String get backpackBack => 'Oh nein, ich musste umkehren! Mir hat etwas gefehlt.';
+
+  @override
+  String get backpackGone => 'Alles dabei! Tala hat einen tollen Ausflug.';
+
+  @override
+  String backpackExtras(String items) {
+    return 'Heute nicht gebraucht: $items.';
+  }
+
+  @override
+  String backpackSaved(int left) {
+    return '$left Taler übrig. Die legt Tala in ihre Schatztruhe.';
+  }
+
+  @override
+  String backpackSavedTotal(int saved) {
+    return 'Auf allen Ausflügen gespart: $saved Taler.';
+  }
+
+  @override
+  String get backpackNextTrip => 'Nächster Ausflug';
 }

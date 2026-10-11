@@ -1,5 +1,5 @@
-/// Spielregeln der echten Mini-Spiele: Kasse, Markt-Einkauf, Eisstand und
-/// Tauschkette. Ohne Aussehen. Wie bei den Übungen kosten Fehler nichts; sie
+/// Spielregeln der echten Mini-Spiele: Kasse, Markt-Einkauf, Eisstand,
+/// Tauschkette und Rucksack packen. Ohne Aussehen. Wie bei den Übungen kosten Fehler nichts; sie
 /// zählen nur für die Sterne am Ende (immer mindestens einer).
 library;
 
@@ -252,5 +252,90 @@ class TradeChainGame {
     history.clear();
     _refusedBy = null;
     _resets++;
+  }
+}
+
+/// Ergebnis beim Einpacken.
+enum BackpackPack { packed, notEnough, alreadyGone }
+
+/// Rucksack packen: Für jeden Ausflug mit den Talern einpacken, was Tala
+/// wirklich braucht. Beim Losgehen zeigt sich, was fehlt; dann packt das Kind
+/// nach. Übrige Taler kommen in Talas Schatztruhe.
+class BackpackGame {
+  BackpackGame(this.game);
+
+  final GameInfo game;
+  int _trip = 0;
+  int _mistakes = 0;
+  int _saved = 0;
+  bool _gone = false;
+  List<BackpackNeed> _missing = const [];
+
+  /// Eingepackt, in der Reihenfolge des Einpackens.
+  final List<String> packed = [];
+
+  int get index => _trip;
+  int get total => game.trips.length;
+  BackpackTrip get trip => game.trips[_trip];
+  bool get isLast => _trip == total - 1;
+  int get mistakes => _mistakes;
+  int get stars => starsForMistakes(_mistakes);
+
+  /// Ausflug geschafft: alles dabei, Tala ist losgegangen.
+  bool get gone => _gone;
+  bool get finished => isLast && _gone;
+
+  /// Was beim letzten Losgehen gefehlt hat.
+  List<BackpackNeed> get missing => _missing;
+
+  /// Preis eines Dings im Packhaus (in Talern).
+  int price(String item) => game.items.where((i) => i.text == item).firstOrNull?.price ?? 0;
+  int get spent => packed.fold(0, (sum, item) => sum + price(item));
+  int get left => trip.budget - spent;
+
+  /// Eingepackt, aber auf diesem Ausflug nicht gebraucht.
+  List<String> get extras => [
+    for (final item in packed)
+      if (!trip.needs.any((n) => n.item == item)) item,
+  ];
+
+  /// Taler, die auf allen geschafften Ausflügen übrig blieben.
+  int get saved => _saved;
+
+  BackpackPack pack(String item) {
+    if (_gone) return BackpackPack.alreadyGone;
+    if (packed.contains(item)) return BackpackPack.packed;
+    if (price(item) > left) return BackpackPack.notEnough;
+    packed.add(item);
+    return BackpackPack.packed;
+  }
+
+  void unpack(String item) {
+    if (_gone) return;
+    packed.remove(item);
+  }
+
+  /// Losgehen: Fehlt etwas, zählt es als Fehler und Tala kommt zurück.
+  bool go() {
+    if (_gone) return true;
+    _missing = [
+      for (final need in trip.needs)
+        if (!packed.contains(need.item)) need,
+    ];
+    if (_missing.isNotEmpty) {
+      _mistakes++;
+      return false;
+    }
+    _gone = true;
+    _saved += left;
+    return true;
+  }
+
+  void next() {
+    if (!_gone || isLast) return;
+    _trip++;
+    packed.clear();
+    _missing = const [];
+    _gone = false;
   }
 }

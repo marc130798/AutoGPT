@@ -322,6 +322,50 @@ class Trader {
   final String wants;
 }
 
+/// Rucksack packen: Was auf einem Ausflug fehlt, und was dann passiert.
+class BackpackNeed {
+  const BackpackNeed({required this.item, required this.missing});
+
+  factory BackpackNeed.fromJson(Map<String, dynamic> json) =>
+      BackpackNeed(item: json['item'] as String? ?? '', missing: json['missing'] as String? ?? '');
+
+  final String item;
+
+  /// Was passiert, wenn das Ding fehlt („Ohne Regenjacke wird Tala nass.“).
+  final String missing;
+}
+
+/// Ein Ausflug im Spiel „Rucksack packen“ mit Taler-Budget.
+class BackpackTrip {
+  const BackpackTrip({
+    required this.title,
+    required this.budget,
+    required this.needs,
+    this.scene = const [],
+    this.image,
+  });
+
+  factory BackpackTrip.fromJson(Map<String, dynamic> json) => BackpackTrip(
+    title: json['title'] as String? ?? '',
+    scene: [for (final l in (json['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
+    image: json['image'] as String?,
+    budget: (json['budget'] as num?)?.toInt() ?? 0,
+    needs: [for (final n in (json['needs'] as List?) ?? const []) BackpackNeed.fromJson(n as Map<String, dynamic>)],
+  );
+
+  final String title;
+  final List<DialogLine> scene;
+
+  /// Bild des Ausflugs (Asset-Schlüssel), sonst ein Symbol.
+  final String? image;
+
+  /// Taler für diesen Ausflug.
+  final int budget;
+
+  /// Was Tala auf diesem Ausflug wirklich braucht.
+  final List<BackpackNeed> needs;
+}
+
 class GameInfo {
   const GameInfo({
     required this.type,
@@ -347,6 +391,7 @@ class GameInfo {
     this.goal,
     this.traders = const [],
     this.deadEnd,
+    this.trips = const [],
     this.beginner,
     this.wholeNumbers = false,
     this.image,
@@ -405,15 +450,16 @@ class GameInfo {
     deadEnd: game['dead_end'] is Map<String, dynamic>
         ? DialogLine.fromJson(game['dead_end'] as Map<String, dynamic>)
         : null,
+    trips: [for (final t in (game['trips'] as List?) ?? const []) BackpackTrip.fromJson(t as Map<String, dynamic>)],
   );
 
   /// Echte Mini-Spiele mit eigener Spielwelt (Startbild, Sterne, auf der
   /// Startseite nochmal spielbar). Die anderen Spielarten sind Übungen.
-  static const realGames = {'till', 'market', 'ice_stand', 'trade_chain'};
+  static const realGames = {'till', 'market', 'ice_stand', 'trade_chain', 'backpack'};
 
   /// sort, order, choice, coins, pick, number, wish_bottle, die echten Spiele
-  /// till, market, ice_stand, trade_chain oder eine Spielart, die erst später
-  /// gebaut wird (Platzhalter).
+  /// till, market, ice_stand, trade_chain, backpack oder eine Spielart, die
+  /// erst später gebaut wird (Platzhalter).
   final String type;
   final String title;
   final String? description;
@@ -450,6 +496,9 @@ class GameInfo {
   final List<Trader> traders;
   final DialogLine? deadEnd;
 
+  /// Rucksack packen: Ausflüge; [items] sind die Dinge im Packhaus (Preise in Talern).
+  final List<BackpackTrip> trips;
+
   /// Fassung mit ganzen Zahlen für Einsteiger, falls das Spiel Kommazahlen hat.
   final GameInfo? beginner;
 
@@ -481,6 +530,7 @@ class GameInfo {
     'market' => budget != null && needs.isNotEmpty && stands.isNotEmpty,
     'ice_stand' => days.isNotEmpty && priceMin >= 1 && priceMax > priceMin,
     'trade_chain' => start != null && goal != null && traders.isNotEmpty,
+    'backpack' => trips.isNotEmpty && items.isNotEmpty && items.every((i) => i.price != null),
     _ => false,
   };
 }

@@ -232,8 +232,8 @@ void main() {
       await scrollTo(tester, find.text(title));
     }
     expect(find.text('Hafen von Taleria, Station 4'), findsOneWidget);
-    await scrollTo(tester, find.text('Eisstand'));
-    expect(find.textContaining('Noch nicht geschafft:'), findsNWidgets(2));
+    await scrollTo(tester, find.text('Talas Ausflüge'));
+    expect(find.textContaining('Noch nicht geschafft:'), findsNWidgets(3));
 
     // Gesperrte Spiele lassen sich nicht öffnen.
     await tapKey(tester, 'games-island-tauschinsel/station1');

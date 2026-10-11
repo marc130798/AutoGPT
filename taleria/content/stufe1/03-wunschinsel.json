@@ -448,6 +448,151 @@
           "text": "Zuerst das Wichtige, dann vom Rest, was noch passt. So reicht das Geld für die Reise."
         }
       },
+      "minispiel": {
+        "art": "backpack",
+        "titel": "Talas Ausflüge",
+        "beschreibung": "Packe für drei Ausflüge, was Tala wirklich braucht.",
+        "aufgabe": "Tala macht drei Ausflüge. Für jeden hat sie ein paar Taler. Lies genau, wohin es geht, und pack ein, was sie wirklich braucht. Dann tippe auf „Losgehen“.",
+        "startbild": "game.backpack",
+        "dinge": [
+          {
+            "text": "Wasserflasche",
+            "preis": 2
+          },
+          {
+            "text": "Brötchen",
+            "preis": 2
+          },
+          {
+            "text": "Regenjacke",
+            "preis": 4
+          },
+          {
+            "text": "Sonnenhut",
+            "preis": 2
+          },
+          {
+            "text": "Taschenlampe",
+            "preis": 3
+          },
+          {
+            "text": "Glitzer-Sonnenbrille",
+            "preis": 4
+          },
+          {
+            "text": "Fernglas",
+            "preis": 5
+          },
+          {
+            "text": "Kissen",
+            "preis": 3
+          },
+          {
+            "text": "Bonbons",
+            "preis": 1
+          }
+        ],
+        "bilder": {
+          "Wasserflasche": "item.wasserflasche",
+          "Brötchen": "item.broetchen",
+          "Regenjacke": "item.regenjacke",
+          "Sonnenhut": "item.sonnenhut",
+          "Taschenlampe": "item.taschenlampe",
+          "Glitzer-Sonnenbrille": "item.glitzerbrille",
+          "Fernglas": "item.fernglas",
+          "Kissen": "item.kissen",
+          "Bonbons": "item.bonbons"
+        },
+        "ausfluege": [
+          {
+            "titel": "Wanderung zum Wasserfall",
+            "bild": "game.backpack.waterfall",
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Heute wandern wir den ganzen Tag bis zum Wasserfall!"
+              },
+              {
+                "wer": "talo",
+                "text": "Schau mal zum Himmel. Die Wolken sind ganz dunkel."
+              }
+            ],
+            "taler": 10,
+            "braucht": [
+              {
+                "ding": "Regenjacke",
+                "fehlt": "Es fängt an zu regnen. Ohne Regenjacke wird Tala klatschnass."
+              },
+              {
+                "ding": "Wasserflasche",
+                "fehlt": "Der Weg ist lang. Ohne Wasser bekommt Tala großen Durst."
+              },
+              {
+                "ding": "Brötchen",
+                "fehlt": "Mittags knurrt Talas Magen, aber sie hat nichts zu essen dabei."
+              }
+            ]
+          },
+          {
+            "titel": "Ein Tag am Strand",
+            "bild": "game.backpack.beach",
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ab an den Strand! Die Sonne scheint, kein Wölkchen am Himmel."
+              },
+              {
+                "wer": "talo",
+                "text": "Wir bleiben bis zum Nachmittag. Es wird richtig heiß."
+              }
+            ],
+            "taler": 7,
+            "braucht": [
+              {
+                "ding": "Sonnenhut",
+                "fehlt": "Die Sonne brennt auf Talas Kopf. Ohne Sonnenhut wird ihr schwindelig."
+              },
+              {
+                "ding": "Wasserflasche",
+                "fehlt": "Es ist heiß. Ohne Wasser bekommt Tala großen Durst."
+              },
+              {
+                "ding": "Brötchen",
+                "fehlt": "Bis zum Nachmittag ist es lang. Tala hat Hunger und nichts zu essen."
+              }
+            ]
+          },
+          {
+            "titel": "Nachts zum Leuchtturm",
+            "bild": "game.backpack.night",
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Heute Abend gehen wir zum Leuchtturm und schauen uns die Sterne an. Es ist nicht weit."
+              },
+              {
+                "wer": "tala",
+                "text": "Aber es wird stockdunkel. Und oben am Leuchtturm pfeift nachts ein kalter Wind."
+              }
+            ],
+            "taler": 8,
+            "braucht": [
+              {
+                "ding": "Taschenlampe",
+                "fehlt": "Es ist stockdunkel. Ohne Taschenlampe stolpert Tala über eine Wurzel."
+              },
+              {
+                "ding": "Regenjacke",
+                "fehlt": "Oben am Leuchtturm weht ein kalter Wind. Ohne Jacke friert Tala."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Was man wirklich braucht, hängt davon ab, wohin es geht. Und was übrig bleibt, kann man sparen."
+        }
+      },
       "abschluss": {
         "wer": "talo",
         "text": "Reicht das Geld nicht für alles, entscheidet man nach Wichtigkeit."

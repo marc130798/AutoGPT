@@ -3446,5 +3446,101 @@
   "levelHint": "Einsteiger rechnen nur mit ganzen Zahlen (3 €, 80 Cent). Fortgeschrittene rechnen auch mit Komma (3,50 €). Unsere Empfehlung: ab 10 Jahren Fortgeschritten. Du kannst es jederzeit ändern.",
   "@levelHint": {
     "description": "Leuchtturm, Kinder-Profil: was Einsteiger und Fortgeschritten bedeuten"
+  },
+  "backpackTrip": "Ausflug {number} von {total}",
+  "@backpackTrip": {
+    "description": "Rucksack packen: welcher Ausflug gerade dran ist",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "backpackLeft": "Noch {left} von {budget} Talern",
+  "@backpackLeft": {
+    "description": "Rucksack packen: übrige Taler für diesen Ausflug",
+    "placeholders": {
+      "left": {
+        "type": "int"
+      },
+      "budget": {
+        "type": "int"
+      }
+    }
+  },
+  "backpackBag": "Talas Rucksack",
+  "@backpackBag": {
+    "description": "Rucksack packen: Überschrift über den eingepackten Dingen"
+  },
+  "backpackEmpty": "Der Rucksack ist noch leer.",
+  "@backpackEmpty": {
+    "description": "Rucksack packen: noch nichts eingepackt"
+  },
+  "backpackUnpackHint": "Antippen nimmt etwas wieder heraus.",
+  "@backpackUnpackHint": {
+    "description": "Rucksack packen: Hinweis unter den eingepackten Dingen"
+  },
+  "backpackShelf": "Im Packhaus",
+  "@backpackShelf": {
+    "description": "Rucksack packen: Überschrift über allen Dingen zum Einpacken"
+  },
+  "backpackUnpack": "{item} wieder herausnehmen",
+  "@backpackUnpack": {
+    "description": "Rucksack packen: Vorlesetext für ein eingepacktes Ding",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "backpackNotEnough": "Dafür reichen die Taler nicht mehr. Nimm etwas anderes heraus.",
+  "@backpackNotEnough": {
+    "description": "Rucksack packen: Ding ist teurer als die übrigen Taler"
+  },
+  "backpackGo": "Losgehen",
+  "@backpackGo": {
+    "description": "Rucksack packen: Knopf, mit dem Tala aufbricht"
+  },
+  "backpackBack": "Oh nein, ich musste umkehren! Mir hat etwas gefehlt.",
+  "@backpackBack": {
+    "description": "Rucksack packen: Tala kommt zurück, weil etwas Wichtiges fehlt"
+  },
+  "backpackGone": "Alles dabei! Tala hat einen tollen Ausflug.",
+  "@backpackGone": {
+    "description": "Rucksack packen: alles Nötige war eingepackt"
+  },
+  "backpackExtras": "Heute nicht gebraucht: {items}.",
+  "@backpackExtras": {
+    "description": "Rucksack packen: eingepackt, aber auf diesem Ausflug nicht nötig",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "backpackSaved": "{left} Taler übrig. Die legt Tala in ihre Schatztruhe.",
+  "@backpackSaved": {
+    "description": "Rucksack packen: übrige Taler werden gespart",
+    "placeholders": {
+      "left": {
+        "type": "int"
+      }
+    }
+  },
+  "backpackSavedTotal": "Auf allen Ausflügen gespart: {saved} Taler.",
+  "@backpackSavedTotal": {
+    "description": "Rucksack packen: Summe der gesparten Taler nach dem letzten Ausflug",
+    "placeholders": {
+      "saved": {
+        "type": "int"
+      }
+    }
+  },
+  "backpackNextTrip": "Nächster Ausflug",
+  "@backpackNextTrip": {
+    "description": "Rucksack packen: Knopf zum nächsten Ausflug"
   }
 }

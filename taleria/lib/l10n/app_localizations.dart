@@ -4062,6 +4062,96 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Einsteiger rechnen nur mit ganzen Zahlen (3 €, 80 Cent). Fortgeschrittene rechnen auch mit Komma (3,50 €). Unsere Empfehlung: ab 10 Jahren Fortgeschritten. Du kannst es jederzeit ändern.'**
   String get levelHint;
+
+  /// Rucksack packen: welcher Ausflug gerade dran ist
+  ///
+  /// In de, this message translates to:
+  /// **'Ausflug {number} von {total}'**
+  String backpackTrip(int number, int total);
+
+  /// Rucksack packen: übrige Taler für diesen Ausflug
+  ///
+  /// In de, this message translates to:
+  /// **'Noch {left} von {budget} Talern'**
+  String backpackLeft(int left, int budget);
+
+  /// Rucksack packen: Überschrift über den eingepackten Dingen
+  ///
+  /// In de, this message translates to:
+  /// **'Talas Rucksack'**
+  String get backpackBag;
+
+  /// Rucksack packen: noch nichts eingepackt
+  ///
+  /// In de, this message translates to:
+  /// **'Der Rucksack ist noch leer.'**
+  String get backpackEmpty;
+
+  /// Rucksack packen: Hinweis unter den eingepackten Dingen
+  ///
+  /// In de, this message translates to:
+  /// **'Antippen nimmt etwas wieder heraus.'**
+  String get backpackUnpackHint;
+
+  /// Rucksack packen: Überschrift über allen Dingen zum Einpacken
+  ///
+  /// In de, this message translates to:
+  /// **'Im Packhaus'**
+  String get backpackShelf;
+
+  /// Rucksack packen: Vorlesetext für ein eingepacktes Ding
+  ///
+  /// In de, this message translates to:
+  /// **'{item} wieder herausnehmen'**
+  String backpackUnpack(String item);
+
+  /// Rucksack packen: Ding ist teurer als die übrigen Taler
+  ///
+  /// In de, this message translates to:
+  /// **'Dafür reichen die Taler nicht mehr. Nimm etwas anderes heraus.'**
+  String get backpackNotEnough;
+
+  /// Rucksack packen: Knopf, mit dem Tala aufbricht
+  ///
+  /// In de, this message translates to:
+  /// **'Losgehen'**
+  String get backpackGo;
+
+  /// Rucksack packen: Tala kommt zurück, weil etwas Wichtiges fehlt
+  ///
+  /// In de, this message translates to:
+  /// **'Oh nein, ich musste umkehren! Mir hat etwas gefehlt.'**
+  String get backpackBack;
+
+  /// Rucksack packen: alles Nötige war eingepackt
+  ///
+  /// In de, this message translates to:
+  /// **'Alles dabei! Tala hat einen tollen Ausflug.'**
+  String get backpackGone;
+
+  /// Rucksack packen: eingepackt, aber auf diesem Ausflug nicht nötig
+  ///
+  /// In de, this message translates to:
+  /// **'Heute nicht gebraucht: {items}.'**
+  String backpackExtras(String items);
+
+  /// Rucksack packen: übrige Taler werden gespart
+  ///
+  /// In de, this message translates to:
+  /// **'{left} Taler übrig. Die legt Tala in ihre Schatztruhe.'**
+  String backpackSaved(int left);
+
+  /// Rucksack packen: Summe der gesparten Taler nach dem letzten Ausflug
+  ///
+  /// In de, this message translates to:
+  /// **'Auf allen Ausflügen gespart: {saved} Taler.'**
+  String backpackSavedTotal(int saved);
+
+  /// Rucksack packen: Knopf zum nächsten Ausflug
+  ///
+  /// In de, this message translates to:
+  /// **'Nächster Ausflug'**
+  String get backpackNextTrip;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
