@@ -22,7 +22,7 @@ class GameEntry {
   final StationInfo station;
   final bool unlocked;
 
-  GameInfo get game => station.content.game!;
+  GameInfo get game => station.content.miniGame!;
 }
 
 /// Lädt alle echten Mini-Spiele der Inseln, die das Kind sehen darf, in der
@@ -40,8 +40,7 @@ Future<List<GameEntry>> loadGameEntries(AppServices services, ChildProfile child
       continue;
     }
     for (final station in stations) {
-      final game = station.content.game;
-      if (game == null || !game.isRealGame || !game.isPlayable) continue;
+      if (!station.content.hasMiniGame) continue;
       entries.add(GameEntry(island: island, station: station, unlocked: done.contains(station.id)));
     }
   }
@@ -118,9 +117,11 @@ class _GamesScreenState extends State<GamesScreen> {
                             ),
                             trailing: Icon(entry.unlocked ? Icons.play_circle_fill_rounded : Icons.lock_outline),
                             onTap: entry.unlocked
-                                ? () =>
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute<void>(builder: (_) => GameReplayScreen(entry: entry)))
+                                ? () => Navigator.of(context).push(
+                                    MaterialPageRoute<void>(
+                                      builder: (_) => GameReplayScreen(entry: entry, level: widget.child.level),
+                                    ),
+                                  )
                                 : null,
                           ),
                         ),
@@ -138,9 +139,12 @@ class _GamesScreenState extends State<GamesScreen> {
 
 /// Nochmal spielen: das Spiel vor seiner Insel, ohne Station und ohne Belohnung.
 class GameReplayScreen extends StatelessWidget {
-  const GameReplayScreen({super.key, required this.entry});
+  const GameReplayScreen({super.key, required this.entry, required this.level});
 
   final GameEntry entry;
+
+  /// Einsteiger spielen mit ganzen Euro, Fortgeschrittene mit Komma.
+  final LevelSetting level;
 
   @override
   Widget build(BuildContext context) {

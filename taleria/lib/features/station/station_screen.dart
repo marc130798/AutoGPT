@@ -9,7 +9,9 @@ import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/sounds.dart';
 import '../../services/station_controller.dart';
+import '../child/games_screen.dart';
 import '../common/fog_reveal.dart';
+import '../common/game_sign.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
@@ -346,6 +348,11 @@ class _ResultView extends StatelessWidget {
                 )
               else if (controller.content.summary != null)
                 SpeechBubble.line(controller.content.summary!),
+              // Bonus: das echte Mini-Spiel der Station, kein Muss (Marc, 11.10.2026).
+              if (!failedExam && controller.content.hasMiniGame) ...[
+                const SizedBox(height: 24),
+                _BonusGameCard(controller: controller),
+              ],
               if (result.islandCompleted) ...[
                 const SizedBox(height: 32),
                 Center(child: IslandRewardEffect(badgeAssetKey: result.badge?.assetKey)),
@@ -410,6 +417,60 @@ class _ResultView extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Bonus-Karte im Ergebnis: Das Mini-Spiel der Station ist freigespielt.
+class _BonusGameCard extends StatelessWidget {
+  const _BonusGameCard({required this.controller});
+
+  final StationController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final game = controller.content.miniGame!;
+    return Container(
+      key: const ValueKey('bonus-game'),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: palette.gold.withValues(alpha: 0.18),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: palette.gold, width: 2),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const GameSign(size: 48),
+              const SizedBox(width: 12),
+              Expanded(child: Text(l10n.bonusGameTitle, style: theme.textTheme.titleMedium)),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(l10n.bonusGameBody(game.title), style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.tonalIcon(
+              key: const ValueKey('bonus-game-play'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => GameReplayScreen(
+                    entry: GameEntry(island: controller.island, station: controller.station, unlocked: true),
+                    level: controller.child.level,
+                  ),
+                ),
+              ),
+              icon: const Icon(Icons.play_arrow_rounded),
+              label: Text(l10n.bonusGamePlay),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

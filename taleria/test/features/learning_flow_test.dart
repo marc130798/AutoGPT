@@ -71,11 +71,30 @@ void main() {
     await tapKey(tester, 'game-done');
   }
 
+  /// Münzen legen: liest den Zielbetrag ab und legt ihn mit den größten Münzen zuerst.
+  Future<void> solveCoins(WidgetTester tester) async {
+    while (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) {
+      final sum = tester.widget<Text>(find.byKey(const ValueKey('coins-sum'))).data!;
+      final target = int.parse(RegExp(r'von (\d+),(\d\d)').firstMatch(sum)!.groups([1, 2]).join());
+      var rest = target;
+      for (final v in [2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1]) {
+        while (rest >= v) {
+          await tapKey(tester, 'coin-$v');
+          rest -= v;
+        }
+      }
+      if (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) await tapKey(tester, 'game-next');
+    }
+    await tapKey(tester, 'game-done');
+  }
+
   /// Klickt Szene, Bildergeschichte und Spiel durch, bis das Quiz kommt.
   Future<void> playUntilQuiz(WidgetTester tester) async {
     for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
       if (find.byKey(const ValueKey('choice-question')).evaluate().isNotEmpty) {
         await solveChoice(tester);
+      } else if (find.byKey(const ValueKey('coins-sum')).evaluate().isNotEmpty) {
+        await solveCoins(tester);
       } else {
         await tapText(tester, 'Weiter');
       }
@@ -165,6 +184,27 @@ void main() {
 
     await tapKey(tester, 'station-3');
     expect(find.text('Weißt du noch?'), findsOneWidget);
+  });
+
+  testWidgets('Station 4: Die Übung ist Pflicht, das Mini-Spiel kommt als Bonus am Ende', (tester) async {
+    final (:content, :progress) = await startOnMap(tester, prepare: (p) => p.completeStations('hafen'));
+    await tapKey(tester, 'island-hafen');
+    await tapKey(tester, 'station-4');
+    // Erst „Weißt du noch?“, dann Szene, Übung und Quiz.
+    for (var i = 0; i < 3 && find.text('Station geschafft!').evaluate().isEmpty; i++) {
+      await playUntilQuiz(tester);
+      expect(find.text('Mini-Spiel!'), findsNothing, reason: 'vor dem Quiz kommt nur die Übung');
+      await answerAllCorrectly(tester, content);
+    }
+    expect(find.text('Station geschafft!'), findsOneWidget);
+    await scrollTo(tester, find.byKey(const ValueKey('bonus-game')));
+    expect(find.text('Bonus: Mini-Spiel'), findsOneWidget);
+    expect(find.textContaining('„Fischbrötchen-Kasse“ ist jetzt freigespielt. Kein Muss'), findsOneWidget);
+    await tapKey(tester, 'bonus-game-play');
+    expect(find.text('Mini-Spiel!'), findsOneWidget);
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('bonus-game')), findsOneWidget, reason: 'zurück im Ergebnis der Station');
   });
 
   testWidgets('Abschlussprüfung bestehen: Kartenstück, Orden, Tauschinsel offen', (tester) async {

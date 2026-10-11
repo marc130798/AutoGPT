@@ -75,6 +75,7 @@ class Station {
     required this.scene,
     required this.lesson,
     required this.game,
+    this.miniGame,
     required this.summary,
     required this.quizShow,
     required this.examShow,
@@ -95,6 +96,9 @@ class Station {
   final List<Line> scene;
   final List<Line> lesson;
   final Map<String, dynamic>? game;
+
+  /// Echtes Mini-Spiel als Bonus nach der Station („minispiel“), kein Muss.
+  final Map<String, dynamic>? miniGame;
   final Line? summary;
   final int? quizShow;
   final int? examShow;
@@ -116,6 +120,7 @@ class Station {
     if (scene.isNotEmpty) 'scene': [for (final l in scene) l.toDb()],
     if (lesson.isNotEmpty) 'lesson': [for (final l in lesson) l.toDb()],
     if (game != null) 'game': gameToDb(game!),
+    if (miniGame != null) 'mini_game': gameToDb(miniGame!),
     if (summary != null) 'summary': summary!.toDb(),
     if (quizShow != null) 'quiz': {'show': quizShow},
     if (isExam) 'exam': {'show': examShow, 'review': examReview, 'pass': examPass},
@@ -498,6 +503,7 @@ Island parseIsland(String file, String source) {
         scene: lines(s['szene'], '$where, Szene'),
         lesson: lines(s['erklaerung'], '$where, Erklärung'),
         game: s['spiel'] as Map<String, dynamic>?,
+        miniGame: s['minispiel'] as Map<String, dynamic>?,
         summary: abschluss == null ? null : lines([abschluss], '$where, Abschluss').single,
         quizShow: s['quiz_anzahl'] as int?,
         examShow: pruefung?['anzahl'] as int?,
@@ -668,6 +674,14 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       final game = s.game;
       if (game != null && builtGames.contains(game['art'])) {
         problems.addAll(validateGame(game, sw, knownAssetKeys: knownAssetKeys));
+      }
+      // Die Übung ist Pflicht, das echte Mini-Spiel ein Bonus danach (Marc, 11.10.2026).
+      check(game == null || !realGames.contains(game['art']), '$sw: echte Mini-Spiele gehören unter "minispiel"');
+      final mini = s.miniGame;
+      if (mini != null) {
+        check(realGames.contains(mini['art']), '$sw: "minispiel" muss ein echtes Mini-Spiel sein (${realGames.join(', ')})');
+        check(game != null, '$sw: ein Mini-Spiel gibt es nur zusammen mit einer Übung');
+        problems.addAll(validateGame(mini, '$sw, Mini-Spiel', knownAssetKeys: knownAssetKeys));
       }
 
       if (s.isIntro) {

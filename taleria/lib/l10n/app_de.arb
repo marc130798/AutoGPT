@@ -3425,5 +3425,22 @@
   "islandStationGame": "mit Mini-Spiel",
   "@islandStationGame": {
     "description": "Vorlesetext an einer Station auf der Insel, die ein echtes Mini-Spiel hat"
+  },
+  "bonusGameTitle": "Bonus: Mini-Spiel",
+  "@bonusGameTitle": {
+    "description": "Ergebnis einer Station mit Mini-Spiel: Überschrift der Bonus-Karte"
+  },
+  "bonusGameBody": "„{title}“ ist jetzt freigespielt. Kein Muss: Spiel es jetzt oder später unter „Spiele“ auf der Startseite.",
+  "@bonusGameBody": {
+    "description": "Ergebnis einer Station: Erklärung zum Bonus-Spiel",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "bonusGamePlay": "Jetzt spielen",
+  "@bonusGamePlay": {
+    "description": "Ergebnis einer Station: Bonus-Spiel sofort spielen"
   }
 }

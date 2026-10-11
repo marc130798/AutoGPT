@@ -176,7 +176,7 @@ void main() {
 
   testWidgets('Fischbrötchen-Kasse (Hafen 4): Startbild, Wechselgeld, zwei Fehler, zwei Sterne', (tester) async {
     await tall(tester);
-    final game = FakeContent().station('hafen', 4).content.game!;
+    final game = FakeContent().station('hafen', 4).content.miniGame!;
     var done = false;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
     await tester.pumpAndSettle();
@@ -231,7 +231,7 @@ void main() {
     tester,
   ) async {
     await tall(tester);
-    final game = FakeContent().station('hafen', 7).content.game!;
+    final game = FakeContent().station('hafen', 7).content.miniGame!;
     var done = false;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
     await tester.pumpAndSettle();
@@ -273,7 +273,7 @@ void main() {
 
   testWidgets('Tauschkette (Tauschinsel 1): Ablehnung, Sackgasse, von vorn, Seil', (tester) async {
     await tall(tester);
-    final game = FakeContent().station('tauschinsel', 1).content.game!;
+    final game = FakeContent().station('tauschinsel', 1).content.miniGame!;
     var done = false;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
     await tester.pumpAndSettle();
@@ -307,7 +307,7 @@ void main() {
 
   testWidgets('Eisstand (Tauschinsel 4): zu billig, bester Preis, zu teuer, Regen', (tester) async {
     await tall(tester);
-    final game = FakeContent().station('tauschinsel', 4).content.game!;
+    final game = FakeContent().station('tauschinsel', 4).content.miniGame!;
     var done = false;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
     await tester.pumpAndSettle();

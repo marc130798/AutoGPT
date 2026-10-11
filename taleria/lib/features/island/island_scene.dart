@@ -271,7 +271,7 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
       _ => null,
     };
     // Echtes Mini-Spiel: Spiel-Zeichen oben rechts.
-    final game = station.content.game?.isRealGame ?? false;
+    final game = station.content.hasMiniGame;
     final name = station.isDive
         ? l10n.stationDive
         : (station.isExam ? l10n.stationExam : l10n.stationNumber(station.displayNumber));

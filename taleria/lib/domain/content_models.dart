@@ -519,6 +519,7 @@ class StationContent {
     this.scene = const [],
     this.lesson = const [],
     this.game,
+    this.miniGame,
     this.summary,
     this.quizShow,
     this.exam,
@@ -532,6 +533,7 @@ class StationContent {
       for (final l in (raw as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>),
     ];
     final game = json['game'] as Map<String, dynamic>?;
+    final miniGame = json['mini_game'] as Map<String, dynamic>?;
     final exam = json['exam'] as Map<String, dynamic>?;
     final summary = json['summary'] as Map<String, dynamic>?;
     final dive = json['dive'] as Map<String, dynamic>?;
@@ -555,6 +557,7 @@ class StationContent {
       scene: lines(json['scene']),
       lesson: lines(json['lesson']),
       game: game == null ? null : GameInfo.fromJson(game),
+      miniGame: miniGame == null ? null : GameInfo.fromJson(miniGame),
       summary: summary == null ? null : DialogLine.fromJson(summary),
       quizShow: (json['quiz'] as Map<String, dynamic>?)?['show'] as int?,
       exam: exam == null
@@ -594,7 +597,15 @@ class StationContent {
 
   /// Die Erklärung ist eine Bildergeschichte (mindestens eine Zeile hat ein Bild).
   bool get hasPictureStory => lesson.any((l) => l.image != null);
+
+  /// Übung der Station (Pflicht).
   final GameInfo? game;
+
+  /// Echtes Mini-Spiel als Bonus nach der Station (kein Muss, siehe [GameInfo.isRealGame]).
+  final GameInfo? miniGame;
+
+  /// Station mit spielbarem Mini-Spiel (Spiel-Zeichen auf der Insel).
+  bool get hasMiniGame => miniGame != null && miniGame!.isRealGame && miniGame!.isPlayable;
   final DialogLine? summary;
   final int? quizShow;
   final ExamRules? exam;

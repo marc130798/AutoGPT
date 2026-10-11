@@ -447,6 +447,34 @@
         }
       ],
       "spiel": {
+        "art": "coins",
+        "titel": "Münzschublade",
+        "beschreibung": "Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben.",
+        "aufgabe": "Tippe Münzen und Scheine an, bis der Betrag stimmt. Tippst du oben auf eine gelegte Münze, nimmst du sie wieder weg.",
+        "runden": [
+          {
+            "text": "Lege 3,50 €. Schaffst du es mit möglichst wenigen Münzen?",
+            "betrag": 350
+          },
+          {
+            "text": "Lege 1,85 € für eine Tüte Kirschen.",
+            "betrag": 185
+          },
+          {
+            "text": "Ein Brötchen kostet 45 Cent. Tala bezahlt mit 1 €. Lege das Wechselgeld.",
+            "betrag": 55
+          },
+          {
+            "text": "Eine Kinokarte kostet 7,50 €. Talo bezahlt mit einem 10-Euro-Schein. Lege das Wechselgeld.",
+            "betrag": 250
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Ich kenne jetzt alle Münzen und kann sogar Wechselgeld herausgeben!"
+        }
+      },
+      "minispiel": {
         "art": "till",
         "titel": "Fischbrötchen-Kasse",
         "beschreibung": "Am Fischbrötchen-Stand die Kasse übernehmen: Die Kunden bezahlen, und du gibst das richtige Wechselgeld heraus.",
@@ -936,6 +964,40 @@
         }
       ],
       "spiel": {
+        "art": "order",
+        "titel": "Preise schätzen",
+        "beschreibung": "Schätze Preise von Alltagsdingen und sortiere sie von günstig bis teuer. Die Preise sind ungefähre Spannen.",
+        "aufgabe": "Tippe die Dinge der Reihe nach an: zuerst das günstigste.",
+        "von": "Günstig",
+        "bis": "Teuer",
+        "dinge": [
+          {
+            "text": "Ein Brötchen",
+            "hinweis": "Etwa 40 Cent bis 1 Euro."
+          },
+          {
+            "text": "Eine Kugel Eis",
+            "hinweis": "Etwa 1,50 bis 2,50 Euro."
+          },
+          {
+            "text": "Eine Kinokarte",
+            "hinweis": "Etwa 8 bis 14 Euro."
+          },
+          {
+            "text": "Ein Fußball",
+            "hinweis": "Etwa 15 bis 40 Euro."
+          },
+          {
+            "text": "Ein Fahrrad",
+            "hinweis": "Etwa 250 bis 800 Euro."
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Gut geschätzt! Preise sind nicht überall gleich, aber ein Gefühl dafür hilft beim Einkaufen."
+        }
+      },
+      "minispiel": {
         "art": "market",
         "titel": "Markt-Einkauf",
         "beschreibung": "Mit 7,50 € alles auf der Einkaufsliste kaufen. Wer die Preise an den Ständen vergleicht, kommt mit dem Geld aus.",
@@ -958,7 +1020,7 @@
         "staende": [
           {
             "wer": "haendler",
-            "name": "Kontor",
+            "name": "Hafenladen",
             "angebote": [
               {
                 "ding": "Brötchen",
@@ -998,7 +1060,7 @@
           },
           {
             "wer": "bootsbauer",
-            "name": "Obstkarren",
+            "name": "Obststand",
             "angebote": [
               {
                 "ding": "Tüte Äpfel",

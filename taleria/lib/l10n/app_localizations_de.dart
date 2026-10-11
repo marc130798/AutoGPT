@@ -2436,4 +2436,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get islandStationGame => 'mit Mini-Spiel';
+
+  @override
+  String get bonusGameTitle => 'Bonus: Mini-Spiel';
+
+  @override
+  String bonusGameBody(String title) {
+    return '„$title“ ist jetzt freigespielt. Kein Muss: Spiel es jetzt oder später unter „Spiele“ auf der Startseite.';
+  }
+
+  @override
+  String get bonusGamePlay => 'Jetzt spielen';
 }

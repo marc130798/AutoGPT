@@ -38,18 +38,14 @@ void main() {
     ];
     expect(games, hasLength(20));
     expect(games.where((art) => !builtGames.contains(art) && art != 'wish_bottle'), isEmpty);
-    expect(games.toSet(), {
-      'sort',
-      'order',
-      'choice',
-      'pick',
-      'number',
-      'wish_bottle',
-      'till',
-      'market',
-      'ice_stand',
-      'trade_chain',
-    });
+    expect(games.toSet(), {'sort', 'order', 'choice', 'coins', 'pick', 'number', 'wish_bottle'});
+    // Echte Mini-Spiele sind ein Bonus nach der Station, kein Muss.
+    final minis = [
+      for (final island in islands.take(3))
+        for (final s in island.stations)
+          if (s.miniGame != null) s.miniGame!['art'],
+    ];
+    expect(minis, ['till', 'market', 'trade_chain', 'ice_stand']);
   });
 
   test('Meister Taleron ist die erste Begegnung, ab dem Start', () {
@@ -631,10 +627,10 @@ void main() {
     final tausch = islands[1].stations;
 
     test('Die Spiele in den Inhalten sind gültig', () {
-      expect(validateGame(hafen[3].game!, 'Hafen 4', knownAssetKeys: assetKeys), isEmpty);
-      expect(validateGame(hafen[6].game!, 'Hafen 7', knownAssetKeys: assetKeys), isEmpty);
-      expect(validateGame(tausch[0].game!, 'Tauschinsel 1', knownAssetKeys: assetKeys), isEmpty);
-      expect(validateGame(tausch[3].game!, 'Tauschinsel 4', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(hafen[3].miniGame!, 'Hafen 4', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(hafen[6].miniGame!, 'Hafen 7', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(tausch[0].miniGame!, 'Tauschinsel 1', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(tausch[3].miniGame!, 'Tauschinsel 4', knownAssetKeys: assetKeys), isEmpty);
     });
 
     test('Kasse: bezahlt muss mehr sein als der Preis, Figur muss es geben', () {

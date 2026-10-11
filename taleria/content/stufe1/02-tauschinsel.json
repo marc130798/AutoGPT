@@ -269,6 +269,92 @@
         }
       ],
       "spiel": {
+        "art": "choice",
+        "titel": "Wer will was?",
+        "beschreibung": "Baue die Tauschkette: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil.",
+        "aufgabe": "Tala braucht ein Seil. Baue mit ihr die Tauschkette.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "greta",
+                "text": "Mein Seil? Gern, aber nur gegen Äpfel.",
+                "name": "Greta"
+              },
+              {
+                "wer": "tala",
+                "text": "Äpfel hab ich nicht. Ich hab nur einen Eimer."
+              }
+            ],
+            "frage": "Wer hat Äpfel?",
+            "optionen": [
+              {
+                "text": "Bruno",
+                "gut": true,
+                "antwort": "Richtig, Bruno hat Äpfel. Aber was will er dafür?"
+              },
+              {
+                "text": "Otti",
+                "gut": false,
+                "antwort": "Otti ist Fischerin. Sie hat Fisch, aber keine Äpfel."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "bruno",
+                "text": "Äpfel gebe ich nur gegen frischen Fisch.",
+                "name": "Bruno"
+              }
+            ],
+            "frage": "Wo bekommt Tala Fisch?",
+            "optionen": [
+              {
+                "text": "Bei Otti, sie braucht einen Eimer",
+                "gut": true,
+                "antwort": "Super! Otti will einen Eimer, und den hat Tala."
+              },
+              {
+                "text": "Bei Greta",
+                "gut": false,
+                "antwort": "Greta hat ein Seil, aber keinen Fisch."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Jetzt haben wir alles zusammen. In welcher Reihenfolge tauschen wir?"
+              }
+            ],
+            "frage": "Wie geht die Tauschkette?",
+            "optionen": [
+              {
+                "text": "Eimer → Fisch → Äpfel → Seil",
+                "gut": true,
+                "antwort": "Genau so! Otti bekommt den Eimer, Bruno den Fisch, Greta die Äpfel. Und Tala hat ihr Seil."
+              },
+              {
+                "text": "Eimer → Seil",
+                "gut": false,
+                "antwort": "Greta will keinen Eimer, nur Äpfel."
+              },
+              {
+                "text": "Äpfel → Eimer → Seil",
+                "gut": false,
+                "antwort": "Am Anfang hat Tala gar keine Äpfel, nur den Eimer."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Drei Tausche für ein Seil! Mit Geld wäre das schneller gegangen."
+        }
+      },
+      "minispiel": {
         "art": "trade_chain",
         "titel": "Tauschkette",
         "beschreibung": "Tala hat nur einen Eimer, braucht aber ein Seil. Wer will was? Plane die Tauschkette.",
@@ -828,6 +914,86 @@
         }
       ],
       "spiel": {
+        "art": "choice",
+        "titel": "Preise am Eisstand",
+        "beschreibung": "Setze den Preis für dein Eis an heißen und an verregneten Tagen und sieh, wie viele Kunden kommen.",
+        "aufgabe": "Du betreibst den Eisstand. Setze an jedem Tag einen Preis für eine Kugel und schau, was passiert.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Heute ist es heiß! Vor dem Stand steht eine lange Schlange. Wir haben nur noch 20 Kugeln."
+              }
+            ],
+            "frage": "Welchen Preis setzt du für eine Kugel?",
+            "optionen": [
+              {
+                "text": "2 Taler",
+                "gut": true,
+                "antwort": "Am Abend sind fast alle Kugeln verkauft. Wenn viele etwas wollen und es knapp ist, kann der Preis höher sein."
+              },
+              {
+                "text": "1 Taler",
+                "gut": false,
+                "antwort": "Nach wenigen Minuten ist alles weg, und viele gehen leer aus. Viele hätten auch mehr bezahlt."
+              },
+              {
+                "text": "8 Taler",
+                "gut": false,
+                "antwort": "So teuer will kaum jemand Eis. Die meisten gehen weiter, das Eis schmilzt."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Heute regnet es. Kaum jemand ist am Strand, und wir haben viel Eis."
+              }
+            ],
+            "frage": "Welchen Preis setzt du heute?",
+            "optionen": [
+              {
+                "text": "1 Taler",
+                "gut": true,
+                "antwort": "Ein paar Leute kaufen trotzdem ein Eis. Wenn wenige etwas wollen, muss der Preis niedriger sein."
+              },
+              {
+                "text": "3 Taler",
+                "gut": false,
+                "antwort": "Bei Regen will kaum jemand Eis. Bei 3 Talern kauft heute niemand."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "An heißen Tagen ging das Eis weg wie nichts, bei Regen kaum."
+              }
+            ],
+            "frage": "Was hast du am Eisstand gemerkt?",
+            "optionen": [
+              {
+                "text": "Wollen viele etwas, steigt der Preis. Wollen wenige etwas, sinkt er.",
+                "gut": true,
+                "antwort": "Genau das nennt man Angebot und Nachfrage."
+              },
+              {
+                "text": "Der Preis ist immer gleich",
+                "gut": false,
+                "antwort": "Am heißen Tag und am Regentag hat ein anderer Preis gepasst."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "talo",
+          "text": "Wenn viele etwas wollen und es knapp ist, steigt der Preis. Wollen wenige etwas, sinkt er."
+        }
+      },
+      "minispiel": {
         "art": "ice_stand",
         "titel": "Eisstand",
         "beschreibung": "An drei Tagen den Preis für eine Kugel Eis setzen und sehen, wie viele kommen. So entdeckst du Angebot und Nachfrage.",

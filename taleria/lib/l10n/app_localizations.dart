@@ -4038,6 +4038,24 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'mit Mini-Spiel'**
   String get islandStationGame;
+
+  /// Ergebnis einer Station mit Mini-Spiel: Überschrift der Bonus-Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Bonus: Mini-Spiel'**
+  String get bonusGameTitle;
+
+  /// Ergebnis einer Station: Erklärung zum Bonus-Spiel
+  ///
+  /// In de, this message translates to:
+  /// **'„{title}“ ist jetzt freigespielt. Kein Muss: Spiel es jetzt oder später unter „Spiele“ auf der Startseite.'**
+  String bonusGameBody(String title);
+
+  /// Ergebnis einer Station: Bonus-Spiel sofort spielen
+  ///
+  /// In de, this message translates to:
+  /// **'Jetzt spielen'**
+  String get bonusGamePlay;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
