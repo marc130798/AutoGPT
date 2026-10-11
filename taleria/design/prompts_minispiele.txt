@@ -74,3 +74,60 @@ Bild 116: Ding: Muschel (Tauschkette)
 Vorlagen: keine
 
 Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine große, rosa schimmernde Muschel. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Talas Ausflüge (Wunschinsel 2): Bildtexte für Gemini (BILDER.md, Abschnitt 4m)
+
+Bild 117: Startbild: Tala packt ihren Rucksack (Talas Ausflüge (Wunschinsel 2))
+Vorlagen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Im Packhaus der Wunschinsel, einem gemütlichen Holzschuppen mit warmem Licht: Tala steht vor einem langen Holztisch und hält einen kleinen, offenen Rucksack in den Händen. Auf dem Tisch liegen nebeneinander eine blaue Trinkflasche, ein Brötchen, eine gelbe Regenjacke, ein Strohhut, eine Taschenlampe, eine glitzernde Sonnenbrille, ein Fernglas und ein hellblaues Kissen. Daneben ein kleiner Münzbeutel mit ein paar goldenen Münzen ohne Zeichen. Tala überlegt mit schräg gelegtem Kopf. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 118: Ausflug 1: Wanderung zum Wasserfall (Talas Ausflüge (Wunschinsel 2))
+Vorlagen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Ein Waldweg auf der Wunschinsel führt zwischen Farnen und Bäumen zu einem großen Wasserfall in der Ferne. Am Himmel ziehen dunkle, graue Regenwolken auf, es regnet aber noch nicht. Tala steht mit einem kleinen Rucksack am Anfang des Weges und schaut nachdenklich zu den Wolken hoch. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 119: Ausflug 2: Ein Tag am Strand (Talas Ausflüge (Wunschinsel 2))
+Vorlagen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Ein heller Sandstrand der Wunschinsel an einem heißen Sommertag: strahlend blauer Himmel ohne eine einzige Wolke, die Sonne brennt, das Meer glitzert türkis, ein paar Palmen. Tala steht mit einem kleinen Rucksack im Sand und hält sich eine Pfote schützend über die Augen, weil die Sonne so hell ist. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 120: Ausflug 3: Nachts zum Leuchtturm (Talas Ausflüge (Wunschinsel 2))
+Vorlagen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Abend auf der Wunschinsel: Ein schmaler Pfad führt über einen grasigen Hügel hinauf zu einem rot-weißen Leuchtturm, dessen Licht über das Meer strahlt. Der Himmel ist dunkelblau mit vielen Sternen. Der Wind biegt das Gras und weht Talas Halstuch zur Seite. Tala steht mit einem kleinen Rucksack am Fuß des Hügels, der Weg vor ihr ist dunkel. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 121: Ding: Wasserflasche (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine blaue Trinkflasche aus Metall mit silbernem Schraubdeckel und einem kleinen Tragebügel. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 122: Ding: Regenjacke (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine kleine gelbe Regenjacke mit Kapuze und Knöpfen, ordentlich ausgebreitet. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 123: Ding: Sonnenhut (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein Strohhut mit breiter Krempe und einem hellblauen Band. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 124: Ding: Taschenlampe (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine rote Taschenlampe mit silbernem Kopf, ausgeschaltet, ohne Lichtstrahl. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 125: Ding: Glitzer-Sonnenbrille (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine verspielte Kinder-Sonnenbrille mit goldenem Glitzerrahmen und türkisfarbenen, sternförmigen Gläsern. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 126: Ding: Fernglas (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein kleines Fernglas aus Messing mit dunkelgrünem Lederbezug und einem Trageband. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 127: Ding: Kissen (Talas Ausflüge)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein weiches, flauschiges hellblaues Kuschelkissen mit kleinen gelben Sternen. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Pink- und Lilatöne am Ding. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.

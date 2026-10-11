@@ -146,4 +146,65 @@ void main() {
     expect(chain.history, ['Eimer', 'Fisch']);
     expect(chain.stars, 2);
   });
+
+  test('Rucksack: zu teuer, umkehren, nachpacken, sparen, Sterne', () {
+    const game = GameInfo(
+      type: 'backpack',
+      title: 'Ausflüge',
+      items: [
+        GameItem(text: 'Wasser', price: 2),
+        GameItem(text: 'Jacke', price: 4),
+        GameItem(text: 'Brille', price: 4),
+        GameItem(text: 'Bonbons', price: 1),
+      ],
+      trips: [
+        BackpackTrip(
+          title: 'Regen',
+          budget: 7,
+          needs: [
+            BackpackNeed(item: 'Wasser', missing: 'Durst'),
+            BackpackNeed(item: 'Jacke', missing: 'Nass'),
+          ],
+        ),
+        BackpackTrip(
+          title: 'Strand',
+          budget: 5,
+          needs: [BackpackNeed(item: 'Wasser', missing: 'Durst')],
+        ),
+      ],
+    );
+    final bag = BackpackGame(game);
+    expect(bag.left, 7);
+    expect(bag.pack('Brille'), BackpackPack.packed);
+    expect(bag.pack('Jacke'), BackpackPack.notEnough, reason: '4 + 4 sind mehr als 7 Taler');
+    expect(bag.pack('Wasser'), BackpackPack.packed);
+    expect(bag.left, 1);
+
+    // Ohne Jacke losgehen: umkehren, das zählt als Fehler.
+    expect(bag.go(), isFalse);
+    expect(bag.missing.map((n) => n.item), ['Jacke']);
+    expect(bag.mistakes, 1);
+    expect(bag.gone, isFalse);
+
+    // Brille raus, Jacke rein.
+    bag.unpack('Brille');
+    expect(bag.pack('Jacke'), BackpackPack.packed);
+    expect(bag.extras, isEmpty);
+    expect(bag.go(), isTrue);
+    expect(bag.gone, isTrue);
+    expect(bag.saved, 1, reason: 'ein Taler übrig');
+    expect(bag.pack('Bonbons'), BackpackPack.alreadyGone);
+
+    bag.next();
+    expect(bag.index, 1);
+    expect(bag.packed, isEmpty);
+    expect(bag.missing, isEmpty);
+    bag.pack('Wasser');
+    bag.pack('Bonbons');
+    expect(bag.extras, ['Bonbons'], reason: 'nicht gebraucht, aber erlaubt');
+    expect(bag.go(), isTrue);
+    expect(bag.finished, isTrue);
+    expect(bag.saved, 3);
+    expect(bag.stars, 3, reason: 'ein Fehler kostet noch keinen Stern');
+  });
 }

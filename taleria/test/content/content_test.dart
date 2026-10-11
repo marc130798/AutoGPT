@@ -728,6 +728,76 @@ void main() {
         contains(contains('kommt man nicht zum Ziel')),
       );
     });
+
+    test('Rucksack: das Nötige muss passen, alles zusammen nicht, ein reiner Wunsch muss dabei sein', () {
+      final items = [
+        {'text': 'Wasser', 'preis': 2},
+        {'text': 'Jacke', 'preis': 4},
+        {'text': 'Hut', 'preis': 2},
+        {'text': 'Brille', 'preis': 4},
+        {'text': 'Bonbons', 'preis': 1},
+      ];
+      Map<String, dynamic> trip(int taler, List<String> needs) => {
+        'titel': 'Ausflug',
+        'szene': [
+          {'wer': 'tala', 'text': 'Los gehts!'},
+        ],
+        'taler': taler,
+        'braucht': [
+          for (final n in needs) {'ding': n, 'fehlt': 'Ohne $n geht es nicht.'},
+        ],
+      };
+      Map<String, dynamic> game(List<Map<String, dynamic>> trips, {List<Map<String, dynamic>>? dinge}) => {
+        'art': 'backpack',
+        'dinge': dinge ?? items,
+        'ausfluege': trips,
+      };
+      expect(
+        problems(
+          game([
+            trip(7, ['Wasser', 'Jacke']),
+            trip(5, ['Wasser', 'Hut']),
+          ]),
+        ),
+        isEmpty,
+      );
+      expect(
+        problems(
+          game([
+            trip(5, ['Wasser', 'Jacke']),
+            trip(5, ['Wasser', 'Hut']),
+          ]),
+        ),
+        contains(contains('mehr als 5')),
+      );
+      expect(
+        problems(
+          game([
+            trip(13, ['Wasser', 'Jacke']),
+            trip(5, ['Wasser', 'Hut']),
+          ]),
+        ),
+        contains(contains('passt alles hinein')),
+      );
+      expect(
+        problems(
+          game([
+            trip(7, ['Wasser', 'Zelt']),
+            trip(5, ['Wasser', 'Hut']),
+          ]),
+        ),
+        contains(contains('"Zelt" gibt es nicht')),
+      );
+      expect(
+        problems(
+          game([
+            trip(7, ['Wasser', 'Jacke', 'Bonbons']),
+            trip(9, ['Hut', 'Brille']),
+          ]),
+        ),
+        contains(contains('kein reiner Wunsch')),
+      );
+    });
   });
 
   test('Einsteiger: jede Frage und jedes Spiel mit Kommazahl hat eine Fassung mit ganzen Zahlen', () {

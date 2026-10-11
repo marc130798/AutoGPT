@@ -420,6 +420,24 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 
 Welches Bild zu welchem Fund gehört, steht in den Inhaltsdateien (`"fund_bild"` beim Tauchgang).
 
+## 4m. Bilder für „Talas Ausflüge“ (Wunschinsel 2)
+
+Bonus-Spiel der Wunschinsel, Station 2 (Rucksack packen für drei Ausflüge, besprochen mit Marc am 11.10.2026). Startbild und die drei Ausflüge sind ganze Szenen im Querformat 4:3 (die App zeigt die Ausflüge etwas breiter, oben und unten fällt ein Rand weg). Die Dinge sind freigestellt auf Pink wie bei den anderen Mini-Spielen; Brötchen und Bonbons gibt es schon (Bild 108 und 111). Die Ausflugsbilder verraten nicht, was Tala braucht (keine Regenjacke an, kein Hut auf): Das soll das Kind aus Bild und Text selbst erkennen. Ganze Texte in `design/prompts_minispiele.txt`.
+
+| Nr. | Datei | Bild | Vorlagen | Art | Stand |
+| --- | --- | --- | --- | --- | --- |
+| 117 | `game.backpack` | Startbild: Tala packt ihren Rucksack | character.tala | Szene 4:3 | fehlt |
+| 118 | `game.backpack.waterfall` | Ausflug 1: Wanderung zum Wasserfall | character.tala | Szene 4:3 | fehlt |
+| 119 | `game.backpack.beach` | Ausflug 2: Ein Tag am Strand | character.tala | Szene 4:3 | fehlt |
+| 120 | `game.backpack.night` | Ausflug 3: Nachts zum Leuchtturm | character.tala | Szene 4:3 | fehlt |
+| 121 | `item.wasserflasche` | Ding: Wasserflasche | – | freigestellt, quadratisch | fehlt |
+| 122 | `item.regenjacke` | Ding: Regenjacke | – | freigestellt, quadratisch | fehlt |
+| 123 | `item.sonnenhut` | Ding: Sonnenhut | – | freigestellt, quadratisch | fehlt |
+| 124 | `item.taschenlampe` | Ding: Taschenlampe | – | freigestellt, quadratisch | fehlt |
+| 125 | `item.glitzerbrille` | Ding: Glitzer-Sonnenbrille | – | freigestellt, quadratisch | fehlt |
+| 126 | `item.fernglas` | Ding: Fernglas | – | freigestellt, quadratisch | fehlt |
+| 127 | `item.kissen` | Ding: Kissen | – | freigestellt, quadratisch | fehlt |
+
 ## 4l. Bilder für die echten Mini-Spiele
 
 Mit Marc besprochen am 11.10.2026: Die Mini-Spiele brauchen eigene Bilder. Startbilder (Querformat 4:3, ganze Szene) für Kasse und Markt; der Eisstand bekommt einen Wolkentag dazu (Sonne und Regen sind die Bilder 66 und 68), die Tauschkette nimmt als Startbild Bild 59. Stände und Dinge sind freigestellt auf Pink (wie die Fundstücke). Ganze Texte in `design/prompts_minispiele.txt`.

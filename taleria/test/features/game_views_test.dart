@@ -329,6 +329,78 @@ void main() {
     expect(done, isTrue);
   });
 
+  testWidgets('Talas Ausflüge (Wunschinsel 2): zu teuer, umkehren, nachpacken, sparen', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('wunschinsel', 2).content.miniGame!;
+    var done = false;
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    expect(find.text('Talas Ausflüge'), findsOneWidget);
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Ausflug 1 von 3'), findsOneWidget);
+    expect(find.text('Wanderung zum Wasserfall'), findsOneWidget);
+    expect(find.text('Noch 10 von 10 Talern'), findsOneWidget);
+    expect(find.byKey(const ValueKey('backpack-go')), findsOneWidget);
+    expect(
+      tester.widget<FilledButton>(find.byKey(const ValueKey('backpack-go'))).onPressed,
+      isNull,
+      reason: 'mit leerem Rucksack geht es nicht los',
+    );
+
+    // Fernglas und Regenjacke: Für die Wasserflasche reicht es dann nicht mehr.
+    await tapKey(tester, 'backpack-item-Fernglas');
+    await tapKey(tester, 'backpack-item-Regenjacke');
+    expect(find.text('Noch 1 von 10 Talern'), findsOneWidget);
+    await tapKey(tester, 'backpack-item-Wasserflasche');
+    expect(find.textContaining('Dafür reichen die Taler nicht mehr'), findsOneWidget);
+
+    // Losgehen ohne Wasser und Brötchen: Tala kehrt um.
+    await tapKey(tester, 'backpack-go');
+    expect(find.textContaining('ich musste umkehren'), findsOneWidget);
+    expect(find.byKey(const ValueKey('backpack-missing-Wasserflasche')), findsOneWidget);
+    expect(find.byKey(const ValueKey('backpack-missing-Brötchen')), findsOneWidget);
+    expect(find.byKey(const ValueKey('backpack-missing-Regenjacke')), findsNothing);
+
+    // Fernglas raus, Wasser und Brötchen rein.
+    await tapKey(tester, 'backpack-packed-Fernglas');
+    await tapKey(tester, 'backpack-item-Wasserflasche');
+    await tapKey(tester, 'backpack-item-Brötchen');
+    await tapKey(tester, 'backpack-go');
+    expect(find.byKey(const ValueKey('backpack-gone')), findsOneWidget);
+    expect(find.text('2 Taler übrig. Die legt Tala in ihre Schatztruhe.'), findsOneWidget);
+    await tapKey(tester, 'backpack-next');
+
+    // Strand: Sonnenhut, Wasser, Brötchen.
+    expect(find.text('Ein Tag am Strand'), findsOneWidget);
+    expect(find.text('Noch 7 von 7 Talern'), findsOneWidget, reason: 'neuer Ausflug, leerer Rucksack');
+    for (final item in ['Sonnenhut', 'Wasserflasche', 'Brötchen']) {
+      await tapKey(tester, 'backpack-item-$item');
+    }
+    await tapKey(tester, 'backpack-go');
+    expect(find.byKey(const ValueKey('backpack-gone')), findsOneWidget);
+    await tapKey(tester, 'backpack-next');
+
+    // Leuchtturm: Taschenlampe und Jacke, dazu Bonbons als Extra.
+    expect(find.text('Nachts zum Leuchtturm'), findsOneWidget);
+    for (final item in ['Taschenlampe', 'Regenjacke', 'Bonbons']) {
+      await tapKey(tester, 'backpack-item-$item');
+    }
+    await tapKey(tester, 'backpack-go');
+    expect(find.text('Heute nicht gebraucht: Bonbons.'), findsOneWidget);
+    expect(find.text('Auf allen Ausflügen gespart: 3 Taler.'), findsOneWidget);
+
+    final sounds = AppScope.of(tester.element(find.byType(Scaffold))).sounds;
+    expect(sounds.playedEffects.where((e) => e == AssetKeys.soundCorrect), hasLength(3), reason: 'je Ausflug einmal');
+    expect(sounds.playedEffects, contains(AssetKeys.soundCoin));
+
+    await tapKey(tester, 'game-finish');
+    expect(find.text('Geschafft!'), findsOneWidget);
+    expect(find.byKey(const ValueKey('game-star-2')), findsOneWidget, reason: 'einmal umkehren kostet keinen Stern');
+    expect(find.textContaining('hängt davon ab, wohin es geht'), findsOneWidget);
+    await tapKey(tester, 'game-done');
+    expect(done, isTrue);
+  });
+
   testWidgets('Eisstand (Tauschinsel 4): zu billig, bester Preis, zu teuer, Regen', (tester) async {
     await tall(tester);
     final game = FakeContent().station('tauschinsel', 4).content.miniGame!;
