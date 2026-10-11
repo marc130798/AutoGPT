@@ -1890,6 +1890,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gameCoinsClear => 'Alles zurücklegen';
 
   @override
+  String get drawingCent => 'CENT';
+
+  @override
+  String get drawingEuro => 'EURO';
+
+  @override
   String coinCents(int value) {
     return '$value ct';
   }

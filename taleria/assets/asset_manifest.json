@@ -442,33 +442,6 @@
         "shape": "rectangle"
       }
     },
-    "story.hafen.4.1": {
-      "type": "image",
-      "path": "assets/images/story.hafen.4.1.jpg",
-      "placeholder": {
-        "label": "Bild: Die Euro-Münzen",
-        "color": "#7FA8C9",
-        "shape": "rectangle"
-      }
-    },
-    "story.hafen.4.2": {
-      "type": "image",
-      "path": "assets/images/story.hafen.4.2.jpg",
-      "placeholder": {
-        "label": "Bild: Die Euro-Scheine",
-        "color": "#7FA8C9",
-        "shape": "rectangle"
-      }
-    },
-    "story.hafen.4.3": {
-      "type": "image",
-      "path": "assets/images/story.hafen.4.3.jpg",
-      "placeholder": {
-        "label": "Bild: Große Münzen zuerst",
-        "color": "#7FA8C9",
-        "shape": "rectangle"
-      }
-    },
     "story.hafen.4.4": {
       "type": "image",
       "path": "assets/images/story.hafen.4.4.jpg",

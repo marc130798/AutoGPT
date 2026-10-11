@@ -2629,6 +2629,14 @@
   "@gameCoinsClear": {
     "description": "Spiel Münzen legen: alle gelegten Münzen entfernen"
   },
+  "drawingCent": "CENT",
+  "@drawingCent": {
+    "description": "Aufschrift auf einer gezeichneten Cent-Münze"
+  },
+  "drawingEuro": "EURO",
+  "@drawingEuro": {
+    "description": "Aufschrift auf gezeichneten Euro-Münzen und -Scheinen"
+  },
   "coinCents": "{value} ct",
   "@coinCents": {
     "description": "Beschriftung einer Münze unter 1 Euro",

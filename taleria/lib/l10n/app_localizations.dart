@@ -3217,6 +3217,18 @@ abstract class AppLocalizations {
   /// **'Alles zurücklegen'**
   String get gameCoinsClear;
 
+  /// Aufschrift auf einer gezeichneten Cent-Münze
+  ///
+  /// In de, this message translates to:
+  /// **'CENT'**
+  String get drawingCent;
+
+  /// Aufschrift auf gezeichneten Euro-Münzen und -Scheinen
+  ///
+  /// In de, this message translates to:
+  /// **'EURO'**
+  String get drawingEuro;
+
   /// Beschriftung einer Münze unter 1 Euro
   ///
   /// In de, this message translates to:

@@ -254,6 +254,31 @@ void main() {
         problems(islandWith(station(sceneImage: 'story.hafen.2.1'))),
         contains(contains('"bild" gibt es nur in der Erklärung')),
       );
+      // Münzen und Scheine zeichnet die App selbst.
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: [
+                {'wer': 'tala', 'text': 'Eins', 'bild': 'drawing:euro_coins'},
+              ],
+            ),
+          ),
+        ),
+        isEmpty,
+      );
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: [
+                {'wer': 'tala', 'text': 'Eins', 'bild': 'drawing:goldbarren'},
+              ],
+            ),
+          ),
+        ),
+        contains(contains('unbekannte Zeichnung "goldbarren"')),
+      );
     });
 
     test('Inseln 1 bis 3: jede Erklärung ist eine Bildergeschichte, Stationen ohne Film', () {

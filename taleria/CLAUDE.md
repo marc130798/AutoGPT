@@ -655,6 +655,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Solange vor einer offenen Insel noch Stopps fehlen, trägt sie ein Schloss. Das Schiff wartet an der Insel davor, und Antippen der Insel zeigt einen Hinweis. Sind alle Stopps geschafft, segelt das Schiff hin, und das Schloss springt auf.
   - Ein Stopp läuft wie eine Station ab: Szene, Fragen, Ergebnis „Stopp geschafft!“, „Weiter segeln“. Der Hintergrund ist das offene Meer, ohne „Weißt du noch?“. Auf der Insel selbst erscheinen Stopps nicht.
   - Im Testprojekt müssen die Migration und danach `supabase/seed.sql` laufen.
+- **Gezeichnete Bilder in Bildergeschichten (11.10.2026):** Gemini malt falsche Zahlen auf Münzen und Scheine. Darum zeichnet die App solche Bilder selbst: `"bild": "drawing:<name>"` in der Inhaltsdatei, die Zeichnungen stehen in `lib/features/station/story_drawings.dart`. Es gibt `euro_coins` (alle 8 Euro-Münzen in echter Farbe und Größe), `cents_to_euro` (50 ct + 50 ct = 1 €), `euro_notes` (5, 10, 20 und 50 €) und `big_coins_first` (2,80 € mit möglichst wenigen Münzen). Die Liste muss im Werkzeug (`storyDrawings` in `tool/content/content_model.dart`) und in der App gleich sein. Genutzt wird das in Hafen Station 4, dadurch entfallen die Gemini-Bilder 37 bis 39. Regel für neue Bilder: Wo genaue Zahlen nötig sind, zeichnet die App.
 
 ---
 

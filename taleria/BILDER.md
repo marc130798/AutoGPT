@@ -426,6 +426,7 @@ Entschieden mit Marc am 10.10.2026: Statt eines Films erklärt jede Station ihr 
 
 - Querformat 4:3, ganze Szene mit Hintergrund. Die Bilder werden **nicht** freigestellt, ein pinker Hintergrund ist also nicht nötig.
 - Bis ein Bild da ist, zeigt die App einen blauen Platzhalter mit dem Namen des Bildes, zum Beispiel „Bild: Tauschen klappt selten“.
+- Münzen, Scheine und Beträge mit Zahlen zeichnet die App selbst (`"bild": "drawing:…"` in der Inhaltsdatei). Gemini malt dort falsche Zahlen. Darum entfallen die Bilder 37 bis 39.
 - Bitte immer die Figuren als Vorlage anhängen, die im Bild vorkommen (Spalte „Vorlagen“, die Dateien liegen in `design/gemini/`), dazu `island.hafen.background.jpg` für den Hafen-Look.
 - Am besten 3 bis 5 Bilder pro Nachricht schicken, mit Nummer, zum Beispiel „Bild 29, Bild 30, Bild 31“.
 
@@ -445,9 +446,9 @@ Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Fig
 | 34 | `story.hafen.3.2` | 3 Geld früher und heute | Münzen aus Metall | character.bootsbauer | Eine alte Werkstatt: ein Biber (wie der Bootsbauer) prägt mit einem Hammer runde Metallmünzen. Daneben liegt ein Stapel glänzender Münzen in einer Waagschale. | fehlt |
 | 35 | `story.hafen.3.3` | 3 Geld früher und heute | Scheine aus Papier | character.talo, character.tala | Tala schleppt lachend einen riesigen, schweren Sack voller Münzen und kommt ins Schwitzen. Daneben hält Talo ganz leicht ein kleines Bündel Geldscheine aus Papier in der Pfote. Ein lustiger Vergleich: schwer gegen leicht. | fehlt |
 | 36 | `story.hafen.3.4` | 3 Geld früher und heute | Karte und Handy | character.talo, character.tala, character.verkaeuferin | Am Fischbrötchen-Stand im Hafen: Talo hält eine Bankkarte an ein kleines Bezahlgerät, Tala hält ein Handy daneben. Die Verkäuferin (Seehündin) reicht zwei Fischbrötchen. Auf dem Gerät leuchtet nur ein grünes Häkchen. | fehlt |
-| 37 | `story.hafen.4.1` | 4 Münzen und Scheine | Die Euro-Münzen | character.tala | Auf einem dunkelblauen Samttuch liegen acht verschiedene Münzen in einer Reihe, von klein nach groß: drei kleine kupferfarbene, drei mittlere goldfarbene und zwei große zweifarbige (silbern und golden). Sie sehen aus wie Euro-Münzen, aber ohne lesbare Schrift und ohne Zahlen. Tala schaut staunend von der Seite. | fehlt |
-| 38 | `story.hafen.4.2` | 4 Münzen und Scheine | Die Euro-Scheine | character.talo | Auf einem Holztisch liegen fächerartig mehrere Geldscheine in verschiedenen Farben (grau, rot, blau, orange), verschieden groß, wie Euro-Scheine, aber ohne Schrift und ohne Zahlen. Talo hält einen davon prüfend gegen das Licht. | fehlt |
-| 39 | `story.hafen.4.3` | 4 Münzen und Scheine | Große Münzen zuerst | character.tala | Tala legt am Tisch einen Betrag mit Münzen: Vor ihr liegen schon zwei große zweifarbige Münzen und eine goldene, gerade greift sie nach einer kleinen kupfernen. Daneben ein Häufchen übrige kleine Münzen. Talo nickt anerkennend. | fehlt |
+| 37 | – | 4 Münzen und Scheine | Die Euro-Münzen | – | entfällt: zeichnet die App selbst (genaue Zahlen) | – |
+| 38 | – | 4 Münzen und Scheine | Die Euro-Scheine | – | entfällt: zeichnet die App selbst (genaue Zahlen) | – |
+| 39 | – | 4 Münzen und Scheine | Große Münzen zuerst | – | entfällt: zeichnet die App selbst (genaue Zahlen) | – |
 | 40 | `story.hafen.4.4` | 4 Münzen und Scheine | Geld auf dem Konto | character.talo, character.tala | Talo zeigt Tala auf einem Tablet ein einfaches Bild von einem Sparschwein mit einem leuchtenden Häkchen. Um das Tablet schweben ein paar durchsichtig leuchtende Münzen, als Zeichen, dass das Geld digital da ist. | fehlt |
 | 41 | `story.hafen.5.1` | 5 Woher kommt Geld? | Lohn für Arbeit | character.bootsbauer, character.haendler | In der Werft im Hafen: Der Bootsbauer (Biber) hat gerade ein Boot repariert und wischt sich die Stirn. Der Händler (Walross) gibt ihm dankbar einen kleinen Beutel mit Münzen. Abendsonne. | fehlt |
 | 42 | `story.hafen.5.2` | 5 Woher kommt Geld? | Viele Berufe | character.bootsbauer | Drei kleine Szenen nebeneinander wie drei Bilder an einer Wand: ein Biber baut an einem Schiff, ein Bär als Bäcker holt Brot aus dem Ofen, eine Katze als Ärztin mit Stethoskop hilft einem kleinen Hasen. | fehlt |
@@ -461,7 +462,7 @@ Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Fig
 | 50 | `story.hafen.7.3` | 7 Wie viel ist viel? | Auf Preisschilder schauen | character.tala | Tala mit einer großen Lupe im Laden am Hafen. Sie schaut ganz genau auf die leeren Preisschilder an den Regalen. | fehlt |
 | 51 | `story.hafen.7.4` | 7 Wie viel ist viel? | Preise vergleichen | character.talo, character.tala | Talo und Tala stehen auf der Hafenstraße zwischen zwei Läden. In beiden Schaufenstern liegt derselbe rote Ball. Vor dem einen Laden liegen wenige Münzen, vor dem anderen viele. Tala zeigt auf den günstigeren Laden. | fehlt |
 
-Manche Sätze teilen sich ein Bild: Bei Station 4 zeigt „100 Cent sind genau 1 Euro“ noch die Münzen, bei Station 5 zeigt Talas Merksatz noch das Bild „Kein Falschgeld“.
+Manche Sätze teilen sich ein Bild: Bei Station 5 zeigt Talas Merksatz noch das Bild „Kein Falschgeld“.
 
 **Tauschinsel und Wunschinsel** haben ihre Bildplätze schon (`story.tauschinsel.…`, `story.wunschinsel.…`, im Asset-Manifest mit Namen). Die Texte für Gemini schreibt Claude, sobald die Hafen-Bilder fertig sind.
 

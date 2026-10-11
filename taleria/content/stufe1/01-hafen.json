@@ -418,21 +418,22 @@
         {
           "wer": "talo",
           "text": "Es gibt 8 Euro-Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro.",
-          "bild": "story.hafen.4.1"
+          "bild": "drawing:euro_coins"
         },
         {
           "wer": "tala",
-          "text": "Und 100 Cent sind genau 1 Euro!"
+          "text": "Und 100 Cent sind genau 1 Euro!",
+          "bild": "drawing:cents_to_euro"
         },
         {
           "wer": "talo",
           "text": "Der kleinste Schein ist der 5-Euro-Schein. Für größere Beträge gibt es zum Beispiel Scheine für 10, 20 und 50 Euro.",
-          "bild": "story.hafen.4.2"
+          "bild": "drawing:euro_notes"
         },
         {
           "wer": "tala",
           "text": "Mein Tipp: Wer einen Betrag mit möglichst wenigen Münzen legen will, nimmt zuerst die großen.",
-          "bild": "story.hafen.4.3"
+          "bild": "drawing:big_coins_first"
         },
         {
           "wer": "talo",

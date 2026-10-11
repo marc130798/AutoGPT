@@ -5,6 +5,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
+import 'story_drawings.dart';
 
 /// Das Bild, das zu Zeile [index] gehört: ihr eigenes oder das letzte davor.
 String? pictureFor(List<DialogLine> lines, int index) {
@@ -152,13 +153,21 @@ class _Picture extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, box) => AnimatedSwitcher(
             duration: const Duration(milliseconds: 250),
-            child: TaleriaAsset(
-              image,
-              key: ValueKey('story-image-$image'),
-              fit: BoxFit.cover,
-              width: box.maxWidth,
-              height: box.maxHeight,
-            ),
+            // Münzen und Scheine zeichnet die App selbst (genaue Zahlen).
+            child: image.startsWith(storyDrawingPrefix)
+                ? SizedBox(
+                    key: ValueKey('story-image-$image'),
+                    width: box.maxWidth,
+                    height: box.maxHeight,
+                    child: StoryDrawing(name: image.substring(storyDrawingPrefix.length)),
+                  )
+                : TaleriaAsset(
+                    image,
+                    key: ValueKey('story-image-$image'),
+                    fit: BoxFit.cover,
+                    width: box.maxWidth,
+                    height: box.maxHeight,
+                  ),
           ),
         ),
       ),
