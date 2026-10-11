@@ -689,11 +689,11 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Alle Tests sind grün: 360 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
-**Letzte Testversion (11.10.2026 abends):**
+**Letzte Testversion (11.10.2026, spät abends):**
 - Datei: `build/taleria_test_web.zip`, 19,4 MB. Das Skript lässt ungenutzte Web-Dateien weg.
 - Platz: Die großen PNG-Bilder (Figuren, Inseln, Orden, Schiffe) sind mit `tool/bilder_verkleinern.py` auf 256 Farben gerechnet (Paket `imagequant`, wie pngquant): zusammen 17,7 MB → 5,4 MB, sichtbar kein Unterschied. Neue große PNG-Bilder danach genauso verkleinern.
-- Neu darin seit der Testversion vom Mittag: Taleron im Meer und einmal am Tag, Stopps versetzt mit eigenen Schiffen, Nebel-Auftritt, Schifffahrt von Stopp zu Stopp, Sammlung zeigt nur neue Funde, alle Bildergeschichten von Tauschinsel und Wunschinsel, vier echte Mini-Spiele als Bonus mit Bildern und Seite „Spiele“, Einsteiger mit ganzen Zahlen.
-- Vorher im Testprojekt ausführen (falls noch nicht geschehen erst `20261010000200_stopps_auf_see.sql`): `20261011000100_taleron_einmal_am_tag.sql`, dann `20261011000200_einsteiger_fragen.sql`, danach `supabase/seed.sql`.
+- Neu darin seit der Testversion vom Abend: Töne in Übungen und Mini-Spielen, Spiele-Seite mit Startbildern, Bonus-Karte mit Startbild, fünftes echtes Spiel „Talas Ausflüge“ (Wunschinsel 2, noch mit Platzhalter-Bildern), „Hafenbüro“ statt „Kontor“, Tauchgang mit frischen Fragen, weniger Weiß vor Bildern (nur Rahmen um Fragen und Antworten), Antworten grün und rot mit Haken und Kreuz, Gespräche mit leicht verblasstem Hintergrund.
+- Vorher im Testprojekt ausführen: nur `supabase/seed.sql` (die Migrationen bis `20261011000200_einsteiger_fragen.sql` hat Marc am 11.10.2026 abends schon ausgeführt; neue gibt es nicht).
 - Danach die ZIP bei Netlify unter Deploys hochladen.
 
 **Arbeitsweise mit Marc (zusätzlich zu Abschnitt 1):**
