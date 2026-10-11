@@ -38,7 +38,8 @@ class _RealGameFlowState extends State<RealGameFlow> {
   int _round = 0;
 
   void _finished(int stars) {
-    AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+    // Geschafft: kleine Fanfare wie nach einer Station.
+    AppScope.of(context).sounds.effect(AssetKeys.soundStationDone);
     setState(() {
       _stars = stars;
       _phase = _Phase.end;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
@@ -45,7 +46,12 @@ class _PickGameViewState extends State<PickGameView> {
           ? FilledButton(key: const ValueKey('game-done'), onPressed: widget.onDone, child: Text(l10n.introNext))
           : FilledButton(
               key: const ValueKey('game-check'),
-              onPressed: game.selected.isEmpty ? null : () => setState(game.check),
+              onPressed: game.selected.isEmpty
+                  ? null
+                  : () {
+                      setState(game.check);
+                      if (game.solved) playGameSound(context, AssetKeys.soundCorrect);
+                    },
               child: Text(l10n.gameCheck),
             ),
       children: [

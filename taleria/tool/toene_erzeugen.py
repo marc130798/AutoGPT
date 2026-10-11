@@ -3,13 +3,15 @@
 
 Aufruf im Ordner taleria/ (braucht Python 3 mit numpy und ffmpeg):
 
-    python3 tool/toene_erzeugen.py
+    python3 tool/toene_erzeugen.py               # alle Töne
+    python3 tool/toene_erzeugen.py sound.coin    # nur bestimmte Töne
 
 Legt unter assets/audio/ ab:
 - sound.correct.mp3       richtige Antwort: zwei helle Glockentöne nach oben
 - sound.pearl.mp3         Perle gefunden: Blubb-Blubb und ein kleines Glitzern
 - sound.station_done.mp3  Station geschafft: kurze Fanfare (vier Töne nach oben)
 - sound.island_done.mp3   Insel geschafft: größere Fanfare mit Glitzern
+- sound.coin.mp3          Münze gelegt (Mini-Spiele): kurzes, leises Klimpern
 
 Alle Töne sind weich und freundlich, nie schrill und nie laut (für Kinder). Im Browser
 auf dem iPhone lässt sich die Lautstärke nicht im Code senken, darum sind schon die
@@ -99,6 +101,14 @@ def island_done():
     return finish(mix(2.5, *run, *chord, *sparkle))
 
 
+def coin():
+    """Münze: zwei kurze, helle, leicht metallische Anschläge (oft hintereinander, darum leise)."""
+    def clink(level):
+        return mix(0.22, (0, bell(2793.8, 0.22, decay=22, level=level)), (0, bell(4186.0, 0.18, decay=30, level=level * 0.5)))
+
+    return finish(mix(0.32, (0, clink(1.0)), (0.045, clink(0.45))), peak_db=-15)
+
+
 def save(name, samples):
     os.makedirs(OUT_DIR, exist_ok=True)
     target = os.path.join(OUT_DIR, name + '.mp3')
@@ -115,11 +125,20 @@ def save(name, samples):
     print(f'{os.path.normpath(target)}: {len(samples) / RATE:.1f} s, {os.path.getsize(target) / 1024:.0f} KB')
 
 
+TOENE = {
+    'sound.correct': correct,
+    'sound.pearl': pearl,
+    'sound.station_done': station_done,
+    'sound.island_done': island_done,
+    'sound.coin': coin,
+}
+
+
 def main():
-    save('sound.correct', correct())
-    save('sound.pearl', pearl())
-    save('sound.station_done', station_done())
-    save('sound.island_done', island_done())
+    import sys
+
+    for name in sys.argv[1:] or TOENE:
+        save(name, TOENE[name]())
 
 
 if __name__ == '__main__':

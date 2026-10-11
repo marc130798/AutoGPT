@@ -153,7 +153,12 @@ class _TillGameViewState extends State<TillGameView> {
               CoinButton(
                 key: ValueKey('coin-$value'),
                 cents: value,
-                onTap: game.served ? null : () => setState(() => game.add(value)),
+                onTap: game.served
+                    ? null
+                    : () {
+                        setState(() => game.add(value));
+                        playGameSound(context, AssetKeys.soundCoin);
+                      },
               ),
           ],
         ),

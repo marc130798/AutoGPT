@@ -69,6 +69,7 @@ Future<void> main() async {
           AssetKeys.soundPearl,
           AssetKeys.soundStationDone,
           AssetKeys.soundIslandDone,
+          AssetKeys.soundCoin,
         ],
         settings: settings,
       ) ??

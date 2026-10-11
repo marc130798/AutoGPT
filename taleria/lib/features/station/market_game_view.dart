@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -32,6 +33,9 @@ class _MarketGameViewState extends State<MarketGameView> {
       _lastBuy = _game.buy(_stand, offer);
       _lastItem = offer.item;
     });
+    if (_lastBuy == MarketBuy.bought) {
+      playGameSound(context, _game.finished ? AssetKeys.soundCorrect : AssetKeys.soundCoin);
+    }
   }
 
   void _putBack(String item) {

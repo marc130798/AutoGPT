@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
@@ -34,6 +35,7 @@ class _NumberGameViewState extends State<NumberGameView> {
     final value = int.tryParse(_input.text.trim());
     if (value == null) return;
     setState(() => _game.submit(value));
+    if (_game.correct) playGameSound(context, AssetKeys.soundCorrect);
   }
 
   void _next() {

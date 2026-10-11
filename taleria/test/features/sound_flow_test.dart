@@ -142,11 +142,16 @@ void main() {
       }
     }
 
+    // Das Tausch-Spiel davor klingt bei jeder guten Wahl.
+    expect(sounds.playedEffects, isNotEmpty);
+    expect(sounds.playedEffects.toSet(), {AssetKeys.soundCorrect});
+    final beforeQuiz = sounds.playedEffects.length;
+
     // Erste Frage falsch: kein Ton.
     final first = tester.widget<Text>(find.byKey(const ValueKey('quiz-question'))).data!;
     final wrong = content.wrongAnswerFor(first);
     await tapText(tester, wrong);
-    expect(sounds.playedEffects, isEmpty);
+    expect(sounds.playedEffects, hasLength(beforeQuiz));
     await tapText(tester, 'Nächste Frage');
 
     while (find.byKey(const ValueKey('quiz-question')).evaluate().isNotEmpty) {
@@ -154,8 +159,9 @@ void main() {
       await tapText(tester, content.rightAnswerFor(question));
       await tapText(tester, find.text('Fertig').evaluate().isEmpty ? 'Nächste Frage' : 'Fertig');
     }
-    expect(sounds.playedEffects.where((e) => e == AssetKeys.soundCorrect), hasLength(4));
-    expect(sounds.playedEffects.last, AssetKeys.soundStationDone);
+    final quiz = sounds.playedEffects.sublist(beforeQuiz);
+    expect(quiz.where((e) => e == AssetKeys.soundCorrect), hasLength(4));
+    expect(quiz.last, AssetKeys.soundStationDone);
   });
 
   testWidgets('Leuchtturm: Eltern schalten die Musik im Hauptmenü aus', (tester) async {

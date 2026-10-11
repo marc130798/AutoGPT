@@ -379,7 +379,10 @@ class Dive {
         'correct_index': 0,
         'explanation': wreckQuestion.explanation,
         if (wreckQuestion.beginnerDb case final easy?)
-          'beginner': {'scene': [for (final l in wreckSceneBeginner ?? wreckScene) l.toDb()], ...easy},
+          'beginner': {
+            'scene': [for (final l in wreckSceneBeginner ?? wreckScene) l.toDb()],
+            ...easy,
+          },
       },
     },
   };
@@ -665,7 +668,10 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
   // mit Kommazahl braucht eine Zwillingsfrage ohne Komma.
   void whole(Question q, String w) {
     final easy = q.beginner;
-    check(!commaNumber.hasMatch(q.allText) || easy != null, '$w: Kommazahl, aber keine Fassung für Einsteiger ("einsteiger")');
+    check(
+      !commaNumber.hasMatch(q.allText) || easy != null,
+      '$w: Kommazahl, aber keine Fassung für Einsteiger ("einsteiger")',
+    );
     if (easy == null) return;
     check(!commaNumber.hasMatch(easy.allText), '$w, Einsteiger: noch eine Kommazahl');
     check(easy.wrong.length == 2, '$w, Einsteiger: genau 2 falsche Antworten nötig');
@@ -778,7 +784,10 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       wholeGame(s.miniGame, '$sw, Mini-Spiel');
       final mini = s.miniGame;
       if (mini != null) {
-        check(realGames.contains(mini['art']), '$sw: "minispiel" muss ein echtes Mini-Spiel sein (${realGames.join(', ')})');
+        check(
+          realGames.contains(mini['art']),
+          '$sw: "minispiel" muss ein echtes Mini-Spiel sein (${realGames.join(', ')})',
+        );
         check(game != null, '$sw: ein Mini-Spiel gibt es nur zusammen mit einer Übung');
         problems.addAll(validateGame(mini, '$sw, Mini-Spiel', knownAssetKeys: knownAssetKeys));
       }
@@ -1384,9 +1393,7 @@ String buildSeedSql(
           ..writeln(
             '  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,',
           )
-          ..writeln(
-            '  beginner = excluded.beginner;',
-          );
+          ..writeln('  beginner = excluded.beginner;');
       }
       b.writeln();
     }

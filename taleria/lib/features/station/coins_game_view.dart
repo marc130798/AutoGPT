@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
@@ -122,7 +123,12 @@ class _CoinsGameViewState extends State<CoinsGameView> {
               CoinButton(
                 key: ValueKey('coin-$value'),
                 cents: value,
-                onTap: game.exact ? null : () => setState(() => game.add(value)),
+                onTap: game.exact
+                    ? null
+                    : () {
+                        setState(() => game.add(value));
+                        playGameSound(context, game.exact ? AssetKeys.soundCorrect : AssetKeys.soundCoin);
+                      },
               ),
           ],
         ),

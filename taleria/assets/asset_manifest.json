@@ -1976,6 +1976,15 @@
         "shape": "rounded"
       }
     },
+    "sound.coin": {
+      "type": "audio",
+      "path": "assets/audio/sound.coin.mp3",
+      "placeholder": {
+        "label": "Ton: Münze",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
     "sound.pearl": {
       "type": "audio",
       "path": "assets/audio/sound.pearl.mp3",

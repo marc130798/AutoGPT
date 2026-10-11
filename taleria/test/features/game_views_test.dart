@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/core/app_scope.dart';
+import 'package:taleria/core/assets/asset_keys.dart';
 import 'package:taleria/core/theme/taleria_theme.dart';
 import 'package:taleria/domain/budget_models.dart';
 import 'package:taleria/domain/content_models.dart';
@@ -220,7 +221,12 @@ void main() {
       expect(find.text('Stimmt genau, danke!'), findsOneWidget);
       if (find.byKey(const ValueKey('till-next')).evaluate().isNotEmpty) await tapKey(tester, 'till-next');
     }
+    // Töne: jede Münze klingt, richtiges Wechselgeld auch, am Ende die Fanfare.
+    final sounds = AppScope.of(tester.element(find.byType(Scaffold))).sounds;
+    expect(sounds.playedEffects.first, AssetKeys.soundCoin);
+    expect(sounds.playedEffects.where((e) => e == AssetKeys.soundCorrect), hasLength(6));
     await tapKey(tester, 'game-finish');
+    expect(sounds.playedEffects.last, AssetKeys.soundStationDone);
     expect(find.text('Geschafft!'), findsOneWidget);
     expect(find.byKey(const ValueKey('game-star-1')), findsOneWidget);
     expect(find.byKey(const ValueKey('game-star-2')), findsNothing);

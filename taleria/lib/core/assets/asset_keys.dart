@@ -55,6 +55,9 @@ abstract final class AssetKeys {
   static const soundStationDone = 'sound.station_done';
   static const soundIslandDone = 'sound.island_done';
 
+  /// Münze gelegt (Münzen legen, Kasse, Markt).
+  static const soundCoin = 'sound.coin';
+
   static const introVideo = 'video.intro';
   static const logo = 'brand.logo';
 
@@ -101,6 +104,7 @@ abstract final class AssetKeys {
     soundPearl,
     soundStationDone,
     soundIslandDone,
+    soundCoin,
     underwaterBackground,
     pearl,
   ];

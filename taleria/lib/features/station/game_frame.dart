@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -84,3 +85,7 @@ class GameThumb extends StatelessWidget {
     );
   }
 }
+
+/// Kurzer Ton in Übungen und Mini-Spielen. Bei falschen Antworten bleibt es
+/// still, damit sich Kinder nicht bestraft fühlen (wie im Quiz).
+void playGameSound(BuildContext context, String key) => AppScope.of(context).sounds.effect(key);

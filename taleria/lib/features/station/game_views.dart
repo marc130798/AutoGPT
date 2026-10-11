@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/budget_models.dart';
 import '../../domain/content_models.dart';
@@ -127,7 +128,12 @@ class _SortGameViewState extends State<SortGameView> {
                   width: game.choice == i ? 3 : 2,
                 ),
               ),
-              onPressed: game.answered ? null : () => setState(() => game.choose(i)),
+              onPressed: game.answered
+                  ? null
+                  : () {
+                      setState(() => game.choose(i));
+                      if (game.answeredCorrectly) playGameSound(context, AssetKeys.soundCorrect);
+                    },
               child: Text(basket, style: theme.textTheme.bodyLarge),
             ),
           ),
@@ -231,7 +237,10 @@ class _OrderGameViewState extends State<OrderGameView> {
                 minimumSize: const Size.fromHeight(56),
                 side: BorderSide(color: game.wrongTap == item ? palette.coral : palette.seaDeep, width: 2),
               ),
-              onPressed: () => setState(() => game.tap(item)),
+              onPressed: () {
+                if (game.tap(item)) playGameSound(context, AssetKeys.soundCorrect);
+                setState(() {});
+              },
               child: Text(items[item].text, style: theme.textTheme.bodyLarge),
             ),
           ),

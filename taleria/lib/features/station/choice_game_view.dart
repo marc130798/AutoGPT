@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/game_logic.dart';
@@ -82,7 +83,12 @@ class _ChoiceGameViewState extends State<ChoiceGameView> {
                   width: game.chosen == option ? 3 : 2,
                 ),
               ),
-              onPressed: game.answered ? null : () => setState(() => game.choose(option)),
+              onPressed: game.answered
+                  ? null
+                  : () {
+                      setState(() => game.choose(option));
+                      if (game.answeredWell) playGameSound(context, AssetKeys.soundCorrect);
+                    },
               child: Text(round.options[option].text, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
             ),
           ),
