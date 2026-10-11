@@ -12,10 +12,15 @@ import '../common/fog_reveal.dart';
 /// Hintergrund einer Station: das Bild der Insel von innen, beim Tauchgang
 /// die Unterwasserwelt. Fehlt das Bild, ein Verlauf von Meer zu Sand.
 class StationBackdrop extends StatelessWidget {
-  const StationBackdrop({super.key, required this.assetKey, required this.child, this.lift = 0});
+  const StationBackdrop({super.key, required this.assetKey, required this.child, this.lift = 0, this.faded = false});
 
   final String assetKey;
   final Widget child;
+
+  /// Bild leicht verblasst (heller Schleier), zum Beispiel bei Gesprächen,
+  /// damit die Sprechblasen hervortreten (Marcs Wunsch am 11.10.2026). Der
+  /// Schleier blendet weich ein und aus.
+  final bool faded;
 
   /// Um diesen Anteil der Höhe nach oben geschoben (und größer gezeigt), damit
   /// oben auf der Bühne etwas aus der Bildmitte zu sehen ist, zum Beispiel das
@@ -48,6 +53,16 @@ class StationBackdrop extends StatelessWidget {
                       colors: [palette.sea, palette.sand],
                     ),
                   ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: IgnorePointer(
+                child: AnimatedOpacity(
+                  key: const ValueKey('backdrop-veil'),
+                  opacity: faded ? 1 : 0,
+                  duration: const Duration(milliseconds: 350),
+                  child: ColoredBox(color: palette.paper.withValues(alpha: 0.45)),
                 ),
               ),
             ),

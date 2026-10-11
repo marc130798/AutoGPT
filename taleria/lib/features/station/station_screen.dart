@@ -168,6 +168,8 @@ class _StationScreenState extends State<StationScreen> {
                   : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
               // Unter Wasser oben das Wrack mit den Fischen zeigen.
               lift: controller.isDive ? 0.35 : 0,
+              // Bei Gesprächen und Bildergeschichten verblasst das Bild leicht.
+              faded: controller.step == StationStep.scene || controller.step == StationStep.lesson,
               child: SafeArea(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
