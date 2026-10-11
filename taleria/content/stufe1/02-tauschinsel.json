@@ -395,6 +395,14 @@
         "titel": "Tauschkette",
         "beschreibung": "Tala hat nur einen Eimer, braucht aber ein Seil. Wer will was? Plane die Tauschkette.",
         "aufgabe": "Tala braucht ein Seil für das Schiff, hat aber nur einen Eimer. Tippe einen Händler an, um zu tauschen. Schau vorher genau, wer was will!",
+        "startbild": "story.tauschinsel.1.4",
+        "bilder": {
+          "Eimer": "item.eimer",
+          "Fisch": "item.fisch",
+          "Äpfel": "item.aepfel",
+          "Seil": "item.seil",
+          "Muschel": "item.muschel"
+        },
         "start": "Eimer",
         "ziel": "Seil",
         "haendler": [
@@ -1034,6 +1042,7 @@
         "titel": "Eisstand",
         "beschreibung": "An drei Tagen den Preis für eine Kugel Eis setzen und sehen, wie viele kommen. So entdeckst du Angebot und Nachfrage.",
         "aufgabe": "Du betreibst den Eisstand. Setze für jeden Tag einen Preis für eine Kugel und öffne den Stand. Findest du den Preis, mit dem du am meisten Taler einnimmst?",
+        "startbild": "story.tauschinsel.4.4",
         "preis_von": 1,
         "preis_bis": 8,
         "tage": [
@@ -1058,6 +1067,7 @@
                 "text": "Heute ist es bewölkt. Nicht ganz so viele haben Lust auf Eis."
               }
             ],
+            "bild": "game.ice_stand.clouds",
             "vorrat": 20,
             "kunden": 24,
             "weniger_pro_taler": 4

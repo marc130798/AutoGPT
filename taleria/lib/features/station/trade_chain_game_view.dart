@@ -100,6 +100,16 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
                     ],
                   ),
                 ),
+                // Was Tala gerade in der Hand hat.
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                  child: GameThumb(
+                    widget.game.images[game.holding],
+                    key: ValueKey('trade-holding-image-${game.holding}'),
+                    size: 56,
+                  ),
+                ),
               ],
             ),
           ),
@@ -132,6 +142,7 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
                     width: width,
                     child: _TraderCard(
                       key: ValueKey('trader-$i'),
+                      images: widget.game.images,
                       trader: trader,
                       used: game.used.contains(i),
                       onTap: game.finished || game.used.contains(i) ? null : () => _tap(i),
@@ -149,9 +160,12 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
 }
 
 class _TraderCard extends StatelessWidget {
-  const _TraderCard({super.key, required this.trader, required this.used, required this.onTap});
+  const _TraderCard({super.key, required this.trader, required this.used, required this.onTap, this.images = const {}});
 
   final Trader trader;
+
+  /// Bilder der Dinge (hat und will).
+  final Map<String, String> images;
   final bool used;
   final VoidCallback? onTap;
 
@@ -175,16 +189,46 @@ class _TraderCard extends StatelessWidget {
               if (used)
                 Text(l10n.tradeTraded, style: theme.textTheme.labelMedium?.copyWith(color: palette.success))
               else ...[
-                Text(l10n.tradeHas(trader.has), textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
-                Text(
-                  l10n.tradeWants(trader.wants),
-                  textAlign: TextAlign.center,
+                _ItemLine(
+                  image: images[trader.has],
+                  text: l10n.tradeHas(trader.has),
+                  style: theme.textTheme.bodyMedium,
+                ),
+                _ItemLine(
+                  image: images[trader.wants],
+                  text: l10n.tradeWants(trader.wants),
                   style: theme.textTheme.bodyMedium?.copyWith(color: palette.seaDeep, fontWeight: FontWeight.w700),
                 ),
               ],
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Eine Zeile „hat: Seil“ mit kleinem Bild davor.
+class _ItemLine extends StatelessWidget {
+  const _ItemLine({required this.image, required this.text, this.style});
+
+  final String? image;
+  final String text;
+  final TextStyle? style;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GameThumb(image, size: 28),
+          if (image != null) const SizedBox(width: 4),
+          Flexible(
+            child: Text(text, textAlign: TextAlign.center, style: style),
+          ),
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -93,8 +94,27 @@ class RealGameIntro extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              const Center(child: GameSign(size: 96)),
-              const SizedBox(height: 16),
+              if (game.image case final image?) ...[
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    // Höchstens 200 hoch, damit Aufgabe und „Spielen“ auch auf kleinen Handys zu sehen sind.
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: TaleriaAsset(image, key: const ValueKey('real-game-image'), fit: BoxFit.cover),
+                      ),
+                    ),
+                    const Positioned(top: -12, left: -8, child: GameSign(size: 56)),
+                  ],
+                ),
+                const SizedBox(height: 16),
+              ] else ...[
+                const Center(child: GameSign(size: 96)),
+                const SizedBox(height: 16),
+              ],
               Text(
                 l10n.realGameBadge,
                 key: const ValueKey('real-game-badge'),

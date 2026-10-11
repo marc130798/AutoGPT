@@ -784,6 +784,141 @@
         "shape": "rectangle"
       }
     },
+    "game.till": {
+      "type": "image",
+      "path": "assets/images/game.till.jpg",
+      "placeholder": {
+        "label": "Bild: Kasse am Fischbrötchen-Stand",
+        "color": "#7FA8C9",
+        "shape": "rectangle"
+      }
+    },
+    "game.market": {
+      "type": "image",
+      "path": "assets/images/game.market.jpg",
+      "placeholder": {
+        "label": "Bild: Markt am Hafen",
+        "color": "#7FA8C9",
+        "shape": "rectangle"
+      }
+    },
+    "game.ice_stand.clouds": {
+      "type": "image",
+      "path": "assets/images/game.ice_stand.clouds.jpg",
+      "placeholder": {
+        "label": "Bild: Eisstand bei Wolken",
+        "color": "#7FA8C9",
+        "shape": "rectangle"
+      }
+    },
+    "game.stand.hafenladen": {
+      "type": "image",
+      "path": "assets/images/game.stand.hafenladen.png",
+      "placeholder": {
+        "label": "Hafenladen",
+        "color": "#C98F5A",
+        "shape": "rounded"
+      }
+    },
+    "game.stand.fischbroetchen": {
+      "type": "image",
+      "path": "assets/images/game.stand.fischbroetchen.png",
+      "placeholder": {
+        "label": "Fischbrötchen-Stand",
+        "color": "#C98F5A",
+        "shape": "rounded"
+      }
+    },
+    "game.stand.obststand": {
+      "type": "image",
+      "path": "assets/images/game.stand.obststand.png",
+      "placeholder": {
+        "label": "Obststand",
+        "color": "#C98F5A",
+        "shape": "rounded"
+      }
+    },
+    "item.broetchen": {
+      "type": "image",
+      "path": "assets/images/item.broetchen.png",
+      "placeholder": {
+        "label": "Brötchen",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.aepfel": {
+      "type": "image",
+      "path": "assets/images/item.aepfel.png",
+      "placeholder": {
+        "label": "Äpfel",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.saft": {
+      "type": "image",
+      "path": "assets/images/item.saft.png",
+      "placeholder": {
+        "label": "Saft",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.bonbons": {
+      "type": "image",
+      "path": "assets/images/item.bonbons.png",
+      "placeholder": {
+        "label": "Bonbons",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.fischbroetchen": {
+      "type": "image",
+      "path": "assets/images/item.fischbroetchen.png",
+      "placeholder": {
+        "label": "Fischbrötchen",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.eimer": {
+      "type": "image",
+      "path": "assets/images/item.eimer.png",
+      "placeholder": {
+        "label": "Eimer",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.fisch": {
+      "type": "image",
+      "path": "assets/images/item.fisch.png",
+      "placeholder": {
+        "label": "Fisch",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.seil": {
+      "type": "image",
+      "path": "assets/images/item.seil.png",
+      "placeholder": {
+        "label": "Seil",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.muschel": {
+      "type": "image",
+      "path": "assets/images/item.muschel.png",
+      "placeholder": {
+        "label": "Muschel",
+        "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
     "story.wunschinsel.1.1": {
       "type": "image",
       "path": "assets/images/story.wunschinsel.1.1.jpg",

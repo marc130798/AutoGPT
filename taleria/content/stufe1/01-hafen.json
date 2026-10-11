@@ -499,6 +499,7 @@
         "titel": "Fischbrötchen-Kasse",
         "beschreibung": "Am Fischbrötchen-Stand die Kasse übernehmen: Die Kunden bezahlen, und du gibst das richtige Wechselgeld heraus.",
         "aufgabe": "Die Verkäuferin macht Pause, du übernimmst die Kasse! Lege das Wechselgeld mit Münzen und Scheinen und tippe dann auf „Herausgeben“.",
+        "startbild": "game.till",
         "preistafel": [
           {
             "text": "Fischbrötchen",
@@ -1152,6 +1153,14 @@
         "titel": "Markt-Einkauf",
         "beschreibung": "Mit 7,50 € alles auf der Einkaufsliste kaufen. Wer die Preise an den Ständen vergleicht, kommt mit dem Geld aus.",
         "aufgabe": "Die Crew macht ein Picknick. Kaufe alles auf Talas Liste. Du hast 7,50 €. Vergleiche die Preise an den Ständen!",
+        "startbild": "game.market",
+        "bilder": {
+          "Brötchen": "item.broetchen",
+          "Tüte Äpfel": "item.aepfel",
+          "Flasche Saft": "item.saft",
+          "Bonbons": "item.bonbons",
+          "Fischbrötchen": "item.fischbroetchen"
+        },
         "geld": 750,
         "liste": [
           {
@@ -1171,6 +1180,7 @@
           {
             "wer": "haendler",
             "name": "Hafenladen",
+            "bild": "game.stand.hafenladen",
             "angebote": [
               {
                 "ding": "Brötchen",
@@ -1193,6 +1203,7 @@
           {
             "wer": "verkaeuferin",
             "name": "Fischbrötchen-Stand",
+            "bild": "game.stand.fischbroetchen",
             "angebote": [
               {
                 "ding": "Brötchen",
@@ -1211,6 +1222,7 @@
           {
             "wer": "bootsbauer",
             "name": "Obststand",
+            "bild": "game.stand.obststand",
             "angebote": [
               {
                 "ding": "Tüte Äpfel",
@@ -1235,6 +1247,7 @@
             {
               "wer": "haendler",
               "name": "Hafenladen",
+              "bild": "game.stand.hafenladen",
               "angebote": [
                 {
                   "ding": "Brötchen",
@@ -1257,6 +1270,7 @@
             {
               "wer": "verkaeuferin",
               "name": "Fischbrötchen-Stand",
+              "bild": "game.stand.fischbroetchen",
               "angebote": [
                 {
                   "ding": "Brötchen",
@@ -1275,6 +1289,7 @@
             {
               "wer": "bootsbauer",
               "name": "Obststand",
+              "bild": "game.stand.obststand",
               "angebote": [
                 {
                   "ding": "Tüte Äpfel",

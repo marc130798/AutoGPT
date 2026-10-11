@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/money.dart';
@@ -62,4 +63,24 @@ class GameFrame extends StatelessWidget {
 /// Beträge im Spiel: Einsteiger sehen ganze Zahlen („3 €“, „80 ct“), sonst mit Komma.
 extension GameMoney on GameInfo {
   String money(int cents) => wholeNumbers ? formatWholeCents(cents) : formatCents(cents);
+}
+
+/// Kleines Bild eines Dings im Spiel (zum Beispiel Eimer oder Brötchen).
+/// Ohne Bild bleibt der Platz leer.
+class GameThumb extends StatelessWidget {
+  const GameThumb(this.assetKey, {super.key, this.size = 40});
+
+  final String? assetKey;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final key = assetKey;
+    if (key == null) return const SizedBox.shrink();
+    return SizedBox(
+      width: size,
+      height: size,
+      child: TaleriaAsset(key, fit: BoxFit.contain, fallback: const SizedBox.shrink()),
+    );
+  }
 }

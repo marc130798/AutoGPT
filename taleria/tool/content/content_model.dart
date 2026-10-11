@@ -228,6 +228,7 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
               'explanation': r['erklaerung'],
             },
         ],
+      if (realGames.contains(type)) ...{'image': ?g['startbild'], 'images': ?g['bilder']},
       if (type == 'till') ...{
         'items': [
           for (final d in ((g['preistafel'] as List?) ?? const []).cast<Map<String, dynamic>>())
@@ -249,6 +250,7 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
             {
               'figure': st['wer'],
               'name': st['name'],
+              'image': ?st['bild'],
               'offers': [
                 for (final o in ((st['angebote'] as List?) ?? const []).cast<Map<String, dynamic>>())
                   {'item': o['ding'], 'price': o['preis']},
@@ -910,6 +912,18 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
   }
   final items = (game['dinge'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
   final rounds = (game['runden'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+
+  // Bilder der echten Mini-Spiele: Startbild, Dinge und Stände.
+  if (knownAssetKeys != null && realGames.contains(type)) {
+    final images = [
+      game['startbild'],
+      ...((game['bilder'] as Map<String, dynamic>?) ?? const {}).values,
+      for (final st in ((game['staende'] as List?) ?? const []).cast<Map<String, dynamic>>()) st['bild'],
+    ].whereType<String>();
+    for (final image in images) {
+      check(knownAssetKeys.contains(image), '$w: unbekanntes Bild "$image"');
+    }
+  }
 
   switch (type) {
     case 'sort':

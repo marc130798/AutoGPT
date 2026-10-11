@@ -426,21 +426,21 @@ Mit Marc besprochen am 11.10.2026: Die Mini-Spiele brauchen eigene Bilder. Start
 
 | Nr. | Datei | Spiel | Bild | Vorlagen | Art | Stand |
 | --- | --- | --- | --- | --- | --- | --- |
-| 102 | `game.till` | Fischbrötchen-Kasse (Hafen 4) | Startbild: die Kasse | character.talo | Szene 4:3 | fehlt |
-| 103 | `game.market` | Markt-Einkauf (Hafen 7) | Startbild: der Markt | character.tala | Szene 4:3 | fehlt |
-| 104 | `game.ice_stand.clouds` | Eisstand (Tauschinsel 4) | Der Eisstand an einem bewölkten Tag | character.tala, Bild 66 (story.tauschinsel.4.1, der Eisstand bei Sonne) | Szene 4:3 | fehlt |
-| 105 | `game.stand.hafenladen` | Markt-Einkauf | Stand: Hafenladen | – | freigestellt, quadratisch | fehlt |
-| 106 | `game.stand.fischbroetchen` | Markt-Einkauf | Stand: Fischbrötchen-Stand | – | freigestellt, quadratisch | fehlt |
-| 107 | `game.stand.obststand` | Markt-Einkauf | Stand: Obststand | – | freigestellt, quadratisch | fehlt |
-| 108 | `item.broetchen` | Markt-Einkauf | Ding: Brötchen | – | freigestellt, quadratisch | fehlt |
-| 109 | `item.aepfel` | Markt-Einkauf und Tauschkette | Ding: Äpfel | – | freigestellt, quadratisch | fehlt |
-| 110 | `item.saft` | Markt-Einkauf | Ding: Flasche Saft | – | freigestellt, quadratisch | fehlt |
-| 111 | `item.bonbons` | Markt-Einkauf | Ding: Bonbons | – | freigestellt, quadratisch | fehlt |
-| 112 | `item.fischbroetchen` | Markt-Einkauf | Ding: Fischbrötchen | – | freigestellt, quadratisch | fehlt |
-| 113 | `item.eimer` | Tauschkette | Ding: Eimer | – | freigestellt, quadratisch | fehlt |
-| 114 | `item.fisch` | Tauschkette | Ding: Fisch | – | freigestellt, quadratisch | fehlt |
-| 115 | `item.seil` | Tauschkette | Ding: Seil | – | freigestellt, quadratisch | fehlt |
-| 116 | `item.muschel` | Tauschkette | Ding: Muschel | – | freigestellt, quadratisch | fehlt |
+| 102 | `game.till` | Fischbrötchen-Kasse (Hafen 4) | Startbild: die Kasse | character.talo | Szene 4:3 | da (Talo ohne Jacke; bei Gelegenheit neu, mit „Talo trägt seine blaue Kapitänsjacke wie auf dem Vorlagenbild“) |
+| 103 | `game.market` | Markt-Einkauf (Hafen 7) | Startbild: der Markt | character.tala | Szene 4:3 | da (Gemini hat Schilder mit Schrift gemalt; die abgeschnittene Schrift an der Theke hat Claude entfernt) |
+| 104 | `game.ice_stand.clouds` | Eisstand (Tauschinsel 4) | Der Eisstand an einem bewölkten Tag | character.tala, Bild 66 (story.tauschinsel.4.1, der Eisstand bei Sonne) | Szene 4:3 | da |
+| 105 | `game.stand.hafenladen` | Markt-Einkauf | Stand: Hafenladen | – | freigestellt, quadratisch | da |
+| 106 | `game.stand.fischbroetchen` | Markt-Einkauf | Stand: Fischbrötchen-Stand | – | freigestellt, quadratisch | da |
+| 107 | `game.stand.obststand` | Markt-Einkauf | Stand: Obststand | – | freigestellt, quadratisch | da |
+| 108 | `item.broetchen` | Markt-Einkauf | Ding: Brötchen | – | freigestellt, quadratisch | da |
+| 109 | `item.aepfel` | Markt-Einkauf und Tauschkette | Ding: Äpfel | – | freigestellt, quadratisch | da |
+| 110 | `item.saft` | Markt-Einkauf | Ding: Flasche Saft | – | freigestellt, quadratisch | da |
+| 111 | `item.bonbons` | Markt-Einkauf | Ding: Bonbons | – | freigestellt, quadratisch | da |
+| 112 | `item.fischbroetchen` | Markt-Einkauf | Ding: Fischbrötchen | – | freigestellt, quadratisch | da |
+| 113 | `item.eimer` | Tauschkette | Ding: Eimer | – | freigestellt, quadratisch | da |
+| 114 | `item.fisch` | Tauschkette | Ding: Fisch | – | freigestellt, quadratisch | da |
+| 115 | `item.seil` | Tauschkette | Ding: Seil | – | freigestellt, quadratisch | da |
+| 116 | `item.muschel` | Tauschkette | Ding: Muschel | – | freigestellt, quadratisch | da |
 
 ## 4k. Bildergeschichten der Wunschinsel
 

@@ -250,11 +250,12 @@ class MarketOffer {
 
 /// Marktstand mit Figur und Angeboten.
 class MarketStand {
-  const MarketStand({required this.figure, required this.name, required this.offers});
+  const MarketStand({required this.figure, required this.name, required this.offers, this.image});
 
   factory MarketStand.fromJson(Map<String, dynamic> json) => MarketStand(
     figure: json['figure'] as String? ?? 'talo',
     name: json['name'] as String? ?? '',
+    image: json['image'] as String?,
     offers: [
       for (final o in (json['offers'] as List?) ?? const [])
         MarketOffer(
@@ -267,6 +268,9 @@ class MarketStand {
   final String figure;
   final String name;
   final List<MarketOffer> offers;
+
+  /// Bild des Stands (Asset-Schlüssel), sonst der Kopf der Figur.
+  final String? image;
 }
 
 /// Ein Tag am Eisstand. Zum Preis p (in Talern) kommen
@@ -345,10 +349,17 @@ class GameInfo {
     this.deadEnd,
     this.beginner,
     this.wholeNumbers = false,
+    this.image,
+    this.images = const {},
   });
 
   factory GameInfo.fromJson(Map<String, dynamic> game, {bool wholeNumbers = false}) => GameInfo(
     wholeNumbers: wholeNumbers,
+    image: game['image'] as String?,
+    images: {
+      for (final e in ((game['images'] as Map<String, dynamic>?) ?? const {}).entries)
+        if (e.value is String) e.key: e.value as String,
+    },
     beginner: game['beginner'] is Map<String, dynamic>
         ? GameInfo.fromJson(game['beginner'] as Map<String, dynamic>, wholeNumbers: true)
         : null,
@@ -444,6 +455,12 @@ class GameInfo {
 
   /// Beträge ohne Komma anzeigen (Einsteiger): „3 €“, „80 ct“.
   final bool wholeNumbers;
+
+  /// Startbild des Mini-Spiels (Asset-Schlüssel).
+  final String? image;
+
+  /// Bilder der Dinge im Spiel: Name (zum Beispiel „Eimer“) → Asset-Schlüssel.
+  final Map<String, String> images;
 
   /// Das Spiel für ein Kind: Einsteiger bekommen die Fassung mit ganzen Zahlen.
   GameInfo forLevel(LevelSetting level) => level == LevelSetting.beginner && beginner != null ? beginner! : this;

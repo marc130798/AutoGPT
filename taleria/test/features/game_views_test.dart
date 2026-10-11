@@ -183,6 +183,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Mini-Spiel!'), findsOneWidget);
     expect(find.text('Fischbrötchen-Kasse'), findsOneWidget);
+    expect(find.byKey(const ValueKey('real-game-image')), findsOneWidget, reason: 'Startbild der Kasse');
     await tapKey(tester, 'real-game-play');
     expect(find.byKey(const ValueKey('practice-label')), findsNothing);
 
@@ -296,6 +297,7 @@ void main() {
     await tapKey(tester, 'real-game-play');
     expect(find.text('Tala hat: Eimer'), findsOneWidget);
     expect(find.text('Ziel: Seil'), findsOneWidget);
+    expect(find.byKey(const ValueKey('trade-holding-image-Eimer')), findsOneWidget);
 
     // Greta will Äpfel, keinen Eimer.
     await tapKey(tester, 'trader-0');

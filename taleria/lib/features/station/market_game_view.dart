@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/real_games.dart';
@@ -148,7 +149,10 @@ class _MarketGameViewState extends State<MarketGameView> {
                       ),
                       child: Column(
                         children: [
-                          FigureHead(s.figure, size: 40, highlight: i == _stand),
+                          if (s.image != null)
+                            SizedBox(height: 56, child: TaleriaAsset(s.image!, fit: BoxFit.contain))
+                          else
+                            FigureHead(s.figure, size: 40, highlight: i == _stand),
                           const SizedBox(height: 2),
                           Text(s.name, textAlign: TextAlign.center, maxLines: 2, style: theme.textTheme.labelMedium),
                         ],
@@ -174,6 +178,8 @@ class _MarketGameViewState extends State<MarketGameView> {
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Row(
                       children: [
+                        GameThumb(widget.game.images[offer.item], size: 44),
+                        if (widget.game.images[offer.item] != null) const SizedBox(width: 8),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,7 +222,9 @@ class _MarketGameViewState extends State<MarketGameView> {
             color: bought != null ? palette.success : palette.ink.withValues(alpha: 0.5),
             size: 22,
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
+          GameThumb(widget.game.images[need.item], size: 30),
+          const SizedBox(width: 6),
           Expanded(child: Text(l10n.marketNeed(need.count, need.item), style: theme.textTheme.bodyLarge)),
           if (bought != null)
             Flexible(
