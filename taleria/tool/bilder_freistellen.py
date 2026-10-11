@@ -10,6 +10,7 @@ Aufruf im Ordner taleria/ (braucht Python 3 mit Pillow und numpy):
     python3 tool/bilder_freistellen.py --art figur  bild.jpg character.talo
     python3 tool/bilder_freistellen.py --art gegenstand  bild.jpg icon.treasure
     python3 tool/bilder_freistellen.py --art hintergrund bild.jpg home.background
+    python3 tool/bilder_freistellen.py --art bild   bild.jpg story.hafen.2.1
 
 - insel, schiff, figur, gegenstand: einfarbiger (pinker oder grüner) Hintergrund wird durchsichtig. Nur Fläche,
   die mit dem Bildrand verbunden ist, damit pinke Dinge auf der Insel bleiben.
@@ -18,6 +19,8 @@ Aufruf im Ordner taleria/ (braucht Python 3 mit Pillow und numpy):
   durchsichtig. figur: der Farbschimmer wird auf der ganzen Figur herausgerechnet.
 - wolke: weiß auf schwarz, die Helligkeit wird zur Deckkraft.
 - hintergrund: ganzes Bild (zum Beispiel für die Startseite), nur verkleinert, als JPG.
+- bild: Bild einer Bildergeschichte (Querformat 4:3), etwas kleiner als ein
+  Hintergrund, als JPG, damit die vielen Bilder die Testversion klein halten.
 - meer: wird mit seinem Spiegelbild zu einer Kachel, die man nahtlos
   untereinander setzen kann (JPG, damit die Datei klein bleibt).
 
@@ -34,7 +37,16 @@ from PIL import Image
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'assets', 'images')
 
 # Breite in Pixeln für die App (etwa dreifache Anzeigegröße auf dem Handy).
-MAX_WIDTH = {'insel': 768, 'schiff': 512, 'figur': 512, 'gegenstand': 384, 'wolke': 640, 'meer': 768, 'hintergrund': 900}
+MAX_WIDTH = {
+    'insel': 768,
+    'schiff': 512,
+    'figur': 512,
+    'gegenstand': 384,
+    'wolke': 640,
+    'meer': 768,
+    'hintergrund': 900,
+    'bild': 800,
+}
 
 
 def border_connected(mask, seeds=None):
@@ -201,10 +213,10 @@ def main():
     rgb = np.asarray(Image.open(args.quelle).convert('RGB'), dtype=np.float64)
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    if args.art == 'hintergrund':
-        image = shrink(Image.fromarray(rgb.astype(np.uint8), 'RGB'), MAX_WIDTH['hintergrund'])
+    if args.art in ('hintergrund', 'bild'):
+        image = shrink(Image.fromarray(rgb.astype(np.uint8), 'RGB'), MAX_WIDTH[args.art])
         target = os.path.join(OUT_DIR, args.schluessel + '.jpg')
-        image.save(target, quality=84, optimize=True)
+        image.save(target, quality=84 if args.art == 'hintergrund' else 80, optimize=True, progressive=True)
     elif args.art == 'meer':
         flat = flatten_light(rgb)
         tile = np.concatenate([flat, flat[::-1]], axis=0)
