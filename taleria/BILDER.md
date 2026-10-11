@@ -420,6 +420,28 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 
 Welches Bild zu welchem Fund gehört, steht in den Inhaltsdateien (`"fund_bild"` beim Tauchgang).
 
+## 4l. Bilder für die echten Mini-Spiele
+
+Mit Marc besprochen am 11.10.2026: Die Mini-Spiele brauchen eigene Bilder. Startbilder (Querformat 4:3, ganze Szene) für Kasse und Markt; der Eisstand bekommt einen Wolkentag dazu (Sonne und Regen sind die Bilder 66 und 68), die Tauschkette nimmt als Startbild Bild 59. Stände und Dinge sind freigestellt auf Pink (wie die Fundstücke). Ganze Texte in `design/prompts_minispiele.txt`.
+
+| Nr. | Datei | Spiel | Bild | Vorlagen | Art | Stand |
+| --- | --- | --- | --- | --- | --- | --- |
+| 102 | `game.till` | Fischbrötchen-Kasse (Hafen 4) | Startbild: die Kasse | character.talo | Szene 4:3 | fehlt |
+| 103 | `game.market` | Markt-Einkauf (Hafen 7) | Startbild: der Markt | character.tala | Szene 4:3 | fehlt |
+| 104 | `game.ice_stand.clouds` | Eisstand (Tauschinsel 4) | Der Eisstand an einem bewölkten Tag | character.tala, Bild 66 (story.tauschinsel.4.1, der Eisstand bei Sonne) | Szene 4:3 | fehlt |
+| 105 | `game.stand.hafenladen` | Markt-Einkauf | Stand: Hafenladen | – | freigestellt, quadratisch | fehlt |
+| 106 | `game.stand.fischbroetchen` | Markt-Einkauf | Stand: Fischbrötchen-Stand | – | freigestellt, quadratisch | fehlt |
+| 107 | `game.stand.obststand` | Markt-Einkauf | Stand: Obststand | – | freigestellt, quadratisch | fehlt |
+| 108 | `item.broetchen` | Markt-Einkauf | Ding: Brötchen | – | freigestellt, quadratisch | fehlt |
+| 109 | `item.aepfel` | Markt-Einkauf und Tauschkette | Ding: Äpfel | – | freigestellt, quadratisch | fehlt |
+| 110 | `item.saft` | Markt-Einkauf | Ding: Flasche Saft | – | freigestellt, quadratisch | fehlt |
+| 111 | `item.bonbons` | Markt-Einkauf | Ding: Bonbons | – | freigestellt, quadratisch | fehlt |
+| 112 | `item.fischbroetchen` | Markt-Einkauf | Ding: Fischbrötchen | – | freigestellt, quadratisch | fehlt |
+| 113 | `item.eimer` | Tauschkette | Ding: Eimer | – | freigestellt, quadratisch | fehlt |
+| 114 | `item.fisch` | Tauschkette | Ding: Fisch | – | freigestellt, quadratisch | fehlt |
+| 115 | `item.seil` | Tauschkette | Ding: Seil | – | freigestellt, quadratisch | fehlt |
+| 116 | `item.muschel` | Tauschkette | Ding: Muschel | – | freigestellt, quadratisch | fehlt |
+
 ## 4k. Bildergeschichten der Wunschinsel
 
 Wie bei Hafen und Tauschinsel: Querformat 4:3, ganze Szene mit Hintergrund, nicht freigestellt. Die ganzen Texte für Gemini stehen in `design/prompts_wunschinsel.txt`. Seit den Erfahrungen auf der Tauschinsel steht in jedem Text mit Tala ihre Kleidung, und Nebenfiguren sollen keinen bekannten Filmfiguren ähneln. Keine Zahlen und keine Währungszeichen im Bild; wo Beträge vorkommen, zeigen die Bilder nur Münzhäufchen.

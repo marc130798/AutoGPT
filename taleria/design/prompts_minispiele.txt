@@ -1,0 +1,76 @@
+Mini-Spiele: Bildtexte für Gemini (BILDER.md, Abschnitt 4l)
+
+Bild 102: Startbild: die Kasse (Fischbrötchen-Kasse (Hafen 4))
+Vorlagen: Talo
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Der Fischbrötchen-Stand am Hafen von Taleria, von hinten gesehen, als stünde man selbst an der Kasse: Vorne eine hölzerne Kasse mit offener Schublade, darin Münzen in kleinen Fächern (Münzen ohne Zahlen und ohne Zeichen). Auf der Theke liegen Fischbrötchen. Vor der Theke wartet Talo freundlich mit einem kleinen Geldbeutel in der Pfote. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 103: Startbild: der Markt (Markt-Einkauf (Hafen 7))
+Vorlagen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Ein bunter kleiner Markt am Hafen von Taleria mit drei Ständen nebeneinander: links ein kleiner Hafenladen aus Holz mit Brötchen und Saftflaschen im Regal, in der Mitte ein Fischbrötchen-Stand mit blau-weißem Vordach, rechts ein Obststand mit Kisten voller roter Äpfel. Die Stände haben keine Verkäufer. Tala geht mit einem Einkaufskorb über den Platz und schaut auf einen Zettel, auf dem nur kleine gemalte Bilder sind (Brötchen, Äpfel, Saftflasche). Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 104: Der Eisstand an einem bewölkten Tag (Eisstand (Tauschinsel 4))
+Vorlagen: Tala, Bild 66 (story.tauschinsel.4.1, der Eisstand bei Sonne)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Derselbe Eisstand am Strand wie im zweiten angehängten Bild, aber an einem bewölkten, grauen Tag ohne Regen: Nur drei Tiere stehen vor dem Stand. Tala hinter der Theke schaut fragend zum grauen Himmel. Keine Schilder. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 105: Stand: Hafenladen (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein kleiner, gemütlicher Hafenladen aus Holz mit Vordach, im Regal Brötchen, Saftflaschen und Gläser mit bunten Bonbons, davor eine kleine Theke. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 106: Stand: Fischbrötchen-Stand (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein kleiner Fischbrötchen-Stand aus Holz mit blau-weiß gestreiftem Vordach, auf der Theke Fischbrötchen, Brötchen und Saftflaschen. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 107: Stand: Obststand (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein kleiner Obststand aus Holz mit grünem Vordach und Holzkisten voller roter Äpfel, daneben ein paar Saftflaschen. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 108: Ding: Brötchen (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein goldbraunes, knuspriges Brötchen. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 109: Ding: Äpfel (Markt-Einkauf und Tauschkette)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Drei glänzende rote Äpfel in einer kleinen braunen Papiertüte. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 110: Ding: Flasche Saft (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine Glasflasche mit goldenem Apfelsaft und einem Korken, ohne Etikett. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 111: Ding: Bonbons (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein kleines Glas mit bunten Bonbons und einem Deckel. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 112: Ding: Fischbrötchen (Markt-Einkauf)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein Fischbrötchen mit Salatblatt und Zwiebelringen. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 113: Ding: Eimer (Tauschkette)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein einfacher Holzeimer mit zwei Metallringen und einem Henkel aus Seil. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 114: Ding: Fisch (Tauschkette)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein glänzender silberner Fisch. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 115: Ding: Seil (Tauschkette)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Ein ordentlich aufgerolltes, dickes Schiffsseil. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 116: Ding: Muschel (Tauschkette)
+Vorlagen: keine
+
+Hochwertiger 3D-Animationsfilm-Look mit warmem Licht, wie die Dinge in einem Kinder-Animationsfilm. Eine große, rosa schimmernde Muschel. Groß in der Bildmitte mit Abstand zu allen Rändern, leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Etiketten, keine Figuren. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
