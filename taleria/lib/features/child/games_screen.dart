@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/taleria_asset.dart';
 import '../../domain/content_models.dart';
 import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -106,9 +107,13 @@ class _GamesScreenState extends State<GamesScreen> {
                         child: Material(
                           type: MaterialType.transparency,
                           child: ListTile(
-                            minTileHeight: 80,
+                            minTileHeight: 88,
                             enabled: entry.unlocked,
-                            leading: Opacity(opacity: entry.unlocked ? 1 : 0.4, child: const GameSign(size: 52)),
+                            leading: _GameCover(
+                              key: ValueKey('games-cover-${entry.station.id}'),
+                              image: entry.game.image,
+                              unlocked: entry.unlocked,
+                            ),
                             title: Text(entry.game.title, style: theme.textTheme.titleMedium),
                             subtitle: Text(
                               entry.unlocked
@@ -133,6 +138,56 @@ class _GamesScreenState extends State<GamesScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Startbild eines Spiels in der Liste, mit kleinem Spiel-Zeichen in der Ecke.
+/// Gesperrte Spiele sind grau und blass. Ohne Startbild nur das Spiel-Zeichen.
+class _GameCover extends StatelessWidget {
+  const _GameCover({super.key, required this.image, required this.unlocked});
+
+  final String? image;
+  final bool unlocked;
+
+  static const double _size = 72;
+
+  /// Graustufen für gesperrte Spiele.
+  static const _grey = ColorFilter.matrix([
+    0.2126, 0.7152, 0.0722, 0, 0, //
+    0.2126, 0.7152, 0.0722, 0, 0,
+    0.2126, 0.7152, 0.0722, 0, 0,
+    0, 0, 0, 1, 0,
+  ]);
+
+  @override
+  Widget build(BuildContext context) {
+    final image = this.image;
+    final Widget cover = image == null
+        ? const GameSign(size: 56)
+        : SizedBox.square(
+            dimension: _size,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: TaleriaAsset(
+                      image,
+                      fit: BoxFit.cover,
+                      fallback: const Center(child: GameSign(size: 56)),
+                    ),
+                  ),
+                ),
+                const Positioned(right: -6, bottom: -6, child: GameSign(size: 28)),
+              ],
+            ),
+          );
+    if (unlocked) return cover;
+    return Opacity(
+      opacity: 0.5,
+      child: ColorFiltered(colorFilter: _grey, child: cover),
     );
   }
 }

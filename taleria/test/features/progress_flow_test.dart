@@ -232,6 +232,12 @@ void main() {
       await scrollTo(tester, find.text(title));
     }
     expect(find.text('Hafen von Taleria, Station 4'), findsOneWidget);
+    // Jede Zeile zeigt das Startbild des Spiels.
+    expect(
+      find.byWidgetPredicate((w) => w is TaleriaAsset && w.assetKey == 'game.till'),
+      findsOneWidget,
+      reason: 'Startbild der Kasse statt des Spiel-Zeichens',
+    );
     await scrollTo(tester, find.text('Talas Ausflüge'));
     expect(find.textContaining('Noch nicht geschafft:'), findsNWidgets(3));
 
