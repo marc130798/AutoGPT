@@ -194,9 +194,15 @@ void main() {
       find.text('Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.'),
       findsOneWidget,
     );
+    // Auf der Karte stehen die Schiffe von Händler und Otti.
+    expect(find.byKey(const ValueKey('sea-stop-ship-ship.haendler')), findsOneWidget);
+    expect(find.byKey(const ValueKey('sea-stop-ship-ship.fischer')), findsOneWidget);
     for (final k in [1, 2]) {
       await tapKey(tester, 'sea-stop-tauschinsel-$k');
+      // Nach dem Nebel liegt oben das Schiff auf dem Meer.
+      expect(find.byKey(const ValueKey('stop-ship')), findsOneWidget);
       await playUntilQuiz(tester);
+      expect(find.byKey(const ValueKey('stop-ship')), findsOneWidget, reason: 'auch bei den Fragen');
       expect(find.text('Weißt du noch?'), findsNothing, reason: 'der Stopp wiederholt selbst');
       await answerAllCorrectly(tester, content);
       expect(find.text('Stopp geschafft!'), findsOneWidget);

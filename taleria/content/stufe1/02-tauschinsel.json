@@ -50,6 +50,7 @@
     {
       "art": "haendlerschiff",
       "figur": "haendler",
+      "schiff": "ship.haendler",
       "titel": "Das Händlerschiff",
       "seemeilen": 30,
       "szene": [
@@ -131,6 +132,7 @@
     {
       "art": "fischerboot",
       "figur": "otti",
+      "schiff": "ship.fischer",
       "titel": "Das Fischerboot",
       "seemeilen": 30,
       "szene": [

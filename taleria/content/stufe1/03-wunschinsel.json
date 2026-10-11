@@ -48,6 +48,7 @@
     {
       "art": "haendlerschiff",
       "figur": "greta",
+      "schiff": "ship.greta",
       "titel": "Gretas Händlerboot",
       "seemeilen": 30,
       "szene": [

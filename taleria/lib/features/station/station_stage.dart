@@ -7,6 +7,7 @@ import '../../core/assets/character_image.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
+import '../common/fog_reveal.dart';
 
 /// Hintergrund einer Station: das Bild der Insel von innen, beim Tauchgang
 /// die Unterwasserwelt. Fehlt das Bild, ein Verlauf von Meer zu Sand.
@@ -54,6 +55,24 @@ class StationBackdrop extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+/// Bühne bei einem Stopp auf See: das Schiff der Figur auf dem Meer. Mit
+/// [emerge] taucht es auf, sobald sich der Nebel lichtet (erste Szene).
+class ShipStage extends StatelessWidget {
+  const ShipStage(this.assetKey, {super.key, this.emerge = false});
+
+  final String assetKey;
+  final bool emerge;
+
+  @override
+  Widget build(BuildContext context) {
+    final ship = TaleriaAsset(assetKey, key: const ValueKey('stop-ship'), alignment: Alignment.bottomCenter);
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: emerge ? EmergeFromSea(child: ship) : ship,
     );
   }
 }

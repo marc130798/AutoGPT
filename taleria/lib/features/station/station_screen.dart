@@ -9,6 +9,7 @@ import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/sounds.dart';
 import '../../services/station_controller.dart';
+import '../common/fog_reveal.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
@@ -112,7 +113,8 @@ class _StationScreenState extends State<StationScreen> {
             lines: content.scene,
             title: content.place,
             onDone: controller.next,
-            stage: true,
+            // Beim Stopp auf See mit Schiff steht oben das Schiff (siehe _framed).
+            stage: content.seaStop?.ship == null,
           ),
           StationStep.lesson when content.hasPictureStory => PictureStory(
             lines: content.lesson,
@@ -153,18 +155,21 @@ class _StationScreenState extends State<StationScreen> {
         };
         return Scaffold(
           appBar: AppBar(title: Text(content.title)),
-          body: StationBackdrop(
-            // Die Insel von innen, beim Tauchgang die Unterwasserwelt, beim
-            // Stopp auf See das offene Meer.
-            assetKey: controller.isDive
-                ? AssetKeys.underwaterBackground
-                : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
-            // Unter Wasser oben das Wrack mit den Fischen zeigen.
-            lift: controller.isDive ? 0.35 : 0,
-            child: SafeArea(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                child: KeyedSubtree(key: ValueKey(controller.step), child: _framed(controller, body)),
+          body: _fogged(
+            controller.isSeaStop,
+            StationBackdrop(
+              // Die Insel von innen, beim Tauchgang die Unterwasserwelt, beim
+              // Stopp auf See das offene Meer.
+              assetKey: controller.isDive
+                  ? AssetKeys.underwaterBackground
+                  : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
+              // Unter Wasser oben das Wrack mit den Fischen zeigen.
+              lift: controller.isDive ? 0.35 : 0,
+              child: SafeArea(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  child: KeyedSubtree(key: ValueKey(controller.step), child: _framed(controller, body)),
+                ),
               ),
             ),
           ),
@@ -174,6 +179,9 @@ class _StationScreenState extends State<StationScreen> {
   }
 }
 
+/// Stopp auf See: Nebel zieht auf und lichtet sich (siehe [fogRoute]).
+Widget _fogged(bool seaStop, Widget child) => seaStop ? FogReveal(child: child) : child;
+
 /// Legt den Inhalt eines Schritts auf Papier, darüber passende Figuren:
 /// bei Fragen denkt Talo nach (richtig: beide freuen sich), beim Spiel
 /// überlegt Tala, am Ende freuen sich beide. Unter Wasser bleibt die Bühne
@@ -181,8 +189,13 @@ class _StationScreenState extends State<StationScreen> {
 Widget _framed(StationController controller, Widget body) {
   final dive = controller.isDive;
   final failedExam = controller.isExam && controller.result != null && !controller.result!.passed;
+  final ship = controller.station.content.seaStop?.ship;
   return switch (controller.step) {
     StationStep.loading || StationStep.submitting => body,
+    // Stopp auf See mit Schiff: Oben liegt das Schiff auf dem Meer. In der
+    // Szene taucht es aus dem Nebel auf, bei den Fragen bleibt es da.
+    StationStep.scene when ship != null => StagePanel(stage: ShipStage(ship, emerge: true), child: body),
+    StationStep.quiz when ship != null => StagePanel(stage: ShipStage(ship), child: body),
     // Die Bildergeschichte liegt ganz auf Papier, das Bild ersetzt die Bühne.
     StationStep.lesson when controller.station.content.hasPictureStory => StagePanel(child: body),
     // Szene und Lehre bringen ihre Bühne selbst mit (aktueller Sprecher).

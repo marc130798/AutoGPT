@@ -291,9 +291,15 @@ void main() {
     });
 
     test('Stopps auf See: Art, Figur, Pool, nicht vor der ersten Insel', () {
-      Map<String, dynamic> stop({String art = 'haendlerschiff', String figur = 'haendler', int questions = 6}) => {
+      Map<String, dynamic> stop({
+        String art = 'haendlerschiff',
+        String figur = 'haendler',
+        String? schiff,
+        int questions = 6,
+      }) => {
         'art': art,
         'figur': figur,
+        'schiff': ?schiff,
         'titel': 'Ein Stopp',
         'seemeilen': 30,
         'szene': [
@@ -347,6 +353,19 @@ void main() {
         ),
         contains(contains('unbekannte Art')),
       );
+      // Das Schiff muss ein bekanntes Bild sein (ship.…).
+      for (final (ship, ok) in [('ship.haendler', true), ('ship.atlantis', false), ('character.otti', false)]) {
+        final found = problems(
+          islandWith(
+            station(),
+            extra: {
+              'reihenfolge': 2,
+              'stopps_auf_see': [stop(schiff: ship)],
+            },
+          ),
+        );
+        expect(found, ok ? isEmpty : contains(contains('unbekanntes Schiff')), reason: ship);
+      }
       expect(
         problems(
           islandWith(

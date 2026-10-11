@@ -13,6 +13,7 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/map_controller.dart';
+import '../common/fog_reveal.dart';
 import '../common/menu_music.dart';
 import '../common/texts.dart';
 import '../encounter/encounter_screen.dart';
@@ -214,14 +215,10 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       return;
     }
     final island = controller.islandOf(stop);
+    // Nebel zieht auf, dann taucht das Schiff auf.
     await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => StationScreen(
-          child: widget.child,
-          island: island,
-          station: stop,
-          allStations: controller.stopsBefore(island),
-        ),
+      fogRoute<void>(
+        StationScreen(child: widget.child, island: island, station: stop, allStations: controller.stopsBefore(island)),
       ),
     );
     await controller.load();
@@ -233,11 +230,8 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       _hint(AppLocalizations.of(context).mapEncounterNone);
       return;
     }
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm),
-      ),
-    );
+    await Navigator.of(context)
+        .push(fogRoute<void>(EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm)));
     await _controller!.load();
   }
 
@@ -254,9 +248,7 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
         return;
       }
       await navigator.push(
-        MaterialPageRoute<void>(
-          builder: (_) => EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm),
-        ),
+        fogRoute<void>(EncounterScreen(childId: widget.child.id, offer: offer, rankForm: widget.child.rankForm)),
       );
       await controller.load();
     } on AppFailure catch (e) {

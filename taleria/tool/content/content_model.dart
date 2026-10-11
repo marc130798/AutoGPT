@@ -262,6 +262,7 @@ class SeaStop {
   SeaStop({
     required this.kind,
     required this.figure,
+    this.ship,
     required this.title,
     required this.xp,
     required this.scene,
@@ -275,6 +276,9 @@ class SeaStop {
 
   /// Figur auf der Karte (Asset-Schlüssel `character.<figure>`).
   final String figure;
+
+  /// Schiff der Figur (Asset-Schlüssel `ship.…`), auf der Karte und im Stopp.
+  final String? ship;
   final String title;
   final int xp;
   final List<Line> scene;
@@ -285,7 +289,7 @@ class SeaStop {
   Map<String, dynamic> toDbContent(int index) => {
     'title': title,
     'kind': 'sea_stop',
-    'stop': {'type': kind, 'figure': figure, 'index': index},
+    'stop': {'type': kind, 'figure': figure, 'index': index, 'ship': ?ship},
     'scene': [for (final l in scene) l.toDb()],
     if (summary != null) 'summary': summary!.toDb(),
     'quiz': {'show': quizShow},
@@ -460,6 +464,7 @@ Island parseIsland(String file, String source) {
           return SeaStop(
             kind: text(st, 'art', where),
             figure: text(st, 'figur', where),
+            ship: st['schiff'] as String?,
             title: text(st, 'titel', where),
             xp: st['seemeilen'] as int? ?? 0,
             scene: lines(st['szene'], '$where, Szene'),
@@ -662,6 +667,9 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       final sw = '$w, Stopp auf See ${k + 1}';
       check(seaStopKinds.contains(st.kind), '$sw: unbekannte Art "${st.kind}"');
       check(knownAssetKeys.contains('character.${st.figure}'), '$sw: unbekannte Figur "${st.figure}"');
+      if (st.ship case final ship?) {
+        check(ship.startsWith('ship.') && knownAssetKeys.contains(ship), '$sw: unbekanntes Schiff "$ship"');
+      }
       check(st.scene.isNotEmpty && st.summary != null, '$sw: Szene und Abschluss nötig');
       for (final line in [...st.scene, ?st.summary]) {
         check(knownAssetKeys.contains('character.${line.speaker}'), '$sw: unbekannte Figur "${line.speaker}"');

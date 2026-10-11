@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taleria/core/assets/taleria_asset.dart';
 import 'package:taleria/domain/progress_models.dart';
 
 import '../fake_content.dart';
@@ -160,6 +161,8 @@ void main() {
 
     await tapKey(tester, 'encounter-marker');
     expect(find.text('Talo, schau mal! Unter dem Schiff bewegt sich etwas. Etwas sehr Großes.'), findsOneWidget);
+    // Meister Taleron schaut halb aus dem Wasser.
+    expect(tester.widget<TaleriaAsset>(find.byKey(const ValueKey('encounter-figure'))).assetKey, 'encounter.taleron');
     for (var i = 0; i < 10 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
       await tapText(tester, 'Weiter');
     }

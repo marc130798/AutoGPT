@@ -321,7 +321,7 @@ class DiveInfo {
 /// Stopp auf See (stations.content.stop): welche Art, welche Figur auf der
 /// Karte zu sehen ist und der wievielte Stopp vor der Insel.
 class SeaStopInfo {
-  const SeaStopInfo({required this.type, required this.figure, required this.index});
+  const SeaStopInfo({required this.type, required this.figure, required this.index, this.ship});
 
   /// haendlerschiff, fischerboot, angeberschiff oder tala_vergisst.
   final String type;
@@ -329,6 +329,10 @@ class SeaStopInfo {
   /// Figur (Asset-Schlüssel `character.<figure>`).
   final String figure;
   final int index;
+
+  /// Schiff der Figur (Asset-Schlüssel `ship.…`): auf der Karte statt des
+  /// Kopfes und im Stopp oben auf dem Meer. `null`: nur die Figur.
+  final String? ship;
 }
 
 /// Inhalt einer Station (stations.content).
@@ -368,6 +372,7 @@ class StationContent {
               type: stop['type'] as String? ?? 'haendlerschiff',
               figure: stop['figure'] as String? ?? 'talo',
               index: stop['index'] as int? ?? 1,
+              ship: stop['ship'] as String?,
             ),
       title: json['title'] as String? ?? '',
       place: json['place'] as String?,

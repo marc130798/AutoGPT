@@ -8,10 +8,12 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/encounter_controller.dart';
+import '../common/fog_reveal.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
 import '../station/dialog_sequence.dart';
+import '../station/station_stage.dart';
 
 /// Begegnung auf See (Kontrollfahrt): Eine Figur taucht auf und stellt
 /// Rätsel zu früheren Stationen. Falsche Antworten kosten nichts: Die Figur
@@ -63,40 +65,47 @@ class _EncounterScreenState extends State<EncounterScreen> {
       builder: (context, _) {
         final body = switch (controller.step) {
           EncounterStep.loading || EncounterStep.submitting => const Center(child: CircularProgressIndicator()),
-          EncounterStep.intro => Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: RiseFromWater(child: TaleriaAsset(controller.encounter.assetKey, width: 120, height: 120)),
-              ),
-              Expanded(
-                child: DialogSequence(lines: widget.offer.openingScene, onDone: controller.introDone),
-              ),
-            ],
+          // Meister Taleron taucht aus dem Nebel auf, darunter das Gespräch auf Papier.
+          EncounterStep.intro => StagePanel(
+            stage: EmergeFromSea(child: _figure(controller)),
+            child: DialogSequence(lines: widget.offer.openingScene, onDone: controller.introDone),
           ),
-          EncounterStep.question => _RiddleView(controller: controller),
-          EncounterStep.result => _ResultView(controller: controller, rankForm: widget.rankForm),
-          EncounterStep.failed => Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Icon(Icons.cloud_off_outlined, size: 64),
-                const SizedBox(height: 16),
-                Text(l10n.failure(controller.failure ?? FailureKind.unknown), textAlign: TextAlign.center),
-                const SizedBox(height: 24),
-                FilledButton(onPressed: controller.retryAfterFailure, child: Text(l10n.retryButton)),
-              ],
+          EncounterStep.question => StagePanel(
+            stage: _figure(controller),
+            child: _RiddleView(controller: controller),
+          ),
+          EncounterStep.result => StagePanel(
+            child: _ResultView(controller: controller, rankForm: widget.rankForm),
+          ),
+          EncounterStep.failed => StagePanel(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Icon(Icons.cloud_off_outlined, size: 64),
+                  const SizedBox(height: 16),
+                  Text(l10n.failure(controller.failure ?? FailureKind.unknown), textAlign: TextAlign.center),
+                  const SizedBox(height: 24),
+                  FilledButton(onPressed: controller.retryAfterFailure, child: Text(l10n.retryButton)),
+                ],
+              ),
             ),
           ),
         };
         return Scaffold(
           appBar: AppBar(title: Text(controller.encounter.title)),
-          body: SafeArea(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              child: KeyedSubtree(key: ValueKey(controller.step), child: body),
+          // Mitten auf dem Meer: Nebel zieht auf und lichtet sich.
+          body: FogReveal(
+            child: StationBackdrop(
+              assetKey: AssetKeys.mapBackground,
+              child: SafeArea(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  child: KeyedSubtree(key: ValueKey(controller.step), child: body),
+                ),
+              ),
             ),
           ),
         );
@@ -104,6 +113,13 @@ class _EncounterScreenState extends State<EncounterScreen> {
     );
   }
 }
+
+/// Die Figur der Begegnung (bei Meister Taleron: halb aus dem Wasser) auf der Bühne.
+Widget _figure(EncounterController controller) => TaleriaAsset(
+  controller.encounter.assetKey,
+  key: const ValueKey('encounter-figure'),
+  alignment: Alignment.bottomCenter,
+);
 
 class _RiddleView extends StatelessWidget {
   const _RiddleView({required this.controller});
@@ -135,7 +151,6 @@ class _RiddleView extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              Center(child: TaleriaAsset(encounter.assetKey, width: 96, height: 96)),
               const SizedBox(height: 8),
               Text(
                 l10n.encounterProgress(run.index + 1, run.total),

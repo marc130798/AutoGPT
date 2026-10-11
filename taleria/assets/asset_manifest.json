@@ -190,6 +190,42 @@
         "shape": "rounded"
       }
     },
+    "encounter.taleron": {
+      "type": "image",
+      "path": "assets/images/encounter.taleron.png",
+      "placeholder": {
+        "label": "Meister Taleron taucht auf",
+        "color": "#2E8B7A",
+        "shape": "rounded"
+      }
+    },
+    "ship.haendler": {
+      "type": "image",
+      "path": "assets/images/ship.haendler.png",
+      "placeholder": {
+        "label": "Händlerschiff",
+        "color": "#9C6B3C",
+        "shape": "rounded"
+      }
+    },
+    "ship.fischer": {
+      "type": "image",
+      "path": "assets/images/ship.fischer.png",
+      "placeholder": {
+        "label": "Fischerboot",
+        "color": "#7FA8C9",
+        "shape": "rounded"
+      }
+    },
+    "ship.greta": {
+      "type": "image",
+      "path": "assets/images/ship.greta.png",
+      "placeholder": {
+        "label": "Gretas Händlerboot",
+        "color": "#B5483B",
+        "shape": "rounded"
+      }
+    },
     "ship.prunk": {
       "type": "image",
       "path": "assets/images/ship.prunk.png",

@@ -412,13 +412,17 @@ class FogIntro extends StatelessWidget {
   }
 }
 
-/// Ein Stopp auf See auf der Route: die Figur im runden Rahmen, darunter der
-/// Name. Geschafft: goldener Haken. Dran: goldener, leuchtender Rand.
-/// Gesperrt: blass mit Schloss.
+/// Ein Stopp auf See auf der Route: das Schiff der Figur mit ihrem Kopf als
+/// kleinem Rundbild (ohne Schiff die Figur im runden Rahmen), darunter der
+/// Name. Geschafft: goldener Haken. Dran: goldenes Leuchten. Gesperrt: blass
+/// mit Schloss.
 class SeaStopMarker extends StatelessWidget {
   const SeaStopMarker({super.key, required this.stop, required this.state, required this.onTap});
 
   static const size = 60.0;
+
+  /// Breite eines Schiffs auf der Karte (Schiffe sind breiter als Köpfe).
+  static const shipWidth = 76.0;
 
   /// Breite für den Namen unter der Marke.
   static const labelWidth = 108.0;
@@ -437,8 +441,47 @@ class SeaStopMarker extends StatelessWidget {
     final figure = 'character.${stop.content.seaStop?.figure ?? 'talo'}';
     final open = state == StationState.open;
     final done = state == StationState.done;
-    // Wie in den Sprechblasen: nur Kopf und Schultern, größer gezeigt.
-    const zoomed = size * 1.6;
+    final ship = stop.content.seaStop?.ship;
+    final badge = done || state == StationState.locked
+        ? CircleAvatar(
+            radius: 12,
+            backgroundColor: done ? palette.gold : palette.seaDeep,
+            child: Icon(done ? Icons.check_rounded : Icons.lock, size: 15, color: Colors.white),
+          )
+        : null;
+    Widget head(double size, {double border = 3}) => Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: palette.paper,
+        border: Border.all(
+          color: open || done ? palette.gold : palette.placeholderBorder,
+          width: open ? border + 1 : border,
+        ),
+        boxShadow: [
+          if (open) BoxShadow(color: palette.gold.withValues(alpha: 0.8), blurRadius: 16, spreadRadius: 3),
+          const BoxShadow(color: Color(0x55081C30), blurRadius: 6, offset: Offset(0, 2)),
+        ],
+      ),
+      child: ClipOval(
+        child: OverflowBox(
+          maxWidth: size * 1.6,
+          maxHeight: size * 1.6,
+          alignment: Alignment.topCenter,
+          child: CharacterImage(
+            figure,
+            width: size * 1.6,
+            height: size * 1.6,
+            alignment: Alignment.topCenter,
+            fallback: Align(
+              alignment: Alignment.topCenter,
+              child: AssetPlaceholder(entry: services.manifest.lookup(figure), width: size, height: size),
+            ),
+          ),
+        ),
+      ),
+    );
     return Semantics(
       button: true,
       label: stop.content.title,
@@ -447,56 +490,39 @@ class SeaStopMarker extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  width: size,
-                  height: size,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: palette.paper,
-                    border: Border.all(
-                      color: open || done ? palette.gold : palette.placeholderBorder,
-                      width: open ? 4 : 3,
-                    ),
-                    boxShadow: [
-                      if (open) BoxShadow(color: palette.gold.withValues(alpha: 0.8), blurRadius: 16, spreadRadius: 3),
-                      const BoxShadow(color: Color(0x55081C30), blurRadius: 6, offset: Offset(0, 2)),
-                    ],
-                  ),
-                  child: ClipOval(
-                    child: Opacity(
-                      opacity: state == StationState.locked ? 0.5 : 1,
-                      child: OverflowBox(
-                        maxWidth: zoomed,
-                        maxHeight: zoomed,
-                        alignment: Alignment.topCenter,
-                        child: CharacterImage(
-                          figure,
-                          width: zoomed,
-                          height: zoomed,
-                          alignment: Alignment.topCenter,
-                          fallback: Align(
-                            alignment: Alignment.topCenter,
-                            child: AssetPlaceholder(entry: services.manifest.lookup(figure), width: size, height: size),
+            Opacity(
+              opacity: state == StationState.locked ? 0.6 : 1,
+              child: SizedBox(
+                width: shipWidth,
+                height: size,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  children: [
+                    if (ship == null)
+                      head(size)
+                    else ...[
+                      // Ist der Stopp dran, leuchtet das Meer unter dem Schiff.
+                      if (open)
+                        Container(
+                          width: size,
+                          height: size * 0.5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(color: palette.gold.withValues(alpha: 0.75), blurRadius: 18, spreadRadius: 6),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                  ),
+                      TaleriaAsset(ship, key: ValueKey('sea-stop-ship-$ship'), width: shipWidth, height: size),
+                      // Wer an Bord ist, als kleines Rundbild.
+                      Positioned(left: -2, bottom: -4, child: head(26, border: 2)),
+                    ],
+                    if (badge != null)
+                      Positioned(right: ship == null ? (shipWidth - size) / 2 - 4 : -4, bottom: -4, child: badge),
+                  ],
                 ),
-                if (done || state == StationState.locked)
-                  Positioned(
-                    right: -4,
-                    bottom: -4,
-                    child: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: done ? palette.gold : palette.seaDeep,
-                      child: Icon(done ? Icons.check_rounded : Icons.lock, size: 15, color: Colors.white),
-                    ),
-                  ),
-              ],
+              ),
             ),
             const SizedBox(height: 4),
             Container(

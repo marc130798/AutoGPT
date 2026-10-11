@@ -426,10 +426,10 @@ Besprochen mit Marc am 11.10.2026: Auf der Karte sieht man bisher nur runde Köp
 
 | Nr. | Datei | Bild | Vorlagen | Stand |
 | --- | --- | --- | --- | --- |
-| 52 | `encounter.taleron` | Meister Taleron taucht auf | character.taleron | fehlt |
-| 53 | `ship.haendler` | Das Händlerschiff (Stopp vor der Tauschinsel) | ship.crew, character.haendler | fehlt |
-| 54 | `ship.fischer` | Das Fischerboot (Stopp vor der Tauschinsel) | ship.crew, character.otti | fehlt |
-| 55 | `ship.greta` | Gretas Händlerboot (Stopp vor der Wunschinsel) | ship.crew, character.greta | fehlt |
+| 52 | `encounter.taleron` | Meister Taleron taucht auf | character.taleron | da |
+| 53 | `ship.haendler` | Das Händlerschiff (Stopp vor der Tauschinsel) | ship.crew, character.haendler | da (ohne Walross, Gemini lehnte es mit Figur ab; die App zeigt den Kopf als Rundbild daneben) |
+| 54 | `ship.fischer` | Das Fischerboot (Stopp vor der Tauschinsel) | ship.crew, character.otti | da |
+| 55 | `ship.greta` | Gretas Händlerboot (Stopp vor der Wunschinsel) | ship.crew, character.greta | da |
 
 ### Bild 52: Meister Taleron taucht auf → `encounter.taleron`
 
