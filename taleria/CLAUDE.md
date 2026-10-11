@@ -691,7 +691,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Erste Runde erledigt (siehe oben, „Rückmeldungen aus Marcs Test“): Musik auf allen Menü-Seiten, Aufträge mit Datum, Übersicht pro Truhe.
    - Zweite Runde erledigt: Reihenfolge-Fehler, Rang-Zeitstrahl, Tauchplätze am Wasser, Bildergeschichten statt Stationsfilmen, Stopps auf See.
    - Diese Änderungen sind noch in keiner Testversion (ZIP); eine neue baut Claude erst, wenn Marc es sagt. Vorher im Testprojekt: `20261010000200_stopps_auf_see.sql`, dann `supabase/seed.sql`.
-   - Marc macht die 20 Gemini-Bilder der Hafen-Bildergeschichten (BILDER.md, Abschnitt 4h; 37 bis 39 zeichnet die App). Stand 11.10.2026: 14 sind da (29 bis 36 und 40 bis 45), es fehlen 46 bis 51. Danach schreibt Claude die Vorlagen für Tauschinsel und Wunschinsel.
+   - Marc macht die 20 Gemini-Bilder der Hafen-Bildergeschichten (BILDER.md, Abschnitt 4h; 37 bis 39 zeichnet die App). Stand 11.10.2026: alle 20 sind da, der Hafen hat keine Platzhalter mehr. Als Nächstes schreibt Claude die Vorlagen für Tauschinsel und Wunschinsel.
    - Malt Gemini ein Logo oder fremdes Geld, bessert Claude das Bild aus (bisher Bild 35 und 36). In `design/gemini/` liegt dann die ausgebesserte Fassung.
 2. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
