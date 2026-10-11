@@ -420,6 +420,62 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 
 Welches Bild zu welchem Fund gehört, steht in den Inhaltsdateien (`"fund_bild"` beim Tauchgang).
 
+## 4o. Spar-Insel (Insel 4)
+
+Vorbereitet am 11.10.2026 abends auf Marcs Wunsch, bevor die Texte der Spar-Insel geschrieben sind: Die Bildergeschichten geben die Geschichte vor, die Sätze schreibt Claude danach passend dazu. Reihenfolge: erst Karte (132), dann die Insel von innen (133, braucht 132 als Vorlage), dann Emma und Gustav (134, 135, sie sind Vorlagen für die Geschichten), danach Orden, Siegel, Funde und die Geschichten. Emma ist rotbraun, Gustav hellgrün: beide auf Pink. Gustav darf nicht wie eine bekannte Filmgrille aussehen (kein Zylinder, kein Regenschirm). Wo Zahlen nötig sind (Station 3: 50 Cent am Tag sind 3,50 € in der Woche; Station 5: Sparplan 30 Taler mit 5 pro Woche), zeichnet die App das Bild selbst. Ganze Texte in `design/prompts_spar_insel.txt`.
+
+| Nr. | Datei | Bild | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 132 | `map.island.spar-insel` | Die Spar-Insel auf der Karte | das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg) | fehlt |
+| 133 | `island.spar-insel.background` | Die Spar-Insel von innen | das neue Kartenbild der Spar-Insel (Bild 132) | fehlt |
+| 134 | `character.emma` | Emma, die Vorratsmeisterin | Talo (design/gemini/character.talo.jpg) | fehlt |
+| 135 | `character.gustav` | Gustav, die Grille | Talo (design/gemini/character.talo.jpg) | fehlt |
+| 136 | `badge.spar-insel` | Orden „Vorratsmeister“ | der Orden mit dem Anker (design/gemini/icon.badges.jpg) | fehlt |
+| 137 | `badge.taleron_seal_a` | Taleron-Siegel A (nach der Spar-Insel) | der Orden mit dem Anker (design/gemini/icon.badges.jpg) und Meister Taleron (design/gemini/character.taleron.jpg) | fehlt |
+| 138 | `collectible.spar-insel.1` | Fund: Tagebuch eines Matrosen | das Fundstück (design/gemini/collectible.wreck_item.jpg) | fehlt |
+| 139 | `collectible.spar-insel.2` | Fund: Alte Spardose | das Fundstück (design/gemini/collectible.wreck_item.jpg) | fehlt |
+| 140 | `collectible.spar-insel.3` | Fund: Schlüssel der Schatzkammer | das Fundstück (design/gemini/collectible.wreck_item.jpg) | fehlt |
+
+**Bildergeschichten** (Querformat 4:3, ganze Szene; Text wie in Abschnitt 4h, mit Talas Kleidung):
+
+| Nr. | Datei | Station | Bild | Vorlagen | SZENE | Stand |
+| --- | --- | --- | --- | --- | --- | --- |
+| 141 | `story.spar-insel.1.1` | 1 Warum sparen? | Herbst im Baumhaus-Dorf | Emma, Gustav | Herbst im Baumhaus-Dorf der Spar-Insel, bunte Blätter fallen. Emma, das Eichhörnchen, trägt einen vollen Korb Nüsse eine Strickleiter zu ihrem Baumhaus hinauf. Unten sitzt Gustav, die Grille, auf einem großen Pilz, spielt fröhlich Geige und lacht. | fehlt |
+| 142 | `story.spar-insel.1.2` | 1 Warum sparen? | Der Winter kommt | Emma, Gustav | Winter im Baumhaus-Dorf, alles ist verschneit. Durch das warm leuchtende Fenster sieht man Emma gemütlich vor einem Regal voller Nüsse und Gläser sitzen. Draußen vor der Tür steht Gustav und fröstelt, mit leeren Taschen und einem Schal, der ihm zu dünn ist. | fehlt |
+| 143 | `story.spar-insel.1.3` | 1 Warum sparen? | Wofür man spart | Talo | Talo steht vor einem Holzregal mit drei Einmachgläsern voller goldener Münzen ohne Zeichen. Auf jedem Glas klebt ein gemaltes Bild statt Schrift: auf dem ersten ein rotes Fahrrad, auf dem zweiten ein Pflaster, auf dem dritten eine kleine Sanduhr. Talo zeigt freundlich auf die Gläser. | fehlt |
+| 144 | `story.spar-insel.1.4` | 1 Warum sparen? | Ein Vorrat für schlechte Zeiten | Emma, Tala | In Emmas gemütlichem Baumhaus: Emma öffnet eine kleine Holzkiste mit einem Vorrat Nüsse und einem Säckchen Münzen und zeigt sie Tala. Tala schaut neugierig hinein. | fehlt |
+| 145 | `story.spar-insel.2.1` | 2 Mein erster Wunschschatz | Talas großer Wunsch | Tala | Auf einer sonnigen Herbstlichtung mit Pilzen sitzt Tala im bunten Laub. Über ihr schwebt eine Gedankenblase mit einem Paar roter Rollschuhe. Sie lächelt verträumt. | fehlt |
+| 146 | `story.spar-insel.2.2` | 2 Mein erster Wunschschatz | Ein gutes Sparziel | Emma, Tala | Auf der Lichtung hält Emma eine kleine Holztafel hoch. Darauf sind nur drei gemalte Bilder nebeneinander, ohne Schrift: ein Paar Rollschuhe, ein Häufchen Münzen und eine Sanduhr. Tala schaut aufmerksam zu. | fehlt |
+| 147 | `story.spar-insel.2.3` | 2 Mein erster Wunschschatz | Der Wunschschatz bekommt ein Bild | Tala | Tala hängt ein selbst gemaltes Bild von roten Rollschuhen an einen Ast. Darunter steht ihre kleine Schatztruhe aus Holz auf einem Baumstumpf. Sie ist stolz. | fehlt |
+| 148 | `story.spar-insel.3.1` | 3 Kleine Beträge werden groß | Nur eine Nuss am Tag | Emma, Gustav | Am Fuß eines kleinen Nussstapels legt Emma eine einzelne Nuss obendrauf. Gustav steht daneben, hält seine Geige und lacht spöttisch über die kleine Nuss. | fehlt |
+| 149 | `story.spar-insel.3.2` | 3 Kleine Beträge werden groß | Der Nussturm ist riesig | Gustav, Tala | Viele Wochen später: Der Nussturm ist riesig hoch geworden, höher als die Bäume. Gustav staunt mit offenem Mund und lässt fast seine Geige fallen, Tala klatscht begeistert in die Hände. | fehlt |
+| – | – | 3 Kleine Beträge werden groß | 50 Cent am Tag, 3,50 € in der Woche | – | entfällt: zeichnet die App selbst | – |
+| 150 | `story.spar-insel.4.1` | 4 Geduld lohnt sich | Eine Nuss jetzt oder drei morgen? | Emma, Tala | Auf einer Holzbank unter einem roten Herbstbaum: Emma hält in der einen Pfote eine einzelne Nuss, neben ihr steht ein Körbchen mit drei Nüssen und eine kleine Sanduhr. Tala sitzt daneben und überlegt mit schräg gelegtem Kopf. | fehlt |
+| 151 | `story.spar-insel.4.2` | 4 Geduld lohnt sich | Gustav kann nicht warten | Gustav, Tala | Abendstimmung an der Holzbank: Gustav hat seine eine Nuss schon gegessen und reibt sich zufrieden den Bauch. Tala sitzt geduldig auf der Bank und schaut in den Sonnenuntergang. | fehlt |
+| 152 | `story.spar-insel.4.3` | 4 Geduld lohnt sich | Warten hat sich gelohnt | Gustav, Tala | Am nächsten Morgen an der Holzbank: Tala hält stolz drei Nüsse in den Händen und strahlt. Gustav schaut mit leeren Händen etwas neidisch zu. | fehlt |
+| 153 | `story.spar-insel.5.1` | 5 Einen Sparplan aufstellen | In der Planungs-Hütte | Emma, Tala | In einer gemütlichen kleinen Hütte mit rundem Fenster: Emma sitzt an einem Holztisch mit einer großen Papierrolle und einer Feder, Tala beugt sich neugierig darüber. Auf dem Papier sind nur kleine gemalte Nüsse und Pfeile, keine Zahlen. | fehlt |
+| – | – | 5 Einen Sparplan aufstellen | Sparplan: 30 Taler, 5 pro Woche, 6 Wochen | – | entfällt: zeichnet die App selbst | – |
+| 154 | `story.spar-insel.5.3` | 5 Einen Sparplan aufstellen | Die erste Woche geschafft | Tala | In der Planungs-Hütte: An der Wand hängt ein Papierstreifen mit sechs leeren Kästchen in einer Reihe. Tala malt mit einem dicken Stift einen Haken in das erste Kästchen und lacht. | fehlt |
+| 155 | `story.spar-insel.6.1` | 6 Sparschwein, Spardose, Konto | Wo liegt Geld gut? | Emma | In einer Schatzkammer im Felsen mit warmem Laternenlicht: Auf einem Holzregal stehen ein rosa Sparschwein ohne Zeichen, eine bunte Spardose aus Blech und ein kleiner, schwerer Tresor mit dickem Schloss. Emma zeigt darauf. | fehlt |
+| 156 | `story.spar-insel.6.2` | 6 Sparschwein, Spardose, Konto | Man hört, wie es wächst | Tala | Tala hält ihr rosa Sparschwein ohne Zeichen hoch und schüttelt es. Man sieht kleine Klimper-Striche in der Luft, Tala strahlt. | fehlt |
+| 157 | `story.spar-insel.6.3` | 6 Sparschwein, Spardose, Konto | Überall verteilt | Gustav | Gustav hat seine Münzen überall versteckt: unter einem Stein, in einem Schuh, in einer Blüte und in seinem Geigenkasten. Eine Münze rollt gerade davon. Gustav kratzt sich ratlos am Kopf. | fehlt |
+| 158 | `story.spar-insel.6.4` | 6 Sparschwein, Spardose, Konto | Später auf der Bank-Insel | Talo, Tala | Talo und Tala stehen am Ufer der Spar-Insel. Talo zeigt mit einem Fernrohr über das Meer auf eine ferne Insel mit einem hellen Gebäude mit Säulen. Tala schaut neugierig. | fehlt |
+| 159 | `story.spar-insel.7.1` | 7 Schatztruhen-Challenge | Am Vorratsspeicher | Emma, Tala | Vor dem großen Vorratsspeicher in einem dicken hohlen Baumstamm mit runder Holztür: Tala legt eine goldene Münze ohne Zeichen in ihre kleine Schatztruhe, Emma klatscht anerkennend. | fehlt |
+| 160 | `story.spar-insel.7.2` | 7 Schatztruhen-Challenge | Jede Woche ein bisschen | Tala | Vier kleine Stoffsäckchen stehen in einer Reihe auf einem Holztisch, jedes etwas voller als das davor. Tala legt gerade eine Münze in das vierte Säckchen und lächelt. | fehlt |
+| 161 | `story.spar-insel.7.3` | 7 Schatztruhen-Challenge | Das Kartenstück im Speicher | Talo, Tala | Die runde Tür des Vorratsspeichers steht offen. Drinnen, zwischen Bergen von Nüssen, leuchtet golden ein altes Stück einer Schatzkarte, nur mit gemalten Wellen und einer Insel. Talo und Tala staunen mit großen Augen. | fehlt |
+| 162 | `story.spar-insel.7.4` | 7 Schatztruhen-Challenge | Gustav fängt an | Emma, Gustav | Vor dem Vorratsspeicher gibt Emma Gustav lächelnd eine kleine Spardose. Gustav hält sie vorsichtig wie einen Schatz und freut sich. Bunte Blätter wirbeln um die beiden. | fehlt |
+
+## 4n. Nachbesserungen
+
+Aus den offenen Punkten (CLAUDE.md, Abschnitt 17): drei Bilder mit englischem „E“ für Osten und das Startbild der Kasse, auf dem Talo ohne Jacke ist. Immer das jetzige Bild anhängen, damit nur die eine Stelle anders wird. Ganze Texte in `design/prompts_spar_insel.txt`.
+
+| Nr. | Datei | Was anders wird | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 128 | `rank.kapitaen` | Rang Kapitän ohne Buchstaben | das jetzige Kapitäns-Abzeichen (design/gemini/rank.kapitaen.jpg) | fehlt |
+| 129 | `badge.wunschinsel` | Orden Wunschinsel ohne Buchstaben | der jetzige Orden der Wunschinsel (design/gemini/badge.wunschinsel.jpg) | fehlt |
+| 130 | `collectible.wreck_item` | Fundstück ohne Buchstaben | das jetzige Fundstück (design/gemini/collectible.wreck_item.jpg) | fehlt |
+| 131 | `game.till` | Startbild Kasse, Talo mit Jacke | Talo (design/gemini/character.talo.jpg) | fehlt |
+
 ## 4m. Bilder für „Talas Ausflüge“ (Wunschinsel 2)
 
 Bonus-Spiel der Wunschinsel, Station 2 (Rucksack packen für drei Ausflüge, besprochen mit Marc am 11.10.2026). Startbild und die drei Ausflüge sind ganze Szenen im Querformat 4:3 (die App zeigt die Ausflüge etwas breiter, oben und unten fällt ein Rand weg). Die Dinge sind freigestellt auf Pink wie bei den anderen Mini-Spielen; Brötchen und Bonbons gibt es schon (Bild 108 und 111). Die Ausflugsbilder verraten nicht, was Tala braucht (keine Regenjacke an, kein Hut auf): Das soll das Kind aus Bild und Text selbst erkennen. Ganze Texte in `design/prompts_minispiele.txt`.

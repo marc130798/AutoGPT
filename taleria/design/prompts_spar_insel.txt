@@ -1,0 +1,190 @@
+Bildtexte für Gemini: Nachbesserungen und Spar-Insel (BILDER.md, Abschnitte 4n und 4o)
+
+Jeder Text ist fertig zum Kopieren. „Anhängen“ sagt, welches Bild als Vorlage mit in Gemini muss.
+
+============================================================
+NACHBESSERUNGEN
+============================================================
+
+Bild 128: Rang Kapitän ohne Buchstaben  →  rank.kapitaen
+Anhängen: das jetzige Kapitäns-Abzeichen (design/gemini/rank.kapitaen.jpg)
+
+Genau das gleiche Abzeichen wie im angehängten Bild, gleicher Stil, gleiche Farben, gleiches Licht und gleicher Bildaufbau. Einzige Änderung: Auf der Kompassrose stehen keine Buchstaben mehr. Die vier Himmelsrichtungen sind nur goldene Spitzen mit je einem kleinen Stern. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 129: Orden Wunschinsel ohne Buchstaben  →  badge.wunschinsel
+Anhängen: der jetzige Orden der Wunschinsel (design/gemini/badge.wunschinsel.jpg)
+
+Genau der gleiche Orden wie im angehängten Bild, gleicher Stil, gleiche Farben, gleiches Licht, gleiches blaues Band und gleicher Bildaufbau. Einzige Änderung: Auf dem Kompass stehen keine Buchstaben mehr. Die Himmelsrichtungen sind nur kleine Striche, die Nadel zeigt weiter auf den goldenen Stern. Orden und Band sind ganz zu sehen, mit freiem Platz bis zum Rand. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 130: Fundstück ohne Buchstaben  →  collectible.wreck_item
+Anhängen: das jetzige Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Genau die gleichen Fundstücke wie im angehängten Bild, gleicher Stil, gleiche Farben, gleiches Licht und gleicher Bildaufbau. Einzige Änderung: Auf dem kleinen Kompass stehen keine Buchstaben mehr, nur kleine Striche für die Himmelsrichtungen. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 131: Startbild Kasse, Talo mit Jacke  →  game.till
+Anhängen: Talo (design/gemini/character.talo.jpg)
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Talo trägt seine dunkelblaue Kapitänsjacke mit goldenen Knöpfen und seine kleine Kapitänsmütze wie auf dem Vorlagenbild. Der Fischbrötchen-Stand am Hafen von Taleria, von hinten gesehen, als stünde man selbst an der Kasse: Vorne eine hölzerne Kasse mit offener Schublade, darin Münzen in kleinen Fächern (Münzen ohne Zahlen und ohne Zeichen). Auf der Theke liegen Fischbrötchen. Vor der Theke wartet Talo freundlich mit einem kleinen Geldbeutel in der Pfote. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+============================================================
+SPAR-INSEL
+============================================================
+
+Bild 132: Die Spar-Insel auf der Karte  →  map.island.spar-insel
+Anhängen: das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg)
+
+Gleicher Stil, gleicher Blickwinkel, gleiche Größe und gleiches Licht wie im angehängten Bild, aber eine andere Insel: Eine kleine runde Herbstinsel ohne Wasser drumherum. Rundherum Sandstrand mit bunten Blättern, innen Wiesen und Bäume in Rot, Orange und Gold. Auf der Insel: ein kleines Dorf aus gemütlichen Baumhäusern mit Strickleitern, eine Lichtung mit Pilzen, ein hoher Turm aus aufgestapelten Nüssen, eine Holzbank unter einem Baum, eine kleine Hütte mit rundem Fenster, eine Schatzkammer mit Holztür in einem Felsen, ein großer Vorratsspeicher in einem dicken hohlen Baumstamm und eine kleine Anlegestelle. Quadratisches Bild. Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+
+Bild 133: Die Spar-Insel von innen  →  island.spar-insel.background
+Anhängen: das neue Kartenbild der Spar-Insel (Bild 132)
+
+Die gleiche Insel wie im angehängten Bild, aber ganz nah und im Hochformat 9:16, sie füllt das ganze Bild. Blick schräg von oben, goldenes Herbstlicht. Unten am Rand eine kleine Anlegestelle aus Holz am Wasser, daneben ein Strand mit bunten Blättern. Von dort schlängelt sich ein heller Waldweg in großen Kurven nach oben durch die ganze Insel: vorbei an einem Dorf aus Baumhäusern, einer Lichtung mit Pilzen, einem hohen Turm aus Nüssen, einer Holzbank unter einem roten Baum, einer kleinen Hütte mit rundem Fenster und einer Schatzkammer mit Holztür im Felsen, bis zu einem großen Vorratsspeicher in einem hohlen Baumstamm ganz oben. Bäume in Rot, Orange und Gold, an den Seiten etwas türkises Wasser mit ein paar Felsen am Ufer. Der Weg ist gut sichtbar und frei, ohne Gebäude darauf. Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus einem Kinofilm für Kinder. Weiche Formen, leuchtende, warme Farben, sonniges Licht von links oben. Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere.
+
+Bild 134: Emma, die Vorratsmeisterin  →  character.emma
+Anhängen: Talo (design/gemini/character.talo.jpg)
+
+Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur: ein fröhliches rotbraunes Eichhörnchen mit großem buschigem Schwanz, grüner Strickweste und einer kleinen Schürze mit vielen Taschen, in denen Nüsse stecken. Es hält eine Eichel in den Pfoten. Keine bekannte Filmfigur. Freundlicher Blick, lächelt. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 135: Gustav, die Grille  →  character.gustav
+Anhängen: Talo (design/gemini/character.talo.jpg)
+
+Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur: eine fröhliche, schlanke hellgrüne Grille mit langen Fühlern, einer bunten Flickenweste und einem kleinen Strohhut, sie hält eine kleine Geige mit Bogen. Kein Zylinder, kein Regenschirm, kein Frack, keine bekannte Filmfigur. Freundlicher, etwas verschmitzter Blick, lächelt. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 136: Orden „Vorratsmeister“  →  badge.spar-insel
+Anhängen: der Orden mit dem Anker (design/gemini/icon.badges.jpg)
+
+Gleicher Stil, gleiches Licht und gleicher Bildaufbau wie im angehängten Bild: ein goldener Orden an einem kurzen blauen Stoffband. Das Band ist oben zu einer kleinen Schlaufe gelegt, genau wie im angehängten Bild, und hört dort auf. Auf dem Orden statt des Ankers: eine goldene Eichel mit zwei kleinen Herbstblättern. Orden und Band zusammen sind nur etwa zwei Drittel so hoch wie das Bild. Das ganze Band ist zu sehen, nichts ragt über den Bildrand hinaus, rundherum ist viel freier Platz. Leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 137: Taleron-Siegel A (nach der Spar-Insel)  →  badge.taleron_seal_a
+Anhängen: der Orden mit dem Anker (design/gemini/icon.badges.jpg) und Meister Taleron (design/gemini/character.taleron.jpg)
+
+Gleicher Stil und gleiches Licht wie im ersten angehängten Bild, aber statt des Ordens ein rundes Siegel aus Gold mit türkisfarbenem Rand. In der Mitte, leicht erhaben, der freundliche Kopf von Meister Taleron aus dem zweiten angehängten Bild, mit Brille und Bart aus Seetang. Am Rand ein Kranz aus kleinen Wellen. Ohne Band. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 138: Fund: Tagebuch eines Matrosen  →  collectible.spar-insel.1
+Anhängen: das Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundstücke: ein kleines, abgegriffenes Tagebuch mit Ledereinband, mit einer Schnur zugebunden, eine getrocknete Möwenfeder schaut heraus, frisch vom Meeresgrund, mit etwas grünem Seetang und ein paar Wassertropfen. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 139: Fund: Alte Spardose  →  collectible.spar-insel.2
+Anhängen: das Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundstücke: eine alte runde Spardose aus Blech mit einem Schlitz oben, etwas angerostet und mit kleinen gemalten Wellen verziert, frisch vom Meeresgrund, mit etwas grünem Seetang und ein paar Wassertropfen. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 140: Fund: Schlüssel der Schatzkammer  →  collectible.spar-insel.3
+Anhängen: das Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundstücke: ein großer alter Schlüssel aus Messing an einem Lederband, mit kleinen Muscheln am Griff, frisch vom Meeresgrund, mit etwas grünem Seetang und ein paar Wassertropfen. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+============================================================
+SPAR-INSEL BILDERGESCHICHTEN
+============================================================
+
+Bild 141: Herbst im Baumhaus-Dorf  →  story.spar-insel.1.1
+Anhängen: Bild 134 (Emma), Bild 135 (Gustav)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Herbst im Baumhaus-Dorf der Spar-Insel, bunte Blätter fallen. Emma, das Eichhörnchen, trägt einen vollen Korb Nüsse eine Strickleiter zu ihrem Baumhaus hinauf. Unten sitzt Gustav, die Grille, auf einem großen Pilz, spielt fröhlich Geige und lacht. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 142: Der Winter kommt  →  story.spar-insel.1.2
+Anhängen: Bild 134 (Emma), Bild 135 (Gustav)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Winter im Baumhaus-Dorf, alles ist verschneit. Durch das warm leuchtende Fenster sieht man Emma gemütlich vor einem Regal voller Nüsse und Gläser sitzen. Draußen vor der Tür steht Gustav und fröstelt, mit leeren Taschen und einem Schal, der ihm zu dünn ist. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 143: Wofür man spart  →  story.spar-insel.1.3
+Anhängen: design/gemini/character.talo.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Talo steht vor einem Holzregal mit drei Einmachgläsern voller goldener Münzen ohne Zeichen. Auf jedem Glas klebt ein gemaltes Bild statt Schrift: auf dem ersten ein rotes Fahrrad, auf dem zweiten ein Pflaster, auf dem dritten eine kleine Sanduhr. Talo zeigt freundlich auf die Gläser. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 144: Ein Vorrat für schlechte Zeiten  →  story.spar-insel.1.4
+Anhängen: Bild 134 (Emma), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. In Emmas gemütlichem Baumhaus: Emma öffnet eine kleine Holzkiste mit einem Vorrat Nüsse und einem Säckchen Münzen und zeigt sie Tala. Tala schaut neugierig hinein. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 145: Talas großer Wunsch  →  story.spar-insel.2.1
+Anhängen: design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Auf einer sonnigen Herbstlichtung mit Pilzen sitzt Tala im bunten Laub. Über ihr schwebt eine Gedankenblase mit einem Paar roter Rollschuhe. Sie lächelt verträumt. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 146: Ein gutes Sparziel  →  story.spar-insel.2.2
+Anhängen: Bild 134 (Emma), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Auf der Lichtung hält Emma eine kleine Holztafel hoch. Darauf sind nur drei gemalte Bilder nebeneinander, ohne Schrift: ein Paar Rollschuhe, ein Häufchen Münzen und eine Sanduhr. Tala schaut aufmerksam zu. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 147: Der Wunschschatz bekommt ein Bild  →  story.spar-insel.2.3
+Anhängen: design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala hängt ein selbst gemaltes Bild von roten Rollschuhen an einen Ast. Darunter steht ihre kleine Schatztruhe aus Holz auf einem Baumstumpf. Sie ist stolz. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 148: Nur eine Nuss am Tag  →  story.spar-insel.3.1
+Anhängen: Bild 134 (Emma), Bild 135 (Gustav)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Am Fuß eines kleinen Nussstapels legt Emma eine einzelne Nuss obendrauf. Gustav steht daneben, hält seine Geige und lacht spöttisch über die kleine Nuss. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 149: Der Nussturm ist riesig  →  story.spar-insel.3.2
+Anhängen: Bild 135 (Gustav), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Viele Wochen später: Der Nussturm ist riesig hoch geworden, höher als die Bäume. Gustav staunt mit offenem Mund und lässt fast seine Geige fallen, Tala klatscht begeistert in die Hände. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 150: Eine Nuss jetzt oder drei morgen?  →  story.spar-insel.4.1
+Anhängen: Bild 134 (Emma), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Auf einer Holzbank unter einem roten Herbstbaum: Emma hält in der einen Pfote eine einzelne Nuss, neben ihr steht ein Körbchen mit drei Nüssen und eine kleine Sanduhr. Tala sitzt daneben und überlegt mit schräg gelegtem Kopf. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 151: Gustav kann nicht warten  →  story.spar-insel.4.2
+Anhängen: Bild 135 (Gustav), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Abendstimmung an der Holzbank: Gustav hat seine eine Nuss schon gegessen und reibt sich zufrieden den Bauch. Tala sitzt geduldig auf der Bank und schaut in den Sonnenuntergang. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 152: Warten hat sich gelohnt  →  story.spar-insel.4.3
+Anhängen: Bild 135 (Gustav), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Am nächsten Morgen an der Holzbank: Tala hält stolz drei Nüsse in den Händen und strahlt. Gustav schaut mit leeren Händen etwas neidisch zu. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 153: In der Planungs-Hütte  →  story.spar-insel.5.1
+Anhängen: Bild 134 (Emma), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. In einer gemütlichen kleinen Hütte mit rundem Fenster: Emma sitzt an einem Holztisch mit einer großen Papierrolle und einer Feder, Tala beugt sich neugierig darüber. Auf dem Papier sind nur kleine gemalte Nüsse und Pfeile, keine Zahlen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 154: Die erste Woche geschafft  →  story.spar-insel.5.3
+Anhängen: design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. In der Planungs-Hütte: An der Wand hängt ein Papierstreifen mit sechs leeren Kästchen in einer Reihe. Tala malt mit einem dicken Stift einen Haken in das erste Kästchen und lacht. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 155: Wo liegt Geld gut?  →  story.spar-insel.6.1
+Anhängen: Bild 134 (Emma)
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. In einer Schatzkammer im Felsen mit warmem Laternenlicht: Auf einem Holzregal stehen ein rosa Sparschwein ohne Zeichen, eine bunte Spardose aus Blech und ein kleiner, schwerer Tresor mit dickem Schloss. Emma zeigt darauf. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 156: Man hört, wie es wächst  →  story.spar-insel.6.2
+Anhängen: design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala hält ihr rosa Sparschwein ohne Zeichen hoch und schüttelt es. Man sieht kleine Klimper-Striche in der Luft, Tala strahlt. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 157: Überall verteilt  →  story.spar-insel.6.3
+Anhängen: Bild 135 (Gustav)
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Gustav hat seine Münzen überall versteckt: unter einem Stein, in einem Schuh, in einer Blüte und in seinem Geigenkasten. Eine Münze rollt gerade davon. Gustav kratzt sich ratlos am Kopf. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 158: Später auf der Bank-Insel  →  story.spar-insel.6.4
+Anhängen: design/gemini/character.talo.jpg, design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala ist ein Schwein mit einem kleinen geringelten Schweineschwanz, nur Talo hat einen buschigen Fuchsschwanz. Talo und Tala stehen am Ufer der Spar-Insel. Talo zeigt mit einem Fernrohr über das Meer auf eine ferne Insel mit einem hellen Gebäude mit Säulen. Tala schaut neugierig. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 159: Am Vorratsspeicher  →  story.spar-insel.7.1
+Anhängen: Bild 134 (Emma), design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Vor dem großen Vorratsspeicher in einem dicken hohlen Baumstamm mit runder Holztür: Tala legt eine goldene Münze ohne Zeichen in ihre kleine Schatztruhe, Emma klatscht anerkennend. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 160: Jede Woche ein bisschen  →  story.spar-insel.7.2
+Anhängen: design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche Figur, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Vier kleine Stoffsäckchen stehen in einer Reihe auf einem Holztisch, jedes etwas voller als das davor. Tala legt gerade eine Münze in das vierte Säckchen und lächelt. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 161: Das Kartenstück im Speicher  →  story.spar-insel.7.3
+Anhängen: design/gemini/character.talo.jpg, design/gemini/character.tala.jpg
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala ist ein Schwein mit einem kleinen geringelten Schweineschwanz, nur Talo hat einen buschigen Fuchsschwanz. Die runde Tür des Vorratsspeichers steht offen. Drinnen, zwischen Bergen von Nüssen, leuchtet golden ein altes Stück einer Schatzkarte, nur mit gemalten Wellen und einer Insel. Talo und Tala staunen mit großen Augen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 162: Gustav fängt an  →  story.spar-insel.7.4
+Anhängen: Bild 134 (Emma), Bild 135 (Gustav)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Vor dem Vorratsspeicher gibt Emma Gustav lächelnd eine kleine Spardose. Gustav hält sie vorsichtig wie einen Schatz und freut sich. Bunte Blätter wirbeln um die beiden. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
