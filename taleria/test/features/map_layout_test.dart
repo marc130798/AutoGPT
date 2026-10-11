@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/domain/content_models.dart';
 import 'package:taleria/features/map/map_layout.dart';
@@ -32,6 +34,56 @@ void main() {
       }
     });
   }
+
+  for (final width in [360.0, 390.0, 430.0, 820.0]) {
+    test('Breite $width: Stopps versetzt, Taleron im Meer, nichts überdeckt sich', () {
+      final layout = MapLayout.compute(width: width, viewportHeight: 700, islands: islands);
+      final screen = Rect.fromLTWH(0, 0, width, layout.height);
+      Rect island(String id) {
+        final c = layout.centerOf(id);
+        return Rect.fromLTRB(
+          c.dx - layout.islandWidth / 2,
+          c.dy - layout.islandHeight / 2 - MapLayout.artOverflow,
+          c.dx + layout.islandWidth / 2,
+          c.dy + layout.islandHeight / 2 + MapLayout.islandLabelSpace,
+        );
+      }
+
+      final islandBoxes = [for (final i in islands) island(i.id)];
+      for (var index = 1; index < islands.length; index++) {
+        final spots = layout.seaStopSpots(index, 2);
+        expect(spots, hasLength(2));
+        // Der erste Stopp liegt weiter unten und links, der zweite oben und rechts.
+        expect(spots[0].dy, greaterThan(spots[1].dy + 60), reason: 'Insel $index');
+        expect(spots[0].dx, lessThan(spots[1].dx), reason: 'Insel $index');
+        final stops = [
+          for (final s in spots)
+            Rect.fromCenter(center: s, width: MapLayout.seaStopWidth, height: MapLayout.seaStopHeight),
+        ];
+        expect(stops[0].overlaps(stops[1]), isFalse, reason: 'Insel $index');
+
+        // Taleron, solange das Schiff an der Insel davor liegt.
+        final taleron = layout.encounterSpot(islands[index - 1].id, const Size(140, 124)) & const Size(140, 124);
+        for (final box in [...stops, taleron]) {
+          expect(screen.left <= box.left && box.right <= screen.right, isTrue, reason: 'Insel $index $box');
+          for (final i in islandBoxes) {
+            expect(box.overlaps(i), isFalse, reason: 'Insel $index: $box auf $i');
+          }
+        }
+        for (final stop in stops) {
+          expect(taleron.overlaps(stop), isFalse, reason: 'Insel $index: Taleron auf einem Stopp');
+        }
+      }
+    });
+  }
+
+  test('Ein Stopp allein liegt unten links vom Weg', () {
+    final layout = MapLayout.compute(width: 390, viewportHeight: 700, islands: islands);
+    final one = layout.seaStopSpots(1, 1).single;
+    final two = layout.seaStopSpots(1, 2);
+    expect(one, two.first);
+    expect(layout.seaStopSpots(0, 2), isEmpty);
+  });
 
   test('Route führt vom Hafen zur Schatzinsel, Fahrt endet an den Ankerplätzen', () {
     final layout = MapLayout.compute(width: 390, viewportHeight: 700, islands: islands.reversed.toList());

@@ -483,7 +483,8 @@ class _MapScene extends StatelessWidget {
     required this.onEncounter,
   });
 
-  static const _encounterWidth = 140.0;
+  /// Platz für Meister Taleron mit Namen (Bild 72, Name in bis zu zwei Zeilen).
+  static const _encounterSize = Size(140, 124);
 
   final MapController controller;
   final MapLayout layout;
@@ -644,18 +645,15 @@ class _MapScene extends StatelessWidget {
           ),
         ),
         for (final layer in layers) layer.$2,
-        if (controller.encounter != null && shipPosition != null && !traveling)
-          Positioned(
-            // Neben dem Schiff, auf der Seite mit mehr Platz.
-            left:
-                (shipPosition.dx < layout.width / 2
-                        ? shipPosition.dx + layout.shipSize / 2
-                        : shipPosition.dx - layout.shipSize / 2 - _encounterWidth)
-                    .clamp(8.0, max(8.0, layout.width - _encounterWidth - 8)),
-            top: shipPosition.dy - layout.shipSize * 0.9,
-            width: _encounterWidth,
-            child: EncounterMapButton(encounter: controller.encounter!.encounter, onTap: onEncounter),
-          ),
+        if (controller.encounter != null && shipId != null && !traveling)
+          if (layout.encounterSpot(shipId, _encounterSize) case final spot)
+            Positioned(
+              // Im Meer vor dem Schiff, unten rechts vom Weg (nie auf einer Insel).
+              left: spot.dx,
+              top: spot.dy,
+              width: _encounterSize.width,
+              child: EncounterMapButton(encounter: controller.encounter!.encounter, onTap: onEncounter),
+            ),
       ],
     );
   }

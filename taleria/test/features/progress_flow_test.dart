@@ -148,7 +148,13 @@ void main() {
   });
 
   testWidgets('Begegnung mit Meister Taleron: Vorstellung, Rätsel, nochmal versuchen', (tester) async {
-    final (:content, :progress) = await startOnHome(tester, prepare: (p) => p.makeDue('hafen', 2));
+    // Mehr fällige Fragen, als eine Begegnung stellt.
+    final (:content, :progress) = await startOnHome(
+      tester,
+      prepare: (p) => p
+        ..makeDue('hafen', 2)
+        ..makeDue('hafen', 3),
+    );
     await tapText(tester, 'Zur Karte');
     expect(find.text('Meister Taleron taucht auf!'), findsOneWidget);
 
@@ -181,7 +187,8 @@ void main() {
     expect(find.text('+20 Seemeilen'), findsOneWidget);
     await tapText(tester, 'Zurück zur Karte');
     expect(progress.encounterRuns, 1);
-    expect(find.text('Meister Taleron taucht auf!'), findsNothing, reason: 'nichts mehr fällig');
+    expect(progress.due, isNotEmpty);
+    expect(find.text('Meister Taleron taucht auf!'), findsNothing, reason: 'nur einmal am Tag');
   });
 
   testWidgets('Leuchtturm: Level, Tempo und Pause der Serie', (tester) async {

@@ -49,9 +49,17 @@ class MapLayout {
   /// Höhe zu Breite eines Inselbilds.
   static const artAspect = 0.62;
 
-  /// Zusätzliches Meer zwischen zwei Inseln, damit die Stopps auf See dort
-  /// Platz haben (Marke mit Namen, etwa 100 Punkte hoch, dazu Abstand).
-  static const seaGap = 190.0;
+  /// Zusätzliches Meer zwischen zwei Inseln. Dort liegen die Stopps auf See
+  /// versetzt übereinander (unten links, oben rechts), und unten rechts hat
+  /// eine Begegnung auf See Platz (Meister Taleron).
+  static const seaGap = 280.0;
+
+  /// Größe einer Stopp-Marke mit Namen (wie `SeaStopMarker.labelWidth` und `.height`).
+  static const seaStopWidth = 108.0;
+  static const seaStopHeight = 100.0;
+
+  /// So weit liegt die Mitte eines Stopps links oder rechts vom Weg.
+  static const seaStopSide = 60.0;
 
   /// So weit ragen manche Inselbilder über ihr Feld hinaus (der Turm der
   /// Tauschinsel). Stopps auf See halten diesen Abstand zur Insel darunter.
@@ -119,25 +127,81 @@ class MapLayout {
     return (position: at(t), movingLeft: at(1).dx < at(0).dx);
   }
 
-  /// Wo [count] Stopps auf See vor Routen-Insel [index] liegen: mitten im
-  /// Meer zwischen ihr und der Insel davor, auf der Route, bei zwei Stopps
-  /// nebeneinander (links der erste). Leer für die erste Insel.
-  List<Offset> seaStopSpots(int index, int count) {
-    if (index <= 0 || index >= route.length || count <= 0) return const [];
+  /// Freies Meer vor Routen-Insel [index]: von ihrem Namensband bis kurz über
+  /// die Insel davor (`null` für die erste Insel).
+  ({double top, double bottom})? _seaBand(int index) {
+    if (index <= 0 || index >= route.length) return null;
     final lower = centerOf(route[index - 1].id), upper = centerOf(route[index].id);
-    // Freies Meer: zwischen dem Namensband der oberen Insel und der unteren Insel.
-    final top = upper.dy + islandHeight / 2 + islandLabelSpace;
-    final bottom = lower.dy - islandHeight / 2 - artOverflow;
-    final y = (top + bottom) / 2;
+    return (top: upper.dy + islandHeight / 2 + islandLabelSpace, bottom: lower.dy - islandHeight / 2 - artOverflow);
+  }
+
+  /// Wo die Route auf der Höhe [y] im Meer vor Routen-Insel [index] verläuft.
+  double _routeX(int index, double y) {
+    final lower = centerOf(route[index - 1].id), upper = centerOf(route[index].id);
     final t = lower.dy == upper.dy ? 0.5 : ((lower.dy - y) / (lower.dy - upper.dy)).clamp(0.0, 1.0);
-    final mid = Offset(pointOn(index - 1, t).dx, y);
-    const spacing = 112.0;
+    return pointOn(index - 1, t).dx;
+  }
+
+  /// Wo [count] Stopps auf See vor Routen-Insel [index] liegen: im Meer
+  /// zwischen ihr und der Insel davor, abwechselnd links und rechts vom Weg.
+  /// Der erste liegt unten links (er kommt auf der Fahrt zuerst), der zweite
+  /// oben rechts. Neben dem ersten bleibt Platz für eine Begegnung auf See.
+  /// Leer für die erste Insel.
+  List<Offset> seaStopSpots(int index, int count) {
+    final band = _seaBand(index);
+    if (band == null || count <= 0) return const [];
     const margin = 56.0;
-    final firstX = (mid.dx - spacing * (count - 1) / 2).clamp(
-      margin,
-      max(margin, width - margin - spacing * (count - 1)),
-    );
-    return [for (var k = 0; k < count; k++) Offset(firstX + spacing * k, y)];
+    final low = band.bottom - seaStopHeight / 2;
+    final high = min(low, band.top + seaStopHeight / 2);
+    double yOf(int k) => count == 1 ? low : low + (high - low) * k / (count - 1);
+    return [
+      for (var k = 0; k < count; k++)
+        Offset(
+          (_routeX(index, yOf(k)) + (k.isEven ? -seaStopSide : seaStopSide)).clamp(margin, max(margin, width - margin)),
+          yOf(k),
+        ),
+    ];
+  }
+
+  /// Wo eine Begegnung auf See ([size] groß, linke obere Ecke) auftaucht,
+  /// solange das Schiff an [islandId] liegt: im Meer davor, nie auf einer
+  /// Insel und nie auf einem Stopp (siehe [seaStopSpots]). Zuerst unten rechts
+  /// neben dem ersten Stopp, sonst links davon, sonst oben neben dem zweiten
+  /// Stopp, zuletzt zwischen den Stopps.
+  /// Ohne nächste Insel neben dem Schiff, auf der Seite weg von der Insel.
+  Offset encounterSpot(String islandId, Size size) {
+    Offset fit(Offset o) => Offset(o.dx.clamp(8.0, max(8.0, width - size.width - 8)), o.dy);
+    final index = routeIndexOf(islandId) + 1;
+    final band = _seaBand(index);
+    if (band == null) {
+      final anchor = shipAnchor(islandId);
+      final outward = anchor.dx >= centerOf(islandId).dx;
+      return fit(
+        Offset(outward ? anchor.dx + shipSize / 2 : anchor.dx - shipSize / 2 - size.width, anchor.dy - size.height),
+      );
+    }
+    // Höchstens zwei Stopps: der erste unten links, der zweite oben rechts.
+    final stops = [
+      for (final spot in seaStopSpots(index, 2))
+        Rect.fromCenter(center: spot, width: seaStopWidth, height: seaStopHeight),
+    ];
+    final first = stops.first, second = stops.last;
+    final low = max(band.top, band.bottom - size.height);
+    final middle = (second.bottom + first.top) / 2;
+    final candidates = [
+      Offset(first.right + 12, low),
+      Offset(first.left - 12 - size.width, low),
+      Offset(second.left - 12 - size.width, band.top),
+      Offset(second.right + 12, band.top),
+      Offset(_routeX(index, middle) - size.width / 2, middle - size.height / 2),
+    ];
+    for (final candidate in candidates) {
+      final box = fit(candidate) & size;
+      if (box.top >= band.top - 0.5 && box.bottom <= band.bottom + 0.5 && !stops.any(box.overlaps)) {
+        return box.topLeft;
+      }
+    }
+    return fit(candidates.first);
   }
 
   /// Scroll-Abstand (Karte unten verankert), bei dem [y] in der Mitte steht.

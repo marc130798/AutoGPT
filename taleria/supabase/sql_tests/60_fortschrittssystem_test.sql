@@ -366,6 +366,16 @@ select test_helpers.logout();
 update public.question_reviews set due_at = now() - interval '1 minute'
 where child_id = 'c7000000-0000-0000-0000-000000000001';
 select test_helpers.login('d7000000-0000-0000-0000-000000000001', 'aal1', true);
+select test_helpers.expect_true(public.next_encounter('c7000000-0000-0000-0000-000000000001') is null,
+  'Meister Taleron kommt nur einmal am Tag, auch wenn noch Fragen fällig sind');
+select test_helpers.expect_true(public.next_encounter('c7000000-0000-0000-0000-000000000001', true) is not null,
+  'Üben (Nebel voraus) geht trotzdem');
+select test_helpers.logout();
+
+-- Am nächsten Tag ist er wieder da.
+update public.encounter_runs set finished_at = finished_at - interval '1 day'
+where child_id = 'c7000000-0000-0000-0000-000000000001';
+select test_helpers.login('d7000000-0000-0000-0000-000000000001', 'aal1', true);
 select test_helpers.expect_true(
   public.next_encounter('c7000000-0000-0000-0000-000000000001') ->> 'first_meeting' = 'false',
   'Danach ist es keine erste Begegnung mehr');

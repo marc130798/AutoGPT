@@ -240,6 +240,10 @@ class FakeProgress implements ProgressRepository {
   final List<List<({String questionId, int answerIndex})>> recordedAnswers = [];
   int encounterRuns = 0;
   bool reviewXpToday = false;
+
+  /// Heute schon eine Begegnung gehabt (wie encounter_runs von heute):
+  /// Dann kommt bis morgen keine mehr, außer zum Üben.
+  bool encounterToday = false;
   int streakWeeks = 0;
   bool streakPaused = false;
   DateTime? lastActiveAt;
@@ -421,7 +425,7 @@ class FakeProgress implements ProgressRepository {
   @override
   Future<EncounterOffer?> nextEncounter(String childId, {bool practice = false}) async {
     _check();
-    if ((due.isEmpty && !practice) || content.encounters.isEmpty) return null;
+    if (((due.isEmpty || encounterToday) && !practice) || content.encounters.isEmpty) return null;
     final encounter = content.encounters.first;
     final ids = [...due, ...seen.where((id) => !due.contains(id))].take(encounter.questionCount).toList();
     if (ids.length < encounter.questionCount) return null;
@@ -453,6 +457,7 @@ class FakeProgress implements ProgressRepository {
       extraXp += xpAwarded;
     }
     encounterRuns++;
+    encounterToday = true;
     due.removeAll(answers.map((a) => a.questionId));
     if (streakWeeks == 0) streakWeeks = 1;
     final rankAfter = rank;
