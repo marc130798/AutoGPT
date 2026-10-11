@@ -249,7 +249,7 @@ class Dive {
 
 /// Bilder der Bildergeschichte, die die App selbst zeichnet (`"bild": "drawing:<name>"`),
 /// weil es auf genaue Zahlen ankommt. Gleiche Liste in lib/features/station/story_drawings.dart.
-const storyDrawings = {'euro_coins', 'cents_to_euro', 'euro_notes', 'big_coins_first'};
+const storyDrawings = {'euro_coins', 'cents_to_euro', 'comma_amount', 'euro_notes', 'big_coins_first'};
 
 /// Arten von Stopps auf See (CLAUDE.md Abschnitt 8, Begegnungen auf See).
 const seaStopKinds = {'haendlerschiff', 'fischerboot', 'angeberschiff', 'tala_vergisst'};

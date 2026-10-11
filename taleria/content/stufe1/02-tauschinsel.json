@@ -154,49 +154,49 @@
       "quiz_anzahl": 3,
       "fragen": [
         {
-          "frage": "Ein Fisch kostet 2 Euro. Wie viel kosten 3 Fische?",
-          "richtig": "6 Euro",
+          "frage": "Ein Fisch kostet 2,50 €. Wie viel kosten 3 Fische?",
+          "richtig": "7,50 €",
           "falsch": [
-            "5 Euro",
-            "8 Euro"
+            "6,50 €",
+            "7 €"
           ],
-          "erklaerung": "3 mal 2 Euro sind 6 Euro."
+          "erklaerung": "3 mal 2 € sind 6 €, dazu 3 mal 50 Cent, also 1,50 €: zusammen 7,50 €."
         },
         {
-          "frage": "Wie viele Cent sind 1 Euro?",
-          "richtig": "100 Cent",
+          "frage": "Wie viele Cent sind 3,05 €?",
+          "richtig": "305 Cent",
           "falsch": [
-            "10 Cent",
-            "1.000 Cent"
+            "35 Cent",
+            "350 Cent"
           ],
-          "erklaerung": "100 Cent sind genau 1 Euro."
+          "erklaerung": "3 Euro sind 300 Cent, dazu 5 Cent: zusammen 305 Cent."
         },
         {
-          "frage": "Ein Fisch kostet 3 Euro. Jemand bezahlt mit einem 5-Euro-Schein. Wie viel Wechselgeld bekommt er?",
-          "richtig": "2 Euro",
+          "frage": "Ein Fisch kostet 3,40 €. Jemand zahlt mit einem 5-Euro-Schein. Wie viel Wechselgeld bekommt er?",
+          "richtig": "1,60 €",
           "falsch": [
-            "3 Euro",
-            "8 Euro"
+            "2,60 €",
+            "1,40 €"
           ],
-          "erklaerung": "5 Euro minus 3 Euro sind 2 Euro Wechselgeld."
+          "erklaerung": "5 € minus 3,40 € sind 1,60 €. Probe: 3,40 € plus 1,60 € sind 5 €."
         },
         {
-          "frage": "Welche Münzen ergeben zusammen genau 1 Euro?",
-          "richtig": "Zwei 50-Cent-Münzen",
+          "frage": "Welche Münzen ergeben zusammen genau 1,70 €?",
+          "richtig": "1 Euro, 50 Cent und 20 Cent",
           "falsch": [
-            "Zwei 20-Cent-Münzen",
-            "Fünf 10-Cent-Münzen"
+            "1 Euro und 50 Cent",
+            "Zwei 50-Cent-Münzen und 20 Cent"
           ],
-          "erklaerung": "50 Cent und 50 Cent sind 100 Cent, also 1 Euro."
+          "erklaerung": "1 Euro plus 50 Cent plus 20 Cent sind 1,70 €."
         },
         {
-          "frage": "Otti bekommt einen Geldschein. Welcher ist der kleinste Euro-Schein, den es gibt?",
+          "frage": "Was ist mehr wert: ein 5-Euro-Schein oder acht 50-Cent-Münzen?",
           "richtig": "Der 5-Euro-Schein",
           "falsch": [
-            "Der 1-Euro-Schein",
-            "Der 2-Euro-Schein"
+            "Die acht 50-Cent-Münzen",
+            "Beides gleich viel"
           ],
-          "erklaerung": "Den kleinsten Schein gibt es für 5 Euro. 1 Euro und 2 Euro sind Münzen."
+          "erklaerung": "Acht mal 50 Cent sind 4 €. Das ist weniger als 5 €."
         },
         {
           "frage": "Was kostet meistens am meisten?",

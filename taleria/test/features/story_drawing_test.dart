@@ -34,10 +34,19 @@ void main() {
     expect(find.text('EURO'), findsNWidgets(2));
   });
 
-  testWidgets('100 Cent sind 1 Euro, Scheine, große Münzen zuerst', (tester) async {
+  testWidgets('100 Cent sind 1 Euro, Komma, Scheine, große Münzen zuerst', (tester) async {
     await tester.pumpWidget(app(const StoryDrawing(name: 'cents_to_euro')));
     expect(find.text('50'), findsNWidgets(2));
     expect(find.text('='), findsOneWidget);
+
+    await tester.pumpWidget(app(const StoryDrawing(name: 'comma_amount')));
+    expect(
+      find.text(formatCents(205), findRichText: true),
+      findsOneWidget,
+      reason: 'vor dem Komma Euro, dahinter Cent',
+    );
+    expect(find.text('2 €'), findsOneWidget);
+    expect(find.text('5 ct'), findsOneWidget);
 
     await tester.pumpWidget(app(const StoryDrawing(name: 'euro_notes')));
     for (final value in ['5', '10', '20', '50']) {

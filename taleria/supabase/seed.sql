@@ -56,7 +56,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station2/q6')::uuid, md5('taleria:stage1/hafen/station2')::uuid, 'Wie heißt unsere Währung in Deutschland?', '["Euro","Dollar","Taler"]'::jsonb, 0, 'Der Taler ist das Geld in Taleria, bei uns bezahlt man mit Euro.', null, 'draft')
+values (md5('taleria:stage1/hafen/station2/q6')::uuid, md5('taleria:stage1/hafen/station2')::uuid, 'Der Bäcker nimmt deine Münzen, obwohl er sie nicht essen kann. Warum?', '["Weil er damit selbst bei anderen einkaufen kann.","Weil Münzen so schön glänzen.","Weil er Münzen sammelt."]'::jsonb, 0, 'Geld wandert weiter: Der Bäcker bezahlt damit zum Beispiel sein Mehl.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
@@ -118,22 +118,22 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 
 insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
-values (md5('taleria:stage1/hafen/station4')::uuid, md5('taleria:stage1/hafen')::uuid, 40, 'game', true, 100, '{"title":"Münzen und Scheine","number":4,"place":"Münzschublade im Kontor","goal":"Euro-Münzen und Scheine kennen, Beträge zusammensetzen","minutes":"7 bis 10 Min.","scene":[{"speaker":"tala","text":"In der Münzschublade herrscht Chaos! Alles liegt durcheinander."},{"speaker":"talo","text":"Dann sortieren wir. Kennst du alle Euro-Münzen und Scheine?"}],"lesson":[{"speaker":"talo","text":"Es gibt 8 Euro-Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro.","image":"drawing:euro_coins"},{"speaker":"tala","text":"Und 100 Cent sind genau 1 Euro!","image":"drawing:cents_to_euro"},{"speaker":"talo","text":"Der kleinste Schein ist der 5-Euro-Schein. Für größere Beträge gibt es zum Beispiel Scheine für 10, 20 und 50 Euro.","image":"drawing:euro_notes"},{"speaker":"tala","text":"Mein Tipp: Wer einen Betrag mit möglichst wenigen Münzen legen will, nimmt zuerst die großen.","image":"drawing:big_coins_first"},{"speaker":"talo","text":"Geld gibt es übrigens auch digital auf einem Konto. Man sieht es nicht, aber es ist genauso viel wert.","image":"story.hafen.4.4"}],"game":{"type":"coins","title":"Münzschublade","description":"Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben.","task":"Tippe Münzen und Scheine an, bis der Betrag stimmt. Tippst du oben auf eine gelegte Münze, nimmst du sie wieder weg.","rounds":[{"question":"Lege 3,50 €. Schaffst du es mit möglichst wenigen Münzen?","amount":350},{"question":"Lege 1,85 € für eine Tüte Kirschen.","amount":185},{"question":"Ein Brötchen kostet 45 Cent. Tala bezahlt mit 1 €. Lege das Wechselgeld.","amount":55},{"question":"Eine Kinokarte kostet 7,50 €. Talo bezahlt mit einem 10-Euro-Schein. Lege das Wechselgeld.","amount":250}],"done":{"speaker":"tala","text":"Ich kenne jetzt alle Münzen und kann sogar Wechselgeld herausgeben!"}},"summary":{"speaker":"talo","text":"Jetzt kennst du die Euro-Münzen und Scheine und kannst Beträge zusammensetzen."},"quiz":{"show":3}}'::jsonb, 'draft')
+values (md5('taleria:stage1/hafen/station4')::uuid, md5('taleria:stage1/hafen')::uuid, 40, 'game', true, 100, '{"title":"Münzen und Scheine","number":4,"place":"Münzschublade im Kontor","goal":"Euro-Münzen und Scheine kennen, Beträge mit Komma lesen und Wechselgeld berechnen","minutes":"7 bis 10 Min.","scene":[{"speaker":"tala","text":"In der Münzschublade herrscht Chaos! Alles liegt durcheinander."},{"speaker":"talo","text":"Dann sortieren wir. Kennst du alle Euro-Münzen und Scheine?"}],"lesson":[{"speaker":"talo","text":"Es gibt 8 Euro-Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro.","image":"drawing:euro_coins"},{"speaker":"tala","text":"Und 100 Cent sind genau 1 Euro!","image":"drawing:cents_to_euro"},{"speaker":"talo","text":"Vor dem Komma stehen die Euro, dahinter die Cent. 2,05 € sind also 2 Euro und 5 Cent.","image":"drawing:comma_amount"},{"speaker":"talo","text":"Der kleinste Schein ist der 5-Euro-Schein. Für größere Beträge gibt es zum Beispiel Scheine für 10, 20 und 50 Euro.","image":"drawing:euro_notes"},{"speaker":"tala","text":"Mein Tipp: Wer einen Betrag mit möglichst wenigen Münzen legen will, nimmt zuerst die großen.","image":"drawing:big_coins_first"},{"speaker":"talo","text":"Geld gibt es übrigens auch digital auf einem Konto. Man sieht es nicht, aber es ist genauso viel wert.","image":"story.hafen.4.4"}],"game":{"type":"coins","title":"Münzschublade","description":"Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben.","task":"Tippe Münzen und Scheine an, bis der Betrag stimmt. Tippst du oben auf eine gelegte Münze, nimmst du sie wieder weg.","rounds":[{"question":"Lege 3,50 €. Schaffst du es mit möglichst wenigen Münzen?","amount":350},{"question":"Lege 1,85 € für eine Tüte Kirschen.","amount":185},{"question":"Ein Brötchen kostet 45 Cent. Tala bezahlt mit 1 €. Lege das Wechselgeld.","amount":55},{"question":"Eine Kinokarte kostet 7,50 €. Talo bezahlt mit einem 10-Euro-Schein. Lege das Wechselgeld.","amount":250}],"done":{"speaker":"tala","text":"Ich kenne jetzt alle Münzen und kann sogar Wechselgeld herausgeben!"}},"summary":{"speaker":"talo","text":"Jetzt kannst du Beträge mit Komma lesen, zusammenrechnen und Wechselgeld berechnen."},"quiz":{"show":3}}'::jsonb, 'draft')
 on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station4/q1')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Welche Münze gibt es beim Euro nicht?', '["3 Cent","2 Cent","50 Cent"]'::jsonb, 0, 'Es gibt 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro, aber keine 3-Cent-Münze.', null, 'draft')
+values (md5('taleria:stage1/hafen/station4/q1')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Wie schreibt man 2 Euro und 5 Cent richtig?', '["2,05 €","2,5 €","25 €"]'::jsonb, 0, 'Hinter dem Komma stehen immer zwei Stellen für die Cent: 5 Cent werden zu 05.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station4/q2')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Wie viel sind zwei 50-Cent-Münzen zusammen?', '["1 Euro","50 Cent","100 Euro"]'::jsonb, 0, '50 Cent plus 50 Cent sind 100 Cent, also 1 Euro.', null, 'draft')
+values (md5('taleria:stage1/hafen/station4/q2')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Was ist mehr: 1,50 € oder 105 Cent?', '["1,50 €","105 Cent","Beides gleich viel"]'::jsonb, 0, '1,50 € sind 150 Cent. Das ist mehr als 105 Cent.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station4/q3')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Wie legst du 70 Cent mit möglichst wenigen Münzen?', '["50 Cent und 20 Cent","Sieben 10-Cent-Münzen","Vierzehn 5-Cent-Münzen"]'::jsonb, 0, 'Große Münzen zuerst: 50 plus 20 sind 70 Cent mit nur zwei Münzen.', null, 'draft')
+values (md5('taleria:stage1/hafen/station4/q3')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Ein Heft kostet 1,30 €, ein Stift 0,90 €. Wie viel kostet beides zusammen?', '["2,20 €","2,10 €","1,20 €"]'::jsonb, 0, '1,30 € plus 0,90 € sind 2,20 €. Tipp: Rechne erst die Cent zusammen, 30 plus 90 sind 120 Cent.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
@@ -143,7 +143,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station4/q5')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Was ist mehr wert: drei 20-Cent-Münzen oder eine 50-Cent-Münze?', '["Drei 20-Cent-Münzen","Die 50-Cent-Münze","Beides gleich viel"]'::jsonb, 0, 'Drei mal 20 Cent sind 60 Cent, das ist mehr als 50 Cent.', null, 'draft')
+values (md5('taleria:stage1/hafen/station4/q5')::uuid, md5('taleria:stage1/hafen/station4')::uuid, 'Drei Kugeln Eis kosten zusammen 4,50 €. Wie viel kostet eine Kugel?', '["1,50 €","1,20 €","1,80 €"]'::jsonb, 0, '4,50 € geteilt durch 3 sind 1,50 €, denn 3 mal 1,50 € sind 4,50 €.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
@@ -282,7 +282,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station8/q4')::uuid, md5('taleria:stage1/hafen/station8')::uuid, 'Wie heißt unsere Währung?', '["Euro","Taler","Pfund"]'::jsonb, 0, 'In Deutschland bezahlen wir mit Euro.', 2, 'draft')
+values (md5('taleria:stage1/hafen/station8/q4')::uuid, md5('taleria:stage1/hafen/station8')::uuid, 'Welche Schreibweise ist richtig für 4 Euro und 5 Cent?', '["4,05 €","4,5 €","45 €"]'::jsonb, 0, 'Die Cent stehen mit zwei Stellen hinter dem Komma: 4,05 €.', 4, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
@@ -302,7 +302,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station8/q8')::uuid, md5('taleria:stage1/hafen/station8')::uuid, 'Wie viele Cent sind ein Euro?', '["100","10","1.000"]'::jsonb, 0, '100 Cent ergeben genau 1 Euro.', 4, 'draft')
+values (md5('taleria:stage1/hafen/station8/q8')::uuid, md5('taleria:stage1/hafen/station8')::uuid, 'Wie viele Cent sind 2,40 €?', '["240 Cent","24 Cent","2.040 Cent"]'::jsonb, 0, '2 Euro sind 200 Cent, dazu 40 Cent: zusammen 240 Cent.', 4, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
@@ -312,7 +312,7 @@ on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/hafen/station8/q10')::uuid, md5('taleria:stage1/hafen/station8')::uuid, 'Welcher ist der kleinste Euro-Schein?', '["5 Euro","1 Euro","10 Euro"]'::jsonb, 0, 'Den kleinsten Schein gibt es für 5 Euro, kleinere Beträge sind Münzen.', 4, 'draft')
+values (md5('taleria:stage1/hafen/station8/q10')::uuid, md5('taleria:stage1/hafen/station8')::uuid, 'Ein Fahrradschloss kostet 12,60 €. Du zahlst mit einem 20-Euro-Schein. Wie viel bekommst du zurück?', '["7,40 €","8,40 €","7,60 €"]'::jsonb, 0, '20 € minus 12,60 € sind 7,40 €. Probe: 12,60 € plus 7,40 € sind 20 €.', 4, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status;
@@ -480,27 +480,27 @@ on conflict (id) do update set
   sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
   content = excluded.content, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/tauschinsel/sea2/q1')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Ein Fisch kostet 2 Euro. Wie viel kosten 3 Fische?', '["6 Euro","5 Euro","8 Euro"]'::jsonb, 0, '3 mal 2 Euro sind 6 Euro.', null, 'draft')
+values (md5('taleria:stage1/tauschinsel/sea2/q1')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Ein Fisch kostet 2,50 €. Wie viel kosten 3 Fische?', '["7,50 €","6,50 €","7 €"]'::jsonb, 0, '3 mal 2 € sind 6 €, dazu 3 mal 50 Cent, also 1,50 €: zusammen 7,50 €.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/tauschinsel/sea2/q2')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Wie viele Cent sind 1 Euro?', '["100 Cent","10 Cent","1.000 Cent"]'::jsonb, 0, '100 Cent sind genau 1 Euro.', null, 'draft')
+values (md5('taleria:stage1/tauschinsel/sea2/q2')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Wie viele Cent sind 3,05 €?', '["305 Cent","35 Cent","350 Cent"]'::jsonb, 0, '3 Euro sind 300 Cent, dazu 5 Cent: zusammen 305 Cent.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/tauschinsel/sea2/q3')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Ein Fisch kostet 3 Euro. Jemand bezahlt mit einem 5-Euro-Schein. Wie viel Wechselgeld bekommt er?', '["2 Euro","3 Euro","8 Euro"]'::jsonb, 0, '5 Euro minus 3 Euro sind 2 Euro Wechselgeld.', null, 'draft')
+values (md5('taleria:stage1/tauschinsel/sea2/q3')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Ein Fisch kostet 3,40 €. Jemand zahlt mit einem 5-Euro-Schein. Wie viel Wechselgeld bekommt er?', '["1,60 €","2,60 €","1,40 €"]'::jsonb, 0, '5 € minus 3,40 € sind 1,60 €. Probe: 3,40 € plus 1,60 € sind 5 €.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/tauschinsel/sea2/q4')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Welche Münzen ergeben zusammen genau 1 Euro?', '["Zwei 50-Cent-Münzen","Zwei 20-Cent-Münzen","Fünf 10-Cent-Münzen"]'::jsonb, 0, '50 Cent und 50 Cent sind 100 Cent, also 1 Euro.', null, 'draft')
+values (md5('taleria:stage1/tauschinsel/sea2/q4')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Welche Münzen ergeben zusammen genau 1,70 €?', '["1 Euro, 50 Cent und 20 Cent","1 Euro und 50 Cent","Zwei 50-Cent-Münzen und 20 Cent"]'::jsonb, 0, '1 Euro plus 50 Cent plus 20 Cent sind 1,70 €.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status)
-values (md5('taleria:stage1/tauschinsel/sea2/q5')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Otti bekommt einen Geldschein. Welcher ist der kleinste Euro-Schein, den es gibt?', '["Der 5-Euro-Schein","Der 1-Euro-Schein","Der 2-Euro-Schein"]'::jsonb, 0, 'Den kleinsten Schein gibt es für 5 Euro. 1 Euro und 2 Euro sind Münzen.', null, 'draft')
+values (md5('taleria:stage1/tauschinsel/sea2/q5')::uuid, md5('taleria:stage1/tauschinsel/sea2')::uuid, 'Was ist mehr wert: ein 5-Euro-Schein oder acht 50-Cent-Münzen?', '["Der 5-Euro-Schein","Die acht 50-Cent-Münzen","Beides gleich viel"]'::jsonb, 0, 'Acht mal 50 Cent sind 4 €. Das ist weniger als 5 €.', null, 'draft')
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, status = excluded.status;

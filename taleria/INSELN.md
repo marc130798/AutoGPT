@@ -110,7 +110,7 @@ Die richtige Antwort steht jeweils zuerst (in der App wird gemischt).
 | 2.3 | Tala bekommt heute 5 Taler und will erst nächste Woche etwas kaufen. Geht das? | Ja, Geld kann man aufheben. | Nein, Geld verschwindet am Abend. | Nur wenn Talo es erlaubt. | Ein Fischbrötchen wird schlecht, Geld kann man aufheben und später ausgeben. |
 | 2.4 | Ein Apfel kostet 50 Cent, eine Birne 80 Cent. Warum kannst du das so leicht vergleichen? | Beide Preise sind in derselben Währung angegeben. | Weil Birnen größer sind. | Weil Äpfel rot sind. | Mit Geld bekommt alles einen Preis in derselben Einheit, so sieht man sofort, was teurer ist. |
 | 2.5 | Womit haben Menschen früher manchmal bezahlt, bevor es Münzen gab? | Mit Muscheln oder Salz | Mit Kreditkarten | Mit Smartphones | Früher wurden seltene Dinge wie bestimmte Muscheln oder Salz als Zahlungsmittel genutzt. |
-| 2.6 | Wie heißt unsere Währung in Deutschland? | Euro | Dollar | Taler | Der Taler ist das Geld in Taleria, bei uns bezahlt man mit Euro. |
+| 2.6 | Der Bäcker nimmt deine Münzen, obwohl er sie nicht essen kann. Warum? | Weil er damit selbst bei anderen einkaufen kann. | Weil Münzen so schön glänzen. | Weil er Münzen sammelt. | Geld wandert weiter: Der Bäcker bezahlt damit zum Beispiel sein Mehl. |
 | 2.7 | Warum ist ein 10-Euro-Schein etwas wert, obwohl er nur aus Papier ist? | Weil alle darauf vertrauen und ihn annehmen. | Weil er aus Gold gemacht ist. | Weil er so schön bunt ist. | Geld funktioniert, weil sich alle darauf verlassen, dass andere es auch annehmen. |
 | 2.8 | Was ist beim Tauschen ohne Geld besonders schwierig? | Jemanden zu finden, der genau das hat, was ich will, und genau das will, was ich habe. | Etwas in die Hand zu nehmen. | Freundlich zu sein. | Beide Seiten müssen gleichzeitig zufrieden sein. Mit Geld ist das viel einfacher. |
 
@@ -129,13 +129,13 @@ Claude Code erstellt dafür je einen Pool von mindestens 6 Fragen im Stil der Fr
 | P1 | 2 | Warum ist Geld praktischer als Tauschen? | Fast jeder nimmt es an. | Es ist leichter zu tragen als alles andere. | Es riecht besser. | Mit Geld muss man niemanden suchen, der genau das braucht, was man selbst hat. |
 | P2 | 2 | Was kann man mit Geld gut machen? | Es aufheben und später ausgeben | Es essen, wenn man Hunger hat | Es pflanzen, damit mehr wächst | Geld kann man aufbewahren und später gegen etwas eintauschen. |
 | P3 | 2 | Warum hat ein Geldschein einen Wert? | Weil alle ihn annehmen und darauf vertrauen | Weil er aus Gold ist | Weil er alt ist | Der Wert entsteht, weil sich alle darauf verlassen. |
-| P4 | 2 | Wie heißt unsere Währung? | Euro | Taler | Pfund | In Deutschland bezahlen wir mit Euro. |
+| P4 | 4 | Welche Schreibweise ist richtig für 4 Euro und 5 Cent? | 4,05 € | 4,5 € | 45 € | Die Cent stehen mit zwei Stellen hinter dem Komma: 4,05 €. |
 | P5 | 3 | Warum haben sich Münzen gegenüber Muscheln und Salz durchgesetzt? | Sie halten lange und lassen sich leicht zählen. | Sie schmecken besser. | Sie leuchten im Dunkeln. | Münzen gehen nicht kaputt, sind gleich groß und man kann sie gut abzählen. |
 | P6 | 3 | Was ist ein Vorteil von Scheinen gegenüber vielen Münzen? | Große Beträge sind leichter zu tragen. | Sie klimpern lauter. | Sie sind aus Gold. | Ein Schein ersetzt viele Münzen und passt in jede Tasche. |
 | P7 | 3 | Womit bezahlen viele Menschen heute oft, ohne Münzen oder Scheine? | Mit Karte oder Handy | Mit Muscheln | Mit Salz | Heute wird viel digital bezahlt, das Geld kommt dann vom Konto. |
-| P8 | 4 | Wie viele Cent sind ein Euro? | 100 | 10 | 1.000 | 100 Cent ergeben genau 1 Euro. |
+| P8 | 4 | Wie viele Cent sind 2,40 €? | 240 Cent | 24 Cent | 2.040 Cent | 2 Euro sind 200 Cent, dazu 40 Cent: zusammen 240 Cent. |
 | P9 | 4 | Wie viele verschiedene Euro-Münzen gibt es? | 8 | 5 | 12 | Es gibt 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro. |
-| P10 | 4 | Welcher ist der kleinste Euro-Schein? | 5 Euro | 1 Euro | 10 Euro | Den kleinsten Schein gibt es für 5 Euro, kleinere Beträge sind Münzen. |
+| P10 | 4 | Ein Fahrradschloss kostet 12,60 €. Du zahlst mit einem 20-Euro-Schein. Wie viel bekommst du zurück? | 7,40 € | 8,40 € | 7,60 € | 20 € minus 12,60 € sind 7,40 €. Probe: 12,60 € plus 7,40 € sind 20 €. |
 | P11 | 4 | Wie legst du 3,50 Euro mit möglichst wenigen Münzen? | 2 Euro, 1 Euro und 50 Cent | Sieben 50-Cent-Münzen | Drei 1-Euro-Münzen und fünf 10-Cent-Münzen | Große Münzen zuerst nehmen, dann braucht man am wenigsten. |
 | P12 | 4 | Du bezahlst 2 Euro für etwas, das 1,20 Euro kostet. Wie viel Wechselgeld bekommst du? | 80 Cent | 1 Euro | 20 Cent | 2 Euro minus 1,20 Euro sind 80 Cent. |
 | P13 | 5 | Woher bekommen die meisten Erwachsenen ihr Geld? | Als Lohn für ihre Arbeit | Es wächst im Garten. | Sie finden es auf der Straße. | Wer arbeitet, bekommt dafür Lohn oder Gehalt. |

@@ -214,13 +214,13 @@
           "erklaerung": "Früher wurden seltene Dinge wie bestimmte Muscheln oder Salz als Zahlungsmittel genutzt."
         },
         {
-          "frage": "Wie heißt unsere Währung in Deutschland?",
-          "richtig": "Euro",
+          "frage": "Der Bäcker nimmt deine Münzen, obwohl er sie nicht essen kann. Warum?",
+          "richtig": "Weil er damit selbst bei anderen einkaufen kann.",
           "falsch": [
-            "Dollar",
-            "Taler"
+            "Weil Münzen so schön glänzen.",
+            "Weil er Münzen sammelt."
           ],
-          "erklaerung": "Der Taler ist das Geld in Taleria, bei uns bezahlt man mit Euro."
+          "erklaerung": "Geld wandert weiter: Der Bäcker bezahlt damit zum Beispiel sein Mehl."
         },
         {
           "frage": "Warum ist ein 10-Euro-Schein etwas wert, obwohl er nur aus Papier ist?",
@@ -402,7 +402,7 @@
       "seemeilen": 100,
       "titel": "Münzen und Scheine",
       "ort": "Münzschublade im Kontor",
-      "lernziel": "Euro-Münzen und Scheine kennen, Beträge zusammensetzen",
+      "lernziel": "Euro-Münzen und Scheine kennen, Beträge mit Komma lesen und Wechselgeld berechnen",
       "dauer": "7 bis 10 Min.",
       "szene": [
         {
@@ -424,6 +424,11 @@
           "wer": "tala",
           "text": "Und 100 Cent sind genau 1 Euro!",
           "bild": "drawing:cents_to_euro"
+        },
+        {
+          "wer": "talo",
+          "text": "Vor dem Komma stehen die Euro, dahinter die Cent. 2,05 € sind also 2 Euro und 5 Cent.",
+          "bild": "drawing:comma_amount"
         },
         {
           "wer": "talo",
@@ -471,36 +476,36 @@
       },
       "abschluss": {
         "wer": "talo",
-        "text": "Jetzt kennst du die Euro-Münzen und Scheine und kannst Beträge zusammensetzen."
+        "text": "Jetzt kannst du Beträge mit Komma lesen, zusammenrechnen und Wechselgeld berechnen."
       },
       "quiz_anzahl": 3,
       "fragen": [
         {
-          "frage": "Welche Münze gibt es beim Euro nicht?",
-          "richtig": "3 Cent",
+          "frage": "Wie schreibt man 2 Euro und 5 Cent richtig?",
+          "richtig": "2,05 €",
           "falsch": [
-            "2 Cent",
-            "50 Cent"
+            "2,5 €",
+            "25 €"
           ],
-          "erklaerung": "Es gibt 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro, aber keine 3-Cent-Münze."
+          "erklaerung": "Hinter dem Komma stehen immer zwei Stellen für die Cent: 5 Cent werden zu 05."
         },
         {
-          "frage": "Wie viel sind zwei 50-Cent-Münzen zusammen?",
-          "richtig": "1 Euro",
+          "frage": "Was ist mehr: 1,50 € oder 105 Cent?",
+          "richtig": "1,50 €",
           "falsch": [
-            "50 Cent",
-            "100 Euro"
+            "105 Cent",
+            "Beides gleich viel"
           ],
-          "erklaerung": "50 Cent plus 50 Cent sind 100 Cent, also 1 Euro."
+          "erklaerung": "1,50 € sind 150 Cent. Das ist mehr als 105 Cent."
         },
         {
-          "frage": "Wie legst du 70 Cent mit möglichst wenigen Münzen?",
-          "richtig": "50 Cent und 20 Cent",
+          "frage": "Ein Heft kostet 1,30 €, ein Stift 0,90 €. Wie viel kostet beides zusammen?",
+          "richtig": "2,20 €",
           "falsch": [
-            "Sieben 10-Cent-Münzen",
-            "Vierzehn 5-Cent-Münzen"
+            "2,10 €",
+            "1,20 €"
           ],
-          "erklaerung": "Große Münzen zuerst: 50 plus 20 sind 70 Cent mit nur zwei Münzen."
+          "erklaerung": "1,30 € plus 0,90 € sind 2,20 €. Tipp: Rechne erst die Cent zusammen, 30 plus 90 sind 120 Cent."
         },
         {
           "frage": "Du zahlst mit einem 5-Euro-Schein für etwas, das 3,50 Euro kostet. Wie viel bekommst du zurück?",
@@ -512,13 +517,13 @@
           "erklaerung": "5 Euro minus 3,50 Euro sind 1,50 Euro."
         },
         {
-          "frage": "Was ist mehr wert: drei 20-Cent-Münzen oder eine 50-Cent-Münze?",
-          "richtig": "Drei 20-Cent-Münzen",
+          "frage": "Drei Kugeln Eis kosten zusammen 4,50 €. Wie viel kostet eine Kugel?",
+          "richtig": "1,50 €",
           "falsch": [
-            "Die 50-Cent-Münze",
-            "Beides gleich viel"
+            "1,20 €",
+            "1,80 €"
           ],
-          "erklaerung": "Drei mal 20 Cent sind 60 Cent, das ist mehr als 50 Cent."
+          "erklaerung": "4,50 € geteilt durch 3 sind 1,50 €, denn 3 mal 1,50 € sind 4,50 €."
         },
         {
           "frage": "Gibt es Geld auch, ohne dass man es anfassen kann?",
@@ -1043,14 +1048,14 @@
           "station": 2
         },
         {
-          "frage": "Wie heißt unsere Währung?",
-          "richtig": "Euro",
+          "frage": "Welche Schreibweise ist richtig für 4 Euro und 5 Cent?",
+          "richtig": "4,05 €",
           "falsch": [
-            "Taler",
-            "Pfund"
+            "4,5 €",
+            "45 €"
           ],
-          "erklaerung": "In Deutschland bezahlen wir mit Euro.",
-          "station": 2
+          "erklaerung": "Die Cent stehen mit zwei Stellen hinter dem Komma: 4,05 €.",
+          "station": 4
         },
         {
           "frage": "Warum haben sich Münzen gegenüber Muscheln und Salz durchgesetzt?",
@@ -1083,13 +1088,13 @@
           "station": 3
         },
         {
-          "frage": "Wie viele Cent sind ein Euro?",
-          "richtig": "100",
+          "frage": "Wie viele Cent sind 2,40 €?",
+          "richtig": "240 Cent",
           "falsch": [
-            "10",
-            "1.000"
+            "24 Cent",
+            "2.040 Cent"
           ],
-          "erklaerung": "100 Cent ergeben genau 1 Euro.",
+          "erklaerung": "2 Euro sind 200 Cent, dazu 40 Cent: zusammen 240 Cent.",
           "station": 4
         },
         {
@@ -1103,13 +1108,13 @@
           "station": 4
         },
         {
-          "frage": "Welcher ist der kleinste Euro-Schein?",
-          "richtig": "5 Euro",
+          "frage": "Ein Fahrradschloss kostet 12,60 €. Du zahlst mit einem 20-Euro-Schein. Wie viel bekommst du zurück?",
+          "richtig": "7,40 €",
           "falsch": [
-            "1 Euro",
-            "10 Euro"
+            "8,40 €",
+            "7,60 €"
           ],
-          "erklaerung": "Den kleinsten Schein gibt es für 5 Euro, kleinere Beträge sind Münzen.",
+          "erklaerung": "20 € minus 12,60 € sind 7,40 €. Probe: 12,60 € plus 7,40 € sind 20 €.",
           "station": 4
         },
         {

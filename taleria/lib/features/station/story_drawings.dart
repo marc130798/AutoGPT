@@ -9,7 +9,7 @@ import '../../l10n/app_localizations.dart';
 const storyDrawingPrefix = 'drawing:';
 
 /// Alle Zeichnungen, die es gibt (gleiche Liste in tool/content/content_model.dart).
-const storyDrawings = {'euro_coins', 'cents_to_euro', 'euro_notes', 'big_coins_first'};
+const storyDrawings = {'euro_coins', 'cents_to_euro', 'comma_amount', 'euro_notes', 'big_coins_first'};
 
 /// Eine Zeichnung im Format 4:3, passt sich der Größe an.
 class StoryDrawing extends StatelessWidget {
@@ -39,6 +39,7 @@ class StoryDrawing extends StatelessWidget {
           const EuroCoin(cents: 100, scale: 3.6),
         ]),
       ),
+      'comma_amount' => (_velvet, _commaAmount(l10n, 205)),
       'euro_notes' => (_wood, const _NoteFan()),
       'big_coins_first' => (_wood, _bigFirst(l10n)),
       _ => (_velvet, const SizedBox.shrink()),
@@ -98,6 +99,66 @@ class StoryDrawing extends StatelessWidget {
   );
 
   static Widget _equation(List<Widget> parts) => Row(mainAxisAlignment: MainAxisAlignment.center, children: parts);
+
+  /// Vor dem Komma stehen die Euro, dahinter die Cent: 2 € und 5 ct sind 2,05 €.
+  /// Euro und Cent haben je eine Farbe, in den Münzen und im Betrag.
+  static Widget _commaAmount(AppLocalizations l10n, int cents) {
+    const euroColor = Color(0xFF2F6DB5);
+    const centColor = Color(0xFFC0473F);
+    final euros = cents ~/ 100;
+    final rest = cents % 100;
+    Widget part(int coin, String caption, Color color) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        EuroCoin(cents: coin, scale: 3.2),
+        const SizedBox(height: 6),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
+          child: Text(
+            caption,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Colors.white),
+          ),
+        ),
+      ],
+    );
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            part(euros * 100, l10n.coinEuros(euros), euroColor),
+            _sign('+'),
+            part(rest, l10n.coinCents(rest), centColor),
+          ],
+        ),
+        const SizedBox(height: 18),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 6),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)),
+          child: Text.rich(
+            TextSpan(
+              style: const TextStyle(fontSize: 44, height: 1.1, fontWeight: FontWeight.w900, color: Color(0xFF3B2A18)),
+              children: [
+                TextSpan(
+                  text: '$euros',
+                  style: const TextStyle(color: euroColor),
+                ),
+                const TextSpan(text: ','),
+                TextSpan(
+                  text: rest.toString().padLeft(2, '0'),
+                  style: const TextStyle(color: centColor),
+                ),
+                // Geschütztes Leerzeichen wie in formatCents.
+                const TextSpan(text: '\u00A0€'),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   /// Ein Betrag mit möglichst wenigen Münzen: erst die großen.
   static Widget _bigFirst(AppLocalizations l10n) {
