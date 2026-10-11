@@ -38,7 +38,18 @@ void main() {
     ];
     expect(games, hasLength(20));
     expect(games.where((art) => !builtGames.contains(art) && art != 'wish_bottle'), isEmpty);
-    expect(games.toSet(), {'sort', 'order', 'choice', 'coins', 'pick', 'number', 'wish_bottle'});
+    expect(games.toSet(), {
+      'sort',
+      'order',
+      'choice',
+      'pick',
+      'number',
+      'wish_bottle',
+      'till',
+      'market',
+      'ice_stand',
+      'trade_chain',
+    });
   });
 
   test('Meister Taleron ist die erste Begegnung, ab dem Start', () {
@@ -608,6 +619,117 @@ void main() {
           'szene': [line('pirat')],
         }),
         contains(contains('unbekannte Figur')),
+      );
+    });
+  });
+
+  group('Die Prüfung findet Fehler in den echten Mini-Spielen', () {
+    Map<String, dynamic> done = {'wer': 'talo', 'text': 'Gut!'};
+    List<String> problems(Map<String, dynamic> game) =>
+        validateGame({'aufgabe': 'Los', 'geschafft': done, ...game}, 'test', knownAssetKeys: assetKeys);
+    final hafen = islands.first.stations;
+    final tausch = islands[1].stations;
+
+    test('Die Spiele in den Inhalten sind gültig', () {
+      expect(validateGame(hafen[3].game!, 'Hafen 4', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(hafen[6].game!, 'Hafen 7', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(tausch[0].game!, 'Tauschinsel 1', knownAssetKeys: assetKeys), isEmpty);
+      expect(validateGame(tausch[3].game!, 'Tauschinsel 4', knownAssetKeys: assetKeys), isEmpty);
+    });
+
+    test('Kasse: bezahlt muss mehr sein als der Preis, Figur muss es geben', () {
+      Map<String, dynamic> customer(int price, int paid, {String who = 'talo'}) => {
+        'wer': who,
+        'text': 'Bitte!',
+        'preis': price,
+        'bezahlt': paid,
+      };
+      expect(
+        problems({
+          'art': 'till',
+          'kunden': [customer(100, 200), customer(100, 100), customer(100, 200, who: 'drache')],
+        }),
+        allOf(contains(contains('"bezahlt" muss mehr sein')), contains(contains('unbekannte Figur "drache"'))),
+      );
+    });
+
+    test('Markt: Vergleichen muss sich lohnen, und das Geld muss reichen können', () {
+      Map<String, dynamic> stand(int bread, int juice) => {
+        'wer': 'haendler',
+        'name': 'Stand',
+        'angebote': [
+          {'ding': 'Brot', 'preis': bread},
+          {'ding': 'Saft', 'preis': juice},
+        ],
+      };
+      final list = [
+        {'ding': 'Brot', 'anzahl': 2},
+        {'ding': 'Saft'},
+      ];
+      final stands = [stand(50, 100), stand(80, 150)];
+      expect(problems({'art': 'market', 'geld': 250, 'liste': list, 'staende': stands}), isEmpty);
+      expect(
+        problems({'art': 'market', 'geld': 400, 'liste': list, 'staende': stands}),
+        contains(contains('Vergleichen lohnt sich nicht')),
+      );
+      expect(
+        problems({'art': 'market', 'geld': 150, 'liste': list, 'staende': stands}),
+        contains(contains('selbst überall am günstigsten')),
+      );
+    });
+
+    test('Eisstand: der beste Preis darf nicht am Rand liegen', () {
+      Map<String, dynamic> day(int demand, int drop) => {
+        'wetter': 'sonne',
+        'vorrat': 20,
+        'kunden': demand,
+        'weniger_pro_taler': drop,
+      };
+      expect(
+        problems({
+          'art': 'ice_stand',
+          'preis_von': 1,
+          'preis_bis': 8,
+          'tage': [day(40, 5), day(10, 2)],
+        }),
+        isEmpty,
+      );
+      // Bei 100 Kunden und wenig Abfall ist der höchste Preis der beste.
+      expect(
+        problems({
+          'art': 'ice_stand',
+          'preis_von': 1,
+          'preis_bis': 8,
+          'tage': [day(100, 1), day(10, 2)],
+        }),
+        contains(contains('der beste Preis liegt am Rand')),
+      );
+    });
+
+    test('Tauschkette: vom Start muss man zum Ziel kommen', () {
+      Map<String, dynamic> trader(String has, String wants) => {
+        'wer': 'otti',
+        'name': 'Otti',
+        'hat': has,
+        'will': wants,
+      };
+      expect(
+        problems({
+          'art': 'trade_chain',
+          'start': 'Eimer',
+          'ziel': 'Seil',
+          'haendler': [trader('Fisch', 'Eimer'), trader('Seil', 'Fisch'), trader('Muschel', 'Eimer')],
+        }),
+        isEmpty,
+      );
+      expect(
+        problems({
+          'art': 'trade_chain',
+          'start': 'Eimer',
+          'ziel': 'Seil',
+          'haendler': [trader('Fisch', 'Eimer'), trader('Seil', 'Äpfel'), trader('Muschel', 'Eimer')],
+        }),
+        contains(contains('kommt man nicht zum Ziel')),
       );
     });
   });

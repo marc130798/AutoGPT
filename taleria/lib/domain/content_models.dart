@@ -208,6 +208,115 @@ class GameRound {
   final String? explanation;
 }
 
+/// Kunde an der Kasse: kauft etwas für [price] und bezahlt mit [paid] (beides
+/// in Cent). Das Kind gibt das Wechselgeld heraus.
+class TillCustomer {
+  const TillCustomer({required this.figure, required this.text, required this.price, required this.paid, this.name});
+
+  factory TillCustomer.fromJson(Map<String, dynamic> json) => TillCustomer(
+    figure: json['figure'] as String? ?? 'talo',
+    name: json['name'] as String?,
+    text: json['text'] as String? ?? '',
+    price: (json['price'] as num?)?.toInt() ?? 0,
+    paid: (json['paid'] as num?)?.toInt() ?? 0,
+  );
+
+  /// Figur (Asset-Schlüssel `character.<figure>`).
+  final String figure;
+  final String? name;
+  final String text;
+  final int price;
+  final int paid;
+
+  int get change => paid - price;
+}
+
+/// Markt-Einkauf: ein Ding auf der Einkaufsliste, [count] Stück.
+class MarketNeed {
+  const MarketNeed({required this.item, this.count = 1});
+
+  final String item;
+  final int count;
+}
+
+/// Angebot an einem Marktstand: Preis pro Stück in Cent.
+class MarketOffer {
+  const MarketOffer({required this.item, required this.price});
+
+  final String item;
+  final int price;
+}
+
+/// Marktstand mit Figur und Angeboten.
+class MarketStand {
+  const MarketStand({required this.figure, required this.name, required this.offers});
+
+  factory MarketStand.fromJson(Map<String, dynamic> json) => MarketStand(
+    figure: json['figure'] as String? ?? 'talo',
+    name: json['name'] as String? ?? '',
+    offers: [
+      for (final o in (json['offers'] as List?) ?? const [])
+        MarketOffer(
+          item: (o as Map<String, dynamic>)['item'] as String? ?? '',
+          price: (o['price'] as num?)?.toInt() ?? 0,
+        ),
+    ],
+  );
+
+  final String figure;
+  final String name;
+  final List<MarketOffer> offers;
+}
+
+/// Ein Tag am Eisstand. Zum Preis p (in Talern) kommen
+/// `max(0, demand - drop * p)` Kunden; verkauft wird höchstens [stock].
+class IceDay {
+  const IceDay({
+    required this.weather,
+    required this.stock,
+    required this.demand,
+    required this.drop,
+    this.scene = const [],
+    this.image,
+  });
+
+  factory IceDay.fromJson(Map<String, dynamic> json) => IceDay(
+    weather: json['weather'] as String? ?? 'sun',
+    scene: [for (final l in (json['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
+    image: json['image'] as String?,
+    stock: (json['stock'] as num?)?.toInt() ?? 0,
+    demand: (json['demand'] as num?)?.toInt() ?? 0,
+    drop: (json['drop'] as num?)?.toInt() ?? 0,
+  );
+
+  /// sun, clouds oder rain.
+  final String weather;
+  final List<DialogLine> scene;
+
+  /// Bild des Tages (Asset-Schlüssel), sonst nur das Wetter.
+  final String? image;
+  final int stock;
+  final int demand;
+  final int drop;
+}
+
+/// Händler in der Tauschkette: gibt [has] nur gegen [wants].
+class Trader {
+  const Trader({required this.figure, required this.name, required this.has, required this.wants});
+
+  factory Trader.fromJson(Map<String, dynamic> json) => Trader(
+    figure: json['figure'] as String? ?? 'talo',
+    name: json['name'] as String? ?? '',
+    has: json['has'] as String? ?? '',
+    wants: json['wants'] as String? ?? '',
+  );
+
+  final String figure;
+  final String name;
+  final String has;
+  final String wants;
+}
+
 class GameInfo {
   const GameInfo({
     required this.type,
@@ -222,6 +331,17 @@ class GameInfo {
     this.rounds = const [],
     this.target,
     this.exactTarget = false,
+    this.customers = const [],
+    this.budget,
+    this.needs = const [],
+    this.stands = const [],
+    this.days = const [],
+    this.priceMin = 1,
+    this.priceMax = 8,
+    this.start,
+    this.goal,
+    this.traders = const [],
+    this.deadEnd,
   });
 
   factory GameInfo.fromJson(Map<String, dynamic> game) => GameInfo(
@@ -246,10 +366,36 @@ class GameInfo {
     from: game['from'] as String?,
     to: game['to'] as String?,
     done: game['done'] is Map<String, dynamic> ? DialogLine.fromJson(game['done'] as Map<String, dynamic>) : null,
+    customers: [
+      for (final c in (game['customers'] as List?) ?? const []) TillCustomer.fromJson(c as Map<String, dynamic>),
+    ],
+    budget: (game['budget'] as num?)?.toInt(),
+    needs: [
+      for (final n in (game['needs'] as List?) ?? const [])
+        MarketNeed(
+          item: (n as Map<String, dynamic>)['item'] as String? ?? '',
+          count: (n['count'] as num?)?.toInt() ?? 1,
+        ),
+    ],
+    stands: [for (final s in (game['stands'] as List?) ?? const []) MarketStand.fromJson(s as Map<String, dynamic>)],
+    days: [for (final d in (game['days'] as List?) ?? const []) IceDay.fromJson(d as Map<String, dynamic>)],
+    priceMin: (game['price_min'] as num?)?.toInt() ?? 1,
+    priceMax: (game['price_max'] as num?)?.toInt() ?? 8,
+    start: game['start'] as String?,
+    goal: game['goal'] as String?,
+    traders: [for (final t in (game['traders'] as List?) ?? const []) Trader.fromJson(t as Map<String, dynamic>)],
+    deadEnd: game['dead_end'] is Map<String, dynamic>
+        ? DialogLine.fromJson(game['dead_end'] as Map<String, dynamic>)
+        : null,
   );
 
-  /// sort, order, choice, coins, pick, number, wish_bottle oder eine Spielart,
-  /// die erst später gebaut wird (Platzhalter).
+  /// Echte Mini-Spiele mit eigener Spielwelt (Startbild, Sterne, auf der
+  /// Startseite nochmal spielbar). Die anderen Spielarten sind Übungen.
+  static const realGames = {'till', 'market', 'ice_stand', 'trade_chain'};
+
+  /// sort, order, choice, coins, pick, number, wish_bottle, die echten Spiele
+  /// till, market, ice_stand, trade_chain oder eine Spielart, die erst später
+  /// gebaut wird (Platzhalter).
   final String type;
   final String title;
   final String? description;
@@ -267,6 +413,28 @@ class GameInfo {
   final int? target;
   final bool exactTarget;
 
+  /// Kasse: Kunden der Reihe nach; [items] ist die Preistafel (Preise in Cent).
+  final List<TillCustomer> customers;
+
+  /// Markt-Einkauf: Geld in Cent, Einkaufsliste und Stände.
+  final int? budget;
+  final List<MarketNeed> needs;
+  final List<MarketStand> stands;
+
+  /// Eisstand: Tage und erlaubte Preise in Talern.
+  final List<IceDay> days;
+  final int priceMin;
+  final int priceMax;
+
+  /// Tauschkette: Tala hat [start] und will [goal]; [deadEnd] sagt, wenn es nicht weitergeht.
+  final String? start;
+  final String? goal;
+  final List<Trader> traders;
+  final DialogLine? deadEnd;
+
+  /// Echtes Mini-Spiel (nicht nur eine Übung)?
+  bool get isRealGame => realGames.contains(type);
+
   /// Hat die App für diese Spielart schon eine Spielmechanik?
   bool get isPlayable => switch (type) {
     'sort' => baskets.length >= 2 && items.isNotEmpty,
@@ -276,6 +444,10 @@ class GameInfo {
     'pick' => items.isNotEmpty && target != null && items.every((i) => i.price != null),
     'number' => rounds.isNotEmpty && rounds.every((r) => r.amount != null),
     'wish_bottle' => true,
+    'till' => customers.isNotEmpty && customers.every((c) => c.change > 0),
+    'market' => budget != null && needs.isNotEmpty && stands.isNotEmpty,
+    'ice_stand' => days.isNotEmpty && priceMin >= 1 && priceMax > priceMin,
+    'trade_chain' => start != null && goal != null && traders.isNotEmpty,
     _ => false,
   };
 }

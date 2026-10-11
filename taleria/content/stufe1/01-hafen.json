@@ -447,31 +447,73 @@
         }
       ],
       "spiel": {
-        "art": "coins",
-        "titel": "Münzschublade",
-        "beschreibung": "Münzen und Scheine sortieren, Beträge mit möglichst wenigen Münzen legen und Wechselgeld herausgeben.",
-        "aufgabe": "Tippe Münzen und Scheine an, bis der Betrag stimmt. Tippst du oben auf eine gelegte Münze, nimmst du sie wieder weg.",
-        "runden": [
+        "art": "till",
+        "titel": "Fischbrötchen-Kasse",
+        "beschreibung": "Am Fischbrötchen-Stand die Kasse übernehmen: Die Kunden bezahlen, und du gibst das richtige Wechselgeld heraus.",
+        "aufgabe": "Die Verkäuferin macht Pause, du übernimmst die Kasse! Lege das Wechselgeld mit Münzen und Scheinen und tippe dann auf „Herausgeben“.",
+        "preistafel": [
           {
-            "text": "Lege 3,50 €. Schaffst du es mit möglichst wenigen Münzen?",
-            "betrag": 350
+            "text": "Fischbrötchen",
+            "preis": 350
           },
           {
-            "text": "Lege 1,85 € für eine Tüte Kirschen.",
-            "betrag": 185
+            "text": "Brötchen",
+            "preis": 45
           },
           {
-            "text": "Ein Brötchen kostet 45 Cent. Tala bezahlt mit 1 €. Lege das Wechselgeld.",
-            "betrag": 55
+            "text": "Limo",
+            "preis": 180
           },
           {
-            "text": "Eine Kinokarte kostet 7,50 €. Talo bezahlt mit einem 10-Euro-Schein. Lege das Wechselgeld.",
-            "betrag": 250
+            "text": "Apfelsaft",
+            "preis": 170
+          }
+        ],
+        "kunden": [
+          {
+            "wer": "talo",
+            "text": "Ein Fischbrötchen, bitte!",
+            "preis": 350,
+            "bezahlt": 500
+          },
+          {
+            "wer": "haendler",
+            "name": "Händler",
+            "text": "Eine Limo für mich.",
+            "preis": 180,
+            "bezahlt": 200
+          },
+          {
+            "wer": "tala",
+            "text": "Ein Brötchen, bitte.",
+            "preis": 45,
+            "bezahlt": 100
+          },
+          {
+            "wer": "bootsbauer",
+            "name": "Bootsbauer",
+            "text": "Zwei Fischbrötchen für die Werkstatt.",
+            "preis": 700,
+            "bezahlt": 1000
+          },
+          {
+            "wer": "talo",
+            "text": "Ein Fischbrötchen und einen Apfelsaft.",
+            "preis": 520,
+            "bezahlt": 1000
+          },
+          {
+            "wer": "haendler",
+            "name": "Händler",
+            "text": "Drei Fischbrötchen für meine Mannschaft.",
+            "preis": 1050,
+            "bezahlt": 2000
           }
         ],
         "geschafft": {
-          "wer": "tala",
-          "text": "Ich kenne jetzt alle Münzen und kann sogar Wechselgeld herausgeben!"
+          "wer": "verkaeuferin",
+          "name": "Verkäuferin",
+          "text": "Danke für deine Hilfe! Jeder hat genau das richtige Wechselgeld bekommen."
         }
       },
       "abschluss": {
@@ -894,37 +936,84 @@
         }
       ],
       "spiel": {
-        "art": "order",
-        "titel": "Preise schätzen",
-        "beschreibung": "Schätze Preise von Alltagsdingen und sortiere sie von günstig bis teuer. Die Preise sind ungefähre Spannen.",
-        "aufgabe": "Tippe die Dinge der Reihe nach an: zuerst das günstigste.",
-        "von": "Günstig",
-        "bis": "Teuer",
-        "dinge": [
+        "art": "market",
+        "titel": "Markt-Einkauf",
+        "beschreibung": "Mit 7,50 € alles auf der Einkaufsliste kaufen. Wer die Preise an den Ständen vergleicht, kommt mit dem Geld aus.",
+        "aufgabe": "Die Crew macht ein Picknick. Kaufe alles auf Talas Liste. Du hast 7,50 €. Vergleiche die Preise an den Ständen!",
+        "geld": 750,
+        "liste": [
           {
-            "text": "Ein Brötchen",
-            "hinweis": "Etwa 40 Cent bis 1 Euro."
+            "ding": "Brötchen",
+            "anzahl": 4
           },
           {
-            "text": "Eine Kugel Eis",
-            "hinweis": "Etwa 1,50 bis 2,50 Euro."
+            "ding": "Tüte Äpfel",
+            "anzahl": 1
           },
           {
-            "text": "Eine Kinokarte",
-            "hinweis": "Etwa 8 bis 14 Euro."
+            "ding": "Flasche Saft",
+            "anzahl": 2
+          }
+        ],
+        "staende": [
+          {
+            "wer": "haendler",
+            "name": "Kontor",
+            "angebote": [
+              {
+                "ding": "Brötchen",
+                "preis": 70
+              },
+              {
+                "ding": "Tüte Äpfel",
+                "preis": 220
+              },
+              {
+                "ding": "Flasche Saft",
+                "preis": 150
+              },
+              {
+                "ding": "Bonbons",
+                "preis": 100
+              }
+            ]
           },
           {
-            "text": "Ein Fußball",
-            "hinweis": "Etwa 15 bis 40 Euro."
+            "wer": "verkaeuferin",
+            "name": "Fischbrötchen-Stand",
+            "angebote": [
+              {
+                "ding": "Brötchen",
+                "preis": 50
+              },
+              {
+                "ding": "Flasche Saft",
+                "preis": 180
+              },
+              {
+                "ding": "Fischbrötchen",
+                "preis": 350
+              }
+            ]
           },
           {
-            "text": "Ein Fahrrad",
-            "hinweis": "Etwa 250 bis 800 Euro."
+            "wer": "bootsbauer",
+            "name": "Obstkarren",
+            "angebote": [
+              {
+                "ding": "Tüte Äpfel",
+                "preis": 160
+              },
+              {
+                "ding": "Flasche Saft",
+                "preis": 190
+              }
+            ]
           }
         ],
         "geschafft": {
-          "wer": "talo",
-          "text": "Gut geschätzt! Preise sind nicht überall gleich, aber ein Gefühl dafür hilft beim Einkaufen."
+          "wer": "tala",
+          "text": "Alles gekauft, und es ist sogar Geld übrig! Vergleichen lohnt sich."
         }
       },
       "abschluss": {

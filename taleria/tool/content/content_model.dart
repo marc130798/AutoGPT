@@ -8,6 +8,7 @@ library;
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 /// Stationstypen wie in der Datenbank (stations.type).
 const stationTypes = {'video', 'quiz', 'game', 'practice', 'review_stop', 'exam'};
@@ -130,7 +131,17 @@ class Station {
 ///   * coins    Beträge mit Münzen und Scheinen legen (auch Wechselgeld)
 ///   * pick     Teile auswählen, bis ein Betrag genau stimmt oder das Budget reicht
 ///   * number   Rechnen: eine Zahl als Antwort
-const builtGames = {'sort', 'order', 'choice', 'coins', 'pick', 'number'};
+/// Echte Mini-Spiele mit eigener Spielwelt (Startbild, Sterne, auf der
+/// Startseite nochmal spielbar):
+///   * till        Kasse: Kunden bezahlen, das Kind gibt Wechselgeld heraus
+///   * market      Markt-Einkauf: Einkaufsliste, Geld, Preise an Ständen vergleichen
+///   * ice_stand   Eisstand: an jedem Tag einen Preis setzen (Angebot und Nachfrage)
+///   * trade_chain Tauschkette: tauschen, bis man das Ziel-Ding hat
+const builtGames = {'sort', 'order', 'choice', 'coins', 'pick', 'number', ...realGames};
+const realGames = {'till', 'market', 'ice_stand', 'trade_chain'};
+
+/// Wetter am Eisstand: Inhaltsdatei → Datenbank.
+const iceWeather = {'sonne': 'sun', 'wolken': 'clouds', 'regen': 'rain'};
 
 /// Euro-Münzen und -Scheine in Cent für das Spiel „coins“.
 const coinValues = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000];
@@ -188,6 +199,58 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
               'explanation': r['erklaerung'],
             },
         ],
+      if (type == 'till') ...{
+        'items': [
+          for (final d in ((g['preistafel'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {'text': d['text'], 'price': d['preis']},
+        ],
+        'customers': [
+          for (final k in ((g['kunden'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {'figure': k['wer'], 'name': ?k['name'], 'text': k['text'], 'price': k['preis'], 'paid': k['bezahlt']},
+        ],
+      },
+      if (type == 'market') ...{
+        'budget': g['geld'],
+        'needs': [
+          for (final d in ((g['liste'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {'item': d['ding'], 'count': d['anzahl'] ?? 1},
+        ],
+        'stands': [
+          for (final st in ((g['staende'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'figure': st['wer'],
+              'name': st['name'],
+              'offers': [
+                for (final o in ((st['angebote'] as List?) ?? const []).cast<Map<String, dynamic>>())
+                  {'item': o['ding'], 'price': o['preis']},
+              ],
+            },
+        ],
+      },
+      if (type == 'ice_stand') ...{
+        'price_min': g['preis_von'],
+        'price_max': g['preis_bis'],
+        'days': [
+          for (final d in ((g['tage'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'weather': iceWeather[d['wetter']],
+              'scene': lines(d['szene']),
+              'image': ?d['bild'],
+              'stock': d['vorrat'],
+              'demand': d['kunden'],
+              'drop': d['weniger_pro_taler'],
+            },
+        ],
+      },
+      if (type == 'trade_chain') ...{
+        'start': g['start'],
+        'goal': g['ziel'],
+        'traders': [
+          for (final t in ((g['haendler'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {'figure': t['wer'], 'name': t['name'], 'has': t['hat'], 'wants': t['will']},
+        ],
+        'dead_end': ?line(g['sackgasse']),
+      },
       'done': ?line(g['geschafft']),
     },
   };
@@ -717,6 +780,13 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
     }
   }
 
+  void figure(Object? who, String w) {
+    check(who is String && who.isNotEmpty, '$w: "wer" fehlt');
+    if (knownAssetKeys != null && who is String) {
+      check(knownAssetKeys.contains('character.$who'), '$w: unbekannte Figur "$who"');
+    }
+  }
+
   final w = '$where, Spiel';
   final type = game['art'];
   check(text(game['aufgabe']), '$w: "aufgabe" fehlt');
@@ -800,6 +870,117 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
         check(text(r['frage']) && text(r['erklaerung']), '$rw: "frage" und "erklaerung" nötig');
         check(r['antwort'] is int && (r['antwort'] as int) >= 0, '$rw: "antwort" muss eine ganze Zahl sein');
       }
+    case 'till':
+      final customers = (game['kunden'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(customers.length >= 3 && customers.length <= 8, '$w: 3 bis 8 Kunden');
+      for (final (i, k) in customers.indexed) {
+        final kw = '$w, Kunde ${i + 1}';
+        figure(k['wer'], kw);
+        check(text(k['text']), '$kw: "text" fehlt');
+        final price = k['preis'], paid = k['bezahlt'];
+        check(price is int && price > 0, '$kw: "preis" in Cent fehlt');
+        check(paid is int && price is int && paid > price, '$kw: "bezahlt" muss mehr sein als der Preis');
+        if (paid is int && price is int) check(paid - price <= 5000, '$kw: höchstens 50 Euro Wechselgeld');
+      }
+      final board = (game['preistafel'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(
+        board.every((d) => text(d['text']) && d['preis'] is int && (d['preis'] as int) > 0),
+        '$w: jede Zeile der Preistafel braucht Text und Preis',
+      );
+    case 'market':
+      final budget = game['geld'];
+      final needs = (game['liste'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      final stands = (game['staende'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(budget is int && budget > 0, '$w: "geld" in Cent fehlt');
+      check(needs.length >= 2 && needs.length <= 5, '$w: 2 bis 5 Dinge auf der Liste');
+      check(stands.length >= 2 && stands.length <= 4, '$w: 2 bis 4 Stände');
+      check(
+        needs.every(
+          (n) => text(n['ding']) && (n['anzahl'] == null || (n['anzahl'] is int && (n['anzahl'] as int) > 0)),
+        ),
+        '$w: jedes Ding auf der Liste braucht einen Namen und eine Anzahl ab 1',
+      );
+      for (final (i, st) in stands.indexed) {
+        final sw = '$w, Stand ${i + 1}';
+        figure(st['wer'], sw);
+        check(text(st['name']), '$sw: "name" fehlt');
+        final offers = (st['angebote'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+        check(offers.isNotEmpty, '$sw: keine Angebote');
+        check(
+          offers.every((o) => text(o['ding']) && o['preis'] is int && (o['preis'] as int) > 0),
+          '$sw: jedes Angebot braucht Ding und Preis',
+        );
+      }
+      // Vergleichen muss sich lohnen: günstig geht es, überall teuer nicht.
+      final prices = <String, List<int>>{};
+      for (final st in stands) {
+        for (final o in ((st['angebote'] as List?) ?? const []).cast<Map<String, dynamic>>()) {
+          if (o['preis'] is int) prices.putIfAbsent('${o['ding']}', () => []).add(o['preis'] as int);
+        }
+      }
+      var cheap = 0, dear = 0;
+      for (final n in needs) {
+        final p = prices['${n['ding']}'] ?? const [];
+        final count = (n['anzahl'] as int?) ?? 1;
+        check(p.length >= 2, '$w: "${n['ding']}" muss es an mindestens 2 Ständen geben');
+        if (p.isNotEmpty) {
+          cheap += p.reduce(min) * count;
+          dear += p.reduce(max) * count;
+        }
+      }
+      if (budget is int) {
+        check(cheap <= budget, '$w: selbst überall am günstigsten kostet die Liste $cheap Cent, mehr als $budget');
+        check(dear > budget, '$w: überall am teuersten reicht das Geld auch, Vergleichen lohnt sich nicht');
+      }
+    case 'ice_stand':
+      final from = game['preis_von'], to = game['preis_bis'];
+      check(
+        from is int && to is int && from >= 1 && to > from && to <= 20,
+        '$w: "preis_von" und "preis_bis" (1 bis 20 Taler)',
+      );
+      final days = (game['tage'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(days.length >= 2 && days.length <= 4, '$w: 2 bis 4 Tage');
+      for (final (i, d) in days.indexed) {
+        final dw = '$w, Tag ${i + 1}';
+        check(iceWeather.containsKey(d['wetter']), '$dw: "wetter" muss sonne, wolken oder regen sein');
+        for (final (k, l) in ((d['szene'] as List?) ?? const []).indexed) {
+          speaker(l, '$dw, Szene ${k + 1}');
+        }
+        for (final key in ['vorrat', 'kunden', 'weniger_pro_taler']) {
+          check(d[key] is int && (d[key] as int) > 0, '$dw: "$key" muss eine Zahl ab 1 sein');
+        }
+        final image = d['bild'];
+        if (image != null && knownAssetKeys != null) {
+          check(knownAssetKeys.contains(image), '$dw: unbekanntes Bild "$image"');
+        }
+        // Der beste Preis darf nicht am Rand liegen, sonst gibt es nichts abzuwägen.
+        if (from is int && to is int && d['vorrat'] is int && d['kunden'] is int && d['weniger_pro_taler'] is int) {
+          int earned(int p) =>
+              min(max(0, (d['kunden'] as int) - (d['weniger_pro_taler'] as int) * p), d['vorrat'] as int) * p;
+          final best = [for (var p = from; p <= to; p++) earned(p)].reduce(max);
+          check(earned(from) < best && earned(to) < best, '$dw: der beste Preis liegt am Rand');
+        }
+      }
+    case 'trade_chain':
+      final start = game['start'], goal = game['ziel'];
+      check(text(start) && text(goal) && start != goal, '$w: "start" und "ziel" fehlen oder sind gleich');
+      final traders = (game['haendler'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(traders.length >= 3 && traders.length <= 6, '$w: 3 bis 6 Händler');
+      for (final (i, t) in traders.indexed) {
+        final tw = '$w, Händler ${i + 1}';
+        figure(t['wer'], tw);
+        check(text(t['name']) && text(t['hat']) && text(t['will']), '$tw: "name", "hat" und "will" nötig');
+      }
+      if (game['sackgasse'] != null) speaker(game['sackgasse'], '$w, "sackgasse"');
+      // Lösbar: Kette vom Start zum Ziel, jeder Händler tauscht nur einmal.
+      bool solvable(String holding, Set<int> used) {
+        if (holding == goal) return true;
+        for (final (i, t) in traders.indexed) {
+          if (!used.contains(i) && t['will'] == holding && solvable('${t['hat']}', {...used, i})) return true;
+        }
+        return false;
+      }
+      if (text(start) && text(goal)) check(solvable(start as String, {}), '$w: vom Start kommt man nicht zum Ziel');
     default:
       problems.add('$w: unbekannte Spielart "$type"');
   }

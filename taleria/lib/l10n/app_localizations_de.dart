@@ -2146,4 +2146,294 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get lighthouseRankFormHint => 'Dein Kind hat das in der Einführung gewählt. Hier kannst du es ändern.';
+
+  @override
+  String get realGameBadge => 'Mini-Spiel!';
+
+  @override
+  String get realGamePlay => 'Spielen';
+
+  @override
+  String get practiceLabel => 'Übung';
+
+  @override
+  String get realGameWellDone => 'Geschafft!';
+
+  @override
+  String realGameStars(int count) {
+    return '$count von 3 Sternen';
+  }
+
+  @override
+  String get realGameToResult => 'Fertig';
+
+  @override
+  String get realGameAgain => 'Nochmal spielen';
+
+  @override
+  String get realGameReplayNote => 'Nur zum Spaß: Hier gibt es keine Seemeilen.';
+
+  @override
+  String tillCustomer(int current, int total) {
+    return 'Kunde $current von $total';
+  }
+
+  @override
+  String tillPays(String price, String paid) {
+    return 'Das macht $price. Ich gebe dir $paid.';
+  }
+
+  @override
+  String get tillPriceBoard => 'Preistafel';
+
+  @override
+  String tillTray(String sum) {
+    return 'Wechselgeld: $sum';
+  }
+
+  @override
+  String get tillTrayEmpty => 'Tippe unten auf Münzen und Scheine.';
+
+  @override
+  String get tillGive => 'Herausgeben';
+
+  @override
+  String get tillRight => 'Stimmt genau, danke!';
+
+  @override
+  String tillTooMuch(String difference) {
+    return 'Das sind $difference zu viel.';
+  }
+
+  @override
+  String tillTooLittle(String difference) {
+    return 'Da fehlen noch $difference.';
+  }
+
+  @override
+  String get tillNextCustomer => 'Nächster Kunde';
+
+  @override
+  String marketMoneyLeft(String amount) {
+    return 'Im Geldbeutel: $amount';
+  }
+
+  @override
+  String get marketList => 'Einkaufsliste';
+
+  @override
+  String marketNeed(int count, String item) {
+    return '$count × $item';
+  }
+
+  @override
+  String marketBoughtLine(int count, String price, String total) {
+    return '$count × $price = $total';
+  }
+
+  @override
+  String marketPerPiece(String price) {
+    return '$price pro Stück';
+  }
+
+  @override
+  String get marketBuy => 'Kaufen';
+
+  @override
+  String marketPutBack(String item) {
+    return '$item zurücklegen';
+  }
+
+  @override
+  String get marketPutBackHint => 'Tippe auf etwas Gekauftes, um es zurückzulegen.';
+
+  @override
+  String get marketNotOnList => 'Das steht nicht auf Talas Liste.';
+
+  @override
+  String marketAlreadyHave(String item) {
+    return '$item hast du schon gekauft.';
+  }
+
+  @override
+  String get marketNotEnough => 'Dafür reicht das Geld nicht. Vergleiche die Preise an den anderen Ständen!';
+
+  @override
+  String get marketStuck => 'Das Geld reicht nicht mehr für alles. Lege etwas zurück und such günstigere Stände.';
+
+  @override
+  String marketBest(String left) {
+    return 'Alles gekauft, und überall den günstigsten Stand gefunden! Übrig: $left';
+  }
+
+  @override
+  String marketCouldSave(String left, String more) {
+    return 'Alles gekauft! Übrig: $left. Mit Vergleichen hättest du noch $more sparen können.';
+  }
+
+  @override
+  String iceDay(int current, int total) {
+    return 'Tag $current von $total';
+  }
+
+  @override
+  String get iceWeatherSun => 'Sonne';
+
+  @override
+  String get iceWeatherClouds => 'Bewölkt';
+
+  @override
+  String get iceWeatherRain => 'Regen';
+
+  @override
+  String iceStock(int count) {
+    return 'Vorrat: $count Kugeln';
+  }
+
+  @override
+  String get icePriceLabel => 'Preis für eine Kugel';
+
+  @override
+  String icePrice(int value) {
+    return '$value Taler';
+  }
+
+  @override
+  String get icePriceDown => 'Billiger';
+
+  @override
+  String get icePriceUp => 'Teurer';
+
+  @override
+  String get iceOpen => 'Stand öffnen';
+
+  @override
+  String get iceTryAgain => 'Anderen Preis probieren';
+
+  @override
+  String get iceNextDay => 'Nächster Tag';
+
+  @override
+  String iceCustomers(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Tiere wollten Eis.',
+      one: '1 Tier wollte Eis.',
+      zero: 'Niemand wollte Eis.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String iceSold(int sold, int earned) {
+    return 'Verkauft: $sold Kugeln. Eingenommen: $earned Taler.';
+  }
+
+  @override
+  String iceMissed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Tiere gingen leer aus.',
+      one: '1 Tier ging leer aus.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String iceMelted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Kugeln sind geschmolzen.',
+      one: '1 Kugel ist geschmolzen.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get iceBest => 'Bester Preis für diesen Tag!';
+
+  @override
+  String get iceTooCheapSoldOut => 'Das Eis war schnell weg. Viele hätten auch mehr bezahlt.';
+
+  @override
+  String get iceTooCheap => 'Mit einem etwas höheren Preis hättest du mehr eingenommen.';
+
+  @override
+  String get iceTooDear => 'Der Preis war vielen zu hoch. Probier es billiger!';
+
+  @override
+  String tradeHolding(String item) {
+    return 'Tala hat: $item';
+  }
+
+  @override
+  String tradeGoal(String item) {
+    return 'Ziel: $item';
+  }
+
+  @override
+  String tradeHas(String item) {
+    return 'hat: $item';
+  }
+
+  @override
+  String tradeWants(String item) {
+    return 'will: $item';
+  }
+
+  @override
+  String tradeRefused(String name, String item) {
+    return '$name: „Ich tausche nur gegen $item.“';
+  }
+
+  @override
+  String get tradeTraded => 'Getauscht!';
+
+  @override
+  String tradeChain(String chain) {
+    return 'Bisher: $chain';
+  }
+
+  @override
+  String get tradeReset => 'Von vorn anfangen';
+
+  @override
+  String tradeStuck(String item) {
+    return 'Hier will niemand mehr $item.';
+  }
+
+  @override
+  String get childHomeGamesTile => 'Spiele';
+
+  @override
+  String gamesButton(int count) {
+    return 'Mini-Spiele, $count freigespielt';
+  }
+
+  @override
+  String get gamesTitle => 'Mini-Spiele';
+
+  @override
+  String get gamesIntro =>
+      'Hier kannst du alle Mini-Spiele nochmal spielen, die du auf deiner Reise geschafft hast. Nur zum Spaß, ohne Seemeilen.';
+
+  @override
+  String gamesLocked(String island, int number) {
+    return 'Noch nicht geschafft: $island, Station $number';
+  }
+
+  @override
+  String gamesWhere(String island, int number) {
+    return '$island, Station $number';
+  }
+
+  @override
+  String get gamesEmpty =>
+      'Auf den Inseln warten Stationen mit dem Spiel-Zeichen. Wenn du eine geschafft hast, kannst du das Spiel hier nochmal spielen.';
+
+  @override
+  String get islandStationGame => 'mit Mini-Spiel';
 }

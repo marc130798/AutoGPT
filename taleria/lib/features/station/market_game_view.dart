@@ -1,0 +1,230 @@
+import 'package:flutter/material.dart';
+
+import '../../core/theme/taleria_palette.dart';
+import '../../domain/content_models.dart';
+import '../../domain/money.dart';
+import '../../domain/real_games.dart';
+import '../../l10n/app_localizations.dart';
+import 'figure_head.dart';
+import 'game_frame.dart';
+
+/// Markt-Einkauf: Oben Geldbeutel und Einkaufsliste, darunter die Stände.
+/// Das Kind wählt einen Stand, kauft dort und vergleicht die Preise, damit
+/// das Geld für alles reicht. Gekauftes kann es zurücklegen.
+class MarketGameView extends StatefulWidget {
+  const MarketGameView({super.key, required this.game, required this.onFinished});
+
+  final GameInfo game;
+  final ValueChanged<int> onFinished;
+
+  @override
+  State<MarketGameView> createState() => _MarketGameViewState();
+}
+
+class _MarketGameViewState extends State<MarketGameView> {
+  late final MarketGame _game = MarketGame(widget.game);
+  int _stand = 0;
+  MarketBuy? _lastBuy;
+  String? _lastItem;
+
+  void _buy(MarketOffer offer) {
+    setState(() {
+      _lastBuy = _game.buy(_stand, offer);
+      _lastItem = offer.item;
+    });
+  }
+
+  void _putBack(String item) {
+    setState(() {
+      _game.putBack(item);
+      _lastBuy = null;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final game = _game;
+    final stands = widget.game.stands;
+    final stand = stands[_stand];
+
+    final String? feedback;
+    final Color? feedbackColor;
+    if (game.finished) {
+      final more = game.spent - game.cheapestTotal;
+      feedback = more <= 0
+          ? l10n.marketBest(formatCents(game.left))
+          : l10n.marketCouldSave(formatCents(game.left), formatCents(more));
+      feedbackColor = palette.success;
+    } else if (game.stuck) {
+      feedback = l10n.marketStuck;
+      feedbackColor = palette.coral;
+    } else {
+      feedback = switch (_lastBuy) {
+        MarketBuy.notOnList => l10n.marketNotOnList,
+        MarketBuy.alreadyHave => l10n.marketAlreadyHave(_lastItem ?? ''),
+        MarketBuy.notEnoughMoney => l10n.marketNotEnough,
+        MarketBuy.bought || null => null,
+      };
+      feedbackColor = palette.coral;
+    }
+
+    return GameFrame(
+      game: widget.game,
+      button: game.finished
+          ? FilledButton(
+              key: const ValueKey('game-finish'),
+              onPressed: () => widget.onFinished(game.stars),
+              child: Text(l10n.realGameToResult),
+            )
+          : const SizedBox.shrink(),
+      children: [
+        Card(
+          color: palette.paper,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.account_balance_wallet_outlined, color: palette.seaDeep),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        l10n.marketMoneyLeft(formatCents(game.left)),
+                        key: const ValueKey('market-left'),
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                  ],
+                ),
+                const Divider(),
+                Text(l10n.marketList, style: theme.textTheme.labelLarge),
+                for (final need in widget.game.needs) _needRow(context, need),
+                if (game.cart.isNotEmpty && !game.finished)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(l10n.marketPutBackHint, style: theme.textTheme.bodySmall),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        if (feedback != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            feedback,
+            key: const ValueKey('game-feedback'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleSmall?.copyWith(color: feedbackColor),
+          ),
+        ],
+        const SizedBox(height: 12),
+        // Stände zum Auswählen.
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          alignment: WrapAlignment.center,
+          children: [
+            for (final (i, s) in stands.indexed)
+              ChoiceChip(
+                key: ValueKey('market-stand-$i'),
+                selected: i == _stand,
+                avatar: FigureHead(s.figure, size: 28),
+                label: Text(s.name),
+                onSelected: (_) => setState(() {
+                  _stand = i;
+                  _lastBuy = null;
+                }),
+              ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Card(
+          color: palette.sand.withValues(alpha: 0.5),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    FigureHead(stand.figure, size: 48, highlight: true),
+                    const SizedBox(width: 12),
+                    Expanded(child: Text(stand.name, style: theme.textTheme.titleMedium)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                for (final (k, offer) in stand.offers.indexed)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(offer.item, style: theme.textTheme.titleSmall),
+                              Text(l10n.marketPerPiece(formatCents(offer.price)), style: theme.textTheme.bodySmall),
+                            ],
+                          ),
+                        ),
+                        FilledButton.tonal(
+                          key: ValueKey('market-buy-$_stand-$k'),
+                          onPressed: game.finished ? null : () => _buy(offer),
+                          child: Text(l10n.marketBuy),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _needRow(BuildContext context, MarketNeed need) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final bought = _game.cart[need.item];
+    final row = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Icon(
+            bought != null ? Icons.check_circle : Icons.radio_button_unchecked,
+            color: bought != null ? palette.success : palette.ink.withValues(alpha: 0.5),
+            size: 22,
+          ),
+          const SizedBox(width: 8),
+          Expanded(child: Text(l10n.marketNeed(need.count, need.item), style: theme.textTheme.bodyLarge)),
+          if (bought != null)
+            Flexible(
+              child: Text(
+                l10n.marketBoughtLine(need.count, formatCents(bought.price), formatCents(bought.price * need.count)),
+                textAlign: TextAlign.end,
+                style: theme.textTheme.bodySmall,
+              ),
+            ),
+        ],
+      ),
+    );
+    if (bought == null || _game.finished) return row;
+    return Semantics(
+      button: true,
+      label: l10n.marketPutBack(need.item),
+      child: InkWell(
+        key: ValueKey('market-put-back-${need.item}'),
+        borderRadius: BorderRadius.circular(8),
+        onTap: () => _putBack(need.item),
+        child: row,
+      ),
+    );
+  }
+}

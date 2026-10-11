@@ -92,7 +92,7 @@ class _CoinsGameViewState extends State<CoinsGameView> {
                     alignment: WrapAlignment.center,
                     children: [
                       for (final (i, value) in game.placed.indexed)
-                        _Coin(
+                        CoinButton(
                           key: ValueKey('coins-placed-$i'),
                           cents: value,
                           small: true,
@@ -120,7 +120,7 @@ class _CoinsGameViewState extends State<CoinsGameView> {
           alignment: WrapAlignment.center,
           children: [
             for (final value in CoinsGame.values)
-              _Coin(
+              CoinButton(
                 key: ValueKey('coin-$value'),
                 cents: value,
                 onTap: game.exact ? null : () => setState(() => game.add(value)),
@@ -140,8 +140,8 @@ class _CoinsGameViewState extends State<CoinsGameView> {
 }
 
 /// Eine Münze (rund) oder ein Schein (eckig) als Knopf, mindestens 48 Punkte groß.
-class _Coin extends StatelessWidget {
-  const _Coin({super.key, required this.cents, required this.onTap, this.small = false});
+class CoinButton extends StatelessWidget {
+  const CoinButton({super.key, required this.cents, required this.onTap, this.small = false});
 
   final int cents;
   final VoidCallback? onTap;

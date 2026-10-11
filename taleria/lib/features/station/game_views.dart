@@ -13,6 +13,7 @@ import 'coins_game_view.dart';
 import 'game_frame.dart';
 import 'number_game_view.dart';
 import 'pick_game_view.dart';
+import 'real_game_flow.dart';
 
 /// Mini-Spiel einer Station. Spielarten ohne eigene Mechanik zeigen den
 /// Platzhalter [placeholder]. [onDone] führt weiter zum Stations-Check.
@@ -29,6 +30,7 @@ class GameStepView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!game.isPlayable) return placeholder;
+    if (game.isRealGame) return RealGameFlow(game: game, onDone: onDone);
     return switch (game.type) {
       'sort' => SortGameView(game: game, onDone: onDone),
       'choice' => ChoiceGameView(game: game, onDone: onDone),

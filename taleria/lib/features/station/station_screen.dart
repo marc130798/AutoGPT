@@ -209,6 +209,8 @@ Widget _framed(StationController controller, Widget body) {
       stage: quizStage(answered: controller.quiz!.answered, correct: controller.quiz!.answeredCorrectly),
       child: body,
     ),
+    // Echte Mini-Spiele brauchen den ganzen Platz.
+    StationStep.game when controller.station.content.game?.isRealGame ?? false => StagePanel(child: body),
     StationStep.game => StagePanel(
       stage: const FigureStage(
         figures: [

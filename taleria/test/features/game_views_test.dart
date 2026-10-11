@@ -139,12 +139,21 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('Münzschublade (Hafen 4): Beträge legen, zu viel wegnehmen, Wechselgeld', (tester) async {
+  testWidgets('Münzen legen (Übung): Beträge legen, zu viel wegnehmen, Wechselgeld', (tester) async {
     await tall(tester);
-    final game = FakeContent().station('hafen', 4).content.game!;
+    const game = GameInfo(
+      type: 'coins',
+      title: 'Münzschublade',
+      task: 'Tippe Münzen und Scheine an, bis der Betrag stimmt.',
+      rounds: [
+        GameRound(question: 'Lege 3,50 €.', amount: 350),
+        GameRound(question: 'Lege 1,85 €.', amount: 185),
+      ],
+    );
     var done = false;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
     await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('practice-label')), findsOneWidget);
     expect(find.text('Gelegt: ${formatCents(0)} von ${formatCents(350)}'), findsOneWidget);
 
     for (final v in [200, 100, 50]) {
@@ -161,40 +170,182 @@ void main() {
       await tapKey(tester, 'coin-$v');
     }
     expect(find.text('Geschafft! Mit 5 Münzen und Scheinen ginge es auch.'), findsOneWidget);
-    await tapKey(tester, 'game-next');
-
-    for (final v in [50, 5]) {
-      await tapKey(tester, 'coin-$v');
-    }
-    await tapKey(tester, 'game-next');
-    for (final v in [200, 50]) {
-      await tapKey(tester, 'coin-$v');
-    }
     await tapKey(tester, 'game-done');
     expect(done, isTrue);
   });
 
-  testWidgets('Tauschkette (Tauschinsel 1): Entscheidungen mit Rückmeldung', (tester) async {
+  testWidgets('Fischbrötchen-Kasse (Hafen 4): Startbild, Wechselgeld, zwei Fehler, zwei Sterne', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('hafen', 4).content.game!;
+    var done = false;
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    expect(find.text('Mini-Spiel!'), findsOneWidget);
+    expect(find.text('Fischbrötchen-Kasse'), findsOneWidget);
+    await tapKey(tester, 'real-game-play');
+    expect(find.byKey(const ValueKey('practice-label')), findsNothing);
+
+    expect(find.text('Kunde 1 von 6'), findsOneWidget);
+    expect(find.textContaining('Das macht ${formatCents(350)}. Ich gebe dir ${formatCents(500)}.'), findsOneWidget);
+    // Zu wenig, dann ergänzen.
+    await tapKey(tester, 'coin-100');
+    await tapKey(tester, 'till-give');
+    expect(find.text('Da fehlen noch ${formatCents(50)}.'), findsOneWidget);
+    await tapKey(tester, 'coin-50');
+    await tapKey(tester, 'till-give');
+    expect(find.text('Stimmt genau, danke!'), findsOneWidget);
+    await tapKey(tester, 'till-next');
+
+    // Zu viel, dann wegnehmen.
+    await tapKey(tester, 'coin-50');
+    await tapKey(tester, 'till-give');
+    expect(find.text('Das sind ${formatCents(30)} zu viel.'), findsOneWidget);
+    await tapKey(tester, 'till-placed-0');
+    await tapKey(tester, 'coin-20');
+    await tapKey(tester, 'till-give');
+    await tapKey(tester, 'till-next');
+
+    for (final coins in [
+      [50, 5],
+      [200, 100],
+      [200, 200, 50, 20, 10],
+      [500, 200, 200, 50],
+    ]) {
+      for (final v in coins) {
+        await tapKey(tester, 'coin-$v');
+      }
+      await tapKey(tester, 'till-give');
+      expect(find.text('Stimmt genau, danke!'), findsOneWidget);
+      if (find.byKey(const ValueKey('till-next')).evaluate().isNotEmpty) await tapKey(tester, 'till-next');
+    }
+    await tapKey(tester, 'game-finish');
+    expect(find.text('Geschafft!'), findsOneWidget);
+    expect(find.byKey(const ValueKey('game-star-1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('game-star-2')), findsNothing);
+    expect(find.textContaining('genau das richtige Wechselgeld'), findsOneWidget);
+    await tapKey(tester, 'game-done');
+    expect(done, isTrue);
+  });
+
+  testWidgets('Markt-Einkauf (Hafen 7): nicht auf der Liste, Geld reicht nicht, zurücklegen, vergleichen', (
+    tester,
+  ) async {
+    await tall(tester);
+    final game = FakeContent().station('hafen', 7).content.game!;
+    var done = false;
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Im Geldbeutel: ${formatCents(750)}'), findsOneWidget);
+
+    // Kontor: Bonbons stehen nicht auf der Liste.
+    await tapKey(tester, 'market-buy-0-3');
+    expect(find.text('Das steht nicht auf Talas Liste.'), findsOneWidget);
+    // Alles im Kontor: Brötchen und Äpfel gehen, dann reicht es nicht mehr für den Saft.
+    await tapKey(tester, 'market-buy-0-0');
+    await tapKey(tester, 'market-buy-0-1');
+    expect(find.text('Im Geldbeutel: ${formatCents(250)}'), findsOneWidget);
+    await tapKey(tester, 'market-buy-0-2');
+    expect(
+      find.text('Das Geld reicht nicht mehr für alles. Lege etwas zurück und such günstigere Stände.'),
+      findsOneWidget,
+    );
+
+    // Brötchen zurücklegen und am Fischbrötchen-Stand günstiger kaufen.
+    await tapKey(tester, 'market-put-back-Brötchen');
+    expect(find.text('Im Geldbeutel: ${formatCents(530)}'), findsOneWidget);
+    await tapKey(tester, 'market-stand-1');
+    await tapKey(tester, 'market-buy-1-0');
+    await tapKey(tester, 'market-stand-0');
+    await tapKey(tester, 'market-buy-0-2');
+    expect(
+      find.text(
+        'Alles gekauft! Übrig: ${formatCents(30)}. Mit Vergleichen hättest du noch ${formatCents(60)} sparen können.',
+      ),
+      findsOneWidget,
+    );
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('game-star-2')), findsNothing);
+    await tapKey(tester, 'game-done');
+    expect(done, isTrue);
+  });
+
+  testWidgets('Tauschkette (Tauschinsel 1): Ablehnung, Sackgasse, von vorn, Seil', (tester) async {
     await tall(tester);
     final game = FakeContent().station('tauschinsel', 1).content.game!;
     var done = false;
     await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
     await tester.pumpAndSettle();
-    expect(find.text('Situation 1 von 3'), findsOneWidget);
-    expect(find.text('Mein Seil? Gern, aber nur gegen Äpfel.'), findsOneWidget);
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Tala hat: Eimer'), findsOneWidget);
+    expect(find.text('Ziel: Seil'), findsOneWidget);
 
-    // Otti hat keine Äpfel: Rückmeldung und nochmal.
-    await tapKey(tester, 'choice-option-1');
-    expect(find.text('Otti ist Fischerin. Sie hat Fisch, aber keine Äpfel.'), findsOneWidget);
-    await tapKey(tester, 'game-retry');
-    await tapKey(tester, 'choice-option-0');
-    expect(find.text('Richtig, Bruno hat Äpfel. Aber was will er dafür?'), findsOneWidget);
-    await tapKey(tester, 'game-next');
-    await tapKey(tester, 'choice-option-0');
-    await tapKey(tester, 'game-next');
-    expect(find.text('Situation 3 von 3'), findsOneWidget);
-    await tapKey(tester, 'choice-option-0');
+    // Greta will Äpfel, keinen Eimer.
+    await tapKey(tester, 'trader-0');
+    expect(find.text('Greta: „Ich tausche nur gegen Äpfel.“'), findsOneWidget);
+    // Olga nimmt den Eimer, aber die Muschel will niemand: Sackgasse.
+    await tapKey(tester, 'trader-1');
+    expect(find.text('Tala hat: Muschel'), findsOneWidget);
+    expect(find.textContaining('die Muschel will hier niemand'), findsOneWidget);
+    await tapKey(tester, 'trade-reset');
+    expect(find.text('Tala hat: Eimer'), findsOneWidget);
+
+    // Eimer → Fisch (Otti) → Äpfel (Bruno) → Seil (Greta).
+    for (final trader in [3, 2, 0]) {
+      await tapKey(tester, 'trader-$trader');
+    }
+    expect(find.text('Tala hat: Seil'), findsOneWidget);
+    expect(find.text('Bisher: Eimer → Fisch → Äpfel → Seil'), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('game-star-2')), findsNothing);
     expect(find.textContaining('Drei Tausche für ein Seil!'), findsOneWidget);
+    await tapKey(tester, 'game-done');
+    expect(done, isTrue);
+  });
+
+  testWidgets('Eisstand (Tauschinsel 4): zu billig, bester Preis, zu teuer, Regen', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('tauschinsel', 4).content.game!;
+    var done = false;
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+
+    // Tag 1, Sonne: 2 Taler sind zu billig, 4 Taler sind am besten.
+    expect(find.text('Tag 1 von 3'), findsOneWidget);
+    expect(find.byKey(const ValueKey('ice-weather-sun')), findsOneWidget);
+    expect(find.text('2 Taler'), findsOneWidget);
+    await tapKey(tester, 'ice-open');
+    expect(find.text('30 Tiere wollten Eis.'), findsOneWidget);
+    expect(find.text('Verkauft: 20 Kugeln. Eingenommen: 40 Taler.'), findsOneWidget);
+    expect(find.text('10 Tiere gingen leer aus.'), findsOneWidget);
+    expect(find.text('Das Eis war schnell weg. Viele hätten auch mehr bezahlt.'), findsOneWidget);
+    await tapKey(tester, 'ice-price-up');
+    await tapKey(tester, 'ice-price-up');
+    await tapKey(tester, 'ice-open');
+    expect(find.text('Verkauft: 20 Kugeln. Eingenommen: 80 Taler.'), findsOneWidget);
+    expect(find.text('Bester Preis für diesen Tag!'), findsOneWidget);
+    await tapKey(tester, 'ice-next-day');
+
+    // Tag 2, Wolken: Der Preis vom Vortag bleibt und ist zu hoch.
+    expect(find.text('4 Taler'), findsOneWidget);
+    await tapKey(tester, 'ice-open');
+    expect(find.text('Der Preis war vielen zu hoch. Probier es billiger!'), findsOneWidget);
+    expect(find.text('12 Kugeln sind geschmolzen.'), findsOneWidget);
+    await tapKey(tester, 'ice-next-day');
+
+    // Tag 3, Regen: 2 Taler sind am besten.
+    expect(find.byKey(const ValueKey('ice-weather-rain')), findsOneWidget);
+    await tapKey(tester, 'ice-price-down');
+    await tapKey(tester, 'ice-price-down');
+    await tapKey(tester, 'ice-open');
+    expect(find.text('Bester Preis für diesen Tag!'), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('game-star-2')), findsNothing);
+    expect(find.textContaining('Angebot und Nachfrage'), findsOneWidget);
     await tapKey(tester, 'game-done');
     expect(done, isTrue);
   });

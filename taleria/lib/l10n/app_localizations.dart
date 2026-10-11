@@ -3624,6 +3624,420 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Dein Kind hat das in der Einführung gewählt. Hier kannst du es ändern.'**
   String get lighthouseRankFormHint;
+
+  /// Startbild vor einem echten Mini-Spiel: große Überschrift
+  ///
+  /// In de, this message translates to:
+  /// **'Mini-Spiel!'**
+  String get realGameBadge;
+
+  /// Startbild: Knopf, der das Mini-Spiel startet
+  ///
+  /// In de, this message translates to:
+  /// **'Spielen'**
+  String get realGamePlay;
+
+  /// Kleines Schild über Tipp-Aufgaben (Sortieren, Reihenfolge usw.), damit „Spiel“ nur für echte Spiele steht
+  ///
+  /// In de, this message translates to:
+  /// **'Übung'**
+  String get practiceLabel;
+
+  /// Ende eines echten Mini-Spiels: Überschrift
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft!'**
+  String get realGameWellDone;
+
+  /// Vorlesetext für die Sterne am Ende eines Mini-Spiels
+  ///
+  /// In de, this message translates to:
+  /// **'{count} von 3 Sternen'**
+  String realGameStars(int count);
+
+  /// Knopf am Ende des letzten Zugs: zum Ergebnis des Mini-Spiels
+  ///
+  /// In de, this message translates to:
+  /// **'Fertig'**
+  String get realGameToResult;
+
+  /// Ende eines Mini-Spiels auf der Seite „Spiele“: von vorn spielen
+  ///
+  /// In de, this message translates to:
+  /// **'Nochmal spielen'**
+  String get realGameAgain;
+
+  /// Hinweis beim Nochmal-Spielen über die Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Nur zum Spaß: Hier gibt es keine Seemeilen.'**
+  String get realGameReplayNote;
+
+  /// Kasse: welcher Kunde gerade dran ist
+  ///
+  /// In de, this message translates to:
+  /// **'Kunde {current} von {total}'**
+  String tillCustomer(int current, int total);
+
+  /// Kasse: Preis und bezahlter Betrag, unter der Bestellung des Kunden
+  ///
+  /// In de, this message translates to:
+  /// **'Das macht {price}. Ich gebe dir {paid}.'**
+  String tillPays(String price, String paid);
+
+  /// Kasse: Überschrift der Preise am Stand
+  ///
+  /// In de, this message translates to:
+  /// **'Preistafel'**
+  String get tillPriceBoard;
+
+  /// Kasse: Summe des gelegten Wechselgelds
+  ///
+  /// In de, this message translates to:
+  /// **'Wechselgeld: {sum}'**
+  String tillTray(String sum);
+
+  /// Kasse: noch kein Wechselgeld gelegt
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe unten auf Münzen und Scheine.'**
+  String get tillTrayEmpty;
+
+  /// Kasse: Wechselgeld dem Kunden geben
+  ///
+  /// In de, this message translates to:
+  /// **'Herausgeben'**
+  String get tillGive;
+
+  /// Kasse: Wechselgeld richtig
+  ///
+  /// In de, this message translates to:
+  /// **'Stimmt genau, danke!'**
+  String get tillRight;
+
+  /// Kasse: zu viel Wechselgeld
+  ///
+  /// In de, this message translates to:
+  /// **'Das sind {difference} zu viel.'**
+  String tillTooMuch(String difference);
+
+  /// Kasse: zu wenig Wechselgeld
+  ///
+  /// In de, this message translates to:
+  /// **'Da fehlen noch {difference}.'**
+  String tillTooLittle(String difference);
+
+  /// Kasse: weiter zum nächsten Kunden
+  ///
+  /// In de, this message translates to:
+  /// **'Nächster Kunde'**
+  String get tillNextCustomer;
+
+  /// Markt-Einkauf: übriges Geld
+  ///
+  /// In de, this message translates to:
+  /// **'Im Geldbeutel: {amount}'**
+  String marketMoneyLeft(String amount);
+
+  /// Markt-Einkauf: Überschrift der Liste
+  ///
+  /// In de, this message translates to:
+  /// **'Einkaufsliste'**
+  String get marketList;
+
+  /// Markt-Einkauf: Zeile der Einkaufsliste
+  ///
+  /// In de, this message translates to:
+  /// **'{count} × {item}'**
+  String marketNeed(int count, String item);
+
+  /// Markt-Einkauf: Rechnung für ein gekauftes Ding
+  ///
+  /// In de, this message translates to:
+  /// **'{count} × {price} = {total}'**
+  String marketBoughtLine(int count, String price, String total);
+
+  /// Markt-Einkauf: Preis eines Angebots
+  ///
+  /// In de, this message translates to:
+  /// **'{price} pro Stück'**
+  String marketPerPiece(String price);
+
+  /// Markt-Einkauf: Knopf an einem Angebot
+  ///
+  /// In de, this message translates to:
+  /// **'Kaufen'**
+  String get marketBuy;
+
+  /// Markt-Einkauf: Vorlesetext zum Zurücklegen eines gekauften Dings
+  ///
+  /// In de, this message translates to:
+  /// **'{item} zurücklegen'**
+  String marketPutBack(String item);
+
+  /// Markt-Einkauf: Hinweis unter der Liste
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe auf etwas Gekauftes, um es zurückzulegen.'**
+  String get marketPutBackHint;
+
+  /// Markt-Einkauf: Kind will etwas kaufen, das nicht gebraucht wird
+  ///
+  /// In de, this message translates to:
+  /// **'Das steht nicht auf Talas Liste.'**
+  String get marketNotOnList;
+
+  /// Markt-Einkauf: Ding schon im Korb
+  ///
+  /// In de, this message translates to:
+  /// **'{item} hast du schon gekauft.'**
+  String marketAlreadyHave(String item);
+
+  /// Markt-Einkauf: zu wenig Geld für dieses Angebot
+  ///
+  /// In de, this message translates to:
+  /// **'Dafür reicht das Geld nicht. Vergleiche die Preise an den anderen Ständen!'**
+  String get marketNotEnough;
+
+  /// Markt-Einkauf: es geht sich nicht mehr aus
+  ///
+  /// In de, this message translates to:
+  /// **'Das Geld reicht nicht mehr für alles. Lege etwas zurück und such günstigere Stände.'**
+  String get marketStuck;
+
+  /// Markt-Einkauf: geschafft mit den besten Preisen
+  ///
+  /// In de, this message translates to:
+  /// **'Alles gekauft, und überall den günstigsten Stand gefunden! Übrig: {left}'**
+  String marketBest(String left);
+
+  /// Markt-Einkauf: geschafft, aber nicht überall am günstigsten
+  ///
+  /// In de, this message translates to:
+  /// **'Alles gekauft! Übrig: {left}. Mit Vergleichen hättest du noch {more} sparen können.'**
+  String marketCouldSave(String left, String more);
+
+  /// Eisstand: welcher Tag
+  ///
+  /// In de, this message translates to:
+  /// **'Tag {current} von {total}'**
+  String iceDay(int current, int total);
+
+  /// Eisstand: Wetter
+  ///
+  /// In de, this message translates to:
+  /// **'Sonne'**
+  String get iceWeatherSun;
+
+  /// Eisstand: Wetter
+  ///
+  /// In de, this message translates to:
+  /// **'Bewölkt'**
+  String get iceWeatherClouds;
+
+  /// Eisstand: Wetter
+  ///
+  /// In de, this message translates to:
+  /// **'Regen'**
+  String get iceWeatherRain;
+
+  /// Eisstand: so viele Kugeln gibt es heute
+  ///
+  /// In de, this message translates to:
+  /// **'Vorrat: {count} Kugeln'**
+  String iceStock(int count);
+
+  /// Eisstand: Überschrift über der Preiswahl
+  ///
+  /// In de, this message translates to:
+  /// **'Preis für eine Kugel'**
+  String get icePriceLabel;
+
+  /// Eisstand: gewählter Preis
+  ///
+  /// In de, this message translates to:
+  /// **'{value} Taler'**
+  String icePrice(int value);
+
+  /// Eisstand: Vorlesetext für den Minus-Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'Billiger'**
+  String get icePriceDown;
+
+  /// Eisstand: Vorlesetext für den Plus-Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'Teurer'**
+  String get icePriceUp;
+
+  /// Eisstand: Tag mit dem gewählten Preis spielen
+  ///
+  /// In de, this message translates to:
+  /// **'Stand öffnen'**
+  String get iceOpen;
+
+  /// Eisstand: denselben Tag mit anderem Preis
+  ///
+  /// In de, this message translates to:
+  /// **'Anderen Preis probieren'**
+  String get iceTryAgain;
+
+  /// Eisstand: weiter zum nächsten Tag
+  ///
+  /// In de, this message translates to:
+  /// **'Nächster Tag'**
+  String get iceNextDay;
+
+  /// Eisstand: so viele wollten zu diesem Preis Eis
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Niemand wollte Eis.} =1{1 Tier wollte Eis.} other{{count} Tiere wollten Eis.}}'**
+  String iceCustomers(int count);
+
+  /// Eisstand: Ergebnis des Tages
+  ///
+  /// In de, this message translates to:
+  /// **'Verkauft: {sold} Kugeln. Eingenommen: {earned} Taler.'**
+  String iceSold(int sold, int earned);
+
+  /// Eisstand: so viele bekamen kein Eis mehr
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Tier ging leer aus.} other{{count} Tiere gingen leer aus.}}'**
+  String iceMissed(int count);
+
+  /// Eisstand: übrig gebliebenes Eis
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Kugel ist geschmolzen.} other{{count} Kugeln sind geschmolzen.}}'**
+  String iceMelted(int count);
+
+  /// Eisstand: höchste mögliche Einnahme getroffen
+  ///
+  /// In de, this message translates to:
+  /// **'Bester Preis für diesen Tag!'**
+  String get iceBest;
+
+  /// Eisstand: Preis zu niedrig, Eis ausverkauft
+  ///
+  /// In de, this message translates to:
+  /// **'Das Eis war schnell weg. Viele hätten auch mehr bezahlt.'**
+  String get iceTooCheapSoldOut;
+
+  /// Eisstand: Preis zu niedrig, aber nicht ausverkauft
+  ///
+  /// In de, this message translates to:
+  /// **'Mit einem etwas höheren Preis hättest du mehr eingenommen.'**
+  String get iceTooCheap;
+
+  /// Eisstand: Preis zu hoch
+  ///
+  /// In de, this message translates to:
+  /// **'Der Preis war vielen zu hoch. Probier es billiger!'**
+  String get iceTooDear;
+
+  /// Tauschkette: was Tala gerade hat
+  ///
+  /// In de, this message translates to:
+  /// **'Tala hat: {item}'**
+  String tradeHolding(String item);
+
+  /// Tauschkette: was Tala am Ende haben will
+  ///
+  /// In de, this message translates to:
+  /// **'Ziel: {item}'**
+  String tradeGoal(String item);
+
+  /// Tauschkette: was ein Händler hergibt
+  ///
+  /// In de, this message translates to:
+  /// **'hat: {item}'**
+  String tradeHas(String item);
+
+  /// Tauschkette: was ein Händler dafür will
+  ///
+  /// In de, this message translates to:
+  /// **'will: {item}'**
+  String tradeWants(String item);
+
+  /// Tauschkette: Händler lehnt ab
+  ///
+  /// In de, this message translates to:
+  /// **'{name}: „Ich tausche nur gegen {item}.“'**
+  String tradeRefused(String name, String item);
+
+  /// Tauschkette: Schild an einem Händler, mit dem schon getauscht wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Getauscht!'**
+  String get tradeTraded;
+
+  /// Tauschkette: bisherige Tausche, zum Beispiel „Eimer → Fisch“
+  ///
+  /// In de, this message translates to:
+  /// **'Bisher: {chain}'**
+  String tradeChain(String chain);
+
+  /// Tauschkette: wieder mit dem Start-Ding beginnen
+  ///
+  /// In de, this message translates to:
+  /// **'Von vorn anfangen'**
+  String get tradeReset;
+
+  /// Tauschkette: Sackgasse, wenn es keine eigene Zeile in den Inhalten gibt
+  ///
+  /// In de, this message translates to:
+  /// **'Hier will niemand mehr {item}.'**
+  String tradeStuck(String item);
+
+  /// Startseite Kind: Kachel mit allen Mini-Spielen zum Nochmal-Spielen
+  ///
+  /// In de, this message translates to:
+  /// **'Spiele'**
+  String get childHomeGamesTile;
+
+  /// Vorlesetext der Kachel „Spiele“
+  ///
+  /// In de, this message translates to:
+  /// **'Mini-Spiele, {count} freigespielt'**
+  String gamesButton(int count);
+
+  /// Seite „Spiele“: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Mini-Spiele'**
+  String get gamesTitle;
+
+  /// Seite „Spiele“: Erklärung oben
+  ///
+  /// In de, this message translates to:
+  /// **'Hier kannst du alle Mini-Spiele nochmal spielen, die du auf deiner Reise geschafft hast. Nur zum Spaß, ohne Seemeilen.'**
+  String get gamesIntro;
+
+  /// Seite „Spiele“: Spiel, das noch nicht freigespielt ist
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht geschafft: {island}, Station {number}'**
+  String gamesLocked(String island, int number);
+
+  /// Seite „Spiele“: wo das Spiel herkommt
+  ///
+  /// In de, this message translates to:
+  /// **'{island}, Station {number}'**
+  String gamesWhere(String island, int number);
+
+  /// Seite „Spiele“: noch keine Spiele sichtbar
+  ///
+  /// In de, this message translates to:
+  /// **'Auf den Inseln warten Stationen mit dem Spiel-Zeichen. Wenn du eine geschafft hast, kannst du das Spiel hier nochmal spielen.'**
+  String get gamesEmpty;
+
+  /// Vorlesetext an einer Station auf der Insel, die ein echtes Mini-Spiel hat
+  ///
+  /// In de, this message translates to:
+  /// **'mit Mini-Spiel'**
+  String get islandStationGame;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

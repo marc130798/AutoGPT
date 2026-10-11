@@ -1559,7 +1559,7 @@
   },
   "allowanceHeading": "Taschengeld",
   "@allowanceHeading": {
-    "description": "Überschrift Taschengeld im Leuchtturm (Glossar)"
+    "description": "Schatztruhe: Überschrift über dem Taschengeld (Kinderwort, früher „Heuer“)"
   },
   "allowanceNone": "Kein Taschengeld festgelegt.",
   "@allowanceNone": {
@@ -2820,10 +2820,6 @@
   "@ledgerIntro": {
     "description": "Schatztruhe: Erklärung, was das Kassenbuch ist"
   },
-  "allowanceHeading": "Taschengeld",
-  "@allowanceHeading": {
-    "description": "Schatztruhe: Überschrift über dem Taschengeld (Kinderwort, früher „Heuer“)"
-  },
   "tasksIntroTalo": "Aufträge sind Aufgaben von deinen Eltern, zum Beispiel: Zimmer aufräumen. Bist du fertig, tippst du auf „Erledigt!“.",
   "@tasksIntroTalo": {
     "description": "Aufträge: Talo erklärt oben, was Aufträge sind"
@@ -2965,5 +2961,469 @@
   "lighthouseRankFormHint": "Dein Kind hat das in der Einführung gewählt. Hier kannst du es ändern.",
   "@lighthouseRankFormHint": {
     "description": "Leuchtturm: Erklärung unter der Einstellung Rang-Namen"
+  },
+  "realGameBadge": "Mini-Spiel!",
+  "@realGameBadge": {
+    "description": "Startbild vor einem echten Mini-Spiel: große Überschrift"
+  },
+  "realGamePlay": "Spielen",
+  "@realGamePlay": {
+    "description": "Startbild: Knopf, der das Mini-Spiel startet"
+  },
+  "practiceLabel": "Übung",
+  "@practiceLabel": {
+    "description": "Kleines Schild über Tipp-Aufgaben (Sortieren, Reihenfolge usw.), damit „Spiel“ nur für echte Spiele steht"
+  },
+  "realGameWellDone": "Geschafft!",
+  "@realGameWellDone": {
+    "description": "Ende eines echten Mini-Spiels: Überschrift"
+  },
+  "realGameStars": "{count} von 3 Sternen",
+  "@realGameStars": {
+    "description": "Vorlesetext für die Sterne am Ende eines Mini-Spiels",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "realGameToResult": "Fertig",
+  "@realGameToResult": {
+    "description": "Knopf am Ende des letzten Zugs: zum Ergebnis des Mini-Spiels"
+  },
+  "realGameAgain": "Nochmal spielen",
+  "@realGameAgain": {
+    "description": "Ende eines Mini-Spiels auf der Seite „Spiele“: von vorn spielen"
+  },
+  "realGameReplayNote": "Nur zum Spaß: Hier gibt es keine Seemeilen.",
+  "@realGameReplayNote": {
+    "description": "Hinweis beim Nochmal-Spielen über die Startseite"
+  },
+  "tillCustomer": "Kunde {current} von {total}",
+  "@tillCustomer": {
+    "description": "Kasse: welcher Kunde gerade dran ist",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "tillPays": "Das macht {price}. Ich gebe dir {paid}.",
+  "@tillPays": {
+    "description": "Kasse: Preis und bezahlter Betrag, unter der Bestellung des Kunden",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "paid": {
+        "type": "String"
+      }
+    }
+  },
+  "tillPriceBoard": "Preistafel",
+  "@tillPriceBoard": {
+    "description": "Kasse: Überschrift der Preise am Stand"
+  },
+  "tillTray": "Wechselgeld: {sum}",
+  "@tillTray": {
+    "description": "Kasse: Summe des gelegten Wechselgelds",
+    "placeholders": {
+      "sum": {
+        "type": "String"
+      }
+    }
+  },
+  "tillTrayEmpty": "Tippe unten auf Münzen und Scheine.",
+  "@tillTrayEmpty": {
+    "description": "Kasse: noch kein Wechselgeld gelegt"
+  },
+  "tillGive": "Herausgeben",
+  "@tillGive": {
+    "description": "Kasse: Wechselgeld dem Kunden geben"
+  },
+  "tillRight": "Stimmt genau, danke!",
+  "@tillRight": {
+    "description": "Kasse: Wechselgeld richtig"
+  },
+  "tillTooMuch": "Das sind {difference} zu viel.",
+  "@tillTooMuch": {
+    "description": "Kasse: zu viel Wechselgeld",
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      }
+    }
+  },
+  "tillTooLittle": "Da fehlen noch {difference}.",
+  "@tillTooLittle": {
+    "description": "Kasse: zu wenig Wechselgeld",
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      }
+    }
+  },
+  "tillNextCustomer": "Nächster Kunde",
+  "@tillNextCustomer": {
+    "description": "Kasse: weiter zum nächsten Kunden"
+  },
+  "marketMoneyLeft": "Im Geldbeutel: {amount}",
+  "@marketMoneyLeft": {
+    "description": "Markt-Einkauf: übriges Geld",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "marketList": "Einkaufsliste",
+  "@marketList": {
+    "description": "Markt-Einkauf: Überschrift der Liste"
+  },
+  "marketNeed": "{count} × {item}",
+  "@marketNeed": {
+    "description": "Markt-Einkauf: Zeile der Einkaufsliste",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "marketBoughtLine": "{count} × {price} = {total}",
+  "@marketBoughtLine": {
+    "description": "Markt-Einkauf: Rechnung für ein gekauftes Ding",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "marketPerPiece": "{price} pro Stück",
+  "@marketPerPiece": {
+    "description": "Markt-Einkauf: Preis eines Angebots",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "marketBuy": "Kaufen",
+  "@marketBuy": {
+    "description": "Markt-Einkauf: Knopf an einem Angebot"
+  },
+  "marketPutBack": "{item} zurücklegen",
+  "@marketPutBack": {
+    "description": "Markt-Einkauf: Vorlesetext zum Zurücklegen eines gekauften Dings",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "marketPutBackHint": "Tippe auf etwas Gekauftes, um es zurückzulegen.",
+  "@marketPutBackHint": {
+    "description": "Markt-Einkauf: Hinweis unter der Liste"
+  },
+  "marketNotOnList": "Das steht nicht auf Talas Liste.",
+  "@marketNotOnList": {
+    "description": "Markt-Einkauf: Kind will etwas kaufen, das nicht gebraucht wird"
+  },
+  "marketAlreadyHave": "{item} hast du schon gekauft.",
+  "@marketAlreadyHave": {
+    "description": "Markt-Einkauf: Ding schon im Korb",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "marketNotEnough": "Dafür reicht das Geld nicht. Vergleiche die Preise an den anderen Ständen!",
+  "@marketNotEnough": {
+    "description": "Markt-Einkauf: zu wenig Geld für dieses Angebot"
+  },
+  "marketStuck": "Das Geld reicht nicht mehr für alles. Lege etwas zurück und such günstigere Stände.",
+  "@marketStuck": {
+    "description": "Markt-Einkauf: es geht sich nicht mehr aus"
+  },
+  "marketBest": "Alles gekauft, und überall den günstigsten Stand gefunden! Übrig: {left}",
+  "@marketBest": {
+    "description": "Markt-Einkauf: geschafft mit den besten Preisen",
+    "placeholders": {
+      "left": {
+        "type": "String"
+      }
+    }
+  },
+  "marketCouldSave": "Alles gekauft! Übrig: {left}. Mit Vergleichen hättest du noch {more} sparen können.",
+  "@marketCouldSave": {
+    "description": "Markt-Einkauf: geschafft, aber nicht überall am günstigsten",
+    "placeholders": {
+      "left": {
+        "type": "String"
+      },
+      "more": {
+        "type": "String"
+      }
+    }
+  },
+  "iceDay": "Tag {current} von {total}",
+  "@iceDay": {
+    "description": "Eisstand: welcher Tag",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "iceWeatherSun": "Sonne",
+  "@iceWeatherSun": {
+    "description": "Eisstand: Wetter"
+  },
+  "iceWeatherClouds": "Bewölkt",
+  "@iceWeatherClouds": {
+    "description": "Eisstand: Wetter"
+  },
+  "iceWeatherRain": "Regen",
+  "@iceWeatherRain": {
+    "description": "Eisstand: Wetter"
+  },
+  "iceStock": "Vorrat: {count} Kugeln",
+  "@iceStock": {
+    "description": "Eisstand: so viele Kugeln gibt es heute",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "icePriceLabel": "Preis für eine Kugel",
+  "@icePriceLabel": {
+    "description": "Eisstand: Überschrift über der Preiswahl"
+  },
+  "icePrice": "{value} Taler",
+  "@icePrice": {
+    "description": "Eisstand: gewählter Preis",
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "icePriceDown": "Billiger",
+  "@icePriceDown": {
+    "description": "Eisstand: Vorlesetext für den Minus-Knopf"
+  },
+  "icePriceUp": "Teurer",
+  "@icePriceUp": {
+    "description": "Eisstand: Vorlesetext für den Plus-Knopf"
+  },
+  "iceOpen": "Stand öffnen",
+  "@iceOpen": {
+    "description": "Eisstand: Tag mit dem gewählten Preis spielen"
+  },
+  "iceTryAgain": "Anderen Preis probieren",
+  "@iceTryAgain": {
+    "description": "Eisstand: denselben Tag mit anderem Preis"
+  },
+  "iceNextDay": "Nächster Tag",
+  "@iceNextDay": {
+    "description": "Eisstand: weiter zum nächsten Tag"
+  },
+  "iceCustomers": "{count, plural, =0{Niemand wollte Eis.} =1{1 Tier wollte Eis.} other{{count} Tiere wollten Eis.}}",
+  "@iceCustomers": {
+    "description": "Eisstand: so viele wollten zu diesem Preis Eis",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "iceSold": "Verkauft: {sold} Kugeln. Eingenommen: {earned} Taler.",
+  "@iceSold": {
+    "description": "Eisstand: Ergebnis des Tages",
+    "placeholders": {
+      "sold": {
+        "type": "int"
+      },
+      "earned": {
+        "type": "int"
+      }
+    }
+  },
+  "iceMissed": "{count, plural, =1{1 Tier ging leer aus.} other{{count} Tiere gingen leer aus.}}",
+  "@iceMissed": {
+    "description": "Eisstand: so viele bekamen kein Eis mehr",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "iceMelted": "{count, plural, =1{1 Kugel ist geschmolzen.} other{{count} Kugeln sind geschmolzen.}}",
+  "@iceMelted": {
+    "description": "Eisstand: übrig gebliebenes Eis",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "iceBest": "Bester Preis für diesen Tag!",
+  "@iceBest": {
+    "description": "Eisstand: höchste mögliche Einnahme getroffen"
+  },
+  "iceTooCheapSoldOut": "Das Eis war schnell weg. Viele hätten auch mehr bezahlt.",
+  "@iceTooCheapSoldOut": {
+    "description": "Eisstand: Preis zu niedrig, Eis ausverkauft"
+  },
+  "iceTooCheap": "Mit einem etwas höheren Preis hättest du mehr eingenommen.",
+  "@iceTooCheap": {
+    "description": "Eisstand: Preis zu niedrig, aber nicht ausverkauft"
+  },
+  "iceTooDear": "Der Preis war vielen zu hoch. Probier es billiger!",
+  "@iceTooDear": {
+    "description": "Eisstand: Preis zu hoch"
+  },
+  "tradeHolding": "Tala hat: {item}",
+  "@tradeHolding": {
+    "description": "Tauschkette: was Tala gerade hat",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "tradeGoal": "Ziel: {item}",
+  "@tradeGoal": {
+    "description": "Tauschkette: was Tala am Ende haben will",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "tradeHas": "hat: {item}",
+  "@tradeHas": {
+    "description": "Tauschkette: was ein Händler hergibt",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "tradeWants": "will: {item}",
+  "@tradeWants": {
+    "description": "Tauschkette: was ein Händler dafür will",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "tradeRefused": "{name}: „Ich tausche nur gegen {item}.“",
+  "@tradeRefused": {
+    "description": "Tauschkette: Händler lehnt ab",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "tradeTraded": "Getauscht!",
+  "@tradeTraded": {
+    "description": "Tauschkette: Schild an einem Händler, mit dem schon getauscht wurde"
+  },
+  "tradeChain": "Bisher: {chain}",
+  "@tradeChain": {
+    "description": "Tauschkette: bisherige Tausche, zum Beispiel „Eimer → Fisch“",
+    "placeholders": {
+      "chain": {
+        "type": "String"
+      }
+    }
+  },
+  "tradeReset": "Von vorn anfangen",
+  "@tradeReset": {
+    "description": "Tauschkette: wieder mit dem Start-Ding beginnen"
+  },
+  "tradeStuck": "Hier will niemand mehr {item}.",
+  "@tradeStuck": {
+    "description": "Tauschkette: Sackgasse, wenn es keine eigene Zeile in den Inhalten gibt",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "childHomeGamesTile": "Spiele",
+  "@childHomeGamesTile": {
+    "description": "Startseite Kind: Kachel mit allen Mini-Spielen zum Nochmal-Spielen"
+  },
+  "gamesButton": "Mini-Spiele, {count} freigespielt",
+  "@gamesButton": {
+    "description": "Vorlesetext der Kachel „Spiele“",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gamesTitle": "Mini-Spiele",
+  "@gamesTitle": {
+    "description": "Seite „Spiele“: Titel"
+  },
+  "gamesIntro": "Hier kannst du alle Mini-Spiele nochmal spielen, die du auf deiner Reise geschafft hast. Nur zum Spaß, ohne Seemeilen.",
+  "@gamesIntro": {
+    "description": "Seite „Spiele“: Erklärung oben"
+  },
+  "gamesLocked": "Noch nicht geschafft: {island}, Station {number}",
+  "@gamesLocked": {
+    "description": "Seite „Spiele“: Spiel, das noch nicht freigespielt ist",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      },
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "gamesWhere": "{island}, Station {number}",
+  "@gamesWhere": {
+    "description": "Seite „Spiele“: wo das Spiel herkommt",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      },
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "gamesEmpty": "Auf den Inseln warten Stationen mit dem Spiel-Zeichen. Wenn du eine geschafft hast, kannst du das Spiel hier nochmal spielen.",
+  "@gamesEmpty": {
+    "description": "Seite „Spiele“: noch keine Spiele sichtbar"
+  },
+  "islandStationGame": "mit Mini-Spiel",
+  "@islandStationGame": {
+    "description": "Vorlesetext an einer Station auf der Insel, die ein echtes Mini-Spiel hat"
   }
 }
