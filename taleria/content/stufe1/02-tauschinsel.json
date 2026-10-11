@@ -1047,12 +1047,12 @@
         {
           "wer": "talo",
           "text": "Rechnen wir mal: Das billige Netz hält einen Monat. Für ein Jahr braucht Otti also 12 Stück.",
-          "bild": "story.tauschinsel.5.1"
+          "bild": "drawing:nets_year"
         },
         {
           "wer": "tala",
           "text": "12 mal 5 Taler sind 60 Taler! Das gute Netz kostet nur 20.",
-          "bild": "story.tauschinsel.5.2"
+          "bild": "drawing:nets_cost"
         },
         {
           "wer": "talo",

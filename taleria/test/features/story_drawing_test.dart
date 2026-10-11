@@ -57,6 +57,22 @@ void main() {
     expect(find.text('= ${formatCents(280)}'), findsOneWidget, reason: '2 € + 50 ct + 20 ct + 10 ct');
   });
 
+  testWidgets('Tauschinsel: 12 billige Netze im Jahr kosten mehr als ein gutes', (tester) async {
+    await tester.pumpWidget(app(const StoryDrawing(name: 'nets_year')));
+    expect(find.byType(FishingNet), findsNWidgets(13));
+    for (var month = 1; month <= 12; month++) {
+      expect(find.text('$month'), findsOneWidget, reason: 'Monat $month');
+    }
+    expect(find.text('billig: hält 1 Monat'), findsOneWidget);
+    expect(find.text('gut: hält 1 Jahr'), findsOneWidget);
+
+    await tester.pumpWidget(app(const StoryDrawing(name: 'nets_cost')));
+    expect(find.text('12 × 5 Taler'), findsOneWidget);
+    expect(find.text('60 Taler'), findsOneWidget);
+    expect(find.text('1 × 20 Taler'), findsOneWidget);
+    expect(find.text('20 Taler'), findsOneWidget);
+  });
+
   testWidgets('Zeichnungen passen in jede Größe, auch auf kleine Handys', (tester) async {
     for (final name in storyDrawings) {
       for (final size in const [Size(260, 195), Size(400, 300), Size(600, 450)]) {

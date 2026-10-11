@@ -1902,6 +1902,17 @@ class AppLocalizationsDe extends AppLocalizations {
   String get drawingEuro => 'EURO';
 
   @override
+  String drawingTaler(int value) {
+    return '$value Taler';
+  }
+
+  @override
+  String get drawingCheapNet => 'billig: hält 1 Monat';
+
+  @override
+  String get drawingGoodNet => 'gut: hält 1 Jahr';
+
+  @override
   String coinCents(int value) {
     return '$value ct';
   }

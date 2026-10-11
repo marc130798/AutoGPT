@@ -3235,6 +3235,24 @@ abstract class AppLocalizations {
   /// **'EURO'**
   String get drawingEuro;
 
+  /// Betrag in Talern in einer gezeichneten Rechnung (Tauschinsel)
+  ///
+  /// In de, this message translates to:
+  /// **'{value} Taler'**
+  String drawingTaler(int value);
+
+  /// Schild über den billigen Netzen in der Zeichnung „12 Netze im Jahr“
+  ///
+  /// In de, this message translates to:
+  /// **'billig: hält 1 Monat'**
+  String get drawingCheapNet;
+
+  /// Schild über dem guten Netz in der Zeichnung „12 Netze im Jahr“
+  ///
+  /// In de, this message translates to:
+  /// **'gut: hält 1 Jahr'**
+  String get drawingGoodNet;
+
   /// Beschriftung einer Münze unter 1 Euro
   ///
   /// In de, this message translates to:

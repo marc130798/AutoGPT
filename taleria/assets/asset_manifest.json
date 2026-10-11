@@ -712,24 +712,6 @@
         "shape": "rectangle"
       }
     },
-    "story.tauschinsel.5.1": {
-      "type": "image",
-      "path": "assets/images/story.tauschinsel.5.1.jpg",
-      "placeholder": {
-        "label": "Bild: Das billige Netz",
-        "color": "#7FA8C9",
-        "shape": "rectangle"
-      }
-    },
-    "story.tauschinsel.5.2": {
-      "type": "image",
-      "path": "assets/images/story.tauschinsel.5.2.jpg",
-      "placeholder": {
-        "label": "Bild: Zwölf Netze oder eins",
-        "color": "#7FA8C9",
-        "shape": "rectangle"
-      }
-    },
     "story.tauschinsel.5.3": {
       "type": "image",
       "path": "assets/images/story.tauschinsel.5.3.jpg",

@@ -9,7 +9,15 @@ import '../../l10n/app_localizations.dart';
 const storyDrawingPrefix = 'drawing:';
 
 /// Alle Zeichnungen, die es gibt (gleiche Liste in tool/content/content_model.dart).
-const storyDrawings = {'euro_coins', 'cents_to_euro', 'comma_amount', 'euro_notes', 'big_coins_first'};
+const storyDrawings = {
+  'euro_coins',
+  'cents_to_euro',
+  'comma_amount',
+  'euro_notes',
+  'big_coins_first',
+  'nets_year',
+  'nets_cost',
+};
 
 /// Eine Zeichnung im Format 4:3, passt sich der Größe an.
 class StoryDrawing extends StatelessWidget {
@@ -42,6 +50,8 @@ class StoryDrawing extends StatelessWidget {
       'comma_amount' => (_velvet, _commaAmount(l10n, 205)),
       'euro_notes' => (_wood, const _NoteFan()),
       'big_coins_first' => (_wood, _bigFirst(l10n)),
+      'nets_year' => (_velvet, _netsYear(l10n)),
+      'nets_cost' => (_velvet, _netsCost(l10n)),
       _ => (_velvet, const SizedBox.shrink()),
     };
     // Material sorgt für die Schrift der App, egal wo die Zeichnung liegt.
@@ -156,6 +166,92 @@ class StoryDrawing extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+
+  /// Ein Schild auf Papier, zum Beispiel „billig · hält 1 Monat“.
+  static Widget _chip(String text, {Color color = const Color(0xFF173A5E), double size = 16}) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
+    child: Text(
+      text,
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: size, fontWeight: FontWeight.w900, color: color),
+    ),
+  );
+
+  /// Für ein Jahr: 12 billige Netze (je ein Monat) oder ein gutes Netz.
+  static Widget _netsYear(AppLocalizations l10n) => Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _chip(l10n.drawingCheapNet, size: 14),
+            const SizedBox(height: 10),
+            // Drei Reihen zu je vier Netzen: ein Netz pro Monat.
+            SizedBox(
+              width: 4 * 34 + 3 * 8,
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                alignment: WrapAlignment.center,
+                children: [
+                  for (var month = 1; month <= 12; month++)
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const FishingNet(size: 34),
+                        Text(
+                          '$month',
+                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(width: 12),
+      Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _chip(l10n.drawingGoodNet, size: 14),
+            const SizedBox(height: 14),
+            const FishingNet(size: 120, good: true),
+          ],
+        ),
+      ),
+    ],
+  );
+
+  /// 12 billige Netze zu 5 Taler kosten 60 Taler, das gute Netz nur 20.
+  static Widget _netsCost(AppLocalizations l10n) {
+    // Passt eine Zeile nicht, wird sie kleiner statt abgeschnitten.
+    Widget row(Widget net, int count, int price, Color total, {bool best = false}) => FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(width: 70, child: Center(child: net)),
+          const SizedBox(width: 6),
+          _chip('$count × ${l10n.drawingTaler(price)}', size: 18),
+          _sign('='),
+          _chip(l10n.drawingTaler(count * price), color: total, size: 24),
+          if (best) ...[const SizedBox(width: 6), const Icon(Icons.check_circle, color: Color(0xFF7BD389), size: 34)],
+        ],
+      ),
+    );
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        row(const FishingNet(size: 54), 12, 5, const Color(0xFFC0473F)),
+        row(const FishingNet(size: 64, good: true), 1, 20, const Color(0xFF2E7D4F), best: true),
       ],
     );
   }
@@ -375,4 +471,63 @@ class EuroNote extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Ein Fischernetz mit Schwimmern. Das gute ist dick und kräftig, das billige
+/// dünn und hat ein Loch.
+class FishingNet extends StatelessWidget {
+  const FishingNet({super.key, required this.size, this.good = false});
+
+  final double size;
+  final bool good;
+
+  @override
+  Widget build(BuildContext context) => CustomPaint(
+    size: Size(size, size * 0.8),
+    painter: _NetPainter(good: good),
+  );
+}
+
+class _NetPainter extends CustomPainter {
+  _NetPainter({required this.good});
+
+  final bool good;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width, h = size.height;
+    final frame = RRect.fromRectAndRadius(
+      Rect.fromLTWH(w * 0.06, h * 0.18, w * 0.88, h * 0.76),
+      Radius.circular(w * 0.18),
+    );
+    final rope = Paint()
+      ..color = good ? const Color(0xFF8A5A2B) : const Color(0xFFD8C7A3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = good ? w * 0.06 : w * 0.035;
+    final mesh = Paint()
+      ..color = good ? const Color(0xFFB98552) : const Color(0xFFE9DFC8)
+      ..strokeWidth = good ? w * 0.035 : w * 0.018;
+    // Eigene Ebene, damit das Loch nur das Netz ausschneidet, nicht den Hintergrund.
+    canvas.saveLayer(Offset.zero & size, Paint());
+    canvas.clipRRect(frame);
+    final step = w * (good ? 0.16 : 0.2);
+    for (var x = -h; x < w + h; x += step) {
+      canvas.drawLine(Offset(x, h * 0.18), Offset(x + h, h * 1.1), mesh);
+      canvas.drawLine(Offset(x + h, h * 0.18), Offset(x, h * 1.1), mesh);
+    }
+    if (!good) {
+      // Das Loch im billigen Netz.
+      canvas.drawCircle(Offset(w * 0.62, h * 0.62), w * 0.14, Paint()..blendMode = BlendMode.clear);
+    }
+    canvas.restore();
+    canvas.drawRRect(frame, rope);
+    // Schwimmer oben am Netz.
+    final cork = Paint()..color = const Color(0xFFE8833A);
+    for (final fx in [0.25, 0.5, 0.75]) {
+      canvas.drawOval(Rect.fromCenter(center: Offset(w * fx, h * 0.18), width: w * 0.16, height: h * 0.14), cork);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_NetPainter oldDelegate) => oldDelegate.good != good;
 }

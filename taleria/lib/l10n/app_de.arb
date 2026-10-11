@@ -2646,6 +2646,23 @@
   "@drawingEuro": {
     "description": "Aufschrift auf gezeichneten Euro-Münzen und -Scheinen"
   },
+  "drawingTaler": "{value} Taler",
+  "@drawingTaler": {
+    "description": "Betrag in Talern in einer gezeichneten Rechnung (Tauschinsel)",
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "drawingCheapNet": "billig: hält 1 Monat",
+  "@drawingCheapNet": {
+    "description": "Schild über den billigen Netzen in der Zeichnung „12 Netze im Jahr“"
+  },
+  "drawingGoodNet": "gut: hält 1 Jahr",
+  "@drawingGoodNet": {
+    "description": "Schild über dem guten Netz in der Zeichnung „12 Netze im Jahr“"
+  },
   "coinCents": "{value} ct",
   "@coinCents": {
     "description": "Beschriftung einer Münze unter 1 Euro",
