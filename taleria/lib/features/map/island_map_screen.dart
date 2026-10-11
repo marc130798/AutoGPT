@@ -64,9 +64,10 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
   bool _introStarted = false;
   bool _scrolledToShip = false;
 
-  /// Fahrt des Schiffs (Routen-Stellen) und die Insel, deren Schloss aufspringt.
-  int? _travelFrom;
-  int? _travelTo;
+  /// Fahrt des Schiffs (von Liegeplatz zu Liegeplatz: Insel oder Stopp auf
+  /// See) und die Insel, deren Schloss aufspringt.
+  String? _travelFromId;
+  String? _travelToId;
   String? _unlockingId;
   MapLayout? _layout;
   double _viewport = 0;
@@ -107,8 +108,8 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
     _wasLoading = loading;
   }
 
-  /// Nach jedem Laden: Nebel-Start (einmal) und, wenn eine neue Insel offen
-  /// ist, die Fahrt des Schiffs dorthin.
+  /// Nach jedem Laden: Nebel-Start (einmal) und, wenn das Schiff weiter darf
+  /// (ein Stopp auf See oder eine Insel ist geschafft), die Fahrt dorthin.
   Future<void> _afterLoad() async {
     final controller = _controller!;
     if (controller.failure != null) {
@@ -119,33 +120,40 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       _introStarted = true;
       unawaited(_intro.forward());
     }
-    final target = controller.shipIslandId;
+    final target = controller.shipBerthId;
     if (target == null) return;
     final settings = AppScope.of(context).settings;
     final last = await settings.lastShipIsland(widget.child.id);
     if (last != target) await settings.setLastShipIsland(widget.child.id, target);
     if (!mounted || !_motion || last == null || last == target) return;
 
-    final route = [...controller.islands.where((i) => i.isMainRoute)]
-      ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
-    final from = route.indexWhere((i) => i.id == last);
-    final to = route.indexWhere((i) => i.id == target);
+    final order = controller.berthOrder;
+    final from = order.indexOf(last);
+    final to = order.indexOf(target);
     if (from < 0 || to <= from) return;
+    bool isIsland(String id) => controller.islands.any((i) => i.id == id);
     setState(() {
-      _travelFrom = from;
-      _travelTo = to;
-      _unlockingId = target;
+      _travelFromId = last;
+      _travelToId = target;
+      // Das Schloss springt nur an Inseln auf, nicht an Stopps.
+      _unlockingId = isIsland(target) ? target : null;
     });
     _travel.value = 0;
     _unlock.value = 0;
+    // Von Stopp zu Stopp eine kurze Fahrt, von Insel zu Insel eine lange.
+    final hops = to - from;
+    _travel.duration = hops == 1 && isIsland(last) && isIsland(target)
+        ? const Duration(milliseconds: 3400)
+        : Duration(milliseconds: min(3400, 1500 + 900 * (hops - 1)));
     try {
       await _introDone();
       if (!mounted) return;
       final layout = _layout;
-      if (layout != null && _scroll.hasClients) {
+      final berth = layout == null ? null : berthOf(layout, controller, target);
+      if (layout != null && berth != null && _scroll.hasClients) {
         unawaited(
           _scroll.animateTo(
-            layout.offsetToShow(layout.centerOf(target).dy, _viewport),
+            layout.offsetToShow(berth.anchor.dy, _viewport),
             duration: const Duration(milliseconds: 1800),
             curve: Curves.easeInOut,
           ),
@@ -154,9 +162,10 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       await _travel.forward(from: 0).orCancel;
       if (!mounted) return;
       setState(() {
-        _travelFrom = null;
-        _travelTo = null;
+        _travelFromId = null;
+        _travelToId = null;
       });
+      if (_unlockingId == null) return;
       await _unlock.forward(from: 0).orCancel;
     } on TickerCanceled {
       return;
@@ -336,11 +345,12 @@ extension on _IslandMapScreenState {
         _viewport = constraints.maxHeight;
         if (!_scrolledToShip) {
           _scrolledToShip = true;
-          final shipId = controller.shipIslandId;
-          if (shipId != null) {
+          final berthId = controller.shipBerthId;
+          final berth = berthId == null ? null : berthOf(layout, controller, berthId);
+          if (berth != null) {
             SchedulerBinding.instance.addPostFrameCallback((_) {
               if (_scroll.hasClients) {
-                _scroll.jumpTo(layout.offsetToShow(layout.centerOf(shipId).dy, constraints.maxHeight));
+                _scroll.jumpTo(layout.offsetToShow(berth.anchor.dy, constraints.maxHeight));
               }
             });
           }
@@ -365,8 +375,8 @@ extension on _IslandMapScreenState {
                   controller: controller,
                   layout: layout,
                   clock: _clock,
-                  travelFrom: _travelFrom,
-                  travelTo: _travelTo,
+                  travelFromId: _travelFromId,
+                  travelToId: _travelToId,
                   travel: Curves.easeInOut.transform(_travel.value),
                   unlockingId: _unlockingId,
                   unlock: _unlock.value,
@@ -465,8 +475,8 @@ class _MapScene extends StatelessWidget {
     required this.controller,
     required this.layout,
     required this.clock,
-    required this.travelFrom,
-    required this.travelTo,
+    required this.travelFromId,
+    required this.travelToId,
     required this.travel,
     required this.unlockingId,
     required this.unlock,
@@ -481,8 +491,8 @@ class _MapScene extends StatelessWidget {
   final MapController controller;
   final MapLayout layout;
   final Animation<double> clock;
-  final int? travelFrom;
-  final int? travelTo;
+  final String? travelFromId;
+  final String? travelToId;
   final double travel;
   final String? unlockingId;
   final double unlock;
@@ -495,22 +505,36 @@ class _MapScene extends StatelessWidget {
     final islands = controller.islands;
     final route = layout.route;
     final shipId = controller.shipIslandId;
+    final berthId = controller.shipBerthId;
     final shipIndex = layout.routeIndexOf(shipId);
-    final traveling = travelFrom != null && travelTo != null;
+    final fromBerth = travelFromId == null ? null : berthOf(layout, controller, travelFromId!);
+    final toBerth = travelToId == null ? null : berthOf(layout, controller, travelToId!);
+    final traveling = fromBerth != null && toBerth != null;
+    final restBerth = berthId == null ? null : berthOf(layout, controller, berthId);
     final fogFrom = route.indexWhere((i) => controller.stateOf(i) == IslandState.fog);
     final centers = [for (final i in islands) layout.centerOf(i.id)];
 
-    // Schiff: auf der Fahrt entlang der Route, sonst am Ankerplatz.
+    // Schiff: auf der Fahrt entlang der Route, sonst am Liegeplatz (Insel
+    // oder Stopp auf See). Die Route ist bis zum Schiff golden.
     Offset? shipPosition;
     var facingLeft = false;
+    var shipScale = 1.0;
+    var goldUntil = max(0, shipIndex).toDouble();
     if (traveling) {
-      final step = layout.travel(travelFrom!, travelTo!, travel);
+      final step = layout.sail(fromBerth, toBerth, travel);
       shipPosition = step.position;
       facingLeft = step.movingLeft;
-    } else if (shipId != null) {
-      shipPosition = layout.shipAnchor(shipId);
-      final next = shipIndex >= 0 && shipIndex + 1 < route.length ? route[shipIndex + 1] : null;
-      facingLeft = next != null && layout.centerOf(next.id).dx < shipPosition.dx;
+      shipScale = step.scale;
+      goldUntil = fromBerth.u + travel * (toBerth.u - fromBerth.u);
+    } else if (restBerth != null) {
+      shipPosition = restBerth.anchor;
+      shipScale = restBerth.scale;
+      goldUntil = restBerth.u;
+      // Bug zum nächsten Liegeplatz.
+      final order = controller.berthOrder;
+      final i = order.indexOf(berthId!);
+      final next = i >= 0 && i + 1 < order.length ? berthOf(layout, controller, order[i + 1]) : null;
+      facingLeft = next != null && next.anchor.dx < restBerth.anchor.dx;
     }
 
     // Nach Tiefe sortiert: weiter oben liegende Inseln zuerst, damit nähere
@@ -542,7 +566,7 @@ class _MapScene extends StatelessWidget {
             width: layout.islandWidth,
             height: layout.islandHeight,
             clock: clock,
-            glow: island.id == shipId && state == IslandState.open && !traveling && !unlocking,
+            glow: island.id == berthId && state == IslandState.open && !traveling && !unlocking,
             lock: lock,
             onTap: () => onTap(island),
           ),
@@ -577,7 +601,7 @@ class _MapScene extends StatelessWidget {
       }
     }
     if (shipPosition != null) {
-      final size = layout.shipSize;
+      final size = layout.shipSize * shipScale;
       layers.add((
         shipPosition.dy,
         Positioned(
@@ -629,7 +653,7 @@ class _MapScene extends StatelessWidget {
             child: CustomPaint(
               painter: RoutePainter(
                 layout: layout,
-                goldUntil: traveling ? travelFrom! + travel * (travelTo! - travelFrom!) : max(0, shipIndex).toDouble(),
+                goldUntil: goldUntil,
                 fogFrom: fogFrom < 0 ? route.length : fogFrom,
                 clock: clock,
               ),
@@ -638,7 +662,15 @@ class _MapScene extends StatelessWidget {
         ),
         for (final layer in layers) layer.$2,
         if (controller.encounter != null && shipId != null && !traveling)
-          if (layout.encounterSpot(shipId, _encounterSize) case final spot)
+          if (layout.encounterSpot(
+                shipId,
+                _encounterSize,
+                // Liegt das Schiff an einem Stopp, taucht Taleron nicht darauf auf.
+                avoid: [
+                  if (controller.shipStop != null && shipPosition != null) layout.shipRect(shipPosition, shipScale),
+                ],
+              )
+              case final spot)
             Positioned(
               // Im Meer vor dem Schiff, unten rechts vom Weg (nie auf einer Insel).
               left: spot.dx,
@@ -649,4 +681,15 @@ class _MapScene extends StatelessWidget {
       ],
     );
   }
+}
+
+/// Liegeplatz zu einer ID: eine Insel der Route oder ein Stopp auf See davor.
+ShipBerth? berthOf(MapLayout layout, MapController controller, String id) {
+  if (layout.routeIndexOf(id) >= 0) return layout.islandBerth(id);
+  for (final (index, island) in layout.route.indexed) {
+    final stops = controller.stopsBefore(island);
+    final k = stops.indexWhere((s) => s.id == id);
+    if (k >= 0 && index > 0) return layout.stopBerth(index, stops.length, k);
+  }
+  return null;
 }

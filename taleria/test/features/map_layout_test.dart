@@ -43,7 +43,7 @@ void main() {
         final c = layout.centerOf(id);
         return Rect.fromLTRB(
           c.dx - layout.islandWidth / 2,
-          c.dy - layout.islandHeight / 2 - MapLayout.artOverflow,
+          c.dy - layout.islandHeight / 2 - layout.artOverflow,
           c.dx + layout.islandWidth / 2,
           c.dy + layout.islandHeight / 2 + MapLayout.islandLabelSpace,
         );
@@ -72,6 +72,43 @@ void main() {
         }
         for (final stop in stops) {
           expect(taleron.overlaps(stop), isFalse, reason: 'Insel $index: Taleron auf einem Stopp');
+        }
+      }
+    });
+  }
+
+  for (final width in [360.0, 390.0, 430.0]) {
+    test('Breite $width: Das Schiff legt längsseits an den Stopps an, Taleron weicht ihm aus', () {
+      final layout = MapLayout.compute(width: width, viewportHeight: 700, islands: islands);
+      const taleronSize = Size(140, 124);
+      for (var index = 1; index < islands.length; index++) {
+        final stops = [
+          for (final s in layout.seaStopSpots(index, 2))
+            Rect.fromCenter(center: s, width: MapLayout.seaStopWidth, height: MapLayout.seaStopHeight),
+        ];
+        final berths = [layout.stopBerth(index, 2, 0), layout.stopBerth(index, 2, 1)];
+        // Erster Stopp: Schiff rechts daneben, zweiter: links daneben, auf Höhe der Marke.
+        expect(berths[0].anchor.dx, greaterThan(stops[0].center.dx), reason: 'Insel $index');
+        expect(berths[1].anchor.dx, lessThan(stops[1].center.dx), reason: 'Insel $index');
+        // Fahrt in Fahrtrichtung: Insel davor, Stopp 1, Stopp 2, Insel.
+        final from = layout.islandBerth(islands[index - 1].id), to = layout.islandBerth(islands[index].id);
+        expect([
+          from.u,
+          berths[0].u,
+          berths[1].u,
+          to.u,
+        ], orderedEquals([from.u, berths[0].u, berths[1].u, to.u]..sort()));
+        for (final (k, berth) in berths.indexed) {
+          final ship = layout.shipRect(berth.anchor, berth.scale);
+          expect(ship.left >= 0 && ship.right <= width, isTrue, reason: 'Insel $index, Stopp ${k + 1}: $ship');
+          // Am Stopp: Die Fahrt beginnt und endet genau am Liegeplatz.
+          expect((layout.sail(from, berth, 1).position - berth.anchor).distance, lessThan(0.001));
+          expect((layout.sail(berth, to, 0).position - berth.anchor).distance, lessThan(0.001));
+          final taleron = layout.encounterSpot(islands[index - 1].id, taleronSize, avoid: [ship]) & taleronSize;
+          expect(taleron.overlaps(ship), isFalse, reason: 'Insel $index, Stopp ${k + 1}: Taleron auf dem Schiff');
+          for (final stop in stops) {
+            expect(taleron.overlaps(stop), isFalse, reason: 'Insel $index, Stopp ${k + 1}: Taleron auf einem Stopp');
+          }
         }
       }
     });

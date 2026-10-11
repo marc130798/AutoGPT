@@ -8,8 +8,8 @@ import '../fake_content.dart';
 import '../fakes.dart';
 import '../test_helpers.dart';
 
-/// Die bewegte Karte: Nebel-Start, Schiff segelt zur neuen Insel, Schloss
-/// springt auf. Die Szene bewegt sich ständig (Wellen), deshalb hier `pump`
+/// Die bewegte Karte: Nebel-Start, Schiff segelt zum nächsten Stopp auf See
+/// oder zur neuen Insel, Schloss springt auf. Die Szene bewegt sich ständig (Wellen), deshalb hier `pump`
 /// mit Zeitangabe statt `pumpAndSettle`.
 void main() {
   Future<void> tapText(WidgetTester tester, String text) async {
@@ -22,6 +22,7 @@ void main() {
     WidgetTester tester, {
     bool hafenDone = false,
     bool stopsDone = true,
+    bool firstStopDone = false,
     String? lastShip,
   }) async {
     final backend = FakeBackend();
@@ -32,6 +33,7 @@ void main() {
     final progress = FakeProgress(content);
     if (hafenDone) progress.completedIslands.add('island-hafen');
     if (hafenDone && stopsDone) progress.done.addAll(['island-tauschinsel/sea1', 'island-tauschinsel/sea2']);
+    if (hafenDone && firstStopDone) progress.done.add('island-tauschinsel/sea1');
     final settings = FakeLocalSettings();
     if (lastShip != null) settings.ships[mila.id] = lastShip;
 
@@ -92,15 +94,32 @@ void main() {
     expect(lockOn('wunschinsel'), findsOneWidget);
   });
 
-  testWidgets('Stopps auf See: Schiff wartet am Hafen, die Tauschinsel bleibt zu', (tester) async {
+  testWidgets('Stopps auf See: Schiff fährt zum ersten Stopp, die Tauschinsel bleibt zu', (tester) async {
     final (:settings, :childId) = await openMap(tester, hafenDone: true, stopsDone: false, lastShip: 'island-hafen');
+    // Es fährt nur bis zum ersten Stopp (dem Händlerschiff) und wartet dort.
+    expect(settings.ships[childId], 'island-tauschinsel/sea1');
     await tester.pump(const Duration(seconds: 3));
-    expect(settings.ships[childId], 'island-hafen', reason: 'erst nach den Stopps fährt das Schiff weiter');
+    expect(lockOn('tauschinsel'), findsOneWidget);
+    // Nach der kurzen Fahrt springt kein Schloss auf: Die Insel wartet auf beide Stopps.
+    await tester.pump(const Duration(seconds: 3));
     expect(lockOn('tauschinsel'), findsOneWidget);
     expect(find.byKey(const ValueKey('sea-stop-tauschinsel-1')), findsOneWidget);
     expect(find.byKey(const ValueKey('sea-stop-tauschinsel-2')), findsOneWidget);
     expect(find.text('Das Händlerschiff'), findsOneWidget);
     expect(find.text('Das Fischerboot'), findsOneWidget);
+  });
+
+  testWidgets('Stopp geschafft: Schiff fährt zum nächsten Stopp', (tester) async {
+    final (:settings, :childId) = await openMap(
+      tester,
+      hafenDone: true,
+      stopsDone: false,
+      firstStopDone: true,
+      lastShip: 'island-tauschinsel/sea1',
+    );
+    expect(settings.ships[childId], 'island-tauschinsel/sea2');
+    await tester.pump(const Duration(seconds: 6));
+    expect(lockOn('tauschinsel'), findsOneWidget);
   });
 
   testWidgets('Bewegung reduziert: kein Nebel-Start, keine Fahrt', (tester) async {

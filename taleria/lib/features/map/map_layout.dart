@@ -3,6 +3,11 @@ import 'dart:ui';
 
 import '../../domain/content_models.dart';
 
+/// Ein Liegeplatz des Schiffs: an einer Insel der Route oder an einem Stopp
+/// auf See. [u] ist die Stelle auf der Route (Insel i = i, dazwischen
+/// Bruchteile), [anchor] wo das Schiff dort liegt, [scale] seine Größe.
+typedef ShipBerth = ({double u, Offset anchor, double scale});
+
 /// Wo Inseln, Route und Schiff auf der Karte liegen. Reine Rechnung ohne
 /// Aussehen, damit sie sich testen lässt.
 ///
@@ -52,7 +57,7 @@ class MapLayout {
   /// Zusätzliches Meer zwischen zwei Inseln. Dort liegen die Stopps auf See
   /// versetzt übereinander (unten links, oben rechts), und unten rechts hat
   /// eine Begegnung auf See Platz (Meister Taleron).
-  static const seaGap = 280.0;
+  static const seaGap = 330.0;
 
   /// Größe einer Stopp-Marke mit Namen (wie `SeaStopMarker.labelWidth` und `.height`).
   static const seaStopWidth = 108.0;
@@ -61,9 +66,10 @@ class MapLayout {
   /// So weit liegt die Mitte eines Stopps links oder rechts vom Weg.
   static const seaStopSide = 60.0;
 
-  /// So weit ragen manche Inselbilder über ihr Feld hinaus (der Turm der
-  /// Tauschinsel). Stopps auf See halten diesen Abstand zur Insel darunter.
-  static const artOverflow = 36.0;
+  /// So weit ragen Inselbilder höchstens über ihr Feld hinaus (der Turm der
+  /// Tauschinsel: Bild fast so hoch wie breit, Feld nur 0,62 so hoch).
+  /// Stopps auf See halten diesen Abstand zur Insel darunter.
+  double get artOverflow => islandWidth * 0.33;
 
   /// Platz unter jeder Insel für ihr Namensband (wie `MapIslandMarker.labelSpace`).
   static const islandLabelSpace = 40.0;
@@ -98,6 +104,48 @@ class MapLayout {
     return s[0] * (u * u * u) + s[1] * (3 * u * u * t) + s[2] * (3 * u * t * t) + s[3] * (t * t * t);
   }
 
+  /// So groß ist das Schiff, während es an einem Stopp auf See liegt.
+  static const stopShipScale = 0.75;
+
+  /// Liegeplatz des Schiffs an einer Insel der Route.
+  ShipBerth islandBerth(String islandId) =>
+      (u: max(0, routeIndexOf(islandId)).toDouble(), anchor: shipAnchor(islandId), scale: 1.0);
+
+  /// Liegeplatz neben Stopp [k] von [count] vor Routen-Insel [index]: längsseits
+  /// auf der Seite zum Weg hin (der erste Stopp liegt links vom Weg, das Schiff
+  /// also rechts daneben; beim zweiten umgekehrt), auf Höhe seines Schiffs.
+  ShipBerth stopBerth(int index, int count, int k) {
+    final spot = seaStopSpots(index, count)[k];
+    final size = shipSize * stopShipScale;
+    final side = k.isEven ? 1.0 : -1.0;
+    final x = (spot.dx + side * (seaStopWidth / 2 + size / 2 - 4)).clamp(size / 2, max(size / 2, width - size / 2));
+    final lower = centerOf(route[index - 1].id), upper = centerOf(route[index].id);
+    final t = lower.dy == upper.dy ? 0.5 : ((lower.dy - spot.dy) / (lower.dy - upper.dy)).clamp(0.0, 1.0);
+    return (u: index - 1 + t, anchor: Offset(x.toDouble(), spot.dy + 6), scale: stopShipScale);
+  }
+
+  /// Wo das Schiff an [anchor] mit Größe [scale] zu sehen ist (für Abstände).
+  Rect shipRect(Offset anchor, double scale) {
+    final size = shipSize * scale;
+    return Rect.fromLTWH(anchor.dx - size / 2, anchor.dy - size * 0.75, size, size);
+  }
+
+  /// Punkt auf der Route an der Stelle [u] (Insel i = i, dazwischen Bruchteile).
+  Offset _routeAt(double u) {
+    final seg = min(max(0, u.floor()), max(0, route.length - 2));
+    return pointOn(seg, (u - seg).clamp(0.0, 1.0));
+  }
+
+  /// Schiff auf der Fahrt von Liegeplatz [from] nach [to], [t] von 0 bis 1. Es
+  /// folgt der Route und gleitet dabei vom einen Liegeplatz zum anderen.
+  ({Offset position, bool movingLeft, double scale}) sail(ShipBerth from, ShipBerth to, double t) {
+    final offFrom = from.anchor - _routeAt(from.u), offTo = to.anchor - _routeAt(to.u);
+    Offset at(double q) => _routeAt(from.u + (to.u - from.u) * q) + Offset.lerp(offFrom, offTo, q)!;
+    final q = t.clamp(0.0, 1.0);
+    // Blickrichtung für die ganze Fahrt gleich, damit das Schiff nicht hin und her springt.
+    return (position: at(q), movingLeft: at(1).dx < at(0).dx, scale: from.scale + (to.scale - from.scale) * q);
+  }
+
   /// Wo das Schiff neben einer Insel ankert: auf der Seite zur Kartenmitte,
   /// bei Inseln in der Mitte rechts (dort liegt beim Hafen der Steg).
   Offset shipAnchor(String islandId) {
@@ -110,21 +158,9 @@ class MapLayout {
   }
 
   /// Schiff auf der Fahrt von Routen-Insel [from] nach [to], [t] von 0 bis 1.
-  /// Es folgt der Route und gleitet dabei vom einen Ankerplatz zum anderen.
   ({Offset position, bool movingLeft}) travel(int from, int to, double t) {
-    Offset at(double q) {
-      final steps = max(1, to - from);
-      final scaled = (q.clamp(0.0, 1.0) * steps);
-      final k = min(steps - 1, scaled.floor());
-      final local = scaled - k;
-      final onRoute = pointOn(from + k, local);
-      final offFrom = shipAnchor(route[from].id) - centerOf(route[from].id);
-      final offTo = shipAnchor(route[to].id) - centerOf(route[to].id);
-      return onRoute + Offset.lerp(offFrom, offTo, q.clamp(0.0, 1.0))!;
-    }
-
-    // Blickrichtung für die ganze Fahrt gleich, damit das Schiff nicht hin und her springt.
-    return (position: at(t), movingLeft: at(1).dx < at(0).dx);
+    final step = sail(islandBerth(route[from].id), islandBerth(route[to].id), t);
+    return (position: step.position, movingLeft: step.movingLeft);
   }
 
   /// Freies Meer vor Routen-Insel [index]: von ihrem Namensband bis kurz über
@@ -165,11 +201,12 @@ class MapLayout {
 
   /// Wo eine Begegnung auf See ([size] groß, linke obere Ecke) auftaucht,
   /// solange das Schiff an [islandId] liegt: im Meer davor, nie auf einer
-  /// Insel und nie auf einem Stopp (siehe [seaStopSpots]). Zuerst unten rechts
-  /// neben dem ersten Stopp, sonst links davon, sonst oben neben dem zweiten
-  /// Stopp, zuletzt zwischen den Stopps.
+  /// Insel, nie auf einem Stopp (siehe [seaStopSpots]) und nie auf dem, was in
+  /// [avoid] liegt (zum Beispiel das Schiff an einem Stopp). Zuerst unten rechts
+  /// neben dem ersten Stopp, sonst der nächste freie Platz neben einem Stopp
+  /// oder dem Schiff, zuletzt zwischen den Stopps.
   /// Ohne nächste Insel neben dem Schiff, auf der Seite weg von der Insel.
-  Offset encounterSpot(String islandId, Size size) {
+  Offset encounterSpot(String islandId, Size size, {List<Rect> avoid = const []}) {
     Offset fit(Offset o) => Offset(o.dx.clamp(8.0, max(8.0, width - size.width - 8)), o.dy);
     final index = routeIndexOf(islandId) + 1;
     final band = _seaBand(index);
@@ -188,16 +225,17 @@ class MapLayout {
     final first = stops.first, second = stops.last;
     final low = max(band.top, band.bottom - size.height);
     final middle = (second.bottom + first.top) / 2;
+    final blocked = [...stops, ...avoid];
+    // Neben jedem Stopp und neben dem, was ausgewichen werden muss, jeweils
+    // rechts und links, unten und oben; zuletzt zwischen den Stopps.
     final candidates = [
-      Offset(first.right + 12, low),
-      Offset(first.left - 12 - size.width, low),
-      Offset(second.left - 12 - size.width, band.top),
-      Offset(second.right + 12, band.top),
+      for (final rect in [first, second, ...avoid])
+        for (final y in [low, band.top]) ...[Offset(rect.right + 12, y), Offset(rect.left - 12 - size.width, y)],
       Offset(_routeX(index, middle) - size.width / 2, middle - size.height / 2),
     ];
     for (final candidate in candidates) {
       final box = fit(candidate) & size;
-      if (box.top >= band.top - 0.5 && box.bottom <= band.bottom + 0.5 && !stops.any(box.overlaps)) {
+      if (box.top >= band.top - 0.5 && box.bottom <= band.bottom + 0.5 && !blocked.any(box.overlaps)) {
         return box.topLeft;
       }
     }

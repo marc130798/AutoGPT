@@ -18,8 +18,8 @@ abstract interface class LocalSettings {
 
   Future<void> setArrivalSeen(String childId, String islandId);
 
-  /// Insel, an der das Schiff zuletzt auf der Karte lag. Ist inzwischen eine
-  /// neue Insel offen, segelt das Schiff beim nächsten Öffnen dorthin.
+  /// Wo das Schiff zuletzt auf der Karte lag: eine Insel oder ein Stopp auf
+  /// See. Darf es inzwischen weiter, segelt es beim nächsten Öffnen dorthin.
   Future<String?> lastShipIsland(String childId);
 
   Future<void> setLastShipIsland(String childId, String islandId);

@@ -43,8 +43,9 @@ class MapController extends ChangeNotifier {
 
   IslandState stateOf(MapIsland island) => _states[island.id] ?? IslandState.locked;
 
-  /// Wo das Schiff gerade liegt. Liegen vor der nächsten Insel noch Stopps
-  /// auf See, wartet es an der Insel davor.
+  /// Die Insel, zu der das Schiff gehört. Liegen vor der nächsten Insel noch
+  /// Stopps auf See, ist es die Insel davor (das Schiff selbst liegt dann am
+  /// Stopp, siehe [shipBerthId]).
   String? get shipIslandId {
     final current = currentIslandId(_islands, _states);
     final island = _islands.where((i) => i.id == current).firstOrNull;
@@ -53,6 +54,29 @@ class MapController extends ChangeNotifier {
     final index = route.indexWhere((i) => i.id == island.id);
     return index > 0 ? route[index - 1].id : current;
   }
+
+  /// Der Stopp auf See, an dem das Schiff gerade liegt: der erste noch nicht
+  /// geschaffte vor der nächsten offenen Insel. `null`, wenn es an einer Insel liegt.
+  StationInfo? get shipStop {
+    final current = currentIslandId(_islands, _states);
+    final island = _islands.where((i) => i.id == current).firstOrNull;
+    if (island == null || !waitingAtSea(island)) return null;
+    return stopsBefore(island).where((s) => stopState(s) != StationState.done).firstOrNull;
+  }
+
+  /// Wo das Schiff liegt: der Stopp auf See ([shipStop]) oder die Insel.
+  String? get shipBerthId => shipStop?.id ?? shipIslandId;
+
+  /// Reihenfolge der Liegeplätze auf der Fahrt: vor jeder Insel ihre Stopps,
+  /// dann die Insel (Hafen zuerst).
+  List<String> get berthOrder => [
+    for (final island in [
+      ..._islands.where((i) => i.isMainRoute),
+    ]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder))) ...[
+      for (final stop in stopsBefore(island)) stop.id,
+      island.id,
+    ],
+  ];
 
   /// Stopps auf See auf der Route vor [island], in Fahrtrichtung.
   List<StationInfo> stopsBefore(MapIsland island) => _stops[island.id] ?? const [];
