@@ -662,7 +662,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 
 ---
 
-## 17. Aktueller Stand und nächste Schritte (Stand 10.10.2026)
+## 17. Aktueller Stand und nächste Schritte (Stand 11.10.2026)
 
 Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Abschnitt 16.
 
@@ -671,12 +671,14 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 308 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 329 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
-**Letzte Testversion (10.10.2026):**
-- Datei: `build/taleria_test_web.zip`, 26,5 MB. Das Skript lässt ungenutzte Web-Dateien weg, damit die Datei unter 30 MB bleibt.
-- Vorher im Testprojekt ausführen: erst `20261010000100_rangform.sql`, dann `supabase/seed.sql`.
+**Letzte Testversion (11.10.2026):**
+- Datei: `build/taleria_test_web.zip`, 26,7 MB. Das Skript lässt ungenutzte Web-Dateien weg, damit die Datei unter 30 MB bleibt.
+- Neu darin: beide Rückmelde-Runden, Bildergeschichten (Hafen komplett), Stopps auf See, Zielgruppe 8 bis 12 mit schwereren Hafen-Fragen.
+- Vorher im Testprojekt ausführen: erst `20261010000200_stopps_auf_see.sql`, dann `supabase/seed.sql`.
+- **Platz wird knapp:** Bis 30 MB fehlen nur noch gut 3 MB. Die 48 Bilder von Tauschinsel und Wunschinsel brauchen etwa 3,6 MB. Vor der nächsten Testversion deshalb die großen PNG-Figuren (400 bis 760 KB pro Datei) verkleinern.
 - Danach die ZIP bei Netlify unter Deploys hochladen.
 
 **Arbeitsweise mit Marc (zusätzlich zu Abschnitt 1):**
@@ -690,9 +692,10 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 1. Marc testet die Testversion. Besonders wichtig: Läuft die Musik jetzt auf dem iPhone? Seine Rückmeldungen umsetzen.
    - Erste Runde erledigt (siehe oben, „Rückmeldungen aus Marcs Test“): Musik auf allen Menü-Seiten, Aufträge mit Datum, Übersicht pro Truhe.
    - Zweite Runde erledigt: Reihenfolge-Fehler, Rang-Zeitstrahl, Tauchplätze am Wasser, Bildergeschichten statt Stationsfilmen, Stopps auf See.
-   - Diese Änderungen sind noch in keiner Testversion (ZIP); eine neue baut Claude erst, wenn Marc es sagt. Vorher im Testprojekt: `20261010000200_stopps_auf_see.sql`, dann `supabase/seed.sql`.
+   - Alles davon steckt in der Testversion vom 11.10.2026.
    - Marc macht die 20 Gemini-Bilder der Hafen-Bildergeschichten (BILDER.md, Abschnitt 4h; 37 bis 39 zeichnet die App). Stand 11.10.2026: alle 20 sind da, der Hafen hat keine Platzhalter mehr. Als Nächstes schreibt Claude die Vorlagen für Tauschinsel und Wunschinsel.
    - Malt Gemini ein Logo oder fremdes Geld, bessert Claude das Bild aus (bisher Bild 35 und 36). In `design/gemini/` liegt dann die ausgebesserte Fassung.
+   - Plan danach (mit Marc besprochen): Bilder der Tauschinsel (24 Plätze, davon 2 als Zeichnung der App wegen „12 Netze mal 5 Taler“, 22 mit Gemini) und der Wunschinsel (24 mit Gemini), in Fünferpaketen. Parallel prüft Claude die Fragen von Tauschinsel und Wunschinsel nach den Regeln für 8 bis 12. Danach Insel 4 (Spar-Insel) mit Texten, Fragen, Spielen und Bildtexten.
 2. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
    - `rank.kapitaen`, `badge.wunschinsel` und `collectible.wreck_item` zeigen ein englisches „E“ für Osten. Diese Bilder neu machen, mit „O“ oder ohne Buchstaben.
