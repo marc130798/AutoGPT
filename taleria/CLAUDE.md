@@ -693,8 +693,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 **Letzte Testversion (11.10.2026, spät abends):**
 - Datei: `build/taleria_test_web.zip`, 19,4 MB. Das Skript lässt ungenutzte Web-Dateien weg.
 - Platz: Die großen PNG-Bilder (Figuren, Inseln, Orden, Schiffe) sind mit `tool/bilder_verkleinern.py` auf 256 Farben gerechnet (Paket `imagequant`, wie pngquant): zusammen 17,7 MB → 5,4 MB, sichtbar kein Unterschied. Neue große PNG-Bilder danach genauso verkleinern.
-- Neu darin seit der Testversion vom Abend: Töne in Übungen und Mini-Spielen, Spiele-Seite mit Startbildern, Bonus-Karte mit Startbild, fünftes echtes Spiel „Talas Ausflüge“ (Wunschinsel 2, noch mit Platzhalter-Bildern), „Hafenbüro“ statt „Kontor“, Tauchgang mit frischen Fragen, weniger Weiß vor Bildern (nur Rahmen um Fragen und Antworten), Antworten grün und rot mit Haken und Kreuz, Gespräche mit leicht verblasstem Hintergrund.
-- Vorher im Testprojekt ausführen: nur `supabase/seed.sql` (die Migrationen bis `20261011000200_einsteiger_fragen.sql` hat Marc am 11.10.2026 abends schon ausgeführt; neue gibt es nicht).
+- Neu darin seit der Testversion vom Abend (zweiter Bau kurz vor Mitternacht, dazu: Übungen und Spiele ohne großes Blatt, Hintergrund überall leicht verblasst, Körbe und Möglichkeiten grün und rot): Töne in Übungen und Mini-Spielen, Spiele-Seite mit Startbildern, Bonus-Karte mit Startbild, fünftes echtes Spiel „Talas Ausflüge“ (Wunschinsel 2, noch mit Platzhalter-Bildern), „Hafenbüro“ statt „Kontor“, Tauchgang mit frischen Fragen, weniger Weiß vor Bildern (nur Rahmen um Fragen und Antworten), Antworten grün und rot mit Haken und Kreuz, Gespräche mit leicht verblasstem Hintergrund.
+- Vorher im Testprojekt ausführen: nur `supabase/seed.sql`, und nur einmal (beim zweiten Bau nicht nötig; die Migrationen bis `20261011000200_einsteiger_fragen.sql` hat Marc am 11.10.2026 abends schon ausgeführt; neue gibt es nicht).
 - Danach die ZIP bei Netlify unter Deploys hochladen.
 
 **Arbeitsweise mit Marc (zusätzlich zu Abschnitt 1):**
