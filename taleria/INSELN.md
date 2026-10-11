@@ -38,6 +38,7 @@ Entschieden mit Marc am 11.10.2026: Stufe 1 ist für Kinder von 8 bis 12 Jahren 
 - **Nicht überfordern:** Kurze Sätze, höchstens etwa 15 Wörter. Ein neues Wort wird beim ersten Mal erklärt. Keine Prozentrechnung mit krummen Zahlen; Prozent nur als „10 von 100“ oder „ein Zehntel“.
 - **Schwere Themen** (Zinsen, Inflation, Schulden, Risiko, Investieren) immer an einer kleinen Geschichte aus dem Alltag erklären: Taschengeld, Sparschwein, Fahrrad, Fußballkarten, Klassenfahrt. Keine Fachbegriffe ohne Beispiel.
 - **Ton:** freundlich, nicht babyhaft. Ein 12-Jähriger soll sich ernst genommen fühlen.
+- **Orte mit Alltagswörtern (11.10.2026, Hinweis von Marc):** Keine alten oder seltenen Wörter für Orte, die Kinder nicht kennen (zum Beispiel „Kontor“). Besser: Büro, Laden, Stand, Rechenstube, Poststelle.
 - **Einsteiger und Fortgeschrittene (11.10.2026):** Im Leuchtturm stellen die Eltern pro Kind „Einsteiger“ (nur ganze Zahlen: 3 €, 80 Cent) oder „Fortgeschritten“ (auch mit Komma: 3,50 €) ein; neue Kinder ab 10 Jahren starten mit „Fortgeschritten“. Jede Frage, jede Wrack-Aufgabe und jedes Spiel mit einer Kommazahl braucht deshalb in der Inhaltsdatei eine Fassung `"einsteiger"` mit ganzen Zahlen: bei Fragen `frage`, `richtig`, `falsch`, `erklaerung` (gleich viele Antworten), bei Spielen die Felder, die sich ändern (zum Beispiel `runden`, `kunden`, `preistafel`, `geld`, `staende`). Das Prüfwerkzeug meldet fehlende Fassungen. Die Erklärungen der Stationen bleiben für alle gleich, auch das Lesen von Preisen mit Komma.
 - **Mini-Spiele sind ein Bonus (11.10.2026):** Jede Station hat ihre kurze Übung (`spiel`, Pflicht). Ein echtes Mini-Spiel steht unter `minispiel` und kommt am Ende der Station als Bonus; man muss es nicht spielen, um weiterzukommen.
 
@@ -81,7 +82,7 @@ Entschieden mit Marc am 11.10.2026: Stufe 1 ist für Kinder von 8 bis 12 Jahren 
 
 ### Stimmung und Layout
 - Früher Morgen, warmes Licht, ruhiges Meer, Möwen, leises Wellenrauschen.
-- Holzsteg mit dem alten Schiff, daneben das Hafenkontor (kleines Steinhaus mit Waage und Münzschublade), ein altes Lagerhaus voller Fundstücke, eine Werft, Talas Lieblingsort, der Fischbrötchen-Stand, und ein bunter Marktplatz.
+- Holzsteg mit dem alten Schiff, daneben das Hafenbüro (kleines Steinhaus mit Waage und Münzschublade), ein altes Lagerhaus voller Fundstücke, eine Werft, Talas Lieblingsort, der Fischbrötchen-Stand, und ein bunter Marktplatz.
 - Die 7 Stationen liegen als antippbare Orte auf einem Weg vom Steg bis zum Marktplatz.
 
 ### Ankunftsfilm
@@ -92,7 +93,7 @@ Der Hafen ist der Start, deshalb ist sein Ankunftsfilm der **Intro-Film** (60 bi
 | Nr. | Ort | Station | Typ | Inhalt | Lernziel | Dauer | Seemeilen |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Schiffssteg | Willkommen an Bord | Interaktion | Talo und Tala stellen sich vor und zeigen das Schiff. Das Kind gestaltet seinen Avatar, tauft das Schiff und lernt die Bedienung (Karte, Schatztruhe, Logbuch) in einem kurzen Rundgang. | Ankommen, Figuren und App kennen | 5 bis 8 Min. | 50 |
-| 2 | Hafenkontor | Was ist Geld? | Video + Quiz | Tala will ein Fischbrötchen gegen ihr Halstuch tauschen, der Händler braucht aber Mehl. Talo erklärt: Geld nimmt fast jeder an, man kann es aufheben und damit Preise vergleichen. Danach ein Tausch-Spiel, das zeigt, wie umständlich Tauschen ist. Quiz mit 5 Fragen. | Geld als Tauschmittel verstehen | 7 bis 10 Min. | 100 |
+| 2 | Hafenbüro | Was ist Geld? | Video + Quiz | Tala will ein Fischbrötchen gegen ihr Halstuch tauschen, der Händler braucht aber Mehl. Talo erklärt: Geld nimmt fast jeder an, man kann es aufheben und damit Preise vergleichen. Danach ein Tausch-Spiel, das zeigt, wie umständlich Tauschen ist. Quiz mit 5 Fragen. | Geld als Tauschmittel verstehen | 7 bis 10 Min. | 100 |
 | 3 | Altes Lagerhaus | Geld früher und heute | Video + Zeitstrahl-Spiel | In alten Kisten finden Talo und Tala Muscheln, Salz, Metallstücke, alte Münzen und Scheine. Das Kind ordnet sie auf einem Zeitstrahl von früher bis heute (Muscheln, Münzen, Papiergeld, Karte und Handy). | Geld hat sich entwickelt, die Idee ist gleich geblieben | 6 bis 9 Min. | 100 |
 | 4 | Fischbrötchen-Stand | Münzen und Scheine | Mini-Spiel (echtes Spiel: Kasse) | Die Verkäuferin macht Pause, das Kind übernimmt die Kasse: 6 Kunden bestellen und bezahlen, das Kind legt das Wechselgeld mit Münzen und Scheinen und gibt es heraus (von 1,50 € bis 9,50 €). Kurzer Hinweis: Geld gibt es auch digital auf dem Konto. | Euro-Münzen und Scheine kennen, Beträge mit Komma, Wechselgeld | 7 bis 10 Min. | 100 |
 | 5 | Werft | Woher kommt Geld? | Video + Zuordnen | Die Bootsbauer bekommen Lohn für ihre Arbeit. Das Kind ordnet Berufe zu, was sie für andere leisten. Kurz und einfach: Euro-Geld wird nur von bestimmten Stellen hergestellt, verdienen muss man es durch Arbeit. | Geld verdient man durch Arbeit | 6 bis 9 Min. | 100 |
@@ -424,7 +425,7 @@ Taleron zeigt sich zum ersten Mal ganz: Er taucht neben dem Schiff auf, stellt s
 
 **Lernziel:** Das Kind teilt Taschengeld auf, schreibt Einnahmen und Ausgaben auf, plant eine Woche, geht mit leerem Geldbeutel und Geldgeschenken klug um und kann fair über Taschengeld sprechen.
 
-**Die Idee der Insel:** Eine ruhige Bucht mit Kiosk und Kontor. Tala hat ihre Heuer schon am Mittwoch ausgegeben, und Krebs Kurt, der genaueste Buchhalter des Meeres, zeigt ihr, wie man besser plant.
+**Die Idee der Insel:** Eine ruhige Bucht mit Kiosk und Rechenstube. Tala hat ihre Heuer schon am Mittwoch ausgegeben, und Krebs Kurt, der genaueste Buchhalter des Meeres, zeigt ihr, wie man besser plant.
 
 **Stimmung und Layout:** Vormittag, ruhiges Wasser, Holzstege, ein Kiosk mit bunten Gläsern. Bewohner: Möwe Mia (Kiosk), Krebs Kurt (Buchhalter mit Rechenbrett). Orte: Kiosk, Truhenhaus, Kurts Kontor, Planungssteg, Leerer-Beutel-Felsen, Geschenke-Grotte, Ratsbank.
 
@@ -441,7 +442,7 @@ Taleron zeigt sich zum ersten Mal ganz: Er taucht neben dem Schiff auf, stellt s
 | --- | --- | --- | --- | --- | --- |
 | 1 | Kiosk | Wie viel Taschengeld ist üblich? | Video + Quiz | Es gibt Empfehlungen nach Alter (zum Beispiel von Jugendämtern), aber jede Familie entscheidet selbst, und Familien regeln unterschiedlich, was Kinder selbst bezahlen. Die App zeigt die aktuelle Empfehlung als Spanne mit Quelle. | Taschengeld ist Sache der Familie, Vergleichen hilft wenig |
 | 2 | Truhenhaus | Die drei Truhen | Aufteil-Spiel | Das Kind teilt Heuer auf Bordkasse, Schatztruhe und Glückstruhe auf und probiert verschiedene Aufteilungen. | Geld bekommt eine Aufgabe, bevor es ausgegeben wird |
-| 3 | Kurts Kontor | Einnahmen und Ausgaben aufschreiben | Logbuch-Spiel | Kurt zeigt sein Logbuch. Das Kind sortiert Kassenzettel in Einnahmen und Ausgaben und sieht am Ende, wohin das Geld gegangen ist. | Wer aufschreibt, behält den Überblick |
+| 3 | Kurts Rechenstube | Einnahmen und Ausgaben aufschreiben | Logbuch-Spiel | Kurt zeigt sein Logbuch. Das Kind sortiert Kassenzettel in Einnahmen und Ausgaben und sieht am Ende, wohin das Geld gegangen ist. | Wer aufschreibt, behält den Überblick |
 | 4 | Planungssteg | Mein Wochenplan | Planungs-Spiel | Mit 8 Talern durch die Woche: Kino, Snack, Sammelkarten. Das Kind plant, was geht und was nicht. | Ein Budget ist ein Plan für das eigene Geld |
 | 5 | Leerer-Beutel-Felsen | Wenn das Geld alle ist | Video + Entscheidungs-Spiel | Tala ist pleite. Möglichkeiten: warten, verzichten, beim nächsten Mal anders planen. Sofort leihen ist keine gute Lösung. | Aus einer schlechten Woche lernt man für die nächste |
 | 6 | Geschenke-Grotte | Geld geschenkt bekommen | Aufteil-Spiel | Oma schenkt 20 Euro zum Geburtstag. Das Kind teilt das Geschenk klug auf und schreibt eine Danke-Nachricht. | Auch geschenktes Geld kann man aufteilen |
@@ -512,7 +513,7 @@ Taleron zeigt sich zum ersten Mal ganz: Er taucht neben dem Schiff auf, stellt s
 | 2 | Regal-Halle | Den Grundpreis lesen | Video + Rechen-Spiel | Edda zeigt das kleine Feld auf dem Preisschild: Preis pro Kilo oder Liter. 500 g für 2 Euro sind 4 Euro pro Kilo, 1 kg für 3,50 Euro ist günstiger. | Mit dem Grundpreis vergleicht man verschiedene Packungsgrößen |
 | 3 | Angebotsplatz | Angebote: echt oder nicht? | Detektiv-Spiel | Wanjas Angebote: Großpackung, „3 für 2“, durchgestrichene Preise. Das Kind prüft, welche wirklich günstiger sind und ob man die Menge braucht. | Nicht jedes Angebot spart Geld |
 | 4 | Kasse | Wechselgeld rechnen | Kassen-Spiel | Das Kind steht selbst an der Kasse, gibt Wechselgeld heraus und prüft, ob es selbst richtig herausbekommt. | Wechselgeld nachzählen schützt vor Fehlern |
-| 5 | Postkontor | Online einkaufen | Video + Quiz | Ein Paket kommt an: Versandkosten, Bewertungen, Rücksendung. Regel: Online bestellen nur gemeinsam mit den Eltern. | Online kommen Kosten dazu, Eltern sind immer dabei |
+| 5 | Poststelle | Online einkaufen | Video + Quiz | Ein Paket kommt an: Versandkosten, Bewertungen, Rücksendung. Regel: Online bestellen nur gemeinsam mit den Eltern. | Online kommen Kosten dazu, Eltern sind immer dabei |
 | 6 | Vorratskeller | Qualität und Haltbarkeit | Sortier-Spiel | Mindesthaltbarkeitsdatum (oft auch danach noch gut, prüfen) und Verbrauchsdatum (danach nicht mehr essen). Dazu: Eine teure Jacke, die lange hält, kann günstiger sein. | Haltbarkeit verstehen, Qualität mitdenken |
 | 7 | Picknickwiese | Einkaufsspiel mit Budget | Einkaufs-Spiel | Mit 15 Talern und einem Einkaufszettel ein Picknick für die Crew zusammenstellen. Edda übergibt das Kartenstück. | Mit Zettel und Budget einkaufen |
 

@@ -204,6 +204,11 @@ void main() {
     }
     expect(find.text('Station geschafft!'), findsOneWidget);
     await scrollTo(tester, find.byKey(const ValueKey('bonus-game')));
+    expect(
+      find.byKey(const ValueKey('bonus-game-image')),
+      findsOneWidget,
+      reason: 'Startbild der Kasse auf der Bonus-Karte',
+    );
     expect(find.text('Bonus: Mini-Spiel'), findsOneWidget);
     expect(find.textContaining('„Fischbrötchen-Kasse“ ist jetzt freigespielt. Kein Muss'), findsOneWidget);
     await tapKey(tester, 'bonus-game-play');

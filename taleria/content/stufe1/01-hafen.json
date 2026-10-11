@@ -36,7 +36,7 @@
       "typ": "quiz",
       "seemeilen": 100,
       "titel": "Was ist Geld?",
-      "ort": "Hafenkontor",
+      "ort": "Hafenbüro",
       "lernziel": "Geld als Tauschmittel verstehen",
       "dauer": "7 bis 10 Min.",
       "szene": [
@@ -401,7 +401,7 @@
       "typ": "game",
       "seemeilen": 100,
       "titel": "Münzen und Scheine",
-      "ort": "Münzschublade im Kontor",
+      "ort": "Münzschublade im Hafenbüro",
       "lernziel": "Euro-Münzen und Scheine kennen, Beträge mit Komma lesen und Wechselgeld berechnen",
       "dauer": "7 bis 10 Min.",
       "szene": [
@@ -1371,7 +1371,7 @@
       "typ": "exam",
       "seemeilen": 150,
       "titel": "Abschlussprüfung",
-      "ort": "Hafenkontor",
+      "ort": "Hafenbüro",
       "lernziel": "Alles vom Hafen wiederholen",
       "dauer": "8 bis 10 Min.",
       "szene": [

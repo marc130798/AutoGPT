@@ -273,8 +273,11 @@ class StationController extends ChangeNotifier {
     final exam = content.exam;
     if (isDive) {
       // Perlentauchen: Fragen der Stationen seit dem letzten Ankerplatz.
-      final pools = [for (final s in stationsBeforeDive(allStations, station)) await _content.fetchQuestions(s.id)];
-      picked = pickDiveQuestions(pools, content.dive?.questions ?? 4, _random);
+      final covered = stationsBeforeDive(allStations, station);
+      final pools = [for (final s in covered) await _content.fetchQuestions(s.id)];
+      // Fragen, die gerade im Stations-Check dran waren, möglichst nicht wiederholen.
+      final seen = {for (final s in covered) ...?await _settings.lastQuizSelection(child.id, s.id)};
+      picked = pickDiveQuestions(pools, content.dive?.questions ?? 4, _random, avoidIds: seen);
       if (picked.isEmpty) throw const AppFailure(FailureKind.unknown, 'Keine Fragen für den Tauchgang');
       _quiz = QuizRun([for (final q in picked) ShuffledQuestion.shuffle(q.forLevel(child.level), _random)]);
       return;

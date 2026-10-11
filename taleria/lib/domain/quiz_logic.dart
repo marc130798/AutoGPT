@@ -84,9 +84,23 @@ List<QuizQuestion> pickExamQuestions({
 
 /// Tauchgang: [count] Fragen, abwechselnd aus den Pools der Stationen davor,
 /// damit jede Station drankommt. Ergebnis ist gemischt.
-List<QuizQuestion> pickDiveQuestions(List<List<QuizQuestion>> pools, int count, Random random) {
+///
+/// [avoidIds] sind Fragen, die das Kind gerade erst in den Stationen hatte.
+/// Sie kommen nur dran, wenn die anderen nicht reichen (Marcs Test am
+/// 11.10.2026: im Tauchgang kamen dieselben Fragen wie in der Station davor).
+List<QuizQuestion> pickDiveQuestions(
+  List<List<QuizQuestion>> pools,
+  int count,
+  Random random, {
+  Set<String> avoidIds = const {},
+}) {
+  // Gezogen wird von hinten: Frische Fragen hinten, gerade gesehene vorn.
   final queues = [
-    for (final pool in pools.where((p) => p.isNotEmpty)) [...pool]..shuffle(random),
+    for (final pool in pools.where((p) => p.isNotEmpty))
+      [
+        ...([...pool.where((q) => avoidIds.contains(q.id))]..shuffle(random)),
+        ...([...pool.where((q) => !avoidIds.contains(q.id))]..shuffle(random)),
+      ],
   ];
   final picked = <QuizQuestion>[];
   while (picked.length < count && queues.any((q) => q.isNotEmpty)) {

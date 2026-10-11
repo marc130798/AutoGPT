@@ -79,12 +79,15 @@ class ShipStage extends StatelessWidget {
 
 /// Oben eine Bühne vor dem Hintergrund (zum Beispiel Figuren, die gerade
 /// sprechen), darunter der Inhalt auf einem Blatt Papier. Ohne [stage] nur
-/// das Papier.
+/// das Papier. Mit [open] gibt es kein großes Blatt: Der Inhalt liegt direkt
+/// vor dem Bild und rahmt nur Frage und Antworten ein ([GlassFrame]), zum
+/// Beispiel unter Wasser.
 class StagePanel extends StatelessWidget {
-  const StagePanel({super.key, this.stage, required this.child});
+  const StagePanel({super.key, this.stage, required this.child, this.open = false});
 
   final Widget? stage;
   final Widget child;
+  final bool open;
 
   @override
   Widget build(BuildContext context) {
@@ -101,22 +104,52 @@ class StagePanel extends StatelessWidget {
                 width: double.infinity,
                 child: Padding(padding: const EdgeInsets.only(top: 8), child: stage),
               ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.fromLTRB(10, stage == null ? 10 : 0, 10, 10),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: palette.paper.withValues(alpha: 0.96),
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: const Color(0xFFE2C27A), width: 2),
-                  boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 12, offset: Offset(0, 4))],
+            if (open)
+              Expanded(child: child)
+            else
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(10, stage == null ? 10 : 0, 10, 10),
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    color: palette.paper.withValues(alpha: 0.96),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: const Color(0xFFE2C27A), width: 2),
+                    boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 12, offset: Offset(0, 4))],
+                  ),
+                  child: child,
                 ),
-                child: child,
               ),
-            ),
           ],
         );
       },
+    );
+  }
+}
+
+/// Rahmen um Frage, Rückmeldung oder Überschrift, wenn kein großes Blatt
+/// darunter liegt ([StagePanel.open]): Papier nur dort, wo Text steht,
+/// dazwischen sieht man das Bild (Marcs Wunsch am 11.10.2026 für die Tauchgänge).
+class GlassFrame extends StatelessWidget {
+  const GlassFrame({super.key, required this.child, this.padding = const EdgeInsets.all(14)});
+
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+
+  /// Füllung für Antwort-Knöpfe ohne Papier darunter.
+  static Color fill(BuildContext context) => context.palette.paper.withValues(alpha: 0.93);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: fill(context),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: const Color(0xFFE2C27A), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x44081C30), blurRadius: 8, offset: Offset(0, 3))],
+      ),
+      child: child,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/taleria_asset.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -139,6 +140,7 @@ class _StationScreenState extends State<StationScreen> {
                 ? DiveHeader(game: diveGame, results: controller.quiz!.results, stationId: widget.station.id)
                 : null,
             answerIcon: controller.isDive ? diveGame.answerIcon : null,
+            framed: controller.isDive,
             onAnswer: (i) {
               controller.answerQuiz(i);
               // Beim Tauchgang ist jede richtige Antwort eine Perle.
@@ -206,7 +208,8 @@ Widget _framed(StationController controller, Widget body) {
       stage: quizStage(answered: controller.warmUp!.answered, correct: controller.warmUp!.answeredCorrectly),
       child: body,
     ),
-    StationStep.quiz when dive => StagePanel(stage: const SizedBox.shrink(), child: body),
+    // Unter Wasser kein großes Blatt: nur Frage und Antworten sind eingerahmt.
+    StationStep.quiz when dive => StagePanel(stage: const SizedBox.shrink(), open: true, child: body),
     StationStep.quiz => StagePanel(
       stage: quizStage(answered: controller.quiz!.answered, correct: controller.quiz!.answeredCorrectly),
       child: body,
@@ -222,7 +225,7 @@ Widget _framed(StationController controller, Widget body) {
       ),
       child: body,
     ),
-    StationStep.wreck => StagePanel(stage: const SizedBox.shrink(), child: body),
+    StationStep.wreck => StagePanel(stage: const SizedBox.shrink(), open: true, child: body),
     StationStep.result when dive => StagePanel(stage: const SizedBox.shrink(), child: body),
     StationStep.result => StagePanel(
       stage: FigureStage(
@@ -443,13 +446,37 @@ class _BonusGameCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            children: [
-              const GameSign(size: 48),
-              const SizedBox(width: 12),
-              Expanded(child: Text(l10n.bonusGameTitle, style: theme.textTheme.titleMedium)),
-            ],
-          ),
+          // Startbild des Spiels mit dem Spiel-Zeichen in der Ecke, sonst nur das Zeichen.
+          if (game.image case final image?) ...[
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: SizedBox(
+                    height: 140,
+                    width: double.infinity,
+                    child: TaleriaAsset(
+                      image,
+                      key: const ValueKey('bonus-game-image'),
+                      fit: BoxFit.cover,
+                      fallback: const Center(child: GameSign(size: 56)),
+                    ),
+                  ),
+                ),
+                const Positioned(top: -10, left: -6, child: GameSign(size: 44)),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(l10n.bonusGameTitle, style: theme.textTheme.titleMedium),
+          ] else
+            Row(
+              children: [
+                const GameSign(size: 48),
+                const SizedBox(width: 12),
+                Expanded(child: Text(l10n.bonusGameTitle, style: theme.textTheme.titleMedium)),
+              ],
+            ),
           const SizedBox(height: 8),
           Text(l10n.bonusGameBody(game.title), style: theme.textTheme.bodyMedium),
           const SizedBox(height: 12),
@@ -530,11 +557,22 @@ class _WreckView extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              Text(l10n.wreckTitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+              // Unter Wasser ohne großes Blatt: nur Überschrift, Frage, Antworten
+              // und Rückmeldung haben einen Rahmen, dazwischen sieht man das Wrack.
+              GlassFrame(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                child: Text(l10n.wreckTitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+              ),
               const SizedBox(height: 12),
               for (final line in task.scene)
                 Padding(padding: const EdgeInsets.only(bottom: 12), child: SpeechBubble.line(line)),
-              Text(q.question.question, key: const ValueKey('wreck-question'), style: theme.textTheme.titleMedium),
+              GlassFrame(
+                child: Text(
+                  q.question.question,
+                  key: const ValueKey('wreck-question'),
+                  style: theme.textTheme.titleMedium,
+                ),
+              ),
               const SizedBox(height: 12),
               for (final (i, answer) in q.answers.indexed)
                 Padding(
@@ -545,7 +583,9 @@ class _WreckView extends StatelessWidget {
                       minimumSize: const Size.fromHeight(56),
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      backgroundColor: colorFor(i)?.withValues(alpha: 0.15),
+                      backgroundColor: colorFor(i) == null
+                          ? GlassFrame.fill(context)
+                          : Color.alphaBlend(colorFor(i)!.withValues(alpha: 0.18), GlassFrame.fill(context)),
                       side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
                     ),
                     onPressed: chosen == null
@@ -559,19 +599,25 @@ class _WreckView extends StatelessWidget {
                     child: Text(answer, style: theme.textTheme.bodyLarge),
                   ),
                 ),
-              if (chosen != null) ...[
-                Text(
-                  run.answeredCorrectly ? l10n.quizCorrect : l10n.quizWrong,
-                  key: const ValueKey('wreck-feedback'),
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: run.answeredCorrectly ? palette.success : palette.coral,
+              if (chosen != null)
+                GlassFrame(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        run.answeredCorrectly ? l10n.quizCorrect : l10n.quizWrong,
+                        key: const ValueKey('wreck-feedback'),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: run.answeredCorrectly ? palette.success : palette.coral,
+                        ),
+                      ),
+                      if (q.question.explanation != null) ...[
+                        const SizedBox(height: 4),
+                        Text(q.question.explanation!, style: theme.textTheme.bodyLarge),
+                      ],
+                    ],
                   ),
                 ),
-                if (q.question.explanation != null) ...[
-                  const SizedBox(height: 4),
-                  Text(q.question.explanation!, style: theme.textTheme.bodyLarge),
-                ],
-              ],
             ],
           ),
         ),

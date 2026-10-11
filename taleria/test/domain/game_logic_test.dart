@@ -329,6 +329,36 @@ void main() {
         hasLength(2),
         reason: 'kleiner Pool',
       );
+
+      // Gerade im Stations-Check gesehene Fragen kommen nicht wieder dran.
+      final seen = {
+        for (final s in ['s3', 's4'])
+          for (var i = 0; i < 3; i++) '$s-$i',
+      };
+      for (var seed = 0; seed < 20; seed++) {
+        final fresh = pickDiveQuestions(
+          [
+            [for (var i = 0; i < 6; i++) q('s3', i)],
+            [for (var i = 0; i < 6; i++) q('s4', i)],
+          ],
+          4,
+          Random(seed),
+          avoidIds: seen,
+        );
+        expect(fresh.where((p) => seen.contains(p.id)), isEmpty);
+      }
+      // Reicht der Rest nicht, kommen auch gesehene dran.
+      expect(
+        pickDiveQuestions(
+          [
+            [q('s3', 0), q('s3', 1)],
+          ],
+          2,
+          Random(1),
+          avoidIds: {'s3-0'},
+        ),
+        hasLength(2),
+      );
     });
   });
 
