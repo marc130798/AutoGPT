@@ -58,7 +58,7 @@ class ChildProfile {
   final int birthYear;
   final LevelSetting level;
 
-  /// Stufe 1 (10 bis 14) oder später Stufe 2. Bestimmt Theme und Inhalte.
+  /// Stufe 1 (8 bis 12) oder später Stufe 2. Bestimmt Theme und Inhalte.
   final int stage;
 
   /// `null`, solange das Kind noch keinen Avatar gestaltet hat.

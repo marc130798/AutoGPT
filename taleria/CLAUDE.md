@@ -22,9 +22,9 @@ Wenn sich eine Entscheidung ändert, aktualisiere diese Datei im selben Schritt.
 
 Eine Lern-App, mit der Kinder spielerisch den Umgang mit Geld lernen.
 
-- **Nutzer:** Kinder, empfohlen ab 10 Jahren. Eltern können selbst entscheiden, ab wann ihr Kind startet.
+- **Nutzer:** Kinder von 8 bis 12 Jahren (entschieden mit Marc am 11.10.2026, vorher 10 bis 14), empfohlen ab 8. Eltern können selbst entscheiden, ab wann ihr Kind startet.
 - **Kunden:** die Eltern. Nur sie zahlen und verwalten das Abo.
-- **Umfang:** Gebaut wird NUR Stufe 1 (10 bis 14). Stufe 2 (15 bis 18) wird nicht gebaut, keine Inhalte, keine Bildschirme, keine Texte.
+- **Umfang:** Gebaut wird NUR Stufe 1 (8 bis 12). Stufe 2 (für Ältere, ab etwa 13) wird nicht gebaut, keine Inhalte, keine Bildschirme, keine Texte.
 - **Vorbereitung für Stufe 2:** Die Technik bleibt offen dafür: Feld `stage` bei Kindern und Inseln, austauschbares Theme, Inhalte aus der Datenbank. Stufe 2 soll später durch neue Inhalte und ein neues Theme hinzukommen, ohne Umbau des Codes. Überall, wo heute nur Stufe 1 gilt, wird trotzdem nach `stage` gefiltert.
 - **Welt:** Das Meer von Taleria. Die Figuren Talo (Fuchs, Kapitän) und Tala (Schwein, weiblich, Zahlmeisterin) suchen als Schatzsucher die Teile einer zerrissenen Schatzkarte. Das Kind ist neues Crewmitglied. Meister Taleron, ein uraltes, weises und freundliches Seeungeheuer, ist der Hüter des Meeres: Er hat die Schatzkarte einst selbst zerrissen und die Teile auf den Inseln verteilt, damit nur eine kluge Crew den Schatz findet. Er prüft die Crew unterwegs mit Rätselfragen.
 - **Fortschritt:** Eine Inselkarte. Jede Insel ist ein Thema mit mehreren Stationen. Erledigte Inseln öffnen die nächste, weitere Inseln tragen ein Schloss.
@@ -285,6 +285,7 @@ Die App muss jederzeit testbar sein, auch wenn Grafiken, Animationen und Filme n
 - Alle Entwürfe haben `status = draft` und werden als Seed-Daten in der Testumgebung geladen, damit Marc die App sofort durchspielen kann.
 - Vor dem Veröffentlichen prüft Marc jeden Inhalt, fachliche Aussagen werden zusätzlich von einer Fachperson geprüft. Keine Zahlen, Gesetze oder Steuerregeln ohne Quelle.
 - Inhalte sind neutral: Konzepte erklären, keine Produkte, Banken oder Anbieter empfehlen.
+- Inhalte für 8 bis 12 Jahre schreiben: weder Grundschulstoff der 1. und 2. Klasse abfragen noch Fachbegriffe ohne Alltagsbeispiel. Die Regeln stehen in `INSELN.md`, Abschnitt „Schreibregeln für 8 bis 12 Jahre“.
 
 ---
 
@@ -656,6 +657,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Ein Stopp läuft wie eine Station ab: Szene, Fragen, Ergebnis „Stopp geschafft!“, „Weiter segeln“. Der Hintergrund ist das offene Meer, ohne „Weißt du noch?“. Auf der Insel selbst erscheinen Stopps nicht.
   - Im Testprojekt müssen die Migration und danach `supabase/seed.sql` laufen.
 - **Gezeichnete Bilder in Bildergeschichten (11.10.2026):** Gemini malt falsche Zahlen auf Münzen und Scheine. Darum zeichnet die App solche Bilder selbst: `"bild": "drawing:<name>"` in der Inhaltsdatei, die Zeichnungen stehen in `lib/features/station/story_drawings.dart`. Es gibt `euro_coins` (alle 8 Euro-Münzen in echter Farbe und Größe), `cents_to_euro` (50 ct + 50 ct = 1 €), `euro_notes` (5, 10, 20 und 50 €) und `big_coins_first` (2,80 € mit möglichst wenigen Münzen). Die Liste muss im Werkzeug (`storyDrawings` in `tool/content/content_model.dart`) und in der App gleich sein. Genutzt wird das in Hafen Station 4, dadurch entfallen die Gemini-Bilder 37 bis 39. Regel für neue Bilder: Wo genaue Zahlen nötig sind, zeichnet die App.
+- **Zielgruppe 8 bis 12 statt 10 bis 14 (entschieden mit Marc am 11.10.2026):** Marc fiel auf, dass der Hafen Stoff der 1. und 2. Klasse abfragt (Münzen kennen, 50 + 50 Cent). Auch der Look mit süßen 3D-Tieren spricht eher 7- bis 11-Jährige an. Darum ist Stufe 1 jetzt für 8 bis 12 Jahre, empfohlen ab 8 (Hinweis beim Kinder-Profil). Stufe 2 wäre später für Ältere ab etwa 13. Die Bilder bleiben alle gültig. Neue Schreibregeln in `INSELN.md` („Schreibregeln für 8 bis 12 Jahre“): keine reinen Grundschulfragen, Rechnen mit Komma, Wechselgeld und Preis pro Stück; schwere Themen (Zinsen, Schulden, Investieren) immer an einer Alltagsgeschichte. Die Migrationen sagen in ihren Kommentaren noch „10 bis 14“; sie bleiben unverändert, weil fertige Migrationen nicht mehr geändert werden.
 
 ---
 

@@ -1,4 +1,4 @@
-# INSELN.md – Inhalte der Inseln, Stufe 1 (10 bis 14)
+# INSELN.md – Inhalte der Inseln, Stufe 1 (8 bis 12)
 
 Jede Insel wird hier mit Marc einzeln festgelegt. Status pro Insel: `entwurf`, `abgestimmt`, `fachlich geprüft`.
 Claude Code nutzt diese Datei als Vorlage für Seed-Daten, Layouts und Effekte. Alle Inhalte starten in der App mit `status = draft`.
@@ -29,6 +29,15 @@ Claude Code nutzt diese Datei als Vorlage für Seed-Daten, Layouts und Effekte. 
 - **Reihenfolge auf einer Insel:** Station 1 · Station 2 · Ankerplatz · Station 3 · Station 4 · Ankerplatz · Station 5 · Station 6 · Ankerplatz · Station 7 · Abschlussprüfung
 
 ---
+
+## Schreibregeln für 8 bis 12 Jahre (gelten für alle Inseln)
+
+Entschieden mit Marc am 11.10.2026: Stufe 1 ist für Kinder von 8 bis 12 Jahren (3. bis 6. Klasse).
+
+- **Nicht unterfordern:** Was Kinder schon in der 1. und 2. Klasse lernen (Münzen und Scheine kennen, kleine Beträge zusammenzählen), kommt nur als kurze Erinnerung vor, nicht als eigene Frage. Rechenfragen nutzen Beträge mit Komma, Wechselgeld, Preis pro Stück und einfache Anteile (Hälfte, Viertel, Zehntel).
+- **Nicht überfordern:** Kurze Sätze, höchstens etwa 15 Wörter. Ein neues Wort wird beim ersten Mal erklärt. Keine Prozentrechnung mit krummen Zahlen; Prozent nur als „10 von 100“ oder „ein Zehntel“.
+- **Schwere Themen** (Zinsen, Inflation, Schulden, Risiko, Investieren) immer an einer kleinen Geschichte aus dem Alltag erklären: Taschengeld, Sparschwein, Fahrrad, Fußballkarten, Klassenfahrt. Keine Fachbegriffe ohne Beispiel.
+- **Ton:** freundlich, nicht babyhaft. Ein 12-Jähriger soll sich ernst genommen fühlen.
 
 ## Quiz-Regeln (gelten für alle Inseln)
 

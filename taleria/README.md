@@ -1,6 +1,6 @@
 # Taleria
 
-Lern-App, mit der Kinder (10 bis 14) spielerisch den Umgang mit Geld lernen.
+Lern-App, mit der Kinder (8 bis 12) spielerisch den Umgang mit Geld lernen.
 Alle Regeln und Entscheidungen stehen in [`CLAUDE.md`](CLAUDE.md).
 
 ## Was es seit den neuen Mini-Spielen gibt

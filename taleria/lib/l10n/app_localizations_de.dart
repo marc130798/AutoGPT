@@ -299,7 +299,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get birthYearLabel => 'Geburtsjahr';
 
   @override
-  String get birthYearHint => 'Empfohlen ab 10 Jahren. Du entscheidest, wann dein Kind startet.';
+  String get birthYearHint => 'Empfohlen ab 8 Jahren. Du entscheidest, wann dein Kind startet.';
 
   @override
   String get levelLabel => 'Niveau';

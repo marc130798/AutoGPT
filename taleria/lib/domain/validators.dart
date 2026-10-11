@@ -109,7 +109,7 @@ WishAmountProblem? validateWishEuros(String input) {
 int eurosToCents(int euros) => euros * 100;
 
 /// Geburtsjahre zur Auswahl, neueste zuerst: Kinder von 6 bis 17 Jahren.
-/// Empfohlen ist Taleria ab 10, aber die Eltern entscheiden.
+/// Empfohlen ist Taleria ab 8, aber die Eltern entscheiden.
 List<int> selectableBirthYears(DateTime now) => [for (var age = 6; age <= 17; age++) now.year - age];
 
 /// Macht aus einer Eingabe wie „abcd-2345“ den Code „ABCD2345“.

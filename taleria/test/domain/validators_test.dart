@@ -61,7 +61,7 @@ void main() {
     final years = selectableBirthYears(DateTime(2026, 10, 9));
     expect(years.first, 2020);
     expect(years.last, 2009);
-    expect(years, contains(2016)); // 10 Jahre, empfohlenes Startalter
+    expect(years, contains(2018)); // 8 Jahre, empfohlenes Startalter
     expect(years, hasLength(12));
   });
 

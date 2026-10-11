@@ -640,7 +640,7 @@ abstract class AppLocalizations {
   /// Hinweis zum Alter
   ///
   /// In de, this message translates to:
-  /// **'Empfohlen ab 10 Jahren. Du entscheidest, wann dein Kind startet.'**
+  /// **'Empfohlen ab 8 Jahren. Du entscheidest, wann dein Kind startet.'**
   String get birthYearHint;
 
   /// Feld Niveau

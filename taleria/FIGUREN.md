@@ -8,7 +8,7 @@ Alle Figuren sind Entwürfe. Namen und Rollen stammen aus `INSELN.md`.
 
 ## 1. Stil für die ganze Welt
 
-- **Zielgruppe:** Kinder von 10 bis 14 Jahren. Freundlich und lebendig, aber nicht babyhaft. Ein 13-Jähriger soll die App nicht peinlich finden.
+- **Zielgruppe:** Kinder von 8 bis 12 Jahren (seit 11.10.2026, vorher 10 bis 14). Freundlich und lebendig, aber nicht babyhaft. Ein 12-Jähriger soll die App nicht peinlich finden.
 - **Welt:** Das Meer von Taleria, Schatzsucher-Abenteuer mit leichtem Seefahrer-Flair, keine Piraten mit Waffen. Auch auf dem Schiff keine Kanonen (lieber Fässer, Kisten, Fernrohr, Seekarten).
 - **Look (entschieden mit Marc am 10.10.2026):** 3D-Animationsfilm-Look, wie gerenderte Standbilder aus einem Kinofilm für Kinder. Weiche Formen, warme leuchtende Farben, Licht von links oben. Gut lesbar auf kleinen Handybildschirmen im Hochformat. Die Bilder erstellt Marc mit Gemini.
 - **Bewegung:** Jede Hauptfigur bekommt ihre Zustände als einzelne freigestellte Bilder (PNG). Die App bewegt sie leicht (wippen, hüpfen, Bild wechseln). Für besondere Momente (Intro, Ankunft, Schatzkarte) gibt es kurze Filme. Rive ist für den 3D-Look nicht geeignet und entfällt.

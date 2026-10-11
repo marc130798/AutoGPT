@@ -21,7 +21,7 @@ class TaleriaPalette extends ThemeExtension<TaleriaPalette> {
     required this.success,
   });
 
-  /// Palette für Stufe 1 (10 bis 14 Jahre): freundlich, aber nicht babyhaft.
+  /// Palette für Stufe 1 (8 bis 12 Jahre): freundlich, aber nicht babyhaft.
   static const stage1 = TaleriaPalette(
     sea: Color(0xFF3E8FB0),
     seaDeep: Color(0xFF24476B),
