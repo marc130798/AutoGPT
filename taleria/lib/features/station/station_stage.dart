@@ -120,6 +120,11 @@ class StagePanel extends StatelessWidget {
           backgroundColor: WidgetStatePropertyAll(fill),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: (theme.textButtonTheme.style ?? const ButtonStyle()).copyWith(
+          backgroundColor: WidgetStatePropertyAll(fill),
+        ),
+      ),
       filledButtonTheme: FilledButtonThemeData(
         style: (theme.filledButtonTheme.style ?? const ButtonStyle()).copyWith(
           backgroundColor: WidgetStateProperty.resolveWith(
@@ -203,7 +208,14 @@ enum AnswerMark { none, right, wrong }
 /// Kreuz (Marcs Wunsch am 11.10.2026, damit man es besser erkennt). Ohne Blatt
 /// darunter ([StagePanel.open]) liegt jede Antwort auf Papier.
 class AnswerButton extends StatelessWidget {
-  const AnswerButton({super.key, required this.text, this.mark = AnswerMark.none, this.onPressed, this.icon});
+  const AnswerButton({
+    super.key,
+    required this.text,
+    this.mark = AnswerMark.none,
+    this.onPressed,
+    this.icon,
+    this.center = false,
+  });
 
   final String text;
   final AnswerMark mark;
@@ -211,6 +223,9 @@ class AnswerButton extends StatelessWidget {
 
   /// Vor der Antwort, zum Beispiel ein Fisch beim Fischschwarm.
   final IconData? icon;
+
+  /// Text in der Mitte (Körbe und Möglichkeiten in Übungen).
+  final bool center;
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +259,7 @@ class AnswerButton extends StatelessWidget {
           Expanded(
             child: Text(
               text,
+              textAlign: center ? TextAlign.center : null,
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: palette.ink,
                 fontWeight: color == null ? null : FontWeight.w700,

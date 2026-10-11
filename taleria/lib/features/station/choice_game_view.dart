@@ -8,6 +8,7 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'station_stage.dart';
 
 /// Entscheidungen: Situation, Frage, Möglichkeiten als große Knöpfe. Nach der
 /// Wahl erscheint die Rückmeldung. Weniger gut: „Nochmal versuchen“.
@@ -57,6 +58,7 @@ class _ChoiceGameViewState extends State<ChoiceGameView> {
     }
 
     return GameFrame(
+      key: const ValueKey('choice-game'),
       game: widget.game,
       button: button,
       children: [
@@ -72,24 +74,18 @@ class _ChoiceGameViewState extends State<ChoiceGameView> {
         for (final option in game.optionOrder)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: OutlinedButton(
+            child: AnswerButton(
               key: ValueKey('choice-option-$option'),
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(56),
-                side: BorderSide(
-                  color: game.chosen == option
-                      ? (game.answeredWell ? palette.success : palette.coral)
-                      : palette.seaDeep,
-                  width: game.chosen == option ? 3 : 2,
-                ),
-              ),
+              text: round.options[option].text,
+              center: true,
+              // Gewählte Möglichkeit: grün, wenn sie gut ist, sonst rot.
+              mark: game.chosen == option ? (game.answeredWell ? AnswerMark.right : AnswerMark.wrong) : AnswerMark.none,
               onPressed: game.answered
                   ? null
                   : () {
                       setState(() => game.choose(option));
                       if (game.answeredWell) playGameSound(context, AssetKeys.soundCorrect);
                     },
-              child: Text(round.options[option].text, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
             ),
           ),
         if (chosen != null)

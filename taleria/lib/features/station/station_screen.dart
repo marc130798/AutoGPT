@@ -168,8 +168,9 @@ class _StationScreenState extends State<StationScreen> {
                   : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
               // Unter Wasser oben das Wrack mit den Fischen zeigen.
               lift: controller.isDive ? 0.35 : 0,
-              // Bei Gesprächen und Bildergeschichten verblasst das Bild leicht.
-              faded: controller.step == StationStep.scene || controller.step == StationStep.lesson,
+              // Das Bild ist immer leicht verblasst, damit Texte und Figuren
+              // hervortreten (Marcs Wunsch am 11.10.2026).
+              faded: true,
               child: SafeArea(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),
@@ -218,7 +219,7 @@ Widget _framed(StationController controller, Widget body) {
       child: body,
     ),
     // Echte Mini-Spiele brauchen den ganzen Platz.
-    StationStep.game when controller.station.content.game?.isRealGame ?? false => StagePanel(child: body),
+    StationStep.game when controller.station.content.game?.isRealGame ?? false => StagePanel(open: true, child: body),
     StationStep.game => StagePanel(
       stage: const FigureStage(
         figures: [
@@ -226,6 +227,7 @@ Widget _framed(StationController controller, Widget body) {
           StageFigure(AssetKeys.talo, active: false),
         ],
       ),
+      open: true,
       child: body,
     ),
     StationStep.wreck => StagePanel(stage: const SizedBox.shrink(), open: true, child: body),

@@ -6,6 +6,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
+import 'station_stage.dart';
 
 /// Gemeinsamer Rahmen aller Mini-Spiele: Titel, Aufgabe, Inhalt, Knopf unten.
 /// Übungen (Tipp-Aufgaben) tragen oben das Schild „Übung“; bei echten Spielen
@@ -17,38 +18,85 @@ class GameFrame extends StatelessWidget {
   final List<Widget> children;
   final Widget button;
 
+  /// Ohne Blatt darunter ([StagePanel.open]) bekommen lose Texte und Zeilen
+  /// einen Rahmen; nebeneinanderliegende teilen sich einen. Karten, Knöpfe
+  /// und Sprechblasen haben schon einen eigenen Hintergrund.
+  static List<Widget> _framed(List<Widget> children) {
+    bool framable(Widget w) => w is Text || w is RichText || w is Column || w is Row || w is TextField;
+    final out = <Widget>[];
+    var group = <Widget>[];
+    var pending = <Widget>[];
+    void flush() {
+      if (group.isNotEmpty) {
+        out.add(
+          GlassFrame(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: group),
+          ),
+        );
+      }
+      out.addAll(pending);
+      group = [];
+      pending = [];
+    }
+
+    for (final child in children) {
+      if (framable(child)) {
+        group
+          ..addAll(pending)
+          ..add(child);
+        pending = [];
+      } else if (child is SizedBox && child.child == null && group.isNotEmpty) {
+        pending.add(child);
+      } else {
+        flush();
+        out.add(child);
+      }
+    }
+    flush();
+    return out;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final palette = context.palette;
+    final open = StagePanel.isOpen(context);
     return Column(
       children: [
         Expanded(
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              // Übungen tragen neben dem Titel das Schild „Übung“.
-              Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 8,
-                children: [
-                  if (!game.isRealGame)
-                    Container(
-                      key: const ValueKey('practice-label'),
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                      decoration: BoxDecoration(color: palette.sand, borderRadius: BorderRadius.circular(12)),
-                      child: Text(AppLocalizations.of(context).practiceLabel, style: theme.textTheme.labelMedium),
+              OpenFrame(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Übungen tragen neben dem Titel das Schild „Übung“.
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 8,
+                      children: [
+                        if (!game.isRealGame)
+                          Container(
+                            key: const ValueKey('practice-label'),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                            decoration: BoxDecoration(color: palette.sand, borderRadius: BorderRadius.circular(12)),
+                            child: Text(AppLocalizations.of(context).practiceLabel, style: theme.textTheme.labelMedium),
+                          ),
+                        Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+                      ],
                     ),
-                  Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
-                ],
+                    if (game.task != null && !game.isRealGame) ...[
+                      const SizedBox(height: 4),
+                      Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
+                    ],
+                  ],
+                ),
               ),
-              if (game.task != null && !game.isRealGame) ...[
-                const SizedBox(height: 4),
-                Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
-              ],
               const SizedBox(height: 16),
-              ...children,
+              ...(open ? _framed(children) : children),
             ],
           ),
         ),

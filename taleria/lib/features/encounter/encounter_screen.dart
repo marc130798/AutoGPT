@@ -112,8 +112,8 @@ class _EncounterScreenState extends State<EncounterScreen> {
           body: FogReveal(
             child: StationBackdrop(
               assetKey: AssetKeys.mapBackground,
-              // Beim Gespräch zu Beginn verblasst das Meer leicht.
-              faded: controller.step == EncounterStep.intro,
+              // Das Meer ist leicht verblasst, damit Taleron und die Texte hervortreten.
+              faded: true,
               child: SafeArea(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 250),

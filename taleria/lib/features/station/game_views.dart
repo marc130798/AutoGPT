@@ -15,6 +15,7 @@ import 'game_frame.dart';
 import 'number_game_view.dart';
 import 'pick_game_view.dart';
 import 'real_game_flow.dart';
+import 'station_stage.dart';
 
 /// Mini-Spiel einer Station. Spielarten ohne eigene Mechanik zeigen den
 /// Platzhalter [placeholder]. [onDone] führt weiter zum Stations-Check.
@@ -117,24 +118,18 @@ class _SortGameViewState extends State<SortGameView> {
         for (final (i, basket) in widget.game.baskets.indexed)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: OutlinedButton(
+            child: AnswerButton(
               key: ValueKey('basket-$i'),
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(56),
-                side: BorderSide(
-                  color: game.choice == i
-                      ? (game.answeredCorrectly ? palette.success : palette.coral)
-                      : palette.seaDeep,
-                  width: game.choice == i ? 3 : 2,
-                ),
-              ),
+              text: basket,
+              center: true,
+              // Gewählter Korb: grün, wenn er passt, sonst rot.
+              mark: game.choice == i ? (game.answeredCorrectly ? AnswerMark.right : AnswerMark.wrong) : AnswerMark.none,
               onPressed: game.answered
                   ? null
                   : () {
                       setState(() => game.choose(i));
                       if (game.answeredCorrectly) playGameSound(context, AssetKeys.soundCorrect);
                     },
-              child: Text(basket, style: theme.textTheme.bodyLarge),
             ),
           ),
         if (game.answered) ...[
@@ -198,7 +193,7 @@ class _OrderGameViewState extends State<OrderGameView> {
         // Die Reihe, wie sie schon gelegt ist.
         for (final (position, item) in game.placed.indexed)
           Card(
-            color: palette.success.withValues(alpha: 0.12),
+            color: Color.alphaBlend(palette.success.withValues(alpha: 0.18), palette.paper),
             child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: palette.success,
@@ -289,7 +284,9 @@ class _WishBottleGameViewState extends State<WishBottleGameView> {
           if (widget.game.description != null)
             Text(widget.game.description!, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
           const SizedBox(height: 16),
-          WishBottleForm(submitLabel: l10n.wishBottleThrow, onSubmit: _throw),
+          OpenFrame(
+            child: WishBottleForm(submitLabel: l10n.wishBottleThrow, onSubmit: _throw),
+          ),
         ] else ...[
           Icon(Icons.water_drop_outlined, size: 64, color: context.palette.sea),
           const SizedBox(height: 16),

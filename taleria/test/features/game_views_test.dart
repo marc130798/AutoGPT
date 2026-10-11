@@ -10,6 +10,7 @@ import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/domain/money.dart';
 import 'package:taleria/features/station/dive_header.dart';
 import 'package:taleria/features/station/game_views.dart';
+import 'package:taleria/features/station/station_stage.dart';
 import 'package:taleria/l10n/app_localizations.dart';
 
 import '../fake_content.dart';
@@ -54,10 +55,13 @@ void main() {
         await tester.tap(find.byKey(ValueKey('basket-${1 - item.basket!}')));
         await tester.pumpAndSettle();
         expect(find.text('Passt nicht ganz. Versuch einen anderen Korb.'), findsOneWidget);
+        AnswerMark mark(int basket) => tester.widget<AnswerButton>(find.byKey(ValueKey('basket-$basket'))).mark;
+        expect(mark(1 - item.basket!), AnswerMark.wrong, reason: 'falscher Korb rot');
         await tester.tap(find.byKey(const ValueKey('game-retry')));
         await tester.pumpAndSettle();
         await tester.tap(find.byKey(ValueKey('basket-${item.basket}')));
         await tester.pumpAndSettle();
+        expect(mark(item.basket!), AnswerMark.right, reason: 'richtiger Korb grün');
         expect(find.text('Passt!'), findsOneWidget);
       }
       if (i < game.items.length - 1) {

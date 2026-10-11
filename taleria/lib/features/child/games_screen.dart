@@ -207,8 +207,10 @@ class GameReplayScreen extends StatelessWidget {
       appBar: AppBar(title: Text(entry.game.title)),
       body: StationBackdrop(
         assetKey: AssetKeys.islandBackground(entry.island.slug),
+        faded: true,
         child: SafeArea(
           child: StagePanel(
+            open: true,
             child: RealGameFlow(
               game: entry.game.forLevel(level),
               replay: true,

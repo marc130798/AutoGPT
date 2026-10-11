@@ -11,6 +11,7 @@ import '../intro/speech_bubble.dart';
 import 'backpack_game_view.dart';
 import 'ice_stand_game_view.dart';
 import 'market_game_view.dart';
+import 'station_stage.dart';
 import 'till_game_view.dart';
 import 'trade_chain_game_view.dart';
 
@@ -118,22 +119,29 @@ class RealGameIntro extends StatelessWidget {
                 const Center(child: GameSign(size: 96)),
                 const SizedBox(height: 16),
               ],
-              Text(
-                l10n.realGameBadge,
-                key: const ValueKey('real-game-badge'),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall?.copyWith(color: palette.coral, fontWeight: FontWeight.w800),
+              OpenFrame(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.realGameBadge,
+                      key: const ValueKey('real-game-badge'),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headlineSmall?.copyWith(color: palette.coral, fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+                    if (game.task != null) ...[
+                      const SizedBox(height: 16),
+                      Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
+                    ],
+                    if (replay) ...[
+                      const SizedBox(height: 16),
+                      Text(l10n.realGameReplayNote, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+                    ],
+                  ],
+                ),
               ),
-              const SizedBox(height: 4),
-              Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
-              if (game.task != null) ...[
-                const SizedBox(height: 16),
-                Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
-              ],
-              if (replay) ...[
-                const SizedBox(height: 16),
-                Text(l10n.realGameReplayNote, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
-              ],
             ],
           ),
         ),
@@ -209,14 +217,21 @@ class _RealGameEnd extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              Text(
-                l10n.realGameWellDone,
-                key: const ValueKey('real-game-done'),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall,
+              OpenFrame(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.realGameWellDone,
+                      key: const ValueKey('real-game-done'),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 12),
+                    GameStars(count: stars),
+                  ],
+                ),
               ),
-              const SizedBox(height: 12),
-              GameStars(count: stars),
               if (game.done != null) ...[const SizedBox(height: 20), SpeechBubble.line(game.done!)],
             ],
           ),

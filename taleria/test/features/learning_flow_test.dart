@@ -97,7 +97,7 @@ void main() {
   /// Klickt Szene, Bildergeschichte und Spiel durch, bis das Quiz kommt.
   Future<void> playUntilQuiz(WidgetTester tester) async {
     for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
-      if (find.byKey(const ValueKey('choice-question')).evaluate().isNotEmpty) {
+      if (find.byKey(const ValueKey('choice-game')).evaluate().isNotEmpty) {
         await solveChoice(tester);
       } else if (find.byKey(const ValueKey('coins-sum')).evaluate().isNotEmpty) {
         await solveCoins(tester);

@@ -127,7 +127,7 @@ void main() {
     await tapKey(tester, 'station-2');
 
     for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
-      if (find.byKey(const ValueKey('choice-question')).evaluate().isNotEmpty) {
+      if (find.byKey(const ValueKey('choice-game')).evaluate().isNotEmpty) {
         while (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) {
           for (var option = 0; option < 4; option++) {
             await tapKey(tester, 'choice-option-$option');
