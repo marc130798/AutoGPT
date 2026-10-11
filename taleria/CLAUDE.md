@@ -677,15 +677,14 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 329 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 360 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
-**Letzte Testversion (11.10.2026):**
-- Datei: `build/taleria_test_web.zip`, 26,7 MB. Das Skript lässt ungenutzte Web-Dateien weg, damit die Datei unter 30 MB bleibt.
-- Neu darin: beide Rückmelde-Runden, Bildergeschichten (Hafen komplett), Stopps auf See, Zielgruppe 8 bis 12 mit schwereren Hafen-Fragen.
-- Vorher im Testprojekt ausführen: erst `20261010000200_stopps_auf_see.sql`, dann `supabase/seed.sql`.
-- Danach dazugekommen (noch in keiner Testversion): Taleron im Meer statt auf der Insel, Stopps versetzt, Sammlung zeigt nur neue Funde, Schiffe für die Stopps, Taleron halb aus dem Wasser, Nebel-Auftritt, Schifffahrt von Stopp zu Stopp, vier echte Mini-Spiele mit Seite „Spiele“. Im Testprojekt zusätzlich `20261011000100_taleron_einmal_am_tag.sql`, dann `20261011000200_einsteiger_fragen.sql` und danach `seed.sql` ausführen. Neu seitdem: Übungen wieder Pflicht, Mini-Spiele als Bonus, Einsteiger mit ganzen Zahlen.
-- **Platz wird knapp:** Bis 30 MB fehlen nur noch gut 3 MB. Die 48 Bilder von Tauschinsel und Wunschinsel brauchen etwa 3,6 MB. Vor der nächsten Testversion deshalb die großen PNG-Figuren (400 bis 760 KB pro Datei) verkleinern.
+**Letzte Testversion (11.10.2026 abends):**
+- Datei: `build/taleria_test_web.zip`, 19,4 MB. Das Skript lässt ungenutzte Web-Dateien weg.
+- Platz: Die großen PNG-Bilder (Figuren, Inseln, Orden, Schiffe) sind mit `tool/bilder_verkleinern.py` auf 256 Farben gerechnet (Paket `imagequant`, wie pngquant): zusammen 17,7 MB → 5,4 MB, sichtbar kein Unterschied. Neue große PNG-Bilder danach genauso verkleinern.
+- Neu darin seit der Testversion vom Mittag: Taleron im Meer und einmal am Tag, Stopps versetzt mit eigenen Schiffen, Nebel-Auftritt, Schifffahrt von Stopp zu Stopp, Sammlung zeigt nur neue Funde, alle Bildergeschichten von Tauschinsel und Wunschinsel, vier echte Mini-Spiele als Bonus mit Bildern und Seite „Spiele“, Einsteiger mit ganzen Zahlen.
+- Vorher im Testprojekt ausführen (falls noch nicht geschehen erst `20261010000200_stopps_auf_see.sql`): `20261011000100_taleron_einmal_am_tag.sql`, dann `20261011000200_einsteiger_fragen.sql`, danach `supabase/seed.sql`.
 - Danach die ZIP bei Netlify unter Deploys hochladen.
 
 **Arbeitsweise mit Marc (zusätzlich zu Abschnitt 1):**
