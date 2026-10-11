@@ -5,6 +5,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
+import 'station_stage.dart';
 import 'story_drawings.dart';
 
 /// Das Bild, das zu Zeile [index] gehört: ihr eigenes oder das letzte davor.
@@ -84,21 +85,25 @@ class _PictureStoryState extends State<PictureStory> {
             ),
           ),
           // Punkte: wo in der Geschichte man gerade ist.
-          Row(
-            key: const ValueKey('story-dots'),
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (var i = 0; i < lines.length; i++)
-                Container(
-                  margin: const EdgeInsets.all(3),
-                  width: i == _index ? 12 : 8,
-                  height: i == _index ? 12 : 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: i <= _index ? palette.gold : palette.placeholderBorder.withValues(alpha: 0.5),
+          OpenFrame(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            child: Row(
+              key: const ValueKey('story-dots'),
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (var i = 0; i < lines.length; i++)
+                  Container(
+                    margin: const EdgeInsets.all(3),
+                    width: i == _index ? 12 : 8,
+                    height: i == _index ? 12 : 8,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: i <= _index ? palette.gold : palette.placeholderBorder.withValues(alpha: 0.5),
+                    ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),

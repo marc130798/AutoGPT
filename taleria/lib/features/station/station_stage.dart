@@ -80,14 +80,43 @@ class ShipStage extends StatelessWidget {
 /// Oben eine Bühne vor dem Hintergrund (zum Beispiel Figuren, die gerade
 /// sprechen), darunter der Inhalt auf einem Blatt Papier. Ohne [stage] nur
 /// das Papier. Mit [open] gibt es kein großes Blatt: Der Inhalt liegt direkt
-/// vor dem Bild und rahmt nur Frage und Antworten ein ([GlassFrame]), zum
-/// Beispiel unter Wasser.
+/// vor dem Bild, und nur Text bekommt einen Rahmen ([GlassFrame],
+/// [AnswerButton]). So sieht man mehr vom Bild (Marcs Wunsch am 11.10.2026:
+/// erst unter Wasser, dann überall, wo ein Bild dahinter liegt).
 class StagePanel extends StatelessWidget {
   const StagePanel({super.key, this.stage, required this.child, this.open = false});
 
   final Widget? stage;
   final Widget child;
   final bool open;
+
+  /// Liegt der Inhalt ohne Blatt vor dem Bild? Dann rahmen Fragen, Gespräche
+  /// und Knöpfe sich selbst ein.
+  static bool isOpen(BuildContext context) => context.dependOnInheritedWidgetOfExactType<_OpenPanel>() != null;
+
+  /// Knöpfe ohne Blatt darunter: umrandete Knöpfe auf Papier, gesperrte gut lesbar.
+  static ThemeData _openTheme(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final fill = GlassFrame.fill(context);
+    return theme.copyWith(
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: (theme.outlinedButtonTheme.style ?? const ButtonStyle()).copyWith(
+          backgroundColor: WidgetStatePropertyAll(fill),
+        ),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: (theme.filledButtonTheme.style ?? const ButtonStyle()).copyWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => states.contains(WidgetState.disabled) ? fill : null,
+          ),
+          foregroundColor: WidgetStateProperty.resolveWith(
+            (states) => states.contains(WidgetState.disabled) ? palette.ink.withValues(alpha: 0.45) : null,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +134,11 @@ class StagePanel extends StatelessWidget {
                 child: Padding(padding: const EdgeInsets.only(top: 8), child: stage),
               ),
             if (open)
-              Expanded(child: child)
+              Expanded(
+                child: _OpenPanel(
+                  child: Theme(data: _openTheme(context), child: child),
+                ),
+              )
             else
               Expanded(
                 child: Container(
@@ -123,6 +156,88 @@ class StagePanel extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+/// Rahmt [child] nur ein, wenn kein Blatt darunter liegt ([StagePanel.open]);
+/// auf dem Blatt bleibt es, wie es ist.
+class OpenFrame extends StatelessWidget {
+  const OpenFrame({super.key, required this.child, this.padding = const EdgeInsets.all(14)});
+
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) => StagePanel.isOpen(context) ? GlassFrame(padding: padding, child: child) : child;
+}
+
+/// Merkt für die Kinder eines [StagePanel] mit `open`, dass kein Blatt darunter liegt.
+class _OpenPanel extends InheritedWidget {
+  const _OpenPanel({required super.child});
+
+  @override
+  bool updateShouldNotify(_OpenPanel oldWidget) => false;
+}
+
+/// Wie eine Antwort nach dem Antippen aussieht.
+enum AnswerMark { none, right, wrong }
+
+/// Eine Antwort in Fragen, Wrack und Begegnungen. Nach dem Antippen ist die
+/// richtige Antwort grün gefüllt mit Haken und die falsch gewählte rot mit
+/// Kreuz (Marcs Wunsch am 11.10.2026, damit man es besser erkennt). Ohne Blatt
+/// darunter ([StagePanel.open]) liegt jede Antwort auf Papier.
+class AnswerButton extends StatelessWidget {
+  const AnswerButton({super.key, required this.text, this.mark = AnswerMark.none, this.onPressed, this.icon});
+
+  final String text;
+  final AnswerMark mark;
+  final VoidCallback? onPressed;
+
+  /// Vor der Antwort, zum Beispiel ein Fisch beim Fischschwarm.
+  final IconData? icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final color = switch (mark) {
+      AnswerMark.right => palette.success,
+      AnswerMark.wrong => palette.coral,
+      AnswerMark.none => null,
+    };
+    final paper = StagePanel.isOpen(context) ? GlassFrame.fill(context) : null;
+    final fill = color == null ? paper : Color.alphaBlend(color.withValues(alpha: 0.38), paper ?? palette.paper);
+    final markIcon = switch (mark) {
+      AnswerMark.right => Icons.check_circle_rounded,
+      AnswerMark.wrong => Icons.cancel_rounded,
+      AnswerMark.none => null,
+    };
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size.fromHeight(56),
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        backgroundColor: fill,
+        disabledBackgroundColor: fill,
+        side: BorderSide(color: color ?? palette.seaDeep, width: color == null ? 2 : 3),
+      ),
+      onPressed: onPressed,
+      child: Row(
+        children: [
+          if (icon != null) ...[Icon(icon, color: color ?? palette.sea), const SizedBox(width: 12)],
+          Expanded(
+            child: Text(
+              text,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: palette.ink,
+                fontWeight: color == null ? null : FontWeight.w700,
+              ),
+            ),
+          ),
+          if (markIcon != null) ...[const SizedBox(width: 8), Icon(markIcon, color: color, size: 28)],
+        ],
+      ),
     );
   }
 }

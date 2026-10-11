@@ -18,7 +18,6 @@ class QuizView extends StatefulWidget {
     this.hint,
     this.header,
     this.answerIcon,
-    this.framed = false,
   });
 
   final QuizRun run;
@@ -31,9 +30,6 @@ class QuizView extends StatefulWidget {
   /// Vor jeder Antwort, zum Beispiel ein Fisch beim Fischschwarm.
   final IconData? answerIcon;
 
-  /// Ohne großes Blatt darunter (Tauchgang): Frage, Antworten und
-  /// Rückmeldung bekommen je einen eigenen Rahmen ([GlassFrame]).
-  final bool framed;
   final ValueChanged<int> onAnswer;
   final VoidCallback onNext;
 
@@ -78,13 +74,6 @@ class _QuizViewState extends State<QuizView> {
     final chosen = run.chosen;
     if (chosen != null) _revealFeedback();
 
-    Color? colorFor(int i) {
-      if (chosen == null) return null;
-      if (i == q.correctDisplayIndex) return palette.success;
-      if (i == chosen) return palette.coral;
-      return null;
-    }
-
     return Column(
       children: [
         Expanded(
@@ -116,25 +105,12 @@ class _QuizViewState extends State<QuizView> {
               for (final (i, answer) in q.answers.indexed)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedButton(
+                  child: AnswerButton(
                     key: ValueKey('answer-$i'),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(56),
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      backgroundColor: _answerFill(context, colorFor(i)),
-                      side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
-                    ),
+                    text: answer,
+                    icon: answerIcon,
+                    mark: _markFor(i),
                     onPressed: chosen == null ? () => onAnswer(i) : null,
-                    child: answerIcon == null
-                        ? Text(answer, style: theme.textTheme.bodyLarge)
-                        : Row(
-                            children: [
-                              Icon(answerIcon, color: colorFor(i) ?? palette.sea),
-                              const SizedBox(width: 12),
-                              Expanded(child: Text(answer, style: theme.textTheme.bodyLarge)),
-                            ],
-                          ),
                   ),
                 ),
               if (chosen != null)
@@ -144,7 +120,7 @@ class _QuizViewState extends State<QuizView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (!widget.framed) const SizedBox(height: 8),
+                        if (!_open) const SizedBox(height: 8),
                         Text(
                           run.answeredCorrectly ? l10n.quizCorrect : l10n.quizWrong,
                           key: const ValueKey('quiz-feedback'),
@@ -177,14 +153,18 @@ class _QuizViewState extends State<QuizView> {
     );
   }
 
-  /// Mit [QuizView.framed] ein eigener Rahmen, sonst liegt alles auf dem Blatt.
-  Widget _frame(Widget child) => widget.framed ? GlassFrame(child: child) : child;
+  /// Ohne Blatt darunter ([StagePanel.open]) bekommen Frage und Rückmeldung
+  /// je einen eigenen Rahmen, sonst liegt alles auf dem Blatt.
+  bool get _open => StagePanel.isOpen(context);
 
-  /// Hintergrund einer Antwort: nach dem Antippen grün oder rot getönt; ohne
-  /// Blatt darunter immer auf Papier, damit man sie vor dem Bild lesen kann.
-  Color? _answerFill(BuildContext context, Color? tint) {
-    if (!widget.framed) return tint?.withValues(alpha: 0.15);
-    final paper = GlassFrame.fill(context);
-    return tint == null ? paper : Color.alphaBlend(tint.withValues(alpha: 0.18), paper);
+  Widget _frame(Widget child) => OpenFrame(child: child);
+
+  /// Nach dem Antippen: richtige Antwort grün, falsch gewählte rot.
+  AnswerMark _markFor(int i) {
+    final chosen = widget.run.chosen;
+    if (chosen == null) return AnswerMark.none;
+    if (i == widget.run.current.correctDisplayIndex) return AnswerMark.right;
+    if (i == chosen) return AnswerMark.wrong;
+    return AnswerMark.none;
   }
 }

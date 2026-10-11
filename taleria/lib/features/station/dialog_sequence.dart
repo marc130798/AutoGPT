@@ -9,7 +9,7 @@ import 'station_stage.dart';
 /// nach der letzten ruft der Knopf [onDone] auf.
 ///
 /// Mit [stage] stehen die Figuren oben vor dem Hintergrund und das Gespräch
-/// liegt darunter auf Papier ([StagePanel]).
+/// liegt darunter ohne Blatt direkt vor dem Bild ([StagePanel] mit `open`).
 class DialogSequence extends StatefulWidget {
   const DialogSequence({
     super.key,
@@ -49,7 +49,10 @@ class _DialogSequenceState extends State<DialogSequence> {
         if (widget.title != null)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: Text(widget.title!, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+            child: OpenFrame(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              child: Text(widget.title!, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+            ),
           ),
         Expanded(
           child: ListView(
@@ -73,6 +76,6 @@ class _DialogSequenceState extends State<DialogSequence> {
       ],
     );
     if (!widget.stage) return column;
-    return StagePanel(stage: dialogStage(lines, _shown), child: column);
+    return StagePanel(stage: dialogStage(lines, _shown), open: true, child: column);
   }
 }

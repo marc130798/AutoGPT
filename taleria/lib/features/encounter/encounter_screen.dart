@@ -78,10 +78,12 @@ class _EncounterScreenState extends State<EncounterScreen> {
           // Meister Taleron taucht aus dem Nebel auf, darunter das Gespräch auf Papier.
           EncounterStep.intro => StagePanel(
             stage: EmergeFromSea(child: _figure(controller)),
+            open: true,
             child: DialogSequence(lines: widget.offer.openingScene, onDone: controller.introDone),
           ),
           EncounterStep.question => StagePanel(
             stage: _figure(controller),
+            open: true,
             child: _RiddleView(controller: controller),
           ),
           EncounterStep.result => StagePanel(
@@ -146,11 +148,11 @@ class _RiddleView extends StatelessWidget {
     final chosen = run.chosen;
     final encounter = controller.encounter;
 
-    Color? colorFor(int i) {
-      if (chosen == null) return null;
-      if (run.answeredCorrectly && i == q.correctDisplayIndex) return palette.success;
-      if (i == chosen) return palette.coral;
-      return null;
+    AnswerMark markFor(int i) {
+      if (chosen == null) return AnswerMark.none;
+      if (run.answeredCorrectly && i == q.correctDisplayIndex) return AnswerMark.right;
+      if (i == chosen) return AnswerMark.wrong;
+      return AnswerMark.none;
     }
 
     final reaction = run.answeredCorrectly ? encounter.right : encounter.wrong;
@@ -162,33 +164,35 @@ class _RiddleView extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             children: [
               const SizedBox(height: 8),
-              Text(
-                l10n.encounterProgress(run.index + 1, run.total),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.labelLarge,
+              // Ohne Blatt vor dem Meer: Frage und Erklärung im Rahmen.
+              OpenFrame(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.encounterProgress(run.index + 1, run.total),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.labelLarge,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(q.question.question, key: const ValueKey('quiz-question'), style: theme.textTheme.titleMedium),
+                  ],
+                ),
               ),
-              const SizedBox(height: 16),
-              Text(q.question.question, key: const ValueKey('quiz-question'), style: theme.textTheme.titleMedium),
               const SizedBox(height: 16),
               for (final (i, answer) in q.answers.indexed)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedButton(
+                  child: AnswerButton(
                     key: ValueKey('answer-$i'),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(56),
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      backgroundColor: colorFor(i)?.withValues(alpha: 0.15),
-                      side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
-                    ),
+                    text: answer,
+                    mark: markFor(i),
                     onPressed: chosen == null
                         ? () {
                             controller.answer(i);
                             if (run.answeredCorrectly) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
                           }
                         : null,
-                    child: Text(answer, style: theme.textTheme.bodyLarge),
                   ),
                 ),
               if (chosen != null) ...[
@@ -196,18 +200,22 @@ class _RiddleView extends StatelessWidget {
                 if (reaction != null)
                   SpeechBubble.line(reaction)
                 else
-                  Text(
-                    run.answeredCorrectly ? l10n.quizCorrect : l10n.quizWrong,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: run.answeredCorrectly ? palette.success : palette.coral,
+                  OpenFrame(
+                    child: Text(
+                      run.answeredCorrectly ? l10n.quizCorrect : l10n.quizWrong,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: run.answeredCorrectly ? palette.success : palette.coral,
+                      ),
                     ),
                   ),
                 if (q.question.explanation != null) ...[
                   const SizedBox(height: 8),
-                  Text(
-                    q.question.explanation!,
-                    key: const ValueKey('encounter-explanation'),
-                    style: theme.textTheme.bodyLarge,
+                  OpenFrame(
+                    child: Text(
+                      q.question.explanation!,
+                      key: const ValueKey('encounter-explanation'),
+                      style: theme.textTheme.bodyLarge,
+                    ),
                   ),
                 ],
               ],

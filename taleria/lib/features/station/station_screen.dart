@@ -140,7 +140,6 @@ class _StationScreenState extends State<StationScreen> {
                 ? DiveHeader(game: diveGame, results: controller.quiz!.results, stationId: widget.station.id)
                 : null,
             answerIcon: controller.isDive ? diveGame.answerIcon : null,
-            framed: controller.isDive,
             onAnswer: (i) {
               controller.answerQuiz(i);
               // Beim Tauchgang ist jede richtige Antwort eine Perle.
@@ -198,20 +197,22 @@ Widget _framed(StationController controller, Widget body) {
     StationStep.loading || StationStep.submitting => body,
     // Stopp auf See mit Schiff: Oben liegt das Schiff auf dem Meer. In der
     // Szene taucht es aus dem Nebel auf, bei den Fragen bleibt es da.
-    StationStep.scene when ship != null => StagePanel(stage: ShipStage(ship, emerge: true), child: body),
-    StationStep.quiz when ship != null => StagePanel(stage: ShipStage(ship), child: body),
-    // Die Bildergeschichte liegt ganz auf Papier, das Bild ersetzt die Bühne.
-    StationStep.lesson when controller.station.content.hasPictureStory => StagePanel(child: body),
+    StationStep.scene when ship != null => StagePanel(stage: ShipStage(ship, emerge: true), open: true, child: body),
+    StationStep.quiz when ship != null => StagePanel(stage: ShipStage(ship), open: true, child: body),
+    // Die Bildergeschichte liegt ohne Blatt vor der Insel, das Bild ersetzt die Bühne.
+    StationStep.lesson when controller.station.content.hasPictureStory => StagePanel(open: true, child: body),
     // Szene und Lehre bringen ihre Bühne selbst mit (aktueller Sprecher).
     StationStep.scene || StationStep.lesson => body,
     StationStep.warmUp => StagePanel(
       stage: quizStage(answered: controller.warmUp!.answered, correct: controller.warmUp!.answeredCorrectly),
+      open: true,
       child: body,
     ),
     // Unter Wasser kein großes Blatt: nur Frage und Antworten sind eingerahmt.
     StationStep.quiz when dive => StagePanel(stage: const SizedBox.shrink(), open: true, child: body),
     StationStep.quiz => StagePanel(
       stage: quizStage(answered: controller.quiz!.answered, correct: controller.quiz!.answeredCorrectly),
+      open: true,
       child: body,
     ),
     // Echte Mini-Spiele brauchen den ganzen Platz.
@@ -544,13 +545,6 @@ class _WreckView extends StatelessWidget {
     final q = run.current;
     final chosen = run.chosen;
 
-    Color? colorFor(int i) {
-      if (chosen == null) return null;
-      if (run.answeredCorrectly && i == q.correctDisplayIndex) return palette.success;
-      if (i == chosen) return palette.coral;
-      return null;
-    }
-
     return Column(
       children: [
         Expanded(
@@ -577,17 +571,14 @@ class _WreckView extends StatelessWidget {
               for (final (i, answer) in q.answers.indexed)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: OutlinedButton(
+                  child: AnswerButton(
                     key: ValueKey('wreck-answer-$i'),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(56),
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      backgroundColor: colorFor(i) == null
-                          ? GlassFrame.fill(context)
-                          : Color.alphaBlend(colorFor(i)!.withValues(alpha: 0.18), GlassFrame.fill(context)),
-                      side: BorderSide(color: colorFor(i) ?? palette.seaDeep, width: colorFor(i) == null ? 2 : 3),
-                    ),
+                    text: answer,
+                    mark: chosen == null
+                        ? AnswerMark.none
+                        : (run.answeredCorrectly && i == q.correctDisplayIndex
+                              ? AnswerMark.right
+                              : (i == chosen ? AnswerMark.wrong : AnswerMark.none)),
                     onPressed: chosen == null
                         ? () {
                             controller.answerWreck(i);
@@ -596,7 +587,6 @@ class _WreckView extends StatelessWidget {
                             }
                           }
                         : null,
-                    child: Text(answer, style: theme.textTheme.bodyLarge),
                   ),
                 ),
               if (chosen != null)
