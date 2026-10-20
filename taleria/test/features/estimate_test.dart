@@ -154,7 +154,12 @@ void main() {
 
   testWidgets('Auflösung am Ende der Geschichte: Tipp, Lösung und „Genau getroffen!“', (tester) async {
     await playStory(tester, 2600);
-    expect(find.text('Dein Tipp: 2.600 Jahre'), findsOneWidget);
+    // Tipp und Lösung nebeneinander, darunter der Balken.
+    expect(find.text('Dein Tipp'), findsOneWidget);
+    expect(find.text('Lösung'), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(const ValueKey('estimate-guess'))).data, '2.600 Jahre');
+    expect(tester.widget<Text>(find.byKey(const ValueKey('estimate-answer'))).data, '2.600 Jahre');
+    expect(find.byKey(const ValueKey('estimate-scale')), findsOneWidget);
     expect(find.byKey(const ValueKey('estimate-exact')), findsOneWidget);
   });
 
@@ -171,11 +176,33 @@ void main() {
     );
     await tester.tap(find.byKey(const ValueKey('story-next')));
     await tester.pumpAndSettle();
-    expect(find.text('Dein Tipp: 1.000 Jahre'), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(const ValueKey('estimate-guess'))).data, '1.000 Jahre');
+    expect(tester.widget<Text>(find.byKey(const ValueKey('estimate-answer'))).data, '2.600 Jahre');
     expect(find.byKey(const ValueKey('estimate-exact')), findsNothing);
+    expect(find.byKey(const ValueKey('estimate-close')), findsNothing, reason: '1.600 daneben ist nicht nah');
     expect(find.byIcon(Icons.close_rounded), findsNothing);
+    // Auf dem Balken liegt die Lösung rechts vom Tipp.
+    final guessDot = tester.getCenter(find.byKey(const ValueKey('scale-guess')));
+    final answerDot = tester.getCenter(find.byKey(const ValueKey('scale-answer')));
+    expect(answerDot.dx, greaterThan(guessDot.dx));
 
     await tester.tap(find.byKey(const ValueKey('story-next')));
     expect(done, isTrue);
+  });
+
+  testWidgets('Auflösung: knapp daneben heißt „Ganz nah dran!“', (tester) async {
+    await pump(
+      tester,
+      PictureStory(
+        lines: const [DialogLine(speaker: 'talo', text: 'Früher hat man getauscht.')],
+        estimate: slider,
+        guess: 2400,
+        onDone: () {},
+      ),
+    );
+    await tester.tap(find.byKey(const ValueKey('story-next')));
+    await tester.pumpAndSettle();
+    expect(find.text('Ganz nah dran!'), findsOneWidget);
+    expect(find.byKey(const ValueKey('estimate-exact')), findsNothing);
   });
 }

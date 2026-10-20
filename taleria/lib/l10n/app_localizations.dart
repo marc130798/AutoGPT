@@ -4248,6 +4248,24 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Erklärung zuklappen'**
   String get pageIntroHide;
+
+  /// Auflösung der Schätzfrage: Überschrift über dem Tipp des Kindes (links)
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Tipp'**
+  String get estimateGuessLabel;
+
+  /// Auflösung der Schätzfrage: Überschrift über der richtigen Zahl (rechts, grün)
+  ///
+  /// In de, this message translates to:
+  /// **'Lösung'**
+  String get estimateAnswerLabel;
+
+  /// Auflösung: Der Tipp liegt nahe an der Lösung (höchstens ein Siebtel der Skala daneben)
+  ///
+  /// In de, this message translates to:
+  /// **'Ganz nah dran!'**
+  String get estimateClose;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

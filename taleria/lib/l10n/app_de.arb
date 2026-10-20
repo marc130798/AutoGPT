@@ -3608,5 +3608,17 @@
   "pageIntroHide": "Erklärung zuklappen",
   "@pageIntroHide": {
     "description": "Knopf auf Menü-Seiten: klappt die Erklärung wieder zu"
+  },
+  "estimateGuessLabel": "Dein Tipp",
+  "@estimateGuessLabel": {
+    "description": "Auflösung der Schätzfrage: Überschrift über dem Tipp des Kindes (links)"
+  },
+  "estimateAnswerLabel": "Lösung",
+  "@estimateAnswerLabel": {
+    "description": "Auflösung der Schätzfrage: Überschrift über der richtigen Zahl (rechts, grün)"
+  },
+  "estimateClose": "Ganz nah dran!",
+  "@estimateClose": {
+    "description": "Auflösung: Der Tipp liegt nahe an der Lösung (höchstens ein Siebtel der Skala daneben)"
   }
 }

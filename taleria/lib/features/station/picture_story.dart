@@ -137,9 +137,10 @@ class _PictureStoryState extends State<PictureStory> {
                     Center(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          // Beim Mitmachen kleiner, damit Ding und Ziel Platz haben.
-                          maxHeight: box.maxHeight * (page is TapPage ? 0.3 : 0.55),
-                          maxWidth: box.maxHeight * (page is TapPage ? 0.3 : 0.55) * 4 / 3,
+                          // Beim Mitmachen und bei der Auflösung kleiner, damit
+                          // Ding und Ziel oder Tipp, Lösung und Satz Platz haben.
+                          maxHeight: box.maxHeight * (page is LinePage ? 0.55 : 0.3),
+                          maxWidth: box.maxHeight * (page is LinePage ? 0.55 : 0.3) * 4 / 3,
                         ),
                         child: AspectRatio(
                           aspectRatio: 4 / 3,
@@ -214,44 +215,214 @@ class _PictureStoryState extends State<PictureStory> {
     );
   }
 
-  /// Auflösung der Schätzfrage: der Tipp des Kindes und was stimmt.
+  /// Auflösung der Schätzfrage: der Tipp des Kindes und die Lösung
+  /// nebeneinander, bei Zahlen darunter ein Balken, auf dem die Lösung vom
+  /// Tipp zu ihrem Platz wandert (Marcs Wunsch am 20.10.2026). Daneben
+  /// liegen ist kein Fehler: kein Rot, kein Kreuz.
   Widget _reveal(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final palette = context.palette;
     final estimate = widget.estimate!;
     final guess = widget.guess!;
+    final answer = estimate.answer;
+    final exact = estimate.isExact(guess);
+    final scale = !estimate.isChoice && answer != null && estimate.max > estimate.min;
+    final close = scale && !exact && (guess - answer).abs() * 7 <= estimate.max - estimate.min;
     return Column(
       key: const ValueKey('estimate-reveal'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         OpenFrame(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 l10n.estimateRevealTitle,
+                textAlign: TextAlign.center,
                 style: theme.textTheme.titleLarge?.copyWith(color: palette.coral, fontWeight: FontWeight.w800),
               ),
-              const SizedBox(height: 4),
-              Text(
-                l10n.estimateYourGuess(estimate.display(guess)),
-                key: const ValueKey('estimate-guess'),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleMedium,
+              const SizedBox(height: 10),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: _RevealValue(
+                        label: l10n.estimateGuessLabel,
+                        value: estimate.display(guess),
+                        valueKey: const ValueKey('estimate-guess'),
+                        color: palette.gold,
+                      ),
+                    ),
+                    if (answer != null) ...[
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: _RevealValue(
+                          label: l10n.estimateAnswerLabel,
+                          value: estimate.display(answer),
+                          valueKey: const ValueKey('estimate-answer'),
+                          color: palette.success,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
               ),
-              if (estimate.isExact(guess))
+              if (scale) ...[
+                const SizedBox(height: 12),
+                _EstimateScale(estimate: estimate, guess: guess, answer: answer),
+              ],
+              if (exact || close) ...[
+                const SizedBox(height: 8),
                 Text(
-                  l10n.estimateExact,
-                  key: const ValueKey('estimate-exact'),
+                  exact ? l10n.estimateExact : l10n.estimateClose,
+                  key: ValueKey(exact ? 'estimate-exact' : 'estimate-close'),
+                  textAlign: TextAlign.center,
                   style: theme.textTheme.titleMedium?.copyWith(color: palette.success, fontWeight: FontWeight.w800),
                 ),
+              ],
             ],
           ),
         ),
         const SizedBox(height: 12),
         SpeechBubble.line(estimate.reveal),
       ],
+    );
+  }
+}
+
+/// Ein Kasten der Auflösung: oben klein „Dein Tipp“ oder „Lösung“, darunter groß der Wert.
+class _RevealValue extends StatelessWidget {
+  const _RevealValue({required this.label, required this.value, required this.valueKey, required this.color});
+
+  final String label;
+  final String value;
+  final Key valueKey;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color, width: 2),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(label, style: theme.textTheme.labelLarge?.copyWith(color: palette.ink.withValues(alpha: 0.75))),
+          const SizedBox(height: 2),
+          Text(
+            value,
+            key: valueKey,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Balken von der kleinsten bis zur größten Zahl: goldener Punkt beim Tipp,
+/// grüner Punkt mit Haken bei der Lösung, dazwischen golden, wie weit es war.
+/// Die Lösung wandert vom Tipp zu ihrem Platz; bei „Bewegung reduzieren“ steht sie gleich da.
+class _EstimateScale extends StatelessWidget {
+  const _EstimateScale({required this.estimate, required this.guess, required this.answer});
+
+  final EstimateQuestion estimate;
+  final int guess;
+  final int answer;
+
+  static const _dot = 24.0;
+
+  double _at(int value) => ((value - estimate.min) / (estimate.max - estimate.min)).clamp(0.0, 1.0);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final reduced = MediaQuery.disableAnimationsOf(context);
+    Widget dot(Key key, double left, Color color, {IconData? icon}) => Positioned(
+      key: key,
+      left: left,
+      top: 0,
+      child: Container(
+        width: _dot,
+        height: _dot,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+          border: Border.all(color: Colors.white, width: 2.5),
+          boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 3, offset: Offset(0, 1))],
+        ),
+        child: icon == null ? null : Icon(icon, size: 15, color: Colors.white),
+      ),
+    );
+    return ExcludeSemantics(
+      child: Column(
+        key: const ValueKey('estimate-scale'),
+        children: [
+          SizedBox(
+            height: _dot,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final width = constraints.maxWidth - _dot;
+                final from = _at(guess);
+                return TweenAnimationBuilder<double>(
+                  tween: Tween(begin: reduced ? 1 : 0, end: 1),
+                  duration: const Duration(milliseconds: 900),
+                  curve: Curves.easeOutCubic,
+                  builder: (context, t, _) {
+                    final to = from + (_at(answer) - from) * t;
+                    final low = from < to ? from : to;
+                    final high = from < to ? to : from;
+                    return Stack(
+                      children: [
+                        Positioned(
+                          left: _dot / 2,
+                          right: _dot / 2,
+                          top: _dot / 2 - 4,
+                          height: 8,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: palette.placeholderBorder.withValues(alpha: 0.35),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: _dot / 2 + low * width,
+                          width: (high - low) * width,
+                          top: _dot / 2 - 4,
+                          height: 8,
+                          child: ColoredBox(color: palette.gold.withValues(alpha: 0.6)),
+                        ),
+                        dot(const ValueKey('scale-guess'), from * width, palette.gold),
+                        dot(const ValueKey('scale-answer'), to * width, palette.success, icon: Icons.check_rounded),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(estimate.display(estimate.min), style: theme.textTheme.bodySmall),
+              Text(estimate.display(estimate.max), style: theme.textTheme.bodySmall),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

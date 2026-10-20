@@ -2560,4 +2560,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get pageIntroHide => 'Erklärung zuklappen';
+
+  @override
+  String get estimateGuessLabel => 'Dein Tipp';
+
+  @override
+  String get estimateAnswerLabel => 'Lösung';
+
+  @override
+  String get estimateClose => 'Ganz nah dran!';
 }
