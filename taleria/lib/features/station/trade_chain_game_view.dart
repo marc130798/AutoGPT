@@ -6,6 +6,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/real_games.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/figure_names.dart';
 import '../intro/speech_bubble.dart';
 import 'figure_head.dart';
 import 'game_frame.dart';
@@ -210,7 +211,11 @@ class _TraderCard extends StatelessWidget {
             children: [
               FigureHead(trader.figure, size: 56, dimmed: used),
               const SizedBox(height: 4),
-              Text(trader.name, style: theme.textTheme.titleSmall, textAlign: TextAlign.center),
+              Text(
+                figureLabel(l10n, trader.figure, trader.name),
+                style: theme.textTheme.titleSmall,
+                textAlign: TextAlign.center,
+              ),
               if (used)
                 Text(l10n.tradeTraded, style: theme.textTheme.labelMedium?.copyWith(color: palette.success))
               else ...[

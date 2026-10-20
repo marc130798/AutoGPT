@@ -2569,4 +2569,23 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get estimateClose => 'Ganz nah dran!';
+
+  @override
+  String figureAnimal(String figure) {
+    String _temp0 = intl.Intl.selectLogic(figure, {
+      'bruno': 'der Bär',
+      'greta': 'die Ziege',
+      'otti': 'der Otter',
+      'olga': 'die Schildkröte',
+      'elsa': 'die Elster',
+      'moritz': 'das Murmeltier',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String figureWithAnimal(String name, String animal) {
+    return '$name, $animal';
+  }
 }

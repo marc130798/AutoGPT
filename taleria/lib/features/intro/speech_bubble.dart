@@ -7,6 +7,7 @@ import '../../core/assets/character_image.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/figure_names.dart';
 
 enum Speaker { talo, tala }
 
@@ -88,7 +89,10 @@ class SpeechBubble extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(line?.name ?? name, style: theme.textTheme.labelLarge?.copyWith(color: palette.ink)),
+                Text(
+                  figureLabel(l10n, key, line?.name ?? name),
+                  style: theme.textTheme.labelLarge?.copyWith(color: palette.ink),
+                ),
                 const SizedBox(height: 4),
                 Text(text, style: theme.textTheme.bodyLarge),
               ],

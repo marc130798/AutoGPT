@@ -9,7 +9,10 @@ import '../../core/assets/character_image.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
+import '../../l10n/app_localizations.dart';
+import '../common/figure_names.dart';
 import '../common/fog_reveal.dart';
+import 'figure_head.dart';
 
 /// Hintergrund einer Station: das Bild der Insel von innen, beim Tauchgang
 /// die Unterwasserwelt. Fehlt das Bild, ein Verlauf von Meer zu Sand.
@@ -245,6 +248,9 @@ class AnswerButton extends StatelessWidget {
       AnswerMark.wrong => Icons.cancel_rounded,
       AnswerMark.none => null,
     };
+    // Ist die Antwort der Name einer Inselfigur, zeigt der Knopf ihr Gesicht und das Tier.
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
+    final figure = l10n == null ? null : figureNamed(l10n, text);
     return _MarkMotion(
       mark: mark,
       child: PressDip(
@@ -262,9 +268,10 @@ class AnswerButton extends StatelessWidget {
           child: Row(
             children: [
               if (icon != null) ...[Icon(icon, color: color ?? palette.sea), const SizedBox(width: 12)],
+              if (figure != null) ...[FigureHead(figure, size: 44), const SizedBox(width: 12)],
               Expanded(
                 child: Text(
-                  text,
+                  figure == null ? text : figureLabel(l10n!, figure, text),
                   textAlign: center ? TextAlign.center : null,
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: palette.ink,

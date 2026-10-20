@@ -4266,6 +4266,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Ganz nah dran!'**
   String get estimateClose;
+
+  /// Tier einer Inselfigur mit eigenem Namen (FIGUREN.md), damit Kinder Name und Tier zusammenbringen. Leer für Figuren ohne eigenen Namen.
+  ///
+  /// In de, this message translates to:
+  /// **'{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} other{}}'**
+  String figureAnimal(String figure);
+
+  /// Name einer Inselfigur mit Tier, zum Beispiel „Bruno, der Bär“
+  ///
+  /// In de, this message translates to:
+  /// **'{name}, {animal}'**
+  String figureWithAnimal(String name, String animal);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

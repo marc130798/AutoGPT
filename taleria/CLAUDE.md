@@ -740,6 +740,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Ehrenwand und Vitrine: Orden und Funde stehen drei pro Reihe mit großem Bild, Namen und Datum (`ShowcaseGrid`, `ShowcaseTile` in `lib/features/progress/showcase.dart`); noch nicht gefunden blass mit Schloss. Antippen zeigt das Bild groß (`showcase-large`). Lange Wörter werden nicht getrennt, die Schrift wird dafür kleiner.
   - Auflösung der Schätzfrage: „Dein Tipp“ (Gold) und „Lösung“ (Grün) nebeneinander (`estimate-guess`, `estimate-answer`). Bei Zahlen ein Balken von der kleinsten bis zur größten Zahl, die Lösung wandert vom Tipp zu ihrem Platz (`estimate-scale`). Höchstens ein Siebtel der Skala daneben: „Ganz nah dran!“. Daneben liegen ist kein Fehler: kein Rot, kein Kreuz. Das Bild darüber ist auf dieser Seite kleiner.
 
+- **Namen der Inselfiguren mit Tier (Marcs Test am 20.10.2026: „Niemand kann sich die Namen der Tiere merken“, mit Marc gewählt):** Über der Sprechblase steht bei Figuren mit eigenem Namen das Tier dabei („Bruno, der Bär“, „Greta, die Ziege“, „Otti, der Otter“, „Olga, die Schildkröte“, „Elsa, die Elster“, „Moritz, das Murmeltier“; Tiere aus `FIGUREN.md`). Ist eine Antwort genau so ein Name (zum Beispiel „Wer hat Äpfel?“ → „Bruno“), zeigt der Antwort-Knopf das Gesicht der Figur und „Bruno, der Bär“. Auch die Händler in der Tauschkette tragen das Tier. Rollen wie „Händler“ oder „Verkäuferin“ bleiben, wie sie sind. Die Tiere stehen in `app_de.arb` (`figureAnimal`), die Regeln in `lib/features/common/figure_names.dart`. Neue Inselfiguren mit eigenem Namen dort ergänzen.
 ---
 
 ## 17. Aktueller Stand und nächste Schritte (Stand 20.10.2026)
@@ -751,7 +752,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 402 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 405 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Am 20.10.2026 gebaut: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung), der ganze Animationsplan (Abschnitt 11), lebendigere Mini-Spiele und die acht Verbesserungen nach Claudes Durchsicht (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 

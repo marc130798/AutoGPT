@@ -3620,5 +3620,26 @@
   "estimateClose": "Ganz nah dran!",
   "@estimateClose": {
     "description": "Auflösung: Der Tipp liegt nahe an der Lösung (höchstens ein Siebtel der Skala daneben)"
+  },
+  "figureAnimal": "{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} other{}}",
+  "@figureAnimal": {
+    "description": "Tier einer Inselfigur mit eigenem Namen (FIGUREN.md), damit Kinder Name und Tier zusammenbringen. Leer für Figuren ohne eigenen Namen.",
+    "placeholders": {
+      "figure": {
+        "type": "String"
+      }
+    }
+  },
+  "figureWithAnimal": "{name}, {animal}",
+  "@figureWithAnimal": {
+    "description": "Name einer Inselfigur mit Tier, zum Beispiel „Bruno, der Bär“",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "animal": {
+        "type": "String"
+      }
+    }
   }
 }
