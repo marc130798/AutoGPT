@@ -722,6 +722,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Abtauchen: `DiveDescent` (`lib/features/common/dive_descent.dart`) um jeden Tauchgang, wie `FogReveal` beim Stopp auf See: Wasser steigt mit welligem Rand, Blasen steigen, dann wird es klar (1,6 Sekunden, fängt kein Antippen ab).
   - Schatzkarte beim Insel-Abschluss (`IslandRewardEffect`): Die alte Karte (`icon.map`) rollt sich mit einer Rolle am Rand auf, das neue Stück (Schlüssel `map-piece`) fliegt in die Lücke, die Karte leuchtet, Funken steigen, danach dreht sich der Orden.
   - Knöpfe: Gefüllte Knöpfe haben einen Schatten und sinken beim Antippen ein (Theme). Antwort-Knöpfe und Möglichkeiten der Schätzfrage werden beim Antippen kurz kleiner (`PressDip` in `station_stage.dart`).
+- **Preis-Säule lesbar (Marcs Test am 20.10.2026):** Die Zeilen der Auswahl-Übung (`pick`, Hafen 6 „Preis-Säule“ und Wunschinsel 2 „Rucksack packen“) hatten nur einen Rand und lagen ohne Hintergrund auf dem verblassten Bild. Jetzt ist jede Zeile ein Kasten auf Papier (`GlassFrame.fill`), gewählte Zeilen golden mit dickem Rand, der Preis fett.
 
 ---
 

@@ -7,6 +7,7 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'station_stage.dart';
 
 /// Auswählen: Dinge mit Preis antippen (an und aus), die Summe läuft mit.
 /// „Prüfen“ sagt, ob es passt, und gibt sonst einen Hinweis.
@@ -76,15 +77,31 @@ class _PickGameViewState extends State<PickGameView> {
         for (final (i, item) in items.indexed)
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: CheckboxListTile(
-              key: ValueKey('pick-item-$i'),
-              value: game.selected.contains(i),
-              onChanged: game.solved ? null : (_) => setState(() => game.toggle(i)),
-              title: Text(item.text, style: theme.textTheme.bodyLarge),
-              secondary: Text(l10n.gameTaler(item.price ?? 0), style: theme.textTheme.titleSmall),
+            // Jede Zeile in einem eigenen Kasten auf Papier, damit sie vor dem
+            // Bild gut lesbar ist (Marcs Test am 20.10.2026); gewählt golden.
+            child: Material(
+              color: game.selected.contains(i)
+                  ? Color.alphaBlend(palette.gold.withValues(alpha: 0.3), GlassFrame.fill(context))
+                  : GlassFrame.fill(context),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: game.hintItem == i ? palette.coral : palette.seaDeep),
+                side: BorderSide(
+                  color: game.hintItem == i
+                      ? palette.coral
+                      : (game.selected.contains(i) ? palette.gold : palette.seaDeep),
+                  width: game.hintItem == i || game.selected.contains(i) ? 3 : 2,
+                ),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: CheckboxListTile(
+                key: ValueKey('pick-item-$i'),
+                value: game.selected.contains(i),
+                onChanged: game.solved ? null : (_) => setState(() => game.toggle(i)),
+                title: Text(item.text, style: theme.textTheme.bodyLarge?.copyWith(color: palette.ink)),
+                secondary: Text(
+                  l10n.gameTaler(item.price ?? 0),
+                  style: theme.textTheme.titleSmall?.copyWith(color: palette.ink, fontWeight: FontWeight.w700),
+                ),
               ),
             ),
           ),
