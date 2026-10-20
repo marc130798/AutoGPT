@@ -261,9 +261,39 @@ Die App muss jederzeit testbar sein, auch wenn Grafiken, Animationen und Filme n
 - **Mindestgrößen:** Antippbare Elemente mindestens 48 × 48 Punkte, Texte gut lesbar für 10-Jährige.
 
 ### Was im Code entsteht (baut Claude Code)
-- Bewegung auf der Karte: Schiff fährt zur nächsten Insel, Schloss springt auf, Insel leuchtet.
-- Effekte: Taler fliegen in die Schatztruhe, Konfetti beim neuen Rang, Übergänge zwischen Bildschirmen.
-- Diese Animationen nutzen Flutter selbst und brauchen keine fremden Dateien.
+Diese Animationen nutzen Flutter selbst und brauchen keine fremden Dateien. Reihenfolge beim Bauen: zuerst Belohnungen, dann Karte und Meer, dann Übergänge. (Plan von Marc vom 20.10.2026; in Klammern der Stand.)
+
+**Belohnungen (Priorität 1)**
+- Seemeilen zählen sichtbar hoch, statt einfach zu erscheinen. (offen)
+- Taler fliegen einzeln in die Schatztruhe, die Truhe hüpft beim Auffangen. (offen)
+- Richtige Antwort: Der Button springt kurz. Falsche Antwort: Der Button wackelt leicht hin und her, ohne roten Alarm. (offen; die Farben grün und rot gibt es schon)
+- Konfetti oder Sternchen beim Abschluss einer Station. (offen)
+- Orden drehen sich beim Freischalten einmal und glänzen auf. (offen; bisher springt der Orden nur hervor)
+- Kurzes Vibrieren bei Erfolgen (abschaltbar). (offen; im Browser auf dem iPhone gibt es kein Vibrieren, erst in der Store-App)
+
+**Karte und Meer (Priorität 2)**
+- Wellen bewegen sich langsam, Wolken ziehen über die Karte. (da)
+- Das Schiff schaukelt leicht, auch im Stand. Es fährt animiert zur nächsten Insel. (da)
+- Die nächste offene Insel pulsiert sanft. Schlösser springen beim Freischalten auf. (da)
+- Nebel über gesperrten oder noch nicht veröffentlichten Inseln wabert leicht. (da, ziehende Wolken)
+- Gelegentlich fliegen Möwen über den Bildschirm. (offen)
+- Keine Tageszeit-Wechsel (entschieden).
+
+**Übergänge und Effekte (Priorität 3)**
+- Bildschirmwechsel mit einer Welle, die durchs Bild läuft. (offen)
+- Tauchgang: Der Bildschirm taucht ab, Blasen steigen auf, das Licht wird blauer. (offen)
+- Kartenstück: aufleuchten, Funken, die alte Karte rollt sich auf, das Stück fügt sich ein (etwa 3 Sekunden). (teilweise: aufleuchten und Funken sind da)
+- Buttons geben beim Antippen leicht nach wie ein echter Knopf. (offen)
+
+**Erklärungen zum Mitmachen**
+- Schätzfrage vor jeder Erklärung (Schieberegler, Zahlenrad oder Auswahl), Auflösung am Ende der Erklärung. (offen; Inhalte in `INSELN.md`, Anhang)
+- Antipp-Momente: spätestens nach 30 Sekunden Zuschauen eine kleine Aktion (ziehen, wischen, antippen). Details in `INSELN.md`, Abschnitt Grundregeln. (offen)
+- Erklärungen als 3 bis 4 kurze Szenen statt eines langen Films. (da: Bildergeschichten seit 10.10.2026)
+
+**Regeln für alle Animationen**
+- Belohnungen dauern höchstens 1 bis 2 Sekunden und lassen sich durch Antippen überspringen.
+- Ist am Gerät „Bewegung reduzieren“ aktiviert, laufen Animationen stark vereinfacht oder gar nicht.
+- Animationen dürfen die App nicht verlangsamen. Auf älteren Handys im Zweifel weniger Effekte.
 
 ### Was von außen kommt (Illustration, Animation, Ton)
 | Was | Format | Ort |
@@ -353,6 +383,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - Preis: Startannahme 4,99 bis 6,99 € pro Monat oder 39 bis 59 € pro Jahr pro Familie, noch zu testen.
 - Bilder von Talo, Tala und der Karte: erledigt (Stand in `BILDER.md`). Wo noch ein Bild fehlt, zeigt die App weiter den Platzhalter.
 - Technik-Stack ist ein Vorschlag und wird vor Projektstart bestätigt.
+- **Rive oder Bilder? (offen seit 20.10.2026):** Marcs Unterlage vom 20.10.2026 nennt wieder Rive für Talo und Tala (idle mit Blinzeln und Atmen, talk, happy, sad, wave, think, nod), für Meister Taleron (Auftauchen, idle, talk) und für Fische und Tiere im Tauchgang. Das widerspricht der Entscheidung vom 10.10.2026 (3D-Look mit Gemini-Bildern, Rive entfällt, Abschnitt 16). Bis Marc entscheidet, bleibt es bei Bildern; Rive bräuchte ein neues Paket und gezeichnete Figuren im passenden Stil.
 
 ---
 

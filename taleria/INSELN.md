@@ -11,10 +11,14 @@ Claude Code nutzt diese Datei als Vorlage für Seed-Daten, Layouts und Effekte. 
 - **Jede Station dauert mindestens 5, höchstens 10 Minuten.** Kürzere Stationen werden mit mehr Übung oder einem zweiten Spielteil aufgefüllt, nicht mit Wartezeit.
 - **Aufbau jeder Station:**
     0. Aufwärmen „Weißt du noch?“ (ab der zweiten Station, unter 1 Minute): Talo oder Tala stellen 2 kurze Fragen zur vorherigen Station, ab Insel 2 gelegentlich eine Frage aus einer früheren Insel. Fragen aus dem Pool der früheren Station, mit neuer Formulierung oder Reihenfolge.
-    1. Szene mit Talo und Tala (1 bis 2 Minuten, Video oder animierte Szene)
-    2. Hauptteil (3 bis 5 Minuten): Erklärung, Mini-Spiel, Zuordnen oder Rechnen
-    3. Stations-Check: kurzes Quiz (siehe Quiz-Regeln)
-    4. Abschluss: Talo oder Tala fasst in einem Satz zusammen, Seemeilen werden gutgeschrieben
+    1. Szene (unter 1 Minute): Talo, Tala oder eine Inselfigur stellen in einem kurzen Gespräch die Lage vor.
+    2. Schätzfrage (unter 1 Minute): Bevor erklärt wird, fragt Talo oder Tala „Was glaubst du?“ und das Kind schätzt, zum Beispiel per Schieberegler, Zahlenrad oder Auswahl. Es gibt kein Richtig oder Falsch, die Auflösung kommt in der Erklärung.
+    3. Erklärung in Häppchen (2 bis 3 Minuten): 3 bis 4 kurze Szenen von je 20 bis 30 Sekunden statt eines langen Films (in der App die Bildergeschichte). Zwischen den Szenen ein Antipp-Moment, insgesamt mindestens 2 pro Station (siehe unten). Am Ende wird die Schätzfrage aufgelöst („Du hast 2 Taler geschätzt, es sind 3,50!“).
+    4. Hauptteil (2 bis 4 Minuten): Mini-Spiel, Zuordnen oder Rechnen
+    5. Stations-Check: kurzes Quiz (siehe Quiz-Regeln)
+    6. Abschluss: Talo oder Tala fasst in einem Satz zusammen, Seemeilen werden gutgeschrieben
+- **Antipp-Momente in der Erklärung (Marcs Vorgabe vom 20.10.2026):** Das Kind schaut nicht länger als 30 Sekunden nur zu. Danach folgt eine kleine Aktion, die zum Inhalt passt, zum Beispiel Münzen in die Truhe ziehen, ein Preisschild umdrehen, Teile zu einem Preis stapeln, einen Gegenstand in den richtigen Korb wischen oder eine Truhe antippen, um sie zu öffnen. Antipp-Momente sind keine Prüfung: Die Szene geht weiter, auch wenn das Kind daneben tippt.
+- **Schätzfragen und Antipp-Momente aller Stationen** stehen im Anhang am Ende dieser Datei. Claude Code übernimmt sie so. Zahlen, die als „fiktiv“ markiert sind, gehören zur Geschichte und werden in der Station so festgelegt. Zahlen mit „vor Start prüfen“ sind echte Werte und brauchen eine Quelle.
 - **Ankerplatz mit Tauchgang nach jeder zweiten Station** (nach Station 2, 4 und 6, Pflicht, 5 bis 8 Minuten): Das Schiff wirft Anker, das Kind taucht mit Talo und Tala in die Unterwasserwelt und wiederholt dabei die beiden letzten Stationen.
     1. 3 bis 4 Fragen zu beiden Stationen (aus deren Pools, neu gemischt), verpackt in ein Tauch-Spiel: Perlentauchen, Schatztruhe knacken, Fischschwarm sortieren oder Muscheln zählen
     2. Eine neue Anwendungsaufgabe im Wrack, die beide Themen in einer Alltagssituation verbindet
@@ -1156,3 +1160,191 @@ Taleron verrät, dass der Schatz kein gewöhnliches Gold ist, und die Crew räts
 **Kombüsen-Fragen:** „Was war für dich die wichtigste Insel?“ · „Was machst du heute mit Geld anders als vor einem Jahr?“
 
 **Hinweis:** Keine Ankündigung von Stufe 2 in der App, solange Stufe 2 nicht gebaut ist. Am Ende nur: „Neue Abenteuer warten am Horizont.“
+
+---
+
+## Anhang: Schätzfragen und Antipp-Momente aller Stationen
+
+Von Marc am 20.10.2026. Anpassungen beim Einbau in die Inhaltsdateien (Inseln 1 bis 3), damit Frage und Auflösung zur Bildergeschichte passen, die schon in der App ist:
+- Hafen Station 1 ist das Intro („Willkommen an Bord“) und hat keine Bildergeschichte. Schätzfrage und Antipp-Momente kommen dazu, wenn das Intro überarbeitet wird.
+- Tauschinsel Station 2: In der Bildergeschichte fragt Tala zwei Händler (der Dachs bietet zu wenig, die Ente tauscht). Frage deshalb „Wie viele Händler muss Tala fragen, bis sie die Laterne hat?“, Auflösung 2 statt 4.
+- Wunschinsel Station 2: Für 10 Taler passen in der Übung drei wichtige Dinge in den Rucksack (Wasserflasche, Brot, Regenjacke für zusammen 9 Taler). Auflösung 3 statt 2.
+
+So zu lesen: Die Schätzfrage kommt vor der Erklärung, die Auflösung steht in Klammern und wird am Ende der Erklärung gezeigt. Die zwei Antipp-Momente kommen zwischen den kurzen Szenen der Erklärung. „Fiktiv“ heißt: Die Zahl gehört zur Geschichte. „Vor Start prüfen“ heißt: echter Wert, braucht eine Quelle.
+
+### Insel 1: Hafen von Taleria
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie alt ist unser Schiff? (über 100 Jahre, fiktiv) | Die Taue vom Steg lösen (wischen) | Die Flagge hissen (nach oben ziehen) |
+| 2 | Wie viele Händler muss Tala fragen, bis einer ihr Halstuch nimmt? (keiner) | Tala zum nächsten Stand ziehen | Eine Münze statt des Halstuchs auf die Theke legen |
+| 3 | Wie alt sind die ältesten Münzen der Welt? (rund 2.600 Jahre, vor Start prüfen) | Den Staub von der alten Kiste wischen | Eine Muschel an die richtige Stelle des Zeitstrahls ziehen |
+| 4 | Wie viele verschiedene Euro-Münzen gibt es? (8) | Eine Münze umdrehen, um die Rückseite zu sehen | Münzen in die Fächer der Schublade sortieren |
+| 5 | Woher bekommen die Bootsbauer ihr Geld? (Auswahl, Auflösung: Lohn für ihre Arbeit) | Mit dem Hammer dreimal auf den Nagel tippen | Den Lohnbeutel an den Bootsbauer übergeben |
+| 6 | Wie viel vom Preis eines Fischbrötchens ist der Fisch? (ein Viertel, fiktiv) | Den Fisch aufs Brötchen legen | Das Preisschild umdrehen |
+| 7 | Was kostet eine Kinokarte für Kinder? (aktuelle Spanne, vor Start prüfen) | Dinge auf die Waage legen | Ein Preisschild umdrehen |
+
+### Insel 2: Tauschinsel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viele Tausche braucht Tala bis zum Seil? (3) | Den Eimer zu Otti ziehen | Den Fisch zu Bruno ziehen |
+| 2 | Bei wie vielen Händlern musst du tauschen, bis du die Laterne hast? (Schieberegler, 4, fiktiv) | Den Rucksack öffnen | Einen Gegenstand auf den Tauschtisch legen |
+| 3 | Wie viele Muscheln würdest du oben auf dem Berg für eine Flasche Wasser geben? (keine feste Antwort, zeigt: Wert hängt von der Lage ab) | Die Sonne antippen, es wird heißer | Tala die Wasserflasche reichen |
+| 4 | Wie viele Kunden kommen an einem heißen Tag im Vergleich zum Regentag? (viermal so viele, fiktiv) | Zwischen Sonne und Regen wischen | Das Preisschild am Eisstand drehen |
+| 5 | Welches Netz ist nach einem Jahr günstiger? (das teure) | Am billigen Netz ziehen, bis es reißt | Taler für 12 billige Netze stapeln |
+| 6 | Wie viele Wochen muss Tala für das Fernrohr sparen? (4, fiktiv) | Den Taler entweder zum Eis oder zum Fernrohr ziehen | Durchs Fernrohr schauen |
+| 7 | Wie viele häufige Karten ist eine seltene wert? (Schieberegler, Auflösung: so viele, wie beide fair finden) | Die Sammelkarten umdrehen | Zum fairen Tausch die Hand schütteln |
+
+### Insel 3: Wunschinsel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viele Dinge im Glitzerladen braucht man wirklich zum Leben? (fast keine) | Ein Ding in den richtigen Korb wischen | Das Schaufenster putzen, der Glitzer verschwindet |
+| 2 | Wie viele Dinge passen für 10 Taler in Talas Rucksack? (2, fiktiv) | Dinge in den Rucksack ziehen | Etwas wieder herausnehmen |
+| 3 | Tala hat 10 Wünsche. Wie viele will sie nach einer Woche noch? (3, fiktiv) | Den Wunsch in die Wunschflasche stecken | Die Flasche ins Meer werfen |
+| 4 | Wie viele Möwen tragen eine Woche später noch die rote Mütze? (fast keine, fiktiv) | Tala die rote Mütze wieder abnehmen | Daumen hoch oder runter für die Mütze |
+| 5 | Wie lange freut sich Tala über ihr neues Spielzeug? (2 Tage, fiktiv) | Das Spielzeug in die Ecke legen | Moritz zuwinken |
+| 6 | Woran erinnert sich Talo nach einem Jahr eher: an ein Geschenk oder an einen Ausflug? (den Ausflug) | Ein Foto ins Album kleben | Eine Seite im Album umblättern |
+| 7 | Wie viel kostet deine ganze Wunschliste? (eigene Summe) | Wünsche nach Wichtigkeit sortieren | Die fertige Liste in den Brunnen werfen |
+
+### Insel 4: Spar-Insel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viele Nüsse braucht Emma für den Winter? (200, fiktiv) | Nüsse vom Boden sammeln | Die Tür des Speichers öffnen |
+| 2 | Wie viele Wochen dauert es bis zu deinem Ziel? (wird mit dem eigenen Ziel ausgerechnet) | Ein Bild für den Wunschschatz wählen | Den Wunschschatz an den Baum hängen |
+| 3 | Wie viel sind 50 Cent am Tag nach einem Jahr? (182,50 Euro) | Eine Münze auf den Turm legen | Einen Tag weiterblättern |
+| 4 | Wie viele Nüsse bekommt Tala, wenn sie eine Woche wartet? (das Dreifache, fiktiv) | Den „Warten“-Knopf drücken | Die Nuss sofort nehmen und sehen, was passiert |
+| 5 | Wie viele Wochen für 30 Taler bei 5 Talern pro Woche? (6) | Wochenkästchen ausfüllen | Den Plan abstempeln |
+| 6 | Wo ist Geld am sichersten aufbewahrt? (Auswahl, Auflösung: auf dem Konto) | Das Sparschwein schütteln | Das Rad der Tresortür drehen |
+| 7 | Wie viel schaffst du in 4 Wochen? (eigene Schätzung, wird nach 4 Wochen verglichen) | Die Start-Glocke läuten | Den ersten Taler in die Schatztruhe legen |
+
+### Insel 5: Taschengeld-Bucht
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viel Taschengeld empfehlen Fachleute in deinem Alter? (aktuelle Spanne, vor Start prüfen) | Eine Muschel öffnen, darin steht die Empfehlung | Den Hinweis aufrollen: Jede Familie entscheidet selbst |
+| 2 | Wie viel von 10 Talern würdest du sparen? (eigene Wahl) | Taler in die Bordkasse ziehen | Taler in die Schatztruhe ziehen |
+| 3 | Wofür hat Tala am meisten ausgegeben? (Fischbrötchen, fiktiv) | Kassenzettel in Einnahmen oder Ausgaben wischen | Im Logbuch blättern |
+| 4 | Reichen 8 Taler für Kino und Snack? (nein) | Eine Ausgabe auf einen Wochentag ziehen | Den Wochenplan abstempeln |
+| 5 | Wie viele Tage muss Tala bis zur nächsten Heuer warten? (5, fiktiv) | Den leeren Beutel umdrehen | Die Tage im Kalender weiterblättern |
+| 6 | Wie viel von 20 Euro würdest du sparen? (eigene Wahl) | Das Geschenk auspacken | Die Danke-Karte abschicken |
+| 7 | Was überzeugt Eltern am meisten? (Auswahl, Auflösung: gute Gründe und das Logbuch) | Das Logbuch aufschlagen und zeigen | Die beste Antwortkarte wählen |
+
+### Insel 6: Marktinsel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie groß ist der Unterschied zwischen dem günstigsten und dem teuersten Stand? (fast doppelt so teuer, fiktiv) | Äpfel in den Korb legen | Die Preisschilder umdrehen |
+| 2 | Welche Packung ist pro Kilo günstiger? (die große) | Die Lupe aufs Preisschild ziehen | Beide Packungen auf die Waage legen |
+| 3 | Wie viele von Wanjas Angeboten sparen wirklich Geld? (2 von 5, fiktiv) | Angebote mit „echt“ oder „falsch“ abstempeln | Ein Rabattschild umdrehen |
+| 4 | Wie viel Wechselgeld bekommst du bei 5 Euro für 3,40 Euro? (1,60 Euro) | Die Kasse öffnen | Das Wechselgeld herausgeben |
+| 5 | Wie viel kommen beim Paket an Versandkosten dazu? (4 Taler, fiktiv) | Das Paket öffnen | Die Bewertungen anschauen |
+| 6 | Ist ein Joghurt einen Tag nach dem Mindesthaltbarkeitsdatum noch essbar? (oft ja, ansehen, riechen, probieren) | Das Datum auf der Packung finden | Den Joghurt ansehen und daran riechen |
+| 7 | Wie viel bleibt nach dem Picknick-Einkauf übrig? (eigene Rechnung) | Den Einkaufszettel abhaken | Den Picknickkorb packen |
+
+### Insel 7: Werbe-Riff
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viele Werbebotschaften gibt es in dieser Straße? (12, fiktiv) | Jede gefundene Werbung antippen | Eine Lautsprecher-Muschel leiser drehen |
+| 2 | Wie viele Tricks hat der Supermarkt eingebaut? (5, fiktiv) | Im Regal nach oben und unten schauen | Die Süßigkeiten an der Kasse antippen |
+| 3 | Wird Prunk für seine Mütze bezahlt? (ja) | Den Hinweis „Anzeige“ im Beitrag finden | Prunk ein Rad schlagen lassen |
+| 4 | Was kosten 500 Edelsteine in echtem Geld? (fiktiver Kurs im Spiel) | Edelsteine mit dem Schieber in Euro umrechnen | Das Glücksrad anhalten |
+| 5 | Ist das „Nur heute!“-Angebot morgen noch da? (ja) | Das Schild umdrehen, hinten steht „jeden Tag“ | Den „Warten“-Knopf drücken |
+| 6 | Wie viel ist in der großen Packung wirklich drin? (die Hälfte ist Luft, fiktiv) | Die Packung öffnen | Die Zutatenliste ausklappen |
+| 7 | Wer will hier was verkaufen? (Auswahl) | Mit der Lupe suchen | Beweise ins Fallbuch ziehen |
+
+### Insel 8: Verdienst-Insel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viel kostet Bodos Reparatur? (30 Taler, fiktiv) | Ein Brett annageln | Bodo seinen Lohn auszahlen |
+| 2 | Wer hilft dem Schiff mehr, der Bäcker oder der Bootsbauer? (beide, jeder auf seine Art) | Werkzeuge den Berufen zuordnen | Die Türen der Werkstätten öffnen |
+| 3 | Wie viele Aufgaben erledigt deine Familie pro Woche im Haushalt? (eigene Schätzung) | Eine Aufgabe in „Pflicht“ oder „Extra“ wischen | Den Besen schwingen |
+| 4 | Welcher dieser Jobs ist für dich erlaubt? (Auswahl, Auflösung: mit den Eltern klären) | Einen Zettel vom Brett nehmen | Den Haken „Eltern gefragt“ setzen |
+| 5 | Was kannst du am besten? (eigene Wahl) | Eine Talentkarte umdrehen | Ein passendes Werkzeug wählen |
+| 6 | Wie viel bekommst du für ein gebrauchtes Spiel? (etwa die Hälfte des Neupreises, fiktiv) | Ein Preisschild setzen | Die Sachen auf den Flohmarkttisch legen |
+| 7 | Wie viele Becher muss Anni verkaufen, um die Kosten zu decken? (12, fiktiv) | Zitronen auspressen | Becher füllen |
+
+### Insel 9: Bank-Insel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Was macht die Bank mit deinem Geld? (Auswahl, Auflösung: aufbewahren und verleihen) | Das Geld am Schalter abgeben | Die schwere Bankentür öffnen |
+| 2 | Wie viele Zeichen hat eine deutsche IBAN? (22) | Das Kontobuch aufschlagen | Die Zeichen der IBAN antippen und zählen |
+| 3 | Wo verlierst du schneller den Überblick, bei Bargeld oder Karte? (bei der Karte) | Die Karte an den Kartenleser halten | Münzen im Geldbeutel zählen |
+| 4 | Was passiert, wenn die IBAN falsch ist? (Auswahl, Auflösung: das Geld kommt nicht richtig an) | Das Überweisungsformular ausfüllen | Die Rohrpost abschicken |
+| 5 | Wie viele verschiedene vierstellige PINs gibt es? (10.000) | Die Hand über die PIN halten | Den Knopf „Karte sperren“ finden |
+| 6 | Wie viel ist am Monatsende auf dem Konto? (fiktive Beispielrechnung) | Zeilen als Plus oder Minus markieren | Die Endsumme antippen |
+| 7 | Wie viel ist nach einer Woche auf dem Crew-Konto? (fiktive Beispielrechnung) | Das Rad des Tresors drehen | Die Überweisung an Bodo bestätigen |
+
+### Insel 10: Zins-Insel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viele Stücke sind 10 Prozent einer Pizza mit 100 Stücken? (10) | Die Pizza schneiden | Stücke wegnehmen |
+| 2 | Wie viel Zinsen gibt es auf 100 Taler bei 2 Prozent im Jahr? (2 Taler) | Taler bei der Zinsbank einzahlen | Ein Jahr weiterdrehen |
+| 3 | Wie viel werden 100 Taler bei 10 Prozent nach 10 Jahren mit Zinseszins? (rund 259 Taler) | Den Schneeball den Hang hinunterrollen | Ein Jahr weiterdrehen |
+| 4 | Was kostet Rolfs Eis in 10 Jahren? (fiktive Preistafel) | Die Preistafel umblättern | Eine Kugel Eis kaufen |
+| 5 | Wie viel kannst du mit 100 Talern in 5 Jahren noch kaufen? (etwas weniger, fiktiv) | Den Einkaufskorb füllen | Ein Jahr weiterdrehen |
+| 6 | Wie viel zahlst du für 100 geliehene Taler bei 10 Prozent nach einem Jahr zurück? (110 Taler) | 100 Taler ausleihen | Die Zinsen dazulegen |
+| 7 | Wie viele von Idas Rätseln wirst du lösen? (eigene Schätzung, wird verglichen) | Die Eistür öffnen | Einen Eiskristall antippen, das Rätsel erscheint |
+
+### Insel 11: Leih-Lagune
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Bis wann gibt Talo die 5 Taler zurück? (niemand weiß es, genau das ist das Problem) | Einen Abmachungszettel ausfüllen | Zur Abmachung die Hand schütteln |
+| 2 | Wie viel schuldet Prunk? (fiktiv) | Mahnzettel einsammeln | Das Schuldbuch öffnen |
+| 3 | Was kostet das Rad mit Raten insgesamt? (180 Taler) | Die Raten aufeinanderstapeln | Das Schild mit dem Gesamtpreis aufdecken |
+| 4 | Wie hoch sind Prunks Schulden nach 6 Monaten ohne Zahlung? (fiktiv) | Eine Mahnung öffnen | Gebühren-Muscheln stapeln |
+| 5 | Was kostet das „1-Euro-Handy“ in 24 Monaten wirklich? (720 Euro) | Monate abhaken | Den Vertrag umdrehen |
+| 6 | Wie leicht fällt dir Nein sagen? (Selbsteinschätzung) | Die passende Nein-Antwort wählen | Prunk freundlich abwinken |
+| 7 | Wie viele Monate braucht Prunk mit Plan, um schuldenfrei zu sein? (8, fiktiv) | Unnötige Ausgaben durchstreichen | Eine Rate bezahlen |
+
+### Insel 12: Sicherheits-Festung
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie lange braucht ein Computer, um das Passwort „1234“ zu erraten? (fast sofort) | Am Zahlenschloss drehen | Passwort-Bausteine zusammenziehen |
+| 2 | Wie viele dieser Gewinn-Nachrichten sind echt? (keine) | Warnzeichen antippen | Die Nachricht in den Müll wischen |
+| 3 | Was kostet das Gratis-Abo nach einem Jahr? (fiktiv) | Das Kleingedruckte vergrößern | Den Kündigen-Knopf finden |
+| 4 | Was passt besser für dich, Prepaid oder Vertrag? (Auswahl, Auflösung: für Kinder oft Prepaid) | Guthaben aufladen | Den Schalter der Drittanbietersperre umlegen |
+| 5 | Wie viele dieser Nachrichten sind Betrug? (3 von 5, fiktiv) | Den Absender antippen und prüfen | Den Finger vom Link wegziehen |
+| 6 | Welche deiner Daten sind am wertvollsten? (Auswahl, Auflösung: Passwörter und Adresse) | Daten in „privat“ oder „teilen“ wischen | Die Datenkammer abschließen |
+| 7 | Wie viele Betrüger findest du im großen Fall? (eigene Schätzung) | Einem Betrüger die Maske abziehen | Die Alarmglocke läuten und die Eltern holen |
+
+### Insel 13: Risiko-Klippen
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie oft geht der kurze Weg über die Klippe schief? (1 von 5 Mal, fiktiv) | Einen Weg wählen | Einen Stein aus dem Weg wischen |
+| 2 | Was kostet ein neuer Fahrradschlauch? (aktuelle Spanne, vor Start prüfen) | Den Notgroschen in die Truhe legen | Den Platten flicken |
+| 3 | 100 Tiere zahlen in Dieters Hütte ein, ein Schaden kostet 100 Taler. Wie viel zahlt jedes Tier? (1 Taler) | Einen Taler in die Hütte werfen | Die Hilfe auszahlen |
+| 4 | Wie oft kommt die 6 bei 60 Würfen? (ungefähr 10 Mal) | Den Würfel werfen (Handy schütteln oder antippen) | Einen Strich in die Liste setzen |
+| 5 | Wie viele Kisten brauchst du für den seltenen Gegenstand? (niemand weiß es, genau das ist der Trick) | Eine Kiste antippen | Mit Tala eine Spielregel festlegen |
+| 6 | Wie viel bleibt übrig, wenn ein Schiff sinkt: alles auf einem oder verteilt auf drei? (verteilt bleiben zwei Drittel) | Die Waren auf die Schiffe verteilen | Den Sturm losschicken |
+| 7 | Wie viele Stürme übersteht deine Crew? (eigene Schätzung) | Die Segel einholen | Den Notgroschen einsetzen |
+
+### Insel 14: Zukunftsinsel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viel Miete zahlt Talos Familie im Monat? (fiktiv, in Talern) | Rechnungen ins Haus ziehen | Den Rest zählen |
+| 2 | Wie lange dauert es bis zu deiner Traumreise? (eigene Rechnung) | Eine Stufe der Traumleiter hochsteigen | Einen Sparstein auf die Stufe legen |
+| 3 | Wie groß ist der Baum nach 10 Jahren? (fiktiv, mit möglichem Sturm) | Den Baum gießen | Ein Jahr weiterdrehen |
+| 4 | Wie viel würdest du von 10 Talern spenden? (eigene Wahl) | Eine Münze in den Glücksbrunnen werfen | Das Spendensiegel antippen und prüfen |
+| 5 | Wie viel spart Reparieren gegenüber Neukaufen? (fiktiv) | Eine Schraube festdrehen | Einen Flicken auf den Ball kleben |
+| 6 | Wie viele Wege führen zu deinem Traumberuf? (mehrere) | Einen Wegweiser drehen | Eine Interessenkarte ziehen |
+| 7 | Was machst du in 10 Jahren? (eigene Antwort) | Das Fernrohr scharf stellen | Den Plan in die Sternkarte eintragen |
+
+### Insel 15: Schatzinsel
+
+| St. | Schätzfrage (Auflösung) | Antipp-Moment 1 | Antipp-Moment 2 |
+| --- | --- | --- | --- |
+| 1 | Wie viele Bewohner der Inseln 1 bis 7 kennst du noch mit Namen? (eigene Schätzung) | Einen Bewohner begrüßen | Die Aufgabe des Bewohners öffnen |
+| 2 | Wie viele Bewohner der Inseln 8 bis 14 kennst du noch mit Namen? (eigene Schätzung) | Einen Bewohner begrüßen | Die Aufgabe des Bewohners öffnen |
+| 3 | Wie viele der 20 Fragen schaffst du? (eigene Schätzung, wird verglichen) | Ins Muschelhorn blasen, Taleron taucht auf | Taleron zunicken: bereit |
+| 4 | Was ist in der Truhe? (die Goldene Schatzkarte) | Den Schlüssel im Schloss drehen | Die goldene Karte entrollen |
