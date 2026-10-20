@@ -3409,6 +3409,18 @@ abstract class AppLocalizations {
   /// **'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.'**
   String get lighthouseMusicHint;
 
+  /// Leuchtturm: Schalter für kurzes Vibrieren, wenn das Kind eine Station schafft
+  ///
+  /// In de, this message translates to:
+  /// **'Vibrieren bei Erfolgen'**
+  String get lighthouseVibration;
+
+  /// Leuchtturm: Erklärung unter dem Schalter fürs Vibrieren
+  ///
+  /// In de, this message translates to:
+  /// **'Kurz vibrieren, wenn eine Station geschafft ist. Gilt nur für dieses Gerät, im Browser auf dem iPhone geht es nicht.'**
+  String get lighthouseVibrationHint;
+
   /// Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen
   ///
   /// In de, this message translates to:

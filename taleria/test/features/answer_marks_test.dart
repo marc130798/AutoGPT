@@ -81,4 +81,43 @@ void main() {
     await pump(tester, open: false, choose: 0);
     expect(find.byType(GlassFrame), findsNothing);
   });
+
+  testWidgets('Richtig springt kurz, falsch wackelt leicht; ohne Bewegung bleibt es ruhig', (tester) async {
+    Future<void> show(AnswerMark mark, {bool reduceMotion = false}) => tester.pumpWidget(
+      MaterialApp(
+        theme: taleriaThemeForStage(1),
+        home: MediaQuery(
+          data: MediaQueryData(disableAnimations: reduceMotion),
+          child: Scaffold(
+            body: AnswerButton(key: const ValueKey('a'), text: 'Fast jeder nimmt es an', mark: mark),
+          ),
+        ),
+      ),
+    );
+    // Der Text im Knopf verschiebt sich mit, wenn der Knopf springt oder wackelt.
+    Offset shift() => tester.getTopLeft(find.text('Fast jeder nimmt es an'));
+
+    for (final mark in [AnswerMark.right, AnswerMark.wrong]) {
+      await show(AnswerMark.none);
+      final rest = shift();
+      await show(mark);
+      await tester.pump(const Duration(milliseconds: 100));
+      final moved = shift() - rest;
+      if (mark == AnswerMark.right) {
+        expect(moved.dy, lessThan(0), reason: 'springt nach oben');
+        expect(moved.dx, 0);
+      } else {
+        expect(moved.dx, isNot(0), reason: 'wackelt zur Seite');
+        expect(moved.dy, 0);
+      }
+      await tester.pumpAndSettle();
+      expect(shift(), rest);
+    }
+
+    await show(AnswerMark.none, reduceMotion: true);
+    final rest = shift();
+    await show(AnswerMark.wrong, reduceMotion: true);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(shift(), rest, reason: 'ohne Bewegung bleibt der Knopf ruhig');
+  });
 }

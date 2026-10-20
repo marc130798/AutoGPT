@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../core/assets/asset_manifest.dart';
@@ -61,6 +62,9 @@ class AudioSounds extends Sounds {
 
   @override
   void resumeMusic() => _try(_music.resume, music: true);
+
+  @override
+  void vibrate() => HapticFeedback.mediumImpact();
 
   @override
   void playEffect(String key) => _try(() async {

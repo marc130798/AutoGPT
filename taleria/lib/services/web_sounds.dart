@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 import 'dart:ui_web' as ui_web;
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:web/web.dart' as web;
 
@@ -99,6 +100,9 @@ class WebSounds extends Sounds {
     final audio = key == null ? null : _elements[key];
     if (audio != null) _play(audio, music: true);
   }
+
+  @override
+  void vibrate() => HapticFeedback.mediumImpact();
 
   @override
   void playEffect(String key) {

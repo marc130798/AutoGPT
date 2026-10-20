@@ -204,6 +204,17 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                       onChanged: services.sounds.setMusicAllowed,
                     ),
                   ),
+                  ListenableBuilder(
+                    listenable: services.sounds,
+                    builder: (context, _) => SwitchListTile(
+                      key: const ValueKey('vibration-switch'),
+                      secondary: const Icon(Icons.vibration_rounded),
+                      title: Text(l10n.lighthouseVibration),
+                      subtitle: Text(l10n.lighthouseVibrationHint),
+                      value: services.sounds.vibrationAllowed,
+                      onChanged: services.sounds.setVibrationAllowed,
+                    ),
+                  ),
                   ListTile(
                     leading: const Icon(Icons.pin_outlined),
                     title: Text(l10n.lighthouseChangePin),

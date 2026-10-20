@@ -164,6 +164,7 @@ void main() {
     final quiz = sounds.playedEffects.sublist(beforeQuiz);
     expect(quiz.where((e) => e == AssetKeys.soundCorrect), hasLength(4));
     expect(quiz.last, AssetKeys.soundStationDone);
+    expect(sounds.vibrations, 1, reason: 'kurzes Vibrieren bei „Station geschafft“');
   });
 
   testWidgets('Leuchtturm: Eltern schalten die Musik im Hauptmenü aus', (tester) async {
@@ -182,5 +183,9 @@ void main() {
     expect(sounds.musicAllowed, isFalse);
     expect(settings.music, isFalse);
     expect(sounds.enabled, isTrue, reason: 'Töne bei richtigen Antworten bleiben');
+
+    await tapKey(tester, 'vibration-switch');
+    expect(sounds.vibrationAllowed, isFalse);
+    expect(settings.vibration, isFalse);
   });
 }

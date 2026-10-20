@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
@@ -243,34 +245,84 @@ class AnswerButton extends StatelessWidget {
       AnswerMark.wrong => Icons.cancel_rounded,
       AnswerMark.none => null,
     };
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        minimumSize: const Size.fromHeight(56),
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        backgroundColor: fill,
-        disabledBackgroundColor: fill,
-        side: BorderSide(color: color ?? palette.seaDeep, width: color == null ? 2 : 3),
-      ),
-      onPressed: onPressed,
-      child: Row(
-        children: [
-          if (icon != null) ...[Icon(icon, color: color ?? palette.sea), const SizedBox(width: 12)],
-          Expanded(
-            child: Text(
-              text,
-              textAlign: center ? TextAlign.center : null,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: palette.ink,
-                fontWeight: color == null ? null : FontWeight.w700,
+    return _MarkMotion(
+      mark: mark,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size.fromHeight(56),
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          backgroundColor: fill,
+          disabledBackgroundColor: fill,
+          side: BorderSide(color: color ?? palette.seaDeep, width: color == null ? 2 : 3),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          children: [
+            if (icon != null) ...[Icon(icon, color: color ?? palette.sea), const SizedBox(width: 12)],
+            Expanded(
+              child: Text(
+                text,
+                textAlign: center ? TextAlign.center : null,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: palette.ink,
+                  fontWeight: color == null ? null : FontWeight.w700,
+                ),
               ),
             ),
-          ),
-          if (markIcon != null) ...[const SizedBox(width: 8), Icon(markIcon, color: color, size: 28)],
-        ],
+            if (markIcon != null) ...[const SizedBox(width: 8), Icon(markIcon, color: color, size: 28)],
+          ],
+        ),
       ),
     );
   }
+}
+
+/// Bewegung, sobald eine Antwort markiert wird: richtig springt kurz hoch,
+/// falsch wackelt leicht hin und her (ohne Alarm). Bei „Bewegung reduzieren“
+/// bleibt es ruhig.
+class _MarkMotion extends StatefulWidget {
+  const _MarkMotion({required this.mark, required this.child});
+
+  final AnswerMark mark;
+  final Widget child;
+
+  @override
+  State<_MarkMotion> createState() => _MarkMotionState();
+}
+
+class _MarkMotionState extends State<_MarkMotion> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 420),
+  );
+
+  @override
+  void didUpdateWidget(_MarkMotion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final marked = oldWidget.mark == AnswerMark.none && widget.mark != AnswerMark.none;
+    if (marked && !MediaQuery.disableAnimationsOf(context)) _controller.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AnimatedBuilder(
+    animation: _controller,
+    child: widget.child,
+    builder: (context, child) {
+      final t = _controller.value;
+      if (!_controller.isAnimating || t == 0) return child!;
+      final offset = widget.mark == AnswerMark.wrong
+          ? Offset(sin(t * 3 * 2 * pi) * 7 * (1 - t), 0)
+          : Offset(0, -sin(t * pi) * 8);
+      return Transform.translate(offset: offset, child: child);
+    },
+  );
 }
 
 /// Rahmen um Frage, Rückmeldung oder Überschrift, wenn kein großes Blatt

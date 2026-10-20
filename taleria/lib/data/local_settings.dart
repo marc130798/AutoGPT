@@ -39,6 +39,17 @@ abstract interface class LocalSettings {
   Future<bool> musicAllowed();
 
   Future<void> setMusicAllowed(bool allowed);
+
+  /// Kurzes Vibrieren bei Erfolgen erlaubt (Schalter im Leuchtturm). Standard: ja.
+  Future<bool> vibrationAllowed();
+
+  Future<void> setVibrationAllowed(bool allowed);
+
+  /// Stand der Truhen beim letzten Besuch der Schatztruhe (Cent je Truhe),
+  /// `null` beim ersten Besuch. Ist seitdem Geld dazugekommen, fliegen Taler hinein.
+  Future<Map<String, int>?> potsSeen(String childId);
+
+  Future<void> setPotsSeen(String childId, Map<String, int> cents);
 }
 
 class SharedPreferencesSettings implements LocalSettings {
@@ -120,6 +131,35 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setMusicAllowed(bool allowed) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('sound.music', allowed);
+  }
+
+  @override
+  Future<bool> vibrationAllowed() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('vibration') ?? true;
+  }
+
+  @override
+  Future<void> setVibrationAllowed(bool allowed) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('vibration', allowed);
+  }
+
+  @override
+  Future<Map<String, int>?> potsSeen(String childId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final list = prefs.getStringList('pots.$childId');
+    if (list == null) return null;
+    return {
+      for (final entry in list)
+        if (entry.split('=') case [final pot, final cents] when int.tryParse(cents) != null) pot: int.parse(cents),
+    };
+  }
+
+  @override
+  Future<void> setPotsSeen(String childId, Map<String, int> cents) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('pots.$childId', [for (final e in cents.entries) '${e.key}=${e.value}']);
   }
 
   @override

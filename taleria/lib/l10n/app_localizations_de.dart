@@ -2007,6 +2007,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.';
 
   @override
+  String get lighthouseVibration => 'Vibrieren bei Erfolgen';
+
+  @override
+  String get lighthouseVibrationHint =>
+      'Kurz vibrieren, wenn eine Station geschafft ist. Gilt nur für dieses Gerät, im Browser auf dem iPhone geht es nicht.';
+
+  @override
   String get treasureTalaIntro =>
       'Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.';
 

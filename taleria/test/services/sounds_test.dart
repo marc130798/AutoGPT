@@ -20,6 +20,9 @@ class _Recording extends Sounds {
 
   @override
   void playEffect(String key) => calls.add('effect $key');
+
+  @override
+  void vibrate() => calls.add('vibrate');
 }
 
 void main() {
@@ -85,5 +88,26 @@ void main() {
     await sounds.load();
     expect(sounds.enabled, isFalse);
     expect(sounds.musicAllowed, isFalse);
+  });
+
+  test('Vibrieren bei Erfolgen: an, im Leuchtturm abschaltbar, unabhängig vom Ton', () async {
+    final settings = FakeLocalSettings();
+    final sounds = _Recording(settings: settings);
+    await sounds.load();
+    sounds.success();
+    expect(sounds.calls, ['vibrate']);
+
+    await sounds.setEnabled(false);
+    sounds.success();
+    expect(sounds.vibrations, 2, reason: 'Ton aus heißt nicht Vibrieren aus');
+
+    await sounds.setVibrationAllowed(false);
+    expect(settings.vibration, isFalse);
+    sounds.success();
+    expect(sounds.vibrations, 2);
+
+    final reloaded = _Recording(settings: settings);
+    await reloaded.load();
+    expect(reloaded.vibrationAllowed, isFalse);
   });
 }

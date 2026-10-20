@@ -2808,6 +2808,14 @@
   "@lighthouseMusicHint": {
     "description": "Leuchtturm: Erklärung unter dem Musik-Schalter"
   },
+  "lighthouseVibration": "Vibrieren bei Erfolgen",
+  "@lighthouseVibration": {
+    "description": "Leuchtturm: Schalter für kurzes Vibrieren, wenn das Kind eine Station schafft"
+  },
+  "lighthouseVibrationHint": "Kurz vibrieren, wenn eine Station geschafft ist. Gilt nur für dieses Gerät, im Browser auf dem iPhone geht es nicht.",
+  "@lighthouseVibrationHint": {
+    "description": "Leuchtturm: Erklärung unter dem Schalter fürs Vibrieren"
+  },
   "treasureTalaIntro": "Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.",
   "@treasureTalaIntro": {
     "description": "Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen"

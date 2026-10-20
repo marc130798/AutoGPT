@@ -4,11 +4,13 @@ import 'package:flutter/foundation.dart';
 
 import '../data/local_settings.dart';
 
-/// Musik im Hauptmenü und kurze Töne (richtige Antwort, Station geschafft).
+/// Musik im Hauptmenü, kurze Töne (richtige Antwort, Station geschafft) und
+/// kurzes Vibrieren bei Erfolgen.
 ///
 /// Diese Klasse kennt nur die Regeln:
 /// - Ton aus (Lautsprecher-Knopf des Kindes): alles still.
 /// - Musik nicht erlaubt (Schalter im Leuchtturm): keine Musik, Töne ja.
+/// - Vibrieren nicht erlaubt (Schalter im Leuchtturm): kein Vibrieren, unabhängig vom Ton.
 /// - Jeder Bildschirm sagt mit [music], welche Musik er möchte (`null` = keine).
 /// - Ist die App im Hintergrund, pausiert die Musik.
 ///
@@ -27,6 +29,7 @@ class Sounds extends ChangeNotifier {
 
   bool _enabled = true;
   bool _musicAllowed = true;
+  bool _vibrationAllowed = true;
   bool _inBackground = false;
   String? _wanted;
   String? _playing;
@@ -38,6 +41,12 @@ class Sounds extends ChangeNotifier {
 
   /// Musik im Hauptmenü erlaubt (Schalter im Leuchtturm).
   bool get musicAllowed => _musicAllowed;
+
+  /// Kurzes Vibrieren bei Erfolgen erlaubt (Schalter im Leuchtturm).
+  bool get vibrationAllowed => _vibrationAllowed;
+
+  /// Wie oft vibriert wurde (für Tests).
+  int vibrations = 0;
 
   /// Musik, die gerade läuft (`null` = keine oder pausiert).
   String? get playingMusic => _playing;
@@ -51,6 +60,7 @@ class Sounds extends ChangeNotifier {
     if (settings == null) return;
     _enabled = await settings.soundOn();
     _musicAllowed = await settings.musicAllowed();
+    _vibrationAllowed = await settings.vibrationAllowed();
     _apply();
     notifyListeners();
   }
@@ -67,6 +77,20 @@ class Sounds extends ChangeNotifier {
     _apply();
     notifyListeners();
     await settings?.setMusicAllowed(on);
+  }
+
+  Future<void> setVibrationAllowed(bool on) async {
+    _vibrationAllowed = on;
+    notifyListeners();
+    await settings?.setVibrationAllowed(on);
+  }
+
+  /// Kurzes Vibrieren bei einem Erfolg (Station geschafft). Im Browser auf
+  /// dem iPhone ohne Wirkung, erst in der Store-App.
+  void success() {
+    if (!_vibrationAllowed) return;
+    vibrations++;
+    vibrate();
   }
 
   /// Kurzer Ton, zum Beispiel `sound.correct`. Still, wenn der Ton aus ist.
@@ -124,6 +148,9 @@ class Sounds extends ChangeNotifier {
 
   @protected
   void playEffect(String key) {}
+
+  @protected
+  void vibrate() {}
 
   @override
   void dispose() {

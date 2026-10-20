@@ -264,12 +264,12 @@ Die App muss jederzeit testbar sein, auch wenn Grafiken, Animationen und Filme n
 Diese Animationen nutzen Flutter selbst und brauchen keine fremden Dateien. Reihenfolge beim Bauen: zuerst Belohnungen, dann Karte und Meer, dann Übergänge. (Plan von Marc vom 20.10.2026; in Klammern der Stand.)
 
 **Belohnungen (Priorität 1)**
-- Seemeilen zählen sichtbar hoch, statt einfach zu erscheinen. (offen)
-- Taler fliegen einzeln in die Schatztruhe, die Truhe hüpft beim Auffangen. (offen)
-- Richtige Antwort: Der Button springt kurz. Falsche Antwort: Der Button wackelt leicht hin und her, ohne roten Alarm. (offen; die Farben grün und rot gibt es schon)
-- Konfetti oder Sternchen beim Abschluss einer Station. (offen)
-- Orden drehen sich beim Freischalten einmal und glänzen auf. (offen; bisher springt der Orden nur hervor)
-- Kurzes Vibrieren bei Erfolgen (abschaltbar). (offen; im Browser auf dem iPhone gibt es kein Vibrieren, erst in der Store-App)
+- Seemeilen zählen sichtbar hoch, statt einfach zu erscheinen. (da seit 20.10.2026: im Ergebnis einer Station, auch die Beträge in der Schatztruhe)
+- Taler fliegen einzeln in die Schatztruhe, die Truhe hüpft beim Auffangen. (da seit 20.10.2026: wenn seit dem letzten Besuch Geld dazugekommen ist oder Geld in eine Truhe gelegt wird)
+- Richtige Antwort: Der Button springt kurz. Falsche Antwort: Der Button wackelt leicht hin und her, ohne roten Alarm. (da seit 20.10.2026)
+- Konfetti oder Sternchen beim Abschluss einer Station. (da seit 20.10.2026: Konfetti)
+- Orden drehen sich beim Freischalten einmal und glänzen auf. (da seit 20.10.2026)
+- Kurzes Vibrieren bei Erfolgen (abschaltbar). (da seit 20.10.2026: bei „Station geschafft“, Schalter im Leuchtturm; im Browser auf dem iPhone gibt es kein Vibrieren, erst in der Store-App)
 
 **Karte und Meer (Priorität 2)**
 - Wellen bewegen sich langsam, Wolken ziehen über die Karte. (da)
@@ -709,6 +709,13 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 
 - **Schätzfrage vor der Erklärung (Marcs Vorgabe vom 20.10.2026, Inseln 1 bis 3):** Jede Station mit Bildergeschichte (nicht Intro, nicht Prüfung) beginnt die Erklärung mit einer Schätzfrage (Überschrift „Schätz mal!“, weil jede Frage schon mit „Was glaubst du:“ anfängt). Neuer Schritt `StationStep.estimate` zwischen Szene und Erklärung (`EstimateView`). Drei Arten: Schieberegler (`regler`), Zahlenrad (`zahl`, höchstens 120 Zahlen) und Auswahl (`auswahl`, 2 bis 4 Möglichkeiten). Es gibt kein Richtig oder Falsch und keine Punkte; „Das ist mein Tipp“ geht bei der Auswahl erst nach einer Wahl. Die Schätzung merkt sich nur die laufende Station (`StationController.guess`), nicht die Datenbank. Am Ende der Bildergeschichte kommt eine eigene Seite „Auflösung“ mit „Dein Tipp: …“, bei genauem Treffer „Genau getroffen!“, dann der Satz der Figur. In den Inhaltsdateien steht sie als `schaetzfrage` (wer, frage, art, von, bis, schritt, start, einheit, einheit_eins, optionen, loesung, aufloesung); in der Datenbank unter `estimate` in `stations.content` (englische Schlüssel). Nur ganze Zahlen, keine Kommazahlen. Das Werkzeug prüft Bereich, Raster, Lösung und Auflösung; ein optionaler Schlüssel `pruefen` ist ein Merkzettel für Marc (Hafen 3: 2.600 Jahre, Hafen 7: Kinokarte) und wird nicht exportiert. Alle 20 Stationen von Hafen 2 bis Wunschinsel 7 haben ihre Schätzfrage aus dem Anhang von `INSELN.md`. Hafen Station 1 (Intro) bekommt Schätzfrage und Antipp-Momente später.
 - **Antipp-Momente in der Bildergeschichte (Marcs Vorgabe vom 20.10.2026, Inseln 1 bis 3):** Nach Bild n kommt eine eigene Seite „Mach mit!“ für jeden Antipp-Moment mit `nach_bild: n` (`storyPages` in `picture_story.dart`, `TapMomentView`). Das Bild darüber ist dann kleiner. Vier Arten: antippen (`tippen`, mit `anzahl` mehrmals, „Noch 2-mal“), wischen (`wischen`, das Ding zur Seite schieben), ziehen (`ziehen`, das Ding auf das Feld „Hierher“ legen) und umdrehen (`umdrehen`, Karte dreht sich, hinten steht die `rueckseite`). Bei Wischen und Ziehen reicht auch Antippen, damit kein Kind hängen bleibt. Danach klingt eine Münze und der Satz `danach` erscheint (ohne eigenen Satz „Super gemacht!“, beim Umdrehen nichts, weil die Rückseite der Satz ist). Keine Prüfung: „Weiter“ geht immer, auch ohne Mitmachen. Beim Zurückblättern bleibt ein geschaffter Moment fertig. Das Ding ist ein Bild (`bild`, Asset-Schlüssel) oder ein Zeichen (`zeichen`); die 38 Zeichen sind Material-Symbole (`tapSymbols` in `tap_moment_view.dart`), ein Test hält die Liste gleich mit dem Werkzeug. Das Ziel pulsiert sanft, nicht bei „Bewegung reduzieren“ und nicht in Tests (`sceneMotion`).
+- **Belohnungs-Animationen (Animationsplan Priorität 1, umgesetzt am 20.10.2026):** Fast alles in `lib/features/progress/celebration.dart`, ohne fremde Dateien. Keine Animation hält das Kind auf: Knöpfe gehen sofort, Konfetti und Taler fangen kein Antippen ab, nichts dauert länger als knapp 2 Sekunden. Bei „Bewegung reduzieren“ ist alles sofort fertig.
+  - `CountUp`: Zahlen zählen in 1,2 Sekunden hoch (Seemeilen im Ergebnis, Beträge der Truhen; ändert sich der Betrag später, zählt er vom alten Stand weiter).
+  - `ConfettiBurst`: Konfetti über dem Ergebnis jeder geschafften Station, Tauchgang und Stopp (nicht nach einer nicht bestandenen Prüfung).
+  - `AnswerButton` (`station_stage.dart`): Wird eine Antwort markiert, springt der grüne Knopf kurz hoch, der rote wackelt leicht.
+  - Orden beim Insel-Abschluss: dreht sich einmal und bekommt einen Glanzstreifen.
+  - `CoinsIntoChest`: Ein bis fünf Taler (einer pro Euro) fliegen von rechts oben in die Truhe, die Truhe hüpft bei jedem. Dafür merkt sich das Gerät den Stand der Truhen beim letzten Besuch (`LocalSettings.potsSeen`, nicht in der Datenbank); beim allerersten Besuch fliegt nichts.
+  - Vibrieren: `Sounds.success()` bei „Station geschafft“ (gleicher Moment wie die Fanfare). Schalter „Vibrieren bei Erfolgen“ im Leuchtturm (`vibration-switch`, gilt für dieses Gerät, `LocalSettings.vibrationAllowed`), unabhängig vom Lautsprecher-Knopf des Kindes.
 
 ---
 
@@ -721,7 +728,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 383 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 390 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Schätzfrage und Antipp-Momente sind fertig (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
@@ -751,7 +758,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Stand 11.10.2026 abends: Alle 22 Tauschinsel-Bilder sind eingebaut, die Tauschinsel hat keine Platzhalter mehr. Dollarzeichen auf dem Sparschwein (6.2) wegretuschiert, 3.3 war quadratisch und ist auf 4:3 zugeschnitten. 2.1 und 3.2 hat Marc neu gemacht, weil Tala ohne ihre Kleidung war; in 3.2 hat Claude Geldscheine in einer Kiste entfernt (auf der Tauschinsel gibt es kein Geld). 4.1 und 4.2 (Eisstand): Fuchs und Hase in der Schlange ähneln Figuren aus einem bekannten Kinofilm; vor dem Live-Start noch einmal ansehen. Marcs Bilder kommen nicht in seiner Reihenfolge an; Claude ordnet sie nach dem Bildinhalt zu. Alle 24 Wunschinsel-Bilder (Nr. 78 bis 101, BILDER.md Abschnitt 4k) sind eingebaut, damit haben Hafen, Tauschinsel und Wunschinsel keine Platzhalter mehr in den Bildergeschichten. 6.2 („Unsere erste Fahrt“) hat Marc neu gemacht, weil Tala in der ersten Fassung einen Fuchsschwanz hatte. In 4.4 hat Claude ein abgeschnittenes Schild „…ENPLATZ“ entfernt; das volle Schild „MÖWENPLATZ“ in 4.1 und 4.2 bleibt. Bilder, die kommen, während Claude arbeitet, gehen verloren: Marc schickt 5 pro Nachricht und wartet auf „gespeichert“.
 2. Neuer Stations-Aufbau und Animationen (Marcs Vorgabe vom 20.10.2026):
    - Erledigt: Schätzfrage vor jeder Erklärung und Antipp-Momente in den Bildergeschichten (Inseln 1 bis 3). Vor dem nächsten Test im Testprojekt `supabase/seed.sql` neu ausführen.
-   - Als Nächstes: die Animationen aus Abschnitt 11 (Belohnungen, Möwen, Übergänge).
+   - Erledigt: Belohnungs-Animationen (Abschnitt 11, Priorität 1).
+   - Als Nächstes: Möwen über der Karte, dann die Übergänge (Abschnitt 11, Priorität 2 und 3).
    - Offen für Marc: Rive oder Bilder (Abschnitt 15).
 3. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).

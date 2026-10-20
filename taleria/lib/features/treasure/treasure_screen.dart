@@ -14,6 +14,7 @@ import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
+import '../progress/celebration.dart';
 import 'amount_dialog.dart';
 import 'ledger_tile.dart';
 import 'pot_detail_screen.dart';
@@ -34,10 +35,43 @@ class TreasureScreen extends StatefulWidget {
 class _TreasureScreenState extends State<TreasureScreen> {
   TreasureController? _controller;
 
+  /// Stand der Truhen beim letzten Besuch (`null` beim ersten Besuch).
+  Map<String, int>? _seen;
+  bool _seenLoaded = false;
+  PotBalances? _remembered;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _controller ??= TreasureController(budget: AppScope.of(context).budget!, childId: widget.childId)..load();
+    if (_controller == null) {
+      _controller = TreasureController(budget: AppScope.of(context).budget!, childId: widget.childId)..load();
+      _loadSeen();
+    }
+  }
+
+  Future<void> _loadSeen() async {
+    Map<String, int>? seen;
+    try {
+      seen = await AppScope.of(context).settings.potsSeen(widget.childId);
+    } catch (_) {
+      // Ohne gemerkten Stand fliegen eben keine Taler.
+    }
+    if (!mounted) return;
+    setState(() {
+      _seen = seen;
+      _seenLoaded = true;
+    });
+  }
+
+  /// Jetzigen Stand merken: Beim nächsten Besuch fliegt nur neues Geld in die Truhen.
+  void _remember(PotBalances balances) {
+    final last = _remembered;
+    if (last != null && Pot.values.every((p) => last.of(p) == balances.of(p))) return;
+    _remembered = balances;
+    final settings = AppScope.of(context).settings;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      settings.setPotsSeen(widget.childId, {for (final p in Pot.values) p.code: balances.of(p)}).ignore();
+    });
   }
 
   @override
@@ -153,10 +187,11 @@ class _TreasureScreenState extends State<TreasureScreen> {
             child: ListenableBuilder(
               listenable: controller,
               builder: (context, _) {
-                if (controller.loading) return const Center(child: CircularProgressIndicator());
+                if (controller.loading || !_seenLoaded) return const Center(child: CircularProgressIndicator());
                 if (controller.failure != null) {
                   return _Failure(kind: controller.failure!, onRetry: controller.load);
                 }
+                _remember(controller.balances);
                 return RefreshIndicator(
                   onRefresh: controller.load,
                   child: _TreasureContent(
@@ -170,6 +205,7 @@ class _TreasureScreenState extends State<TreasureScreen> {
                     onKeepWish: _keepWish,
                     onDropWish: _dropWish,
                     onOpenPot: _openPot,
+                    seen: _seen,
                   ),
                 );
               },
@@ -193,9 +229,13 @@ class _TreasureContent extends StatelessWidget {
     required this.onKeepWish,
     required this.onDropWish,
     required this.onOpenPot,
+    this.seen,
   });
 
   final TreasureController controller;
+
+  /// Stand beim letzten Besuch: Was seitdem dazugekommen ist, fliegt hinein.
+  final Map<String, int>? seen;
   final VoidCallback onMove;
   final ValueChanged<Pot> onSpend;
   final VoidCallback onNewGoal;
@@ -222,6 +262,7 @@ class _TreasureContent extends StatelessWidget {
           _PotCard(
             pot: pot,
             balance: balances.of(pot),
+            seen: seen?[pot.code],
             onOpen: () => onOpenPot(pot),
             action: switch (pot) {
               Pot.spend => (l10n.treasureSpend, () => onSpend(Pot.spend)),
@@ -377,10 +418,13 @@ class _Section extends StatelessWidget {
 /// Eine Truhe mit Bild, Stand und Erklärung. Antippen (oder „Was ist drin?“)
 /// öffnet die Übersicht, wie sich der Stand zusammensetzt.
 class _PotCard extends StatelessWidget {
-  const _PotCard({required this.pot, required this.balance, required this.action, required this.onOpen});
+  const _PotCard({required this.pot, required this.balance, this.seen, required this.action, required this.onOpen});
 
   final Pot pot;
   final int balance;
+
+  /// Stand beim letzten Besuch (`null` = unbekannt, dann fliegt nichts).
+  final int? seen;
   final (String, VoidCallback)? action;
   final VoidCallback onOpen;
 
@@ -408,7 +452,12 @@ class _PotCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PotImage(pot: pot, size: 76),
+                CoinsIntoChest(
+                  chest: PotImage(pot: pot, size: 76),
+                  size: 76,
+                  from: seen ?? balance,
+                  to: balance,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -422,10 +471,14 @@ class _PotCard extends StatelessWidget {
                               style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
                             ),
                           ),
-                          Text(
-                            formatCents(balance),
-                            key: ValueKey('balance-${pot.code}'),
-                            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                          CountUp(
+                            from: seen != null && seen! < balance ? seen! : balance,
+                            value: balance,
+                            builder: (context, cents) => Text(
+                              formatCents(cents),
+                              key: ValueKey('balance-${pot.code}'),
+                              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                            ),
                           ),
                         ],
                       ),

@@ -282,4 +282,56 @@ void main() {
     await tester.pumpAndSettle();
     expect(budget.balance(mila.id, Pot.spend), 420);
   });
+
+  testWidgets('Neues Geld seit dem letzten Besuch: Taler fliegen in die Truhe', (tester) async {
+    final backend = FakeBackend();
+    final parent = backend.addParent(pin: '2468');
+    final mila = backend.addChild(parent);
+    final budget = FakeBudget()..now = DateTime(2026, 10, 9, 12);
+    budget.allowances[mila.id] = AllowanceRule(
+      amountCents: 500,
+      interval: AllowanceInterval.weekly,
+      nextRunAt: DateTime(2026, 10, 9, 8),
+    );
+    await budget.processDueAllowances(mila.id);
+    final settings = FakeLocalSettings();
+    backend.codes['ABCD2345'] = (childId: mila.id, validUntil: DateTime(2026), used: false);
+    await tester.pumpWidget(buildTestApp(backend: backend, budget: budget, settings: settings));
+    await tester.pumpAndSettle();
+    await tapText(tester, 'Ich habe einen Code');
+    await enter(tester, 'child-code-field', 'ABCD2345');
+    await tapText(tester, 'An Bord gehen');
+    final flying = find.byKey(const ValueKey('coins-flying'));
+    Map<String, int> balances() => {for (final pot in Pot.values) pot.code: budget.balance(mila.id, pot)};
+
+    // Erster Besuch: Nichts fliegt, die App merkt sich den Stand.
+    await tapText(tester, 'Schatztruhe');
+    expect(flying, findsNothing);
+    expect(settings.potsSeenBy[mila.id], balances());
+    tester.state<NavigatorState>(find.byType(Navigator).first).pop();
+    await tester.pumpAndSettle();
+
+    // Die Eltern bestätigen einen Auftrag: Beim nächsten Besuch fliegen Taler.
+    await budget.createTask(
+      parentId: parent.id,
+      childId: mila.id,
+      title: 'Rasen mähen',
+      rewardCents: 300,
+      isChore: false,
+    );
+    await budget.reviewTask(budget.tasks[mila.id]!.single.id, approve: true);
+    await tester.tap(find.text('Schatztruhe'));
+    for (var i = 0; i < 5 && flying.evaluate().isEmpty; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    expect(flying, findsWidgets);
+    await tester.pumpAndSettle();
+    expect(flying, findsNothing, reason: 'nach gut einer Sekunde vorbei');
+    expect(settings.potsSeenBy[mila.id], balances());
+    // Der Betrag ist zu Ende hochgezählt.
+    expect(
+      tester.widget<Text>(find.byKey(const ValueKey('balance-spend'))).data,
+      formatCents(budget.balance(mila.id, Pot.spend)),
+    );
+  });
 }

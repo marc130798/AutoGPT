@@ -53,8 +53,8 @@ class _StationScreenState extends State<StationScreen> {
 
   Sounds get _sounds => AppScope.of(context).sounds;
 
-  /// Am Ende eine Fanfare: groß, wenn die Insel geschafft ist. Nach einer
-  /// nicht bestandenen Prüfung keine.
+  /// Am Ende eine Fanfare (groß, wenn die Insel geschafft ist) und kurzes
+  /// Vibrieren. Nach einer nicht bestandenen Prüfung keins von beiden.
   void _onStep() {
     final controller = _controller!;
     if (controller.step == _lastStep) return;
@@ -62,6 +62,7 @@ class _StationScreenState extends State<StationScreen> {
     final result = controller.result;
     if (controller.step != StationStep.result || result == null || !result.passed) return;
     _sounds.effect(result.islandCompleted ? AssetKeys.soundIslandDone : AssetKeys.soundStationDone);
+    _sounds.success();
   }
 
   @override
@@ -335,7 +336,7 @@ class _ResultView extends StatelessWidget {
     final exam = controller.content.exam;
     final failedExam = controller.isExam && !result.passed;
 
-    return Column(
+    final page = Column(
       children: [
         Expanded(
           child: ListView(
@@ -369,10 +370,15 @@ class _ResultView extends StatelessWidget {
               ],
               if (result.xpAwarded > 0) ...[
                 const SizedBox(height: 8),
-                Text(
-                  l10n.doneXp(result.xpAwarded),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleLarge?.copyWith(color: palette.gold, fontWeight: FontWeight.w800),
+                // Seemeilen zählen sichtbar hoch.
+                CountUp(
+                  value: result.xpAwarded,
+                  builder: (context, xp) => Text(
+                    l10n.doneXp(xp),
+                    key: const ValueKey('result-xp'),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.titleLarge?.copyWith(color: palette.gold, fontWeight: FontWeight.w800),
+                  ),
                 ),
               ],
               const SizedBox(height: 24),
@@ -452,6 +458,14 @@ class _ResultView extends StatelessWidget {
             ],
           ),
         ),
+      ],
+    );
+    // Geschafft: Konfetti über dem Ergebnis (nicht nach einer nicht bestandenen Prüfung).
+    if (failedExam) return page;
+    return Stack(
+      children: [
+        page,
+        const Positioned.fill(child: ConfettiBurst()),
       ],
     );
   }
