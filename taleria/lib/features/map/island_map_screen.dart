@@ -53,7 +53,7 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
   late final AnimationController _travel = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 3400),
-  );
+  )..addListener(_followShip);
   late final AnimationController _unlock = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 900),
@@ -146,20 +146,12 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
     _travel.duration = hops == 1 && isIsland(last) && isIsland(target)
         ? const Duration(milliseconds: 3400)
         : Duration(milliseconds: min(3400, 1500 + 900 * (hops - 1)));
+    // Unter dem Nebel schon zum Start der Fahrt, damit man das Schiff
+    // ablegen sieht; während der Fahrt folgt die Karte ihm (_followShip).
+    _followShip();
     try {
       await _introDone();
       if (!mounted) return;
-      final layout = _layout;
-      final berth = layout == null ? null : berthOf(layout, controller, target);
-      if (layout != null && berth != null && _scroll.hasClients) {
-        unawaited(
-          _scroll.animateTo(
-            layout.offsetToShow(berth.anchor.dy, _viewport),
-            duration: const Duration(milliseconds: 1800),
-            curve: Curves.easeInOut,
-          ),
-        );
-      }
       await _travel.forward(from: 0).orCancel;
       if (!mounted) return;
       setState(() {
@@ -172,6 +164,21 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       return;
     }
     if (mounted) setState(() => _unlockingId = null);
+  }
+
+  /// Hält das fahrende Schiff in der Mitte des Bildschirms (Marcs Test am
+  /// 20.10.2026: vorher blieb die Karte stehen und das Schiff fuhr aus dem Bild).
+  void _followShip() {
+    final controller = _controller;
+    final layout = _layout;
+    final fromId = _travelFromId;
+    final toId = _travelToId;
+    if (controller == null || layout == null || fromId == null || toId == null || !_scroll.hasClients) return;
+    final from = berthOf(layout, controller, fromId);
+    final to = berthOf(layout, controller, toId);
+    if (from == null || to == null) return;
+    final y = layout.sail(from, to, _travel.value).position.dy;
+    _scroll.jumpTo(layout.offsetToShow(y, _viewport));
   }
 
   Future<void> _introDone() {

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/features/map/map_painters.dart';
+import 'package:taleria/features/map/map_scene.dart';
 
 import '../fake_content.dart';
 import '../fakes.dart';
@@ -124,6 +125,24 @@ void main() {
     expect(lockOn('tauschinsel'), findsNothing);
     // Die Wunschinsel bleibt verschlossen.
     expect(lockOn('wunschinsel'), findsOneWidget);
+  });
+
+  testWidgets('Die Karte folgt dem Schiff: Es bleibt die ganze Fahrt auf dem Bildschirm', (tester) async {
+    await openMap(tester, hafenDone: true, lastShip: 'island-hafen');
+    final screen = tester.view.physicalSize / tester.view.devicePixelRatio;
+    final ship = find.byType(MapShip);
+    // Nebel-Start, dann die Fahrt (etwa 3,4 Sekunden) in kleinen Schritten.
+    await tester.pump(const Duration(milliseconds: 2700));
+    final positions = <double>[];
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 450));
+      final center = tester.getCenter(ship);
+      positions.add(center.dy);
+      expect(center.dy, inInclusiveRange(0, screen.height), reason: 'Schiff im Bild nach ${i + 1}. Schritt');
+    }
+    // Die Fahrt geht nach oben zur Tauschinsel, die Karte scrollt mit: Das
+    // Schiff bleibt etwa in der Mitte statt aus dem Bild zu fahren.
+    expect(positions.last, closeTo(positions.first, screen.height / 3));
   });
 
   testWidgets('Stopps auf See: Schiff fährt zum ersten Stopp, die Tauschinsel bleibt zu', (tester) async {
