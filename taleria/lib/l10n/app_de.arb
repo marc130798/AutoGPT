@@ -3542,5 +3542,38 @@
   "backpackNextTrip": "Nächster Ausflug",
   "@backpackNextTrip": {
     "description": "Rucksack packen: Knopf zum nächsten Ausflug"
+  },
+  "estimateBadge": "Was glaubst du?",
+  "@estimateBadge": {
+    "description": "Schätzfrage vor der Erklärung: Überschrift"
+  },
+  "estimateHint": "Schätz einfach! Es gibt kein Richtig oder Falsch. Die Lösung kommt gleich in der Geschichte.",
+  "@estimateHint": {
+    "description": "Schätzfrage: Hinweis unter der Frage"
+  },
+  "estimateSubmit": "Das ist mein Tipp",
+  "@estimateSubmit": {
+    "description": "Schätzfrage: Knopf zum Abgeben der Schätzung"
+  },
+  "estimateYourGuess": "Dein Tipp: {guess}",
+  "@estimateYourGuess": {
+    "description": "Auflösung am Ende der Erklärung: was das Kind geschätzt hat",
+    "placeholders": {
+      "guess": {
+        "type": "String"
+      }
+    }
+  },
+  "estimateExact": "Genau getroffen!",
+  "@estimateExact": {
+    "description": "Auflösung: Die Schätzung war genau richtig"
+  },
+  "estimateRevealTitle": "Auflösung",
+  "@estimateRevealTitle": {
+    "description": "Auflösung der Schätzfrage: Überschrift"
+  },
+  "estimateWheelHint": "Dreh am Zahlenrad.",
+  "@estimateWheelHint": {
+    "description": "Schätzfrage mit Zahlenrad: Hinweis"
   }
 }

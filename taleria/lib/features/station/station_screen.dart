@@ -19,6 +19,7 @@ import '../progress/celebration.dart';
 import '../../services/encounter_controller.dart' show EncounterRun;
 import 'dialog_sequence.dart';
 import 'dive_header.dart';
+import 'estimate_view.dart';
 import 'game_views.dart';
 import 'picture_story.dart';
 import 'quiz_view.dart';
@@ -119,11 +120,26 @@ class _StationScreenState extends State<StationScreen> {
             // Beim Stopp auf See mit Schiff steht oben das Schiff (siehe _framed).
             stage: content.seaStop?.ship == null,
           ),
+          StationStep.estimate => EstimateView(estimate: content.estimate!, onSubmit: controller.submitEstimate),
           StationStep.lesson when content.hasPictureStory => PictureStory(
             lines: content.lesson,
             onDone: controller.next,
+            estimate: content.estimate,
+            guess: controller.guess,
           ),
-          StationStep.lesson => DialogSequence(lines: content.lesson, onDone: controller.next, stage: true),
+          StationStep.lesson => DialogSequence(
+            lines: [
+              ...content.lesson,
+              // Ohne Bilder steht die Auflösung als letzte Zeile da.
+              if (content.estimate case final e? when controller.guess != null)
+                DialogLine(
+                  speaker: e.reveal.speaker,
+                  text: '${l10n.estimateYourGuess(e.display(controller.guess!))} ${e.reveal.text}',
+                ),
+            ],
+            onDone: controller.next,
+            stage: true,
+          ),
           StationStep.game => GameStepView(
             game: content.game!.forLevel(controller.child.level),
             onDone: controller.next,
@@ -206,6 +222,17 @@ Widget _framed(StationController controller, Widget body) {
     StationStep.lesson when controller.station.content.hasPictureStory => StagePanel(open: true, child: body),
     // Szene und Lehre bringen ihre Bühne selbst mit (aktueller Sprecher).
     StationStep.scene || StationStep.lesson => body,
+    // Schätzen: Talo und Tala überlegen mit.
+    StationStep.estimate => StagePanel(
+      stage: const FigureStage(
+        figures: [
+          StageFigure(AssetKeys.talo, pose: CharacterPose.think),
+          StageFigure(AssetKeys.tala, pose: CharacterPose.think),
+        ],
+      ),
+      open: true,
+      child: body,
+    ),
     StationStep.warmUp => StagePanel(
       stage: quizStage(answered: controller.warmUp!.answered, correct: controller.warmUp!.answeredCorrectly),
       open: true,

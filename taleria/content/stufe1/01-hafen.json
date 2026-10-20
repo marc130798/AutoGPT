@@ -58,6 +58,20 @@
           "text": "Genau für solche Fälle haben die Menschen das Geld erfunden."
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Wie viele Händler muss ich fragen, bis einer mein Halstuch nimmt?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 10,
+        "start": 3,
+        "einheit": "Händler",
+        "loesung": 0,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Keiner! Niemand braucht gerade ein Halstuch. Genau deshalb haben die Menschen das Geld erfunden."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -78,6 +92,22 @@
           "wer": "talo",
           "text": "Mit Geld bekommt außerdem alles einen Preis in derselben Einheit. So kann man Preise vergleichen.",
           "bild": "story.hafen.2.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "ziehen",
+          "text": "Zieh Tala zum nächsten Stand.",
+          "bild": "character.tala",
+          "danach": "Auch hier will niemand ein Halstuch."
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Leg eine Münze statt des Halstuchs auf die Theke.",
+          "zeichen": "muenze",
+          "danach": "Die Münze nimmt der Händler gern!"
         }
       ],
       "spiel": {
@@ -282,6 +312,23 @@
           "text": "Das war alles mal Geld? Sogar Salz?"
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie alt sind die ältesten Münzen der Welt?",
+        "art": "regler",
+        "von": 100,
+        "bis": 5000,
+        "schritt": 100,
+        "start": 1000,
+        "einheit": "Jahre",
+        "einheit_eins": "Jahr",
+        "loesung": 2600,
+        "pruefen": "Alter der ältesten Münzen: Quelle vor dem Start ergänzen",
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Die ältesten Münzen sind rund 2.600 Jahre alt. Sie stammen aus Lydien, einem alten Königreich in der heutigen Türkei."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -302,6 +349,22 @@
           "wer": "talo",
           "text": "Heute bezahlen viele mit Karte oder Handy. Das Geld kommt dann von einem Konto. Die Idee ist gleich geblieben: Alle nehmen es an.",
           "bild": "story.hafen.3.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "wischen",
+          "text": "Wisch den Staub von der alten Kiste.",
+          "zeichen": "besen",
+          "danach": "Darunter liegen Muscheln, Salz und alte Münzen."
+        },
+        {
+          "nach_bild": 3,
+          "art": "ziehen",
+          "text": "Zieh die Muschel an den Anfang des Zeitstrahls.",
+          "bild": "item.muschel",
+          "danach": "Richtig weit vorn: Muscheln waren eines der ersten Zahlungsmittel."
         }
       ],
       "spiel": {
@@ -414,6 +477,21 @@
           "text": "Dann sortieren wir. Kennst du alle Euro-Münzen und Scheine?"
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Wie viele verschiedene Euro-Münzen gibt es?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 20,
+        "start": 5,
+        "einheit": "Münzen",
+        "einheit_eins": "Münze",
+        "loesung": 8,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Es sind 8 Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -444,6 +522,22 @@
           "wer": "talo",
           "text": "Geld gibt es übrigens auch digital auf einem Konto. Man sieht es nicht, aber es ist genauso viel wert.",
           "bild": "story.hafen.4.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "umdrehen",
+          "text": "Dreh die Münze um und sieh dir die Rückseite an.",
+          "zeichen": "muenze",
+          "rueckseite": "Auf der Rückseite hat jedes Land mit dem Euro sein eigenes Bild. Bezahlen kann man mit allen Euro-Münzen in allen diesen Ländern."
+        },
+        {
+          "nach_bild": 5,
+          "art": "ziehen",
+          "text": "Sortier die große Münze zuerst in die Schublade.",
+          "zeichen": "muenze",
+          "danach": "Erst die großen, dann die kleinen. So brauchst du weniger Münzen."
         }
       ],
       "spiel": {
@@ -756,6 +850,21 @@
           "text": "Sie bekommen Lohn, weil sie etwas leisten, das andere brauchen."
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Woher bekommen die Bootsbauer ihr Geld?",
+        "art": "auswahl",
+        "optionen": [
+          "Sie drucken es selbst",
+          "Lohn für ihre Arbeit",
+          "Es wird ihnen geschenkt"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Sie bekommen Lohn für ihre Arbeit. Geld selbst drucken ist verboten."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -775,6 +884,23 @@
         {
           "wer": "tala",
           "text": "Also: Geld drucken darf man nicht, Geld verdienen schon!"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Hilf beim Reparieren: Tipp dreimal mit dem Hammer auf den Nagel.",
+          "zeichen": "hammer",
+          "anzahl": 3,
+          "danach": "Fest! Das Boot ist repariert."
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Gib dem Bootsbauer seinen Lohnbeutel.",
+          "zeichen": "beutel",
+          "danach": "Lohn für gute Arbeit!"
         }
       ],
       "spiel": {
@@ -912,6 +1038,21 @@
           "text": "Lass uns den Preis mal auseinandernehmen."
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Wie viel vom Preis eines Fischbrötchens ist der Fisch?",
+        "art": "auswahl",
+        "optionen": [
+          "Fast der ganze Preis",
+          "Ungefähr die Hälfte",
+          "Ungefähr ein Viertel"
+        ],
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "verkaeuferin",
+          "text": "Ungefähr ein Viertel. Von 4 Euro ist etwa 1 Euro für den Fisch. Der Rest ist für Brötchen, Miete, Lohn und Gewinn."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -932,6 +1073,22 @@
           "wer": "talo",
           "text": "Ohne Gewinn lohnt sich der Stand nicht. Ist der Preis zu hoch, kaufen die Leute woanders.",
           "bild": "story.hafen.6.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "ziehen",
+          "text": "Leg den Fisch aufs Brötchen.",
+          "bild": "item.fisch",
+          "danach": "Lecker! Aber der Fisch ist nur ein Teil des Preises."
+        },
+        {
+          "nach_bild": 3,
+          "art": "umdrehen",
+          "text": "Dreh das Preisschild um.",
+          "zeichen": "preisschild",
+          "rueckseite": "Fisch, Brötchen, Miete, Lohn und Gewinn: Alles steckt im Preis."
         }
       ],
       "spiel": {
@@ -1068,6 +1225,20 @@
           "text": "Äh … nicht so genau."
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Was kostet eine Kinokarte für Kinder?",
+        "art": "regler",
+        "von": 1,
+        "bis": 20,
+        "start": 10,
+        "einheit": "Euro",
+        "pruefen": "Preis einer Kinokarte für Kinder: aktuelle Spanne mit Quelle vor dem Start prüfen",
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Für Kinder kostet eine Kinokarte meist zwischen 6 und 9 Euro, je nach Kino und Tag."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -1088,6 +1259,22 @@
           "wer": "talo",
           "text": "Gute Idee. Preise ändern sich mit der Zeit und sind nicht überall gleich. Deshalb lohnt sich Vergleichen.",
           "bild": "story.hafen.7.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "ziehen",
+          "text": "Leg das Brötchen auf die Waage.",
+          "bild": "item.broetchen",
+          "danach": "Ein Brötchen ist leicht und kostet wenig."
+        },
+        {
+          "nach_bild": 3,
+          "art": "umdrehen",
+          "text": "Dreh das Preisschild um.",
+          "zeichen": "preisschild",
+          "rueckseite": "Preise ändern sich und sind nicht überall gleich. Vergleichen lohnt sich!"
         }
       ],
       "spiel": {

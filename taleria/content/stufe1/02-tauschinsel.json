@@ -285,6 +285,21 @@
           "text": "Dann fragen wir herum, wer was braucht."
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Wie viele Tausche brauche ich, bis ich das Seil habe?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 10,
+        "start": 1,
+        "einheit": "Tausche",
+        "einheit_eins": "Tausch",
+        "loesung": 3,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Drei Tausche: Eimer gegen Fisch, Fisch gegen Äpfel und Äpfel gegen das Seil."
+        }
+      },
       "erklaerung": [
         {
           "wer": "bruno",
@@ -311,6 +326,22 @@
         {
           "wer": "tala",
           "text": "Ganz schön viel Lauferei für ein Seil!"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 3,
+          "art": "ziehen",
+          "text": "Bring den Eimer zu Otti.",
+          "bild": "item.eimer",
+          "danach": "Otti gibt dir dafür einen Fisch."
+        },
+        {
+          "nach_bild": 4,
+          "art": "ziehen",
+          "text": "Bring den Fisch zu Bruno.",
+          "bild": "item.fisch",
+          "danach": "Bruno gibt dir dafür Äpfel."
         }
       ],
       "spiel": {
@@ -534,6 +565,20 @@
           "name": "Bruno"
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viele Händler muss Tala fragen, bis sie die Laterne hat?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 10,
+        "start": 3,
+        "einheit": "Händler",
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "tala",
+          "text": "Zwei! Der Dachs wollte meine Kette für drei schrumpelige Äpfel. Die Ente hat mir die Laterne für meinen Korb gegeben."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -549,6 +594,22 @@
           "wer": "talo",
           "text": "Ein guter Tausch macht beide zufrieden. Und manchmal sagt man besser Nein.",
           "bild": "story.tauschinsel.2.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Öffne Talas Rucksack.",
+          "zeichen": "rucksack",
+          "danach": "Darin: eine Muschelkette, ein Korb und ein Stück Käse."
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Leg den Korb auf den Tauschtisch.",
+          "zeichen": "beutel",
+          "danach": "Die Ente schaut sich den Korb genau an."
         }
       ],
       "spiel": {
@@ -739,6 +800,20 @@
           "text": "Ich mag Fischbrötchen gar nicht. Für mich wäre das kein guter Tausch."
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viele Muscheln würdest du oben auf dem Berg für eine Flasche Wasser geben?",
+        "art": "regler",
+        "von": 0,
+        "bis": 20,
+        "start": 2,
+        "einheit": "Muscheln",
+        "einheit_eins": "Muschel",
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Da gibt es keine feste Antwort. Oben in der Hitze ist Wasser viel mehr wert als unten an der Quelle."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -754,6 +829,22 @@
           "wer": "talo",
           "text": "Deshalb kann ein Tausch für beide gut sein: Jeder bekommt das, was ihm mehr wert ist.",
           "bild": "story.tauschinsel.3.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Tipp auf die Sonne. Es wird heißer!",
+          "zeichen": "sonne",
+          "danach": "Puh! Jetzt ist Wasser noch mehr wert."
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Reich Tala die Wasserflasche.",
+          "zeichen": "flasche",
+          "danach": "Danke! Das war für mich gerade ein Schatz."
         }
       ],
       "spiel": {
@@ -944,6 +1035,21 @@
           "text": "Mal sehen, wie viele Kunden dann kommen."
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Wie viele Kunden kommen an einem heißen Tag im Vergleich zu einem Regentag?",
+        "art": "auswahl",
+        "optionen": [
+          "Gleich viele",
+          "Doppelt so viele",
+          "Viermal so viele"
+        ],
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Viermal so viele! An heißen Tagen wollen viel mehr Leute ein Eis."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -964,6 +1070,22 @@
           "wer": "talo",
           "text": "Angebot heißt: wie viel es von etwas gibt. Nachfrage heißt: wie viele es haben wollen. Beides beeinflusst den Preis.",
           "bild": "story.tauschinsel.4.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 2,
+          "art": "wischen",
+          "text": "Wisch von der Sonne zum Regen.",
+          "zeichen": "regen",
+          "danach": "Regen! Jetzt kommt kaum noch jemand."
+        },
+        {
+          "nach_bild": 3,
+          "art": "umdrehen",
+          "text": "Dreh das Preisschild am Eisstand um.",
+          "zeichen": "preisschild",
+          "rueckseite": "Regentag: Der Preis geht runter, damit das Eis nicht liegen bleibt."
         }
       ],
       "spiel": {
@@ -1192,6 +1314,20 @@
           "name": "Greta"
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Welches Netz ist nach einem Jahr günstiger?",
+        "art": "auswahl",
+        "optionen": [
+          "Das billige Netz für 5 Taler",
+          "Das gute Netz für 20 Taler"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "tala",
+          "text": "Das gute! 12 billige Netze kosten im Jahr 60 Taler, das gute nur 20."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -1211,6 +1347,23 @@
         {
           "wer": "tala",
           "text": "Aber teuer ist auch nicht automatisch gut. Vergleichen ist das Wichtigste!"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "ziehen",
+          "text": "Zieh kräftig am billigen Netz.",
+          "zeichen": "netz",
+          "danach": "Ratsch! Das billige Netz ist schon gerissen."
+        },
+        {
+          "nach_bild": 2,
+          "art": "tippen",
+          "text": "Stapel die Taler für die billigen Netze: Tipp dreimal.",
+          "zeichen": "muenze",
+          "anzahl": 3,
+          "danach": "Was für ein hoher Stapel!"
         }
       ],
       "spiel": {
@@ -1331,6 +1484,21 @@
           "text": "Eis jetzt … oder sparen für das Fernrohr? Oh, ist das schwer!"
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viele Wochen muss Tala für das Fernrohr sparen?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 12,
+        "start": 2,
+        "einheit": "Wochen",
+        "einheit_eins": "Woche",
+        "loesung": 4,
+        "aufloesung": {
+          "wer": "tala",
+          "text": "4 Wochen. Das Fernrohr kostet 20 Taler, und ich lege jede Woche meine 5 Taler zurück."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -1346,6 +1514,22 @@
           "wer": "talo",
           "text": "Es gibt kein Richtig oder Falsch. Wichtig ist, dass du weißt, worauf du verzichtest.",
           "bild": "story.tauschinsel.6.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "ziehen",
+          "text": "Zieh den Taler zum Fernrohr.",
+          "zeichen": "muenze",
+          "danach": "Gespart! Das Eis muss heute warten."
+        },
+        {
+          "nach_bild": 2,
+          "art": "tippen",
+          "text": "Schau durchs Fernrohr: Tipp darauf.",
+          "zeichen": "fernrohr",
+          "danach": "Was für eine Aussicht über das ganze Meer!"
         }
       ],
       "spiel": {
@@ -1509,6 +1693,20 @@
           "name": "Olga"
         }
       ],
+      "schaetzfrage": {
+        "wer": "olga",
+        "frage": "Was glaubst du: Wie viele häufige Karten ist eine seltene Karte wert?",
+        "art": "regler",
+        "von": 1,
+        "bis": 10,
+        "start": 3,
+        "einheit": "Karten",
+        "einheit_eins": "Karte",
+        "aufloesung": {
+          "wer": "talo",
+          "text": "So viele, wie beide fair finden. Wichtig ist, dass beide wissen, wie selten die Karte ist."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -1530,6 +1728,22 @@
           "text": "Und wer vorher klärt, ob man zurücktauschen darf, hat später keinen Streit. Hier ist euer Kartenstück!",
           "name": "Olga",
           "bild": "story.tauschinsel.7.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "umdrehen",
+          "text": "Dreh die Sammelkarten um.",
+          "zeichen": "karte",
+          "rueckseite": "Eine Karte ist selten, die andere ganz häufig. Wusste das jüngere Kind das?"
+        },
+        {
+          "nach_bild": 3,
+          "art": "tippen",
+          "text": "Schlag ein zum fairen Tausch: Tipp auf die Hand.",
+          "zeichen": "hand",
+          "danach": "Abgemacht! Beide sind einverstanden."
         }
       ],
       "spiel": {

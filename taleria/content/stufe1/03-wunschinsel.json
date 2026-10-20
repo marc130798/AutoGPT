@@ -225,6 +225,21 @@
           "text": "Moment. Was davon brauchst du wirklich?"
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viele Dinge im Glitzerladen braucht man wirklich zum Leben?",
+        "art": "auswahl",
+        "optionen": [
+          "Fast alle",
+          "Ungefähr die Hälfte",
+          "Fast keine"
+        ],
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Fast keine! Im Glitzerladen gibt es vor allem Wünsche. Zum Leben braucht man Essen, Trinken, Kleidung und ein Zuhause."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -245,6 +260,22 @@
           "wer": "tala",
           "text": "Wünsche sind erlaubt! Aber Bedürfnisse kommen zuerst.",
           "bild": "story.wunschinsel.1.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "wischen",
+          "text": "Wisch das Brot in den Korb „Brauche ich“.",
+          "zeichen": "brot",
+          "danach": "Richtig: Brot ist ein Bedürfnis."
+        },
+        {
+          "nach_bild": 2,
+          "art": "wischen",
+          "text": "Putz das Schaufenster: Wisch einmal darüber.",
+          "zeichen": "besen",
+          "danach": "Ohne Glitzer sieht man besser, was wirklich drin ist."
         }
       ],
       "spiel": {
@@ -380,6 +411,21 @@
           "text": "Oh nein, ich will alles mitnehmen!"
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Wie viele wichtige Dinge passen für 10 Taler in meinen Rucksack?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 8,
+        "start": 5,
+        "einheit": "Dinge",
+        "einheit_eins": "Ding",
+        "loesung": 3,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Drei: Wasserflasche, Brot und Regenjacke kosten zusammen 9 Taler. Für Glitzerkram bleibt dann kaum etwas übrig."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -399,6 +445,22 @@
           "wer": "talo",
           "text": "Und wer sich für etwas entscheidet, verzichtet auf etwas anderes.",
           "bild": "story.wunschinsel.2.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Pack die Wasserflasche in den Rucksack.",
+          "zeichen": "flasche",
+          "danach": "Das Wichtigste zuerst!"
+        },
+        {
+          "nach_bild": 3,
+          "art": "ziehen",
+          "text": "Nimm die Glitzersonnenbrille wieder heraus.",
+          "zeichen": "stern",
+          "danach": "Schade, aber dafür reicht das Geld nicht."
         }
       ],
       "spiel": {
@@ -677,6 +739,21 @@
           "text": "Die Warte-was?"
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Tala hat 10 Wünsche. Was glaubst du: Wie viele will sie nach einer Woche noch?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 10,
+        "start": 8,
+        "einheit": "Wünsche",
+        "einheit_eins": "Wunsch",
+        "loesung": 3,
+        "aufloesung": {
+          "wer": "tala",
+          "text": "Nur noch 3! Die anderen sind einfach verschwunden. Darum lohnt sich die Warte-Regel."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -696,6 +773,22 @@
           "wer": "tala",
           "text": "Ich stecke meinen Wunsch in eine Wunschflasche! Dann fragt mich die App später, ob ich ihn noch will.",
           "bild": "story.wunschinsel.3.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 3,
+          "art": "ziehen",
+          "text": "Steck den Wunsch in die Wunschflasche.",
+          "zeichen": "liste",
+          "danach": "Der Korken ist drauf."
+        },
+        {
+          "nach_bild": 4,
+          "art": "wischen",
+          "text": "Wirf die Flasche ins Meer: Wisch nach rechts.",
+          "zeichen": "flasche",
+          "danach": "Platsch! Jetzt heißt es warten."
         }
       ],
       "spiel": {
@@ -787,6 +880,21 @@
           "text": "Hmm … gestern wollte ich noch gar keine."
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viele Möwen tragen eine Woche später noch die rote Mütze?",
+        "art": "auswahl",
+        "optionen": [
+          "Alle",
+          "Ungefähr die Hälfte",
+          "Fast keine"
+        ],
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "tala",
+          "text": "Fast keine! Die Mützen waren nur kurz beliebt. Gut, dass ich keine gekauft habe."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -807,6 +915,22 @@
           "wer": "tala",
           "text": "Und man darf freundlich Nein sagen. Das ist sogar ziemlich stark!",
           "bild": "story.wunschinsel.4.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 3,
+          "art": "ziehen",
+          "text": "Nimm Tala die rote Mütze ab.",
+          "zeichen": "kleidung",
+          "danach": "Viel besser! Tala sieht wieder aus wie Tala."
+        },
+        {
+          "nach_bild": 4,
+          "art": "tippen",
+          "text": "Daumen hoch fürs freundliche Nein-Sagen!",
+          "zeichen": "daumen",
+          "danach": "Stark!"
         }
       ],
       "spiel": {
@@ -935,6 +1059,21 @@
           "name": "Moritz"
         }
       ],
+      "schaetzfrage": {
+        "wer": "moritz",
+        "frage": "Was glaubst du: Wie viele Tage freut sich Tala über ein neues Spielzeug?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 30,
+        "start": 10,
+        "einheit": "Tage",
+        "einheit_eins": "Tag",
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "tala",
+          "text": "Nur 2 Tage! Danach war es ganz normal. Freunde und gemeinsame Zeit machen länger froh."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -950,6 +1089,22 @@
           "wer": "talo",
           "text": "Freunde, gemeinsame Zeit und Gesundheit machen auch glücklich. Die kann man nicht kaufen.",
           "bild": "story.wunschinsel.5.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Leg das Spielzeug in die Ecke.",
+          "zeichen": "spielzeug",
+          "danach": "Da liegt es jetzt …"
+        },
+        {
+          "nach_bild": 3,
+          "art": "tippen",
+          "text": "Wink Moritz zu.",
+          "zeichen": "winken",
+          "danach": "Moritz winkt fröhlich zurück."
         }
       ],
       "spiel": {
@@ -1119,6 +1274,20 @@
           "text": "Kein einziges Bild von einem Spielzeug. Nur Ausflüge, Feste und Freunde!"
         }
       ],
+      "schaetzfrage": {
+        "wer": "tala",
+        "frage": "Was glaubst du: Woran erinnert sich Talo nach einem Jahr eher?",
+        "art": "auswahl",
+        "optionen": [
+          "An ein Geschenk",
+          "An einen Ausflug"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "An den Ausflug! Erlebnisse bleiben oft länger in Erinnerung als Dinge."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -1134,6 +1303,22 @@
           "wer": "talo",
           "text": "Erlebnisse teilt man mit anderen. Und viele schöne Erlebnisse kosten kaum Geld.",
           "bild": "story.wunschinsel.6.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Kleb das Foto ins Album.",
+          "zeichen": "foto",
+          "danach": "Eine schöne Erinnerung!"
+        },
+        {
+          "nach_bild": 3,
+          "art": "wischen",
+          "text": "Blätter eine Seite im Album um.",
+          "zeichen": "buch",
+          "danach": "Noch mehr schöne Erlebnisse."
         }
       ],
       "spiel": {
@@ -1305,6 +1490,20 @@
           "text": "Klug heißt: mit Preisen und nach Wichtigkeit sortiert."
         }
       ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viel kostet deine ganze Wunschliste?",
+        "art": "regler",
+        "von": 0,
+        "bis": 200,
+        "schritt": 10,
+        "start": 50,
+        "einheit": "Euro",
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Rechne es gleich nach! Mit Preisen auf der Liste siehst du, was du dir leisten kannst und wofür du sparen musst."
+        }
+      },
       "erklaerung": [
         {
           "wer": "talo",
@@ -1326,6 +1525,22 @@
           "text": "Oh, eine kluge Liste! Seht nur, das Kartenstück steigt auf!",
           "name": "Elsa",
           "bild": "story.wunschinsel.7.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Zieh deinen wichtigsten Wunsch nach oben.",
+          "zeichen": "liste",
+          "danach": "Das Wichtigste steht jetzt oben."
+        },
+        {
+          "nach_bild": 3,
+          "art": "wischen",
+          "text": "Wirf die fertige Liste in den Brunnen.",
+          "zeichen": "wellen",
+          "danach": "Der Brunnen beginnt zu leuchten …"
         }
       ],
       "spiel": {

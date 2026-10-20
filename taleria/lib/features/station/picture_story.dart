@@ -21,10 +21,14 @@ String? pictureFor(List<DialogLine> lines, int index) {
 /// Inselfigur dazu sagt. Zeilen ohne eigenes Bild zeigen das Bild davor.
 /// Fehlt die Bilddatei noch, steht der Platzhalter mit dem Namen des Bildes da.
 class PictureStory extends StatefulWidget {
-  const PictureStory({super.key, required this.lines, required this.onDone});
+  const PictureStory({super.key, required this.lines, required this.onDone, this.estimate, this.guess});
 
   final List<DialogLine> lines;
   final VoidCallback onDone;
+
+  /// Schätzfrage vor der Geschichte: Mit [guess] kommt am Ende die Auflösung.
+  final EstimateQuestion? estimate;
+  final int? guess;
 
   @override
   State<PictureStory> createState() => _PictureStoryState();
@@ -33,7 +37,12 @@ class PictureStory extends StatefulWidget {
 class _PictureStoryState extends State<PictureStory> {
   int _index = 0;
 
-  bool get _last => _index >= widget.lines.length - 1;
+  /// Am Ende eine Seite mit der Auflösung der Schätzfrage.
+  bool get _hasReveal => widget.estimate != null && widget.guess != null;
+  int get _pages => widget.lines.length + (_hasReveal ? 1 : 0);
+  bool get _onReveal => _hasReveal && _index == widget.lines.length;
+
+  bool get _last => _index >= _pages - 1;
 
   void _next() => _last ? widget.onDone() : setState(() => _index++);
 
@@ -46,7 +55,7 @@ class _PictureStoryState extends State<PictureStory> {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     final lines = widget.lines;
-    final image = pictureFor(lines, _index);
+    final image = pictureFor(lines, _index.clamp(0, lines.length - 1));
 
     return GestureDetector(
       // Nach links wischen = weiter, nach rechts = zurück.
@@ -79,7 +88,7 @@ class _PictureStoryState extends State<PictureStory> {
                       ),
                     ),
                   const SizedBox(height: 12),
-                  SpeechBubble.line(lines[_index]),
+                  if (_onReveal) _reveal(context) else SpeechBubble.line(lines[_index]),
                 ],
               ),
             ),
@@ -92,7 +101,7 @@ class _PictureStoryState extends State<PictureStory> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                for (var i = 0; i < lines.length; i++)
+                for (var i = 0; i < _pages; i++)
                   Container(
                     margin: const EdgeInsets.all(3),
                     width: i == _index ? 12 : 8,
@@ -134,6 +143,47 @@ class _PictureStoryState extends State<PictureStory> {
           ),
         ],
       ),
+    );
+  }
+
+  /// Auflösung der Schätzfrage: der Tipp des Kindes und was stimmt.
+  Widget _reveal(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final estimate = widget.estimate!;
+    final guess = widget.guess!;
+    return Column(
+      key: const ValueKey('estimate-reveal'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        OpenFrame(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          child: Column(
+            children: [
+              Text(
+                l10n.estimateRevealTitle,
+                style: theme.textTheme.titleLarge?.copyWith(color: palette.coral, fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                l10n.estimateYourGuess(estimate.display(guess)),
+                key: const ValueKey('estimate-guess'),
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleMedium,
+              ),
+              if (estimate.isExact(guess))
+                Text(
+                  l10n.estimateExact,
+                  key: const ValueKey('estimate-exact'),
+                  style: theme.textTheme.titleMedium?.copyWith(color: palette.success, fontWeight: FontWeight.w800),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        SpeechBubble.line(estimate.reveal),
+      ],
     );
   }
 }

@@ -137,6 +137,8 @@ void main() {
           if (find.byKey(const ValueKey('game-done')).evaluate().isEmpty) await tapKey(tester, 'game-next');
         }
         await tapKey(tester, 'game-done');
+      } else if (find.byKey(const ValueKey('estimate-submit')).evaluate().isNotEmpty) {
+        await tapKey(tester, 'estimate-submit');
       } else {
         await tapText(tester, 'Weiter');
       }

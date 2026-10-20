@@ -62,7 +62,14 @@ void main() {
     // Erklärung ist eine Bildergeschichte.
     expect(c.step, StationStep.scene);
     c.next();
+    // Vor der Erklärung: „Was glaubst du?“ (INSELN.md, Aufbau jeder Station).
+    expect(c.step, StationStep.estimate);
+    expect(c.content.estimate, isNotNull);
+    c.submitEstimate(3);
+    expect(c.guess, 3);
     expect(c.step, StationStep.lesson);
+    c.submitEstimate(5);
+    expect(c.guess, 3, reason: 'nur im Schritt „Schätzfrage“');
     expect(c.station.content.hasPictureStory, isTrue);
     expect(c.station.content.lesson.first.image, 'story.hafen.2.1');
     c.next();

@@ -707,9 +707,11 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Taleron im Meer und einmal am Tag (Marcs Test am 11.10.2026):** Meister Taleron tauchte über der Insel auf, weil die Karte ihn neben das Schiff auf die Seite der Insel setzte. Jetzt sucht `MapLayout.encounterSpot` einen freien Platz im Meer vor dem Schiff: zuerst unten rechts neben dem ersten Stopp zur nächsten Insel, sonst links davon, sonst oben neben dem zweiten Stopp, zuletzt zwischen den Stopps. Dafür ist das Meer zwischen zwei Inseln größer (`seaGap`). Ein Test prüft auf vier Bildschirmbreiten, dass Taleron und die Stopps nie auf einer Insel oder aufeinander liegen. Außerdem blieb Taleron nach seinen Fragen auf der Karte, wenn mehr als 3 Wiederholungen fällig waren. Neu (Migration `20261011000100_taleron_einmal_am_tag.sql`): Nach einer Begegnung liefert `next_encounter()` bis morgen nichts mehr; offene Wiederholungen warten. Üben bei Nebel voraus geht weiter jederzeit.
 - **Zielgruppe 8 bis 12 statt 10 bis 14 (entschieden mit Marc am 11.10.2026):** Marc fiel auf, dass der Hafen Stoff der 1. und 2. Klasse abfragt (Münzen kennen, 50 + 50 Cent). Auch der Look mit süßen 3D-Tieren spricht eher 7- bis 11-Jährige an. Darum ist Stufe 1 jetzt für 8 bis 12 Jahre, empfohlen ab 8 (Hinweis beim Kinder-Profil). Stufe 2 wäre später für Ältere ab etwa 13. Die Bilder bleiben alle gültig. Neue Schreibregeln in `INSELN.md` („Schreibregeln für 8 bis 12 Jahre“): keine reinen Grundschulfragen, Rechnen mit Komma, Wechselgeld und Preis pro Stück; schwere Themen (Zinsen, Schulden, Investieren) immer an einer Alltagsgeschichte. Deshalb sind 13 zu leichte Fragen ersetzt (Station 2, Station 4, Prüfung und der Stopp „Das Fischerboot“ vor der Tauschinsel): statt „Wie heißt unsere Währung?“ oder „zwei 50-Cent-Münzen“ jetzt Beträge mit Komma (2,05 €), Wechselgeld und Preis pro Stück. Station 4 erklärt das Komma mit der Zeichnung `comma_amount`. Die Zahl der Fragen bleibt gleich (184). Die Migrationen sagen in ihren Kommentaren noch „10 bis 14“; sie bleiben unverändert, weil fertige Migrationen nicht mehr geändert werden.
 
+- **Schätzfrage vor der Erklärung (Marcs Vorgabe vom 20.10.2026, Inseln 1 bis 3):** Jede Station mit Bildergeschichte (nicht Intro, nicht Prüfung) beginnt die Erklärung mit „Was glaubst du?“. Neuer Schritt `StationStep.estimate` zwischen Szene und Erklärung (`EstimateView`). Drei Arten: Schieberegler (`regler`), Zahlenrad (`zahl`, höchstens 120 Zahlen) und Auswahl (`auswahl`, 2 bis 4 Möglichkeiten). Es gibt kein Richtig oder Falsch und keine Punkte; „Das ist mein Tipp“ geht bei der Auswahl erst nach einer Wahl. Die Schätzung merkt sich nur die laufende Station (`StationController.guess`), nicht die Datenbank. Am Ende der Bildergeschichte kommt eine eigene Seite „Auflösung“ mit „Dein Tipp: …“, bei genauem Treffer „Genau getroffen!“, dann der Satz der Figur. In den Inhaltsdateien steht sie als `schaetzfrage` (wer, frage, art, von, bis, schritt, start, einheit, einheit_eins, optionen, loesung, aufloesung); in der Datenbank unter `estimate` in `stations.content` (englische Schlüssel). Nur ganze Zahlen, keine Kommazahlen. Das Werkzeug prüft Bereich, Raster, Lösung und Auflösung; ein optionaler Schlüssel `pruefen` ist ein Merkzettel für Marc (Hafen 3: 2.600 Jahre, Hafen 7: Kinokarte) und wird nicht exportiert. Alle 20 Stationen von Hafen 2 bis Wunschinsel 7 haben ihre Schätzfrage aus dem Anhang von `INSELN.md`. Die Antipp-Momente (`antippen`) stehen schon in den Inhaltsdateien und in der Datenbank (`taps`); die Ansicht dafür kommt als Nächstes. Hafen Station 1 (Intro) bekommt beides später.
+
 ---
 
-## 17. Aktueller Stand und nächste Schritte (Stand 11.10.2026)
+## 17. Aktueller Stand und nächste Schritte (Stand 20.10.2026)
 
 Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Abschnitt 16.
 
@@ -718,7 +720,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 360 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 374 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Die Schätzfrage ist fertig (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
 **Letzte Testversion (11.10.2026, spät abends):**
@@ -745,19 +748,23 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Erledigt am 11.10.2026: Das Crew-Schiff fährt auf der Karte von Stopp zu Stopp (Abschnitt 16, „Schifffahrt zu den Stopps“).
    - Plan danach (mit Marc besprochen): Bilder der Tauschinsel (24 Plätze, davon 2 als Zeichnung der App wegen „12 Netze mal 5 Taler“, 22 mit Gemini; Texte in BILDER.md, Abschnitt 4j, Nr. 56 bis 77) und der Wunschinsel (24 mit Gemini), in Fünferpaketen. Parallel prüft Claude die Fragen von Tauschinsel und Wunschinsel nach den Regeln für 8 bis 12. Danach Insel 4 (Spar-Insel) mit Texten, Fragen, Spielen und Bildtexten.
    - Stand 11.10.2026 abends: Alle 22 Tauschinsel-Bilder sind eingebaut, die Tauschinsel hat keine Platzhalter mehr. Dollarzeichen auf dem Sparschwein (6.2) wegretuschiert, 3.3 war quadratisch und ist auf 4:3 zugeschnitten. 2.1 und 3.2 hat Marc neu gemacht, weil Tala ohne ihre Kleidung war; in 3.2 hat Claude Geldscheine in einer Kiste entfernt (auf der Tauschinsel gibt es kein Geld). 4.1 und 4.2 (Eisstand): Fuchs und Hase in der Schlange ähneln Figuren aus einem bekannten Kinofilm; vor dem Live-Start noch einmal ansehen. Marcs Bilder kommen nicht in seiner Reihenfolge an; Claude ordnet sie nach dem Bildinhalt zu. Alle 24 Wunschinsel-Bilder (Nr. 78 bis 101, BILDER.md Abschnitt 4k) sind eingebaut, damit haben Hafen, Tauschinsel und Wunschinsel keine Platzhalter mehr in den Bildergeschichten. 6.2 („Unsere erste Fahrt“) hat Marc neu gemacht, weil Tala in der ersten Fassung einen Fuchsschwanz hatte. In 4.4 hat Claude ein abgeschnittenes Schild „…ENPLATZ“ entfernt; das volle Schild „MÖWENPLATZ“ in 4.1 und 4.2 bleibt. Bilder, die kommen, während Claude arbeitet, gehen verloren: Marc schickt 5 pro Nachricht und wartet auf „gespeichert“.
-2. Kleine offene Punkte:
+2. Neuer Stations-Aufbau und Animationen (Marcs Vorgabe vom 20.10.2026):
+   - Erledigt: Schätzfrage vor jeder Erklärung (Inseln 1 bis 3). Vor dem nächsten Test im Testprojekt `supabase/seed.sql` neu ausführen.
+   - Als Nächstes: Antipp-Momente in den Bildergeschichten (tippen, wischen, ziehen, umdrehen), danach die Animationen aus Abschnitt 11 (Belohnungen, Möwen, Übergänge).
+   - Offen für Marc: Rive oder Bilder (Abschnitt 15).
+3. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
    - `rank.kapitaen`, `badge.wunschinsel` und `collectible.wreck_item` zeigen ein englisches „E“ für Osten. Diese Bilder neu machen, ohne Buchstaben (Texte: Bild 128 bis 130).
    - Musik-Einstellung der Eltern für das Kinder-Gerät aus der Ferne. Dafür braucht es ein Feld in der Datenbank, vorher Marc fragen.
    - Bilder für „Talas Ausflüge“ (Nr. 117 bis 127, BILDER.md Abschnitt 4m): Marc macht sie mit Gemini, Claude stellt die Dinge frei und baut alles ein.
    - Bildtexte vorbereitet am 11.10.2026 abends (`design/prompts_spar_insel.txt`, BILDER.md Abschnitte 4n und 4o): Nachbesserungen 128 bis 131 (Kapitän, Orden Wunschinsel und Fundstück ohne „E“, Kasse mit Talos Jacke) und die ganze Spar-Insel 132 bis 162 (Karte, Insel von innen, Emma, Gustav, Orden, Taleron-Siegel A, drei Funde, 22 Bildergeschichten; zwei Bilder mit Zahlen zeichnet die App). Die Texte der Spar-Insel schreibt Claude passend zu diesen Bildern.
-3. Vor einer Beta mit fremden Familien:
+4. Vor einer Beta mit fremden Familien:
    - „Powered by Netlify“ entfernen.
    - Eine eigene Schrift einbinden, statt Roboto von Google.
    - Datenschutzerklärung, Impressum und AGB rechtlich prüfen lassen.
    - Die Nutzungsbedingungen von Gemini klären.
    - Die Entwürfe prüfen: Marc und eine Fachperson. Danach den `status` in den Inhaltsdateien setzen und die Live-Datenbank nur über `supabase/inhalte_live.sql` füllen.
-4. Später:
+5. Später:
    - Schritt 9b: Kaufen mit RevenueCat, sobald Store-Konten und Preise da sind.
    - Filme: Intro und Ankunftsfilme.
    - Inhalte für die Inseln 4 bis 15.

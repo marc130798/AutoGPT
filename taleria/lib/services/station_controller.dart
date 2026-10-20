@@ -15,10 +15,10 @@ import '../domain/quiz_logic.dart';
 import 'encounter_controller.dart' show EncounterRun;
 
 /// Abschnitte einer Station (INSELN.md, Aufbau jeder Station):
-/// Weißt du noch? → Film → Szene → Erklärung → Spiel → Quiz → Ergebnis.
+/// Weißt du noch? → Film → Szene → Schätzfrage → Erklärung → Spiel → Quiz → Ergebnis.
 /// Die Abschlussprüfung hat nur Szene, Quiz und Ergebnis.
 /// Ein Ankerplatz hat Perlentauchen (quiz) und das Wrack (wreck).
-enum StationStep { loading, warmUp, video, scene, lesson, game, quiz, wreck, submitting, result, failed }
+enum StationStep { loading, warmUp, video, scene, estimate, lesson, game, quiz, wreck, submitting, result, failed }
 
 /// Ein Durchgang durch Fragen mit gemischten Antworten.
 class QuizRun {
@@ -89,6 +89,17 @@ class StationController extends ChangeNotifier {
   EncounterRun? _wreck;
   StationResult? _result;
   FailureKind? _failure;
+  int? _guess;
+
+  /// Schätzung des Kindes (Zahl oder Stelle der Möglichkeit), aufgelöst am Ende der Erklärung.
+  int? get guess => _guess;
+
+  /// Schätzung abgeben, weiter zur Erklärung. Es gibt kein Richtig oder Falsch.
+  void submitEstimate(int value) {
+    if (_step != StationStep.estimate) return;
+    _guess = value;
+    _go(_afterEstimate());
+  }
 
   StationStep get step => _step;
   QuizRun? get warmUp => _warmUp;
@@ -150,7 +161,11 @@ class StationController extends ChangeNotifier {
 
   StationStep _afterVideo() => content.scene.isNotEmpty ? StationStep.scene : _afterScene();
 
-  StationStep _afterScene() => content.lesson.isNotEmpty && !isExam ? StationStep.lesson : _afterLesson();
+  /// Nach der Szene: erst schätzen (INSELN.md, Aufbau jeder Station), dann die Erklärung.
+  StationStep _afterScene() =>
+      content.estimate != null && content.lesson.isNotEmpty && !isExam ? StationStep.estimate : _afterEstimate();
+
+  StationStep _afterEstimate() => content.lesson.isNotEmpty && !isExam ? StationStep.lesson : _afterLesson();
 
   StationStep _afterLesson() => content.game != null && !isExam ? StationStep.game : StationStep.quiz;
 
@@ -160,6 +175,7 @@ class StationController extends ChangeNotifier {
       StationStep.warmUp => _afterWarmUp(),
       StationStep.video => _afterVideo(),
       StationStep.scene => _afterScene(),
+      StationStep.estimate => _afterEstimate(),
       StationStep.lesson => _afterLesson(),
       StationStep.game => StationStep.quiz,
       _ => _step,

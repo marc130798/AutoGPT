@@ -608,6 +608,147 @@ class SeaStopInfo {
 }
 
 /// Inhalt einer Station (stations.content).
+/// Schätzfrage vor der Erklärung (INSELN.md, Aufbau jeder Station): Das Kind
+/// schätzt mit Schieberegler, Zahlenrad oder Auswahl. Es gibt kein Richtig
+/// oder Falsch; aufgelöst wird am Ende der Erklärung ([reveal]).
+class EstimateQuestion {
+  const EstimateQuestion({
+    required this.speaker,
+    required this.question,
+    required this.kind,
+    required this.reveal,
+    this.min = 0,
+    this.max = 10,
+    this.step = 1,
+    this.start,
+    this.unit,
+    this.unitOne,
+    this.options = const [],
+    this.answer,
+  });
+
+  factory EstimateQuestion.fromJson(Map<String, dynamic> json) => EstimateQuestion(
+    speaker: json['speaker'] as String? ?? 'talo',
+    question: json['question'] as String? ?? '',
+    kind: json['kind'] as String? ?? 'slider',
+    reveal: DialogLine.fromJson((json['reveal'] as Map<String, dynamic>?) ?? const {}),
+    min: (json['min'] as num?)?.toInt() ?? 0,
+    max: (json['max'] as num?)?.toInt() ?? 10,
+    step: (json['step'] as num?)?.toInt() ?? 1,
+    start: (json['start'] as num?)?.toInt(),
+    unit: json['unit'] as String?,
+    unitOne: json['unit_one'] as String?,
+    options: [for (final o in (json['options'] as List?) ?? const []) o as String],
+    answer: (json['answer'] as num?)?.toInt(),
+  );
+
+  /// Wer fragt (Talo, Tala oder eine Inselfigur).
+  final String speaker;
+  final String question;
+
+  /// slider (Schieberegler), wheel (Zahlenrad) oder choice (Auswahl).
+  final String kind;
+
+  /// Auflösung am Ende der Erklärung.
+  final DialogLine reveal;
+  final int min;
+  final int max;
+  final int step;
+
+  /// Startwert von Regler und Zahlenrad (sonst die Mitte).
+  final int? start;
+
+  /// Einheit hinter der Zahl, zum Beispiel „Jahre“; [unitOne] für genau 1 („Jahr“).
+  final String? unit;
+  final String? unitOne;
+
+  /// Möglichkeiten bei der Auswahl.
+  final List<String> options;
+
+  /// Lösung: Zahl oder Stelle in [options]; `null` bei einer eigenen Schätzung ohne feste Lösung.
+  final int? answer;
+
+  bool get isChoice => kind == 'choice';
+
+  /// Alle Werte von Regler und Zahlenrad.
+  List<int> get values => [for (var v = min; v <= max; v += step) v];
+
+  /// Startwert: [start] oder der Wert in der Mitte.
+  int get initial {
+    if (isChoice) return -1;
+    final all = values;
+    final wanted = start ?? all[all.length ~/ 2];
+    return all.reduce((a, b) => (a - wanted).abs() <= (b - wanted).abs() ? a : b);
+  }
+
+  /// So wird eine Schätzung angezeigt: „2.600 Jahre“, „1 Jahr“ oder die gewählte Möglichkeit.
+  String display(int value) {
+    if (isChoice) return value >= 0 && value < options.length ? options[value] : '';
+    final number = groupThousands(value);
+    final u = value == 1 && unitOne != null ? unitOne : unit;
+    return u == null ? number : '$number $u';
+  }
+
+  /// Die Schätzung trifft die Lösung genau.
+  bool isExact(int value) => answer != null && value == answer;
+}
+
+/// Zahl mit Punkt als Tausender-Trennzeichen, zum Beispiel 2.600.
+String groupThousands(int value) {
+  final digits = value.abs().toString();
+  final buffer = StringBuffer(value < 0 ? '-' : '');
+  for (var i = 0; i < digits.length; i++) {
+    if (i > 0 && (digits.length - i) % 3 == 0) buffer.write('.');
+    buffer.write(digits[i]);
+  }
+  return buffer.toString();
+}
+
+/// Antipp-Moment zwischen zwei Bildern der Erklärung (INSELN.md): eine kleine
+/// Aktion, die zum Inhalt passt. Keine Prüfung, es geht immer weiter.
+class TapMoment {
+  const TapMoment({
+    required this.after,
+    required this.kind,
+    required this.text,
+    this.symbol,
+    this.image,
+    this.count = 1,
+    this.back,
+  });
+
+  factory TapMoment.fromJson(Map<String, dynamic> json) => TapMoment(
+    after: (json['after'] as num?)?.toInt() ?? 1,
+    kind: json['kind'] as String? ?? 'tap',
+    text: json['text'] as String? ?? '',
+    symbol: json['symbol'] as String?,
+    image: json['image'] as String?,
+    count: (json['count'] as num?)?.toInt() ?? 1,
+    back: json['back'] as String?,
+  );
+
+  /// Nach dem wievielten Bild der Erklärung (1 = nach dem ersten).
+  final int after;
+
+  /// tap (antippen), swipe (wischen), drag (ziehen) oder flip (umdrehen).
+  final String kind;
+
+  /// Was das Kind tun soll, zum Beispiel „Wisch den Staub von der Kiste.“
+  final String text;
+
+  /// Zeichen aus einer festen Liste (zum Beispiel `coin`), sonst [image].
+  final String? symbol;
+
+  /// Bild eines Dings (Asset-Schlüssel), statt eines Zeichens.
+  final String? image;
+
+  /// Wie oft angetippt wird (zum Beispiel dreimal mit dem Hammer).
+  final int count;
+
+  /// Beim Umdrehen: was auf der Rückseite steht.
+  final String? back;
+}
+
 class StationContent {
   const StationContent({
     required this.title,
@@ -626,6 +767,8 @@ class StationContent {
     this.number,
     this.dive,
     this.seaStop,
+    this.estimate,
+    this.taps = const [],
   });
 
   factory StationContent.fromJson(Map<String, dynamic> json) {
@@ -639,7 +782,10 @@ class StationContent {
     final dive = json['dive'] as Map<String, dynamic>?;
     final wreck = dive?['wreck'] as Map<String, dynamic>?;
     final stop = json['stop'] as Map<String, dynamic>?;
+    final estimate = json['estimate'] as Map<String, dynamic>?;
     return StationContent(
+      estimate: estimate == null ? null : EstimateQuestion.fromJson(estimate),
+      taps: [for (final t in (json['taps'] as List?) ?? const []) TapMoment.fromJson(t as Map<String, dynamic>)],
       seaStop: stop == null
           ? null
           : SeaStopInfo(
@@ -689,6 +835,12 @@ class StationContent {
 
   /// Die Erklärung ist eine Bildergeschichte (mindestens eine Zeile hat ein Bild).
   bool get hasPictureStory => lesson.any((l) => l.image != null);
+
+  /// Schätzfrage vor der Erklärung (`null` = keine).
+  final EstimateQuestion? estimate;
+
+  /// Antipp-Momente zwischen den Bildern der Erklärung.
+  final List<TapMoment> taps;
 
   /// Übung der Station (Pflicht).
   final GameInfo? game;

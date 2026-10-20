@@ -2508,4 +2508,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get backpackNextTrip => 'Nächster Ausflug';
+
+  @override
+  String get estimateBadge => 'Was glaubst du?';
+
+  @override
+  String get estimateHint =>
+      'Schätz einfach! Es gibt kein Richtig oder Falsch. Die Lösung kommt gleich in der Geschichte.';
+
+  @override
+  String get estimateSubmit => 'Das ist mein Tipp';
+
+  @override
+  String estimateYourGuess(String guess) {
+    return 'Dein Tipp: $guess';
+  }
+
+  @override
+  String get estimateExact => 'Genau getroffen!';
+
+  @override
+  String get estimateRevealTitle => 'Auflösung';
+
+  @override
+  String get estimateWheelHint => 'Dreh am Zahlenrad.';
 }

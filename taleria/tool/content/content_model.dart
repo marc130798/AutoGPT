@@ -99,6 +99,8 @@ class Station {
     required this.lesson,
     required this.game,
     this.miniGame,
+    this.estimate,
+    this.taps = const [],
     required this.summary,
     required this.quizShow,
     required this.examShow,
@@ -122,6 +124,12 @@ class Station {
 
   /// Echtes Mini-Spiel als Bonus nach der Station („minispiel“), kein Muss.
   final Map<String, dynamic>? miniGame;
+
+  /// Schätzfrage vor der Erklärung („schaetzfrage“, INSELN.md Anhang).
+  final Map<String, dynamic>? estimate;
+
+  /// Antipp-Momente zwischen den Bildern der Erklärung („antippen“).
+  final List<Map<String, dynamic>> taps;
   final Line? summary;
   final int? quizShow;
   final int? examShow;
@@ -144,6 +152,8 @@ class Station {
     if (lesson.isNotEmpty) 'lesson': [for (final l in lesson) l.toDb()],
     if (game != null) 'game': gameToDb(game!),
     if (miniGame != null) 'mini_game': gameToDb(miniGame!),
+    if (estimate != null) 'estimate': estimateToDb(estimate!),
+    if (taps.isNotEmpty) 'taps': [for (final t in taps) tapToDb(t)],
     if (summary != null) 'summary': summary!.toDb(),
     if (quizShow != null) 'quiz': {'show': quizShow},
     if (isExam) 'exam': {'show': examShow, 'review': examReview, 'pass': examPass},
@@ -307,6 +317,86 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
     },
   };
 }
+
+/// Arten der Schätzfrage: Inhaltsdatei → Datenbank.
+const estimateKinds = {'regler': 'slider', 'zahl': 'wheel', 'auswahl': 'choice'};
+
+/// Arten der Antipp-Momente: Inhaltsdatei → Datenbank.
+const tapKinds = {'tippen': 'tap', 'wischen': 'swipe', 'ziehen': 'drag', 'umdrehen': 'flip'};
+
+/// Zeichen für Antipp-Momente. Die Liste muss in der App gleich sein
+/// (`tapSymbols` in `lib/features/station/tap_moment_view.dart`).
+const tapSymbols = {
+  'muenze',
+  'truhe',
+  'hand',
+  'hammer',
+  'fisch',
+  'preisschild',
+  'waage',
+  'besen',
+  'anker',
+  'flagge',
+  'tuer',
+  'sonne',
+  'regen',
+  'karte',
+  'netz',
+  'beutel',
+  'rucksack',
+  'flasche',
+  'kleidung',
+  'daumen',
+  'winken',
+  'foto',
+  'buch',
+  'liste',
+  'wellen',
+  'stern',
+  'spielzeug',
+  'schiff',
+  'herz',
+  'brot',
+  'fernrohr',
+  'laterne',
+  'glocke',
+  'stempel',
+  'kalender',
+  'schluessel',
+  'werkzeug',
+  'tafel',
+};
+
+/// Schätzfrage für stations.content.estimate (englische Schlüssel).
+Map<String, dynamic> estimateToDb(Map<String, dynamic> e) {
+  final reveal = e['aufloesung'] as Map<String, dynamic>?;
+  return {
+    'speaker': e['wer'],
+    'question': e['frage'],
+    'kind': estimateKinds[e['art']],
+    'min': ?e['von'],
+    'max': ?e['bis'],
+    'step': ?e['schritt'],
+    'start': ?e['start'],
+    'unit': ?e['einheit'],
+    'unit_one': ?e['einheit_eins'],
+    'options': ?e['optionen'],
+    'answer': ?e['loesung'],
+    'reveal': {'speaker': reveal?['wer'], 'text': reveal?['text']},
+  };
+}
+
+/// Antipp-Moment für stations.content.taps (englische Schlüssel).
+Map<String, dynamic> tapToDb(Map<String, dynamic> t) => {
+  'after': t['nach_bild'],
+  'kind': tapKinds[t['art']],
+  'text': t['text'],
+  'symbol': ?t['zeichen'],
+  'image': ?t['bild'],
+  'count': ?t['anzahl'],
+  'back': ?t['rueckseite'],
+  'done': ?t['danach'],
+};
 
 /// Spiel für Einsteiger: die Felder aus `"einsteiger"` ersetzen die normalen.
 Map<String, dynamic>? beginnerGame(Map<String, dynamic> g) {
@@ -605,6 +695,8 @@ Island parseIsland(String file, String source) {
         lesson: lines(s['erklaerung'], '$where, Erklärung'),
         game: s['spiel'] as Map<String, dynamic>?,
         miniGame: s['minispiel'] as Map<String, dynamic>?,
+        estimate: s['schaetzfrage'] as Map<String, dynamic>?,
+        taps: ((s['antippen'] as List?) ?? const []).cast<Map<String, dynamic>>(),
         summary: abschluss == null ? null : lines([abschluss], '$where, Abschluss').single,
         quizShow: s['quiz_anzahl'] as int?,
         examShow: pruefung?['anzahl'] as int?,
@@ -811,6 +903,24 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
         check(game != null, '$sw: ein Mini-Spiel gibt es nur zusammen mit einer Übung');
         problems.addAll(validateGame(mini, '$sw, Mini-Spiel', knownAssetKeys: knownAssetKeys));
       }
+
+      // Schätzfrage und Antipp-Momente (INSELN.md, Aufbau jeder Station): Jede
+      // Station mit Bildergeschichte hat beides, außer dem Intro.
+      final story = s.lesson.any((l) => l.image != null);
+      if (story && !s.isIntro && !s.isExam) {
+        check(s.estimate != null, '$sw: "schaetzfrage" fehlt (vor jeder Erklärung)');
+        check(s.taps.length >= min(2, s.lesson.length), '$sw: mindestens 2 Antipp-Momente ("antippen") nötig');
+      }
+      if (s.estimate case final e?) {
+        problems.addAll(validateEstimate(e, '$sw, Schätzfrage', knownAssetKeys: knownAssetKeys));
+      }
+      for (final (k, t) in s.taps.indexed) {
+        problems.addAll(
+          validateTap(t, '$sw, Antipp-Moment ${k + 1}', slides: s.lesson.length, knownAssetKeys: knownAssetKeys),
+        );
+      }
+      final afters = [for (final t in s.taps) t['nach_bild']];
+      check(afters.toSet().length == afters.length, '$sw: zwei Antipp-Momente nach demselben Bild');
 
       if (s.isIntro) {
         check(s.questions.isEmpty, '$sw: das Intro hat keine Fragen');
@@ -1192,6 +1302,82 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
     default:
       problems.add('$w: unbekannte Spielart "$type"');
   }
+  return problems;
+}
+
+/// Prüft eine Schätzfrage: Art, Frage, Bereich, Lösung im Bereich, Auflösung.
+List<String> validateEstimate(Map<String, dynamic> e, String w, {Set<String>? knownAssetKeys}) {
+  final problems = <String>[];
+  void check(bool ok, String message) {
+    if (!ok) problems.add(message);
+  }
+
+  bool text(Object? v) => v is String && v.trim().isNotEmpty;
+  void speaker(Object? raw, String where) {
+    if (raw is! Map<String, dynamic>) {
+      problems.add('$where: Zeile fehlt');
+      return;
+    }
+    check(text(raw['text']), '$where: Text fehlt');
+    if (knownAssetKeys != null) {
+      check(knownAssetKeys.contains('character.${raw['wer']}'), '$where: unbekannte Figur "${raw['wer']}"');
+    }
+  }
+
+  check(estimateKinds.containsKey(e['art']), '$w: "art" muss regler, zahl oder auswahl sein');
+  check(text(e['frage']), '$w: "frage" fehlt');
+  speaker({'wer': e['wer'], 'text': e['frage']}, w);
+  if (e['aufloesung'] is Map<String, dynamic>) {
+    speaker(e['aufloesung'], '$w, Auflösung');
+  } else {
+    problems.add('$w: "aufloesung" fehlt (Satz am Ende der Erklärung)');
+  }
+  // Ganze Zahlen, damit Einsteiger mitschätzen können.
+  check(!commaNumber.hasMatch(jsonEncode(e)), '$w: Schätzfragen nur mit ganzen Zahlen');
+  final answer = e['loesung'];
+  if (e['art'] == 'auswahl') {
+    final options = (e['optionen'] as List?) ?? const [];
+    check(options.length >= 2 && options.length <= 4 && options.every(text), '$w: 2 bis 4 "optionen"');
+    check(
+      answer == null || (answer is int && answer >= 0 && answer < options.length),
+      '$w: "loesung" ist keine Möglichkeit',
+    );
+  } else {
+    final from = e['von'], to = e['bis'], step = e['schritt'] ?? 1;
+    check(from is int && to is int && to > from, '$w: "von" und "bis" (ganze Zahlen, bis größer als von)');
+    check(step is int && step > 0, '$w: "schritt" muss eine Zahl ab 1 sein');
+    if (from is int && to is int && step is int && step > 0) {
+      check((to - from) % step == 0, '$w: "bis" liegt nicht im Schritt-Raster');
+      if (e['art'] == 'zahl') check((to - from) ~/ step <= 120, '$w: höchstens 120 Zahlen auf dem Zahlenrad');
+      bool onGrid(Object? v) => v is int && v >= from && v <= to && (v - from) % step == 0;
+      check(answer == null || onGrid(answer), '$w: "loesung" liegt nicht zwischen von und bis (im Raster)');
+      check(e['start'] == null || onGrid(e['start']), '$w: "start" liegt nicht zwischen von und bis (im Raster)');
+    }
+    check(e['einheit'] == null || text(e['einheit']), '$w: leere "einheit"');
+  }
+  return problems;
+}
+
+/// Prüft einen Antipp-Moment: Art, Text, Platz zwischen den Bildern, Zeichen oder Bild.
+List<String> validateTap(Map<String, dynamic> t, String w, {required int slides, Set<String>? knownAssetKeys}) {
+  final problems = <String>[];
+  void check(bool ok, String message) {
+    if (!ok) problems.add(message);
+  }
+
+  bool text(Object? v) => v is String && v.trim().isNotEmpty;
+  check(tapKinds.containsKey(t['art']), '$w: "art" muss tippen, wischen, ziehen oder umdrehen sein');
+  check(text(t['text']), '$w: "text" fehlt (was das Kind tun soll)');
+  final after = t['nach_bild'];
+  check(after is int && after >= 1 && after <= slides, '$w: "nach_bild" muss 1 bis $slides sein (nach diesem Bild)');
+  final symbol = t['zeichen'], image = t['bild'];
+  check(symbol != null || image != null, '$w: "zeichen" oder "bild" fehlt');
+  if (symbol != null) check(tapSymbols.contains(symbol), '$w: unbekanntes Zeichen "$symbol"');
+  if (image != null && knownAssetKeys != null) check(knownAssetKeys.contains(image), '$w: unbekanntes Bild "$image"');
+  final count = t['anzahl'];
+  check(count == null || (count is int && count >= 1 && count <= 5), '$w: "anzahl" 1 bis 5');
+  if (t['art'] == 'umdrehen') check(text(t['rueckseite']), '$w: beim Umdrehen fehlt die "rueckseite"');
+  check(t['danach'] == null || text(t['danach']), '$w: leeres "danach"');
   return problems;
 }
 

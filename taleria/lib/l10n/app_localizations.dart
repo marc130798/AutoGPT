@@ -4152,6 +4152,48 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Nächster Ausflug'**
   String get backpackNextTrip;
+
+  /// Schätzfrage vor der Erklärung: Überschrift
+  ///
+  /// In de, this message translates to:
+  /// **'Was glaubst du?'**
+  String get estimateBadge;
+
+  /// Schätzfrage: Hinweis unter der Frage
+  ///
+  /// In de, this message translates to:
+  /// **'Schätz einfach! Es gibt kein Richtig oder Falsch. Die Lösung kommt gleich in der Geschichte.'**
+  String get estimateHint;
+
+  /// Schätzfrage: Knopf zum Abgeben der Schätzung
+  ///
+  /// In de, this message translates to:
+  /// **'Das ist mein Tipp'**
+  String get estimateSubmit;
+
+  /// Auflösung am Ende der Erklärung: was das Kind geschätzt hat
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Tipp: {guess}'**
+  String estimateYourGuess(String guess);
+
+  /// Auflösung: Die Schätzung war genau richtig
+  ///
+  /// In de, this message translates to:
+  /// **'Genau getroffen!'**
+  String get estimateExact;
+
+  /// Auflösung der Schätzfrage: Überschrift
+  ///
+  /// In de, this message translates to:
+  /// **'Auflösung'**
+  String get estimateRevealTitle;
+
+  /// Schätzfrage mit Zahlenrad: Hinweis
+  ///
+  /// In de, this message translates to:
+  /// **'Dreh am Zahlenrad.'**
+  String get estimateWheelHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

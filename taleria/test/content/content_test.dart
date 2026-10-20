@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -180,6 +181,8 @@ void main() {
       List<String> wrong = const ['b', 'c'],
       List<Map<String, dynamic>>? lesson,
       String? sceneImage,
+      Map<String, dynamic>? estimate,
+      List<Map<String, dynamic>>? taps,
     }) => {
       'nr': 1,
       'typ': 'game',
@@ -190,6 +193,26 @@ void main() {
       'szene': [
         {'wer': speaker, 'text': 'Hallo', 'bild': ?sceneImage},
       ],
+      // Bildergeschichten brauchen Schätzfrage und Antipp-Momente (INSELN.md).
+      if (lesson != null && lesson.any((l) => l['bild'] != null)) ...{
+        'schaetzfrage':
+            estimate ??
+            {
+              'wer': 'talo',
+              'frage': 'Was glaubst du?',
+              'art': 'zahl',
+              'von': 0,
+              'bis': 10,
+              'loesung': 3,
+              'aufloesung': {'wer': 'tala', 'text': 'Es sind 3.'},
+            },
+        'antippen':
+            taps ??
+            [
+              for (var i = 1; i <= min(2, lesson.length); i++)
+                {'nach_bild': i, 'art': 'tippen', 'text': 'Tipp hier.', 'zeichen': 'muenze'},
+            ],
+      },
       'erklaerung':
           lesson ??
           [
@@ -286,6 +309,88 @@ void main() {
         ),
         contains(contains('unbekannte Zeichnung "goldbarren"')),
       );
+    });
+
+    test('Schätzfrage und Antipp-Momente: Pflicht bei Bildergeschichten, Bereich, Lösung, Zeichen', () {
+      final story = [
+        {'wer': 'tala', 'text': 'Eins', 'bild': 'story.hafen.2.1'},
+        {'wer': 'talo', 'text': 'Zwei'},
+        {'wer': 'talo', 'text': 'Drei'},
+      ];
+      expect(problems(islandWith(station(lesson: story))), isEmpty);
+      Map<String, dynamic> estimate(Map<String, dynamic> change) => {
+        'wer': 'talo',
+        'frage': 'Was glaubst du?',
+        'art': 'regler',
+        'von': 0,
+        'bis': 100,
+        'schritt': 10,
+        'loesung': 30,
+        'aufloesung': {'wer': 'tala', 'text': 'Es sind 30.'},
+        ...change,
+      };
+      expect(problems(islandWith(station(lesson: story, estimate: estimate({})))), isEmpty);
+      expect(
+        problems(islandWith(station(lesson: story, estimate: estimate({'loesung': 35})))),
+        contains(contains('"loesung" liegt nicht zwischen von und bis')),
+      );
+      expect(
+        problems(islandWith(station(lesson: story, estimate: estimate({'art': 'raten'})))),
+        contains(contains('"art" muss regler, zahl oder auswahl sein')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: story,
+              estimate: estimate({
+                'art': 'auswahl',
+                'optionen': ['nur eine'],
+                'loesung': 2,
+              }),
+            ),
+          ),
+        ),
+        allOf(contains(contains('2 bis 4 "optionen"')), contains(contains('"loesung" ist keine Möglichkeit'))),
+      );
+      expect(
+        problems(islandWith(station(lesson: story, estimate: estimate({'frage': 'Kostet es 2,50 €?'})))),
+        contains(contains('nur mit ganzen Zahlen')),
+      );
+      // Antipp-Momente: mindestens 2, bekannte Zeichen, Platz in der Geschichte, Rückseite beim Umdrehen.
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: story,
+              taps: [
+                {'nach_bild': 1, 'art': 'tippen', 'text': 'Tipp.', 'zeichen': 'muenze'},
+              ],
+            ),
+          ),
+        ),
+        contains(contains('mindestens 2 Antipp-Momente')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(
+              lesson: story,
+              taps: [
+                {'nach_bild': 1, 'art': 'tippen', 'text': 'Tipp.', 'zeichen': 'goldbarren'},
+                {'nach_bild': 7, 'art': 'umdrehen', 'text': 'Dreh.', 'zeichen': 'karte'},
+              ],
+            ),
+          ),
+        ),
+        allOf(
+          contains(contains('unbekanntes Zeichen "goldbarren"')),
+          contains(contains('"nach_bild" muss 1 bis 3 sein')),
+          contains(contains('fehlt die "rueckseite"')),
+        ),
+      );
+      final missing = Map.of(station(lesson: story))..remove('schaetzfrage');
+      expect(problems(islandWith(missing)), contains(contains('"schaetzfrage" fehlt')));
     });
 
     test('Inseln 1 bis 3: jede Erklärung ist eine Bildergeschichte, Stationen ohne Film', () {

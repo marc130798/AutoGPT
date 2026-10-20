@@ -110,10 +110,14 @@ void main() {
     await tapKey(tester, 'island-hafen');
     await tapKey(tester, 'station-3');
 
-    // „Weißt du noch?“, dann Film, Szene, Erklärung bis zum Spiel.
+    // „Weißt du noch?“, dann Szene, Schätzfrage, Erklärung bis zum Spiel.
     await answerAllCorrectly(tester, content);
     for (var i = 0; i < 20 && find.byKey(const ValueKey('game-done')).evaluate().isEmpty; i++) {
-      await tapText(tester, 'Weiter');
+      if (find.byKey(const ValueKey('estimate-submit')).evaluate().isNotEmpty) {
+        await tapKey(tester, 'estimate-submit');
+      } else {
+        await tapText(tester, 'Weiter');
+      }
     }
     expect(find.text('Zeitstrahl'), findsOneWidget);
     final items = content.station('hafen', 3).content.game!.items;

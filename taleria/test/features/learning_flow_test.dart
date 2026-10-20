@@ -94,6 +94,14 @@ void main() {
     await tapKey(tester, 'game-done');
   }
 
+  /// Schätzfrage: bei einer Auswahl die erste Möglichkeit, sonst den Startwert.
+  Future<void> guess(WidgetTester tester) async {
+    if (find.byKey(const ValueKey('estimate-option-0')).evaluate().isNotEmpty) {
+      await tapKey(tester, 'estimate-option-0');
+    }
+    await tapKey(tester, 'estimate-submit');
+  }
+
   /// Klickt Szene, Bildergeschichte und Spiel durch, bis das Quiz kommt.
   Future<void> playUntilQuiz(WidgetTester tester) async {
     for (var i = 0; i < 40 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
@@ -101,6 +109,8 @@ void main() {
         await solveChoice(tester);
       } else if (find.byKey(const ValueKey('coins-sum')).evaluate().isNotEmpty) {
         await solveCoins(tester);
+      } else if (find.byKey(const ValueKey('estimate-submit')).evaluate().isNotEmpty) {
+        await guess(tester);
       } else {
         await tapText(tester, 'Weiter');
       }
@@ -145,7 +155,13 @@ void main() {
     expect(find.textContaining('goldenen Halstuch'), findsOneWidget);
     // Bis zur Bildergeschichte: Bild (noch Platzhalter mit Namen) und Erklärung.
     for (var i = 0; i < 10 && find.byKey(const ValueKey('story-dots')).evaluate().isEmpty; i++) {
-      await tapText(tester, 'Weiter');
+      if (find.byKey(const ValueKey('estimate-submit')).evaluate().isNotEmpty) {
+        // Vor der Erklärung: „Was glaubst du?“ (Hafen 2: Zahlenrad, Lösung „keiner“).
+        expect(find.text('Was glaubst du?'), findsOneWidget);
+        await guess(tester);
+      } else {
+        await tapText(tester, 'Weiter');
+      }
     }
     expect(find.byKey(const ValueKey('placeholder:story.hafen.2.1')), findsOneWidget);
     expect(find.textContaining('Das klappt nur selten.'), findsOneWidget);
