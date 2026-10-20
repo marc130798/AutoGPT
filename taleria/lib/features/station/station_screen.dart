@@ -7,6 +7,7 @@ import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/family_models.dart';
+import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/sounds.dart';
 import '../../services/station_controller.dart';
@@ -17,6 +18,7 @@ import '../common/game_sign.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
+import '../progress/stats_card.dart';
 import '../../services/encounter_controller.dart' show EncounterRun;
 import 'dialog_sequence.dart';
 import 'dive_header.dart';
@@ -266,8 +268,9 @@ Widget _framed(StationController controller, Widget body) {
       child: body,
     ),
     StationStep.wreck => StagePanel(stage: const SizedBox.shrink(), open: true, child: body),
-    StationStep.result when dive => StagePanel(stage: const SizedBox.shrink(), child: body),
+    StationStep.result when dive => StagePanel(stage: const SizedBox.shrink(), open: true, child: body),
     StationStep.result => StagePanel(
+      open: true,
       stage: FigureStage(
         figures: [
           StageFigure(AssetKeys.talo, pose: failedExam ? CharacterPose.think : CharacterPose.happy),
@@ -337,7 +340,6 @@ class _ResultView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final palette = context.palette;
     final result = controller.result!;
     final exam = controller.content.exam;
     final failedExam = controller.isExam && !result.passed;
@@ -346,53 +348,58 @@ class _ResultView extends StatelessWidget {
       children: [
         Expanded(
           child: ListView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(16),
             children: [
-              Text(
-                failedExam
-                    ? l10n.examFailedTitle
-                    : (controller.isExam
-                          ? l10n.examPassedTitle
-                          : (controller.isDive
-                                ? l10n.diveResultTitle
-                                : (controller.isSeaStop ? l10n.seaStopDone : l10n.resultTitle))),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                l10n.resultCorrect(result.correct, result.total),
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleMedium,
-              ),
-              if (controller.isDive) ...[
-                const SizedBox(height: 8),
-                Text(
-                  l10n.divePearls(result.correct),
-                  key: const ValueKey('dive-pearls'),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleMedium,
+              // Offen vor der Insel (Marcs Wunsch am 20.10.2026: kein großes leeres Blatt):
+              // Titel, ein Stern pro Frage, darunter die Seemeilen mit dem Weg zum nächsten Rang.
+              OpenFrame(
+                child: Column(
+                  children: [
+                    Text(
+                      failedExam
+                          ? l10n.examFailedTitle
+                          : (controller.isExam
+                                ? l10n.examPassedTitle
+                                : (controller.isDive
+                                      ? l10n.diveResultTitle
+                                      : (controller.isSeaStop ? l10n.seaStopDone : l10n.resultTitle))),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                    ),
+                    if (controller.quiz case final quiz?) ...[
+                      const SizedBox(height: 8),
+                      AnswerStars(results: quiz.results, size: quiz.total > 6 ? 26 : 36),
+                    ],
+                    const SizedBox(height: 4),
+                    Text(
+                      l10n.resultCorrect(result.correct, result.total),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    if (controller.isDive) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.divePearls(result.correct),
+                        key: const ValueKey('dive-pearls'),
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ],
+                  ],
                 ),
-              ],
+              ),
               if (result.xpAwarded > 0) ...[
-                const SizedBox(height: 8),
-                // Seemeilen zählen sichtbar hoch.
-                CountUp(
-                  value: result.xpAwarded,
-                  builder: (context, xp) => Text(
-                    l10n.doneXp(xp),
-                    key: const ValueKey('result-xp'),
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleLarge?.copyWith(color: palette.gold, fontWeight: FontWeight.w800),
-                  ),
-                ),
+                const SizedBox(height: 12),
+                _XpGain(xp: result.xpAwarded, stats: controller.statsAfter, rankForm: controller.child.rankForm),
               ],
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               if (failedExam)
-                Text(
-                  l10n.examFailedBody(exam?.pass ?? 8),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyLarge,
+                OpenFrame(
+                  child: Text(
+                    l10n.examFailedBody(exam?.pass ?? 8),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyLarge,
+                  ),
                 )
               else if (controller.content.summary != null)
                 SpeechBubble.line(controller.content.summary!),
@@ -405,39 +412,53 @@ class _ResultView extends StatelessWidget {
                 const SizedBox(height: 32),
                 Center(child: IslandRewardEffect(badgeAssetKey: result.badge?.assetKey)),
                 const SizedBox(height: 12),
-                Text(l10n.islandCompletedTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
-                if ((result.badge?.title ?? details?.badge) case final badge?) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.islandCompletedBadge(badge),
-                    key: const ValueKey('result-badge'),
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium,
+                OpenFrame(
+                  child: Column(
+                    children: [
+                      Text(
+                        l10n.islandCompletedTitle,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                      if ((result.badge?.title ?? details?.badge) case final badge?) ...[
+                        const SizedBox(height: 8),
+                        Text(
+                          l10n.islandCompletedBadge(badge),
+                          key: const ValueKey('result-badge'),
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      ],
+                      const SizedBox(height: 8),
+                      Text(l10n.islandCompletedNext, textAlign: TextAlign.center),
+                    ],
                   ),
-                ],
-                const SizedBox(height: 8),
-                Text(l10n.islandCompletedNext, textAlign: TextAlign.center),
+                ),
               ],
               if (result.find != null) ...[
                 const SizedBox(height: 32),
                 Center(child: RewardPop(assetKey: result.find!.assetKey)),
                 const SizedBox(height: 12),
-                Text(
-                  l10n.diveFind(result.find!.title),
-                  key: const ValueKey('dive-find'),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleMedium,
+                OpenFrame(
+                  child: Text(
+                    l10n.diveFind(result.find!.title),
+                    key: const ValueKey('dive-find'),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.titleMedium,
+                  ),
                 ),
               ],
               if (result.rankUp != null) ...[
                 const SizedBox(height: 32),
                 Center(child: RewardPop(assetKey: AssetKeys.rank(result.rankUp!.code))),
                 const SizedBox(height: 12),
-                Text(
-                  l10n.rankUpTitle(l10n.rank(result.rankUp, controller.child.rankForm)),
-                  key: const ValueKey('result-rank-up'),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.headlineSmall,
+                OpenFrame(
+                  child: Text(
+                    l10n.rankUpTitle(l10n.rank(result.rankUp, controller.child.rankForm)),
+                    key: const ValueKey('result-rank-up'),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.headlineSmall,
+                  ),
                 ),
               ],
             ],
@@ -473,6 +494,73 @@ class _ResultView extends StatelessWidget {
         page,
         const Positioned.fill(child: ConfettiBurst()),
       ],
+    );
+  }
+}
+
+/// Seemeilen im Ergebnis: Sie zählen hoch, daneben das Rang-Abzeichen,
+/// darunter füllt sich der Balken bis zum nächsten Rang (vom Stand vor der
+/// Station bis jetzt). Ohne Stand vom Server nur die Seemeilen.
+class _XpGain extends StatelessWidget {
+  const _XpGain({required this.xp, required this.stats, required this.rankForm});
+
+  final int xp;
+  final ChildStats? stats;
+  final RankForm? rankForm;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final stats = this.stats;
+    final after = stats?.progressToNextRank;
+    double? before;
+    if (stats != null && after != null && stats.nextRankXp != null) {
+      final start = stats.rankMinXp ?? 0;
+      final span = stats.nextRankXp! - start;
+      before = span <= 0 ? after : ((stats.xp - xp - start) / span).clamp(0.0, after);
+    }
+    return GlassFrame(
+      child: Row(
+        children: [
+          ClipOval(child: TaleriaAsset(AssetKeys.rank((stats?.rank ?? Rank.schiffsjunge).code), width: 52, height: 52)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Seemeilen zählen sichtbar hoch.
+                CountUp(
+                  value: xp,
+                  builder: (context, v) => Text(
+                    l10n.doneXp(v),
+                    key: const ValueKey('result-xp'),
+                    style: theme.textTheme.titleLarge?.copyWith(color: palette.gold, fontWeight: FontWeight.w800),
+                  ),
+                ),
+                if (stats != null && after != null && before != null) ...[
+                  const SizedBox(height: 6),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: TweenAnimationBuilder<double>(
+                      key: const ValueKey('result-rank-bar'),
+                      tween: Tween(begin: before, end: after),
+                      duration: MediaQuery.disableAnimationsOf(context)
+                          ? Duration.zero
+                          : const Duration(milliseconds: 1200),
+                      curve: Curves.easeOutCubic,
+                      builder: (context, v, _) => LinearProgressIndicator(value: v, minHeight: 10, color: palette.gold),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(rankProgressText(l10n, stats, rankForm), style: theme.textTheme.bodySmall),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

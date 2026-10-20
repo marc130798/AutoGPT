@@ -253,9 +253,25 @@ class StationController extends ChangeNotifier {
     try {
       _result = await _progress.submitStation(childId: child.id, stationId: station.id, answers: _quiz!.submission);
       _go(StationStep.result);
+      unawaited(_loadStatsAfter());
     } on AppFailure catch (e) {
       _failure = e.kind;
       _go(StationStep.failed);
+    }
+  }
+
+  ChildStats? _statsAfter;
+
+  /// Stand nach dem Abgeben (Rang, Weg zum nächsten), für den Balken im Ergebnis.
+  ChildStats? get statsAfter => _statsAfter;
+
+  /// Ein Fehler hier stört nicht: Dann zeigt das Ergebnis nur die Seemeilen.
+  Future<void> _loadStatsAfter() async {
+    try {
+      _statsAfter = await _progress.fetchStats(child.id);
+      if (!_disposed) notifyListeners();
+    } on AppFailure {
+      // Nur für den Balken im Ergebnis.
     }
   }
 
@@ -329,6 +345,14 @@ class StationController extends ChangeNotifier {
     _warmUp = QuizRun([
       for (final q in pickWarmUp(pool, _random)) ShuffledQuestion.shuffle(q.forLevel(child.level), _random),
     ]);
+  }
+
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 
   void _go(StationStep step) {

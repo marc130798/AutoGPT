@@ -531,3 +531,43 @@ class _CoinsPainter extends CustomPainter {
   @override
   bool shouldRepaint(_CoinsPainter oldDelegate) => oldDelegate.ms != ms;
 }
+
+/// Ein Stern pro Frage im Ergebnis: richtig golden, falsch blass. Die Sterne
+/// springen nacheinander auf (nicht bei „Bewegung reduzieren“).
+class AnswerStars extends StatelessWidget {
+  const AnswerStars({super.key, required this.results, this.size = 36});
+
+  final List<bool?> results;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final animate = _animate(context);
+    const step = 150, grow = 450;
+    final total = step * results.length + grow;
+    return Wrap(
+      key: const ValueKey('answer-stars'),
+      alignment: WrapAlignment.center,
+      spacing: 2,
+      children: [
+        for (final (i, right) in results.indexed)
+          () {
+            final star = Icon(
+              right == true ? Icons.star_rounded : Icons.star_outline_rounded,
+              size: size,
+              color: right == true ? palette.gold : palette.ink.withValues(alpha: 0.3),
+            );
+            if (!animate) return star;
+            return TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: Duration(milliseconds: total),
+              curve: Interval(step * i / total, (step * i + grow) / total, curve: Curves.elasticOut),
+              builder: (context, t, child) => Transform.scale(scale: t, child: child),
+              child: star,
+            );
+          }(),
+      ],
+    );
+  }
+}
