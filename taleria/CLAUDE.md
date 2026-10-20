@@ -742,15 +742,15 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 398 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 400 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Schätzfrage, Antipp-Momente und alle Animationen des Plans sind fertig (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
-**Letzte Testversion (11.10.2026, spät abends):**
-- Datei: `build/taleria_test_web.zip`, 19,4 MB. Das Skript lässt ungenutzte Web-Dateien weg.
+**Letzte Testversion (20.10.2026, Mittag):**
+- Datei: `build/taleria_test_web.zip`, 20,4 MB. Das Skript lässt ungenutzte Web-Dateien weg.
 - Platz: Die großen PNG-Bilder (Figuren, Inseln, Orden, Schiffe) sind mit `tool/bilder_verkleinern.py` auf 256 Farben gerechnet (Paket `imagequant`, wie pngquant): zusammen 17,7 MB → 5,4 MB, sichtbar kein Unterschied. Neue große PNG-Bilder danach genauso verkleinern.
-- Neu darin seit der Testversion vom Abend (zweiter Bau kurz vor Mitternacht, dazu: Übungen und Spiele ohne großes Blatt, Hintergrund überall leicht verblasst, Körbe und Möglichkeiten grün und rot): Töne in Übungen und Mini-Spielen, Spiele-Seite mit Startbildern, Bonus-Karte mit Startbild, fünftes echtes Spiel „Talas Ausflüge“ (Wunschinsel 2, noch mit Platzhalter-Bildern), „Hafenbüro“ statt „Kontor“, Tauchgang mit frischen Fragen, weniger Weiß vor Bildern (nur Rahmen um Fragen und Antworten), Antworten grün und rot mit Haken und Kreuz, Gespräche mit leicht verblasstem Hintergrund.
-- Vorher im Testprojekt ausführen: nur `supabase/seed.sql`, und nur einmal (beim zweiten Bau nicht nötig; die Migrationen bis `20261011000200_einsteiger_fragen.sql` hat Marc am 11.10.2026 abends schon ausgeführt; neue gibt es nicht).
+- Neu darin seit dem Bau vom Morgen: Schätzfrage vor der Erklärung, Antipp-Momente in den Bildergeschichten, Animationen (Wellen-Übergang, Abtauchen, Konfetti, Münzen in die Truhe, Karte entrollt sich, Möwen), Antwort-Knöpfe mit Bewegung, Fragen groß mit Punkten statt „Frage 1 von 5“, Preis-Säule mit Kästen, Mini-Spiele mit echten Münzen und Scheinen, Kunden-Warteschlange, Kreidetafel, Holzschild und fliegenden Dingen, Vibration (im Leuchtturm abschaltbar), Ergebnis einer Station mit Sternen und Rang-Balken, Insel-Seite mit „Das lernst du hier“ und Stationen im Gold-Look.
+- Vorher im Testprojekt ausführen: nur `supabase/seed.sql` (neu: Schätzfragen, Antipp-Momente, `lernziel_kind`). Neue Migrationen gibt es nicht; die bis `20261011000200_einsteiger_fragen.sql` hat Marc am 11.10.2026 ausgeführt.
 - Danach die ZIP bei Netlify unter Deploys hochladen.
 
 **Arbeitsweise mit Marc (zusätzlich zu Abschnitt 1):**
