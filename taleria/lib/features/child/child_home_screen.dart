@@ -357,10 +357,15 @@ class _HomeTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
+                // Eine Zeile, notfalls etwas kleiner: „Sammlung“ brach in schmalen Kacheln mitten im Wort um.
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
+                  ),
                 ),
                 if (hint != null) ...[
                   const SizedBox(height: 4),
