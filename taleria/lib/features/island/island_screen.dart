@@ -13,6 +13,7 @@ import '../common/texts.dart';
 import '../station/dialog_sequence.dart';
 import '../intro/speech_bubble.dart';
 import '../station/station_screen.dart';
+import '../station/station_stage.dart';
 import 'island_scene.dart';
 
 /// Eine Insel: Ankunft beim ersten Besuch, danach die Stationen der Reihe nach.
@@ -132,7 +133,7 @@ class _IslandScreenState extends State<IslandScreen> {
   }
 }
 
-/// Ankunft auf der Insel: Film (Platzhalter) und Szene.
+/// Ankunft auf der Insel: Film (Platzhalter) und Szene vor dem Inselbild.
 class _Arrival extends StatefulWidget {
   const _Arrival({required this.details, required this.onDone});
 
@@ -155,7 +156,13 @@ class _ArrivalState extends State<_Arrival> {
         onContinue: () => details.arrivalScene.isEmpty ? widget.onDone() : setState(() => _showFilm = false),
       );
     }
-    return DialogSequence(lines: details.arrivalScene, onDone: widget.onDone);
+    // Vor dem leicht verblassten Inselbild, die Figur, die spricht, groß
+    // darüber (Marcs Test am 20.10.2026: vorher nur heller Grund).
+    return StationBackdrop(
+      assetKey: AssetKeys.islandBackground(details.slug),
+      faded: true,
+      child: DialogSequence(lines: details.arrivalScene, onDone: widget.onDone, stage: true),
+    );
   }
 }
 
