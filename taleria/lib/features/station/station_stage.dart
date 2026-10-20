@@ -438,8 +438,8 @@ class FigureStage extends StatelessWidget {
                         alignment: Alignment.bottomCenter,
                         child: AssetPlaceholder(
                           entry: manifest.lookup(figure.character),
-                          width: height * 0.6,
-                          height: height * 0.6,
+                          width: min(height * 0.6, width),
+                          height: min(height * 0.6, width),
                         ),
                       ),
                     ),
