@@ -330,6 +330,13 @@ class FakeLocalSettings implements LocalSettings {
   bool vibration = true;
   final Map<String, int> collectionSeenBy = {};
   final Map<String, Map<String, int>> potsSeenBy = {};
+  final Set<String> introsSeen = {};
+
+  @override
+  Future<bool> pageIntroSeen(String childId, String page) async => introsSeen.contains('$childId/$page');
+
+  @override
+  Future<void> setPageIntroSeen(String childId, String page) async => introsSeen.add('$childId/$page');
 
   @override
   Future<bool> vibrationAllowed() async => vibration;

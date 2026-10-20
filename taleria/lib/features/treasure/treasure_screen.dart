@@ -11,6 +11,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
 import '../common/menu_music.dart';
+import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -256,7 +257,11 @@ class _TreasureContent extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.wave, text: l10n.treasureTalaIntro),
+        PageIntro(
+          childId: controller.childId,
+          page: 'treasure',
+          children: [SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.wave, text: l10n.treasureTalaIntro)],
+        ),
         const SizedBox(height: 16),
         for (final pot in Pot.values)
           _PotCard(

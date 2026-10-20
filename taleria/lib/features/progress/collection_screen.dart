@@ -7,6 +7,7 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/menu_music.dart';
+import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -61,7 +62,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.collectionIntro),
+                    PageIntro(
+                      childId: widget.childId,
+                      page: 'collection',
+                      children: [
+                        SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.collectionIntro),
+                      ],
+                    ),
                     const SizedBox(height: 16),
                     PaperCard(
                       padding: const EdgeInsets.symmetric(vertical: 4),

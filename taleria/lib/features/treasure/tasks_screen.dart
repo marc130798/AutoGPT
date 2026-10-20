@@ -9,6 +9,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/treasure_controller.dart';
 import '../common/busy_action.dart';
 import '../common/menu_music.dart';
+import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -86,9 +87,15 @@ class _TasksScreenState extends State<TasksScreen> {
                   child: ListView(
                     padding: const EdgeInsets.all(16),
                     children: [
-                      SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.wave, text: l10n.tasksIntroTalo),
-                      const SizedBox(height: 12),
-                      SpeechBubble(speaker: Speaker.tala, text: l10n.tasksIntroTala),
+                      PageIntro(
+                        childId: widget.childId,
+                        page: 'tasks',
+                        children: [
+                          SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.wave, text: l10n.tasksIntroTalo),
+                          const SizedBox(height: 12),
+                          SpeechBubble(speaker: Speaker.tala, text: l10n.tasksIntroTala),
+                        ],
+                      ),
                       const SizedBox(height: 16),
                       if (controller.tasks.isEmpty)
                         PaperCard(child: Text(l10n.tasksEmpty, style: theme.textTheme.bodyLarge)),

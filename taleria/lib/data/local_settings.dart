@@ -50,6 +50,12 @@ abstract interface class LocalSettings {
   Future<Map<String, int>?> potsSeen(String childId);
 
   Future<void> setPotsSeen(String childId, Map<String, int> cents);
+
+  /// Hat das Kind die Erklärung dieser Menü-Seite (zum Beispiel `tasks`)
+  /// schon gesehen? Danach ist sie zugeklappt, ein „?“ zeigt sie wieder.
+  Future<bool> pageIntroSeen(String childId, String page);
+
+  Future<void> setPageIntroSeen(String childId, String page);
 }
 
 class SharedPreferencesSettings implements LocalSettings {
@@ -160,6 +166,18 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setPotsSeen(String childId, Map<String, int> cents) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('pots.$childId', [for (final e in cents.entries) '${e.key}=${e.value}']);
+  }
+
+  @override
+  Future<bool> pageIntroSeen(String childId, String page) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('intro.$childId.$page') ?? false;
+  }
+
+  @override
+  Future<void> setPageIntroSeen(String childId, String page) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('intro.$childId.$page', true);
   }
 
   @override

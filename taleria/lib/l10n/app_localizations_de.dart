@@ -2554,4 +2554,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String tapCountLeft(int count) {
     return 'Noch $count-mal';
   }
+
+  @override
+  String get pageIntroShow => 'Erklärung zeigen';
+
+  @override
+  String get pageIntroHide => 'Erklärung zuklappen';
 }

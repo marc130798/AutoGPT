@@ -4236,6 +4236,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Noch {count}-mal'**
   String tapCountLeft(int count);
+
+  /// Knopf „?“ auf Menü-Seiten: klappt die Erklärung von Talo oder Tala auf
+  ///
+  /// In de, this message translates to:
+  /// **'Erklärung zeigen'**
+  String get pageIntroShow;
+
+  /// Knopf auf Menü-Seiten: klappt die Erklärung wieder zu
+  ///
+  /// In de, this message translates to:
+  /// **'Erklärung zuklappen'**
+  String get pageIntroHide;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

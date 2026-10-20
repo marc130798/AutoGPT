@@ -8,6 +8,7 @@ import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/game_sign.dart';
 import '../common/menu_music.dart';
+import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -96,7 +97,11 @@ class _GamesScreenState extends State<GamesScreen> {
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.gamesIntro),
+                    PageIntro(
+                      childId: widget.child.id,
+                      page: 'games',
+                      children: [SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.gamesIntro)],
+                    ),
                     const SizedBox(height: 16),
                     if (entries.isEmpty) PaperCard(child: Text(l10n.gamesEmpty, style: theme.textTheme.bodyLarge)),
                     for (final entry in entries)

@@ -7,6 +7,7 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/menu_music.dart';
+import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
@@ -60,7 +61,13 @@ class _BadgesScreenState extends State<BadgesScreen> {
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.badgesIntro),
+                    PageIntro(
+                      childId: widget.childId,
+                      page: 'badges',
+                      children: [
+                        SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.badgesIntro),
+                      ],
+                    ),
                     const SizedBox(height: 16),
                     if (earned == 0) PaperCard(child: Text(l10n.badgesEmpty, style: theme.textTheme.bodyLarge)),
                     for (final badge in badges) _BadgeTile(badge: badge),

@@ -3600,5 +3600,13 @@
         "type": "int"
       }
     }
+  },
+  "pageIntroShow": "Erklärung zeigen",
+  "@pageIntroShow": {
+    "description": "Knopf „?“ auf Menü-Seiten: klappt die Erklärung von Talo oder Tala auf"
+  },
+  "pageIntroHide": "Erklärung zuklappen",
+  "@pageIntroHide": {
+    "description": "Knopf auf Menü-Seiten: klappt die Erklärung wieder zu"
   }
 }
