@@ -7,6 +7,8 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'station_stage.dart';
+import 'story_drawings.dart';
 
 /// Münzen legen: oben die Ablage mit den gelegten Münzen (antippen = wegnehmen),
 /// unten alle Euro-Münzen und -Scheine. Mit einer Hand bedienbar, im Hochformat.
@@ -71,38 +73,19 @@ class _CoinsGameViewState extends State<CoinsGameView> {
           style: theme.textTheme.titleMedium,
         ),
         const SizedBox(height: 12),
-        Card(
-          color: palette.paper,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              children: [
-                Text(
-                  l10n.gameCoinsPlaced(widget.game.money(game.sum), widget.game.money(game.target)),
-                  key: const ValueKey('coins-sum'),
-                  style: theme.textTheme.titleMedium,
-                ),
-                const SizedBox(height: 8),
-                if (game.placed.isEmpty)
-                  Text(l10n.gameCoinsNothing, textAlign: TextAlign.center, style: theme.textTheme.bodySmall)
-                else
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    alignment: WrapAlignment.center,
-                    children: [
-                      for (final (i, value) in game.placed.indexed)
-                        CoinButton(
-                          key: ValueKey('coins-placed-$i'),
-                          cents: value,
-                          small: true,
-                          onTap: game.exact ? null : () => setState(() => game.removeAt(i)),
-                        ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
+        MoneyTray(
+          label: l10n.gameCoinsPlaced(widget.game.money(game.sum), widget.game.money(game.target)),
+          labelKey: const ValueKey('coins-sum'),
+          empty: l10n.gameCoinsNothing,
+          children: [
+            for (final (i, value) in game.placed.indexed)
+              CoinButton(
+                key: ValueKey('coins-placed-$i'),
+                cents: value,
+                small: true,
+                onTap: game.exact ? null : () => setState(() => game.removeAt(i)),
+              ),
+          ],
         ),
         if (feedback != null) ...[
           const SizedBox(height: 8),
@@ -144,7 +127,9 @@ class _CoinsGameViewState extends State<CoinsGameView> {
   }
 }
 
-/// Eine Münze (rund) oder ein Schein (eckig) als Knopf, mindestens 48 Punkte groß.
+/// Eine Münze oder ein Schein als Knopf, gezeichnet wie echtes Euro-Geld
+/// (Kupfer, Gold, zweifarbig; Scheine in ihren Farben). Münzen behalten ihre
+/// echten Größenunterschiede, der Knopf ist immer mindestens 48 Punkte groß.
 class CoinButton extends StatelessWidget {
   const CoinButton({super.key, required this.cents, required this.onTap, this.small = false});
 
@@ -155,36 +140,102 @@ class CoinButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final palette = context.palette;
     final note = cents >= CoinsGame.firstNote;
     final label = cents < 100 ? l10n.coinCents(cents) : l10n.coinEuros(cents ~/ 100);
-    final size = small ? 48.0 : 64.0;
-    final color = note ? palette.sea : (cents >= 100 ? palette.gold : palette.sand);
+    final box = small ? 48.0 : 64.0;
+    // Die 2-Euro-Münze (25,75 mm) füllt den Knopf fast ganz aus.
+    final Widget money = note
+        ? EuroNote(euros: cents ~/ 100, scale: small ? 0.42 : 0.72)
+        : EuroCoin(cents: cents, scale: (box - 4) / 25.75);
     return Semantics(
       button: onTap != null,
       label: label,
-      child: Material(
-        color: color,
-        shape: note
-            ? RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-                side: BorderSide(color: palette.seaDeep),
-              )
-            : CircleBorder(side: BorderSide(color: palette.seaDeep)),
-        child: InkWell(
-          customBorder: note ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)) : const CircleBorder(),
+      excludeSemantics: true,
+      child: PressDip(
+        enabled: onTap != null,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: onTap,
-          child: SizedBox(
-            width: note ? size * 1.6 : size,
-            height: size,
-            child: Center(
-              child: Text(
-                label,
-                style: TextStyle(fontWeight: FontWeight.bold, color: palette.ink, fontSize: small ? 12 : 15),
-              ),
+          child: Opacity(
+            // Gerade nicht antippbar (zum Beispiel schon herausgegeben): etwas blasser.
+            opacity: onTap == null && !small ? 0.55 : 1,
+            child: SizedBox(
+              width: note ? (small ? 60 : 102) : box,
+              height: box,
+              child: Center(child: money),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Die Geldschublade: Holzrahmen mit dunklem Filz, darauf liegt das gelegte
+/// Geld. Oben steht, wie viel es ist.
+class MoneyTray extends StatelessWidget {
+  const MoneyTray({super.key, required this.label, required this.empty, required this.children, this.labelKey});
+
+  final String label;
+  final Key? labelKey;
+
+  /// Hinweis, solange nichts liegt.
+  final String empty;
+  final List<Widget> children;
+
+  static const _wood = [Color(0xFFC08A52), Color(0xFF8B5A2B)];
+  static const _felt = Color(0xFF2E5B55);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: _wood),
+        border: Border.all(color: const Color(0xFF5E3A1A), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 8, offset: Offset(0, 3))],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Messingschild mit dem Betrag.
+          Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+              decoration: BoxDecoration(
+                color: palette.paper,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: palette.gold, width: 2),
+              ),
+              child: Text(
+                label,
+                key: labelKey,
+                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            constraints: const BoxConstraints(minHeight: 64),
+            padding: const EdgeInsets.all(8),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: _felt,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [BoxShadow(color: Color(0x88000000), blurRadius: 4, spreadRadius: -1)],
+            ),
+            child: children.isEmpty
+                ? Text(
+                    empty,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall?.copyWith(color: Colors.white70),
+                  )
+                : Wrap(spacing: 4, runSpacing: 4, alignment: WrapAlignment.center, children: children),
+          ),
+        ],
       ),
     );
   }

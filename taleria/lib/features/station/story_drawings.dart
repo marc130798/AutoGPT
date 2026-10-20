@@ -411,9 +411,12 @@ class _NoteFan extends StatelessWidget {
 
 /// Ein Euro-Schein in seiner Farbe, mit großem Wert und Torbogen.
 class EuroNote extends StatelessWidget {
-  const EuroNote({super.key, required this.euros});
+  const EuroNote({super.key, required this.euros, this.scale = 1.5});
 
   final int euros;
+
+  /// Punkte pro Millimeter.
+  final double scale;
 
   /// Farbe (dunkel, hell) und Breite in Millimetern (echte Scheine).
   static const _look = {
@@ -427,15 +430,16 @@ class EuroNote extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final (dark, light, mm) = _look[euros] ?? (const Color(0xFF7D8A8F), const Color(0xFFD7DDDF), 120.0);
-    final width = mm * 1.5;
+    final width = mm * scale;
     final height = width * 0.52;
+    final pad = height * 0.1;
     final number = TextStyle(fontSize: height * 0.36, height: 1, fontWeight: FontWeight.w900, color: dark);
     return Semantics(
       label: l10n.coinEuros(euros),
       child: Container(
         width: width,
         height: height,
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(pad),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           gradient: LinearGradient(colors: [light, Color.lerp(light, dark, 0.35)!]),

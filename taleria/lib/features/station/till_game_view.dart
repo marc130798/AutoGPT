@@ -101,38 +101,19 @@ class _TillGameViewState extends State<TillGameView> {
           ),
         ],
         const SizedBox(height: 12),
-        Card(
-          color: palette.paper,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              children: [
-                Text(
-                  l10n.tillTray(widget.game.money(game.sum)),
-                  key: const ValueKey('till-sum'),
-                  style: theme.textTheme.titleMedium,
-                ),
-                const SizedBox(height: 8),
-                if (game.placed.isEmpty)
-                  Text(l10n.tillTrayEmpty, textAlign: TextAlign.center, style: theme.textTheme.bodySmall)
-                else
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    alignment: WrapAlignment.center,
-                    children: [
-                      for (final (i, value) in game.placed.indexed)
-                        CoinButton(
-                          key: ValueKey('till-placed-$i'),
-                          cents: value,
-                          small: true,
-                          onTap: game.served ? null : () => setState(() => game.removeAt(i)),
-                        ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
+        MoneyTray(
+          label: l10n.tillTray(widget.game.money(game.sum)),
+          labelKey: const ValueKey('till-sum'),
+          empty: l10n.tillTrayEmpty,
+          children: [
+            for (final (i, value) in game.placed.indexed)
+              CoinButton(
+                key: ValueKey('till-placed-$i'),
+                cents: value,
+                small: true,
+                onTap: game.served ? null : () => setState(() => game.removeAt(i)),
+              ),
+          ],
         ),
         if (feedback != null) ...[
           const SizedBox(height: 8),
