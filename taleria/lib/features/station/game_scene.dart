@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import 'figure_head.dart';
 import 'station_stage.dart';
@@ -150,3 +151,103 @@ class Hop extends StatelessWidget {
     );
   }
 }
+
+/// Holzschild mit Nägeln für den Titel eines Mini-Spiels.
+class WoodSign extends StatelessWidget {
+  const WoodSign({super.key, required this.text});
+
+  final String text;
+
+  static const _cream = Color(0xFFFFF4DC);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    Widget nail() => Container(
+      width: 7,
+      height: 7,
+      decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF4A2E14)),
+    );
+    return Container(
+      key: const ValueKey('wood-sign'),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFFC99560), Color(0xFF9A6634), Color(0xFF8B5A2B)],
+        ),
+        border: Border.all(color: const Color(0xFF5E3A1A), width: 2.5),
+        boxShadow: const [BoxShadow(color: Color(0x66081C30), blurRadius: 8, offset: Offset(0, 4))],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          nail(),
+          const SizedBox(width: 10),
+          Flexible(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: _cream,
+                fontWeight: FontWeight.w800,
+                shadows: const [Shadow(color: Color(0x99000000), offset: Offset(1, 1.5), blurRadius: 2)],
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          nail(),
+        ],
+      ),
+    );
+  }
+}
+
+/// Kopf eines Mini-Spiels: das Bild der Szene (zum Beispiel die Kasse), unten
+/// darüber das Holzschild mit dem Titel. Ohne Bild nur das Schild.
+class GameSceneHeader extends StatelessWidget {
+  const GameSceneHeader({super.key, required this.title, this.image});
+
+  final String title;
+  final String? image;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final image = this.image;
+    if (image == null) return Center(child: WoodSign(text: title));
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.bottomCenter,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 22),
+          child: Container(
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: palette.gold, width: 3),
+              boxShadow: const [BoxShadow(color: Color(0x44081C30), blurRadius: 8, offset: Offset(0, 3))],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(13),
+              child: SizedBox.expand(
+                child: TaleriaAsset(image, key: const ValueKey('game-scene'), fit: BoxFit.cover),
+              ),
+            ),
+          ),
+        ),
+        WoodSign(text: title),
+      ],
+    );
+  }
+}
+
+/// Rand für Karten in Mini-Spielen: Goldrand wie die Rahmen der Stationen
+/// statt eines dunklen Strichs.
+const gameCardShape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.all(Radius.circular(16)),
+  side: BorderSide(color: Color(0xFFE2C27A), width: 2),
+);

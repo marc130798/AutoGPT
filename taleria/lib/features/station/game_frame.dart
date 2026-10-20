@@ -6,17 +6,22 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/money.dart';
 import '../../l10n/app_localizations.dart';
+import 'game_scene.dart';
 import 'station_stage.dart';
 
 /// Gemeinsamer Rahmen aller Mini-Spiele: Titel, Aufgabe, Inhalt, Knopf unten.
-/// Übungen (Tipp-Aufgaben) tragen oben das Schild „Übung“; bei echten Spielen
-/// steht die Aufgabe schon auf dem Startbild.
+/// Übungen (Tipp-Aufgaben) tragen oben das Schild „Übung“; echte Spiele ein
+/// Holzschild über ihrer Szene, die Aufgabe steht schon auf dem Startbild.
 class GameFrame extends StatelessWidget {
-  const GameFrame({super.key, required this.game, required this.children, required this.button});
+  const GameFrame({super.key, required this.game, required this.children, required this.button, this.scene = true});
 
   final GameInfo game;
   final List<Widget> children;
   final Widget button;
+
+  /// Echte Spiele: oben das Startbild als Szene unter dem Holzschild. Spiele
+  /// mit eigenen großen Bildern (Eisstand, Ausflüge) zeigen nur das Schild.
+  final bool scene;
 
   /// Ohne Blatt darunter ([StagePanel.open]) bekommen lose Texte und Zeilen
   /// einen Rahmen; nebeneinanderliegende teilen sich einen. Karten, Knöpfe
@@ -67,34 +72,41 @@ class GameFrame extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              OpenFrame(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Übungen tragen neben dem Titel das Schild „Übung“.
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 8,
-                      children: [
-                        if (!game.isRealGame)
-                          Container(
-                            key: const ValueKey('practice-label'),
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                            decoration: BoxDecoration(color: palette.sand, borderRadius: BorderRadius.circular(12)),
-                            child: Text(AppLocalizations.of(context).practiceLabel, style: theme.textTheme.labelMedium),
-                          ),
-                        Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+              // Echte Spiele: Szene mit Holzschild (Marcs Wunsch am 20.10.2026: nicht so kahl).
+              if (game.isRealGame)
+                GameSceneHeader(title: game.title, image: scene ? game.image : null)
+              else
+                OpenFrame(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Übungen tragen neben dem Titel das Schild „Übung“.
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 8,
+                        children: [
+                          if (!game.isRealGame)
+                            Container(
+                              key: const ValueKey('practice-label'),
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                              decoration: BoxDecoration(color: palette.sand, borderRadius: BorderRadius.circular(12)),
+                              child: Text(
+                                AppLocalizations.of(context).practiceLabel,
+                                style: theme.textTheme.labelMedium,
+                              ),
+                            ),
+                          Text(game.title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+                        ],
+                      ),
+                      if (game.task != null && !game.isRealGame) ...[
+                        const SizedBox(height: 4),
+                        Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
                       ],
-                    ),
-                    if (game.task != null && !game.isRealGame) ...[
-                      const SizedBox(height: 4),
-                      Text(game.task!, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
                     ],
-                  ],
+                  ),
                 ),
-              ),
               const SizedBox(height: 16),
               ...(open ? _framed(children) : children),
             ],

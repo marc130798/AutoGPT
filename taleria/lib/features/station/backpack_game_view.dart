@@ -93,6 +93,7 @@ class _BackpackGameViewState extends State<BackpackGameView> {
     }
 
     return GameFrame(
+      scene: false,
       game: widget.game,
       button: button,
       children: [

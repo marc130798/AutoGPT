@@ -96,6 +96,7 @@ class _IceStandGameViewState extends State<IceStandGameView> {
     };
 
     return GameFrame(
+      scene: false,
       game: widget.game,
       button: button,
       children: [

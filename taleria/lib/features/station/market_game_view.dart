@@ -8,6 +8,7 @@ import '../../domain/real_games.dart';
 import '../../l10n/app_localizations.dart';
 import 'figure_head.dart';
 import 'game_frame.dart';
+import 'game_scene.dart';
 
 /// Markt-Einkauf: Oben Geldbeutel und Einkaufsliste, darunter die Stände.
 /// Das Kind wählt einen Stand, kauft dort und vergleicht die Preise, damit
@@ -87,6 +88,8 @@ class _MarketGameViewState extends State<MarketGameView> {
       children: [
         Card(
           color: palette.paper,
+          shape: gameCardShape,
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
@@ -170,6 +173,8 @@ class _MarketGameViewState extends State<MarketGameView> {
         const SizedBox(height: 8),
         Card(
           color: palette.sand.withValues(alpha: 0.5),
+          shape: gameCardShape,
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(

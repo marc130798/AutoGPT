@@ -9,6 +9,7 @@ import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'figure_head.dart';
 import 'game_frame.dart';
+import 'game_scene.dart';
 
 /// Tauschkette: Tala hat ein Ding und will ein anderes. Jeder Händler zeigt,
 /// was er hat und was er dafür will. Das Kind tippt Händler an und tauscht,
@@ -64,6 +65,8 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
       children: [
         Card(
           color: palette.paper,
+          shape: gameCardShape,
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
@@ -176,6 +179,8 @@ class _TraderCard extends StatelessWidget {
     final palette = context.palette;
     return Card(
       color: used ? palette.sand.withValues(alpha: 0.4) : palette.paper,
+      shape: gameCardShape,
+      elevation: 0,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
