@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'taleria_palette.dart';
+import 'wave_transition.dart';
 
 /// Mindestgröße für alles, was man antippen kann (CLAUDE.md Abschnitt 11).
 const double minTapTarget = 48;
@@ -14,6 +15,18 @@ ThemeData taleriaThemeForStage(int stage) {
     _ => _buildTheme(TaleriaPalette.stage1),
   };
 }
+
+/// Bildschirmwechsel mit einer Welle, auf allen Geräten gleich.
+/// Gefüllte Knöpfe stehen etwas hervor und sinken beim Antippen ein wie ein
+/// echter Knopf (Animationsplan, CLAUDE.md Abschnitt 11). Einmal angelegt,
+/// damit zwei Themes gleich bleiben (sonst blendet die App sie ineinander).
+final _waveTransitions = PageTransitionsTheme(
+  builders: {for (final platform in TargetPlatform.values) platform: const WavePageTransitionsBuilder()},
+);
+
+final _pressElevation = WidgetStateProperty.resolveWith<double>(
+  (states) => states.contains(WidgetState.disabled) || states.contains(WidgetState.pressed) ? 0 : 3,
+);
 
 ThemeData _buildTheme(TaleriaPalette palette) {
   final colorScheme = ColorScheme.fromSeed(
@@ -42,6 +55,7 @@ ThemeData _buildTheme(TaleriaPalette palette) {
     textTheme: textTheme,
     materialTapTargetSize: MaterialTapTargetSize.padded,
     extensions: [palette],
+    pageTransitionsTheme: _waveTransitions,
     appBarTheme: AppBarTheme(backgroundColor: palette.seaDeep, foregroundColor: palette.paper, centerTitle: true),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
@@ -50,7 +64,9 @@ ThemeData _buildTheme(TaleriaPalette palette) {
         backgroundColor: palette.seaDeep,
         foregroundColor: palette.paper,
         textStyle: textTheme.labelLarge,
-      ),
+        shadowColor: const Color(0x88081C30),
+        animationDuration: const Duration(milliseconds: 90),
+      ).copyWith(elevation: _pressElevation),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(

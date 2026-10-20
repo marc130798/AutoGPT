@@ -247,35 +247,70 @@ class AnswerButton extends StatelessWidget {
     };
     return _MarkMotion(
       mark: mark,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          minimumSize: const Size.fromHeight(56),
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          backgroundColor: fill,
-          disabledBackgroundColor: fill,
-          side: BorderSide(color: color ?? palette.seaDeep, width: color == null ? 2 : 3),
-        ),
-        onPressed: onPressed,
-        child: Row(
-          children: [
-            if (icon != null) ...[Icon(icon, color: color ?? palette.sea), const SizedBox(width: 12)],
-            Expanded(
-              child: Text(
-                text,
-                textAlign: center ? TextAlign.center : null,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: palette.ink,
-                  fontWeight: color == null ? null : FontWeight.w700,
+      child: PressDip(
+        enabled: onPressed != null,
+        child: OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size.fromHeight(56),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            backgroundColor: fill,
+            disabledBackgroundColor: fill,
+            side: BorderSide(color: color ?? palette.seaDeep, width: color == null ? 2 : 3),
+          ),
+          onPressed: onPressed,
+          child: Row(
+            children: [
+              if (icon != null) ...[Icon(icon, color: color ?? palette.sea), const SizedBox(width: 12)],
+              Expanded(
+                child: Text(
+                  text,
+                  textAlign: center ? TextAlign.center : null,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: palette.ink,
+                    fontWeight: color == null ? null : FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            if (markIcon != null) ...[const SizedBox(width: 8), Icon(markIcon, color: color, size: 28)],
-          ],
+              if (markIcon != null) ...[const SizedBox(width: 8), Icon(markIcon, color: color, size: 28)],
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+/// Ein Knopf gibt beim Antippen leicht nach wie ein echter Knopf: Solange der
+/// Finger drauf ist, ist er ein kleines Stück kleiner (Animationsplan).
+class PressDip extends StatefulWidget {
+  const PressDip({super.key, required this.child, this.enabled = true});
+
+  final Widget child;
+  final bool enabled;
+
+  @override
+  State<PressDip> createState() => _PressDipState();
+}
+
+class _PressDipState extends State<PressDip> {
+  bool _down = false;
+
+  void _set(bool down) {
+    if (_down != down) setState(() => _down = down);
+  }
+
+  @override
+  Widget build(BuildContext context) => Listener(
+    onPointerDown: widget.enabled ? (_) => _set(true) : null,
+    onPointerUp: (_) => _set(false),
+    onPointerCancel: (_) => _set(false),
+    child: AnimatedScale(
+      scale: _down ? 0.97 : 1,
+      duration: MediaQuery.disableAnimationsOf(context) ? Duration.zero : const Duration(milliseconds: 90),
+      child: widget.child,
+    ),
+  );
 }
 
 /// Bewegung, sobald eine Antwort markiert wird: richtig springt kurz hoch,

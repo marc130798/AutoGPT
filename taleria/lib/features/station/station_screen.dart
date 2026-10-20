@@ -11,6 +11,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/sounds.dart';
 import '../../services/station_controller.dart';
 import '../child/games_screen.dart';
+import '../common/dive_descent.dart';
 import '../common/fog_reveal.dart';
 import '../common/game_sign.dart';
 import '../common/texts.dart';
@@ -178,21 +179,24 @@ class _StationScreenState extends State<StationScreen> {
           appBar: AppBar(title: Text(content.title)),
           body: _fogged(
             controller.isSeaStop,
-            StationBackdrop(
-              // Die Insel von innen, beim Tauchgang die Unterwasserwelt, beim
-              // Stopp auf See das offene Meer.
-              assetKey: controller.isDive
-                  ? AssetKeys.underwaterBackground
-                  : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
-              // Unter Wasser oben das Wrack mit den Fischen zeigen.
-              lift: controller.isDive ? 0.35 : 0,
-              // Das Bild ist immer leicht verblasst, damit Texte und Figuren
-              // hervortreten (Marcs Wunsch am 11.10.2026).
-              faded: true,
-              child: SafeArea(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  child: KeyedSubtree(key: ValueKey(controller.step), child: _framed(controller, body)),
+            _dived(
+              controller.isDive,
+              StationBackdrop(
+                // Die Insel von innen, beim Tauchgang die Unterwasserwelt, beim
+                // Stopp auf See das offene Meer.
+                assetKey: controller.isDive
+                    ? AssetKeys.underwaterBackground
+                    : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
+                // Unter Wasser oben das Wrack mit den Fischen zeigen.
+                lift: controller.isDive ? 0.35 : 0,
+                // Das Bild ist immer leicht verblasst, damit Texte und Figuren
+                // hervortreten (Marcs Wunsch am 11.10.2026).
+                faded: true,
+                child: SafeArea(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    child: KeyedSubtree(key: ValueKey(controller.step), child: _framed(controller, body)),
+                  ),
                 ),
               ),
             ),
@@ -205,6 +209,9 @@ class _StationScreenState extends State<StationScreen> {
 
 /// Stopp auf See: Nebel zieht auf und lichtet sich (siehe [fogRoute]).
 Widget _fogged(bool seaStop, Widget child) => seaStop ? FogReveal(child: child) : child;
+
+/// Tauchgang: Der Bildschirm taucht zuerst ab.
+Widget _dived(bool dive, Widget child) => dive ? DiveDescent(child: child) : child;
 
 /// Legt den Inhalt eines Schritts auf Papier, darüber passende Figuren:
 /// bei Fragen denkt Talo nach (richtig: beide freuen sich), beim Spiel

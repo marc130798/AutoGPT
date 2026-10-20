@@ -13,8 +13,9 @@ bool _animate(BuildContext context) => !(MediaQuery.maybeDisableAnimationsOf(con
 // 1 bis 2 Sekunden, nie im Weg (Knöpfe gehen sofort), bei „Bewegung
 // reduzieren“ sofort fertig.
 
-/// Schatzkarten-Effekt nach dem Insel-Abschluss (INSELN.md): Das Kartenstück
-/// erscheint, leuchtet golden, Funken steigen auf; danach kommt der Orden.
+/// Schatzkarten-Effekt nach dem Insel-Abschluss (INSELN.md): Die alte Karte
+/// rollt sich auf, das neue Kartenstück fliegt hinein und fügt sich ein, die
+/// Karte leuchtet golden, Funken steigen auf; danach kommt der Orden.
 /// Etwa 3,5 Sekunden, einmalig, ohne Ton. Bei reduzierten Animationen sofort fertig.
 class IslandRewardEffect extends StatefulWidget {
   const IslandRewardEffect({super.key, this.badgeAssetKey});
@@ -27,6 +28,14 @@ class IslandRewardEffect extends StatefulWidget {
 }
 
 class _IslandRewardEffectState extends State<IslandRewardEffect> with SingleTickerProviderStateMixin {
+  static const _mapSize = Size(160, 112);
+
+  /// Wo das neue Kartenstück hineinpasst.
+  static const _slot = Rect.fromLTWH(76, 36, 40, 40);
+
+  /// Die alte Schatzkarte (dasselbe Bild wie auf dem Knopf „Zur Karte“).
+  static const _map = TaleriaAsset(AssetKeys.iconMap, width: 160, height: 112);
+
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 3500),
@@ -56,9 +65,14 @@ class _IslandRewardEffectState extends State<IslandRewardEffect> with SingleTick
       animation: _controller,
       builder: (context, _) {
         final t = _controller.value;
-        // 0 bis 0,6: Kartenstück und Funken. 0,55 bis 1: Orden.
-        final piece = Curves.easeOutBack.transform((t / 0.4).clamp(0.0, 1.0));
-        final glow = sin((t / 0.6).clamp(0.0, 1.0) * pi);
+        // 0 bis 0,22: Die alte Karte rollt sich auf. 0,22 bis 0,4: Das neue
+        // Stück fliegt in die Lücke. Danach leuchtet die Karte, Funken
+        // steigen auf. 0,55 bis 1: Orden.
+        final unroll = Curves.easeOutCubic.transform((t / 0.22).clamp(0.0, 1.0));
+        final fly = ((t - 0.22) / 0.18).clamp(0.0, 1.0);
+        final land = Curves.easeOutBack.transform(fly);
+        final glow = sin(((t - 0.36) / 0.24).clamp(0.0, 1.0) * pi);
+        final sparkle = ((t - 0.38) / 0.22).clamp(0.0, 1.0);
         final badge = Curves.elasticOut.transform(((t - 0.55) / 0.45).clamp(0.0, 1.0));
         // Der Orden dreht sich einmal, dann läuft ein Glanz darüber.
         final spin = Curves.easeOutCubic.transform(((t - 0.55) / 0.3).clamp(0.0, 1.0));
@@ -73,27 +87,90 @@ class _IslandRewardEffectState extends State<IslandRewardEffect> with SingleTick
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-                    width: 170,
-                    height: 110,
+                    width: 172,
+                    height: 122,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: gold.withValues(alpha: 0.2 + 0.6 * glow),
+                          color: gold.withValues(alpha: (0.2 + 0.6 * glow) * unroll),
                           blurRadius: 12 + 24 * glow,
                         ),
                       ],
                     ),
                   ),
-                  Transform.scale(
-                    scale: 0.3 + 0.7 * piece,
-                    child: Opacity(
-                      opacity: piece.clamp(0.0, 1.0),
-                      child: const TaleriaAsset(AssetKeys.mapBackground, width: 160, height: 100),
+                  SizedBox(
+                    width: _mapSize.width,
+                    height: _mapSize.height,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Die Karte, so weit sie schon aufgerollt ist.
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ClipRect(
+                            child: Align(alignment: Alignment.centerLeft, widthFactor: unroll, child: _map),
+                          ),
+                        ),
+                        // Die Lücke, bis das Stück drin ist.
+                        if (unroll >= 1 && fly < 1)
+                          Positioned.fromRect(
+                            rect: _slot,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: const Color(0x99081C30),
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: gold, width: 1.5),
+                              ),
+                            ),
+                          ),
+                        // Das neue Stück fliegt von oben hinein.
+                        if (fly > 0)
+                          Positioned(
+                            key: const ValueKey('map-piece'),
+                            left: _slot.left,
+                            top: _slot.top - 90 * (1 - land),
+                            width: _slot.width,
+                            height: _slot.height,
+                            child: DecoratedBox(
+                              position: DecorationPosition.foreground,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: gold, width: 2.5),
+                                boxShadow: [BoxShadow(color: gold.withValues(alpha: 0.7 * glow), blurRadius: 10)],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: OverflowBox(
+                                  alignment: Alignment.topLeft,
+                                  maxWidth: _mapSize.width,
+                                  maxHeight: _mapSize.height,
+                                  child: Transform.translate(offset: -_slot.topLeft, child: _map),
+                                ),
+                              ),
+                            ),
+                          ),
+                        // Die Rolle am Rand, solange die Karte aufgeht.
+                        if (unroll < 1)
+                          Positioned(
+                            left: _mapSize.width * unroll - 7,
+                            top: -4,
+                            width: 14,
+                            height: _mapSize.height + 8,
+                            child: const DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(7)),
+                                gradient: LinearGradient(
+                                  colors: [Color(0xFF9C7440), Color(0xFFF1DDB0), Color(0xFF9C7440)],
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                   Positioned.fill(
-                    child: IgnorePointer(child: CustomPaint(painter: _SparklePainter(t.clamp(0.0, 0.6) / 0.6, gold))),
+                    child: IgnorePointer(child: CustomPaint(painter: _SparklePainter(sparkle, gold))),
                   ),
                 ],
               ),

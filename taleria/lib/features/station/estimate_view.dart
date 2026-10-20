@@ -187,30 +187,32 @@ class _ChoiceOption extends StatelessWidget {
     final theme = Theme.of(context);
     final palette = context.palette;
     final paper = StagePanel.isOpen(context) ? GlassFrame.fill(context) : null;
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        minimumSize: const Size.fromHeight(56),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        backgroundColor: selected
-            ? Color.alphaBlend(palette.gold.withValues(alpha: 0.35), paper ?? palette.paper)
-            : paper,
-        side: BorderSide(color: selected ? palette.gold : palette.seaDeep, width: selected ? 3 : 2),
-      ),
-      onPressed: onTap,
-      child: Row(
-        children: [
-          Icon(selected ? Icons.radio_button_checked : Icons.radio_button_unchecked, color: palette.seaDeep),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              text,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: palette.ink,
-                fontWeight: selected ? FontWeight.w700 : null,
+    return PressDip(
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size.fromHeight(56),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          backgroundColor: selected
+              ? Color.alphaBlend(palette.gold.withValues(alpha: 0.35), paper ?? palette.paper)
+              : paper,
+          side: BorderSide(color: selected ? palette.gold : palette.seaDeep, width: selected ? 3 : 2),
+        ),
+        onPressed: onTap,
+        child: Row(
+          children: [
+            Icon(selected ? Icons.radio_button_checked : Icons.radio_button_unchecked, color: palette.seaDeep),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                text,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: palette.ink,
+                  fontWeight: selected ? FontWeight.w700 : null,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

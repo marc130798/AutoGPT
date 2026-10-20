@@ -280,10 +280,10 @@ Diese Animationen nutzen Flutter selbst und brauchen keine fremden Dateien. Reih
 - Keine Tageszeit-Wechsel (entschieden).
 
 **Übergänge und Effekte (Priorität 3)**
-- Bildschirmwechsel mit einer Welle, die durchs Bild läuft. (offen)
-- Tauchgang: Der Bildschirm taucht ab, Blasen steigen auf, das Licht wird blauer. (offen)
-- Kartenstück: aufleuchten, Funken, die alte Karte rollt sich auf, das Stück fügt sich ein (etwa 3 Sekunden). (teilweise: aufleuchten und Funken sind da)
-- Buttons geben beim Antippen leicht nach wie ein echter Knopf. (offen)
+- Bildschirmwechsel mit einer Welle, die durchs Bild läuft. (da seit 20.10.2026: die neue Seite steigt mit welligem Rand und Schaum von unten auf, `WavePageTransitionsBuilder` im Theme)
+- Tauchgang: Der Bildschirm taucht ab, Blasen steigen auf, das Licht wird blauer. (da seit 20.10.2026, `DiveDescent`)
+- Kartenstück: aufleuchten, Funken, die alte Karte rollt sich auf, das Stück fügt sich ein (etwa 3 Sekunden). (da seit 20.10.2026; die alte Karte ist das Bild vom Knopf „Zur Karte“)
+- Buttons geben beim Antippen leicht nach wie ein echter Knopf. (da seit 20.10.2026: gefüllte Knöpfe sinken ein, Antwort-Knöpfe werden kurz etwas kleiner)
 
 **Erklärungen zum Mitmachen**
 - Schätzfrage vor jeder Erklärung (Schieberegler, Zahlenrad oder Auswahl), Auflösung am Ende der Erklärung. (da seit 20.10.2026 für die Inseln 1 bis 3; Inhalte in `INSELN.md`, Anhang)
@@ -716,6 +716,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Orden beim Insel-Abschluss: dreht sich einmal und bekommt einen Glanzstreifen.
   - `CoinsIntoChest`: Ein bis fünf Taler (einer pro Euro) fliegen von rechts oben in die Truhe, die Truhe hüpft bei jedem. Dafür merkt sich das Gerät den Stand der Truhen beim letzten Besuch (`LocalSettings.potsSeen`, nicht in der Datenbank); beim allerersten Besuch fliegt nichts.
   - Vibrieren: `Sounds.success()` bei „Station geschafft“ (gleicher Moment wie die Fanfare). Schalter „Vibrieren bei Erfolgen“ im Leuchtturm (`vibration-switch`, gilt für dieses Gerät, `LocalSettings.vibrationAllowed`), unabhängig vom Lautsprecher-Knopf des Kindes.
+- **Möwen und Übergänge (Animationsplan Priorität 2 und 3, umgesetzt am 20.10.2026):** Damit ist der ganze Plan aus Abschnitt 11 gebaut.
+  - Möwen: `SeagullPainter` über der Inselkarte, dreimal pro Minute ein Schwarm (`seagullsAt`), nur mit `sceneMotion` und ohne „Bewegung reduzieren“.
+  - Welle beim Bildschirmwechsel: `WavePageTransitionsBuilder` (`lib/core/theme/wave_transition.dart`) für alle Plattformen im Theme. Beim Öffnen steigt die neue Seite von unten auf, beim Zurückgehen sinkt sie. Dauer wie bisher (0,3 Sekunden). Auf dem iPhone fällt damit das Zurückwischen vom linken Rand weg (das gehört zum Standard-Übergang von iOS); der Zurück-Pfeil oben bleibt. Wichtig: Theme-Teile mit Regeln (`_waveTransitions`, `_pressElevation`) einmal anlegen, sonst gelten zwei Themes als verschieden und die App blendet sie ineinander (das störte Tests).
+  - Abtauchen: `DiveDescent` (`lib/features/common/dive_descent.dart`) um jeden Tauchgang, wie `FogReveal` beim Stopp auf See: Wasser steigt mit welligem Rand, Blasen steigen, dann wird es klar (1,6 Sekunden, fängt kein Antippen ab).
+  - Schatzkarte beim Insel-Abschluss (`IslandRewardEffect`): Die alte Karte (`icon.map`) rollt sich mit einer Rolle am Rand auf, das neue Stück (Schlüssel `map-piece`) fliegt in die Lücke, die Karte leuchtet, Funken steigen, danach dreht sich der Orden.
+  - Knöpfe: Gefüllte Knöpfe haben einen Schatten und sinken beim Antippen ein (Theme). Antwort-Knöpfe und Möglichkeiten der Schätzfrage werden beim Antippen kurz kleiner (`PressDip` in `station_stage.dart`).
 
 ---
 
@@ -728,8 +734,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 392 App-Tests, die Datenbank-Tests und der Browser-Test.
-- Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Schätzfrage und Antipp-Momente sind fertig (Abschnitt 16).
+- Alle Tests sind grün: 397 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Schätzfrage, Antipp-Momente und alle Animationen des Plans sind fertig (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
 **Letzte Testversion (11.10.2026, spät abends):**
@@ -760,7 +766,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Erledigt: Schätzfrage vor jeder Erklärung und Antipp-Momente in den Bildergeschichten (Inseln 1 bis 3). Vor dem nächsten Test im Testprojekt `supabase/seed.sql` neu ausführen.
    - Erledigt: Belohnungs-Animationen (Abschnitt 11, Priorität 1).
    - Erledigt: Möwen über der Karte (Priorität 2).
-   - Als Nächstes: die Übergänge (Abschnitt 11, Priorität 3).
+   - Erledigt: Übergänge (Priorität 3). Damit ist der Animationsplan aus Abschnitt 11 vollständig gebaut.
+   - Als Nächstes: Marc testet alles auf dem iPhone (Testversion nur auf seinen Wunsch).
    - Offen für Marc: Rive oder Bilder (Abschnitt 15).
 3. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
