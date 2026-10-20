@@ -426,7 +426,7 @@ Am 20.10.2026 mit Marc besprochen: Der Startbildschirm zeigt das Schiffsdeck (`h
 
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
-| 163 | `brand.logo` | Logo „Taleria“ | Talo (design/gemini/character.talo.jpg), nur für den Stil | fehlt |
+| 163 | `brand.logo` | Logo „Taleria“ | Talo (design/gemini/character.talo.jpg), nur für den Stil | da |
 
 Text für Bild 163:
 

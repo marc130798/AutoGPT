@@ -733,7 +733,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - **Acht Verbesserungen nach Claudes Durchsicht (Marc hat am 20.10.2026 alle acht Vorschläge gewählt):**
   - Ergebnis einer Station: kein großes Blatt mehr, oben ein Stern pro Frage (`AnswerStars` in `celebration.dart`, springen nacheinander auf; richtig golden, falsch blass), darunter „x von y richtig“. Die Seemeilen zählen hoch, daneben das Rang-Bild und ein Balken bis zum nächsten Rang (`_XpGain`, Schlüssel `result-xp`, `result-rank-bar`). Den neuen Stand holt `StationController.statsAfter` nach dem Ergebnis.
   - Insel-Seite: Statt des Lernziels für Eltern steht unter dem Bild die Karte „Das lernst du hier“ mit 2 bis 4 kurzen Punkten (Glühbirne, Sterne, Schlüssel `island-learn`). Neues Feld in den Inhaltsdateien: `"lernziel_kind"` (Liste, je Punkt höchstens 70 Zeichen, Pflicht bei Inseln mit Stationen; die Prüfung achtet darauf), in der Datenbank `islands.content.learn`. Stationskarten auf Papier mit Goldrand, die offene dicker, gesperrte flach.
-  - Startbildschirm: Schiffsdeck (`home.background`) statt Creme, Talo und Tala winken, unten eine Papierkarte mit Begrüßung und Knöpfen. Oben das Logo `brand.logo`; bis Marc es hat, ein großes Holzschild „Taleria“ (`WoodSign(large: true)`, jetzt in `lib/features/common/wood_sign.dart`). Bildtext für das Logo: BILDER.md Abschnitt 4p, Bild 163.
+  - Startbildschirm: Schiffsdeck (`home.background`) statt Creme, Talo und Tala winken, unten eine Papierkarte mit Begrüßung und Knöpfen. Oben das Logo `brand.logo` (von Marc, seit 20.10.2026 da; Bildtext: BILDER.md Abschnitt 4p, Bild 163). Fehlt das Bild, steht dort ein großes Holzschild „Taleria“ (`WoodSign(large: true)`, jetzt in `lib/features/common/wood_sign.dart`).
   - Szene am Anfang (und Erklärungen ohne Bilder): Der Ort hängt als Holzschild oben, die Figur, die spricht, ist so groß wie Platz ist (bis 300 hoch), die Sprechblasen stehen direkt darunter; bei vielen Zeilen scrollen nur die Blasen (`DialogSequence` mit `stage`). Platzhalter auf der Bühne sind nie breiter als der Platz der Figur.
   - Erklärungen auf Menü-Seiten (Truhe, Aufträge, Orden, Sammlung, Spiele) nur beim ersten Besuch offen, danach zugeklappt mit rundem „?“-Knopf zum Auf- und Zuklappen (`PageIntro`, Schlüssel `page-intro-help`). Gemerkt je Kind und Seite auf dem Gerät (`LocalSettings.pageIntroSeen`).
   - Übungen: Punkte statt „Karte 1 von 5“, „Situation 1 von 3“ und „Aufgabe 1 von 4“ (`StepDots` in `quiz_view.dart`, geschaffte grün, aktuelle golden; Vorlesen sagt weiter den Text). Eisstand („Tag 1 von 3“) und Ausflüge behalten ihre Zeile, weil die zur Geschichte gehört.
@@ -785,7 +785,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Erledigt: Möwen über der Karte (Priorität 2).
    - Erledigt: Übergänge (Priorität 3). Damit ist der Animationsplan aus Abschnitt 11 vollständig gebaut.
    - Erledigt: Mini-Spiele lebendiger und die acht Verbesserungen (Ergebnis, Insel-Seite, Startbildschirm, Szene, Erklärungen beim ersten Besuch, Punkte in Übungen, Ehrenwand und Vitrine, Auflösung nebeneinander).
-   - Als Nächstes: Marc testet alles auf dem iPhone. Marc macht das Logo (Bild 163, BILDER.md Abschnitt 4p).
+   - Erledigt: Logo von Marc auf dem Startbildschirm (Bild 163). Es steckt noch nicht in der Testversion vom Mittag.
+   - Als Nächstes: Marc testet alles auf dem iPhone.
    - Offen für Marc: Rive oder Bilder (Abschnitt 15).
 3. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
