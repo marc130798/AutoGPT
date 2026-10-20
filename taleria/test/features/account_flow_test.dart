@@ -30,8 +30,13 @@ void main() {
     await tester.pumpWidget(buildTestApp(backend: backend));
     await tester.pumpAndSettle();
 
-    // Start
+    // Start: Schiffsdeck, Holzschild statt Logo (Bild fehlt im Test), Knöpfe auf Papier.
     expect(find.text('Willkommen in Taleria'), findsOneWidget);
+    expect(
+      find.descendant(of: find.byKey(const ValueKey('wood-sign')), matching: find.text('Taleria')),
+      findsOneWidget,
+    );
+    expect(find.byKey(const ValueKey('welcome-card')), findsOneWidget);
     await tester.scrollUntilVisible(find.textContaining('keine Finanzberatung'), 200);
     expect(find.textContaining('keine Finanzberatung'), findsOneWidget);
     await tapText(tester, 'Für Eltern: anmelden oder registrieren');

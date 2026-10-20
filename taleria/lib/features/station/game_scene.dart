@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../common/wood_sign.dart';
 import 'figure_head.dart';
 import 'station_stage.dart';
 
@@ -148,59 +149,6 @@ class Hop extends StatelessWidget {
       builder: (context, t, child) =>
           Transform.translate(offset: Offset(0, -sin(t * 2 * pi).abs() * height * (1 - t)), child: child),
       child: child,
-    );
-  }
-}
-
-/// Holzschild mit Nägeln für den Titel eines Mini-Spiels.
-class WoodSign extends StatelessWidget {
-  const WoodSign({super.key, required this.text});
-
-  final String text;
-
-  static const _cream = Color(0xFFFFF4DC);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    Widget nail() => Container(
-      width: 7,
-      height: 7,
-      decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF4A2E14)),
-    );
-    return Container(
-      key: const ValueKey('wood-sign'),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFC99560), Color(0xFF9A6634), Color(0xFF8B5A2B)],
-        ),
-        border: Border.all(color: const Color(0xFF5E3A1A), width: 2.5),
-        boxShadow: const [BoxShadow(color: Color(0x66081C30), blurRadius: 8, offset: Offset(0, 4))],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          nail(),
-          const SizedBox(width: 10),
-          Flexible(
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: _cream,
-                fontWeight: FontWeight.w800,
-                shadows: const [Shadow(color: Color(0x99000000), offset: Offset(1, 1.5), blurRadius: 2)],
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          nail(),
-        ],
-      ),
     );
   }
 }

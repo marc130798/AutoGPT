@@ -420,6 +420,18 @@ Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundst
 
 Welches Bild zu welchem Fund gehört, steht in den Inhaltsdateien (`"fund_bild"` beim Tauchgang).
 
+## 4p. Logo für den Startbildschirm
+
+Am 20.10.2026 mit Marc besprochen: Der Startbildschirm zeigt das Schiffsdeck (`home.background`), Talo und Tala winken. Oben steht das Logo. Bis es da ist, zeichnet die App ein Holzschild „Taleria“. Hier ist die Schrift ausnahmsweise erwünscht. Gemini schreibt Wörter nicht immer richtig, darum genau prüfen, ob „Taleria“ dasteht, und sonst neu erzeugen lassen. Freistellen mit `--art insel` (768 px, durchsichtig).
+
+| Nr. | Datei | Bild | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 163 | `brand.logo` | Logo „Taleria“ | Talo (design/gemini/character.talo.jpg), nur für den Stil | fehlt |
+
+Text für Bild 163:
+
+> Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen. Ein Logo für ein Kinder-Lernspiel auf einer Abenteuer-Insel: das Wort „Taleria“ (genau so geschrieben: T, a, l, e, r, i, a), in großen, dicken, runden und freundlichen Buchstaben aus glänzendem Gold mit dunkelbraunem Rand. Die Buchstaben stehen leicht geschwungen auf einem breiten Holzschild mit zwei Nägeln, wie an einem Hafen. Links neben dem Wort ein kleiner goldener Kompass, über dem „i“ ein kleiner funkelnder Stern statt des Punkts. Querformat, etwa doppelt so breit wie hoch, das Schild vollständig in der Bildmitte mit Abstand zu allen Rändern. Keine weiteren Wörter, keine Zahlen, keine Figuren, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
 ## 4o. Spar-Insel (Insel 4)
 
 Vorbereitet am 11.10.2026 abends auf Marcs Wunsch, bevor die Texte der Spar-Insel geschrieben sind: Die Bildergeschichten geben die Geschichte vor, die Sätze schreibt Claude danach passend dazu. Reihenfolge: erst Karte (132), dann die Insel von innen (133, braucht 132 als Vorlage), dann Emma und Gustav (134, 135, sie sind Vorlagen für die Geschichten), danach Orden, Siegel, Funde und die Geschichten. Emma ist rotbraun, Gustav hellgrün: beide auf Pink. Gustav darf nicht wie eine bekannte Filmgrille aussehen (kein Zylinder, kein Regenschirm). Wo Zahlen nötig sind (Station 3: 50 Cent am Tag sind 3,50 € in der Woche; Station 5: Sparplan 30 Taler mit 5 pro Woche), zeichnet die App das Bild selbst. Ganze Texte in `design/prompts_spar_insel.txt`.
