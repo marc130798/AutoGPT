@@ -8,6 +8,7 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'quiz_view.dart';
 
 /// Rechnen: Aufgabe lesen, Zahl eintippen, prüfen. Nach einem falschen Versuch
 /// gibt es den Tipp und den Knopf „Lösung zeigen“. Kein Zeitdruck.
@@ -67,10 +68,11 @@ class _NumberGameViewState extends State<NumberGameView> {
       game: widget.game,
       button: button,
       children: [
-        Text(
-          l10n.gameTaskProgress(game.index + 1, game.total),
-          textAlign: TextAlign.center,
-          style: theme.textTheme.labelLarge,
+        StepDots(
+          total: game.total,
+          current: game.index,
+          currentDone: game.canContinue,
+          label: l10n.gameTaskProgress(game.index + 1, game.total),
         ),
         const SizedBox(height: 8),
         Text(round.question, key: const ValueKey('number-question'), style: theme.textTheme.titleMedium),

@@ -10,6 +10,7 @@ import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/domain/money.dart';
 import 'package:taleria/features/station/dive_header.dart';
 import 'package:taleria/features/station/game_views.dart';
+import 'package:taleria/features/station/quiz_view.dart';
 import 'package:taleria/features/station/station_stage.dart';
 import 'package:taleria/l10n/app_localizations.dart';
 
@@ -44,6 +45,9 @@ void main() {
 
     var sawBetween = false;
     for (var i = 0; i < game.items.length; i++) {
+      // Punkte statt „Karte 1 von 5“: Geschaffte sind grün.
+      expectQuizProgress(tester, i + 1, game.items.length);
+      expect(tester.widget<QuizDots>(find.byType(QuizDots)).results.take(i), everyElement(isTrue));
       final text = tester.widget<Text>(find.byKey(const ValueKey('game-item'))).data!;
       final item = game.items.firstWhere((it) => it.text == text);
       if (item.basket == null) {
@@ -63,6 +67,7 @@ void main() {
         await tester.pumpAndSettle();
         expect(mark(item.basket!), AnswerMark.right, reason: 'richtiger Korb grün');
         expect(find.text('Passt!'), findsOneWidget);
+        expect(tester.widget<QuizDots>(find.byType(QuizDots)).results[i], isTrue, reason: 'gelöst: Punkt grün');
       }
       if (i < game.items.length - 1) {
         await tester.tap(find.byKey(const ValueKey('game-next')));

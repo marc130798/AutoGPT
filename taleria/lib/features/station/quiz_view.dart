@@ -194,17 +194,20 @@ TextStyle? questionStyle(BuildContext context) =>
 /// Fortschritt als Punkte statt „Frage 2 von 5“: beantwortet grün oder rot,
 /// die aktuelle Frage golden und größer, die kommenden grau.
 class QuizDots extends StatelessWidget {
-  const QuizDots({super.key, required this.results, required this.current});
+  const QuizDots({super.key, required this.results, required this.current, this.label});
 
   final List<bool?> results;
   final int current;
+
+  /// Was Vorlesen sagt, Standard „Frage 2 von 5“.
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     return Semantics(
-      label: l10n.quizProgress(current + 1, results.length),
+      label: label ?? l10n.quizProgress(current + 1, results.length),
       excludeSemantics: true,
       child: Row(
         key: const ValueKey('quiz-progress'),
@@ -226,6 +229,39 @@ class QuizDots extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+/// Fortschritt in Übungen als Punkte in einem kleinen Rahmen statt „Aufgabe 2
+/// von 4“ (Marcs Wunsch am 20.10.2026). In Übungen wird probiert, bis es
+/// stimmt: Geschaffte sind grün, die aktuelle golden, gelöst auch grün.
+/// Vorlesen sagt [label].
+class StepDots extends StatelessWidget {
+  const StepDots({
+    super.key,
+    required this.total,
+    required this.current,
+    required this.label,
+    this.currentDone = false,
+  });
+
+  final int total;
+  final int current;
+  final String label;
+  final bool currentDone;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GlassFrame(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+        child: QuizDots(
+          results: [for (var i = 0; i < total; i++) i < current || (i == current && currentDone) ? true : null],
+          current: current,
+          label: label,
+        ),
       ),
     );
   }

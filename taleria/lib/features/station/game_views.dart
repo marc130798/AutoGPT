@@ -14,6 +14,7 @@ import 'coins_game_view.dart';
 import 'game_frame.dart';
 import 'number_game_view.dart';
 import 'pick_game_view.dart';
+import 'quiz_view.dart';
 import 'real_game_flow.dart';
 import 'station_stage.dart';
 
@@ -96,10 +97,11 @@ class _SortGameViewState extends State<SortGameView> {
       game: widget.game,
       button: button,
       children: [
-        Text(
-          l10n.gameSortProgress(game.index + 1, game.total),
-          textAlign: TextAlign.center,
-          style: theme.textTheme.labelLarge,
+        StepDots(
+          total: game.total,
+          current: game.index,
+          currentDone: game.answeredCorrectly,
+          label: l10n.gameSortProgress(game.index + 1, game.total),
         ),
         const SizedBox(height: 12),
         Card(

@@ -8,6 +8,7 @@ import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
 import 'game_scene.dart';
+import 'quiz_view.dart';
 import 'station_stage.dart';
 import 'story_drawings.dart';
 
@@ -65,10 +66,11 @@ class _CoinsGameViewState extends State<CoinsGameView> {
       game: widget.game,
       button: button,
       children: [
-        Text(
-          l10n.gameTaskProgress(game.index + 1, game.total),
-          textAlign: TextAlign.center,
-          style: theme.textTheme.labelLarge,
+        StepDots(
+          total: game.total,
+          current: game.index,
+          currentDone: game.exact,
+          label: l10n.gameTaskProgress(game.index + 1, game.total),
         ),
         const SizedBox(height: 8),
         Text(

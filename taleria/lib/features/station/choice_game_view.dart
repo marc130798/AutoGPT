@@ -8,6 +8,7 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'quiz_view.dart';
 import 'station_stage.dart';
 
 /// Entscheidungen: Situation, Frage, Möglichkeiten als große Knöpfe. Nach der
@@ -62,10 +63,11 @@ class _ChoiceGameViewState extends State<ChoiceGameView> {
       game: widget.game,
       button: button,
       children: [
-        Text(
-          l10n.gameChoiceProgress(game.index + 1, game.total),
-          textAlign: TextAlign.center,
-          style: theme.textTheme.labelLarge,
+        StepDots(
+          total: game.total,
+          current: game.index,
+          currentDone: game.answeredWell,
+          label: l10n.gameChoiceProgress(game.index + 1, game.total),
         ),
         const SizedBox(height: 12),
         for (final line in round.scene) ...[SpeechBubble.line(line), const SizedBox(height: 8)],
