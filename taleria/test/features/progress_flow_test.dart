@@ -72,6 +72,15 @@ void main() {
     expect(find.text('Noch keine Orden. Schließe deine erste Insel ab!'), findsOneWidget);
     expect(find.text('Erster Landgang'), findsOneWidget);
     expect(find.text('Noch nicht gefunden'), findsNWidgets(3));
+
+    // Ehrenwand: Antippen zeigt den Orden groß.
+    await tester.tap(find.text('Erster Landgang'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('showcase-large')), findsOneWidget);
+    expect(find.text('Erster Landgang'), findsNWidgets(2));
+    await tester.tap(find.text('Schließen'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('showcase-large')), findsNothing);
   });
 
   testWidgets('Ohne Wind: Hinweis auf Karte und Insel, keine neue Station, kein Countdown', (tester) async {

@@ -11,6 +11,7 @@ import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
+import 'showcase.dart';
 
 /// Unterwasser-Sammlung: Perlen aus den Tauchgängen und Funde aus den Wracks,
 /// jeder Fund mit eigenem Bild. Die Unterwasserwelt liegt hinter der ganzen
@@ -83,23 +84,18 @@ class _CollectionScreenState extends State<CollectionScreen> {
                       ),
                     ),
                     if (found == 0) PaperCard(child: Text(l10n.collectionEmpty, style: theme.textTheme.bodyLarge)),
-                    for (final item in items)
-                      PaperCard(
-                        key: ValueKey('find-${item.slug}'),
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: ListTile(
-                          minTileHeight: 80,
-                          leading: Opacity(
-                            opacity: item.found ? 1 : 0.3,
-                            child: TaleriaAsset(item.assetKey, width: 64, height: 64),
+                    ShowcaseGrid(
+                      children: [
+                        for (final item in items)
+                          ShowcaseTile(
+                            key: ValueKey('find-${item.slug}'),
+                            assetKey: item.assetKey,
+                            title: item.title,
+                            caption: item.found ? l10n.collectionFoundOn(formatDate(item.foundAt!)) : l10n.badgeNotYet,
+                            earned: item.found,
                           ),
-                          title: Text(item.title),
-                          subtitle: Text(
-                            item.found ? l10n.collectionFoundOn(formatDate(item.foundAt!)) : l10n.badgeNotYet,
-                          ),
-                          trailing: item.found ? null : const Icon(Icons.lock_outline),
-                        ),
-                      ),
+                      ],
+                    ),
                   ],
                 );
               },

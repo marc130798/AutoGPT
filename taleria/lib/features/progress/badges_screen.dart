@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
-import '../../core/assets/taleria_asset.dart';
 import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -11,6 +10,7 @@ import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
+import 'showcase.dart';
 
 /// Orden-Sammlung des Kindes: verdiente Orden leuchten, die anderen sind
 /// blass und warten noch („Noch nicht gefunden“). Oben erklärt Talo, wie man
@@ -70,7 +70,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
                     ),
                     const SizedBox(height: 16),
                     if (earned == 0) PaperCard(child: Text(l10n.badgesEmpty, style: theme.textTheme.bodyLarge)),
-                    for (final badge in badges) _BadgeTile(badge: badge),
+                    ShowcaseGrid(children: [for (final badge in badges) _BadgeTile(badge: badge)]),
                   ],
                 );
               },
@@ -90,20 +90,12 @@ class _BadgeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return PaperCard(
+    return ShowcaseTile(
       key: ValueKey('badge-${badge.slug}'),
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: ListTile(
-        minTileHeight: 80,
-        leading: Opacity(
-          opacity: badge.earned ? 1 : 0.3,
-          // Orden mit Band (Hochformat); der Platzhalter ist ein Kreis.
-          child: TaleriaAsset(badge.assetKey, width: 56, height: 72),
-        ),
-        title: Text(badge.title),
-        subtitle: Text(badge.earned ? l10n.badgeEarnedOn(formatDate(badge.earnedAt!)) : l10n.badgeNotYet),
-        trailing: badge.earned ? null : const Icon(Icons.lock_outline),
-      ),
+      assetKey: badge.assetKey,
+      title: badge.title,
+      caption: badge.earned ? l10n.badgeEarnedOn(formatDate(badge.earnedAt!)) : l10n.badgeNotYet,
+      earned: badge.earned,
     );
   }
 }
