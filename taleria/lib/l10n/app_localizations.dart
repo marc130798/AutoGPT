@@ -4156,7 +4156,7 @@ abstract class AppLocalizations {
   /// Schätzfrage vor der Erklärung: Überschrift
   ///
   /// In de, this message translates to:
-  /// **'Was glaubst du?'**
+  /// **'Schätz mal!'**
   String get estimateBadge;
 
   /// Schätzfrage: Hinweis unter der Frage
@@ -4194,6 +4194,42 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Dreh am Zahlenrad.'**
   String get estimateWheelHint;
+
+  /// Antipp-Moment in der Bildergeschichte: Überschrift
+  ///
+  /// In de, this message translates to:
+  /// **'Mach mit!'**
+  String get tapBadge;
+
+  /// Antipp-Moment „ziehen“: Ziel, auf das das Kind das Ding zieht
+  ///
+  /// In de, this message translates to:
+  /// **'Hierher'**
+  String get tapDropHere;
+
+  /// Antipp-Moment „umdrehen“: Hinweis auf der Vorderseite der Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Antippen zum Umdrehen'**
+  String get tapFlipHint;
+
+  /// Antipp-Moment „wischen“: Hinweis unter dem Ding
+  ///
+  /// In de, this message translates to:
+  /// **'Wisch zur Seite'**
+  String get tapSwipeHint;
+
+  /// Antipp-Moment geschafft, wenn es keinen eigenen Satz danach gibt
+  ///
+  /// In de, this message translates to:
+  /// **'Super gemacht!'**
+  String get tapDone;
+
+  /// Antipp-Moment „tippen“ mit mehreren Tipps: wie oft noch
+  ///
+  /// In de, this message translates to:
+  /// **'Noch {count}-mal'**
+  String tapCountLeft(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

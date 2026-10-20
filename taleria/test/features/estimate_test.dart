@@ -81,7 +81,7 @@ void main() {
   testWidgets('Auswahl: „Das ist mein Tipp“ erst nach einer Wahl, ohne Richtig oder Falsch', (tester) async {
     int? sent;
     await pump(tester, EstimateView(estimate: choice, onSubmit: (v) => sent = v));
-    expect(find.text('Was glaubst du?'), findsOneWidget);
+    expect(find.text('Schätz mal!'), findsOneWidget);
     expect(find.text('Was ist am wertvollsten?'), findsOneWidget);
     final submit = find.byKey(const ValueKey('estimate-submit'));
     expect(tester.widget<ButtonStyleButton>(submit).onPressed, isNull);

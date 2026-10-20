@@ -715,6 +715,7 @@ class TapMoment {
     this.image,
     this.count = 1,
     this.back,
+    this.done,
   });
 
   factory TapMoment.fromJson(Map<String, dynamic> json) => TapMoment(
@@ -725,6 +726,7 @@ class TapMoment {
     image: json['image'] as String?,
     count: (json['count'] as num?)?.toInt() ?? 1,
     back: json['back'] as String?,
+    done: json['done'] as String?,
   );
 
   /// Nach dem wievielten Bild der Erklärung (1 = nach dem ersten).
@@ -747,6 +749,9 @@ class TapMoment {
 
   /// Beim Umdrehen: was auf der Rückseite steht.
   final String? back;
+
+  /// Was nach der Aktion zu sehen ist, zum Beispiel „Darunter liegen Muscheln.“
+  final String? done;
 }
 
 class StationContent {

@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'station_stage.dart';
 import 'story_drawings.dart';
+import 'tap_moment_view.dart';
 
 /// Das Bild, das zu Zeile [index] gehört: ihr eigenes oder das letzte davor.
 String? pictureFor(List<DialogLine> lines, int index) {
@@ -16,15 +17,59 @@ String? pictureFor(List<DialogLine> lines, int index) {
   return null;
 }
 
+/// Eine Seite der Bildergeschichte: eine Zeile, ein Antipp-Moment oder die Auflösung.
+sealed class StoryPage {
+  const StoryPage();
+}
+
+class LinePage extends StoryPage {
+  const LinePage(this.index);
+
+  /// Stelle der Zeile in der Erklärung.
+  final int index;
+}
+
+class TapPage extends StoryPage {
+  const TapPage(this.moment);
+
+  final TapMoment moment;
+}
+
+class RevealPage extends StoryPage {
+  const RevealPage();
+}
+
+/// Reihenfolge der Seiten: jede Zeile, nach Bild n die Antipp-Momente mit
+/// `after == n`, am Ende die Auflösung der Schätzfrage.
+List<StoryPage> storyPages(int lines, List<TapMoment> taps, {bool reveal = false}) => [
+  for (var i = 0; i < lines; i++) ...[
+    LinePage(i),
+    for (final t in taps)
+      if (t.after == i + 1) TapPage(t),
+  ],
+  if (reveal) const RevealPage(),
+];
+
 /// Bildergeschichte: die Erklärung einer Station als Bilder zum Weiterblättern
 /// (Knöpfe oder Wischen). Oben das Bild, darunter, was Talo, Tala oder eine
 /// Inselfigur dazu sagt. Zeilen ohne eigenes Bild zeigen das Bild davor.
+/// Zwischen den Bildern kommen Antipp-Momente zum Mitmachen.
 /// Fehlt die Bilddatei noch, steht der Platzhalter mit dem Namen des Bildes da.
 class PictureStory extends StatefulWidget {
-  const PictureStory({super.key, required this.lines, required this.onDone, this.estimate, this.guess});
+  const PictureStory({
+    super.key,
+    required this.lines,
+    required this.onDone,
+    this.taps = const [],
+    this.estimate,
+    this.guess,
+  });
 
   final List<DialogLine> lines;
   final VoidCallback onDone;
+
+  /// Antipp-Momente zwischen den Bildern (keine Prüfung).
+  final List<TapMoment> taps;
 
   /// Schätzfrage vor der Geschichte: Mit [guess] kommt am Ende die Auflösung.
   final EstimateQuestion? estimate;
@@ -37,12 +82,25 @@ class PictureStory extends StatefulWidget {
 class _PictureStoryState extends State<PictureStory> {
   int _index = 0;
 
-  /// Am Ende eine Seite mit der Auflösung der Schätzfrage.
-  bool get _hasReveal => widget.estimate != null && widget.guess != null;
-  int get _pages => widget.lines.length + (_hasReveal ? 1 : 0);
-  bool get _onReveal => _hasReveal && _index == widget.lines.length;
+  /// Geschaffte Antipp-Momente (Seitennummern), damit sie beim Zurückblättern fertig bleiben.
+  final Set<int> _tapsDone = {};
 
-  bool get _last => _index >= _pages - 1;
+  /// Am Ende eine Seite mit der Auflösung der Schätzfrage.
+  late final List<StoryPage> _pages = storyPages(
+    widget.lines.length,
+    widget.taps,
+    reveal: widget.estimate != null && widget.guess != null,
+  );
+
+  bool get _last => _index >= _pages.length - 1;
+
+  /// Die letzte Zeile bis zu dieser Seite (für das Bild).
+  int get _line {
+    for (var i = _index; i >= 0; i--) {
+      if (_pages[i] case LinePage(:final index)) return index;
+    }
+    return 0;
+  }
 
   void _next() => _last ? widget.onDone() : setState(() => _index++);
 
@@ -55,7 +113,8 @@ class _PictureStoryState extends State<PictureStory> {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     final lines = widget.lines;
-    final image = pictureFor(lines, _index.clamp(0, lines.length - 1));
+    final page = _pages[_index];
+    final image = pictureFor(lines, _line);
 
     return GestureDetector(
       // Nach links wischen = weiter, nach rechts = zurück.
@@ -78,8 +137,9 @@ class _PictureStoryState extends State<PictureStory> {
                     Center(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          maxHeight: box.maxHeight * 0.55,
-                          maxWidth: box.maxHeight * 0.55 * 4 / 3,
+                          // Beim Mitmachen kleiner, damit Ding und Ziel Platz haben.
+                          maxHeight: box.maxHeight * (page is TapPage ? 0.3 : 0.55),
+                          maxWidth: box.maxHeight * (page is TapPage ? 0.3 : 0.55) * 4 / 3,
                         ),
                         child: AspectRatio(
                           aspectRatio: 4 / 3,
@@ -88,7 +148,15 @@ class _PictureStoryState extends State<PictureStory> {
                       ),
                     ),
                   const SizedBox(height: 12),
-                  if (_onReveal) _reveal(context) else SpeechBubble.line(lines[_index]),
+                  switch (page) {
+                    LinePage(:final index) => SpeechBubble.line(lines[index]),
+                    TapPage(:final moment) => TapMomentView(
+                      moment: moment,
+                      done: _tapsDone.contains(_index),
+                      onDone: () => _tapsDone.add(_index),
+                    ),
+                    RevealPage() => _reveal(context),
+                  },
                 ],
               ),
             ),
@@ -101,7 +169,7 @@ class _PictureStoryState extends State<PictureStory> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                for (var i = 0; i < _pages; i++)
+                for (var i = 0; i < _pages.length; i++)
                   Container(
                     margin: const EdgeInsets.all(3),
                     width: i == _index ? 12 : 8,

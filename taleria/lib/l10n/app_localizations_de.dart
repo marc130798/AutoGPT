@@ -2510,7 +2510,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get backpackNextTrip => 'Nächster Ausflug';
 
   @override
-  String get estimateBadge => 'Was glaubst du?';
+  String get estimateBadge => 'Schätz mal!';
 
   @override
   String get estimateHint =>
@@ -2532,4 +2532,24 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get estimateWheelHint => 'Dreh am Zahlenrad.';
+
+  @override
+  String get tapBadge => 'Mach mit!';
+
+  @override
+  String get tapDropHere => 'Hierher';
+
+  @override
+  String get tapFlipHint => 'Antippen zum Umdrehen';
+
+  @override
+  String get tapSwipeHint => 'Wisch zur Seite';
+
+  @override
+  String get tapDone => 'Super gemacht!';
+
+  @override
+  String tapCountLeft(int count) {
+    return 'Noch $count-mal';
+  }
 }

@@ -124,6 +124,7 @@ class _StationScreenState extends State<StationScreen> {
           StationStep.lesson when content.hasPictureStory => PictureStory(
             lines: content.lesson,
             onDone: controller.next,
+            taps: content.taps,
             estimate: content.estimate,
             guess: controller.guess,
           ),

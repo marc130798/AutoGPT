@@ -3543,7 +3543,7 @@
   "@backpackNextTrip": {
     "description": "Rucksack packen: Knopf zum nächsten Ausflug"
   },
-  "estimateBadge": "Was glaubst du?",
+  "estimateBadge": "Schätz mal!",
   "@estimateBadge": {
     "description": "Schätzfrage vor der Erklärung: Überschrift"
   },
@@ -3575,5 +3575,34 @@
   "estimateWheelHint": "Dreh am Zahlenrad.",
   "@estimateWheelHint": {
     "description": "Schätzfrage mit Zahlenrad: Hinweis"
+  },
+  "tapBadge": "Mach mit!",
+  "@tapBadge": {
+    "description": "Antipp-Moment in der Bildergeschichte: Überschrift"
+  },
+  "tapDropHere": "Hierher",
+  "@tapDropHere": {
+    "description": "Antipp-Moment „ziehen“: Ziel, auf das das Kind das Ding zieht"
+  },
+  "tapFlipHint": "Antippen zum Umdrehen",
+  "@tapFlipHint": {
+    "description": "Antipp-Moment „umdrehen“: Hinweis auf der Vorderseite der Karte"
+  },
+  "tapSwipeHint": "Wisch zur Seite",
+  "@tapSwipeHint": {
+    "description": "Antipp-Moment „wischen“: Hinweis unter dem Ding"
+  },
+  "tapDone": "Super gemacht!",
+  "@tapDone": {
+    "description": "Antipp-Moment geschafft, wenn es keinen eigenen Satz danach gibt"
+  },
+  "tapCountLeft": "Noch {count}-mal",
+  "@tapCountLeft": {
+    "description": "Antipp-Moment „tippen“ mit mehreren Tipps: wie oft noch",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

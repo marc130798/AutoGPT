@@ -156,8 +156,8 @@ void main() {
     // Bis zur Bildergeschichte: Bild (noch Platzhalter mit Namen) und Erklärung.
     for (var i = 0; i < 10 && find.byKey(const ValueKey('story-dots')).evaluate().isEmpty; i++) {
       if (find.byKey(const ValueKey('estimate-submit')).evaluate().isNotEmpty) {
-        // Vor der Erklärung: „Was glaubst du?“ (Hafen 2: Zahlenrad, Lösung „keiner“).
-        expect(find.text('Was glaubst du?'), findsOneWidget);
+        // Vor der Erklärung: „Schätz mal!“ (Hafen 2: Zahlenrad).
+        expect(find.text('Schätz mal!'), findsOneWidget);
         await guess(tester);
       } else {
         await tapText(tester, 'Weiter');
@@ -166,7 +166,15 @@ void main() {
     expect(find.byKey(const ValueKey('placeholder:story.hafen.2.1')), findsOneWidget);
     expect(find.textContaining('Das klappt nur selten.'), findsOneWidget);
     await tapKey(tester, 'story-next');
+    // Nach Bild 1 macht das Kind mit (Antipp-Moment): Tala zum nächsten Stand ziehen.
+    expect(find.text('Mach mit!'), findsOneWidget);
+    expect(find.text('Zieh Tala zum nächsten Stand.'), findsOneWidget);
+    await tapKey(tester, 'tap-target');
+    expect(find.text('Auch hier will niemand ein Halstuch.'), findsOneWidget);
+    await tapKey(tester, 'story-next');
     expect(find.byKey(const ValueKey('placeholder:story.hafen.2.2')), findsOneWidget);
+    await tapKey(tester, 'story-back');
+    expect(find.text('Auch hier will niemand ein Halstuch.'), findsOneWidget, reason: 'bleibt geschafft');
     await tapKey(tester, 'story-back');
     expect(find.byKey(const ValueKey('placeholder:story.hafen.2.1')), findsOneWidget);
     await playUntilQuiz(tester);
