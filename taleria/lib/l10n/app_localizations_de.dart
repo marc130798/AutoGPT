@@ -693,9 +693,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get warmUpTitle => 'Weißt du noch?';
 
   @override
-  String get warmUpHint => 'Zwei kurze Fragen zur letzten Station. Fehler sind kein Problem.';
-
-  @override
   String get quizCheckTitle => 'Kurzer Check';
 
   @override
@@ -1361,11 +1358,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get mapEncounterNone => 'Gerade ist alles ruhig auf See. Schau später wieder vorbei.';
-
-  @override
-  String encounterProgress(int current, int total) {
-    return 'Rätsel $current von $total';
-  }
 
   @override
   String get encounterTryAgain => 'Nochmal versuchen';

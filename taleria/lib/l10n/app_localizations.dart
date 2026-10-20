@@ -1345,12 +1345,6 @@ abstract class AppLocalizations {
   /// **'Weißt du noch?'**
   String get warmUpTitle;
 
-  /// Erklärung der Aufwärmfragen
-  ///
-  /// In de, this message translates to:
-  /// **'Zwei kurze Fragen zur letzten Station. Fehler sind kein Problem.'**
-  String get warmUpHint;
-
   /// Überschrift des Stations-Checks
   ///
   /// In de, this message translates to:
@@ -2418,12 +2412,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Gerade ist alles ruhig auf See. Schau später wieder vorbei.'**
   String get mapEncounterNone;
-
-  /// Fortschritt in einer Begegnung
-  ///
-  /// In de, this message translates to:
-  /// **'Rätsel {current} von {total}'**
-  String encounterProgress(int current, int total);
 
   /// Knopf: dieselbe Frage noch einmal
   ///

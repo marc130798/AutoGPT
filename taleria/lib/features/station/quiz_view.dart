@@ -80,24 +80,41 @@ class _QuizViewState extends State<QuizView> {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              // Oben klein, was gerade dran ist und wie weit; darunter groß die
+              // Frage (Marcs Test am 20.10.2026: erst die Frage, wenig Text).
               _frame(
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(title, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
-                    if (hint != null) ...[
-                      const SizedBox(height: 4),
-                      Text(hint, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
-                    ],
-                    if (header != null) ...[const SizedBox(height: 12), header],
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.quizProgress(run.index + 1, run.total),
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.labelLarge,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              color: palette.seaDeep,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        QuizDots(results: run.results, current: run.index),
+                      ],
                     ),
-                    const SizedBox(height: 16),
-                    Text(q.question.question, key: const ValueKey('quiz-question'), style: theme.textTheme.titleMedium),
+                    // Wie das Spiel geht, nur bei der ersten Frage.
+                    if (hint != null && run.index == 0) ...[
+                      const SizedBox(height: 4),
+                      Text(hint, style: theme.textTheme.bodySmall),
+                    ],
+                    if (header != null) ...[const SizedBox(height: 8), header],
+                    const SizedBox(height: 12),
+                    Text(
+                      q.question.question,
+                      key: const ValueKey('quiz-question'),
+                      textAlign: TextAlign.center,
+                      style: questionStyle(context),
+                    ),
+                    const SizedBox(height: 4),
                   ],
                 ),
               ),
@@ -166,5 +183,50 @@ class _QuizViewState extends State<QuizView> {
     if (i == widget.run.current.correctDisplayIndex) return AnswerMark.right;
     if (i == chosen) return AnswerMark.wrong;
     return AnswerMark.none;
+  }
+}
+
+/// Die Frage groß und gut lesbar (Fragen, Wrack, Begegnungen).
+TextStyle? questionStyle(BuildContext context) =>
+    Theme.of(context).textTheme.headlineSmall
+        ?.copyWith(color: context.palette.ink, fontWeight: FontWeight.w700, height: 1.25);
+
+/// Fortschritt als Punkte statt „Frage 2 von 5“: beantwortet grün oder rot,
+/// die aktuelle Frage golden und größer, die kommenden grau.
+class QuizDots extends StatelessWidget {
+  const QuizDots({super.key, required this.results, required this.current});
+
+  final List<bool?> results;
+  final int current;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final palette = context.palette;
+    return Semantics(
+      label: l10n.quizProgress(current + 1, results.length),
+      excludeSemantics: true,
+      child: Row(
+        key: const ValueKey('quiz-progress'),
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final (i, result) in results.indexed)
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 2.5),
+              width: i == current ? 13 : 9,
+              height: i == current ? 13 : 9,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: switch (result) {
+                  true => palette.success,
+                  false => palette.coral,
+                  null when i == current => palette.gold,
+                  null => palette.placeholderBorder.withValues(alpha: 0.5),
+                },
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }

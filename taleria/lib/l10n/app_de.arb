@@ -940,10 +940,6 @@
   "@warmUpTitle": {
     "description": "Überschrift der Aufwärmfragen (Glossar)"
   },
-  "warmUpHint": "Zwei kurze Fragen zur letzten Station. Fehler sind kein Problem.",
-  "@warmUpHint": {
-    "description": "Erklärung der Aufwärmfragen"
-  },
   "quizCheckTitle": "Kurzer Check",
   "@quizCheckTitle": {
     "description": "Überschrift des Stations-Checks"
@@ -1890,18 +1886,6 @@
   "mapEncounterNone": "Gerade ist alles ruhig auf See. Schau später wieder vorbei.",
   "@mapEncounterNone": {
     "description": "Keine Begegnung verfügbar"
-  },
-  "encounterProgress": "Rätsel {current} von {total}",
-  "@encounterProgress": {
-    "description": "Fortschritt in einer Begegnung",
-    "placeholders": {
-      "current": {
-        "type": "int"
-      },
-      "total": {
-        "type": "int"
-      }
-    }
   },
   "encounterTryAgain": "Nochmal versuchen",
   "@encounterTryAgain": {

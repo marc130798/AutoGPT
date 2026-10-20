@@ -13,6 +13,7 @@ import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
 import '../station/dialog_sequence.dart';
+import '../station/quiz_view.dart';
 import '../station/station_stage.dart';
 
 /// Begegnung auf See (Kontrollfahrt): Eine Figur taucht auf und stellt
@@ -171,13 +172,21 @@ class _RiddleView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
-                      l10n.encounterProgress(run.index + 1, run.total),
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.labelLarge,
+                    // Oben klein der Fortschritt, darunter groß die Frage.
+                    Center(
+                      // Hier wird probiert, bis es stimmt: Geschaffte Rätsel sind grün.
+                      child: QuizDots(
+                        results: [for (var i = 0; i < run.total; i++) i < run.index ? true : null],
+                        current: run.index,
+                      ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(q.question.question, key: const ValueKey('quiz-question'), style: theme.textTheme.titleMedium),
+                    const SizedBox(height: 12),
+                    Text(
+                      q.question.question,
+                      key: const ValueKey('quiz-question'),
+                      textAlign: TextAlign.center,
+                      style: questionStyle(context),
+                    ),
                   ],
                 ),
               ),

@@ -179,7 +179,7 @@ void main() {
     expect(find.byKey(const ValueKey('placeholder:story.hafen.2.1')), findsOneWidget);
     await playUntilQuiz(tester);
     expect(find.text('Kurzer Check'), findsOneWidget);
-    expect(find.text('Frage 1 von 5'), findsOneWidget);
+    expectQuizProgress(tester, 1, 5);
 
     await answerAllCorrectly(tester, content);
     expect(find.text('Station geschafft!'), findsOneWidget);
@@ -248,7 +248,7 @@ void main() {
     await tapKey(tester, 'station-8');
     expect(find.textContaining('Abschlussprüfung'), findsWidgets);
     await playUntilQuiz(tester);
-    expect(find.text('Frage 1 von 10'), findsOneWidget);
+    expectQuizProgress(tester, 1, 10);
     await answerAllCorrectly(tester, content);
 
     expect(find.text('Prüfung bestanden!'), findsOneWidget);
@@ -312,7 +312,7 @@ void main() {
     expect(progress.completedIslands, isEmpty);
 
     await tapText(tester, 'Noch einmal versuchen');
-    expect(find.text('Frage 1 von 10'), findsOneWidget);
+    expectQuizProgress(tester, 1, 10);
   });
 
   testWidgets('Knöpfe in Karte und Quiz sind groß genug', (tester) async {

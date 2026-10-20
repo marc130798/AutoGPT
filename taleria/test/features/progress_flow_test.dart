@@ -170,7 +170,7 @@ void main() {
     for (var i = 0; i < 10 && find.byKey(const ValueKey('quiz-question')).evaluate().isEmpty; i++) {
       await tapText(tester, 'Weiter');
     }
-    expect(find.text('Rätsel 1 von 3'), findsOneWidget);
+    expectQuizProgress(tester, 1, 3);
 
     String questionText() => tester.widget<Text>(find.byKey(const ValueKey('quiz-question'))).data!;
     final first = content.allQuestions.firstWhere((q) => q.question == questionText());
@@ -184,7 +184,7 @@ void main() {
     await tapKey(tester, 'encounter-next');
 
     for (var i = 2; i <= 3; i++) {
-      expect(find.text('Rätsel $i von 3'), findsOneWidget);
+      expectQuizProgress(tester, i, 3);
       await tapText(tester, content.rightAnswerFor(questionText()));
       await tapKey(tester, 'encounter-next');
     }

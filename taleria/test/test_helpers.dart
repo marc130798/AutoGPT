@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/app.dart';
 import 'package:taleria/core/app_scope.dart';
 import 'package:taleria/core/assets/asset_manifest.dart';
@@ -11,6 +12,7 @@ import 'package:taleria/core/backend/backend.dart';
 import 'package:taleria/core/config/app_config.dart';
 import 'package:taleria/services/session_controller.dart';
 import 'package:taleria/services/sounds.dart';
+import 'package:taleria/features/station/quiz_view.dart';
 
 import 'fake_budget.dart';
 import 'fake_content.dart';
@@ -102,4 +104,10 @@ TaleriaApp buildTestApp({
       sounds: sounds ?? Sounds(settings: localSettings),
     ),
   );
+}
+
+/// Fortschritt der Fragen als Punkte (statt „Frage 1 von 5“): aktuelle Frage und Anzahl.
+void expectQuizProgress(WidgetTester tester, int current, int total) {
+  final dots = tester.widget<QuizDots>(find.byType(QuizDots));
+  expect((dots.current + 1, dots.results.length), (current, total));
 }

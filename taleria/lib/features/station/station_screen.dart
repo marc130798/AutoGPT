@@ -107,7 +107,6 @@ class _StationScreenState extends State<StationScreen> {
           StationStep.warmUp => QuizView(
             run: controller.warmUp!,
             title: l10n.warmUpTitle,
-            hint: l10n.warmUpHint,
             onAnswer: (i) {
               controller.answerWarmUp(i);
               if (controller.warmUp!.answeredCorrectly) _sounds.effect(AssetKeys.soundCorrect);
@@ -617,7 +616,8 @@ class _WreckView extends StatelessWidget {
                 child: Text(
                   q.question.question,
                   key: const ValueKey('wreck-question'),
-                  style: theme.textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                  style: questionStyle(context),
                 ),
               ),
               const SizedBox(height: 12),
