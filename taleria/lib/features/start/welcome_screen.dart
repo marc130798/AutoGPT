@@ -43,52 +43,68 @@ class WelcomeScreen extends StatelessWidget {
                           height: 120,
                           fallback: Center(child: WoodSign(text: l10n.appTitle, large: true)),
                         ),
-                        const SizedBox(height: 20),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            CharacterImage(AssetKeys.talo, pose: CharacterPose.wave, width: 130, height: 160),
-                            SizedBox(width: 20),
-                            CharacterImage(AssetKeys.tala, pose: CharacterPose.wave, width: 130, height: 160),
-                          ],
-                        ),
                       ],
                     ),
+                    // Talo und Tala stehen an Deck hinter der Karte: Die Karte
+                    // verdeckt ihre Füße, damit sie nicht über dem Meer schweben.
                     Padding(
                       padding: const EdgeInsets.only(top: 24),
-                      child: PaperCard(
-                        key: const ValueKey('welcome-card'),
-                        margin: EdgeInsets.zero,
-                        padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              l10n.welcomeTitle,
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                      child: Column(
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              CharacterImage(AssetKeys.talo, pose: CharacterPose.wave, width: 140, height: 175),
+                              SizedBox(width: 16),
+                              CharacterImage(AssetKeys.tala, pose: CharacterPose.wave, width: 140, height: 175),
+                            ],
+                          ),
+                          Transform.translate(
+                            offset: const Offset(0, -30),
+                            child: PaperCard(
+                              key: const ValueKey('welcome-card'),
+                              margin: EdgeInsets.zero,
+                              padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    l10n.welcomeTitle,
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    l10n.welcomeSubtitle,
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.bodyLarge,
+                                  ),
+                                  const SizedBox(height: 18),
+                                  FilledButton(
+                                    onPressed: () =>
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute<void>(builder: (_) => const ChildCodeScreen())),
+                                    child: Text(l10n.welcomeChildButton),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  OutlinedButton(
+                                    onPressed: () =>
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute<void>(builder: (_) => const ParentAuthScreen())),
+                                    child: Text(l10n.welcomeParentButton, textAlign: TextAlign.center),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Text(
+                                    l10n.noFinancialAdvice,
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
                             ),
-                            const SizedBox(height: 6),
-                            Text(l10n.welcomeSubtitle, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
-                            const SizedBox(height: 18),
-                            FilledButton(
-                              onPressed: () =>
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute<void>(builder: (_) => const ChildCodeScreen())),
-                              child: Text(l10n.welcomeChildButton),
-                            ),
-                            const SizedBox(height: 10),
-                            OutlinedButton(
-                              onPressed: () =>
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute<void>(builder: (_) => const ParentAuthScreen())),
-                              child: Text(l10n.welcomeParentButton, textAlign: TextAlign.center),
-                            ),
-                            const SizedBox(height: 14),
-                            Text(l10n.noFinancialAdvice, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
