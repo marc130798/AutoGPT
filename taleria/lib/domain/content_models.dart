@@ -86,6 +86,7 @@ class IslandDetails {
     required this.slug,
     required this.title,
     this.goal,
+    this.learn = const [],
     this.arrivalVideoKey,
     this.arrivalScene = const [],
     this.badge,
@@ -101,6 +102,7 @@ class IslandDetails {
       slug: row['slug'] as String,
       title: row['title'] as String,
       goal: content['goal'] as String?,
+      learn: [for (final l in (content['learn'] as List?) ?? const []) l as String],
       arrivalVideoKey: arrival?['video_key'] as String?,
       arrivalScene: [
         for (final l in (arrival?['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>),
@@ -116,6 +118,9 @@ class IslandDetails {
   final String slug;
   final String title;
   final String? goal;
+
+  /// „Das lernst du hier“: kurze Punkte in Kindersprache ([goal] ist für Eltern).
+  final List<String> learn;
   final String? arrivalVideoKey;
   final List<DialogLine> arrivalScene;
 

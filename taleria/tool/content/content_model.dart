@@ -566,6 +566,7 @@ class Island {
     required this.mapX,
     required this.mapY,
     required this.goal,
+    this.learnKid = const [],
     required this.fog,
     required this.arrivalVideo,
     required this.arrivalScene,
@@ -587,6 +588,10 @@ class Island {
   final double mapX;
   final double mapY;
   final String goal;
+
+  /// „Das lernst du hier“ auf der Insel: 2 bis 4 kurze Punkte in Kindersprache
+  /// (`lernziel_kind`); [goal] ist für Eltern geschrieben.
+  final List<String> learnKid;
 
   /// Insel liegt im Nebel: noch keine Stationen.
   final bool fog;
@@ -610,6 +615,7 @@ class Island {
   /// Inhalt für islands.content.
   Map<String, dynamic> toDbContent() => {
     'goal': goal,
+    if (learnKid.isNotEmpty) 'learn': learnKid,
     'access': access == 'gratis' ? 'free' : 'premium',
     if (arrivalVideo != null || arrivalScene.isNotEmpty)
       'arrival': {
@@ -717,6 +723,7 @@ Island parseIsland(String file, String source) {
     mapX: (karte?['x'] as num?)?.toDouble() ?? 0.5,
     mapY: (karte?['y'] as num?)?.toDouble() ?? 0.5,
     goal: text(json, 'lernziel', file),
+    learnKid: [for (final l in (json['lernziel_kind'] as List? ?? const [])) l as String],
     fog: json['nebel'] == true,
     arrivalVideo: ankunft?['film'] as String?,
     arrivalScene: lines(ankunft?['szene'], '$file, Ankunft'),
@@ -816,6 +823,16 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       check(before.isEmpty, '$w: freigegeben, aber diese Inseln davor noch nicht: ${before.join(', ')}');
     }
     check(slugPattern.hasMatch(island.slug), '$w: Slug "${island.slug}" ist ungültig');
+    // Kinder lesen auf der Insel „Das lernst du hier“, nicht das Lernziel für Eltern.
+    if (island.stations.isNotEmpty) {
+      check(
+        island.learnKid.length >= 2 && island.learnKid.length <= 4,
+        '$w: "lernziel_kind" braucht 2 bis 4 kurze Punkte für Kinder',
+      );
+    }
+    for (final l in island.learnKid) {
+      check(l.trim().isNotEmpty && l.length <= 70, '$w: Punkt in "lernziel_kind" leer oder länger als 70 Zeichen');
+    }
     check(island.title.length <= 60, '$w: Titel ist länger als 60 Zeichen');
     check({'gratis', 'premium'}.contains(island.access), '$w: Zugang muss gratis oder premium sein');
     check(

@@ -9,6 +9,11 @@
     "y": 0.9
   },
   "lernziel": "Das Kind erlebt, wie Tauschen ohne Geld funktioniert, versteht, dass Wert von Person und Situation abhängt, wie Angebot und Nachfrage Preise beeinflussen, dass billig nicht immer günstig ist, dass jede Entscheidung einen Verzicht bedeutet und was ein fairer Tausch ist.",
+  "lernziel_kind": [
+    "Wie Tauschen ohne Geld klappt und wann nicht",
+    "Warum etwas für jeden anders viel wert ist",
+    "Warum billig nicht immer günstig ist"
+  ],
   "ankunft": {
     "film": "video.arrival.tauschinsel",
     "szene": [

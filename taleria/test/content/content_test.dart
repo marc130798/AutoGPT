@@ -143,6 +143,7 @@ void main() {
         'gruppe': 1,
         'zugang': 'gratis',
         'lernziel': 'Test',
+        'lernziel_kind': ['Eins', 'Zwei'],
         'stationen': [
           station,
           {
@@ -308,6 +309,24 @@ void main() {
           ),
         ),
         contains(contains('unbekannte Zeichnung "goldbarren"')),
+      );
+    });
+
+    test('Insel mit Stationen braucht „Das lernst du hier“ für Kinder (2 bis 4 kurze Punkte)', () {
+      expect(
+        problems(islandWith(station(), extra: {'lernziel_kind': <String>[]})),
+        contains(contains('"lernziel_kind" braucht 2 bis 4')),
+      );
+      expect(
+        problems(
+          islandWith(
+            station(),
+            extra: {
+              'lernziel_kind': ['Eins', 'x' * 71],
+            },
+          ),
+        ),
+        contains(contains('länger als 70 Zeichen')),
       );
     });
 

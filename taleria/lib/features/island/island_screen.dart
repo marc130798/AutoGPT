@@ -225,10 +225,8 @@ class _StationList extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (details.goal != null) ...[
-                  Text(details.goal!, style: theme.textTheme.bodyLarge),
-                  const SizedBox(height: 16),
-                ],
+                // In Kindersprache, was es hier zu lernen gibt (Marcs Wunsch am 20.10.2026).
+                if (details.learn.isNotEmpty) ...[_LearnCard(points: details.learn), const SizedBox(height: 20)],
                 Text(l10n.islandStationsHeading, style: theme.textTheme.titleLarge),
                 const SizedBox(height: 8),
                 for (final station in stations)
@@ -284,11 +282,22 @@ class _StationTile extends StatelessWidget {
         ? l10n.stationDive
         : (station.isExam ? l10n.stationExam : l10n.stationNumber(station.displayNumber));
 
+    // Papier mit Goldrand wie die Kacheln der Startseite; gesperrte etwas blasser.
     return Card(
       key: keyed
           ? ValueKey(station.isDive ? 'dive-${station.displayNumber}' : 'station-${station.displayNumber}')
           : null,
-      color: locked ? Theme.of(context).colorScheme.surfaceContainerHighest : null,
+      color: locked ? palette.paper.withValues(alpha: 0.7) : palette.paper,
+      elevation: locked ? 0 : 2,
+      shadowColor: const Color(0x44081C30),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: state == StationState.open ? palette.gold : palette.gold.withValues(alpha: locked ? 0.3 : 0.6),
+          width: state == StationState.open ? 3 : 2,
+        ),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: ListTile(
         minTileHeight: 72,
         onTap: onTap,
@@ -322,6 +331,57 @@ class _StationTile extends StatelessWidget {
           ].join(' · '),
         ),
         trailing: locked ? null : const Icon(Icons.chevron_right),
+      ),
+    );
+  }
+}
+
+/// „Das lernst du hier“: kurze Punkte mit Häkchen-Symbol, auf Papier mit Goldrand.
+class _LearnCard extends StatelessWidget {
+  const _LearnCard({required this.points});
+
+  final List<String> points;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return Container(
+      key: const ValueKey('island-learn'),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+      decoration: BoxDecoration(
+        color: palette.paper,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: palette.gold, width: 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.lightbulb_rounded, color: palette.gold),
+              const SizedBox(width: 8),
+              Text(l10n.islandLearnHeading, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+            ],
+          ),
+          const SizedBox(height: 8),
+          for (final point in points)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Icon(Icons.star_rounded, size: 20, color: palette.gold),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(point, style: theme.textTheme.bodyLarge)),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }

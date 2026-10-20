@@ -656,6 +656,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mapYouAreHere => 'Dein Schiff';
 
   @override
+  String get islandLearnHeading => 'Das lernst du hier';
+
+  @override
   String get islandStationsHeading => 'Stationen';
 
   @override

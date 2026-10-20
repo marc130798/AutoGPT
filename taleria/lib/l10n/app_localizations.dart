@@ -1279,6 +1279,12 @@ abstract class AppLocalizations {
   /// **'Dein Schiff'**
   String get mapYouAreHere;
 
+  /// Insel von innen: Überschrift über den kurzen Lernpunkten für Kinder
+  ///
+  /// In de, this message translates to:
+  /// **'Das lernst du hier'**
+  String get islandLearnHeading;
+
   /// Überschrift der Stationsliste einer Insel
   ///
   /// In de, this message translates to:

@@ -9,6 +9,11 @@
     "y": 0.84
   },
   "lernziel": "Das Kind unterscheidet Bedürfnisse und Wünsche, setzt Prioritäten, nutzt die Warte-Regel, erkennt Gruppendruck und weiß, dass Glück nicht nur von Dingen abhängt.",
+  "lernziel_kind": [
+    "Was du wirklich brauchst und was du dir nur wünschst",
+    "Wie die Warte-Regel bei Wünschen hilft",
+    "Wie du Nein sagst, wenn andere drängeln"
+  ],
   "ankunft": {
     "film": "video.arrival.wunschinsel",
     "szene": [

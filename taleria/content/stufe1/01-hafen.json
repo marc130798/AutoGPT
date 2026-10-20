@@ -9,6 +9,11 @@
     "y": 0.96
   },
   "lernziel": "Das Kind kennt Talo und Tala, weiß, was Geld ist, wie es entstanden ist, woher es kommt, warum Dinge etwas kosten und hat ein erstes Gefühl für Preise.",
+  "lernziel_kind": [
+    "Was Geld ist und warum es Tauschen leichter macht",
+    "Woher Geld kommt und wie es früher aussah",
+    "Warum Dinge etwas kosten und wie du Preise liest"
+  ],
   "orden": "Erster Landgang",
   "auftrag": {
     "titel": "Preis-Detektiv",

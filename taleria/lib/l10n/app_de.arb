@@ -886,6 +886,10 @@
   "@mapYouAreHere": {
     "description": "Vorlesetext für das Schiff auf der Karte"
   },
+  "islandLearnHeading": "Das lernst du hier",
+  "@islandLearnHeading": {
+    "description": "Insel von innen: Überschrift über den kurzen Lernpunkten für Kinder"
+  },
   "islandStationsHeading": "Stationen",
   "@islandStationsHeading": {
     "description": "Überschrift der Stationsliste einer Insel"
