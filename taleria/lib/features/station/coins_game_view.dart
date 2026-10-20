@@ -7,6 +7,7 @@ import '../../domain/game_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'game_scene.dart';
 import 'station_stage.dart';
 import 'story_drawings.dart';
 
@@ -24,6 +25,10 @@ class CoinsGameView extends StatefulWidget {
 
 class _CoinsGameViewState extends State<CoinsGameView> {
   late final CoinsGame _game = CoinsGame(widget.game);
+
+  /// Für die Flugbahn: wo jede Münze liegt und wo die Schublade ist.
+  final _coinKeys = {for (final v in CoinsGame.values) v: GlobalKey()};
+  final _trayKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +79,7 @@ class _CoinsGameViewState extends State<CoinsGameView> {
         ),
         const SizedBox(height: 12),
         MoneyTray(
+          key: _trayKey,
           label: l10n.gameCoinsPlaced(widget.game.money(game.sum), widget.game.money(game.target)),
           labelKey: const ValueKey('coins-sum'),
           empty: l10n.gameCoinsNothing,
@@ -103,15 +109,19 @@ class _CoinsGameViewState extends State<CoinsGameView> {
           alignment: WrapAlignment.center,
           children: [
             for (final value in CoinsGame.values)
-              CoinButton(
-                key: ValueKey('coin-$value'),
-                cents: value,
-                onTap: game.exact
-                    ? null
-                    : () {
-                        setState(() => game.add(value));
-                        playGameSound(context, game.exact ? AssetKeys.soundCorrect : AssetKeys.soundCoin);
-                      },
+              KeyedSubtree(
+                key: _coinKeys[value],
+                child: CoinButton(
+                  key: ValueKey('coin-$value'),
+                  cents: value,
+                  onTap: game.exact
+                      ? null
+                      : () {
+                          flyCoin(context, from: _coinKeys[value]!, to: _trayKey, cents: value);
+                          setState(() => game.add(value));
+                          playGameSound(context, game.exact ? AssetKeys.soundCorrect : AssetKeys.soundCoin);
+                        },
+                ),
               ),
           ],
         ),
@@ -170,6 +180,14 @@ class CoinButton extends StatelessWidget {
     );
   }
 }
+
+/// Eine Münze oder ein Schein fliegt von [from] in die Schublade [to].
+void flyCoin(BuildContext context, {required GlobalKey from, required GlobalKey to, required int cents}) => flyThing(
+  context,
+  from: from,
+  to: to,
+  child: cents >= CoinsGame.firstNote ? EuroNote(euros: cents ~/ 100, scale: 0.6) : EuroCoin(cents: cents, scale: 2.2),
+);
 
 /// Die Geldschublade: Holzrahmen mit dunklem Filz, darauf liegt das gelegte
 /// Geld. Oben steht, wie viel es ist.

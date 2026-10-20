@@ -724,6 +724,12 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Knöpfe: Gefüllte Knöpfe haben einen Schatten und sinken beim Antippen ein (Theme). Antwort-Knöpfe und Möglichkeiten der Schätzfrage werden beim Antippen kurz kleiner (`PressDip` in `station_stage.dart`).
 - **Preis-Säule lesbar (Marcs Test am 20.10.2026):** Die Zeilen der Auswahl-Übung (`pick`, Hafen 6 „Preis-Säule“ und Wunschinsel 2 „Rucksack packen“) hatten nur einen Rand und lagen ohne Hintergrund auf dem verblassten Bild. Jetzt ist jede Zeile ein Kasten auf Papier (`GlassFrame.fill`), gewählte Zeilen golden mit dickem Rand, der Preis fett.
 - **Fragen übersichtlich (Marcs Test am 20.10.2026):** Vorher standen über jeder Frage Überschrift, Erklärtext („Zwei kurze Fragen zur letzten Station …“) und „Frage 2 von 2“, die Frage selbst war klein. Jetzt (`QuizView`, auch Wrack und Begegnungen): oben in einer Zeile klein die Überschrift („Weißt du noch?“, „Kurzer Check“, …) und rechts Punkte für den Fortschritt (`QuizDots`: richtig grün, falsch rot, aktuelle golden, kommende grau; Vorlesen sagt „Frage 2 von 5“), darunter groß und fett die Frage (`questionStyle`, 24 Punkte, mittig). Der Erklärtext bei „Weißt du noch?“ ist weg; beim Tauchgang steht die Spielregel nur noch bei der ersten Frage, klein. In Tests prüft `expectQuizProgress` die Punkte.
+- **Mini-Spiele lebendiger (Marcs Wunsch am 20.10.2026: „zu kahl, zu langweilig“, alle vier Vorschläge gewählt):**
+  - Echtes Geld: `CoinButton` zeichnet Münzen und Scheine wie echtes Euro-Geld (`EuroCoin`, `EuroNote` aus `story_drawings.dart`, echte Größenunterschiede, Knopf mindestens 48 Punkte). Gelegtes Geld liegt in der Geldschublade `MoneyTray` (Holzrahmen, dunkler Filz, Messingschild mit dem Betrag), in der Kasse und in der Übung „Münzschublade“.
+  - Kasse: Der Kunde steht als ganze Figur an der Theke, daneben Bestellung und das gezeichnete Geld, mit dem er bezahlt; bedient freut er sich und hüpft (`Hop`). Oben die Warteschlange `CustomerQueue` mit Köpfen (bedient mit Haken, dran golden, wartend blass) statt „Kunde 1 von 6“, Preise auf einer Kreidetafel (`ChalkBoard`). Der fünfte Kunde ist jetzt die Verkäuferin in ihrer Pause statt noch einmal Talo.
+  - Szene und Holzschild: Echte Spiele zeigen oben ihr Startbild als Szene mit dem Titel auf einem Holzschild (`GameSceneHeader`, `WoodSign`); Eisstand und Ausflüge haben eigene große Bilder und zeigen nur das Schild (`GameFrame(scene: false)`). Karten in Markt, Tauschkette und Rucksack haben einen Goldrand (`gameCardShape`). Übungen bleiben beim Papier-Rahmen mit dem Schild „Übung“.
+  - Bewegung: `flyThing` (`game_scene.dart`) lässt ein Bild auf einem Bogen fliegen (0,55 Sekunden, fängt kein Antippen ab, nicht bei „Bewegung reduzieren“): Münzen in die Schublade, Gekauftes in die Einkaufsliste (die Zeile hüpft), beim Tausch Talas Ding zum Händler und seins zu Tala, Eingepacktes in den Rucksack. Am Ende eines Spiels springen die Sterne nacheinander auf (`GameStars(pop: true)`), dazu Konfetti.
+  - Bausteine stehen in `lib/features/station/game_scene.dart`. In Tests prüfen `expectCustomerQueue` und `expectQuizProgress` die Köpfe und Punkte.
 
 ---
 
@@ -736,7 +742,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 397 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 398 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Schätzfrage, Antipp-Momente und alle Animationen des Plans sind fertig (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 

@@ -27,9 +27,25 @@ class TradeChainGameView extends StatefulWidget {
 class _TradeChainGameViewState extends State<TradeChainGameView> {
   late final TradeChainGame _game = TradeChainGame(widget.game);
 
+  /// Für die Flugbahn: Talas Hand und jeder Händler.
+  final _talaKey = GlobalKey();
+  late final _traderKeys = [for (final _ in widget.game.traders) GlobalKey()];
+
   void _tap(int trader) {
+    final gave = _game.holding;
     final result = _game.tap(trader);
-    if (result == TradeResult.traded) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+    if (result == TradeResult.traded) {
+      AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+      // Tauschen sieht man: Talas Ding fliegt zum Händler, seins zu Tala.
+      final images = widget.game.images;
+      final got = widget.game.traders[trader].has;
+      if (images[gave] case final image?) {
+        flyThing(context, from: _talaKey, to: _traderKeys[trader], child: GameThumb(image, size: 48));
+      }
+      if (images[got] case final image?) {
+        flyThing(context, from: _traderKeys[trader], to: _talaKey, child: GameThumb(image, size: 48));
+      }
+    }
     setState(() {});
   }
 
@@ -104,13 +120,16 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
                   ),
                 ),
                 // Was Tala gerade in der Hand hat.
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
-                  child: GameThumb(
-                    widget.game.images[game.holding],
-                    key: ValueKey('trade-holding-image-${game.holding}'),
-                    size: 56,
+                KeyedSubtree(
+                  key: _talaKey,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                    child: GameThumb(
+                      widget.game.images[game.holding],
+                      key: ValueKey('trade-holding-image-${game.holding}'),
+                      size: 56,
+                    ),
                   ),
                 ),
               ],
@@ -142,6 +161,7 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
               children: [
                 for (final (i, trader) in widget.game.traders.indexed)
                   SizedBox(
+                    key: _traderKeys[i],
                     width: width,
                     child: _TraderCard(
                       key: ValueKey('trader-$i'),

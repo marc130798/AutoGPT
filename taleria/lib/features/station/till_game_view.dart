@@ -31,6 +31,10 @@ class TillGameView extends StatefulWidget {
 class _TillGameViewState extends State<TillGameView> {
   late final TillGame _game = TillGame(widget.game);
 
+  /// Für die Flugbahn: wo jede Münze liegt und wo die Schublade ist.
+  final _coinKeys = {for (final v in CoinsGame.values) v: GlobalKey()};
+  final _trayKey = GlobalKey();
+
   void _give() {
     final check = _game.give();
     if (check == TillCheck.right) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
@@ -103,6 +107,7 @@ class _TillGameViewState extends State<TillGameView> {
         ],
         const SizedBox(height: 12),
         MoneyTray(
+          key: _trayKey,
           label: l10n.tillTray(widget.game.money(game.sum)),
           labelKey: const ValueKey('till-sum'),
           empty: l10n.tillTrayEmpty,
@@ -132,15 +137,19 @@ class _TillGameViewState extends State<TillGameView> {
           alignment: WrapAlignment.center,
           children: [
             for (final value in CoinsGame.values)
-              CoinButton(
-                key: ValueKey('coin-$value'),
-                cents: value,
-                onTap: game.served
-                    ? null
-                    : () {
-                        setState(() => game.add(value));
-                        playGameSound(context, AssetKeys.soundCoin);
-                      },
+              KeyedSubtree(
+                key: _coinKeys[value],
+                child: CoinButton(
+                  key: ValueKey('coin-$value'),
+                  cents: value,
+                  onTap: game.served
+                      ? null
+                      : () {
+                          flyCoin(context, from: _coinKeys[value]!, to: _trayKey, cents: value);
+                          setState(() => game.add(value));
+                          playGameSound(context, AssetKeys.soundCoin);
+                        },
+                ),
               ),
           ],
         ),

@@ -29,13 +29,23 @@ class _MarketGameViewState extends State<MarketGameView> {
   MarketBuy? _lastBuy;
   String? _lastItem;
 
-  void _buy(MarketOffer offer) {
+  /// Für die Flugbahn: Bild jedes Angebots und jede Zeile der Einkaufsliste.
+  final _offerKeys = <String, GlobalKey>{};
+  final _needKeys = <String, GlobalKey>{};
+
+  void _buy(MarketOffer offer, int k) {
     setState(() {
       _lastBuy = _game.buy(_stand, offer);
       _lastItem = offer.item;
     });
     if (_lastBuy == MarketBuy.bought) {
       playGameSound(context, _game.finished ? AssetKeys.soundCorrect : AssetKeys.soundCoin);
+      // Das Gekaufte fliegt in die Einkaufsliste.
+      final image = widget.game.images[offer.item];
+      final from = _offerKeys['$_stand-$k'], to = _needKeys[offer.item];
+      if (image != null && from != null && to != null) {
+        flyThing(context, from: from, to: to, child: GameThumb(image, size: 44));
+      }
     }
   }
 
@@ -187,7 +197,11 @@ class _MarketGameViewState extends State<MarketGameView> {
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Row(
                       children: [
-                        GameThumb(widget.game.images[offer.item], size: 44),
+                        GameThumb(
+                          widget.game.images[offer.item],
+                          key: _offerKeys.putIfAbsent('$_stand-$k', GlobalKey.new),
+                          size: 44,
+                        ),
                         if (widget.game.images[offer.item] != null) const SizedBox(width: 8),
                         Expanded(
                           child: Column(
@@ -203,7 +217,7 @@ class _MarketGameViewState extends State<MarketGameView> {
                         ),
                         FilledButton.tonal(
                           key: ValueKey('market-buy-$_stand-$k'),
-                          onPressed: game.finished ? null : () => _buy(offer),
+                          onPressed: game.finished ? null : () => _buy(offer, k),
                           child: Text(l10n.marketBuy),
                         ),
                       ],
@@ -250,7 +264,12 @@ class _MarketGameViewState extends State<MarketGameView> {
         ],
       ),
     );
-    if (bought == null || _game.finished) return row;
+    // Gerade gekauft: Die Zeile hüpft kurz.
+    final hop = KeyedSubtree(
+      key: _needKeys.putIfAbsent(need.item, GlobalKey.new),
+      child: Hop(active: bought != null && _lastBuy == MarketBuy.bought && _lastItem == need.item, child: row),
+    );
+    if (bought == null || _game.finished) return hop;
     return Semantics(
       button: true,
       label: l10n.marketPutBack(need.item),
@@ -258,7 +277,7 @@ class _MarketGameViewState extends State<MarketGameView> {
         key: ValueKey('market-put-back-${need.item}'),
         borderRadius: BorderRadius.circular(8),
         onTap: () => _putBack(need.item),
-        child: row,
+        child: hop,
       ),
     );
   }

@@ -8,6 +8,7 @@ import '../../domain/real_games.dart';
 import '../../l10n/app_localizations.dart';
 import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
+import 'game_scene.dart';
 
 /// Rucksack packen: Für jeden Ausflug liest das Kind, wohin es geht, und
 /// packt mit den Talern ein, was Tala wirklich braucht. Beim Losgehen zeigt
@@ -34,6 +35,10 @@ class _BackpackGameViewState extends State<BackpackGameView> {
   /// Rückmeldung: Nach dem Losgehen scrollt die Seite dorthin.
   final _resultKey = GlobalKey();
 
+  /// Für die Flugbahn: der Rucksack und jedes Ding im Packhaus.
+  final _bagKey = GlobalKey();
+  final _itemKeys = <String, GlobalKey>{};
+
   void _tapItem(String item) {
     if (_game.packed.contains(item)) {
       setState(() {
@@ -44,7 +49,15 @@ class _BackpackGameViewState extends State<BackpackGameView> {
     }
     final result = _game.pack(item);
     setState(() => _notEnough = result == BackpackPack.notEnough);
-    if (result == BackpackPack.packed) playGameSound(context, AssetKeys.soundCoin);
+    if (result == BackpackPack.packed) {
+      playGameSound(context, AssetKeys.soundCoin);
+      // Das Ding fliegt in den Rucksack.
+      final image = widget.game.images[item];
+      final from = _itemKeys[item];
+      if (image != null && from != null) {
+        flyThing(context, from: from, to: _bagKey, child: GameThumb(image, size: 48));
+      }
+    }
   }
 
   void _go() {
@@ -140,6 +153,7 @@ class _BackpackGameViewState extends State<BackpackGameView> {
               children: [
                 for (final item in widget.game.items)
                   SizedBox(
+                    key: _itemKeys.putIfAbsent(item.text, GlobalKey.new),
                     width: width,
                     child: _ShelfItem(
                       key: ValueKey('backpack-item-${item.text}'),
@@ -165,7 +179,10 @@ class _BackpackGameViewState extends State<BackpackGameView> {
     final palette = context.palette;
     final game = _game;
     return Card(
+      key: _bagKey,
       color: palette.paper,
+      shape: gameCardShape,
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(

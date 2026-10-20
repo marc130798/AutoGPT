@@ -8,6 +8,7 @@ import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/game_sign.dart';
 import '../intro/speech_bubble.dart';
+import '../progress/celebration.dart';
 import 'backpack_game_view.dart';
 import 'ice_stand_game_view.dart';
 import 'market_game_view.dart';
@@ -164,10 +165,13 @@ class RealGameIntro extends StatelessWidget {
 
 /// Drei Sterne, [count] davon leuchten.
 class GameStars extends StatelessWidget {
-  const GameStars({super.key, required this.count, this.size = 48});
+  const GameStars({super.key, required this.count, this.size = 48, this.pop = false});
 
   final int count;
   final double size;
+
+  /// Am Ende eines Spiels: Die Sterne springen nacheinander auf.
+  final bool pop;
 
   @override
   Widget build(BuildContext context) {
@@ -178,16 +182,30 @@ class GameStars extends StatelessWidget {
       excludeSemantics: true,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (var i = 0; i < 3; i++)
-            Icon(
-              i < count ? Icons.star_rounded : Icons.star_outline_rounded,
-              key: i < count ? ValueKey('game-star-$i') : null,
-              size: i == 1 ? size * 1.25 : size,
-              color: i < count ? palette.gold : palette.ink.withValues(alpha: 0.3),
-            ),
-        ],
+        children: [for (var i = 0; i < 3; i++) _star(context, i, palette)],
       ),
+    );
+  }
+}
+
+extension on GameStars {
+  Widget _star(BuildContext context, int i, TaleriaPalette palette) {
+    final icon = Icon(
+      i < count ? Icons.star_rounded : Icons.star_outline_rounded,
+      key: i < count ? ValueKey('game-star-$i') : null,
+      size: i == 1 ? size * 1.25 : size,
+      color: i < count ? palette.gold : palette.ink.withValues(alpha: 0.3),
+    );
+    if (!pop || i >= count || MediaQuery.disableAnimationsOf(context)) return icon;
+    // Jeder Stern 0,3 Sekunden nach dem davor, federnd.
+    const step = 300, grow = 500;
+    final total = step * (count - 1) + grow;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: Duration(milliseconds: total),
+      curve: Interval(step * i / total, (step * i + grow) / total, curve: Curves.elasticOut),
+      builder: (context, t, child) => Transform.scale(scale: t, child: child),
+      child: icon,
     );
   }
 }
@@ -211,7 +229,7 @@ class _RealGameEnd extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return Column(
+    final page = Column(
       children: [
         Expanded(
           child: ListView(
@@ -228,7 +246,7 @@ class _RealGameEnd extends StatelessWidget {
                       style: theme.textTheme.headlineSmall,
                     ),
                     const SizedBox(height: 12),
-                    GameStars(count: stars),
+                    GameStars(count: stars, pop: true),
                   ],
                 ),
               ),
@@ -258,6 +276,13 @@ class _RealGameEnd extends StatelessWidget {
             ],
           ),
         ),
+      ],
+    );
+    // Geschafft: Konfetti über dem Ende.
+    return Stack(
+      children: [
+        page,
+        const Positioned.fill(child: ConfettiBurst()),
       ],
     );
   }

@@ -251,3 +251,78 @@ const gameCardShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.all(Radius.circular(16)),
   side: BorderSide(color: Color(0xFFE2C27A), width: 2),
 );
+
+/// Lässt [child] auf einem Bogen von [from] nach [to] fliegen (etwa 0,55
+/// Sekunden), zum Beispiel ein gekauftes Brötchen in die Einkaufsliste oder
+/// eine Münze in die Schublade. Fängt kein Antippen ab. Bei „Bewegung
+/// reduzieren“ oder wenn ein Ziel nicht zu sehen ist, passiert nichts.
+void flyThing(BuildContext context, {required GlobalKey from, required GlobalKey to, required Widget child}) {
+  if (MediaQuery.disableAnimationsOf(context)) return;
+  final overlay = Overlay.maybeOf(context);
+  final fromBox = from.currentContext?.findRenderObject();
+  final toBox = to.currentContext?.findRenderObject();
+  final overlayBox = overlay?.context.findRenderObject();
+  if (overlay == null || fromBox is! RenderBox || toBox is! RenderBox || overlayBox is! RenderBox) return;
+  if (!fromBox.attached || !toBox.attached || !fromBox.hasSize || !toBox.hasSize) return;
+  Offset center(RenderBox box) => overlayBox.globalToLocal(box.localToGlobal(box.size.center(Offset.zero)));
+  late final OverlayEntry entry;
+  entry = OverlayEntry(
+    builder: (_) => _Flight(start: center(fromBox), end: center(toBox), onDone: entry.remove, child: child),
+  );
+  overlay.insert(entry);
+}
+
+class _Flight extends StatefulWidget {
+  const _Flight({required this.start, required this.end, required this.onDone, required this.child});
+
+  final Offset start;
+  final Offset end;
+  final VoidCallback onDone;
+  final Widget child;
+
+  @override
+  State<_Flight> createState() => _FlightState();
+}
+
+class _FlightState extends State<_Flight> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 550),
+  )..forward().whenComplete(() => widget.onDone());
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          final t = Curves.easeInOut.transform(_controller.value);
+          // Bogen nach oben, kleiner werdend, kurz vor dem Ziel ausblenden.
+          final point = Offset.lerp(widget.start, widget.end, t)! + Offset(0, -sin(t * pi) * 60);
+          return Stack(
+            children: [
+              Positioned(
+                left: point.dx,
+                top: point.dy,
+                child: FractionalTranslation(
+                  translation: const Offset(-0.5, -0.5),
+                  child: Opacity(
+                    opacity: t < 0.85 ? 1 : (1 - t) / 0.15,
+                    child: Transform.scale(scale: 1 - 0.3 * t, child: child),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+        child: Material(type: MaterialType.transparency, child: widget.child),
+      ),
+    );
+  }
+}

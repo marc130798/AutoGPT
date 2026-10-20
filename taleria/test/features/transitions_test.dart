@@ -4,6 +4,7 @@ import 'package:taleria/core/app_scope.dart';
 import 'package:taleria/core/theme/taleria_theme.dart';
 import 'package:taleria/features/common/dive_descent.dart';
 import 'package:taleria/features/progress/celebration.dart';
+import 'package:taleria/features/station/game_scene.dart';
 import 'package:taleria/features/station/station_stage.dart';
 
 import '../test_helpers.dart';
@@ -117,5 +118,43 @@ void main() {
     await gesture.up();
     await tester.pumpAndSettle();
     expect(scale(), 1);
+  });
+
+  testWidgets('Mini-Spiele: Dinge fliegen zum Ziel und verschwinden dann; ohne Bewegung nicht', (tester) async {
+    final from = GlobalKey(), to = GlobalKey();
+    late BuildContext ctx;
+    Widget page({bool reduceMotion = false}) => app(
+      Builder(
+        builder: (context) {
+          ctx = context;
+          return Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(key: from, width: 40, height: 40),
+                SizedBox(key: to, width: 40, height: 40),
+              ],
+            ),
+          );
+        },
+      ),
+      reduceMotion: reduceMotion,
+    );
+    await tester.pumpWidget(page());
+    flyThing(ctx, from: from, to: to, child: const Text('Brötchen'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(find.text('Brötchen'), findsOneWidget);
+    final mid = tester.getCenter(find.text('Brötchen'));
+    expect(mid.dy, greaterThan(tester.getCenter(find.byKey(from)).dy));
+    expect(mid.dy, lessThan(tester.getCenter(find.byKey(to)).dy));
+    await tester.pumpAndSettle();
+    expect(find.text('Brötchen'), findsNothing);
+
+    await tester.pumpWidget(const SizedBox());
+    await tester.pumpWidget(page(reduceMotion: true));
+    flyThing(ctx, from: from, to: to, child: const Text('Brötchen'));
+    await tester.pump();
+    expect(find.text('Brötchen'), findsNothing);
   });
 }
