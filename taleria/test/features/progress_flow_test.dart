@@ -253,7 +253,7 @@ void main() {
     expect(find.text('Mini-Spiel!'), findsOneWidget);
     expect(find.text('Nur zum Spaß: Hier gibt es keine Seemeilen.'), findsOneWidget);
     await tapKey(tester, 'real-game-play');
-    expect(find.text('Kunde 1 von 6'), findsOneWidget);
+    expectCustomerQueue(tester, 1, 6);
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     expect(find.text('Mini-Spiele'), findsOneWidget);

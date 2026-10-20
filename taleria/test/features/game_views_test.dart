@@ -192,7 +192,7 @@ void main() {
     await tapKey(tester, 'real-game-play');
     expect(find.byKey(const ValueKey('practice-label')), findsNothing);
 
-    expect(find.text('Kunde 1 von 6'), findsOneWidget);
+    expectCustomerQueue(tester, 1, 6);
     expect(find.textContaining('Das macht ${formatCents(350)}. Ich gebe dir ${formatCents(500)}.'), findsOneWidget);
     // Zu wenig, dann ergänzen.
     await tapKey(tester, 'coin-100');

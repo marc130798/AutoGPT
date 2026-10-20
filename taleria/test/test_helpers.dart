@@ -12,6 +12,7 @@ import 'package:taleria/core/backend/backend.dart';
 import 'package:taleria/core/config/app_config.dart';
 import 'package:taleria/services/session_controller.dart';
 import 'package:taleria/services/sounds.dart';
+import 'package:taleria/features/station/game_scene.dart';
 import 'package:taleria/features/station/quiz_view.dart';
 
 import 'fake_budget.dart';
@@ -110,4 +111,10 @@ TaleriaApp buildTestApp({
 void expectQuizProgress(WidgetTester tester, int current, int total) {
   final dots = tester.widget<QuizDots>(find.byType(QuizDots));
   expect((dots.current + 1, dots.results.length), (current, total));
+}
+
+/// Warteschlange an der Kasse (Köpfe statt „Kunde 1 von 6“): wer dran ist und wie viele.
+void expectCustomerQueue(WidgetTester tester, int current, int total) {
+  final queue = tester.widget<CustomerQueue>(find.byType(CustomerQueue));
+  expect((queue.current + 1, queue.figures.length), (current, total));
 }

@@ -640,8 +640,9 @@
             "bezahlt": 1000
           },
           {
-            "wer": "talo",
-            "text": "Ein Fischbrötchen und einen Apfelsaft.",
+            "wer": "verkaeuferin",
+            "name": "Verkäuferin",
+            "text": "Pause muss sein: ein Fischbrötchen und einen Apfelsaft für mich!",
             "preis": 520,
             "bezahlt": 1000
           },
@@ -705,8 +706,9 @@
               "bezahlt": 1000
             },
             {
-              "wer": "talo",
-              "text": "Ein Fischbrötchen und einen Apfelsaft.",
+              "wer": "verkaeuferin",
+              "name": "Verkäuferin",
+              "text": "Pause muss sein: ein Fischbrötchen und einen Apfelsaft für mich!",
               "preis": 500,
               "bezahlt": 1000
             },
