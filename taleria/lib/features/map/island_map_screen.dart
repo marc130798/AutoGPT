@@ -28,7 +28,8 @@ import 'map_scene.dart';
 /// sichtbar, aber nicht betretbar.
 ///
 /// Bewegung: Beim Öffnen ziehen Wolken auseinander (Nebel-Start), das Meer
-/// schimmert, und ist seit dem letzten Besuch eine neue Insel offen, segelt das
+/// schimmert, Möwen fliegen ab und zu vorbei, und ist seit dem letzten Besuch
+/// eine neue Insel offen, segelt das
 /// Schiff dorthin und das Schloss springt auf. Mit „Bewegung reduzieren“ steht
 /// alles still.
 class IslandMapScreen extends StatefulWidget {
@@ -335,6 +336,16 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
                     Expanded(child: _buildMap(controller)),
                   ],
                 ),
+                // Ab und zu fliegen Möwen über den Bildschirm.
+                if (_motion)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: CustomPaint(
+                        key: const ValueKey('map-seagulls'),
+                        painter: SeagullPainter(clock: _clock),
+                      ),
+                    ),
+                  ),
                 Positioned.fill(
                   child: FogIntro(progress: _intro, onSkip: () => _intro.value = 1),
                 ),

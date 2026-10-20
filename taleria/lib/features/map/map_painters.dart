@@ -953,3 +953,72 @@ void _pier(Canvas canvas, Offset start, double length, double width) {
     canvas.drawLine(Offset(x, start.dy), Offset(x, start.dy + width), line);
   }
 }
+
+/// Eine Möwe im Flug: wo sie ist, wie breit, Flügelschlag (-1 bis 1), Richtung.
+typedef Seagull = ({Offset at, double span, double flap, bool right});
+
+/// Möwenflüge pro Minute: Start (Sekunde), Höhe (Anteil des Bildschirms),
+/// Richtung und Zahl der Möwen.
+const _seagullFlights = [
+  (start: 6.0, y: 0.22, right: true, birds: 3),
+  (start: 27.0, y: 0.58, right: false, birds: 2),
+  (start: 45.0, y: 0.38, right: true, birds: 2),
+];
+
+/// Ein Flug dauert so viele Sekunden quer über den Bildschirm.
+const seagullFlightSeconds = 9.0;
+
+/// Möwen, die gerade über den Bildschirm fliegen (dreimal pro Minute ein
+/// kleiner Schwarm, sonst keine).
+List<Seagull> seagullsAt(double t, Size size) => [
+  for (final f in _seagullFlights)
+    if ((t - f.start) / seagullFlightSeconds case final p when p > 0 && p < 1)
+      for (var i = 0; i < f.birds; i++)
+        (
+          at: Offset(
+            f.right ? -60 + p * (size.width + 120) - i * 26 : size.width + 60 - p * (size.width + 120) + i * 26,
+            size.height * f.y + sin(p * 2 * pi) * 12 + (i.isOdd ? 14.0 : -6.0 * i),
+          ),
+          span: 18.0 - i * 3,
+          flap: osc(t, 90, i * 1.3),
+          right: f.right,
+        ),
+];
+
+/// Möwen über der Karte (über dem Bildschirm, nicht über der Karte selbst).
+class SeagullPainter extends CustomPainter {
+  SeagullPainter({required this.clock}) : super(repaint: clock);
+
+  final Animation<double> clock;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final outline = Paint()
+      ..color = SceneColors.navy.withValues(alpha: 0.55)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4.5
+      ..strokeCap = StrokeCap.round;
+    final wing = Paint()
+      ..color = SceneColors.foam
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.5
+      ..strokeCap = StrokeCap.round;
+    for (final gull in seagullsAt(sceneSeconds(clock), size)) {
+      final s = gull.span;
+      // Flügel als geschwungenes „M“, die Spitzen heben und senken sich.
+      final tip = -s * (0.15 + 0.35 * gull.flap);
+      final bend = -s * (0.55 - 0.2 * gull.flap);
+      final c = gull.at;
+      final path = Path()
+        ..moveTo(c.dx - s, c.dy + tip)
+        ..quadraticBezierTo(c.dx - s * 0.45, c.dy + bend, c.dx, c.dy)
+        ..quadraticBezierTo(c.dx + s * 0.45, c.dy + bend, c.dx + s, c.dy + tip);
+      canvas
+        ..drawPath(path, outline)
+        ..drawPath(path, wing);
+    }
+  }
+
+  @override
+  bool shouldRepaint(SeagullPainter oldDelegate) => oldDelegate.clock != clock;
+}

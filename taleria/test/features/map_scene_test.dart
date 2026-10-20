@@ -68,6 +68,38 @@ void main() {
     expect(settings.ships[childId], 'island-hafen');
   });
 
+  testWidgets('Möwen fliegen über die Karte und fangen kein Antippen ab', (tester) async {
+    await openMap(tester);
+    await tester.pump(const Duration(seconds: 3));
+    final gulls = find.byKey(const ValueKey('map-seagulls'));
+    expect(gulls, findsOneWidget);
+    expect(find.ancestor(of: gulls, matching: find.byType(IgnorePointer)), findsWidgets);
+  });
+
+  test('Möwen: dreimal pro Minute ein kleiner Schwarm quer über den Bildschirm, dazwischen keine', () {
+    const size = Size(400, 800);
+    expect(seagullsAt(3, size), isEmpty);
+    final early = seagullsAt(8, size);
+    final later = seagullsAt(12, size);
+    expect(early, hasLength(3));
+    expect(later.first.at.dx, greaterThan(early.first.at.dx), reason: 'fliegt nach rechts');
+    expect(seagullsAt(20, size), isEmpty);
+    final back = seagullsAt(30, size);
+    expect(back, hasLength(2));
+    expect(back.first.right, isFalse);
+    // Jeder Flug beginnt und endet außerhalb des Bildschirms.
+    for (final start in [6.0, 27.0, 45.0]) {
+      for (final g in [...seagullsAt(start + 0.01, size), ...seagullsAt(start + seagullFlightSeconds - 0.01, size)]) {
+        expect(g.at.dx < 0 || g.at.dx > size.width, isTrue);
+      }
+    }
+    final perMinute = {
+      for (var t = 0.0; t < 60; t += 0.5)
+        if (seagullsAt(t, size).isNotEmpty) (t / 20).floor(),
+    };
+    expect(perMinute, hasLength(3));
+  });
+
   testWidgets('Antippen überspringt den Nebel-Start', (tester) async {
     await openMap(tester);
     await tester.tap(find.byKey(const ValueKey('map-fog-intro')));

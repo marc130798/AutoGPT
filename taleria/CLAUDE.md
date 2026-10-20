@@ -276,7 +276,7 @@ Diese Animationen nutzen Flutter selbst und brauchen keine fremden Dateien. Reih
 - Das Schiff schaukelt leicht, auch im Stand. Es fährt animiert zur nächsten Insel. (da)
 - Die nächste offene Insel pulsiert sanft. Schlösser springen beim Freischalten auf. (da)
 - Nebel über gesperrten oder noch nicht veröffentlichten Inseln wabert leicht. (da, ziehende Wolken)
-- Gelegentlich fliegen Möwen über den Bildschirm. (offen)
+- Gelegentlich fliegen Möwen über den Bildschirm. (da seit 20.10.2026: dreimal pro Minute ein Schwarm aus 2 bis 3 Möwen, je 9 Sekunden, `SeagullPainter`; nicht bei „Bewegung reduzieren“)
 - Keine Tageszeit-Wechsel (entschieden).
 
 **Übergänge und Effekte (Priorität 3)**
@@ -728,7 +728,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 390 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 392 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Seit 20.10.2026 im Bau: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung) und der Animationsplan (Abschnitt 11). Schätzfrage und Antipp-Momente sind fertig (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
@@ -759,7 +759,8 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 2. Neuer Stations-Aufbau und Animationen (Marcs Vorgabe vom 20.10.2026):
    - Erledigt: Schätzfrage vor jeder Erklärung und Antipp-Momente in den Bildergeschichten (Inseln 1 bis 3). Vor dem nächsten Test im Testprojekt `supabase/seed.sql` neu ausführen.
    - Erledigt: Belohnungs-Animationen (Abschnitt 11, Priorität 1).
-   - Als Nächstes: Möwen über der Karte, dann die Übergänge (Abschnitt 11, Priorität 2 und 3).
+   - Erledigt: Möwen über der Karte (Priorität 2).
+   - Als Nächstes: die Übergänge (Abschnitt 11, Priorität 3).
    - Offen für Marc: Rive oder Bilder (Abschnitt 15).
 3. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
