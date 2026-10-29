@@ -14,13 +14,15 @@ Jeder neue Satz wird danach immer mit genau dieser gespeicherten Stimme gesproch
 
 ## Beschreibungen für „Voice Design“
 
+Wichtig: ElevenLabs sperrt Beschreibungen mit Kinderstimmen oder einem Alter unter 18 (Marcs erster Versuch mit „around 13 years old“ wurde am 29.10.2026 abgelehnt). Darum beschreiben wir junge Erwachsene, die jugendlich klingen, so wie Sprecher in Zeichentrickfilmen.
+
 **Talo** (Fuchs, junger Kapitän, ruhig, neugierig, denkt voraus, manchmal ein bisschen besserwisserisch):
 
-> A friendly young male voice, around 13 years old, speaking German with a clear, natural accent. Warm and calm, a little mischievous, confident like a young ship captain who loves adventures. Medium pitch, clear articulation, moderate pace, smiling tone. Suitable for a children's learning game, not childish, not cartoonish.
+> An adult male voice actor in his twenties with a light, youthful and friendly sound, speaking German with a clear, natural accent. Warm and calm, a little mischievous, confident like a ship captain in an animated adventure film. Medium pitch, clear articulation, moderate pace, smiling tone. Narration style for a family animation, not cartoonish.
 
 **Tala** (Schwein, Zahlmeisterin, gleich alt wie Talo, mutig, herzlich, laut, begeisterungsfähig):
 
-> A cheerful young female voice, around 13 years old, speaking German with a clear, natural accent. Bright, energetic and warm-hearted, enthusiastic and a bit loud when excited, quick to laugh. Medium-high pitch, lively pace, very clear articulation. Suitable for a children's learning game, not childish, not squeaky.
+> An adult female voice actress in her twenties with a bright, youthful and cheerful sound, speaking German with a clear, natural accent. Energetic and warm-hearted, enthusiastic and a bit loud when excited, quick to laugh, like a lively character in an animated adventure film. Medium-high pitch, lively pace, very clear articulation. Not squeaky, not cartoonish.
 
 **Meister Taleron** (uraltes, freundliches Seeungeheuer, weise, geduldig, humorvoll, nicht gruselig):
 
