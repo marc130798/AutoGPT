@@ -224,6 +224,13 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
               ],
             },
         ],
+      if (type == 'choice' && g['haendler'] != null) ...{
+        'traders': [
+          for (final t in (g['haendler'] as List).cast<Map<String, dynamic>>())
+            {'figure': t['wer'], 'name': t['name'], 'has': t['hat'], 'wants': t['will']},
+        ],
+        'images': ?g['bilder'],
+      },
       if (type == 'coins')
         'rounds': [
           for (final r in rounds()) {'question': r['text'], 'amount': r['betrag']},
@@ -1097,7 +1104,7 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
   final rounds = (game['runden'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
 
   // Bilder der echten Mini-Spiele: Startbild, Dinge und Stände.
-  if (knownAssetKeys != null && realGames.contains(type)) {
+  if (knownAssetKeys != null && (realGames.contains(type) || game['bilder'] != null)) {
     final images = [
       game['startbild'],
       ...((game['bilder'] as Map<String, dynamic>?) ?? const {}).values,
@@ -1128,6 +1135,16 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
       check(items.length >= 3 && items.length <= 7, '$w: 3 bis 7 Dinge in der Reihenfolge');
       check(game['von'] is String && game['bis'] is String, '$w: "von" und "bis" fehlen');
     case 'choice':
+      // Optional: Tafel „Wer hat was?“, damit sich niemand merken muss, wer was hat.
+      if (game['haendler'] != null) {
+        final traders = (game['haendler'] as List).cast<Map<String, dynamic>>();
+        check(traders.length >= 2 && traders.length <= 3, '$w: 2 bis 3 Händler auf der Tafel');
+        for (final (i, t) in traders.indexed) {
+          final tw = '$w, Händler ${i + 1}';
+          figure(t['wer'], tw);
+          check(text(t['name']) && text(t['hat']) && text(t['will']), '$tw: "name", "hat" und "will" nötig');
+        }
+      }
       check(rounds.length >= 2 && rounds.length <= 8, '$w: 2 bis 8 Runden');
       for (final (i, r) in rounds.indexed) {
         final rw = '$w, Runde ${i + 1}';

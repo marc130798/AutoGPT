@@ -4548,6 +4548,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'{count, plural, =1{1 neues Teil frei} other{{count} neue Teile frei}}'**
   String childHomeShipyardNew(int count);
+
+  /// Überschrift der Händler-Tafel in der Übung „Wer will was?“
+  ///
+  /// In de, this message translates to:
+  /// **'Wer hat was?'**
+  String get tradeBoardTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

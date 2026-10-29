@@ -164,7 +164,7 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
                   SizedBox(
                     key: _traderKeys[i],
                     width: width,
-                    child: _TraderCard(
+                    child: TraderCard(
                       key: ValueKey('trader-$i'),
                       images: widget.game.images,
                       trader: trader,
@@ -183,8 +183,17 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
   }
 }
 
-class _TraderCard extends StatelessWidget {
-  const _TraderCard({super.key, required this.trader, required this.used, required this.onTap, this.images = const {}});
+/// Karte eines Händlers: Gesicht, Name, „hat“ und „will“. Auch als Tafel in der
+/// Übung „Wer will was?“, damit sich niemand merken muss, wer was hat.
+class TraderCard extends StatelessWidget {
+  const TraderCard({
+    super.key,
+    required this.trader,
+    this.used = false,
+    this.onTap,
+    this.images = const {},
+    this.compact = false,
+  });
 
   final Trader trader;
 
@@ -192,6 +201,9 @@ class _TraderCard extends StatelessWidget {
   final Map<String, String> images;
   final bool used;
   final VoidCallback? onTap;
+
+  /// Kleiner, für die Tafel mit drei Karten nebeneinander.
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
@@ -206,10 +218,10 @@ class _TraderCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(compact ? 6 : 8),
           child: Column(
             children: [
-              FigureHead(trader.figure, size: 56, dimmed: used),
+              FigureHead(trader.figure, size: compact ? 44 : 56, dimmed: used),
               const SizedBox(height: 4),
               Text(
                 figureLabel(l10n, trader.figure, trader.name),
@@ -222,12 +234,17 @@ class _TraderCard extends StatelessWidget {
                 _ItemLine(
                   image: images[trader.has],
                   text: l10n.tradeHas(trader.has),
-                  style: theme.textTheme.bodyMedium,
+                  style: compact ? theme.textTheme.bodySmall : theme.textTheme.bodyMedium,
+                  thumb: compact ? 20 : 28,
                 ),
                 _ItemLine(
                   image: images[trader.wants],
                   text: l10n.tradeWants(trader.wants),
-                  style: theme.textTheme.bodyMedium?.copyWith(color: palette.seaDeep, fontWeight: FontWeight.w700),
+                  style: (compact ? theme.textTheme.bodySmall : theme.textTheme.bodyMedium)?.copyWith(
+                    color: palette.seaDeep,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  thumb: compact ? 20 : 28,
                 ),
               ],
             ],
@@ -240,11 +257,12 @@ class _TraderCard extends StatelessWidget {
 
 /// Eine Zeile „hat: Seil“ mit kleinem Bild davor.
 class _ItemLine extends StatelessWidget {
-  const _ItemLine({required this.image, required this.text, this.style});
+  const _ItemLine({required this.image, required this.text, this.style, this.thumb = 28});
 
   final String? image;
   final String text;
   final TextStyle? style;
+  final double thumb;
 
   @override
   Widget build(BuildContext context) {
@@ -253,8 +271,8 @@ class _ItemLine extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GameThumb(image, size: 28),
-          if (image != null) const SizedBox(width: 4),
+          GameThumb(image, size: thumb),
+          if (image != null) const SizedBox(width: 3),
           Flexible(
             child: Text(text, textAlign: TextAlign.center, style: style),
           ),

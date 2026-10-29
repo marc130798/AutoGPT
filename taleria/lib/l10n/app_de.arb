@@ -3931,5 +3931,9 @@
         "type": "int"
       }
     }
+  },
+  "tradeBoardTitle": "Wer hat was?",
+  "@tradeBoardTitle": {
+    "description": "Überschrift der Händler-Tafel in der Übung „Wer will was?“"
   }
 }

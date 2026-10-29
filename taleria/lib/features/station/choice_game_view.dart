@@ -10,6 +10,7 @@ import '../intro/speech_bubble.dart';
 import 'game_frame.dart';
 import 'quiz_view.dart';
 import 'station_stage.dart';
+import 'trade_chain_game_view.dart';
 
 /// Entscheidungen: Situation, Frage, Möglichkeiten als große Knöpfe. Nach der
 /// Wahl erscheint die Rückmeldung. Weniger gut: „Nochmal versuchen“.
@@ -69,6 +70,7 @@ class _ChoiceGameViewState extends State<ChoiceGameView> {
           currentDone: game.answeredWell,
           label: l10n.gameChoiceProgress(game.index + 1, game.total),
         ),
+        if (widget.game.traders.isNotEmpty) ...[const SizedBox(height: 12), _TraderBoard(game: widget.game)],
         const SizedBox(height: 12),
         for (final line in round.scene) ...[SpeechBubble.line(line), const SizedBox(height: 8)],
         Text(round.question, key: const ValueKey('choice-question'), style: theme.textTheme.titleMedium),
@@ -100,6 +102,44 @@ class _ChoiceGameViewState extends State<ChoiceGameView> {
           const SizedBox(height: 16),
           SpeechBubble.line(widget.game.done!),
         ],
+      ],
+    );
+  }
+}
+
+/// Tafel „Wer hat was?“: Alle Händler der Übung bleiben die ganze Zeit sichtbar.
+class _TraderBoard extends StatelessWidget {
+  const _TraderBoard({required this.game});
+
+  final GameInfo game;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      key: const ValueKey('trader-board'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(l10n.tradeBoardTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 6),
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final (i, trader) in game.traders.indexed) ...[
+                if (i > 0) const SizedBox(width: 6),
+                Expanded(
+                  child: TraderCard(
+                    key: ValueKey('board-trader-$i'),
+                    trader: trader,
+                    images: game.images,
+                    compact: true,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
       ],
     );
   }

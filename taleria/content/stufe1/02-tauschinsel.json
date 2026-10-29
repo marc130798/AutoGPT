@@ -363,7 +363,33 @@
         "art": "choice",
         "titel": "Wer will was?",
         "beschreibung": "Baue die Tauschkette: Eimer gegen Fisch, Fisch gegen Äpfel, Äpfel gegen Seil.",
-        "aufgabe": "Tala braucht ein Seil. Baue mit ihr die Tauschkette.",
+        "aufgabe": "Tala braucht ein Seil. Auf der Tafel siehst du, wer was hat und was will. Baue mit ihr die Tauschkette.",
+        "haendler": [
+          {
+            "wer": "greta",
+            "name": "Greta",
+            "hat": "Seil",
+            "will": "Äpfel"
+          },
+          {
+            "wer": "bruno",
+            "name": "Bruno",
+            "hat": "Äpfel",
+            "will": "Fisch"
+          },
+          {
+            "wer": "otti",
+            "name": "Otti",
+            "hat": "Fisch",
+            "will": "Eimer"
+          }
+        ],
+        "bilder": {
+          "Eimer": "item.eimer",
+          "Fisch": "item.fisch",
+          "Äpfel": "item.aepfel",
+          "Seil": "item.seil"
+        },
         "runden": [
           {
             "szene": [
