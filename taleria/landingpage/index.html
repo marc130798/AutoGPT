@@ -137,6 +137,36 @@
   .facts li { display: flex; align-items: center; gap: 8px; }
   .facts li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); flex: none; }
 
+  .badge {
+    justify-self: start; font-family: var(--display); font-weight: 800; font-size: 1.05rem; letter-spacing: .02em;
+    background: var(--gold); color: #2b1f05; padding: 6px 16px 4px; border-radius: 999px; border: 2px solid #a77f15;
+  }
+
+  /* ---------- Warum früh ---------- */
+  .why .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .why .card { background: var(--surface); border: 2px solid var(--surface-line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; }
+  .why .card h3 { font-size: 1.25rem; }
+  .why .card p { color: var(--ink-soft); }
+  .why .quote { margin-top: 28px; font-family: var(--display); font-size: var(--step-2); line-height: 1.25; max-width: 30ch; color: var(--sea-deep); }
+  :root[data-theme="dark"] .why .quote { color: var(--sea); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .why .quote { color: var(--sea); } }
+
+  /* ---------- So startet ihr ---------- */
+  .start-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+  .start-steps li { counter-increment: s; background: var(--surface); border: 2px solid var(--surface-line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; }
+  .start-steps li::before {
+    content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--gold); color: #2b1f05; font-family: var(--display); font-weight: 800; font-size: 1.2rem;
+  }
+  .start-steps b { font-family: var(--display); font-size: 1.2rem; line-height: 1.2; }
+  .start-steps span { color: var(--ink-soft); }
+
+  /* ---------- Fragen ---------- */
+  .faq { display: grid; gap: 10px; max-width: 820px; }
+  .faq details { background: var(--surface); border: 2px solid var(--surface-line); border-radius: 14px; padding: 14px 18px; }
+  .faq summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 1.15rem; list-style-position: inside; }
+  .faq details p { margin-top: 8px; color: var(--ink-soft); }
+
   /* ---------- Die Reise: Route mit Inseln ---------- */
   .voyage { background: linear-gradient(180deg, var(--sky), var(--bg)); }
   .route { position: relative; display: grid; gap: 28px; }
@@ -246,7 +276,7 @@
     .isle { grid-template-columns: minmax(0, 1fr); gap: 10px; padding-left: 44px; }
     .isle:nth-child(even) .isle-art { order: 0; }
     .ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 26px; }
-    .features, .promise ul { grid-template-columns: minmax(0, 1fr); }
+    .features, .promise ul, .why .grid, .start-steps { grid-template-columns: minmax(0, 1fr); }
     .lighthouse .tower { width: 140px; }
     .join .text { padding-bottom: 0; }
     .join .taleron { width: 70%; }
@@ -265,6 +295,7 @@
   <div class="wrap">
     <div class="hero-text">
       <img class="hero-logo" src="bilder/brand.logo.png" alt="Taleria" width="768" height="324">
+      <span class="badge">Finanzbildung ab 8 Jahren</span>
       <h1>Geld verstehen.<br>Abenteuer erleben.</h1>
       <p class="sub">Ein Lernspiel für Kinder von 8 bis 12: Mit Talo und Tala segelt dein Kind von Insel zu Insel und lernt, wie Geld funktioniert.</p>
       <div class="actions">
@@ -291,6 +322,31 @@
 </div>
 
 <main>
+  <section class="why" id="warum">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Warum schon so früh?</span>
+        <h2>Über Geld lernt man nicht von allein</h2>
+        <p class="lead">Kinder bekommen Taschengeld, sehen Preise im Laden und Werbung auf dem Handy. Wie Geld funktioniert, lernen die meisten aber erst spät, oft durch Fehler. Taleria fängt vorher an: spielerisch, in kleinen Schritten und mit Beispielen aus dem Alltag.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Verstehen statt auswendig lernen</h3>
+          <p>Warum gibt es Geld? Warum kostet ein Eis an der Strandpromenade mehr? Jede Station beantwortet eine Frage, die Kinder sich wirklich stellen.</p>
+        </div>
+        <div class="card">
+          <h3>Üben mit eigenem Taschengeld</h3>
+          <p>In der App teilt dein Kind sein virtuelles Taschengeld selbst ein: ausgeben, sparen, verschenken. Fehler kosten nichts, aber man merkt sie.</p>
+        </div>
+        <div class="card">
+          <h3>Gemeinsam darüber reden</h3>
+          <p>Zu jeder Insel gibt es Gesprächsideen und einen Auftrag fürs echte Leben, zum Beispiel beim nächsten Einkauf Preise schätzen.</p>
+        </div>
+      </div>
+      <p class="quote">Was Kinder mit 8 über Geld lernen, hilft ihnen mit 18.</p>
+    </div>
+  </section>
+
   <section class="voyage" id="reise">
     <div class="wrap">
       <div class="head">
@@ -456,6 +512,38 @@
       <div class="price">
         <h3>Was kostet Taleria?</h3>
         <p>Hafen und Tauschinsel sind kostenlos. Für alle weiteren Inseln gibt es später ein Familien-Abo, das du nur im Elternbereich abschließen kannst. Den Preis nennen wir vor dem Start.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="start" id="so-gehts">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">So startet ihr</span>
+        <h2>In drei Schritten an Bord</h2>
+      </div>
+      <ol class="start-steps">
+        <li><b>Konto anlegen</b><span>Du richtest im Leuchtturm dein Eltern-Konto ein, legst eine PIN fest und erstellst ein Profil für dein Kind. Ein Spitzname reicht.</span></li>
+        <li><b>Kind meldet sich an</b><span>Dein Kind gibt einen Code ein, den du im Leuchtturm erzeugst. Eine eigene E-Mail-Adresse braucht es nicht.</span></li>
+        <li><b>Leinen los</b><span>Dein Kind baut sich einen Avatar, tauft sein Schiff und spielt zwei Stationen pro Woche. Das Tempo kannst du jederzeit ändern.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="questions" id="fragen">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Fragen von Eltern</span>
+        <h2>Gut zu wissen</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Ab welchem Alter passt Taleria?</summary><p>Für Kinder von 8 bis 12 Jahren. Kinder, die noch nicht mit Komma rechnen, spielen als Einsteiger mit ganzen Euro-Beträgen. Die Stufe stellst du im Leuchtturm ein.</p></details>
+        <details><summary>Wie lange spielt mein Kind?</summary><p>Eine Station dauert 5 bis 10 Minuten. Standard sind zwei neue Stationen pro Woche, dazwischen kann wiederholt werden. So bleibt es ein Abenteuer und wird keine Daueraufgabe.</p></details>
+        <details><summary>Geht es um echtes Geld?</summary><p>Nein. Alle Beträge in der App sind virtuell. Es gibt keine Bankverbindung und keine Bezahlkarte. Das echte Taschengeld bleibt bei euch zu Hause.</p></details>
+        <details><summary>Kann mein Kind etwas kaufen?</summary><p>Nein. Im Kinderbereich gibt es keine Preise, keine Kauf-Knöpfe und keine Links nach außen. Ein Abo können nur Eltern im Leuchtturm abschließen.</p></details>
+        <details><summary>Welche Daten speichert Taleria?</summary><p>Nur das Nötigste: Spitzname, Geburtsjahr, Avatar und den Spielstand. Kein Klarname, keine Adresse, kein Standort. Die Daten liegen auf Servern in der EU. Du kannst dein Konto jederzeit mit allen Daten löschen.</p></details>
+        <details><summary>Auf welchen Geräten läuft Taleria?</summary><p>Taleria entsteht als App für iPhone, iPad und Android. In der Testphase spielen Beta-Familien im Browser auf dem Handy oder Tablet.</p></details>
+        <details><summary>Ist Taleria eine Finanzberatung?</summary><p>Nein. Taleria erklärt, wie Geld funktioniert, und empfiehlt keine Banken, Produkte oder Anlagen.</p></details>
       </div>
     </div>
   </section>
