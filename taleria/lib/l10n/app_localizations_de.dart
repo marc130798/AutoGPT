@@ -1619,6 +1619,102 @@ class AppLocalizationsDe extends AppLocalizations {
   String get childDetailKitchenHint => 'Gesprächsideen und Aufträge fürs echte Leben';
 
   @override
+  String get childDetailWeekly => 'Wochenbericht';
+
+  @override
+  String childDetailWeeklyHint(String name) {
+    return 'Was $name in den letzten 7 Tagen geschafft hat';
+  }
+
+  @override
+  String weeklyTitle(String name) {
+    return 'Woche von $name';
+  }
+
+  @override
+  String weeklyRange(String from, String to) {
+    return 'Vom $from bis $to';
+  }
+
+  @override
+  String get weeklyQuietTitle => 'Diese Woche war ruhig';
+
+  @override
+  String weeklyQuietBody(String name) {
+    return '$name war in den letzten 7 Tagen nicht auf See. Vielleicht passt am Wochenende eine Station zusammen? Schon 10 Minuten reichen.';
+  }
+
+  @override
+  String get weeklyDoneTitle => 'Geschafft';
+
+  @override
+  String weeklyStations(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Stationen geschafft:',
+      one: '1 Station geschafft:',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String weeklyDives(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Wiederholungs-Stationen (Tauchgänge)',
+      one: '1 Wiederholungs-Station (Tauchgang)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String weeklyIsland(String title) {
+    return 'Insel „$title“ abgeschlossen';
+  }
+
+  @override
+  String weeklyBadge(String title) {
+    return 'Neues Abzeichen: $title';
+  }
+
+  @override
+  String weeklyFinds(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count neue Funde in der Sammlung',
+      one: '1 neuer Fund in der Sammlung',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String weeklyTasks(int count, String amount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Aufgaben bestätigt, $amount virtuell gebucht',
+      one: '1 Aufgabe bestätigt, $amount virtuell gebucht',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get weeklyShakyTitle => 'Noch üben';
+
+  @override
+  String get weeklyShakyBody =>
+      'Diese Themen wackeln noch. Taleria fragt sie von selbst wieder ab. Ein kurzes Gespräch hilft zusätzlich:';
+
+  @override
+  String get weeklyPromptTitle => 'Gesprächsidee für diese Woche';
+
+  @override
+  String get weeklyStreakTitle => 'Serie';
+
+  @override
   String progressTitle(String nickname) {
     return '$nickname: Fortschritt';
   }

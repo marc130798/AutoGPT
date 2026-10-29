@@ -224,6 +224,9 @@ class FakeProgress implements ProgressRepository {
   final FakeContent content;
   final FakeBackend? backend;
   final Set<String> done = {};
+
+  /// Wann eine Station erledigt wurde (Wochenbericht); ohne Angabe 09.10.2026.
+  final Map<String, DateTime> doneAt = {};
   final Set<String> completedIslands = {};
   final Map<String, DateTime> badgeDates = {};
   final Map<String, DateTime> findDates = {};
@@ -284,6 +287,7 @@ class FakeProgress implements ProgressRepository {
       doneStationIds: {...done},
       completedIslandIds: {...completedIslands},
       islandCompletedAt: {for (final id in completedIslands) id: badgeDates[id] ?? DateTime(2026, 10, 9)},
+      stationCompletedAt: {for (final id in done) id: doneAt[id] ?? DateTime(2026, 10, 9)},
     );
   }
 

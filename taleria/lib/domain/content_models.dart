@@ -989,9 +989,13 @@ class ChildProgress {
     this.doneStationIds = const {},
     this.completedIslandIds = const {},
     this.islandCompletedAt = const {},
+    this.stationCompletedAt = const {},
   });
 
   final Set<String> doneStationIds;
+
+  /// Wann eine Station erledigt wurde (für den Wochenbericht im Leuchtturm).
+  final Map<String, DateTime> stationCompletedAt;
   final Set<String> completedIslandIds;
 
   /// Wann eine Insel abgeschlossen wurde (für den Leuchtturm).

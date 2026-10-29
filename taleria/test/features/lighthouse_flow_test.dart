@@ -97,6 +97,43 @@ void main() {
     expect(find.text('Inhalt folgt'), findsWidgets);
   });
 
+  testWidgets('Wochenbericht: geschaffte Stationen, Wackelndes, Gesprächsidee', (tester) async {
+    final (:content, :progress, budget: _, childId: _) = await openLighthouse(tester);
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    progress.doneAt
+      ..[content.station('hafen', 2).id] = yesterday
+      ..[content.dive('hafen', 1).id] = yesterday
+      ..[content.station('hafen', 3).id] = yesterday;
+    await tapText(tester, 'Mila');
+    await tapKey(tester, 'child-weekly');
+
+    expect(find.text('Woche von Mila'), findsOneWidget);
+    expect(find.text('2 Stationen geschafft:'), findsOneWidget);
+    expect(
+      find.descendant(of: find.byKey(const ValueKey('weekly-done')), matching: find.text('· Was ist Geld?')),
+      findsOneWidget,
+    );
+    expect(find.text('· Geld früher und heute'), findsOneWidget);
+    expect(find.text('1 Wiederholungs-Station (Tauchgang)'), findsOneWidget);
+    expect(find.byKey(const ValueKey('weekly-quiet')), findsNothing);
+    // Station 2 wackelt noch (Lernstand), dazu eine Kombüsen-Frage der Insel von gerade.
+    expect(
+      find.descendant(of: find.byKey(const ValueKey('weekly-shaky')), matching: find.text('· Was ist Geld?')),
+      findsOneWidget,
+    );
+    await scrollTo(tester, find.byKey(const ValueKey('weekly-prompt')));
+    expect(find.textContaining('Was war das Erste'), findsOneWidget);
+    expect(find.text('Serie: 2 Wochen'), findsOneWidget);
+  });
+
+  testWidgets('Wochenbericht ohne Fahrt: freundlicher Hinweis statt leerer Liste', (tester) async {
+    await openLighthouse(tester);
+    await tapText(tester, 'Mila');
+    await tapKey(tester, 'child-weekly');
+    expect(find.byKey(const ValueKey('weekly-quiet')), findsOneWidget);
+    expect(find.textContaining('Schon 10 Minuten reichen'), findsOneWidget);
+  });
+
   testWidgets('Kombüsen-Fragen und Auftrag fürs echte Leben als Aufgabe', (tester) async {
     final (:content, :progress, :budget, :childId) = await openLighthouse(tester);
     await tapText(tester, 'Mila');

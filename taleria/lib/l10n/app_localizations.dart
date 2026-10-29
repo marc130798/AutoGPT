@@ -2803,6 +2803,108 @@ abstract class AppLocalizations {
   /// **'Gesprächsideen und Aufträge fürs echte Leben'**
   String get childDetailKitchenHint;
 
+  /// Eintrag im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Wochenbericht'**
+  String get childDetailWeekly;
+
+  /// Untertitel des Wochenberichts
+  ///
+  /// In de, this message translates to:
+  /// **'Was {name} in den letzten 7 Tagen geschafft hat'**
+  String childDetailWeeklyHint(String name);
+
+  /// Titel des Wochenberichts
+  ///
+  /// In de, this message translates to:
+  /// **'Woche von {name}'**
+  String weeklyTitle(String name);
+
+  /// Zeitraum des Wochenberichts
+  ///
+  /// In de, this message translates to:
+  /// **'Vom {from} bis {to}'**
+  String weeklyRange(String from, String to);
+
+  /// Wochenbericht ohne Aktivität
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Woche war ruhig'**
+  String get weeklyQuietTitle;
+
+  /// Wochenbericht ohne Aktivität, freundlicher Hinweis ohne Druck
+  ///
+  /// In de, this message translates to:
+  /// **'{name} war in den letzten 7 Tagen nicht auf See. Vielleicht passt am Wochenende eine Station zusammen? Schon 10 Minuten reichen.'**
+  String weeklyQuietBody(String name);
+
+  /// Wochenbericht: Überschrift
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft'**
+  String get weeklyDoneTitle;
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Station geschafft:} other{{count} Stationen geschafft:}}'**
+  String weeklyStations(int count);
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Wiederholungs-Station (Tauchgang)} other{{count} Wiederholungs-Stationen (Tauchgänge)}}'**
+  String weeklyDives(int count);
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'Insel „{title}“ abgeschlossen'**
+  String weeklyIsland(String title);
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'Neues Abzeichen: {title}'**
+  String weeklyBadge(String title);
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 neuer Fund in der Sammlung} other{{count} neue Funde in der Sammlung}}'**
+  String weeklyFinds(int count);
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 Aufgabe bestätigt, {amount} virtuell gebucht} other{{count} Aufgaben bestätigt, {amount} virtuell gebucht}}'**
+  String weeklyTasks(int count, String amount);
+
+  /// Wochenbericht: wackelnde Themen
+  ///
+  /// In de, this message translates to:
+  /// **'Noch üben'**
+  String get weeklyShakyTitle;
+
+  /// Wochenbericht
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Themen wackeln noch. Taleria fragt sie von selbst wieder ab. Ein kurzes Gespräch hilft zusätzlich:'**
+  String get weeklyShakyBody;
+
+  /// Wochenbericht: Kombüsen-Frage
+  ///
+  /// In de, this message translates to:
+  /// **'Gesprächsidee für diese Woche'**
+  String get weeklyPromptTitle;
+
+  /// Wochenbericht: Serie und zuletzt aktiv
+  ///
+  /// In de, this message translates to:
+  /// **'Serie'**
+  String get weeklyStreakTitle;
+
   /// Überschrift der Fortschritts-Seite
   ///
   /// In de, this message translates to:

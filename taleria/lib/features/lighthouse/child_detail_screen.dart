@@ -13,6 +13,7 @@ import 'child_form_screen.dart';
 import 'child_progress_screen.dart';
 import 'kitchen_screen.dart';
 import 'pace_card.dart';
+import 'weekly_report_screen.dart';
 
 /// Ein Kinder-Profil im Leuchtturm: Gerät anmelden, hier spielen lassen,
 /// Geräte abmelden, bearbeiten, löschen.
@@ -128,6 +129,19 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                       child: Text(l10n.childDetailPlayHereButton(child.nickname)),
                     ),
                   ],
+                ),
+                Card(
+                  child: ListTile(
+                    key: const ValueKey('child-weekly'),
+                    minTileHeight: 64,
+                    leading: const Icon(Icons.event_note_outlined),
+                    title: Text(l10n.childDetailWeekly),
+                    subtitle: Text(l10n.childDetailWeeklyHint(child.nickname)),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () =>
+                        Navigator.of(context)
+                            .push(MaterialPageRoute<void>(builder: (_) => WeeklyReportScreen(child: child))),
+                  ),
                 ),
                 Card(
                   child: ListTile(

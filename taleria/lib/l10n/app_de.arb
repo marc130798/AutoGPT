@@ -2235,6 +2235,130 @@
   "@childDetailKitchenHint": {
     "description": "Untertitel des Eintrags Kombüsen-Fragen"
   },
+  "childDetailWeekly": "Wochenbericht",
+  "@childDetailWeekly": {
+    "description": "Eintrag im Leuchtturm"
+  },
+  "childDetailWeeklyHint": "Was {name} in den letzten 7 Tagen geschafft hat",
+  "@childDetailWeeklyHint": {
+    "description": "Untertitel des Wochenberichts",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyTitle": "Woche von {name}",
+  "@weeklyTitle": {
+    "description": "Titel des Wochenberichts",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyRange": "Vom {from} bis {to}",
+  "@weeklyRange": {
+    "description": "Zeitraum des Wochenberichts",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyQuietTitle": "Diese Woche war ruhig",
+  "@weeklyQuietTitle": {
+    "description": "Wochenbericht ohne Aktivität"
+  },
+  "weeklyQuietBody": "{name} war in den letzten 7 Tagen nicht auf See. Vielleicht passt am Wochenende eine Station zusammen? Schon 10 Minuten reichen.",
+  "@weeklyQuietBody": {
+    "description": "Wochenbericht ohne Aktivität, freundlicher Hinweis ohne Druck",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyDoneTitle": "Geschafft",
+  "@weeklyDoneTitle": {
+    "description": "Wochenbericht: Überschrift"
+  },
+  "weeklyStations": "{count, plural, =1{1 Station geschafft:} other{{count} Stationen geschafft:}}",
+  "@weeklyStations": {
+    "description": "Wochenbericht",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyDives": "{count, plural, =1{1 Wiederholungs-Station (Tauchgang)} other{{count} Wiederholungs-Stationen (Tauchgänge)}}",
+  "@weeklyDives": {
+    "description": "Wochenbericht",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyIsland": "Insel „{title}“ abgeschlossen",
+  "@weeklyIsland": {
+    "description": "Wochenbericht",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyBadge": "Neues Abzeichen: {title}",
+  "@weeklyBadge": {
+    "description": "Wochenbericht",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyFinds": "{count, plural, =1{1 neuer Fund in der Sammlung} other{{count} neue Funde in der Sammlung}}",
+  "@weeklyFinds": {
+    "description": "Wochenbericht",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyTasks": "{count, plural, =1{1 Aufgabe bestätigt, {amount} virtuell gebucht} other{{count} Aufgaben bestätigt, {amount} virtuell gebucht}}",
+  "@weeklyTasks": {
+    "description": "Wochenbericht",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "weeklyShakyTitle": "Noch üben",
+  "@weeklyShakyTitle": {
+    "description": "Wochenbericht: wackelnde Themen"
+  },
+  "weeklyShakyBody": "Diese Themen wackeln noch. Taleria fragt sie von selbst wieder ab. Ein kurzes Gespräch hilft zusätzlich:",
+  "@weeklyShakyBody": {
+    "description": "Wochenbericht"
+  },
+  "weeklyPromptTitle": "Gesprächsidee für diese Woche",
+  "@weeklyPromptTitle": {
+    "description": "Wochenbericht: Kombüsen-Frage"
+  },
+  "weeklyStreakTitle": "Serie",
+  "@weeklyStreakTitle": {
+    "description": "Wochenbericht: Serie und zuletzt aktiv"
+  },
   "progressTitle": "{nickname}: Fortschritt",
   "@progressTitle": {
     "description": "Überschrift der Fortschritts-Seite",

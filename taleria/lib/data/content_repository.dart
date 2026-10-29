@@ -205,7 +205,7 @@ class SupabaseProgressRepository implements ProgressRepository {
   Future<ChildProgress> fetchProgress(String childId) => guardBackend(() async {
     final done = await _client
         .from('station_progress')
-        .select('station_id')
+        .select('station_id, completed_at')
         .eq('child_id', childId)
         .eq('status', 'done');
     final islands = await _client.from('island_completions').select('island_id, completed_at').eq('child_id', childId);
@@ -214,6 +214,10 @@ class SupabaseProgressRepository implements ProgressRepository {
       completedIslandIds: {for (final r in islands) r['island_id'] as String},
       islandCompletedAt: {
         for (final r in islands) r['island_id'] as String: DateTime.parse(r['completed_at'] as String),
+      },
+      stationCompletedAt: {
+        for (final r in done)
+          if (r['completed_at'] case final String at) r['station_id'] as String: DateTime.parse(at),
       },
     );
   });
