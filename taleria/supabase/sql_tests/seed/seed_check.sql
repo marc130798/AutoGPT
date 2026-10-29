@@ -3,23 +3,23 @@
 
 select test_helpers.expect_equal((select count(*) from public.islands where stage = 1), 15,
   'Seed: 15 Inseln in Stufe 1');
-select test_helpers.expect_equal((select count(*) from public.stations), 37,
-  'Seed: 8 Stationen und 3 Ankerplätze auf Hafen, Tauschinsel und Wunschinsel, dazu 4 Stopps auf See');
+select test_helpers.expect_equal((select count(*) from public.stations), 50,
+  'Seed: 8 Stationen und 3 Ankerplätze auf Hafen, Tauschinsel, Wunschinsel und Spar-Insel, dazu 6 Stopps auf See');
 select test_helpers.expect_true(
   (select array_agg(i.slug || ':' || s.sort_order order by i.sort_order, s.sort_order)
-     = '{tauschinsel:1,tauschinsel:2,wunschinsel:1,wunschinsel:2}'
+     = '{tauschinsel:1,tauschinsel:2,wunschinsel:1,wunschinsel:2,spar-insel:1,spar-insel:2}'
    from public.stations s join public.islands i on i.id = s.island_id
    where s.type = 'sea_stop'),
-  'Seed: je zwei Stopps auf See vor Tauschinsel und Wunschinsel, vor ihrer ersten Station');
-select test_helpers.expect_equal((select count(*) from public.collectibles), 9,
-  'Seed: 9 Funde für die Unterwasser-Sammlung');
+  'Seed: je zwei Stopps auf See vor Tauschinsel, Wunschinsel und Spar-Insel, vor ihrer ersten Station');
+select test_helpers.expect_equal((select count(*) from public.collectibles), 12,
+  'Seed: 12 Funde für die Unterwasser-Sammlung');
 select test_helpers.expect_true(
   (select array_agg(s.sort_order order by s.sort_order) = '{25,45,65}'
    from public.stations s join public.islands i on i.id = s.island_id
    where i.slug = 'hafen' and s.type = 'review_stop'),
   'Seed: Ankerplätze im Hafen nach Station 2, 4 und 6');
-select test_helpers.expect_equal((select count(*) from public.quiz_questions), 208,
-  'Seed: 208 Fragen (184 auf den Inseln, 24 bei den Stopps auf See)');
+select test_helpers.expect_equal((select count(*) from public.quiz_questions), 289,
+  'Seed: 289 Fragen (253 auf den Inseln, 36 bei den Stopps auf See)');
 select test_helpers.expect_true((select bool_and(status = 'draft') from public.islands),
   'Seed: alles sind Entwürfe');
 
@@ -106,11 +106,11 @@ grant execute on function test_helpers.play_island(uuid, text) to authenticated;
 select test_helpers.login('d5000000-0000-0000-0000-000000000001', 'aal1', true);
 
 select test_helpers.expect_equal(
-  (select count(*) from public.map_islands(1::smallint) where has_content), 3,
-  'Seed: In der Vorschau sind Hafen, Tauschinsel und Wunschinsel spielbar');
+  (select count(*) from public.map_islands(1::smallint) where has_content), 4,
+  'Seed: In der Vorschau sind Hafen, Tauschinsel, Wunschinsel und Spar-Insel spielbar');
 select test_helpers.expect_equal(
-  (select count(*) from public.map_islands(1::smallint) where not has_content), 12,
-  'Seed: Inseln 4 bis 15 liegen im Nebel');
+  (select count(*) from public.map_islands(1::smallint) where not has_content), 11,
+  'Seed: Inseln 5 bis 15 liegen im Nebel');
 
 select test_helpers.expect_equal(public.complete_onboarding('c5000000-0000-0000-0000-000000000001'), 50,
   'Seed: Intro ist Station 1 des Hafens (50 Seemeilen)');

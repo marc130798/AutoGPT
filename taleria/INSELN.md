@@ -386,26 +386,26 @@ Für alle folgenden Inseln gilt, wenn nicht anders angegeben: Zugang Premium, je
 
 | Nr. | St. | Frage | Richtig | Falsch | Falsch | Erklärung |
 | --- | --- | --- | --- | --- | --- | --- |
-| S1 | 1 | Warum spart man? | Um sich später etwas Größeres zu leisten oder für Notfälle | Damit Geld schön glänzt | Weil Ausgeben verboten ist | Sparen schafft Möglichkeiten für später. |
-| S2 | 1 | Warum hatte Gustav im Winter Probleme? | Er hatte alles sofort verbraucht. | Er hatte zu viele Vorräte. | Er hat nur geschlafen. | Ohne Vorrat steht man bei schlechten Zeiten ohne etwas da. |
-| S3 | 1 | Was ist ein Notgroschen? | Geld für unerwartete Ausgaben | Ein Groschen mit Loch | Geld für Süßigkeiten | Ein Notgroschen hilft, wenn etwas Unerwartetes passiert. |
-| S4 | 1 | Sparen bedeutet … | heute etwas zurücklegen, um es später zu nutzen. | nie wieder etwas kaufen. | Geld wegwerfen. | Gespartes Geld ist nicht weg, es wartet auf später. |
-| S5 | 2 | Was gehört zu einem guten Sparziel? | Was ich will, was es kostet und bis wann | Nur ein schönes Bild | Ein Passwort | Je klarer das Ziel, desto leichter das Sparen. |
+| S1 | 1 | Warum spart man? | Um sich später etwas Größeres zu leisten oder für Notfälle | Damit man nie wieder etwas kaufen muss | Weil Ausgeben schlecht ist | Sparen schafft Möglichkeiten für später. |
+| S2 | 1 | Warum hatte Gustav im Winter Probleme? | Er hatte im Herbst alles sofort verbraucht. | Er hatte zu viele Vorräte. | Emma hatte ihm nichts abgegeben. | Ohne Vorrat steht man in schlechten Zeiten ohne etwas da. |
+| S3 | 1 | Was ist ein Notgroschen? | Geld für unerwartete Ausgaben | Geld für den nächsten Kinobesuch | Eine Münze, die nichts mehr wert ist | Ein Notgroschen hilft, wenn etwas Unerwartetes passiert. |
+| S4 | 1 | Sparen bedeutet … | heute etwas zurücklegen, um es später zu nutzen. | nie wieder etwas kaufen. | Geld verschenken. | Gespartes Geld ist nicht weg, es wartet auf später. |
+| S5 | 2 | Was gehört zu einem guten Sparziel? | Was ich will, was es kostet und bis wann | Nur ein schönes Bild | Was die anderen sich wünschen | Je klarer das Ziel, desto leichter das Sparen. |
 | S6 | 2 | Dein Ziel kostet 40 Taler, du hast 10. Wie viel fehlt? | 30 Taler | 50 Taler | 4 Taler | 40 minus 10 sind 30. |
 | S7 | 3 | Du sparst jede Woche 2 Taler. Wie viel hast du nach 10 Wochen? | 20 Taler | 12 Taler | 2 Taler | 10 mal 2 sind 20. |
 | S8 | 3 | Wie viel sind 50 Cent am Tag nach einer Woche? | 3,50 Euro | 50 Cent | 5 Euro | 7 mal 50 Cent sind 3,50 Euro. |
-| S9 | 3 | Was bedeutet „Kleinvieh macht auch Mist“? | Auch kleine Beträge werden mit der Zeit viel. | Tiere sind teuer. | Nur große Beträge zählen. | Regelmäßige kleine Beträge summieren sich. |
-| S10 | 4 | Eine Nuss jetzt oder drei morgen. Was zeigt diese Wahl? | Wer warten kann, bekommt oft mehr. | Nüsse werden über Nacht schlecht. | Warten lohnt sich nie. | Geduld zahlt sich häufig aus. |
-| S11 | 4 | Was hilft dir, geduldig zu bleiben? | Den Fortschritt sehen, zum Beispiel an der Schatztruhe | Jeden Tag in den Laden gehen | Das Ziel vergessen | Wer sieht, dass es vorangeht, bleibt dran. |
+| S9 | 3 | Was bedeutet „Kleinvieh macht auch Mist“? | Auch kleine Beträge werden mit der Zeit viel. | Nur große Beträge zählen. | Kleine Beträge gibt man am besten gleich aus. | Regelmäßige kleine Beträge summieren sich. |
+| S10 | 4 | Eine Nuss jetzt oder drei morgen. Was zeigt diese Wahl? | Wer warten kann, bekommt oft mehr. | Wer zuerst nimmt, bekommt am meisten. | Warten lohnt sich nie. | Geduld zahlt sich häufig aus. |
+| S11 | 4 | Was hilft dir, geduldig zu bleiben? | Den Fortschritt sehen, zum Beispiel in der Schatztruhe | Jeden Tag in den Laden gehen | Das Ziel vergessen | Wer sieht, dass es vorangeht, bleibt dran. |
 | S12 | 5 | Du willst 30 Taler sparen und legst 5 pro Woche zurück. Wie lange dauert es? | 6 Wochen | 3 Wochen | 25 Wochen | 30 geteilt durch 5 sind 6. |
-| S13 | 5 | Was ist ein Sparplan? | Ein Plan, wie viel man wann zurücklegt | Ein Stadtplan zur Bank | Eine Einkaufsliste | Mit einem Sparplan weiß man, wann man das Ziel erreicht. |
-| S14 | 5 | Du bekommst Geld geschenkt. Was ist klug? | Einen Teil in die Schatztruhe legen | Alles sofort ausgeben | Es verstecken und vergessen | So kommt man dem Ziel schneller näher. |
-| S15 | 6 | Was ist ein Vorteil eines Kontos gegenüber dem Sparschwein? | Das Geld ist sicherer aufbewahrt. | Man kann es schütteln. | Es ist rosa. | Auf dem Konto kann Geld nicht verloren gehen wie Bargeld. |
-| S16 | 6 | Was ist ein Vorteil eines Sparschweins? | Man sieht und hört, wie das Geld wächst. | Es zahlt automatisch Zinsen. | Es ist gegen Diebstahl versichert. | Gerade für den Anfang ist das Sehen und Anfassen gut. |
-| S17 | 6 | Warum ist es keine gute Idee, Geld überall zu verteilen? | Man verliert den Überblick, und es geht leichter verloren. | Weil Geld dann wächst | Weil Münzen rosten müssen | Ein fester Platz schafft Überblick. |
+| S13 | 5 | Was ist ein Sparplan? | Ein Plan, wie viel man wann zurücklegt | Eine Liste, was man alles kaufen will | Ein Stadtplan zur Bank | Mit einem Sparplan weiß man, wann man das Ziel erreicht. |
+| S14 | 5 | Du bekommst Geld geschenkt. Was ist klug für dein Sparziel? | Einen Teil in die Schatztruhe legen | Alles sofort ausgeben | Es verstecken und vergessen | So kommt man dem Ziel schneller näher. |
+| S15 | 6 | Was ist ein Vorteil eines Kontos gegenüber dem Sparschwein? | Das Geld ist sicherer aufbewahrt. | Man kann das Geld jederzeit anfassen. | Man hört, wie es klimpert. | Auf dem Konto kann Geld nicht verloren gehen wie Bargeld. |
+| S16 | 6 | Was ist ein Vorteil eines Sparschweins? | Man sieht und hört, wie das Geld wächst. | Es ist gegen Diebstahl geschützt. | Das Geld kann nicht verloren gehen. | Gerade für den Anfang ist das Sehen und Anfassen gut. |
+| S17 | 6 | Warum ist es keine gute Idee, Geld überall zu verteilen? | Man verliert den Überblick, und es geht leichter verloren. | Weil das Geld dann mehr wird | Weil Münzen dann rosten | Ein fester Platz schafft Überblick. |
 | S18 | 7 | Was macht man bei der Schatztruhen-Challenge? | Mehrere Wochen regelmäßig etwas sparen | Eine Truhe kaufen | Alles auf einmal ausgeben | Regelmäßigkeit macht Sparen zur Gewohnheit. |
 | S19 | 7 | Emma legt im Herbst Vorräte an. Wie heißt das beim Geld? | Sparen | Leihen | Tauschen | Vorräte anlegen ist wie Sparen. |
-| S20 | 7 | Was passiert, wenn man nie spart? | Für größere Wünsche oder Notfälle fehlt das Geld. | Man wird automatisch reich. | Nichts, das ist egal. | Ohne Rücklage ist man auf Glück angewiesen. |
+| S20 | 7 | Was passiert, wenn man nie spart? | Für größere Wünsche oder Notfälle fehlt das Geld. | Man hat später automatisch mehr. | Nichts, das ist egal. | Ohne Rücklage ist man auf Glück angewiesen. |
 
 **Auftrag fürs echte Leben:** „Erster Wunschschatz“: Legt gemeinsam einen echten Wunschschatz mit Sparplan an und besprecht, wie viel jede Woche in die Schatztruhe kommt.
 

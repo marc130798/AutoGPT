@@ -8,7 +8,2039 @@
     "x": 0.5,
     "y": 0.765
   },
-  "lernziel": "Sparen",
-  "nebel": true,
-  "stationen": []
+  "lernziel": "Das Kind weiß, warum man spart, legt einen echten Wunschschatz an, versteht, wie kleine Beträge wachsen, plant mit einem Sparplan und kennt sichere Orte für Geld.",
+  "lernziel_kind": [
+    "Warum Sparen hilft, auch für Notfälle",
+    "Wie kleine Beträge mit der Zeit groß werden",
+    "Wie du mit einem Sparplan dein Ziel erreichst"
+  ],
+  "ankunft": {
+    "film": "video.arrival.spar-insel",
+    "szene": [
+      {
+        "wer": "tala",
+        "text": "Huch! Überall bunte Blätter auf dem Deck. Hier ist ja Herbst!"
+      },
+      {
+        "wer": "emma",
+        "name": "Emma",
+        "text": "Willkommen auf der Spar-Insel! Entschuldigt, ich muss noch Nüsse in den Speicher tragen."
+      },
+      {
+        "wer": "gustav",
+        "name": "Gustav",
+        "text": "Warum sammeln? Es ist doch genug da! Kommt, wir machen Musik!"
+      },
+      {
+        "wer": "tala",
+        "text": "Hm. Bin ich eher wie Emma oder wie Gustav?"
+      },
+      {
+        "wer": "talo",
+        "text": "Schau, im großen Vorratsspeicher leuchtet das nächste Kartenstück."
+      }
+    ]
+  },
+  "orden": "Vorratsmeister",
+  "auftrag": {
+    "titel": "Erster Wunschschatz",
+    "text": "Legt gemeinsam einen echten Wunschschatz mit Sparplan an und besprecht, wie viel jede Woche in die Schatztruhe kommt."
+  },
+  "kombuesen_fragen": [
+    "Wofür hast du als Kind gespart?",
+    "Wofür sparen wir als Familie gerade?"
+  ],
+  "stopps_auf_see": [
+    {
+      "art": "fischerboot",
+      "figur": "otti",
+      "schiff": "ship.fischer",
+      "titel": "Ottis Fischerboot",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "otti",
+          "text": "Ahoi! Ich will mir ein neues Netz kaufen. Aber ich wünsche mir auch einen Hut, eine Laterne und ein Boot in Rot!"
+        },
+        {
+          "wer": "tala",
+          "text": "Oh, das kenne ich. Auf der Wunschinsel haben wir gelernt, was zuerst kommt."
+        }
+      ],
+      "abschluss": {
+        "wer": "otti",
+        "text": "Erst das Netz, dann der Rest. Danke, Crew! Gute Fahrt zur Spar-Insel."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Otti braucht ein Netz zum Fischen und wünscht sich einen Hut. Was kommt zuerst?",
+          "richtig": "Das Netz, weil sie es zum Arbeiten braucht",
+          "falsch": [
+            "Der Hut, weil er schöner ist",
+            "Beides gleichzeitig, egal wie teuer"
+          ],
+          "erklaerung": "Erst das Nötige, dann das Schöne."
+        },
+        {
+          "frage": "Otti fragt: Woran erkenne ich ein Bedürfnis?",
+          "richtig": "Ich brauche es zum Leben, wie Essen oder Kleidung.",
+          "falsch": [
+            "Alle anderen haben es auch.",
+            "Ich wünsche es mir schon lange."
+          ],
+          "erklaerung": "Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse."
+        },
+        {
+          "frage": "Otti will sofort ein rotes Boot kaufen. Was hilft ihr bei der Entscheidung?",
+          "richtig": "Eine Nacht oder eine Woche darüber schlafen",
+          "falsch": [
+            "Sofort kaufen, bevor es weg ist",
+            "Die anderen Fischer fragen, was sie haben"
+          ],
+          "erklaerung": "Die Warte-Regel zeigt, ob man den Wunsch wirklich will."
+        },
+        {
+          "frage": "Alle Fischer haben eine neue Laterne. Otti will deshalb auch eine. Wie nennt man das?",
+          "richtig": "Gruppendruck",
+          "falsch": [
+            "Sparen",
+            "Tauschen"
+          ],
+          "erklaerung": "Wenn man etwas nur will, weil andere es haben, ist das Gruppendruck."
+        },
+        {
+          "frage": "Was macht nach einem Jahr meistens länger froh?",
+          "richtig": "Ein schöner Ausflug mit Freunden",
+          "falsch": [
+            "Ein neues Spielzeug, das bald in der Ecke liegt",
+            "Möglichst viele Dinge auf einmal"
+          ],
+          "erklaerung": "Erlebnisse bleiben lange in Erinnerung."
+        },
+        {
+          "frage": "Otti hat 10 Taler. Das Netz kostet 7 Taler, der Hut 5 Taler. Was geht?",
+          "richtig": "Das Netz kaufen, dann bleiben 3 Taler übrig.",
+          "falsch": [
+            "Beides kaufen, das passt genau.",
+            "Nur den Hut kaufen und das Netz später."
+          ],
+          "erklaerung": "7 und 5 sind 12, mehr als 10. Das Netz ist wichtiger."
+        }
+      ]
+    },
+    {
+      "art": "tala_vergisst",
+      "figur": "tala",
+      "titel": "Tala hat etwas vergessen",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Oh nein! Was war noch mal die Wunschflasche? Und die Warte-Regel?"
+        },
+        {
+          "wer": "talo",
+          "text": "Kein Problem. Hilfst du Tala, sich zu erinnern?"
+        }
+      ],
+      "abschluss": {
+        "wer": "tala",
+        "text": "Jetzt weiß ich es wieder! Auf zur Spar-Insel!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Tala fragt: Wozu ist die Wunschflasche gut?",
+          "richtig": "Man wartet ab, ob man den Wunsch später noch will.",
+          "falsch": [
+            "Man bekommt den Wunsch sofort geschenkt.",
+            "Man wirft den Wunsch für immer weg."
+          ],
+          "erklaerung": "Nach der Wartezeit fragt die App, ob man den Wunsch noch will."
+        },
+        {
+          "frage": "Tala fragt: Wie geht die Warte-Regel?",
+          "richtig": "Vor einem Kauf eine Weile warten und dann noch einmal entscheiden",
+          "falsch": [
+            "Immer sofort kaufen, bevor es weg ist",
+            "Nie etwas kaufen"
+          ],
+          "erklaerung": "Viele Wünsche sind nach ein paar Tagen weg."
+        },
+        {
+          "frage": "Tala fragt: Was ist ein Wunsch und kein Bedürfnis?",
+          "richtig": "Eine neue Spielkonsole",
+          "falsch": [
+            "Trinkwasser",
+            "Eine warme Jacke im Winter"
+          ],
+          "erklaerung": "Eine Konsole macht Spaß, zum Leben braucht man sie nicht."
+        },
+        {
+          "frage": "Tala fragt: Was tue ich, wenn mein Geld nicht für alles reicht?",
+          "richtig": "Wichtiges zuerst und auf etwas verzichten",
+          "falsch": [
+            "Einfach alles kaufen",
+            "Gar nichts mehr kaufen"
+          ],
+          "erklaerung": "Prioritäten setzen heißt: das Wichtigste zuerst."
+        },
+        {
+          "frage": "Tala fragt: Macht Geld glücklich?",
+          "richtig": "Es hilft gegen Sorgen, aber Freunde und Erlebnisse machen oft glücklicher.",
+          "falsch": [
+            "Ja, je mehr Dinge, desto glücklicher",
+            "Nein, Geld ist immer schlecht"
+          ],
+          "erklaerung": "Geld ist nützlich. Glück hängt aber an viel mehr."
+        },
+        {
+          "frage": "Tala fragt: Alle in meiner Klasse haben die gleiche Mütze. Muss ich sie auch haben?",
+          "richtig": "Nein, ich überlege, ob ich sie selbst will.",
+          "falsch": [
+            "Ja, sonst bin ich nicht dabei.",
+            "Ja, und gleich zwei davon."
+          ],
+          "erklaerung": "Es zählt, was du selbst willst, nicht was alle haben."
+        }
+      ]
+    }
+  ],
+  "tauchgaenge": [
+    {
+      "nach": 2,
+      "titel": "Das Tagebuch des Matrosen",
+      "spiel": "perlentauchen",
+      "fragen": 4,
+      "fund": "Tagebuch eines Matrosen",
+      "fund_bild": "collectible.spar-insel.1",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Ein altes Tagebuch! Ein Matrose schreibt: Ich wollte immer ein eigenes Boot. Aber nie hatte ich genug Geld."
+          },
+          {
+            "wer": "talo",
+            "text": "Hier steht noch mehr: Ich habe nie aufgeschrieben, was das Boot kostet, und immer gespart, wenn gerade etwas übrig war."
+          }
+        ],
+        "frage": "Was hat der Matrose falsch gemacht?",
+        "richtig": "Er hatte kein klares Ziel mit Preis und hat nicht regelmäßig gespart.",
+        "falsch": [
+          "Er hat zu viel gespart.",
+          "Er hätte sich das Boot gar nicht wünschen dürfen."
+        ],
+        "erklaerung": "Mit einem klaren Ziel und einem Sparplan hätte er gewusst, wie viel und wie lange er sparen muss."
+      }
+    },
+    {
+      "nach": 4,
+      "titel": "Die alte Spardose",
+      "spiel": "muscheln",
+      "fragen": 4,
+      "fund": "Alte Spardose",
+      "fund_bild": "collectible.spar-insel.2",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "talo",
+            "text": "Eine alte Spardose! Daneben ein Zettel: Jede Woche 2 Taler, 12 Wochen lang."
+          },
+          {
+            "wer": "tala",
+            "text": "Wie viel da wohl drin ist?"
+          }
+        ],
+        "frage": "Wie viele Taler sind nach 12 Wochen in der Spardose?",
+        "richtig": "24 Taler",
+        "falsch": [
+          "14 Taler",
+          "12 Taler"
+        ],
+        "erklaerung": "12 Wochen mal 2 Taler sind 24 Taler. Regelmäßig ein bisschen wird viel."
+      }
+    },
+    {
+      "nach": 6,
+      "titel": "Die Schatzkammer der alten Crew",
+      "spiel": "schatztruhe",
+      "fragen": 4,
+      "fund": "Schlüssel der Schatzkammer",
+      "fund_bild": "collectible.spar-insel.3",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Ein Schlüssel! Die alte Crew hatte ihr Geld an drei Orten: in einem Strumpf, in einer offenen Kiste an Deck und verschlossen in der Schatzkammer."
+          },
+          {
+            "wer": "talo",
+            "text": "Nach einem Sturm war nur noch ein Teil da."
+          }
+        ],
+        "frage": "Wo war das Geld der alten Crew am sichersten?",
+        "richtig": "Verschlossen in der Schatzkammer",
+        "falsch": [
+          "In der offenen Kiste an Deck",
+          "Im Strumpf unter der Hängematte"
+        ],
+        "erklaerung": "Ein sicherer, fester Ort schützt Gespartes. Heute ist das für größere Beträge oft ein Konto."
+      }
+    }
+  ],
+  "stationen": [
+    {
+      "nr": 1,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Warum sparen?",
+      "ort": "Baumhaus-Dorf",
+      "lernziel": "Sparen bedeutet heute zurücklegen, um später etwas zu haben",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Willkommen im Baumhaus-Dorf! Hilfst du mir, die letzten Nüsse in den Speicher zu tragen?"
+        },
+        {
+          "wer": "gustav",
+          "name": "Gustav",
+          "text": "Ach, Emma, sammel doch nicht so viel! Es liegen doch überall Nüsse herum."
+        },
+        {
+          "wer": "tala",
+          "text": "Gustav hat recht, oder? Warum soll man etwas weglegen, wenn genug da ist?"
+        },
+        {
+          "wer": "talo",
+          "text": "Gute Frage, Tala. Warten wir mal ab, was im Winter passiert."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "emma",
+        "frage": "Was glaubst du: Wie viele Nüsse brauche ich für einen ganzen Winter?",
+        "art": "regler",
+        "von": 0,
+        "bis": 400,
+        "schritt": 20,
+        "start": 100,
+        "einheit": "Nüsse",
+        "loesung": 200,
+        "aufloesung": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ungefähr 200 Nüsse! Jeden Tag ein, zwei Nüsse, viele Wochen lang. So einen Vorrat sammelt man nicht an einem Tag."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "talo",
+          "text": "Im Herbst gibt es Nüsse im Überfluss. Emma isst nicht alle sofort, sie legt einen Teil zurück.",
+          "bild": "story.spar-insel.1.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Und dann kommt der Winter. Emma sitzt im Warmen bei ihrem Vorrat, und Gustav hat nichts mehr.",
+          "bild": "story.spar-insel.1.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Mit Geld ist es genauso. Sparen heißt: Heute etwas zurücklegen, damit man später etwas hat. Für einen großen Wunsch, für einen Notfall oder einfach für später.",
+          "bild": "story.spar-insel.1.3"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ein kleiner Vorrat für schlechte Zeiten heißt Notgroschen. Wenn etwas kaputtgeht, muss man dann nicht gleich verzweifeln.",
+          "bild": "story.spar-insel.1.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "anzahl": 3,
+          "text": "Sammle mit Emma Nüsse in den Beutel: Tippe dreimal.",
+          "zeichen": "beutel",
+          "danach": "Drei Nüsse für den Vorrat!"
+        },
+        {
+          "nach_bild": 2,
+          "art": "umdrehen",
+          "text": "Dreh die Tür des Speichers um. Was ist drin?",
+          "zeichen": "tuer",
+          "rueckseite": "Ein voller Vorrat! Emma muss im Winter nicht hungern."
+        }
+      ],
+      "spiel": {
+        "art": "sort",
+        "titel": "Wofür spart man?",
+        "beschreibung": "Ordne jeden Grund dem passenden Sparglas zu.",
+        "aufgabe": "Tippe auf eine Karte und dann auf das passende Glas.",
+        "koerbe": [
+          "Für einen großen Wunsch",
+          "Für einen Notfall",
+          "Für später"
+        ],
+        "dinge": [
+          {
+            "text": "Rollschuhe, die mehr kosten als das Taschengeld einer Woche",
+            "korb": 0
+          },
+          {
+            "text": "Ein neues Fahrradspiel für die Konsole",
+            "korb": 0
+          },
+          {
+            "text": "Die Brille ist zerbrochen und muss repariert werden",
+            "korb": 1
+          },
+          {
+            "text": "Der Fahrradreifen hat ein Loch",
+            "korb": 1
+          },
+          {
+            "text": "Das Geschenk für Omas Geburtstag in drei Monaten",
+            "korb": 2
+          },
+          {
+            "text": "Die Klassenfahrt im nächsten Jahr",
+            "korb": 2
+          },
+          {
+            "text": "Ein Fahrrad",
+            "korb": null,
+            "hinweis": "Das kann ein großer Wunsch sein. Ist das alte Fahrrad kaputt und du brauchst es für den Schulweg, wird es fast zum Notfall."
+          }
+        ],
+        "geschafft": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ob Wunsch, Notfall oder später: Wer etwas zurückgelegt hat, kann sich darauf verlassen."
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Ich glaube, ich will lieber wie Emma sein. Zumindest ein bisschen!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was bedeutet Sparen?",
+          "richtig": "Heute etwas zurücklegen, um es später zu nutzen",
+          "falsch": [
+            "Nie wieder etwas kaufen",
+            "Geld so schnell wie möglich ausgeben, bevor es weniger wird"
+          ],
+          "erklaerung": "Gespartes Geld ist nicht weg. Es wartet auf später."
+        },
+        {
+          "frage": "Warum hatte Gustav im Winter nichts mehr?",
+          "richtig": "Er hat im Herbst alles sofort verbraucht.",
+          "falsch": [
+            "Emma hat ihm alles weggenommen.",
+            "Im Herbst gab es keine Nüsse."
+          ],
+          "erklaerung": "Im Herbst gab es genug. Gustav hat nur nichts zurückgelegt."
+        },
+        {
+          "frage": "Tala hat einen Notgroschen von 5 Talern. Ihr Fahrradschloss geht kaputt. Was ist klug?",
+          "richtig": "Den Notgroschen für ein neues Schloss nehmen",
+          "falsch": [
+            "Den Notgroschen für Süßigkeiten ausgeben, das Schloss kann warten",
+            "Nichts tun, einen Notgroschen darf man nie benutzen"
+          ],
+          "erklaerung": "Genau für so etwas ist ein Notgroschen da: für unerwartete Ausgaben."
+        },
+        {
+          "frage": "Welcher Grund zum Sparen ist ein Notfall?",
+          "richtig": "Die Fahrradkette ist gerissen.",
+          "falsch": [
+            "Du wünschst dir ein neues Spiel.",
+            "Im Sommer ist ein Ausflug geplant."
+          ],
+          "erklaerung": "Ein Notfall kommt unerwartet und muss schnell bezahlt werden."
+        },
+        {
+          "frage": "Lohnt sich Sparen auch, wenn man gerade genug hat?",
+          "richtig": "Ja, denn später kann es knapp werden.",
+          "falsch": [
+            "Nein, wer genug hat, braucht nie zu sparen.",
+            "Nein, Sparen lohnt sich nur für Erwachsene."
+          ],
+          "erklaerung": "Wie bei Emma: Gerade wenn genug da ist, kann man etwas zurücklegen."
+        },
+        {
+          "frage": "Tala bekommt 10 Taler und legt 3 davon in die Schatztruhe. Was hat sie gemacht?",
+          "richtig": "Sie hat einen Teil gespart und kann den Rest ausgeben.",
+          "falsch": [
+            "Sie hat 3 Taler verloren.",
+            "Sie darf jetzt gar nichts mehr kaufen."
+          ],
+          "erklaerung": "Sparen heißt nicht alles oder nichts. Schon ein Teil hilft."
+        },
+        {
+          "frage": "Wofür spart man nicht?",
+          "richtig": "Um Geld wegzuschließen und nie zu benutzen",
+          "falsch": [
+            "Für einen großen Wunsch",
+            "Für einen Notfall"
+          ],
+          "erklaerung": "Gespartes Geld soll später helfen, für Wünsche, Notfälle oder später."
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Mein erster Wunschschatz",
+      "ort": "Wunschschatz-Lichtung",
+      "lernziel": "Ein gutes Sparziel ist konkret",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Ich will auch sparen! Ich spare einfach … irgendwas. Irgendwann."
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Hm. Wofür denn? Und wie viel?"
+        },
+        {
+          "wer": "tala",
+          "text": "Keine Ahnung. Ist das wichtig?"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Sehr wichtig! Komm mit auf die Lichtung, ich zeige dir ein gutes Sparziel."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "emma",
+        "frage": "Was glaubst du: Mit welchem Ziel schafft Tala es eher?",
+        "art": "auswahl",
+        "optionen": [
+          "„Ich spare mal irgendwas.“",
+          "„Ich spare für Rollschuhe, 40 Taler, bis zum Sommer.“"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Mit dem klaren Ziel! Wer weiß, wofür, wie viel und bis wann, bleibt viel leichter dran."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "tala",
+          "text": "Ich wünsche mir rote Rollschuhe. Schon so lange!",
+          "bild": "story.spar-insel.2.1"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ein gutes Sparziel hat drei Teile: Was willst du? Wie viel kostet es? Bis wann willst du es haben?",
+          "bild": "story.spar-insel.2.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Rollschuhe, 40 Taler, bis zum Sommer. Das ist ein richtiger Wunschschatz!"
+        },
+        {
+          "wer": "tala",
+          "text": "Und damit ich ihn nicht vergesse, hänge ich ein Bild davon auf.",
+          "bild": "story.spar-insel.2.3"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "In deiner Schatztruhe kannst du auch so einen Wunschschatz anlegen. Dann siehst du jeden Tag, wie nah du schon dran bist."
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Such ein Bild für Talas Wunschschatz aus: Tippe auf den Bilderrahmen.",
+          "zeichen": "foto",
+          "danach": "Rote Rollschuhe! Das Bild erinnert Tala an ihr Ziel."
+        },
+        {
+          "nach_bild": 3,
+          "art": "ziehen",
+          "text": "Häng das Bild an den Ast.",
+          "zeichen": "foto",
+          "danach": "Jetzt hängt der Wunschschatz gut sichtbar am Baum."
+        }
+      ],
+      "spiel": {
+        "art": "choice",
+        "titel": "Ein gutes Sparziel",
+        "beschreibung": "Hilf den Tieren, ein gutes Sparziel zu finden.",
+        "aufgabe": "Welches Sparziel ist klarer? Tippe auf deine Wahl.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ich will für etwas Schönes sparen."
+              }
+            ],
+            "frage": "Welches Ziel ist besser?",
+            "optionen": [
+              {
+                "text": "Rollschuhe für 40 Taler bis zum Sommer",
+                "gut": true,
+                "antwort": "Genau! Tala weiß jetzt, was, wie viel und bis wann."
+              },
+              {
+                "text": "Irgendwas Schönes, irgendwann",
+                "gut": false,
+                "antwort": "Das ist zu ungenau. Wie soll Tala wissen, ob sie es geschafft hat?"
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "gustav",
+                "name": "Gustav",
+                "text": "Ich spare für eine neue Geige. Wie viel sie kostet, weiß ich aber nicht."
+              }
+            ],
+            "frage": "Was fehlt Gustav noch?",
+            "optionen": [
+              {
+                "text": "Der Preis: Er muss herausfinden, was die Geige kostet.",
+                "gut": true,
+                "antwort": "Richtig! Ohne Preis weiß Gustav nicht, wie viel er sparen muss."
+              },
+              {
+                "text": "Gar nichts, er spart ja schon.",
+                "gut": false,
+                "antwort": "Er weiß nicht, wie viel er braucht. So merkt er nie, ob es reicht."
+              },
+              {
+                "text": "Eine zweite Geige als Ziel",
+                "gut": false,
+                "antwort": "Ein Ziel nach dem anderen. Erst braucht Gustav den Preis der ersten."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "emma",
+                "name": "Emma",
+                "text": "Ich will 60 Taler für eine Hängematte sparen."
+              }
+            ],
+            "frage": "Was macht Emmas Ziel noch besser?",
+            "optionen": [
+              {
+                "text": "Ein Datum: bis zum Frühling",
+                "gut": true,
+                "antwort": "Super! Mit einem Datum kann Emma planen, wie viel sie pro Woche braucht."
+              },
+              {
+                "text": "Ein höherer Betrag, damit es schwerer wird",
+                "gut": false,
+                "antwort": "Schwerer ist nicht besser. Das Ziel soll klar sein, nicht schwierig."
+              },
+              {
+                "text": "Niemandem davon erzählen",
+                "gut": false,
+                "antwort": "Es hilft eher, anderen vom Ziel zu erzählen. Dann bleibt man dran."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Was, wie viel, bis wann: Mit diesen drei Fragen wird aus einem Wunsch ein Wunschschatz."
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Mein Wunschschatz: Rollschuhe, 40 Taler, bis zum Sommer! Leg deinen auch in der Schatztruhe an."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Tala sagt: Ich spare für Rollschuhe. Was fehlt noch für ein gutes Sparziel?",
+          "richtig": "Wie viel sie kosten und bis wann sie sie haben will",
+          "falsch": [
+            "In welchem Laden die anderen sie kaufen",
+            "Welche Farbe die Schnürsenkel haben"
+          ],
+          "erklaerung": "Was, wie viel und bis wann: Erst mit Preis und Datum ist das Ziel klar."
+        },
+        {
+          "frage": "Welches Sparziel ist am klarsten?",
+          "richtig": "Ein Fußball für 20 Euro bis zu den Ferien",
+          "falsch": [
+            "Etwas Tolles, wenn genug Geld da ist",
+            "Viel Geld, ganz schnell"
+          ],
+          "erklaerung": "Was, wie viel und bis wann: Das hat nur der Fußball."
+        },
+        {
+          "frage": "Dein Ziel kostet 50 Taler. Du hast schon 32. Wie viel fehlt noch?",
+          "richtig": "18 Taler",
+          "falsch": [
+            "28 Taler",
+            "82 Taler"
+          ],
+          "erklaerung": "50 minus 32 sind 18."
+        },
+        {
+          "frage": "Warum hilft ein Bild von deinem Wunschschatz?",
+          "richtig": "Es erinnert dich jeden Tag an dein Ziel.",
+          "falsch": [
+            "Weil der Wunschschatz dadurch billiger wird",
+            "Weil man dann nicht mehr sparen muss"
+          ],
+          "erklaerung": "Wer sein Ziel sieht, bleibt leichter dran."
+        },
+        {
+          "frage": "Gustav weiß nicht, was seine Geige kostet. Was sollte er zuerst tun?",
+          "richtig": "Den Preis herausfinden",
+          "falsch": [
+            "Einfach alles ausgeben",
+            "Ein anderes Ziel nehmen"
+          ],
+          "erklaerung": "Ohne Preis weiß man nicht, wie viel man sparen muss."
+        },
+        {
+          "frage": "Tala hat 25 Taler. Die Rollschuhe kosten 40 Taler. Wie viel fehlt?",
+          "richtig": "15 Taler",
+          "falsch": [
+            "25 Taler",
+            "65 Taler"
+          ],
+          "erklaerung": "40 minus 25 sind 15."
+        },
+        {
+          "frage": "Wo kannst du in Taleria deinen Wunschschatz anlegen?",
+          "richtig": "In der Schatztruhe",
+          "falsch": [
+            "Auf der Karte",
+            "Bei den Orden"
+          ],
+          "erklaerung": "In der Schatztruhe siehst du, wie viel dir noch fehlt."
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Kleine Beträge werden groß",
+      "ort": "Nussturm",
+      "lernziel": "Auch kleine Beträge werden mit der Zeit viel",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Jeden Tag lege ich eine einzige Nuss auf meinen Turm."
+        },
+        {
+          "wer": "gustav",
+          "name": "Gustav",
+          "text": "Eine Nuss? Haha! Das bringt doch nichts."
+        },
+        {
+          "wer": "tala",
+          "text": "Stimmt schon, eine Nuss ist wirklich wenig."
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Wartet nur ab."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "talo",
+        "frage": "Was glaubst du: Wie viele Euro hat man nach einem Jahr, wenn man jeden Tag 50 Cent zur Seite legt?",
+        "art": "regler",
+        "von": 0,
+        "bis": 400,
+        "schritt": 10,
+        "start": 50,
+        "einheit": "Euro",
+        "loesung": 180,
+        "aufloesung": {
+          "wer": "talo",
+          "text": "Über 180 Euro! Jeden Tag nur 50 Cent, aber ein ganzes Jahr lang. Kleine Beträge werden mit der Zeit groß."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Eine Nuss am Tag sieht nach nichts aus.",
+          "bild": "story.spar-insel.3.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Aber nach vielen Wochen ist der Turm höher als die Bäume!",
+          "bild": "story.spar-insel.3.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Mit Geld geht das genauso. Wer jeden Tag 50 Cent zur Seite legt, hat nach einer Woche 3,50 Euro.",
+          "bild": "drawing:coins_week"
+        },
+        {
+          "wer": "talo",
+          "text": "Nach einem Monat sind es schon etwa 15 Euro. Darum sagt man: Kleinvieh macht auch Mist."
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "anzahl": 3,
+          "text": "Leg jeden Tag eine Münze auf den Turm: Tippe dreimal.",
+          "zeichen": "muenze",
+          "danach": "Drei Tage, drei Münzen. Der Turm wächst!"
+        },
+        {
+          "nach_bild": 2,
+          "art": "umdrehen",
+          "text": "Blättere im Kalender viele Wochen weiter.",
+          "zeichen": "kalender",
+          "rueckseite": "Viele Wochen später: Aus einzelnen Nüssen ist ein riesiger Turm geworden."
+        }
+      ],
+      "spiel": {
+        "art": "number",
+        "titel": "Der Nussturm wächst",
+        "beschreibung": "Rechne aus, wie viel mit der Zeit zusammenkommt.",
+        "aufgabe": "Tippe deine Antwort als Zahl ein.",
+        "runden": [
+          {
+            "frage": "Emma legt jeden Tag 2 Nüsse auf den Turm. Wie viele Nüsse sind es nach einer Woche?",
+            "antwort": 14,
+            "einheit": "Nüsse",
+            "tipp": "Eine Woche hat 7 Tage.",
+            "erklaerung": "7 Tage mal 2 Nüsse sind 14 Nüsse."
+          },
+          {
+            "frage": "Tala legt jede Woche 3 Taler in ihre Schatztruhe. Wie viele Taler hat sie nach 4 Wochen?",
+            "antwort": 12,
+            "einheit": "Taler",
+            "tipp": "Rechne 4 mal 3.",
+            "erklaerung": "4 Wochen mal 3 Taler sind 12 Taler."
+          },
+          {
+            "frage": "Gustav kauft jeden Tag eine Limo für 1 Taler. Wie viele Taler könnte er in 30 Tagen sparen, wenn er darauf verzichtet?",
+            "antwort": 30,
+            "einheit": "Taler",
+            "tipp": "Ein Taler an jedem der 30 Tage.",
+            "erklaerung": "30 Tage mal 1 Taler sind 30 Taler. Kleine Ausgaben summieren sich auch."
+          }
+        ],
+        "geschafft": {
+          "wer": "gustav",
+          "name": "Gustav",
+          "text": "Okay, okay. Eine Nuss ist doch nicht nichts."
+        }
+      },
+      "abschluss": {
+        "wer": "emma",
+        "name": "Emma",
+        "text": "Kleinvieh macht auch Mist: Auch wenig wird viel, wenn man dranbleibt."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Emmas Turm wächst jeden Tag nur um eine Nuss. Warum wird er trotzdem riesig?",
+          "richtig": "Weil viele kleine Schritte über lange Zeit viel ergeben",
+          "falsch": [
+            "Weil die Nüsse über Nacht wachsen",
+            "Weil Gustav heimlich Nüsse dazulegt"
+          ],
+          "erklaerung": "Kleinvieh macht auch Mist: Regelmäßig ein bisschen wird viel."
+        },
+        {
+          "frage": "Du legst jeden Tag 50 Cent zur Seite. Wie viel hast du nach zwei Wochen?",
+          "richtig": "7 Euro",
+          "falsch": [
+            "1 Euro",
+            "14 Euro"
+          ],
+          "erklaerung": "Zwei Wochen sind 14 Tage. 14 mal 50 Cent sind 700 Cent, also 7 Euro."
+        },
+        {
+          "frage": "Du sparst jede Woche 4 Taler. Wie viel hast du nach 5 Wochen?",
+          "richtig": "20 Taler",
+          "falsch": [
+            "9 Taler",
+            "45 Taler"
+          ],
+          "erklaerung": "5 mal 4 sind 20."
+        },
+        {
+          "frage": "Gustav kauft jeden Tag ein Bonbon für 10 Cent. Wie viel gibt er in 30 Tagen aus?",
+          "richtig": "3 Euro",
+          "falsch": [
+            "30 Cent",
+            "10 Euro"
+          ],
+          "erklaerung": "30 mal 10 Cent sind 300 Cent, also 3 Euro. Auch kleine Ausgaben werden viel."
+        },
+        {
+          "frage": "Was ist wichtiger, damit kleine Beträge groß werden?",
+          "richtig": "Dass man regelmäßig und lange dranbleibt",
+          "falsch": [
+            "Dass man einmal ganz viel auf einmal spart",
+            "Dass man das Geld oft zählt"
+          ],
+          "erklaerung": "Die Zeit macht aus wenig viel."
+        },
+        {
+          "frage": "Emma legt jeden Tag 1 Nuss auf den Turm. Wie viele Nüsse hat sie nach 3 Wochen?",
+          "richtig": "21 Nüsse",
+          "falsch": [
+            "3 Nüsse",
+            "10 Nüsse"
+          ],
+          "erklaerung": "3 Wochen sind 21 Tage, jeden Tag eine Nuss."
+        },
+        {
+          "frage": "Tala will jeden Tag nur 20 Cent sparen. Was sagst du ihr?",
+          "richtig": "Gute Idee, auch 20 Cent jeden Tag werden mit der Zeit viel.",
+          "falsch": [
+            "Lass es, so wenig bringt nichts.",
+            "Spar lieber gar nicht, bis du mehr hast."
+          ],
+          "erklaerung": "Jeder kleine Betrag hilft, wenn man dranbleibt."
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Geduld lohnt sich",
+      "ort": "Geduldsbank",
+      "lernziel": "Wer warten kann, bekommt oft mehr",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Setzt euch auf die Geduldsbank. Ich habe ein Angebot für euch."
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ihr bekommt jetzt eine Nuss. Oder ihr wartet bis morgen und bekommt drei."
+        },
+        {
+          "wer": "gustav",
+          "name": "Gustav",
+          "text": "Jetzt! Sofort! Ich habe Hunger."
+        },
+        {
+          "wer": "tala",
+          "text": "Hmm. Drei sind mehr. Aber morgen ist so weit weg …"
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "emma",
+        "frage": "Was glaubst du: Wie viele Nüsse bekommt Tala, wenn sie bis morgen wartet?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 10,
+        "start": 1,
+        "einheit": "Nüsse",
+        "einheit_eins": "Nuss",
+        "loesung": 3,
+        "aufloesung": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Drei Nüsse! Dreimal so viel, nur weil sie eine Nacht gewartet hat."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Eine Nuss jetzt oder drei morgen: Was nimmst du?",
+          "bild": "story.spar-insel.4.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Gustav hat seine Nuss sofort gegessen. Ich warte. Das ist ganz schön schwer!",
+          "bild": "story.spar-insel.4.2"
+        },
+        {
+          "wer": "tala",
+          "text": "Am nächsten Morgen habe ich drei Nüsse. Warten hat sich gelohnt!",
+          "bild": "story.spar-insel.4.3"
+        },
+        {
+          "wer": "talo",
+          "text": "Wer warten kann, bekommt oft mehr. Beim Sparen ist das genauso: Erst sammeln, dann kaufen."
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ein Trick für die Geduld: Schau dir an, wie viel du schon hast, statt an das zu denken, was du jetzt haben könntest."
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Drück mit Tala den „Warten“-Knopf.",
+          "zeichen": "hand",
+          "danach": "Tala wartet. Das Körbchen mit drei Nüssen bleibt für sie stehen."
+        },
+        {
+          "nach_bild": 2,
+          "art": "umdrehen",
+          "text": "Dreh den Kalender auf morgen.",
+          "zeichen": "kalender",
+          "rueckseite": "Guten Morgen! Drei Nüsse warten auf Tala."
+        }
+      ],
+      "spiel": {
+        "art": "choice",
+        "titel": "Jetzt oder später?",
+        "beschreibung": "Triff Entscheidungen und sieh, was Warten bringt.",
+        "aufgabe": "Was würdest du tun? Tippe auf deine Wahl.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "emma",
+                "name": "Emma",
+                "text": "Ein kleiner Kuchen jetzt oder ein großer am Sonntag?"
+              }
+            ],
+            "frage": "Was ist klug, wenn du nicht gerade Hunger hast?",
+            "optionen": [
+              {
+                "text": "Bis Sonntag warten und den großen nehmen",
+                "gut": true,
+                "antwort": "Ein paar Tage Geduld, und du bekommst viel mehr."
+              },
+              {
+                "text": "Sofort den kleinen nehmen",
+                "gut": false,
+                "antwort": "Das geht natürlich. Aber wenn du warten kannst, bekommst du mehr."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Ich habe 8 Taler. Am Kiosk gibt es jetzt Bonbons. In zwei Wochen habe ich genug für ein Buch, das ich mir wirklich wünsche."
+              }
+            ],
+            "frage": "Was soll Tala tun?",
+            "optionen": [
+              {
+                "text": "Weitersparen und in zwei Wochen das Buch kaufen",
+                "gut": true,
+                "antwort": "Genau! Die Bonbons sind schnell weg, das Buch hat sie lange."
+              },
+              {
+                "text": "Die Bonbons kaufen und neu anfangen",
+                "gut": false,
+                "antwort": "Dann fängt Tala wieder bei null an, und das Buch rückt weit weg."
+              },
+              {
+                "text": "Ein paar Bonbons kaufen und den Rest sparen",
+                "gut": true,
+                "antwort": "Auch das geht! Ein kleiner Teil für jetzt, der größere für das Buch. Es dauert dann nur etwas länger."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "gustav",
+                "name": "Gustav",
+                "text": "Ich will eine neue Geige. Aber es dauert noch so lange! Ich gebe auf."
+              }
+            ],
+            "frage": "Was hilft Gustav, geduldig zu bleiben?",
+            "optionen": [
+              {
+                "text": "Jede Woche ansehen, wie viel er schon gespart hat",
+                "gut": true,
+                "antwort": "Wer sieht, dass es vorangeht, bleibt dran."
+              },
+              {
+                "text": "Jeden Tag in den Laden gehen und die Geige anschauen",
+                "gut": false,
+                "antwort": "Das macht das Warten oft schwerer. Besser ist es, den eigenen Fortschritt zu sehen."
+              },
+              {
+                "text": "Das Ziel vergessen",
+                "gut": false,
+                "antwort": "Wer das Ziel vergisst, gibt das Geld schnell für anderes aus."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Geduld ist wie ein Muskel. Je öfter du wartest, desto leichter wird es."
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Warten ist schwer, aber drei Nüsse sind besser als eine!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Gustav nimmt eine Nuss sofort, Tala wartet und bekommt morgen drei. Wie viele Nüsse hat Tala mehr?",
+          "richtig": "2 Nüsse",
+          "falsch": [
+            "3 Nüsse",
+            "1 Nuss"
+          ],
+          "erklaerung": "3 minus 1 sind 2. Warten hat sich gelohnt."
+        },
+        {
+          "frage": "Tala muss noch 4 Wochen sparen und wird ungeduldig. Was hilft ihr?",
+          "richtig": "Jede Woche ansehen, wie die Schatztruhe voller wird",
+          "falsch": [
+            "Jeden Tag im Schaufenster die Rollschuhe anschauen",
+            "Aufhören und etwas anderes kaufen"
+          ],
+          "erklaerung": "Wer sieht, dass es vorangeht, bleibt dran."
+        },
+        {
+          "frage": "Warum ist Warten oft so schwer?",
+          "richtig": "Weil man das Schöne am liebsten sofort hätte",
+          "falsch": [
+            "Weil Warten verboten ist",
+            "Weil Gespartes jeden Tag weniger wird"
+          ],
+          "erklaerung": "Das ist ganz normal. Mit Übung wird es leichter."
+        },
+        {
+          "frage": "Tala hat 8 von 12 Talern für ein Buch. Am Kiosk gibt es Bonbons für 3 Taler. Was passiert, wenn sie die Bonbons kauft?",
+          "richtig": "Ihr fehlen dann wieder 7 Taler für das Buch.",
+          "falsch": [
+            "Das Buch wird billiger.",
+            "Sie hat dann sofort genug für das Buch."
+          ],
+          "erklaerung": "8 minus 3 sind 5. Bis 12 fehlen dann 7 Taler."
+        },
+        {
+          "frage": "Gustav will aufgeben, weil das Sparen so lange dauert. Was rätst du ihm?",
+          "richtig": "Kleine Zwischenziele feiern, zum Beispiel die Hälfte",
+          "falsch": [
+            "Alles sofort ausgeben",
+            "Nie wieder etwas sparen"
+          ],
+          "erklaerung": "Zwischenziele machen den langen Weg kürzer."
+        },
+        {
+          "frage": "Wann ist es in Ordnung, nicht zu warten?",
+          "richtig": "Wenn man etwas wirklich jetzt braucht, zum Beispiel etwas zu essen bei Hunger",
+          "falsch": [
+            "Immer, Warten lohnt sich nie",
+            "Nie, man muss immer warten"
+          ],
+          "erklaerung": "Geduld ist gut, aber Bedürfnisse gehen vor."
+        },
+        {
+          "frage": "Emma sagt: Geduld ist wie ein Muskel. Was meint sie?",
+          "richtig": "Je öfter man übt zu warten, desto leichter wird es.",
+          "falsch": [
+            "Wer geduldig ist, wird stärker.",
+            "Geduld bekommt man nur beim Sport."
+          ],
+          "erklaerung": "Geduld kann man üben, wie beim Training."
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Einen Sparplan aufstellen",
+      "ort": "Planungs-Hütte",
+      "lernziel": "Ein Sparplan zeigt, wann man das Ziel erreicht",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "In meiner Planungs-Hütte schreibe ich auf, wann ich wie viel spare."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich spare für Rollschuhe. Aber wann habe ich genug?"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Das rechnen wir aus. Mit einem Sparplan!"
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "emma",
+        "frage": "Was glaubst du: Wie viele Wochen braucht man für 30 Taler, wenn man jede Woche 5 Taler spart?",
+        "art": "zahl",
+        "von": 1,
+        "bis": 20,
+        "start": 1,
+        "einheit": "Wochen",
+        "einheit_eins": "Woche",
+        "loesung": 6,
+        "aufloesung": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Sechs Wochen! 6 mal 5 Taler sind 30 Taler."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ein Sparplan beantwortet eine Frage: Wann habe ich mein Ziel erreicht?",
+          "bild": "story.spar-insel.5.1"
+        },
+        {
+          "wer": "talo",
+          "text": "Das Ziel sind 30 Taler. Jede Woche kommen 5 Taler dazu. Nach 6 Wochen ist es geschafft.",
+          "bild": "drawing:savings_plan"
+        },
+        {
+          "wer": "tala",
+          "text": "Jede Woche male ich ein Kästchen aus. Das erste ist schon fertig!",
+          "bild": "story.spar-insel.5.3"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Und wenn es schneller gehen soll? Dann legst du mehr pro Woche zurück oder wählst ein kleineres Ziel."
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "anzahl": 2,
+          "text": "Füll mit Emma die ersten Wochenkästchen aus: Tippe zweimal.",
+          "zeichen": "liste",
+          "danach": "Zwei Wochen geschafft, vier liegen noch vor Tala."
+        },
+        {
+          "nach_bild": 2,
+          "art": "tippen",
+          "text": "Stempel den Sparplan ab.",
+          "zeichen": "stempel",
+          "danach": "Abgestempelt! Der Plan gilt."
+        }
+      ],
+      "spiel": {
+        "art": "number",
+        "titel": "Sparplan-Rechner",
+        "beschreibung": "Rechne aus, wie lange das Sparen dauert.",
+        "aufgabe": "Tippe deine Antwort als Zahl ein.",
+        "runden": [
+          {
+            "frage": "Tala will 40 Taler sparen und legt jede Woche 5 Taler zurück. Wie viele Wochen dauert es?",
+            "antwort": 8,
+            "einheit": "Wochen",
+            "tipp": "Wie oft passt 5 in 40?",
+            "erklaerung": "40 geteilt durch 5 sind 8. Nach 8 Wochen hat Tala ihre Rollschuhe."
+          },
+          {
+            "frage": "Gustav will 24 Taler sparen und legt jede Woche 4 Taler zurück. Wie viele Wochen dauert es?",
+            "antwort": 6,
+            "einheit": "Wochen",
+            "tipp": "Rechne 24 geteilt durch 4.",
+            "erklaerung": "24 geteilt durch 4 sind 6 Wochen."
+          },
+          {
+            "frage": "Emma will in 5 Wochen 50 Taler haben. Wie viele Taler muss sie jede Woche zurücklegen?",
+            "antwort": 10,
+            "einheit": "Taler",
+            "tipp": "Teile das Ziel durch die Zahl der Wochen.",
+            "erklaerung": "50 geteilt durch 5 sind 10 Taler pro Woche."
+          }
+        ],
+        "geschafft": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Mit einem Sparplan weißt du immer, wann du am Ziel bist."
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Mein Plan: 5 Taler pro Woche, in 8 Wochen habe ich die Rollschuhe!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wozu ist ein Sparplan gut?",
+          "richtig": "Man weiß, wann man sein Ziel erreicht.",
+          "falsch": [
+            "Damit man nie wieder etwas ausgibt",
+            "Damit das Ziel billiger wird"
+          ],
+          "erklaerung": "Ein Sparplan sagt: so viel pro Woche, so lange bis zum Ziel."
+        },
+        {
+          "frage": "Du willst 36 Taler sparen und legst 6 pro Woche zurück. Wie lange dauert es?",
+          "richtig": "6 Wochen",
+          "falsch": [
+            "5 Wochen",
+            "30 Wochen"
+          ],
+          "erklaerung": "36 geteilt durch 6 sind 6."
+        },
+        {
+          "frage": "Du willst schneller am Ziel sein. Was hilft?",
+          "richtig": "Jede Woche etwas mehr zurücklegen",
+          "falsch": [
+            "Seltener in die Schatztruhe schauen",
+            "Den Sparplan wegwerfen"
+          ],
+          "erklaerung": "Mehr pro Woche heißt: weniger Wochen bis zum Ziel."
+        },
+        {
+          "frage": "Du bekommst zum Geburtstag 10 Euro geschenkt. Was ist klug für deinen Sparplan?",
+          "richtig": "Einen Teil davon in die Schatztruhe legen",
+          "falsch": [
+            "Alles sofort ausgeben",
+            "Das Geld verstecken und vergessen"
+          ],
+          "erklaerung": "So kommst du deinem Ziel schneller näher."
+        },
+        {
+          "frage": "Tala will 12 Euro sparen und legt jede Woche 1,50 Euro zurück. Wie viele Wochen braucht sie?",
+          "richtig": "8 Wochen",
+          "falsch": [
+            "12 Wochen",
+            "6 Wochen"
+          ],
+          "erklaerung": "1,50 Euro mal 8 sind 12 Euro.",
+          "einsteiger": {
+            "frage": "Tala will 12 Euro sparen und legt jede Woche 2 Euro zurück. Wie viele Wochen braucht sie?",
+            "richtig": "6 Wochen",
+            "falsch": [
+              "12 Wochen",
+              "4 Wochen"
+            ],
+            "erklaerung": "12 geteilt durch 2 sind 6 Wochen."
+          }
+        },
+        {
+          "frage": "Emma will in 4 Wochen 20 Taler haben. Wie viel muss sie pro Woche sparen?",
+          "richtig": "5 Taler",
+          "falsch": [
+            "4 Taler",
+            "16 Taler"
+          ],
+          "erklaerung": "20 geteilt durch 4 sind 5."
+        },
+        {
+          "frage": "In einer Woche hat Tala nichts gespart. Was macht sie jetzt am besten?",
+          "richtig": "In der nächsten Woche einfach weitermachen",
+          "falsch": [
+            "Den ganzen Plan aufgeben",
+            "Alles Gesparte ausgeben"
+          ],
+          "erklaerung": "Ein Plan darf auch mal holpern. Wichtig ist, dranzubleiben."
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Sparschwein, Spardose, Konto",
+      "ort": "Schatzkammer",
+      "lernziel": "Es gibt verschiedene Orte zum Sparen, mit Vor- und Nachteilen",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "gustav",
+          "name": "Gustav",
+          "text": "Ich habe jetzt auch angefangen zu sparen! Meine Münzen sind … ähm … überall."
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Überall? Dann komm mit in die Schatzkammer. Gespartes braucht einen guten Platz."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "emma",
+        "frage": "Was glaubst du: Wo ist Geld am sichersten aufbewahrt?",
+        "art": "auswahl",
+        "optionen": [
+          "Unter dem Kopfkissen",
+          "Im Sparschwein",
+          "Auf einem Konto bei der Bank"
+        ],
+        "loesung": 2,
+        "aufloesung": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Auf dem Konto! Dort kann es nicht verloren gehen oder gestohlen werden. Das Sparschwein ist aber auch ein guter Anfang."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Es gibt verschiedene Orte für Gespartes: das Sparschwein, die Spardose und das Konto.",
+          "bild": "story.spar-insel.6.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Mein Sparschwein mag ich am liebsten. Man hört und sieht, wie das Geld wächst!",
+          "bild": "story.spar-insel.6.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Aber Bargeld kann verloren gehen. So wie bei Gustav, der seine Münzen überall versteckt hat.",
+          "bild": "story.spar-insel.6.3"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Auf einem Konto ist das Geld sicherer aufbewahrt. Wie ein Konto funktioniert, lernt ihr später auf der Bank-Insel.",
+          "bild": "story.spar-insel.6.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 2,
+          "art": "tippen",
+          "anzahl": 3,
+          "text": "Schüttel Talas Sparschwein: Tippe dreimal.",
+          "zeichen": "muenze",
+          "danach": "Klimper, klimper! Das klingt nach einem guten Anfang."
+        },
+        {
+          "nach_bild": 3,
+          "art": "umdrehen",
+          "text": "Dreh den Schlüssel der Schatzkammer um.",
+          "zeichen": "schluessel",
+          "rueckseite": "Alles an einem sicheren Platz. So geht nichts verloren."
+        }
+      ],
+      "spiel": {
+        "art": "sort",
+        "titel": "Wo liegt mein Geld gut?",
+        "beschreibung": "Ordne jeden Satz dem passenden Ort zu.",
+        "aufgabe": "Tippe auf eine Karte und dann auf den passenden Ort.",
+        "koerbe": [
+          "Sparschwein oder Spardose",
+          "Konto bei der Bank"
+        ],
+        "dinge": [
+          {
+            "text": "Man hört, wie die Münzen klimpern",
+            "korb": 0
+          },
+          {
+            "text": "Steht zu Hause im Regal",
+            "korb": 0
+          },
+          {
+            "text": "Geht nicht verloren, auch wenn etwas zu Hause passiert",
+            "korb": 1
+          },
+          {
+            "text": "Die Eltern helfen, es bei der Bank einzurichten",
+            "korb": 1
+          },
+          {
+            "text": "Man kann das Geld anfassen und zählen",
+            "korb": 0
+          },
+          {
+            "text": "Für größere Beträge, die lange liegen bleiben",
+            "korb": 1
+          },
+          {
+            "text": "Ein fester Platz für das Gesparte",
+            "korb": null,
+            "hinweis": "Das gilt für beide! Wichtig ist, dass Gespartes nicht überall verteilt ist."
+          }
+        ],
+        "geschafft": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Beides hat Vorteile. Hauptsache, dein Geld hat einen festen Platz."
+        }
+      },
+      "abschluss": {
+        "wer": "gustav",
+        "name": "Gustav",
+        "text": "Ich sammle meine Münzen jetzt alle an einem Ort. Versprochen!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Talo und Tala vergleichen Sparschwein und Konto. Welcher Satz stimmt?",
+          "richtig": "Auf dem Konto ist das Geld sicherer, im Sparschwein sieht man es wachsen.",
+          "falsch": [
+            "Im Sparschwein ist das Geld sicherer als auf dem Konto.",
+            "Auf dem Konto hört man jede Münze klimpern."
+          ],
+          "erklaerung": "Beides hat Vorteile: Sicherheit auf dem Konto, Anfassen beim Sparschwein."
+        },
+        {
+          "frage": "Warum ist ein Sparschwein gut für den Anfang?",
+          "richtig": "Man kann zusehen, wie das Gesparte mehr wird.",
+          "falsch": [
+            "Es macht das Geld von allein mehr.",
+            "Niemand kann es jemals öffnen."
+          ],
+          "erklaerung": "Sehen und Hören macht Mut zum Weitersparen."
+        },
+        {
+          "frage": "Wo liegt das Kleingeld für den Kiosk morgen gut?",
+          "richtig": "Im Geldbeutel oder in der Bordkasse",
+          "falsch": [
+            "Für viele Jahre fest auf dem Konto",
+            "Verteilt in verschiedenen Jackentaschen"
+          ],
+          "erklaerung": "Geld, das man bald ausgibt, darf griffbereit sein, aber an einem festen Ort."
+        },
+        {
+          "frage": "Wer hilft Kindern, ein Konto bei der Bank einzurichten?",
+          "richtig": "Die Eltern",
+          "falsch": [
+            "Niemand, das macht man allein",
+            "Die Freunde aus der Klasse"
+          ],
+          "erklaerung": "Für ein Konto braucht man als Kind die Eltern."
+        },
+        {
+          "frage": "Gustav hat seine Münzen in einem Schuh, unter einem Stein und im Geigenkasten. Was rätst du ihm?",
+          "richtig": "Alles an einem festen Ort sammeln",
+          "falsch": [
+            "Noch mehr Verstecke suchen",
+            "Alles sofort ausgeben"
+          ],
+          "erklaerung": "So weiß er immer, wie viel er hat, und nichts geht verloren."
+        },
+        {
+          "frage": "Für welches Geld passt ein Konto besonders gut?",
+          "richtig": "Für größere Beträge, die lange liegen bleiben",
+          "falsch": [
+            "Für das Kleingeld für den Kiosk heute",
+            "Für Geld, das man morgen ausgeben will"
+          ],
+          "erklaerung": "Was lange liegen bleibt, ist auf dem Konto gut aufgehoben."
+        },
+        {
+          "frage": "Tala hat 20 Euro im Sparschwein. Was ist dabei ein Risiko?",
+          "richtig": "Das Sparschwein kann herunterfallen, verloren gehen oder gestohlen werden.",
+          "falsch": [
+            "Das Geld wird im Sparschwein von allein weniger.",
+            "Im Sparschwein darf man nur Münzen haben."
+          ],
+          "erklaerung": "Bargeld zu Hause kann verloren gehen. Darum kommen größere Beträge gern auf ein Konto."
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Schatztruhen-Challenge",
+      "ort": "Vorratsspeicher",
+      "lernziel": "Regelmäßig sparen wird zur Gewohnheit",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ihr habt so viel gelernt! Jetzt kommt die Schatztruhen-Challenge."
+        },
+        {
+          "wer": "tala",
+          "text": "Eine Challenge? Was muss ich tun?"
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Vier Wochen lang legst du jede Woche etwas in deine Schatztruhe. Egal wie wenig."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "emma",
+        "frage": "Was glaubst du: Wie viele Taler hat Tala nach 4 Wochen, wenn sie jede Woche 3 Taler in die Schatztruhe legt?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 30,
+        "start": 3,
+        "einheit": "Taler",
+        "einheit_eins": "Taler",
+        "loesung": 12,
+        "aufloesung": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "12 Taler! 4 Wochen mal 3 Taler. Und wer dranbleibt, macht das Sparen zur Gewohnheit."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Woche eins: Tala legt den ersten Taler in ihre Schatztruhe.",
+          "bild": "story.spar-insel.7.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Jede Woche kommt etwas dazu. Die Säckchen werden immer voller!",
+          "bild": "story.spar-insel.7.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Wer etwas regelmäßig macht, gewöhnt sich daran. Irgendwann ist Sparen ganz normal, wie Zähneputzen."
+        },
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Ihr habt den Vorratsspeicher verdient. Schaut mal, was darin leuchtet!",
+          "bild": "story.spar-insel.7.3"
+        },
+        {
+          "wer": "gustav",
+          "name": "Gustav",
+          "text": "Emma, darf ich auch eine Spardose haben? Ich fange heute an!",
+          "bild": "story.spar-insel.7.4"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Läute die Start-Glocke für die Challenge.",
+          "zeichen": "glocke",
+          "danach": "Die Challenge beginnt!"
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Leg einen Taler in die Schatztruhe.",
+          "zeichen": "muenze",
+          "danach": "Klonk! Die erste Woche ist geschafft."
+        }
+      ],
+      "spiel": {
+        "art": "choice",
+        "titel": "Dranbleiben",
+        "beschreibung": "Hilf Tala, bei der Challenge dranzubleiben.",
+        "aufgabe": "Was ist die beste Idee? Tippe auf deine Wahl.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Wann lege ich das Geld am besten in die Schatztruhe?"
+              }
+            ],
+            "frage": "Was hilft am meisten?",
+            "optionen": [
+              {
+                "text": "Immer am selben Tag, gleich wenn das Taschengeld kommt",
+                "gut": true,
+                "antwort": "Genau! Dann ist das Sparen schon erledigt, bevor das Geld ausgegeben ist."
+              },
+              {
+                "text": "Am Ende der Woche, wenn etwas übrig ist",
+                "gut": false,
+                "antwort": "Oft ist dann nichts mehr übrig. Besser gleich am Anfang sparen."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Diese Woche habe ich nur 1 Taler übrig statt 3."
+              }
+            ],
+            "frage": "Was soll Tala tun?",
+            "optionen": [
+              {
+                "text": "Den einen Taler trotzdem in die Schatztruhe legen",
+                "gut": true,
+                "antwort": "Super! Auch wenig zählt. Wichtig ist, dass die Challenge weitergeht."
+              },
+              {
+                "text": "Die Challenge abbrechen",
+                "gut": false,
+                "antwort": "Ein Taler ist besser als keiner. Aufgeben muss Tala nicht."
+              },
+              {
+                "text": "Diese Woche ausfallen lassen und nächste Woche 5 Taler sparen",
+                "gut": false,
+                "antwort": "Das klappt selten. Besser jede Woche ein bisschen."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "gustav",
+                "name": "Gustav",
+                "text": "Wie merke ich, dass die Challenge klappt?"
+              }
+            ],
+            "frage": "Was hilft Gustav?",
+            "optionen": [
+              {
+                "text": "Jede Woche ein Kästchen abhaken und den Stand ansehen",
+                "gut": true,
+                "antwort": "So sieht Gustav, wie es vorangeht. Das macht Mut."
+              },
+              {
+                "text": "Gar nicht darüber nachdenken",
+                "gut": false,
+                "antwort": "Dann vergisst man es schnell. Abhaken hilft beim Dranbleiben."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Jede Woche ein bisschen: So wird Sparen zur Gewohnheit."
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Ich mache die Challenge! Machst du mit? Leg in der Schatztruhe jede Woche etwas dazu."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wie lange dauert die Schatztruhen-Challenge?",
+          "richtig": "Vier Wochen, jede Woche ein bisschen",
+          "falsch": [
+            "Einen einzigen Tag",
+            "Ein ganzes Jahr ohne Pause"
+          ],
+          "erklaerung": "Vier Wochen reichen, damit Sparen zur Gewohnheit wird."
+        },
+        {
+          "frage": "Wann spart man am besten?",
+          "richtig": "Gleich, wenn das Taschengeld kommt",
+          "falsch": [
+            "Am Ende des Monats, wenn etwas übrig ist",
+            "Nur an Geburtstagen"
+          ],
+          "erklaerung": "Wer zuerst spart, hat das Geld schon sicher, bevor es weg ist."
+        },
+        {
+          "frage": "Tala legt 4 Wochen lang jede Woche 3 Taler in die Schatztruhe. Wie viele Taler sind es dann?",
+          "richtig": "12 Taler",
+          "falsch": [
+            "7 Taler",
+            "3 Taler"
+          ],
+          "erklaerung": "4 mal 3 sind 12."
+        },
+        {
+          "frage": "Was ist eine Gewohnheit?",
+          "richtig": "Etwas, das man so oft macht, dass es ganz normal wird",
+          "falsch": [
+            "Etwas, das man nur einmal macht",
+            "Etwas, das man nicht darf"
+          ],
+          "erklaerung": "Wie Zähneputzen: Irgendwann denkt man gar nicht mehr darüber nach."
+        },
+        {
+          "frage": "Diese Woche bleibt nur wenig Geld übrig. Was ist klug?",
+          "richtig": "Trotzdem ein bisschen sparen",
+          "falsch": [
+            "Die Challenge abbrechen",
+            "Gar nichts sparen und alles ausgeben"
+          ],
+          "erklaerung": "Auch wenig zählt. Hauptsache, man bleibt dran."
+        },
+        {
+          "frage": "Wer verhält sich auf der Spar-Insel wie ein guter Sparer?",
+          "richtig": "Emma, die im Herbst Vorräte anlegt",
+          "falsch": [
+            "Gustav, der alles sofort verbraucht",
+            "Niemand, auf der Insel spart keiner"
+          ],
+          "erklaerung": "Emma legt zurück, wenn genug da ist. Das ist Sparen."
+        },
+        {
+          "frage": "Gustav hat nie gespart. Jetzt ist seine Geige kaputt. Was ist das Problem?",
+          "richtig": "Er hat kein Geld für die Reparatur.",
+          "falsch": [
+            "Er braucht keine Geige mehr.",
+            "Emma muss die Reparatur bezahlen."
+          ],
+          "erklaerung": "Ohne Rücklage fehlt das Geld, wenn etwas Unerwartetes passiert."
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "typ": "exam",
+      "seemeilen": 150,
+      "titel": "Abschlussprüfung",
+      "ort": "Vorratsspeicher",
+      "lernziel": "Alles von der Spar-Insel wiederholen, dazu zwei Fragen von früheren Inseln",
+      "dauer": "8 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "emma",
+          "name": "Emma",
+          "text": "Letzte Prüfung auf der Spar-Insel. Ab 8 richtigen Antworten öffne ich euch den Speicher ganz."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich habe fleißig gespart: Wissen! Los geht's."
+        }
+      ],
+      "abschluss": {
+        "wer": "emma",
+        "name": "Emma",
+        "text": "Bestanden! Das Kartenstück aus dem Vorratsspeicher gehört euch. Gute Fahrt, ihr Vorratsmeister!"
+      },
+      "pruefung": {
+        "anzahl": 8,
+        "rueckblick": 2,
+        "bestehen": 8
+      },
+      "fragen": [
+        {
+          "frage": "Warum spart man?",
+          "richtig": "Um sich später etwas Größeres zu leisten oder für Notfälle",
+          "falsch": [
+            "Damit man nie wieder etwas kaufen muss",
+            "Weil Ausgeben schlecht ist"
+          ],
+          "erklaerung": "Sparen schafft Möglichkeiten für später.",
+          "station": 1
+        },
+        {
+          "frage": "Warum hatte Gustav im Winter Probleme?",
+          "richtig": "Er hatte im Herbst alles sofort verbraucht.",
+          "falsch": [
+            "Er hatte zu viele Vorräte.",
+            "Emma hatte ihm nichts abgegeben."
+          ],
+          "erklaerung": "Ohne Vorrat steht man in schlechten Zeiten ohne etwas da.",
+          "station": 1
+        },
+        {
+          "frage": "Was ist ein Notgroschen?",
+          "richtig": "Geld für unerwartete Ausgaben",
+          "falsch": [
+            "Geld für den nächsten Kinobesuch",
+            "Eine Münze, die nichts mehr wert ist"
+          ],
+          "erklaerung": "Ein Notgroschen hilft, wenn etwas Unerwartetes passiert.",
+          "station": 1
+        },
+        {
+          "frage": "Sparen bedeutet …",
+          "richtig": "heute etwas zurücklegen, um es später zu nutzen.",
+          "falsch": [
+            "nie wieder etwas kaufen.",
+            "Geld verschenken."
+          ],
+          "erklaerung": "Gespartes Geld ist nicht weg, es wartet auf später.",
+          "station": 1
+        },
+        {
+          "frage": "Was gehört zu einem guten Sparziel?",
+          "richtig": "Was ich will, was es kostet und bis wann",
+          "falsch": [
+            "Nur ein schönes Bild",
+            "Was die anderen sich wünschen"
+          ],
+          "erklaerung": "Je klarer das Ziel, desto leichter das Sparen.",
+          "station": 2
+        },
+        {
+          "frage": "Dein Ziel kostet 40 Taler, du hast 10. Wie viel fehlt?",
+          "richtig": "30 Taler",
+          "falsch": [
+            "50 Taler",
+            "4 Taler"
+          ],
+          "erklaerung": "40 minus 10 sind 30.",
+          "station": 2
+        },
+        {
+          "frage": "Du sparst jede Woche 2 Taler. Wie viel hast du nach 10 Wochen?",
+          "richtig": "20 Taler",
+          "falsch": [
+            "12 Taler",
+            "2 Taler"
+          ],
+          "erklaerung": "10 mal 2 sind 20.",
+          "station": 3
+        },
+        {
+          "frage": "Wie viel sind 50 Cent am Tag nach einer Woche?",
+          "richtig": "3,50 Euro",
+          "falsch": [
+            "50 Cent",
+            "5 Euro"
+          ],
+          "erklaerung": "7 mal 50 Cent sind 3,50 Euro.",
+          "einsteiger": {
+            "frage": "Wie viel sind 2 Euro am Tag nach einer Woche?",
+            "richtig": "14 Euro",
+            "falsch": [
+              "2 Euro",
+              "9 Euro"
+            ],
+            "erklaerung": "7 mal 2 Euro sind 14 Euro."
+          },
+          "station": 3
+        },
+        {
+          "frage": "Was bedeutet „Kleinvieh macht auch Mist“?",
+          "richtig": "Auch kleine Beträge werden mit der Zeit viel.",
+          "falsch": [
+            "Nur große Beträge zählen.",
+            "Kleine Beträge gibt man am besten gleich aus."
+          ],
+          "erklaerung": "Regelmäßige kleine Beträge summieren sich.",
+          "station": 3
+        },
+        {
+          "frage": "Eine Nuss jetzt oder drei morgen. Was zeigt diese Wahl?",
+          "richtig": "Wer warten kann, bekommt oft mehr.",
+          "falsch": [
+            "Wer zuerst nimmt, bekommt am meisten.",
+            "Warten lohnt sich nie."
+          ],
+          "erklaerung": "Geduld zahlt sich häufig aus.",
+          "station": 4
+        },
+        {
+          "frage": "Was hilft dir, geduldig zu bleiben?",
+          "richtig": "Den Fortschritt sehen, zum Beispiel in der Schatztruhe",
+          "falsch": [
+            "Jeden Tag in den Laden gehen",
+            "Das Ziel vergessen"
+          ],
+          "erklaerung": "Wer sieht, dass es vorangeht, bleibt dran.",
+          "station": 4
+        },
+        {
+          "frage": "Du willst 30 Taler sparen und legst 5 pro Woche zurück. Wie lange dauert es?",
+          "richtig": "6 Wochen",
+          "falsch": [
+            "3 Wochen",
+            "25 Wochen"
+          ],
+          "erklaerung": "30 geteilt durch 5 sind 6.",
+          "station": 5
+        },
+        {
+          "frage": "Was ist ein Sparplan?",
+          "richtig": "Ein Plan, wie viel man wann zurücklegt",
+          "falsch": [
+            "Eine Liste, was man alles kaufen will",
+            "Ein Stadtplan zur Bank"
+          ],
+          "erklaerung": "Mit einem Sparplan weiß man, wann man das Ziel erreicht.",
+          "station": 5
+        },
+        {
+          "frage": "Du bekommst Geld geschenkt. Was ist klug für dein Sparziel?",
+          "richtig": "Einen Teil in die Schatztruhe legen",
+          "falsch": [
+            "Alles sofort ausgeben",
+            "Es verstecken und vergessen"
+          ],
+          "erklaerung": "So kommt man dem Ziel schneller näher.",
+          "station": 5
+        },
+        {
+          "frage": "Was ist ein Vorteil eines Kontos gegenüber dem Sparschwein?",
+          "richtig": "Das Geld ist sicherer aufbewahrt.",
+          "falsch": [
+            "Man kann das Geld jederzeit anfassen.",
+            "Man hört, wie es klimpert."
+          ],
+          "erklaerung": "Auf dem Konto kann Geld nicht verloren gehen wie Bargeld.",
+          "station": 6
+        },
+        {
+          "frage": "Was ist ein Vorteil eines Sparschweins?",
+          "richtig": "Man sieht und hört, wie das Geld wächst.",
+          "falsch": [
+            "Es ist gegen Diebstahl geschützt.",
+            "Das Geld kann nicht verloren gehen."
+          ],
+          "erklaerung": "Gerade für den Anfang ist das Sehen und Anfassen gut.",
+          "station": 6
+        },
+        {
+          "frage": "Warum ist es keine gute Idee, Geld überall zu verteilen?",
+          "richtig": "Man verliert den Überblick, und es geht leichter verloren.",
+          "falsch": [
+            "Weil das Geld dann mehr wird",
+            "Weil Münzen dann rosten"
+          ],
+          "erklaerung": "Ein fester Platz schafft Überblick.",
+          "station": 6
+        },
+        {
+          "frage": "Was macht man bei der Schatztruhen-Challenge?",
+          "richtig": "Mehrere Wochen regelmäßig etwas sparen",
+          "falsch": [
+            "Eine Truhe kaufen",
+            "Alles auf einmal ausgeben"
+          ],
+          "erklaerung": "Regelmäßigkeit macht Sparen zur Gewohnheit.",
+          "station": 7
+        },
+        {
+          "frage": "Emma legt im Herbst Vorräte an. Wie heißt das beim Geld?",
+          "richtig": "Sparen",
+          "falsch": [
+            "Leihen",
+            "Tauschen"
+          ],
+          "erklaerung": "Vorräte anlegen ist wie Sparen.",
+          "station": 7
+        },
+        {
+          "frage": "Was passiert, wenn man nie spart?",
+          "richtig": "Für größere Wünsche oder Notfälle fehlt das Geld.",
+          "falsch": [
+            "Man hat später automatisch mehr.",
+            "Nichts, das ist egal."
+          ],
+          "erklaerung": "Ohne Rücklage ist man auf Glück angewiesen.",
+          "station": 7
+        }
+      ]
+    }
+  ]
 }

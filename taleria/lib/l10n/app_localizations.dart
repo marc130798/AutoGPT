@@ -3325,6 +3325,30 @@ abstract class AppLocalizations {
   /// **'gut: hält 1 Jahr'**
   String get drawingGoodNet;
 
+  /// Zeichnung Spar-Insel: Wochentage, mit Leerzeichen getrennt
+  ///
+  /// In de, this message translates to:
+  /// **'Mo Di Mi Do Fr Sa So'**
+  String get drawingWeekdays;
+
+  /// Zeichnung Sparplan
+  ///
+  /// In de, this message translates to:
+  /// **'{value} Taler pro Woche'**
+  String drawingPerWeek(int value);
+
+  /// Zeichnung Sparplan
+  ///
+  /// In de, this message translates to:
+  /// **'Woche {n}'**
+  String drawingWeek(int n);
+
+  /// Zeichnung Sparplan
+  ///
+  /// In de, this message translates to:
+  /// **'Ziel: {value} Taler'**
+  String drawingGoal(int value);
+
   /// Beschriftung einer Münze unter 1 Euro
   ///
   /// In de, this message translates to:
@@ -4348,7 +4372,7 @@ abstract class AppLocalizations {
   /// Tier einer Inselfigur mit eigenem Namen (FIGUREN.md), damit Kinder Name und Tier zusammenbringen. Leer für Figuren ohne eigenen Namen.
   ///
   /// In de, this message translates to:
-  /// **'{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} other{}}'**
+  /// **'{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} emma{das Eichhörnchen} gustav{die Grille} other{}}'**
   String figureAnimal(String figure);
 
   /// Name einer Inselfigur mit Tier, zum Beispiel „Bruno, der Bär“

@@ -73,6 +73,21 @@ void main() {
     expect(find.text('20 Taler'), findsOneWidget);
   });
 
+  testWidgets('Spar-Insel: 50 Cent am Tag, Sparplan mit 5 Talern pro Woche', (tester) async {
+    await tester.pumpWidget(app(const StoryDrawing(name: 'coins_week')));
+    expect(find.byType(EuroCoin), findsNWidgets(7));
+    expect(find.text('Mo'), findsOneWidget);
+    expect(find.text('So'), findsOneWidget);
+    expect(find.text('7 × ${formatCents(50)} = ${formatCents(350)}'), findsOneWidget);
+
+    await tester.pumpWidget(app(const StoryDrawing(name: 'savings_plan')));
+    expect(find.text('5 Taler pro Woche'), findsOneWidget);
+    expect(find.text('Woche 6'), findsOneWidget);
+    expect(find.text('Woche 7'), findsNothing);
+    expect(find.text('30'), findsOneWidget);
+    expect(find.text('Ziel: 30 Taler'), findsOneWidget);
+  });
+
   testWidgets('Zeichnungen passen in jede Größe, auch auf kleine Handys', (tester) async {
     for (final name in storyDrawings) {
       for (final size in const [Size(260, 195), Size(400, 300), Size(600, 450)]) {

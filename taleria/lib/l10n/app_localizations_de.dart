@@ -1950,6 +1950,24 @@ class AppLocalizationsDe extends AppLocalizations {
   String get drawingGoodNet => 'gut: hält 1 Jahr';
 
   @override
+  String get drawingWeekdays => 'Mo Di Mi Do Fr Sa So';
+
+  @override
+  String drawingPerWeek(int value) {
+    return '$value Taler pro Woche';
+  }
+
+  @override
+  String drawingWeek(int n) {
+    return 'Woche $n';
+  }
+
+  @override
+  String drawingGoal(int value) {
+    return 'Ziel: $value Taler';
+  }
+
+  @override
   String coinCents(int value) {
     return '$value ct';
   }
@@ -2621,6 +2639,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'olga': 'die Schildkröte',
       'elsa': 'die Elster',
       'moritz': 'das Murmeltier',
+      'emma': 'das Eichhörnchen',
+      'gustav': 'die Grille',
       'other': '',
     });
     return '$_temp0';

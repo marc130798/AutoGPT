@@ -71,7 +71,7 @@ void main() {
     await tapKey(tester, 'home-badges');
     expect(find.text('Noch keine Orden. Schließe deine erste Insel ab!'), findsOneWidget);
     expect(find.text('Erster Landgang'), findsOneWidget);
-    expect(find.text('Noch nicht gefunden'), findsNWidgets(3));
+    expect(find.text('Noch nicht gefunden'), findsNWidgets(4));
 
     // Ehrenwand: Antippen zeigt den Orden groß.
     await tester.tap(find.text('Erster Landgang'));
@@ -304,7 +304,7 @@ void main() {
     final (:content, :progress) = await startOnHome(
       tester,
       prepare: (p) => p
-        ..completedIslands.addAll(['island-hafen', 'island-tauschinsel', 'island-wunschinsel'])
+        ..completedIslands.addAll(['island-hafen', 'island-tauschinsel', 'island-wunschinsel', 'island-spar-insel'])
         ..seen.addAll([for (var i = 1; i <= 3; i++) 'island-hafen/station2/q$i']),
     );
     await tapText(tester, 'Zur Karte');

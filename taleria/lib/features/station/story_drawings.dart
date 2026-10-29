@@ -17,6 +17,8 @@ const storyDrawings = {
   'big_coins_first',
   'nets_year',
   'nets_cost',
+  'coins_week',
+  'savings_plan',
 };
 
 /// Eine Zeichnung im Format 4:3, passt sich der Größe an.
@@ -52,6 +54,8 @@ class StoryDrawing extends StatelessWidget {
       'big_coins_first' => (_wood, _bigFirst(l10n)),
       'nets_year' => (_velvet, _netsYear(l10n)),
       'nets_cost' => (_velvet, _netsCost(l10n)),
+      'coins_week' => (_velvet, _coinsWeek(l10n)),
+      'savings_plan' => (_wood, _savingsPlan(l10n)),
       _ => (_velvet, const SizedBox.shrink()),
     };
     // Material sorgt für die Schrift der App, egal wo die Zeichnung liegt.
@@ -252,6 +256,95 @@ class StoryDrawing extends StatelessWidget {
       children: [
         row(const FishingNet(size: 54), 12, 5, const Color(0xFFC0473F)),
         row(const FishingNet(size: 64, good: true), 1, 20, const Color(0xFF2E7D4F), best: true),
+      ],
+    );
+  }
+
+  /// Spar-Insel Station 3: Jeden Tag 50 Cent, nach einer Woche 3,50 €.
+  static Widget _coinsWeek(AppLocalizations l10n) {
+    const perDay = 50;
+    final days = l10n.drawingWeekdays.split(' ');
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final day in days)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Column(
+                    children: [
+                      _chip(day, size: 14),
+                      const SizedBox(height: 8),
+                      const EuroCoin(cents: perDay, scale: 1.9),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        _chip(
+          '${days.length} × ${formatCents(perDay)} = ${formatCents(days.length * perDay)}',
+          color: const Color(0xFF2E7D4F),
+          size: 26,
+        ),
+      ],
+    );
+  }
+
+  /// Spar-Insel Station 5: Sparplan, 5 Taler pro Woche bis zum Ziel von 30 Talern.
+  static Widget _savingsPlan(AppLocalizations l10n) {
+    const perWeek = 5, goal = 30;
+    const weeks = goal ~/ perWeek;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _chip(l10n.drawingPerWeek(perWeek), size: 18),
+        SizedBox(
+          height: 190,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (var week = 1; week <= weeks; week++)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (week == weeks) const Icon(Icons.flag, color: Color(0xFFC0473F), size: 26),
+                        Text(
+                          '${week * perWeek}',
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Colors.white),
+                        ),
+                        const SizedBox(height: 4),
+                        Container(
+                          width: 40,
+                          height: 18.0 * week,
+                          decoration: BoxDecoration(
+                            color: week == weeks ? const Color(0xFFF3D98A) : const Color(0xFFD4A62A),
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(color: const Color(0xFF5A3A1A), width: 2),
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          l10n.drawingWeek(week),
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        _chip(l10n.drawingGoal(goal), color: const Color(0xFF2E7D4F), size: 22),
       ],
     );
   }

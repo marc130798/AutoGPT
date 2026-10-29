@@ -1612,12 +1612,604 @@ on conflict (id) do update set text = excluded.text, status = excluded.status;
 -- Status der Insel erst jetzt, wenn alles auf der Insel da ist.
 update public.islands set status = 'draft' where id = md5('taleria:stage1/wunschinsel')::uuid and status <> 'draft';
 
--- 4. Spar-Insel (Nebel), Status: entwurf
+-- 4. Spar-Insel, Status: entwurf
 insert into public.islands (id, slug, stage, island_group, sort_order, map_x, map_y, route_type, title, content)
-values (md5('taleria:stage1/spar-insel')::uuid, 'spar-insel', 1, 1, 4, 0.5, 0.765, 'main', 'Spar-Insel', '{"goal":"Sparen","access":"premium"}'::jsonb)
+values (md5('taleria:stage1/spar-insel')::uuid, 'spar-insel', 1, 1, 4, 0.5, 0.765, 'main', 'Spar-Insel', '{"goal":"Das Kind weiß, warum man spart, legt einen echten Wunschschatz an, versteht, wie kleine Beträge wachsen, plant mit einem Sparplan und kennt sichere Orte für Geld.","learn":["Warum Sparen hilft, auch für Notfälle","Wie kleine Beträge mit der Zeit groß werden","Wie du mit einem Sparplan dein Ziel erreichst"],"access":"premium","arrival":{"video_key":"video.arrival.spar-insel","scene":[{"speaker":"tala","text":"Huch! Überall bunte Blätter auf dem Deck. Hier ist ja Herbst!"},{"speaker":"emma","text":"Willkommen auf der Spar-Insel! Entschuldigt, ich muss noch Nüsse in den Speicher tragen.","name":"Emma"},{"speaker":"gustav","text":"Warum sammeln? Es ist doch genug da! Kommt, wir machen Musik!","name":"Gustav"},{"speaker":"tala","text":"Hm. Bin ich eher wie Emma oder wie Gustav?"},{"speaker":"talo","text":"Schau, im großen Vorratsspeicher leuchtet das nächste Kartenstück."}]},"badge":"Vorratsmeister","real_life_task":{"title":"Erster Wunschschatz","text":"Legt gemeinsam einen echten Wunschschatz mit Sparplan an und besprecht, wie viel jede Woche in die Schatztruhe kommt."}}'::jsonb)
 on conflict (id) do update set
   slug = excluded.slug, island_group = excluded.island_group, sort_order = excluded.sort_order,
   map_x = excluded.map_x, map_y = excluded.map_y, title = excluded.title, content = excluded.content;
+
+-- Stopp auf See 1: Ottis Fischerboot
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/sea1')::uuid, md5('taleria:stage1/spar-insel')::uuid, 1, 'sea_stop', true, 30, '{"title":"Ottis Fischerboot","kind":"sea_stop","stop":{"type":"fischerboot","figure":"otti","index":1,"ship":"ship.fischer"},"scene":[{"speaker":"otti","text":"Ahoi! Ich will mir ein neues Netz kaufen. Aber ich wünsche mir auch einen Hut, eine Laterne und ein Boot in Rot!"},{"speaker":"tala","text":"Oh, das kenne ich. Auf der Wunschinsel haben wir gelernt, was zuerst kommt."}],"summary":{"speaker":"otti","text":"Erst das Netz, dann der Rest. Danke, Crew! Gute Fahrt zur Spar-Insel."},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea1/q1')::uuid, md5('taleria:stage1/spar-insel/sea1')::uuid, 'Otti braucht ein Netz zum Fischen und wünscht sich einen Hut. Was kommt zuerst?', '["Das Netz, weil sie es zum Arbeiten braucht","Der Hut, weil er schöner ist","Beides gleichzeitig, egal wie teuer"]'::jsonb, 0, 'Erst das Nötige, dann das Schöne.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea1/q2')::uuid, md5('taleria:stage1/spar-insel/sea1')::uuid, 'Otti fragt: Woran erkenne ich ein Bedürfnis?', '["Ich brauche es zum Leben, wie Essen oder Kleidung.","Alle anderen haben es auch.","Ich wünsche es mir schon lange."]'::jsonb, 0, 'Essen, Trinken, Kleidung und ein Zuhause sind Bedürfnisse.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea1/q3')::uuid, md5('taleria:stage1/spar-insel/sea1')::uuid, 'Otti will sofort ein rotes Boot kaufen. Was hilft ihr bei der Entscheidung?', '["Eine Nacht oder eine Woche darüber schlafen","Sofort kaufen, bevor es weg ist","Die anderen Fischer fragen, was sie haben"]'::jsonb, 0, 'Die Warte-Regel zeigt, ob man den Wunsch wirklich will.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea1/q4')::uuid, md5('taleria:stage1/spar-insel/sea1')::uuid, 'Alle Fischer haben eine neue Laterne. Otti will deshalb auch eine. Wie nennt man das?', '["Gruppendruck","Sparen","Tauschen"]'::jsonb, 0, 'Wenn man etwas nur will, weil andere es haben, ist das Gruppendruck.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea1/q5')::uuid, md5('taleria:stage1/spar-insel/sea1')::uuid, 'Was macht nach einem Jahr meistens länger froh?', '["Ein schöner Ausflug mit Freunden","Ein neues Spielzeug, das bald in der Ecke liegt","Möglichst viele Dinge auf einmal"]'::jsonb, 0, 'Erlebnisse bleiben lange in Erinnerung.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea1/q6')::uuid, md5('taleria:stage1/spar-insel/sea1')::uuid, 'Otti hat 10 Taler. Das Netz kostet 7 Taler, der Hut 5 Taler. Was geht?', '["Das Netz kaufen, dann bleiben 3 Taler übrig.","Beides kaufen, das passt genau.","Nur den Hut kaufen und das Netz später."]'::jsonb, 0, '7 und 5 sind 12, mehr als 10. Das Netz ist wichtiger.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+
+-- Stopp auf See 2: Tala hat etwas vergessen
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/sea2')::uuid, md5('taleria:stage1/spar-insel')::uuid, 2, 'sea_stop', true, 30, '{"title":"Tala hat etwas vergessen","kind":"sea_stop","stop":{"type":"tala_vergisst","figure":"tala","index":2},"scene":[{"speaker":"tala","text":"Oh nein! Was war noch mal die Wunschflasche? Und die Warte-Regel?"},{"speaker":"talo","text":"Kein Problem. Hilfst du Tala, sich zu erinnern?"}],"summary":{"speaker":"tala","text":"Jetzt weiß ich es wieder! Auf zur Spar-Insel!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea2/q1')::uuid, md5('taleria:stage1/spar-insel/sea2')::uuid, 'Tala fragt: Wozu ist die Wunschflasche gut?', '["Man wartet ab, ob man den Wunsch später noch will.","Man bekommt den Wunsch sofort geschenkt.","Man wirft den Wunsch für immer weg."]'::jsonb, 0, 'Nach der Wartezeit fragt die App, ob man den Wunsch noch will.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea2/q2')::uuid, md5('taleria:stage1/spar-insel/sea2')::uuid, 'Tala fragt: Wie geht die Warte-Regel?', '["Vor einem Kauf eine Weile warten und dann noch einmal entscheiden","Immer sofort kaufen, bevor es weg ist","Nie etwas kaufen"]'::jsonb, 0, 'Viele Wünsche sind nach ein paar Tagen weg.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea2/q3')::uuid, md5('taleria:stage1/spar-insel/sea2')::uuid, 'Tala fragt: Was ist ein Wunsch und kein Bedürfnis?', '["Eine neue Spielkonsole","Trinkwasser","Eine warme Jacke im Winter"]'::jsonb, 0, 'Eine Konsole macht Spaß, zum Leben braucht man sie nicht.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea2/q4')::uuid, md5('taleria:stage1/spar-insel/sea2')::uuid, 'Tala fragt: Was tue ich, wenn mein Geld nicht für alles reicht?', '["Wichtiges zuerst und auf etwas verzichten","Einfach alles kaufen","Gar nichts mehr kaufen"]'::jsonb, 0, 'Prioritäten setzen heißt: das Wichtigste zuerst.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea2/q5')::uuid, md5('taleria:stage1/spar-insel/sea2')::uuid, 'Tala fragt: Macht Geld glücklich?', '["Es hilft gegen Sorgen, aber Freunde und Erlebnisse machen oft glücklicher.","Ja, je mehr Dinge, desto glücklicher","Nein, Geld ist immer schlecht"]'::jsonb, 0, 'Geld ist nützlich. Glück hängt aber an viel mehr.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/sea2/q6')::uuid, md5('taleria:stage1/spar-insel/sea2')::uuid, 'Tala fragt: Alle in meiner Klasse haben die gleiche Mütze. Muss ich sie auch haben?', '["Nein, ich überlege, ob ich sie selbst will.","Ja, sonst bin ich nicht dabei.","Ja, und gleich zwei davon."]'::jsonb, 0, 'Es zählt, was du selbst willst, nicht was alle haben.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station1')::uuid, md5('taleria:stage1/spar-insel')::uuid, 10, 'game', true, 100, '{"title":"Warum sparen?","number":1,"place":"Baumhaus-Dorf","goal":"Sparen bedeutet heute zurücklegen, um später etwas zu haben","minutes":"6 bis 9 Min.","scene":[{"speaker":"emma","text":"Willkommen im Baumhaus-Dorf! Hilfst du mir, die letzten Nüsse in den Speicher zu tragen?","name":"Emma"},{"speaker":"gustav","text":"Ach, Emma, sammel doch nicht so viel! Es liegen doch überall Nüsse herum.","name":"Gustav"},{"speaker":"tala","text":"Gustav hat recht, oder? Warum soll man etwas weglegen, wenn genug da ist?"},{"speaker":"talo","text":"Gute Frage, Tala. Warten wir mal ab, was im Winter passiert."}],"lesson":[{"speaker":"talo","text":"Im Herbst gibt es Nüsse im Überfluss. Emma isst nicht alle sofort, sie legt einen Teil zurück.","image":"story.spar-insel.1.1"},{"speaker":"tala","text":"Und dann kommt der Winter. Emma sitzt im Warmen bei ihrem Vorrat, und Gustav hat nichts mehr.","image":"story.spar-insel.1.2"},{"speaker":"talo","text":"Mit Geld ist es genauso. Sparen heißt: Heute etwas zurücklegen, damit man später etwas hat. Für einen großen Wunsch, für einen Notfall oder einfach für später.","image":"story.spar-insel.1.3"},{"speaker":"emma","text":"Ein kleiner Vorrat für schlechte Zeiten heißt Notgroschen. Wenn etwas kaputtgeht, muss man dann nicht gleich verzweifeln.","name":"Emma","image":"story.spar-insel.1.4"}],"game":{"type":"sort","title":"Wofür spart man?","description":"Ordne jeden Grund dem passenden Sparglas zu.","task":"Tippe auf eine Karte und dann auf das passende Glas.","items":[{"text":"Rollschuhe, die mehr kosten als das Taschengeld einer Woche","basket":0},{"text":"Ein neues Fahrradspiel für die Konsole","basket":0},{"text":"Die Brille ist zerbrochen und muss repariert werden","basket":1},{"text":"Der Fahrradreifen hat ein Loch","basket":1},{"text":"Das Geschenk für Omas Geburtstag in drei Monaten","basket":2},{"text":"Die Klassenfahrt im nächsten Jahr","basket":2},{"text":"Ein Fahrrad","basket":null,"hint":"Das kann ein großer Wunsch sein. Ist das alte Fahrrad kaputt und du brauchst es für den Schulweg, wird es fast zum Notfall."}],"baskets":["Für einen großen Wunsch","Für einen Notfall","Für später"],"done":{"speaker":"emma","text":"Ob Wunsch, Notfall oder später: Wer etwas zurückgelegt hat, kann sich darauf verlassen.","name":"Emma"}},"estimate":{"speaker":"emma","question":"Was glaubst du: Wie viele Nüsse brauche ich für einen ganzen Winter?","kind":"slider","min":0,"max":400,"step":20,"start":100,"unit":"Nüsse","answer":200,"reveal":{"speaker":"emma","text":"Ungefähr 200 Nüsse! Jeden Tag ein, zwei Nüsse, viele Wochen lang. So einen Vorrat sammelt man nicht an einem Tag."}},"taps":[{"after":1,"kind":"tap","text":"Sammle mit Emma Nüsse in den Beutel: Tippe dreimal.","symbol":"beutel","count":3,"done":"Drei Nüsse für den Vorrat!"},{"after":2,"kind":"flip","text":"Dreh die Tür des Speichers um. Was ist drin?","symbol":"tuer","back":"Ein voller Vorrat! Emma muss im Winter nicht hungern."}],"summary":{"speaker":"tala","text":"Ich glaube, ich will lieber wie Emma sein. Zumindest ein bisschen!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q1')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Was bedeutet Sparen?', '["Heute etwas zurücklegen, um es später zu nutzen","Nie wieder etwas kaufen","Geld so schnell wie möglich ausgeben, bevor es weniger wird"]'::jsonb, 0, 'Gespartes Geld ist nicht weg. Es wartet auf später.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q2')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Warum hatte Gustav im Winter nichts mehr?', '["Er hat im Herbst alles sofort verbraucht.","Emma hat ihm alles weggenommen.","Im Herbst gab es keine Nüsse."]'::jsonb, 0, 'Im Herbst gab es genug. Gustav hat nur nichts zurückgelegt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q3')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Tala hat einen Notgroschen von 5 Talern. Ihr Fahrradschloss geht kaputt. Was ist klug?', '["Den Notgroschen für ein neues Schloss nehmen","Den Notgroschen für Süßigkeiten ausgeben, das Schloss kann warten","Nichts tun, einen Notgroschen darf man nie benutzen"]'::jsonb, 0, 'Genau für so etwas ist ein Notgroschen da: für unerwartete Ausgaben.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q4')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Welcher Grund zum Sparen ist ein Notfall?', '["Die Fahrradkette ist gerissen.","Du wünschst dir ein neues Spiel.","Im Sommer ist ein Ausflug geplant."]'::jsonb, 0, 'Ein Notfall kommt unerwartet und muss schnell bezahlt werden.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q5')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Lohnt sich Sparen auch, wenn man gerade genug hat?', '["Ja, denn später kann es knapp werden.","Nein, wer genug hat, braucht nie zu sparen.","Nein, Sparen lohnt sich nur für Erwachsene."]'::jsonb, 0, 'Wie bei Emma: Gerade wenn genug da ist, kann man etwas zurücklegen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q6')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Tala bekommt 10 Taler und legt 3 davon in die Schatztruhe. Was hat sie gemacht?', '["Sie hat einen Teil gespart und kann den Rest ausgeben.","Sie hat 3 Taler verloren.","Sie darf jetzt gar nichts mehr kaufen."]'::jsonb, 0, 'Sparen heißt nicht alles oder nichts. Schon ein Teil hilft.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station1/q7')::uuid, md5('taleria:stage1/spar-insel/station1')::uuid, 'Wofür spart man nicht?', '["Um Geld wegzuschließen und nie zu benutzen","Für einen großen Wunsch","Für einen Notfall"]'::jsonb, 0, 'Gespartes Geld soll später helfen, für Wünsche, Notfälle oder später.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station2')::uuid, md5('taleria:stage1/spar-insel')::uuid, 20, 'game', true, 100, '{"title":"Mein erster Wunschschatz","number":2,"place":"Wunschschatz-Lichtung","goal":"Ein gutes Sparziel ist konkret","minutes":"6 bis 9 Min.","scene":[{"speaker":"tala","text":"Ich will auch sparen! Ich spare einfach … irgendwas. Irgendwann."},{"speaker":"emma","text":"Hm. Wofür denn? Und wie viel?","name":"Emma"},{"speaker":"tala","text":"Keine Ahnung. Ist das wichtig?"},{"speaker":"emma","text":"Sehr wichtig! Komm mit auf die Lichtung, ich zeige dir ein gutes Sparziel.","name":"Emma"}],"lesson":[{"speaker":"tala","text":"Ich wünsche mir rote Rollschuhe. Schon so lange!","image":"story.spar-insel.2.1"},{"speaker":"emma","text":"Ein gutes Sparziel hat drei Teile: Was willst du? Wie viel kostet es? Bis wann willst du es haben?","name":"Emma","image":"story.spar-insel.2.2"},{"speaker":"talo","text":"Rollschuhe, 40 Taler, bis zum Sommer. Das ist ein richtiger Wunschschatz!"},{"speaker":"tala","text":"Und damit ich ihn nicht vergesse, hänge ich ein Bild davon auf.","image":"story.spar-insel.2.3"},{"speaker":"emma","text":"In deiner Schatztruhe kannst du auch so einen Wunschschatz anlegen. Dann siehst du jeden Tag, wie nah du schon dran bist.","name":"Emma"}],"game":{"type":"choice","title":"Ein gutes Sparziel","description":"Hilf den Tieren, ein gutes Sparziel zu finden.","task":"Welches Sparziel ist klarer? Tippe auf deine Wahl.","rounds":[{"scene":[{"speaker":"tala","text":"Ich will für etwas Schönes sparen."}],"question":"Welches Ziel ist besser?","options":[{"text":"Rollschuhe für 40 Taler bis zum Sommer","good":true,"reply":"Genau! Tala weiß jetzt, was, wie viel und bis wann."},{"text":"Irgendwas Schönes, irgendwann","good":false,"reply":"Das ist zu ungenau. Wie soll Tala wissen, ob sie es geschafft hat?"}]},{"scene":[{"speaker":"gustav","text":"Ich spare für eine neue Geige. Wie viel sie kostet, weiß ich aber nicht.","name":"Gustav"}],"question":"Was fehlt Gustav noch?","options":[{"text":"Der Preis: Er muss herausfinden, was die Geige kostet.","good":true,"reply":"Richtig! Ohne Preis weiß Gustav nicht, wie viel er sparen muss."},{"text":"Gar nichts, er spart ja schon.","good":false,"reply":"Er weiß nicht, wie viel er braucht. So merkt er nie, ob es reicht."},{"text":"Eine zweite Geige als Ziel","good":false,"reply":"Ein Ziel nach dem anderen. Erst braucht Gustav den Preis der ersten."}]},{"scene":[{"speaker":"emma","text":"Ich will 60 Taler für eine Hängematte sparen.","name":"Emma"}],"question":"Was macht Emmas Ziel noch besser?","options":[{"text":"Ein Datum: bis zum Frühling","good":true,"reply":"Super! Mit einem Datum kann Emma planen, wie viel sie pro Woche braucht."},{"text":"Ein höherer Betrag, damit es schwerer wird","good":false,"reply":"Schwerer ist nicht besser. Das Ziel soll klar sein, nicht schwierig."},{"text":"Niemandem davon erzählen","good":false,"reply":"Es hilft eher, anderen vom Ziel zu erzählen. Dann bleibt man dran."}]}],"done":{"speaker":"emma","text":"Was, wie viel, bis wann: Mit diesen drei Fragen wird aus einem Wunsch ein Wunschschatz.","name":"Emma"}},"estimate":{"speaker":"emma","question":"Was glaubst du: Mit welchem Ziel schafft Tala es eher?","kind":"choice","options":["„Ich spare mal irgendwas.“","„Ich spare für Rollschuhe, 40 Taler, bis zum Sommer.“"],"answer":1,"reveal":{"speaker":"emma","text":"Mit dem klaren Ziel! Wer weiß, wofür, wie viel und bis wann, bleibt viel leichter dran."}},"taps":[{"after":1,"kind":"tap","text":"Such ein Bild für Talas Wunschschatz aus: Tippe auf den Bilderrahmen.","symbol":"foto","done":"Rote Rollschuhe! Das Bild erinnert Tala an ihr Ziel."},{"after":3,"kind":"drag","text":"Häng das Bild an den Ast.","symbol":"foto","done":"Jetzt hängt der Wunschschatz gut sichtbar am Baum."}],"summary":{"speaker":"tala","text":"Mein Wunschschatz: Rollschuhe, 40 Taler, bis zum Sommer! Leg deinen auch in der Schatztruhe an."},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q1')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Tala sagt: Ich spare für Rollschuhe. Was fehlt noch für ein gutes Sparziel?', '["Wie viel sie kosten und bis wann sie sie haben will","In welchem Laden die anderen sie kaufen","Welche Farbe die Schnürsenkel haben"]'::jsonb, 0, 'Was, wie viel und bis wann: Erst mit Preis und Datum ist das Ziel klar.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q2')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Welches Sparziel ist am klarsten?', '["Ein Fußball für 20 Euro bis zu den Ferien","Etwas Tolles, wenn genug Geld da ist","Viel Geld, ganz schnell"]'::jsonb, 0, 'Was, wie viel und bis wann: Das hat nur der Fußball.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q3')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Dein Ziel kostet 50 Taler. Du hast schon 32. Wie viel fehlt noch?', '["18 Taler","28 Taler","82 Taler"]'::jsonb, 0, '50 minus 32 sind 18.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q4')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Warum hilft ein Bild von deinem Wunschschatz?', '["Es erinnert dich jeden Tag an dein Ziel.","Weil der Wunschschatz dadurch billiger wird","Weil man dann nicht mehr sparen muss"]'::jsonb, 0, 'Wer sein Ziel sieht, bleibt leichter dran.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q5')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Gustav weiß nicht, was seine Geige kostet. Was sollte er zuerst tun?', '["Den Preis herausfinden","Einfach alles ausgeben","Ein anderes Ziel nehmen"]'::jsonb, 0, 'Ohne Preis weiß man nicht, wie viel man sparen muss.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q6')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Tala hat 25 Taler. Die Rollschuhe kosten 40 Taler. Wie viel fehlt?', '["15 Taler","25 Taler","65 Taler"]'::jsonb, 0, '40 minus 25 sind 15.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station2/q7')::uuid, md5('taleria:stage1/spar-insel/station2')::uuid, 'Wo kannst du in Taleria deinen Wunschschatz anlegen?', '["In der Schatztruhe","Auf der Karte","Bei den Orden"]'::jsonb, 0, 'In der Schatztruhe siehst du, wie viel dir noch fehlt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station3')::uuid, md5('taleria:stage1/spar-insel')::uuid, 30, 'game', true, 100, '{"title":"Kleine Beträge werden groß","number":3,"place":"Nussturm","goal":"Auch kleine Beträge werden mit der Zeit viel","minutes":"6 bis 9 Min.","scene":[{"speaker":"emma","text":"Jeden Tag lege ich eine einzige Nuss auf meinen Turm.","name":"Emma"},{"speaker":"gustav","text":"Eine Nuss? Haha! Das bringt doch nichts.","name":"Gustav"},{"speaker":"tala","text":"Stimmt schon, eine Nuss ist wirklich wenig."},{"speaker":"emma","text":"Wartet nur ab.","name":"Emma"}],"lesson":[{"speaker":"emma","text":"Eine Nuss am Tag sieht nach nichts aus.","name":"Emma","image":"story.spar-insel.3.1"},{"speaker":"tala","text":"Aber nach vielen Wochen ist der Turm höher als die Bäume!","image":"story.spar-insel.3.2"},{"speaker":"talo","text":"Mit Geld geht das genauso. Wer jeden Tag 50 Cent zur Seite legt, hat nach einer Woche 3,50 Euro.","image":"drawing:coins_week"},{"speaker":"talo","text":"Nach einem Monat sind es schon etwa 15 Euro. Darum sagt man: Kleinvieh macht auch Mist."}],"game":{"type":"number","title":"Der Nussturm wächst","description":"Rechne aus, wie viel mit der Zeit zusammenkommt.","task":"Tippe deine Antwort als Zahl ein.","rounds":[{"question":"Emma legt jeden Tag 2 Nüsse auf den Turm. Wie viele Nüsse sind es nach einer Woche?","amount":14,"unit":"Nüsse","hint":"Eine Woche hat 7 Tage.","explanation":"7 Tage mal 2 Nüsse sind 14 Nüsse."},{"question":"Tala legt jede Woche 3 Taler in ihre Schatztruhe. Wie viele Taler hat sie nach 4 Wochen?","amount":12,"unit":"Taler","hint":"Rechne 4 mal 3.","explanation":"4 Wochen mal 3 Taler sind 12 Taler."},{"question":"Gustav kauft jeden Tag eine Limo für 1 Taler. Wie viele Taler könnte er in 30 Tagen sparen, wenn er darauf verzichtet?","amount":30,"unit":"Taler","hint":"Ein Taler an jedem der 30 Tage.","explanation":"30 Tage mal 1 Taler sind 30 Taler. Kleine Ausgaben summieren sich auch."}],"done":{"speaker":"gustav","text":"Okay, okay. Eine Nuss ist doch nicht nichts.","name":"Gustav"}},"estimate":{"speaker":"talo","question":"Was glaubst du: Wie viele Euro hat man nach einem Jahr, wenn man jeden Tag 50 Cent zur Seite legt?","kind":"slider","min":0,"max":400,"step":10,"start":50,"unit":"Euro","answer":180,"reveal":{"speaker":"talo","text":"Über 180 Euro! Jeden Tag nur 50 Cent, aber ein ganzes Jahr lang. Kleine Beträge werden mit der Zeit groß."}},"taps":[{"after":1,"kind":"tap","text":"Leg jeden Tag eine Münze auf den Turm: Tippe dreimal.","symbol":"muenze","count":3,"done":"Drei Tage, drei Münzen. Der Turm wächst!"},{"after":2,"kind":"flip","text":"Blättere im Kalender viele Wochen weiter.","symbol":"kalender","back":"Viele Wochen später: Aus einzelnen Nüssen ist ein riesiger Turm geworden."}],"summary":{"speaker":"emma","text":"Kleinvieh macht auch Mist: Auch wenig wird viel, wenn man dranbleibt.","name":"Emma"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q1')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Emmas Turm wächst jeden Tag nur um eine Nuss. Warum wird er trotzdem riesig?', '["Weil viele kleine Schritte über lange Zeit viel ergeben","Weil die Nüsse über Nacht wachsen","Weil Gustav heimlich Nüsse dazulegt"]'::jsonb, 0, 'Kleinvieh macht auch Mist: Regelmäßig ein bisschen wird viel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q2')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Du legst jeden Tag 50 Cent zur Seite. Wie viel hast du nach zwei Wochen?', '["7 Euro","1 Euro","14 Euro"]'::jsonb, 0, 'Zwei Wochen sind 14 Tage. 14 mal 50 Cent sind 700 Cent, also 7 Euro.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q3')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Du sparst jede Woche 4 Taler. Wie viel hast du nach 5 Wochen?', '["20 Taler","9 Taler","45 Taler"]'::jsonb, 0, '5 mal 4 sind 20.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q4')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Gustav kauft jeden Tag ein Bonbon für 10 Cent. Wie viel gibt er in 30 Tagen aus?', '["3 Euro","30 Cent","10 Euro"]'::jsonb, 0, '30 mal 10 Cent sind 300 Cent, also 3 Euro. Auch kleine Ausgaben werden viel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q5')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Was ist wichtiger, damit kleine Beträge groß werden?', '["Dass man regelmäßig und lange dranbleibt","Dass man einmal ganz viel auf einmal spart","Dass man das Geld oft zählt"]'::jsonb, 0, 'Die Zeit macht aus wenig viel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q6')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Emma legt jeden Tag 1 Nuss auf den Turm. Wie viele Nüsse hat sie nach 3 Wochen?', '["21 Nüsse","3 Nüsse","10 Nüsse"]'::jsonb, 0, '3 Wochen sind 21 Tage, jeden Tag eine Nuss.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station3/q7')::uuid, md5('taleria:stage1/spar-insel/station3')::uuid, 'Tala will jeden Tag nur 20 Cent sparen. Was sagst du ihr?', '["Gute Idee, auch 20 Cent jeden Tag werden mit der Zeit viel.","Lass es, so wenig bringt nichts.","Spar lieber gar nicht, bis du mehr hast."]'::jsonb, 0, 'Jeder kleine Betrag hilft, wenn man dranbleibt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station4')::uuid, md5('taleria:stage1/spar-insel')::uuid, 40, 'game', true, 100, '{"title":"Geduld lohnt sich","number":4,"place":"Geduldsbank","goal":"Wer warten kann, bekommt oft mehr","minutes":"6 bis 9 Min.","scene":[{"speaker":"emma","text":"Setzt euch auf die Geduldsbank. Ich habe ein Angebot für euch.","name":"Emma"},{"speaker":"emma","text":"Ihr bekommt jetzt eine Nuss. Oder ihr wartet bis morgen und bekommt drei.","name":"Emma"},{"speaker":"gustav","text":"Jetzt! Sofort! Ich habe Hunger.","name":"Gustav"},{"speaker":"tala","text":"Hmm. Drei sind mehr. Aber morgen ist so weit weg …"}],"lesson":[{"speaker":"emma","text":"Eine Nuss jetzt oder drei morgen: Was nimmst du?","name":"Emma","image":"story.spar-insel.4.1"},{"speaker":"tala","text":"Gustav hat seine Nuss sofort gegessen. Ich warte. Das ist ganz schön schwer!","image":"story.spar-insel.4.2"},{"speaker":"tala","text":"Am nächsten Morgen habe ich drei Nüsse. Warten hat sich gelohnt!","image":"story.spar-insel.4.3"},{"speaker":"talo","text":"Wer warten kann, bekommt oft mehr. Beim Sparen ist das genauso: Erst sammeln, dann kaufen."},{"speaker":"emma","text":"Ein Trick für die Geduld: Schau dir an, wie viel du schon hast, statt an das zu denken, was du jetzt haben könntest.","name":"Emma"}],"game":{"type":"choice","title":"Jetzt oder später?","description":"Triff Entscheidungen und sieh, was Warten bringt.","task":"Was würdest du tun? Tippe auf deine Wahl.","rounds":[{"scene":[{"speaker":"emma","text":"Ein kleiner Kuchen jetzt oder ein großer am Sonntag?","name":"Emma"}],"question":"Was ist klug, wenn du nicht gerade Hunger hast?","options":[{"text":"Bis Sonntag warten und den großen nehmen","good":true,"reply":"Ein paar Tage Geduld, und du bekommst viel mehr."},{"text":"Sofort den kleinen nehmen","good":false,"reply":"Das geht natürlich. Aber wenn du warten kannst, bekommst du mehr."}]},{"scene":[{"speaker":"tala","text":"Ich habe 8 Taler. Am Kiosk gibt es jetzt Bonbons. In zwei Wochen habe ich genug für ein Buch, das ich mir wirklich wünsche."}],"question":"Was soll Tala tun?","options":[{"text":"Weitersparen und in zwei Wochen das Buch kaufen","good":true,"reply":"Genau! Die Bonbons sind schnell weg, das Buch hat sie lange."},{"text":"Die Bonbons kaufen und neu anfangen","good":false,"reply":"Dann fängt Tala wieder bei null an, und das Buch rückt weit weg."},{"text":"Ein paar Bonbons kaufen und den Rest sparen","good":true,"reply":"Auch das geht! Ein kleiner Teil für jetzt, der größere für das Buch. Es dauert dann nur etwas länger."}]},{"scene":[{"speaker":"gustav","text":"Ich will eine neue Geige. Aber es dauert noch so lange! Ich gebe auf.","name":"Gustav"}],"question":"Was hilft Gustav, geduldig zu bleiben?","options":[{"text":"Jede Woche ansehen, wie viel er schon gespart hat","good":true,"reply":"Wer sieht, dass es vorangeht, bleibt dran."},{"text":"Jeden Tag in den Laden gehen und die Geige anschauen","good":false,"reply":"Das macht das Warten oft schwerer. Besser ist es, den eigenen Fortschritt zu sehen."},{"text":"Das Ziel vergessen","good":false,"reply":"Wer das Ziel vergisst, gibt das Geld schnell für anderes aus."}]}],"done":{"speaker":"emma","text":"Geduld ist wie ein Muskel. Je öfter du wartest, desto leichter wird es.","name":"Emma"}},"estimate":{"speaker":"emma","question":"Was glaubst du: Wie viele Nüsse bekommt Tala, wenn sie bis morgen wartet?","kind":"wheel","min":1,"max":10,"start":1,"unit":"Nüsse","unit_one":"Nuss","answer":3,"reveal":{"speaker":"emma","text":"Drei Nüsse! Dreimal so viel, nur weil sie eine Nacht gewartet hat."}},"taps":[{"after":1,"kind":"tap","text":"Drück mit Tala den „Warten“-Knopf.","symbol":"hand","done":"Tala wartet. Das Körbchen mit drei Nüssen bleibt für sie stehen."},{"after":2,"kind":"flip","text":"Dreh den Kalender auf morgen.","symbol":"kalender","back":"Guten Morgen! Drei Nüsse warten auf Tala."}],"summary":{"speaker":"tala","text":"Warten ist schwer, aber drei Nüsse sind besser als eine!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q1')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Gustav nimmt eine Nuss sofort, Tala wartet und bekommt morgen drei. Wie viele Nüsse hat Tala mehr?', '["2 Nüsse","3 Nüsse","1 Nuss"]'::jsonb, 0, '3 minus 1 sind 2. Warten hat sich gelohnt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q2')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Tala muss noch 4 Wochen sparen und wird ungeduldig. Was hilft ihr?', '["Jede Woche ansehen, wie die Schatztruhe voller wird","Jeden Tag im Schaufenster die Rollschuhe anschauen","Aufhören und etwas anderes kaufen"]'::jsonb, 0, 'Wer sieht, dass es vorangeht, bleibt dran.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q3')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Warum ist Warten oft so schwer?', '["Weil man das Schöne am liebsten sofort hätte","Weil Warten verboten ist","Weil Gespartes jeden Tag weniger wird"]'::jsonb, 0, 'Das ist ganz normal. Mit Übung wird es leichter.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q4')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Tala hat 8 von 12 Talern für ein Buch. Am Kiosk gibt es Bonbons für 3 Taler. Was passiert, wenn sie die Bonbons kauft?', '["Ihr fehlen dann wieder 7 Taler für das Buch.","Das Buch wird billiger.","Sie hat dann sofort genug für das Buch."]'::jsonb, 0, '8 minus 3 sind 5. Bis 12 fehlen dann 7 Taler.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q5')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Gustav will aufgeben, weil das Sparen so lange dauert. Was rätst du ihm?', '["Kleine Zwischenziele feiern, zum Beispiel die Hälfte","Alles sofort ausgeben","Nie wieder etwas sparen"]'::jsonb, 0, 'Zwischenziele machen den langen Weg kürzer.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q6')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Wann ist es in Ordnung, nicht zu warten?', '["Wenn man etwas wirklich jetzt braucht, zum Beispiel etwas zu essen bei Hunger","Immer, Warten lohnt sich nie","Nie, man muss immer warten"]'::jsonb, 0, 'Geduld ist gut, aber Bedürfnisse gehen vor.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station4/q7')::uuid, md5('taleria:stage1/spar-insel/station4')::uuid, 'Emma sagt: Geduld ist wie ein Muskel. Was meint sie?', '["Je öfter man übt zu warten, desto leichter wird es.","Wer geduldig ist, wird stärker.","Geduld bekommt man nur beim Sport."]'::jsonb, 0, 'Geduld kann man üben, wie beim Training.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station5')::uuid, md5('taleria:stage1/spar-insel')::uuid, 50, 'game', true, 100, '{"title":"Einen Sparplan aufstellen","number":5,"place":"Planungs-Hütte","goal":"Ein Sparplan zeigt, wann man das Ziel erreicht","minutes":"6 bis 9 Min.","scene":[{"speaker":"emma","text":"In meiner Planungs-Hütte schreibe ich auf, wann ich wie viel spare.","name":"Emma"},{"speaker":"tala","text":"Ich spare für Rollschuhe. Aber wann habe ich genug?"},{"speaker":"emma","text":"Das rechnen wir aus. Mit einem Sparplan!","name":"Emma"}],"lesson":[{"speaker":"emma","text":"Ein Sparplan beantwortet eine Frage: Wann habe ich mein Ziel erreicht?","name":"Emma","image":"story.spar-insel.5.1"},{"speaker":"talo","text":"Das Ziel sind 30 Taler. Jede Woche kommen 5 Taler dazu. Nach 6 Wochen ist es geschafft.","image":"drawing:savings_plan"},{"speaker":"tala","text":"Jede Woche male ich ein Kästchen aus. Das erste ist schon fertig!","image":"story.spar-insel.5.3"},{"speaker":"emma","text":"Und wenn es schneller gehen soll? Dann legst du mehr pro Woche zurück oder wählst ein kleineres Ziel.","name":"Emma"}],"game":{"type":"number","title":"Sparplan-Rechner","description":"Rechne aus, wie lange das Sparen dauert.","task":"Tippe deine Antwort als Zahl ein.","rounds":[{"question":"Tala will 40 Taler sparen und legt jede Woche 5 Taler zurück. Wie viele Wochen dauert es?","amount":8,"unit":"Wochen","hint":"Wie oft passt 5 in 40?","explanation":"40 geteilt durch 5 sind 8. Nach 8 Wochen hat Tala ihre Rollschuhe."},{"question":"Gustav will 24 Taler sparen und legt jede Woche 4 Taler zurück. Wie viele Wochen dauert es?","amount":6,"unit":"Wochen","hint":"Rechne 24 geteilt durch 4.","explanation":"24 geteilt durch 4 sind 6 Wochen."},{"question":"Emma will in 5 Wochen 50 Taler haben. Wie viele Taler muss sie jede Woche zurücklegen?","amount":10,"unit":"Taler","hint":"Teile das Ziel durch die Zahl der Wochen.","explanation":"50 geteilt durch 5 sind 10 Taler pro Woche."}],"done":{"speaker":"emma","text":"Mit einem Sparplan weißt du immer, wann du am Ziel bist.","name":"Emma"}},"estimate":{"speaker":"emma","question":"Was glaubst du: Wie viele Wochen braucht man für 30 Taler, wenn man jede Woche 5 Taler spart?","kind":"wheel","min":1,"max":20,"start":1,"unit":"Wochen","unit_one":"Woche","answer":6,"reveal":{"speaker":"emma","text":"Sechs Wochen! 6 mal 5 Taler sind 30 Taler."}},"taps":[{"after":1,"kind":"tap","text":"Füll mit Emma die ersten Wochenkästchen aus: Tippe zweimal.","symbol":"liste","count":2,"done":"Zwei Wochen geschafft, vier liegen noch vor Tala."},{"after":2,"kind":"tap","text":"Stempel den Sparplan ab.","symbol":"stempel","done":"Abgestempelt! Der Plan gilt."}],"summary":{"speaker":"tala","text":"Mein Plan: 5 Taler pro Woche, in 8 Wochen habe ich die Rollschuhe!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q1')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'Wozu ist ein Sparplan gut?', '["Man weiß, wann man sein Ziel erreicht.","Damit man nie wieder etwas ausgibt","Damit das Ziel billiger wird"]'::jsonb, 0, 'Ein Sparplan sagt: so viel pro Woche, so lange bis zum Ziel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q2')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'Du willst 36 Taler sparen und legst 6 pro Woche zurück. Wie lange dauert es?', '["6 Wochen","5 Wochen","30 Wochen"]'::jsonb, 0, '36 geteilt durch 6 sind 6.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q3')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'Du willst schneller am Ziel sein. Was hilft?', '["Jede Woche etwas mehr zurücklegen","Seltener in die Schatztruhe schauen","Den Sparplan wegwerfen"]'::jsonb, 0, 'Mehr pro Woche heißt: weniger Wochen bis zum Ziel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q4')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'Du bekommst zum Geburtstag 10 Euro geschenkt. Was ist klug für deinen Sparplan?', '["Einen Teil davon in die Schatztruhe legen","Alles sofort ausgeben","Das Geld verstecken und vergessen"]'::jsonb, 0, 'So kommst du deinem Ziel schneller näher.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q5')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'Tala will 12 Euro sparen und legt jede Woche 1,50 Euro zurück. Wie viele Wochen braucht sie?', '["8 Wochen","12 Wochen","6 Wochen"]'::jsonb, 0, '1,50 Euro mal 8 sind 12 Euro.', null, 'draft', '{"question":"Tala will 12 Euro sparen und legt jede Woche 2 Euro zurück. Wie viele Wochen braucht sie?","answers":["6 Wochen","12 Wochen","4 Wochen"],"correct_index":0,"explanation":"12 geteilt durch 2 sind 6 Wochen."}'::jsonb)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q6')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'Emma will in 4 Wochen 20 Taler haben. Wie viel muss sie pro Woche sparen?', '["5 Taler","4 Taler","16 Taler"]'::jsonb, 0, '20 geteilt durch 4 sind 5.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station5/q7')::uuid, md5('taleria:stage1/spar-insel/station5')::uuid, 'In einer Woche hat Tala nichts gespart. Was macht sie jetzt am besten?', '["In der nächsten Woche einfach weitermachen","Den ganzen Plan aufgeben","Alles Gesparte ausgeben"]'::jsonb, 0, 'Ein Plan darf auch mal holpern. Wichtig ist, dranzubleiben.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station6')::uuid, md5('taleria:stage1/spar-insel')::uuid, 60, 'game', true, 100, '{"title":"Sparschwein, Spardose, Konto","number":6,"place":"Schatzkammer","goal":"Es gibt verschiedene Orte zum Sparen, mit Vor- und Nachteilen","minutes":"6 bis 9 Min.","scene":[{"speaker":"gustav","text":"Ich habe jetzt auch angefangen zu sparen! Meine Münzen sind … ähm … überall.","name":"Gustav"},{"speaker":"emma","text":"Überall? Dann komm mit in die Schatzkammer. Gespartes braucht einen guten Platz.","name":"Emma"}],"lesson":[{"speaker":"emma","text":"Es gibt verschiedene Orte für Gespartes: das Sparschwein, die Spardose und das Konto.","name":"Emma","image":"story.spar-insel.6.1"},{"speaker":"tala","text":"Mein Sparschwein mag ich am liebsten. Man hört und sieht, wie das Geld wächst!","image":"story.spar-insel.6.2"},{"speaker":"talo","text":"Aber Bargeld kann verloren gehen. So wie bei Gustav, der seine Münzen überall versteckt hat.","image":"story.spar-insel.6.3"},{"speaker":"emma","text":"Auf einem Konto ist das Geld sicherer aufbewahrt. Wie ein Konto funktioniert, lernt ihr später auf der Bank-Insel.","name":"Emma","image":"story.spar-insel.6.4"}],"game":{"type":"sort","title":"Wo liegt mein Geld gut?","description":"Ordne jeden Satz dem passenden Ort zu.","task":"Tippe auf eine Karte und dann auf den passenden Ort.","items":[{"text":"Man hört, wie die Münzen klimpern","basket":0},{"text":"Steht zu Hause im Regal","basket":0},{"text":"Geht nicht verloren, auch wenn etwas zu Hause passiert","basket":1},{"text":"Die Eltern helfen, es bei der Bank einzurichten","basket":1},{"text":"Man kann das Geld anfassen und zählen","basket":0},{"text":"Für größere Beträge, die lange liegen bleiben","basket":1},{"text":"Ein fester Platz für das Gesparte","basket":null,"hint":"Das gilt für beide! Wichtig ist, dass Gespartes nicht überall verteilt ist."}],"baskets":["Sparschwein oder Spardose","Konto bei der Bank"],"done":{"speaker":"emma","text":"Beides hat Vorteile. Hauptsache, dein Geld hat einen festen Platz.","name":"Emma"}},"estimate":{"speaker":"emma","question":"Was glaubst du: Wo ist Geld am sichersten aufbewahrt?","kind":"choice","options":["Unter dem Kopfkissen","Im Sparschwein","Auf einem Konto bei der Bank"],"answer":2,"reveal":{"speaker":"emma","text":"Auf dem Konto! Dort kann es nicht verloren gehen oder gestohlen werden. Das Sparschwein ist aber auch ein guter Anfang."}},"taps":[{"after":2,"kind":"tap","text":"Schüttel Talas Sparschwein: Tippe dreimal.","symbol":"muenze","count":3,"done":"Klimper, klimper! Das klingt nach einem guten Anfang."},{"after":3,"kind":"flip","text":"Dreh den Schlüssel der Schatzkammer um.","symbol":"schluessel","back":"Alles an einem sicheren Platz. So geht nichts verloren."}],"summary":{"speaker":"gustav","text":"Ich sammle meine Münzen jetzt alle an einem Ort. Versprochen!","name":"Gustav"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q1')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Talo und Tala vergleichen Sparschwein und Konto. Welcher Satz stimmt?', '["Auf dem Konto ist das Geld sicherer, im Sparschwein sieht man es wachsen.","Im Sparschwein ist das Geld sicherer als auf dem Konto.","Auf dem Konto hört man jede Münze klimpern."]'::jsonb, 0, 'Beides hat Vorteile: Sicherheit auf dem Konto, Anfassen beim Sparschwein.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q2')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Warum ist ein Sparschwein gut für den Anfang?', '["Man kann zusehen, wie das Gesparte mehr wird.","Es macht das Geld von allein mehr.","Niemand kann es jemals öffnen."]'::jsonb, 0, 'Sehen und Hören macht Mut zum Weitersparen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q3')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Wo liegt das Kleingeld für den Kiosk morgen gut?', '["Im Geldbeutel oder in der Bordkasse","Für viele Jahre fest auf dem Konto","Verteilt in verschiedenen Jackentaschen"]'::jsonb, 0, 'Geld, das man bald ausgibt, darf griffbereit sein, aber an einem festen Ort.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q4')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Wer hilft Kindern, ein Konto bei der Bank einzurichten?', '["Die Eltern","Niemand, das macht man allein","Die Freunde aus der Klasse"]'::jsonb, 0, 'Für ein Konto braucht man als Kind die Eltern.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q5')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Gustav hat seine Münzen in einem Schuh, unter einem Stein und im Geigenkasten. Was rätst du ihm?', '["Alles an einem festen Ort sammeln","Noch mehr Verstecke suchen","Alles sofort ausgeben"]'::jsonb, 0, 'So weiß er immer, wie viel er hat, und nichts geht verloren.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q6')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Für welches Geld passt ein Konto besonders gut?', '["Für größere Beträge, die lange liegen bleiben","Für das Kleingeld für den Kiosk heute","Für Geld, das man morgen ausgeben will"]'::jsonb, 0, 'Was lange liegen bleibt, ist auf dem Konto gut aufgehoben.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station6/q7')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Tala hat 20 Euro im Sparschwein. Was ist dabei ein Risiko?', '["Das Sparschwein kann herunterfallen, verloren gehen oder gestohlen werden.","Das Geld wird im Sparschwein von allein weniger.","Im Sparschwein darf man nur Münzen haben."]'::jsonb, 0, 'Bargeld zu Hause kann verloren gehen. Darum kommen größere Beträge gern auf ein Konto.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station7')::uuid, md5('taleria:stage1/spar-insel')::uuid, 70, 'game', true, 100, '{"title":"Schatztruhen-Challenge","number":7,"place":"Vorratsspeicher","goal":"Regelmäßig sparen wird zur Gewohnheit","minutes":"6 bis 9 Min.","scene":[{"speaker":"emma","text":"Ihr habt so viel gelernt! Jetzt kommt die Schatztruhen-Challenge.","name":"Emma"},{"speaker":"tala","text":"Eine Challenge? Was muss ich tun?"},{"speaker":"emma","text":"Vier Wochen lang legst du jede Woche etwas in deine Schatztruhe. Egal wie wenig.","name":"Emma"}],"lesson":[{"speaker":"emma","text":"Woche eins: Tala legt den ersten Taler in ihre Schatztruhe.","name":"Emma","image":"story.spar-insel.7.1"},{"speaker":"tala","text":"Jede Woche kommt etwas dazu. Die Säckchen werden immer voller!","image":"story.spar-insel.7.2"},{"speaker":"talo","text":"Wer etwas regelmäßig macht, gewöhnt sich daran. Irgendwann ist Sparen ganz normal, wie Zähneputzen."},{"speaker":"emma","text":"Ihr habt den Vorratsspeicher verdient. Schaut mal, was darin leuchtet!","name":"Emma","image":"story.spar-insel.7.3"},{"speaker":"gustav","text":"Emma, darf ich auch eine Spardose haben? Ich fange heute an!","name":"Gustav","image":"story.spar-insel.7.4"}],"game":{"type":"choice","title":"Dranbleiben","description":"Hilf Tala, bei der Challenge dranzubleiben.","task":"Was ist die beste Idee? Tippe auf deine Wahl.","rounds":[{"scene":[{"speaker":"tala","text":"Wann lege ich das Geld am besten in die Schatztruhe?"}],"question":"Was hilft am meisten?","options":[{"text":"Immer am selben Tag, gleich wenn das Taschengeld kommt","good":true,"reply":"Genau! Dann ist das Sparen schon erledigt, bevor das Geld ausgegeben ist."},{"text":"Am Ende der Woche, wenn etwas übrig ist","good":false,"reply":"Oft ist dann nichts mehr übrig. Besser gleich am Anfang sparen."}]},{"scene":[{"speaker":"tala","text":"Diese Woche habe ich nur 1 Taler übrig statt 3."}],"question":"Was soll Tala tun?","options":[{"text":"Den einen Taler trotzdem in die Schatztruhe legen","good":true,"reply":"Super! Auch wenig zählt. Wichtig ist, dass die Challenge weitergeht."},{"text":"Die Challenge abbrechen","good":false,"reply":"Ein Taler ist besser als keiner. Aufgeben muss Tala nicht."},{"text":"Diese Woche ausfallen lassen und nächste Woche 5 Taler sparen","good":false,"reply":"Das klappt selten. Besser jede Woche ein bisschen."}]},{"scene":[{"speaker":"gustav","text":"Wie merke ich, dass die Challenge klappt?","name":"Gustav"}],"question":"Was hilft Gustav?","options":[{"text":"Jede Woche ein Kästchen abhaken und den Stand ansehen","good":true,"reply":"So sieht Gustav, wie es vorangeht. Das macht Mut."},{"text":"Gar nicht darüber nachdenken","good":false,"reply":"Dann vergisst man es schnell. Abhaken hilft beim Dranbleiben."}]}],"done":{"speaker":"emma","text":"Jede Woche ein bisschen: So wird Sparen zur Gewohnheit.","name":"Emma"}},"estimate":{"speaker":"emma","question":"Was glaubst du: Wie viele Taler hat Tala nach 4 Wochen, wenn sie jede Woche 3 Taler in die Schatztruhe legt?","kind":"wheel","min":0,"max":30,"start":3,"unit":"Taler","unit_one":"Taler","answer":12,"reveal":{"speaker":"emma","text":"12 Taler! 4 Wochen mal 3 Taler. Und wer dranbleibt, macht das Sparen zur Gewohnheit."}},"taps":[{"after":1,"kind":"tap","text":"Läute die Start-Glocke für die Challenge.","symbol":"glocke","done":"Die Challenge beginnt!"},{"after":2,"kind":"drag","text":"Leg einen Taler in die Schatztruhe.","symbol":"muenze","done":"Klonk! Die erste Woche ist geschafft."}],"summary":{"speaker":"tala","text":"Ich mache die Challenge! Machst du mit? Leg in der Schatztruhe jede Woche etwas dazu."},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q1')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Wie lange dauert die Schatztruhen-Challenge?', '["Vier Wochen, jede Woche ein bisschen","Einen einzigen Tag","Ein ganzes Jahr ohne Pause"]'::jsonb, 0, 'Vier Wochen reichen, damit Sparen zur Gewohnheit wird.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q2')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Wann spart man am besten?', '["Gleich, wenn das Taschengeld kommt","Am Ende des Monats, wenn etwas übrig ist","Nur an Geburtstagen"]'::jsonb, 0, 'Wer zuerst spart, hat das Geld schon sicher, bevor es weg ist.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q3')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Tala legt 4 Wochen lang jede Woche 3 Taler in die Schatztruhe. Wie viele Taler sind es dann?', '["12 Taler","7 Taler","3 Taler"]'::jsonb, 0, '4 mal 3 sind 12.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q4')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Was ist eine Gewohnheit?', '["Etwas, das man so oft macht, dass es ganz normal wird","Etwas, das man nur einmal macht","Etwas, das man nicht darf"]'::jsonb, 0, 'Wie Zähneputzen: Irgendwann denkt man gar nicht mehr darüber nach.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q5')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Diese Woche bleibt nur wenig Geld übrig. Was ist klug?', '["Trotzdem ein bisschen sparen","Die Challenge abbrechen","Gar nichts sparen und alles ausgeben"]'::jsonb, 0, 'Auch wenig zählt. Hauptsache, man bleibt dran.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q6')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Wer verhält sich auf der Spar-Insel wie ein guter Sparer?', '["Emma, die im Herbst Vorräte anlegt","Gustav, der alles sofort verbraucht","Niemand, auf der Insel spart keiner"]'::jsonb, 0, 'Emma legt zurück, wenn genug da ist. Das ist Sparen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station7/q7')::uuid, md5('taleria:stage1/spar-insel/station7')::uuid, 'Gustav hat nie gespart. Jetzt ist seine Geige kaputt. Was ist das Problem?', '["Er hat kein Geld für die Reparatur.","Er braucht keine Geige mehr.","Emma muss die Reparatur bezahlen."]'::jsonb, 0, 'Ohne Rücklage fehlt das Geld, wenn etwas Unerwartetes passiert.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/station8')::uuid, md5('taleria:stage1/spar-insel')::uuid, 80, 'exam', true, 150, '{"title":"Abschlussprüfung","number":8,"place":"Vorratsspeicher","goal":"Alles von der Spar-Insel wiederholen, dazu zwei Fragen von früheren Inseln","minutes":"8 bis 10 Min.","scene":[{"speaker":"emma","text":"Letzte Prüfung auf der Spar-Insel. Ab 8 richtigen Antworten öffne ich euch den Speicher ganz.","name":"Emma"},{"speaker":"tala","text":"Ich habe fleißig gespart: Wissen! Los geht''s."}],"summary":{"speaker":"emma","text":"Bestanden! Das Kartenstück aus dem Vorratsspeicher gehört euch. Gute Fahrt, ihr Vorratsmeister!","name":"Emma"},"exam":{"show":8,"review":2,"pass":8}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q1')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Warum spart man?', '["Um sich später etwas Größeres zu leisten oder für Notfälle","Damit man nie wieder etwas kaufen muss","Weil Ausgeben schlecht ist"]'::jsonb, 0, 'Sparen schafft Möglichkeiten für später.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q2')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Warum hatte Gustav im Winter Probleme?', '["Er hatte im Herbst alles sofort verbraucht.","Er hatte zu viele Vorräte.","Emma hatte ihm nichts abgegeben."]'::jsonb, 0, 'Ohne Vorrat steht man in schlechten Zeiten ohne etwas da.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q3')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was ist ein Notgroschen?', '["Geld für unerwartete Ausgaben","Geld für den nächsten Kinobesuch","Eine Münze, die nichts mehr wert ist"]'::jsonb, 0, 'Ein Notgroschen hilft, wenn etwas Unerwartetes passiert.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q4')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Sparen bedeutet …', '["heute etwas zurücklegen, um es später zu nutzen.","nie wieder etwas kaufen.","Geld verschenken."]'::jsonb, 0, 'Gespartes Geld ist nicht weg, es wartet auf später.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q5')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was gehört zu einem guten Sparziel?', '["Was ich will, was es kostet und bis wann","Nur ein schönes Bild","Was die anderen sich wünschen"]'::jsonb, 0, 'Je klarer das Ziel, desto leichter das Sparen.', 2, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q6')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Dein Ziel kostet 40 Taler, du hast 10. Wie viel fehlt?', '["30 Taler","50 Taler","4 Taler"]'::jsonb, 0, '40 minus 10 sind 30.', 2, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q7')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Du sparst jede Woche 2 Taler. Wie viel hast du nach 10 Wochen?', '["20 Taler","12 Taler","2 Taler"]'::jsonb, 0, '10 mal 2 sind 20.', 3, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q8')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Wie viel sind 50 Cent am Tag nach einer Woche?', '["3,50 Euro","50 Cent","5 Euro"]'::jsonb, 0, '7 mal 50 Cent sind 3,50 Euro.', 3, 'draft', '{"question":"Wie viel sind 2 Euro am Tag nach einer Woche?","answers":["14 Euro","2 Euro","9 Euro"],"correct_index":0,"explanation":"7 mal 2 Euro sind 14 Euro."}'::jsonb)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q9')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was bedeutet „Kleinvieh macht auch Mist“?', '["Auch kleine Beträge werden mit der Zeit viel.","Nur große Beträge zählen.","Kleine Beträge gibt man am besten gleich aus."]'::jsonb, 0, 'Regelmäßige kleine Beträge summieren sich.', 3, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q10')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Eine Nuss jetzt oder drei morgen. Was zeigt diese Wahl?', '["Wer warten kann, bekommt oft mehr.","Wer zuerst nimmt, bekommt am meisten.","Warten lohnt sich nie."]'::jsonb, 0, 'Geduld zahlt sich häufig aus.', 4, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q11')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was hilft dir, geduldig zu bleiben?', '["Den Fortschritt sehen, zum Beispiel in der Schatztruhe","Jeden Tag in den Laden gehen","Das Ziel vergessen"]'::jsonb, 0, 'Wer sieht, dass es vorangeht, bleibt dran.', 4, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q12')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Du willst 30 Taler sparen und legst 5 pro Woche zurück. Wie lange dauert es?', '["6 Wochen","3 Wochen","25 Wochen"]'::jsonb, 0, '30 geteilt durch 5 sind 6.', 5, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q13')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was ist ein Sparplan?', '["Ein Plan, wie viel man wann zurücklegt","Eine Liste, was man alles kaufen will","Ein Stadtplan zur Bank"]'::jsonb, 0, 'Mit einem Sparplan weiß man, wann man das Ziel erreicht.', 5, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q14')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Du bekommst Geld geschenkt. Was ist klug für dein Sparziel?', '["Einen Teil in die Schatztruhe legen","Alles sofort ausgeben","Es verstecken und vergessen"]'::jsonb, 0, 'So kommt man dem Ziel schneller näher.', 5, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q15')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was ist ein Vorteil eines Kontos gegenüber dem Sparschwein?', '["Das Geld ist sicherer aufbewahrt.","Man kann das Geld jederzeit anfassen.","Man hört, wie es klimpert."]'::jsonb, 0, 'Auf dem Konto kann Geld nicht verloren gehen wie Bargeld.', 6, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q16')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was ist ein Vorteil eines Sparschweins?', '["Man sieht und hört, wie das Geld wächst.","Es ist gegen Diebstahl geschützt.","Das Geld kann nicht verloren gehen."]'::jsonb, 0, 'Gerade für den Anfang ist das Sehen und Anfassen gut.', 6, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q17')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Warum ist es keine gute Idee, Geld überall zu verteilen?', '["Man verliert den Überblick, und es geht leichter verloren.","Weil das Geld dann mehr wird","Weil Münzen dann rosten"]'::jsonb, 0, 'Ein fester Platz schafft Überblick.', 6, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q18')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was macht man bei der Schatztruhen-Challenge?', '["Mehrere Wochen regelmäßig etwas sparen","Eine Truhe kaufen","Alles auf einmal ausgeben"]'::jsonb, 0, 'Regelmäßigkeit macht Sparen zur Gewohnheit.', 7, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q19')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Emma legt im Herbst Vorräte an. Wie heißt das beim Geld?', '["Sparen","Leihen","Tauschen"]'::jsonb, 0, 'Vorräte anlegen ist wie Sparen.', 7, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/spar-insel/station8/q20')::uuid, md5('taleria:stage1/spar-insel/station8')::uuid, 'Was passiert, wenn man nie spart?', '["Für größere Wünsche oder Notfälle fehlt das Geld.","Man hat später automatisch mehr.","Nichts, das ist egal."]'::jsonb, 0, 'Ohne Rücklage ist man auf Glück angewiesen.', 7, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+-- Ankerplatz 1: Das Tagebuch des Matrosen
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/dive1')::uuid, md5('taleria:stage1/spar-insel')::uuid, 25, 'review_stop', true, 50, '{"title":"Das Tagebuch des Matrosen","kind":"dive","number":1,"dive":{"game":"pearls","questions":4,"wreck":{"scene":[{"speaker":"tala","text":"Ein altes Tagebuch! Ein Matrose schreibt: Ich wollte immer ein eigenes Boot. Aber nie hatte ich genug Geld."},{"speaker":"talo","text":"Hier steht noch mehr: Ich habe nie aufgeschrieben, was das Boot kostet, und immer gespart, wenn gerade etwas übrig war."}],"question":"Was hat der Matrose falsch gemacht?","answers":["Er hatte kein klares Ziel mit Preis und hat nicht regelmäßig gespart.","Er hat zu viel gespart.","Er hätte sich das Boot gar nicht wünschen dürfen."],"correct_index":0,"explanation":"Mit einem klaren Ziel und einem Sparplan hätte er gewusst, wie viel und wie lange er sparen muss."}}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
+  status = excluded.status;
+insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
+values (md5('taleria:stage1/spar-insel/dive1/find')::uuid, 'spar-insel-fund-1', 'wreck_item', 'Tagebuch eines Matrosen', 'collectible.spar-insel.1', md5('taleria:stage1/spar-insel/dive1')::uuid, 41, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
+  status = excluded.status;
+
+-- Ankerplatz 2: Die alte Spardose
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/dive2')::uuid, md5('taleria:stage1/spar-insel')::uuid, 45, 'review_stop', true, 50, '{"title":"Die alte Spardose","kind":"dive","number":2,"dive":{"game":"shell_count","questions":4,"wreck":{"scene":[{"speaker":"talo","text":"Eine alte Spardose! Daneben ein Zettel: Jede Woche 2 Taler, 12 Wochen lang."},{"speaker":"tala","text":"Wie viel da wohl drin ist?"}],"question":"Wie viele Taler sind nach 12 Wochen in der Spardose?","answers":["24 Taler","14 Taler","12 Taler"],"correct_index":0,"explanation":"12 Wochen mal 2 Taler sind 24 Taler. Regelmäßig ein bisschen wird viel."}}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
+  status = excluded.status;
+insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
+values (md5('taleria:stage1/spar-insel/dive2/find')::uuid, 'spar-insel-fund-2', 'wreck_item', 'Alte Spardose', 'collectible.spar-insel.2', md5('taleria:stage1/spar-insel/dive2')::uuid, 42, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
+  status = excluded.status;
+
+-- Ankerplatz 3: Die Schatzkammer der alten Crew
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/spar-insel/dive3')::uuid, md5('taleria:stage1/spar-insel')::uuid, 65, 'review_stop', true, 50, '{"title":"Die Schatzkammer der alten Crew","kind":"dive","number":3,"dive":{"game":"treasure_chest","questions":4,"wreck":{"scene":[{"speaker":"tala","text":"Ein Schlüssel! Die alte Crew hatte ihr Geld an drei Orten: in einem Strumpf, in einer offenen Kiste an Deck und verschlossen in der Schatzkammer."},{"speaker":"talo","text":"Nach einem Sturm war nur noch ein Teil da."}],"question":"Wo war das Geld der alten Crew am sichersten?","answers":["Verschlossen in der Schatzkammer","In der offenen Kiste an Deck","Im Strumpf unter der Hängematte"],"correct_index":0,"explanation":"Ein sicherer, fester Ort schützt Gespartes. Heute ist das für größere Beträge oft ein Konto."}}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
+  status = excluded.status;
+insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
+values (md5('taleria:stage1/spar-insel/dive3/find')::uuid, 'spar-insel-fund-3', 'wreck_item', 'Schlüssel der Schatzkammer', 'collectible.spar-insel.3', md5('taleria:stage1/spar-insel/dive3')::uuid, 43, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
+  status = excluded.status;
+
+delete from public.quiz_questions q using public.stations s
+where q.station_id = s.id and s.island_id = md5('taleria:stage1/spar-insel')::uuid
+  and q.id not in (md5('taleria:stage1/spar-insel/sea1/q1')::uuid, md5('taleria:stage1/spar-insel/sea1/q2')::uuid, md5('taleria:stage1/spar-insel/sea1/q3')::uuid, md5('taleria:stage1/spar-insel/sea1/q4')::uuid, md5('taleria:stage1/spar-insel/sea1/q5')::uuid, md5('taleria:stage1/spar-insel/sea1/q6')::uuid, md5('taleria:stage1/spar-insel/sea2/q1')::uuid, md5('taleria:stage1/spar-insel/sea2/q2')::uuid, md5('taleria:stage1/spar-insel/sea2/q3')::uuid, md5('taleria:stage1/spar-insel/sea2/q4')::uuid, md5('taleria:stage1/spar-insel/sea2/q5')::uuid, md5('taleria:stage1/spar-insel/sea2/q6')::uuid, md5('taleria:stage1/spar-insel/station1/q1')::uuid, md5('taleria:stage1/spar-insel/station1/q2')::uuid, md5('taleria:stage1/spar-insel/station1/q3')::uuid, md5('taleria:stage1/spar-insel/station1/q4')::uuid, md5('taleria:stage1/spar-insel/station1/q5')::uuid, md5('taleria:stage1/spar-insel/station1/q6')::uuid, md5('taleria:stage1/spar-insel/station1/q7')::uuid, md5('taleria:stage1/spar-insel/station2/q1')::uuid, md5('taleria:stage1/spar-insel/station2/q2')::uuid, md5('taleria:stage1/spar-insel/station2/q3')::uuid, md5('taleria:stage1/spar-insel/station2/q4')::uuid, md5('taleria:stage1/spar-insel/station2/q5')::uuid, md5('taleria:stage1/spar-insel/station2/q6')::uuid, md5('taleria:stage1/spar-insel/station2/q7')::uuid, md5('taleria:stage1/spar-insel/station3/q1')::uuid, md5('taleria:stage1/spar-insel/station3/q2')::uuid, md5('taleria:stage1/spar-insel/station3/q3')::uuid, md5('taleria:stage1/spar-insel/station3/q4')::uuid, md5('taleria:stage1/spar-insel/station3/q5')::uuid, md5('taleria:stage1/spar-insel/station3/q6')::uuid, md5('taleria:stage1/spar-insel/station3/q7')::uuid, md5('taleria:stage1/spar-insel/station4/q1')::uuid, md5('taleria:stage1/spar-insel/station4/q2')::uuid, md5('taleria:stage1/spar-insel/station4/q3')::uuid, md5('taleria:stage1/spar-insel/station4/q4')::uuid, md5('taleria:stage1/spar-insel/station4/q5')::uuid, md5('taleria:stage1/spar-insel/station4/q6')::uuid, md5('taleria:stage1/spar-insel/station4/q7')::uuid, md5('taleria:stage1/spar-insel/station5/q1')::uuid, md5('taleria:stage1/spar-insel/station5/q2')::uuid, md5('taleria:stage1/spar-insel/station5/q3')::uuid, md5('taleria:stage1/spar-insel/station5/q4')::uuid, md5('taleria:stage1/spar-insel/station5/q5')::uuid, md5('taleria:stage1/spar-insel/station5/q6')::uuid, md5('taleria:stage1/spar-insel/station5/q7')::uuid, md5('taleria:stage1/spar-insel/station6/q1')::uuid, md5('taleria:stage1/spar-insel/station6/q2')::uuid, md5('taleria:stage1/spar-insel/station6/q3')::uuid, md5('taleria:stage1/spar-insel/station6/q4')::uuid, md5('taleria:stage1/spar-insel/station6/q5')::uuid, md5('taleria:stage1/spar-insel/station6/q6')::uuid, md5('taleria:stage1/spar-insel/station6/q7')::uuid, md5('taleria:stage1/spar-insel/station7/q1')::uuid, md5('taleria:stage1/spar-insel/station7/q2')::uuid, md5('taleria:stage1/spar-insel/station7/q3')::uuid, md5('taleria:stage1/spar-insel/station7/q4')::uuid, md5('taleria:stage1/spar-insel/station7/q5')::uuid, md5('taleria:stage1/spar-insel/station7/q6')::uuid, md5('taleria:stage1/spar-insel/station7/q7')::uuid, md5('taleria:stage1/spar-insel/station8/q1')::uuid, md5('taleria:stage1/spar-insel/station8/q2')::uuid, md5('taleria:stage1/spar-insel/station8/q3')::uuid, md5('taleria:stage1/spar-insel/station8/q4')::uuid, md5('taleria:stage1/spar-insel/station8/q5')::uuid, md5('taleria:stage1/spar-insel/station8/q6')::uuid, md5('taleria:stage1/spar-insel/station8/q7')::uuid, md5('taleria:stage1/spar-insel/station8/q8')::uuid, md5('taleria:stage1/spar-insel/station8/q9')::uuid, md5('taleria:stage1/spar-insel/station8/q10')::uuid, md5('taleria:stage1/spar-insel/station8/q11')::uuid, md5('taleria:stage1/spar-insel/station8/q12')::uuid, md5('taleria:stage1/spar-insel/station8/q13')::uuid, md5('taleria:stage1/spar-insel/station8/q14')::uuid, md5('taleria:stage1/spar-insel/station8/q15')::uuid, md5('taleria:stage1/spar-insel/station8/q16')::uuid, md5('taleria:stage1/spar-insel/station8/q17')::uuid, md5('taleria:stage1/spar-insel/station8/q18')::uuid, md5('taleria:stage1/spar-insel/station8/q19')::uuid, md5('taleria:stage1/spar-insel/station8/q20')::uuid);
+
+insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)
+values (md5('taleria:stage1/spar-insel/badge')::uuid, 'spar-insel', 'island', md5('taleria:stage1/spar-insel')::uuid, 'Vorratsmeister', 'badge.spar-insel', 4, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order,
+  status = excluded.status;
+
+insert into public.conversation_prompts (id, island_id, text, status)
+values (md5('taleria:stage1/spar-insel/prompt1')::uuid, md5('taleria:stage1/spar-insel')::uuid, 'Wofür hast du als Kind gespart?', 'draft')
+on conflict (id) do update set text = excluded.text, status = excluded.status;
+insert into public.conversation_prompts (id, island_id, text, status)
+values (md5('taleria:stage1/spar-insel/prompt2')::uuid, md5('taleria:stage1/spar-insel')::uuid, 'Wofür sparen wir als Familie gerade?', 'draft')
+on conflict (id) do update set text = excluded.text, status = excluded.status;
 
 -- Status der Insel erst jetzt, wenn alles auf der Insel da ist.
 update public.islands set status = 'draft' where id = md5('taleria:stage1/spar-insel')::uuid and status <> 'draft';

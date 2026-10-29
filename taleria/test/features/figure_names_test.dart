@@ -22,6 +22,8 @@ void main() {
     expect(figureLabel(l10n, 'bruno', 'Bruno'), 'Bruno, der Bär');
     expect(figureLabel(l10n, 'greta', 'Greta'), 'Greta, die Ziege');
     expect(figureLabel(l10n, 'moritz', 'Moritz'), 'Moritz, das Murmeltier');
+    expect(figureLabel(l10n, 'emma', 'Emma'), 'Emma, das Eichhörnchen');
+    expect(figureLabel(l10n, 'gustav', 'Gustav'), 'Gustav, die Grille');
     expect(figureLabel(l10n, 'haendler', 'Händler'), 'Händler');
     expect(figureLabel(l10n, 'bootsbauer', 'Obststand'), 'Obststand');
     expect(figureLabel(l10n, 'talo', 'Talo'), 'Talo');

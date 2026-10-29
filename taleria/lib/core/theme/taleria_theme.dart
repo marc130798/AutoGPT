@@ -39,11 +39,7 @@ ThemeData _buildTheme(TaleriaPalette palette) {
 
   // Etwas größere Schrift, gut lesbar für 10-Jährige.
   // Roboto liegt in der App (pubspec.yaml); Pfeile kommen aus „TaleriaZeichen“.
-  final base = ThemeData(
-    useMaterial3: true,
-    colorScheme: colorScheme,
-    fontFamilyFallback: const ['TaleriaZeichen'],
-  );
+  final base = ThemeData(useMaterial3: true, colorScheme: colorScheme, fontFamilyFallback: const ['TaleriaZeichen']);
   final textTheme = base.textTheme
       .copyWith(
         bodyLarge: base.textTheme.bodyLarge?.copyWith(fontSize: 18, height: 1.4),

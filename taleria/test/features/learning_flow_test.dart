@@ -127,16 +127,16 @@ void main() {
     }
   }
 
-  testWidgets('Karte: Hafen offen, Tauschinsel gesperrt, Spar-Insel im Nebel', (tester) async {
+  testWidgets('Karte: Hafen offen, Tauschinsel gesperrt, Taschengeld-Bucht im Nebel', (tester) async {
     await startOnMap(tester);
     expect(find.text('Hafen von Taleria'), findsOneWidget);
 
     await tapKey(tester, 'island-tauschinsel');
     expect(find.text('Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.'), findsOneWidget);
 
-    await tapKey(tester, 'island-spar-insel');
+    await tapKey(tester, 'island-taschengeld-bucht');
     expect(find.text('Diese Insel taucht bald auf.'), findsOneWidget);
-    expect(find.text('Spar-Insel?'), findsOneWidget);
+    expect(find.text('Taschengeld-Bucht?'), findsOneWidget);
   });
 
   testWidgets('Hafen: Station 2 durchspielen, danach öffnet sich Station 3', (tester) async {
@@ -271,7 +271,8 @@ void main() {
     );
     // Auf der Karte stehen die Schiffe von Händler und Otti.
     expect(find.byKey(const ValueKey('sea-stop-ship-ship.haendler')), findsOneWidget);
-    expect(find.byKey(const ValueKey('sea-stop-ship-ship.fischer')), findsOneWidget);
+    // Otti fährt auch vor der Spar-Insel: ihr Schiff steht zweimal auf der Karte.
+    expect(find.byKey(const ValueKey('sea-stop-ship-ship.fischer')), findsNWidgets(2));
     for (final k in [1, 2]) {
       await tapKey(tester, 'sea-stop-tauschinsel-$k');
       // Nach dem Nebel liegt oben das Schiff auf dem Meer.

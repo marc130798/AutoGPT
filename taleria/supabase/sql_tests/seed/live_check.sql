@@ -26,6 +26,6 @@ select test_helpers.expect_true(
   (select has_content from public.map_islands(1::smallint) where slug = 'hafen'),
   'Live-Import: Kinder sehen freigegebene Inseln');
 select test_helpers.expect_true(
-  (select not has_content from public.map_islands(1::smallint) where slug = 'spar-insel'),
+  (select not has_content from public.map_islands(1::smallint) where slug = 'taschengeld-bucht'),
   'Live-Import: Inseln ohne Stationen bleiben im Nebel');
 select test_helpers.logout();

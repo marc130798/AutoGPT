@@ -508,6 +508,8 @@ const storyDrawings = {
   'big_coins_first',
   'nets_year',
   'nets_cost',
+  'coins_week',
+  'savings_plan',
 };
 
 /// Arten von Stopps auf See (CLAUDE.md Abschnitt 8, Begegnungen auf See).

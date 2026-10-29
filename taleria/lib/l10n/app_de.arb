@@ -2708,6 +2708,37 @@
   "@drawingGoodNet": {
     "description": "Schild über dem guten Netz in der Zeichnung „12 Netze im Jahr“"
   },
+  "drawingWeekdays": "Mo Di Mi Do Fr Sa So",
+  "@drawingWeekdays": {
+    "description": "Zeichnung Spar-Insel: Wochentage, mit Leerzeichen getrennt"
+  },
+  "drawingPerWeek": "{value} Taler pro Woche",
+  "@drawingPerWeek": {
+    "description": "Zeichnung Sparplan",
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "drawingWeek": "Woche {n}",
+  "@drawingWeek": {
+    "description": "Zeichnung Sparplan",
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "drawingGoal": "Ziel: {value} Taler",
+  "@drawingGoal": {
+    "description": "Zeichnung Sparplan",
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
   "coinCents": "{value} ct",
   "@coinCents": {
     "description": "Beschriftung einer Münze unter 1 Euro",
@@ -3678,7 +3709,7 @@
   "@estimateClose": {
     "description": "Auflösung: Der Tipp liegt nahe an der Lösung (höchstens ein Siebtel der Skala daneben)"
   },
-  "figureAnimal": "{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} other{}}",
+  "figureAnimal": "{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} emma{das Eichhörnchen} gustav{die Grille} other{}}",
   "@figureAnimal": {
     "description": "Tier einer Inselfigur mit eigenem Namen (FIGUREN.md), damit Kinder Name und Tier zusammenbringen. Leer für Figuren ohne eigenen Namen.",
     "placeholders": {
