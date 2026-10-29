@@ -118,4 +118,12 @@ void main() {
       expect(eurosToCents(40), 4000);
     });
   });
+
+  test('Code zum Zurücksetzen: 6 bis 10 Ziffern, Leerzeichen egal', () {
+    expect(validateResetCode('123456'), isNull);
+    expect(validateResetCode(' 123 456 '), isNull);
+    expect(normalizeResetCode('123 456'), '123456');
+    expect(validateResetCode('12345'), ResetCodeProblem.format);
+    expect(validateResetCode('12a456'), ResetCodeProblem.format);
+  });
 }

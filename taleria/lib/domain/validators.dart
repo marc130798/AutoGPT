@@ -6,6 +6,8 @@ enum EmailProblem { empty, invalid }
 
 enum PasswordProblem { tooShort }
 
+enum ResetCodeProblem { format }
+
 enum PinProblem { format, tooSimple }
 
 enum NicknameProblem { tooShort, tooLong, invalidCharacters }
@@ -47,6 +49,15 @@ EmailProblem? validateEmail(String input) {
 
 PasswordProblem? validatePassword(String input) {
   if (input.length < minPasswordLength) return PasswordProblem.tooShort;
+  return null;
+}
+
+/// Code aus der E-Mail zum Zurücksetzen des Passworts: nur Ziffern, 6 bis 10
+/// (Supabase schickt standardmäßig 6). Leerzeichen beim Abtippen sind egal.
+String normalizeResetCode(String input) => input.replaceAll(RegExp(r'\s'), '');
+
+ResetCodeProblem? validateResetCode(String input) {
+  if (!RegExp(r'^[0-9]{6,10}$').hasMatch(normalizeResetCode(input))) return ResetCodeProblem.format;
   return null;
 }
 

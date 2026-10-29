@@ -82,6 +82,10 @@ class SessionController extends ChangeNotifier {
 
   SessionState _state = const SessionLoading();
   bool _unlocked = false;
+
+  /// Der Code zum Zurücksetzen ist geprüft, nur das neue Passwort fehlt noch
+  /// (zum Beispiel, weil der Server es abgelehnt hat). Ein Code gilt nur einmal.
+  bool _resetCodeVerified = false;
   DateTime? _pausedAt;
   StreamSubscription<void>? _signedOutSubscription;
 
@@ -130,6 +134,27 @@ class SessionController extends ChangeNotifier {
   /// Wer sich gerade mit Passwort angemeldet hat, braucht keine PIN.
   Future<void> signInParent({required String email, required String password}) async {
     await _auth!.signInParent(email: email, password: password);
+    _unlocked = true;
+    await _evaluate();
+  }
+
+  /// Passwort vergessen: Code per E-Mail anfordern.
+  Future<void> requestPasswordReset(String email) async {
+    _resetCodeVerified = false;
+    await _auth!.sendPasswordResetCode(email);
+  }
+
+  /// Code aus der E-Mail prüfen und neues Passwort speichern. Danach ist der
+  /// Leuchtturm offen wie nach einer Anmeldung mit Passwort.
+  Future<void> resetPassword({required String email, required String code, required String newPassword}) async {
+    if (validatePassword(newPassword) != null) throw ArgumentError.value('***', 'newPassword');
+    final auth = _auth!;
+    if (!_resetCodeVerified) {
+      await auth.verifyPasswordResetCode(email: email, code: normalizeResetCode(code));
+      _resetCodeVerified = true;
+    }
+    await auth.updatePassword(newPassword);
+    _resetCodeVerified = false;
     _unlocked = true;
     await _evaluate();
   }

@@ -103,6 +103,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get failureRateLimited => 'Zu viele Versuche. Bitte warte kurz und versuche es dann noch einmal.';
 
   @override
+  String get failureCodeInvalid => 'Der Code stimmt nicht oder ist abgelaufen. Fordere einfach einen neuen an.';
+
+  @override
+  String get failureSamePassword => 'Das neue Passwort muss anders sein als das alte.';
+
+  @override
   String get failureNotAllowed => 'Das ist mit diesem Konto nicht erlaubt.';
 
   @override
@@ -173,6 +179,42 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get loginButton => 'Anmelden';
+
+  @override
+  String get forgotPasswordLink => 'Passwort vergessen?';
+
+  @override
+  String get resetTitle => 'Neues Passwort';
+
+  @override
+  String get resetIntro =>
+      'Gib die E-Mail-Adresse deines Kontos ein. Wir schicken dir einen Code, mit dem du ein neues Passwort festlegst.';
+
+  @override
+  String get resetSendCode => 'Code schicken';
+
+  @override
+  String resetCodeSent(String email) {
+    return 'Wenn es zu $email ein Konto gibt, ist jetzt ein Code unterwegs. Schau auch im Spam-Ordner nach.';
+  }
+
+  @override
+  String get resetCodeLabel => 'Code aus der E-Mail';
+
+  @override
+  String get resetCodeInvalidFormat => 'Der Code besteht aus 6 Ziffern.';
+
+  @override
+  String get resetNewPasswordLabel => 'Neues Passwort';
+
+  @override
+  String get resetSave => 'Neues Passwort speichern';
+
+  @override
+  String get resetSendAgain => 'Code nochmal schicken';
+
+  @override
+  String get resetSentAgain => 'Ein neuer Code ist unterwegs.';
 
   @override
   String get checkEmailTitle => 'Fast geschafft!';

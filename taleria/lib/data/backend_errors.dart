@@ -55,6 +55,8 @@ FailureKind authFailureKind(sb.AuthException e) {
     'email_not_confirmed' => FailureKind.emailNotConfirmed,
     'user_already_exists' || 'email_exists' => FailureKind.emailTaken,
     'weak_password' => FailureKind.weakPassword,
+    'otp_expired' => FailureKind.codeInvalid,
+    'same_password' => FailureKind.samePassword,
     'over_request_rate_limit' || 'over_email_send_rate_limit' => FailureKind.rateLimited,
     _ => FailureKind.unknown,
   };

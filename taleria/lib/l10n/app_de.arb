@@ -128,6 +128,14 @@
   "@failureRateLimited": {
     "description": "Fehler: zu viele Anfragen"
   },
+  "failureCodeInvalid": "Der Code stimmt nicht oder ist abgelaufen. Fordere einfach einen neuen an.",
+  "@failureCodeInvalid": {
+    "description": "Fehler: Code zum Zurücksetzen falsch oder abgelaufen"
+  },
+  "failureSamePassword": "Das neue Passwort muss anders sein als das alte.",
+  "@failureSamePassword": {
+    "description": "Fehler: neues Passwort gleich dem alten"
+  },
   "failureNotAllowed": "Das ist mit diesem Konto nicht erlaubt.",
   "@failureNotAllowed": {
     "description": "Fehler: keine Berechtigung"
@@ -225,6 +233,55 @@
   "loginButton": "Anmelden",
   "@loginButton": {
     "description": "Knopf: anmelden"
+  },
+  "forgotPasswordLink": "Passwort vergessen?",
+  "@forgotPasswordLink": {
+    "description": "Knopf unter der Anmeldung"
+  },
+  "resetTitle": "Neues Passwort",
+  "@resetTitle": {
+    "description": "Titel: Passwort zurücksetzen"
+  },
+  "resetIntro": "Gib die E-Mail-Adresse deines Kontos ein. Wir schicken dir einen Code, mit dem du ein neues Passwort festlegst.",
+  "@resetIntro": {
+    "description": "Erklärung: Passwort zurücksetzen, Schritt 1"
+  },
+  "resetSendCode": "Code schicken",
+  "@resetSendCode": {
+    "description": "Knopf: Code per E-Mail anfordern"
+  },
+  "resetCodeSent": "Wenn es zu {email} ein Konto gibt, ist jetzt ein Code unterwegs. Schau auch im Spam-Ordner nach.",
+  "@resetCodeSent": {
+    "description": "Hinweis nach dem Anfordern",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "resetCodeLabel": "Code aus der E-Mail",
+  "@resetCodeLabel": {
+    "description": "Feld für den Code"
+  },
+  "resetCodeInvalidFormat": "Der Code besteht aus 6 Ziffern.",
+  "@resetCodeInvalidFormat": {
+    "description": "Fehler: Code hat falsches Format"
+  },
+  "resetNewPasswordLabel": "Neues Passwort",
+  "@resetNewPasswordLabel": {
+    "description": "Feld für das neue Passwort"
+  },
+  "resetSave": "Neues Passwort speichern",
+  "@resetSave": {
+    "description": "Knopf: neues Passwort speichern"
+  },
+  "resetSendAgain": "Code nochmal schicken",
+  "@resetSendAgain": {
+    "description": "Knopf: neuen Code anfordern"
+  },
+  "resetSentAgain": "Ein neuer Code ist unterwegs.",
+  "@resetSentAgain": {
+    "description": "Hinweis: neuer Code angefordert"
   },
   "checkEmailTitle": "Fast geschafft!",
   "@checkEmailTitle": {

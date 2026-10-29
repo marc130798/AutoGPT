@@ -23,6 +23,16 @@ abstract interface class AuthRepository {
 
   Future<void> signInParent({required String email, required String password});
 
+  /// Schickt einen Code zum Zurücksetzen des Passworts an die E-Mail-Adresse.
+  /// Gibt es dazu kein Konto, passiert nichts (der Server verrät das nicht).
+  Future<void> sendPasswordResetCode(String email);
+
+  /// Prüft den Code aus der E-Mail. Danach sind die Eltern angemeldet.
+  Future<void> verifyPasswordResetCode({required String email, required String code});
+
+  /// Neues Passwort für die angemeldeten Eltern.
+  Future<void> updatePassword(String password);
+
   /// Anonyme Sitzung für ein Kinder-Gerät.
   Future<void> signInChildDevice();
 
@@ -71,6 +81,26 @@ class SupabaseAuthRepository implements AuthRepository {
   @override
   Future<void> signInParent({required String email, required String password}) {
     return guardBackend(() => _client.auth.signInWithPassword(email: email.trim(), password: password));
+  }
+
+  @override
+  Future<void> sendPasswordResetCode(String email) {
+    // Ein Code statt eines Links: Auf dem iPhone hat die App vom Home-Bildschirm
+    // einen anderen Speicher als Safari, ein Link aus der E-Mail landet also
+    // nicht in der App. Den Code kann man auch auf einem anderen Gerät lesen.
+    return guardBackend(() => _client.auth.resetPasswordForEmail(email.trim()));
+  }
+
+  @override
+  Future<void> verifyPasswordResetCode({required String email, required String code}) {
+    return guardBackend(
+      () => _client.auth.verifyOTP(email: email.trim(), token: code.trim(), type: sb.OtpType.recovery),
+    );
+  }
+
+  @override
+  Future<void> updatePassword(String password) {
+    return guardBackend(() => _client.auth.updateUser(sb.UserAttributes(password: password)));
   }
 
   @override

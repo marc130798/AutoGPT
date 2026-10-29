@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/domain/family_models.dart';
+import 'package:taleria/features/parent_auth/forgot_password_screen.dart';
 
 import '../fakes.dart';
 import '../test_helpers.dart';
@@ -203,6 +204,48 @@ void main() {
     await tester.tap(find.widgetWithText(FilledButton, 'Anmelden'));
     await tester.pumpAndSettle();
     expect(find.text('E-Mail oder Passwort stimmt nicht.'), findsOneWidget);
+  });
+
+  testWidgets('Passwort vergessen: Code per E-Mail, neues Passwort, Leuchtturm offen', (tester) async {
+    final backend = FakeBackend()..addParent(pin: '2468');
+    await tester.pumpWidget(buildTestApp(backend: backend));
+    await tester.pumpAndSettle();
+    await tapText(tester, 'Für Eltern: anmelden oder registrieren');
+    await tester.tap(find.text('Anmelden').first);
+    await tester.pumpAndSettle();
+    await enter(tester, 'email-field', 'eltern@test.invalid');
+    await tapText(tester, 'Passwort vergessen?');
+
+    // Die E-Mail aus der Anmeldung ist schon eingetragen.
+    expect(find.widgetWithText(TextFormField, 'eltern@test.invalid'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('reset-send')));
+    await tester.pumpAndSettle();
+    expect(backend.resetCodes['eltern@test.invalid'], '123456');
+    expect(find.textContaining('ist jetzt ein Code unterwegs'), findsOneWidget);
+
+    // Falsches Format und zu kurzes Passwort prüft schon die App.
+    await enter(tester, 'reset-code-field', '12');
+    await enter(tester, 'reset-password-field', 'kurz');
+    await tester.tap(find.byKey(const ValueKey('reset-save')));
+    await tester.pumpAndSettle();
+    expect(find.text('Der Code besteht aus 6 Ziffern.'), findsOneWidget);
+    expect(find.text('Das Passwort braucht mindestens 10 Zeichen.'), findsOneWidget);
+
+    // Falscher Code: verständliche Meldung, nichts geändert.
+    await enter(tester, 'reset-code-field', '654321');
+    await enter(tester, 'reset-password-field', 'ganzneuesPasswort');
+    await tester.tap(find.byKey(const ValueKey('reset-save')));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Der Code stimmt nicht'), findsOneWidget);
+    expect(backend.accounts['eltern@test.invalid']!.password, 'sehrgeheim123');
+
+    // Richtiger Code mit Leerzeichen: neues Passwort, Leuchtturm offen ohne PIN.
+    await enter(tester, 'reset-code-field', '123 456');
+    await tester.tap(find.byKey(const ValueKey('reset-save')));
+    await tester.pumpAndSettle();
+    expect(backend.accounts['eltern@test.invalid']!.password, 'ganzneuesPasswort');
+    expect(find.byType(ForgotPasswordScreen), findsNothing);
+    expect(find.text('Kinder-Profil anlegen'), findsWidgets);
   });
 
   testWidgets('Registrierung mit E-Mail-Bestätigung zeigt Hinweis', (tester) async {

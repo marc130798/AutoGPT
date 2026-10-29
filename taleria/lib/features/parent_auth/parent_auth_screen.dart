@@ -6,6 +6,7 @@ import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/button_spinner.dart';
 import '../common/texts.dart';
+import 'forgot_password_screen.dart';
 
 /// Eltern: registrieren (mit Einwilligung) oder anmelden.
 class ParentAuthScreen extends StatelessWidget {
@@ -218,6 +219,14 @@ class _LoginFormState extends State<_LoginForm> {
           FilledButton(
             onPressed: _busy ? null : _submit,
             child: _busy ? const ButtonSpinner() : Text(l10n.loginButton),
+          ),
+          const SizedBox(height: 8),
+          TextButton(
+            key: const ValueKey('forgot-password'),
+            onPressed: () =>
+                Navigator.of(context)
+                    .push(MaterialPageRoute<void>(builder: (_) => ForgotPasswordScreen(email: _email.text))),
+            child: Text(l10n.forgotPasswordLink),
           ),
         ],
       ),

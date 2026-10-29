@@ -1,0 +1,10 @@
+<!-- Vorlage für Supabase: Authentication → Emails → Templates → „Reset Password“.
+     Betreff: Dein Code für ein neues Taleria-Passwort
+     Wichtig ist {{ .Token }}: Die App fragt nach dem Code, nicht nach einem Link. -->
+<h2>Neues Passwort für Taleria</h2>
+<p>Hallo,</p>
+<p>du hast ein neues Passwort für dein Taleria-Konto angefordert. Gib diesen Code in der App ein:</p>
+<p style="font-size:28px;font-weight:bold;letter-spacing:6px">{{ .Token }}</p>
+<p>Der Code gilt nur einmal und nur für kurze Zeit.</p>
+<p>Du hast nichts angefordert? Dann kannst du diese E-Mail einfach ignorieren. Dein Passwort bleibt, wie es ist.</p>
+<p>Viele Grüße<br>Talo, Tala und das Taleria-Team</p>

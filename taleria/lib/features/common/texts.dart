@@ -13,6 +13,8 @@ extension TaleriaTexts on AppLocalizations {
     FailureKind.emailNotConfirmed => failureEmailNotConfirmed,
     FailureKind.emailTaken => failureEmailTaken,
     FailureKind.weakPassword => failureWeakPassword,
+    FailureKind.codeInvalid => failureCodeInvalid,
+    FailureKind.samePassword => failureSamePassword,
     FailureKind.rateLimited => failureRateLimited,
     FailureKind.notAllowed => failureNotAllowed,
     FailureKind.notEnoughMoney => notEnoughMoney,

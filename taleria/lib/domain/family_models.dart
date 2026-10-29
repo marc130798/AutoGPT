@@ -156,6 +156,12 @@ enum FailureKind {
   emailNotConfirmed,
   emailTaken,
   weakPassword,
+
+  /// Code aus der E-Mail (Passwort zurücksetzen) falsch oder abgelaufen.
+  codeInvalid,
+
+  /// Das neue Passwort ist dasselbe wie das alte.
+  samePassword,
   rateLimited,
   notAllowed,
 

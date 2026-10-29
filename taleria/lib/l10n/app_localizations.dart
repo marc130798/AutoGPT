@@ -271,6 +271,18 @@ abstract class AppLocalizations {
   /// **'Zu viele Versuche. Bitte warte kurz und versuche es dann noch einmal.'**
   String get failureRateLimited;
 
+  /// Fehler: Code zum Zurücksetzen falsch oder abgelaufen
+  ///
+  /// In de, this message translates to:
+  /// **'Der Code stimmt nicht oder ist abgelaufen. Fordere einfach einen neuen an.'**
+  String get failureCodeInvalid;
+
+  /// Fehler: neues Passwort gleich dem alten
+  ///
+  /// In de, this message translates to:
+  /// **'Das neue Passwort muss anders sein als das alte.'**
+  String get failureSamePassword;
+
   /// Fehler: keine Berechtigung
   ///
   /// In de, this message translates to:
@@ -402,6 +414,72 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Anmelden'**
   String get loginButton;
+
+  /// Knopf unter der Anmeldung
+  ///
+  /// In de, this message translates to:
+  /// **'Passwort vergessen?'**
+  String get forgotPasswordLink;
+
+  /// Titel: Passwort zurücksetzen
+  ///
+  /// In de, this message translates to:
+  /// **'Neues Passwort'**
+  String get resetTitle;
+
+  /// Erklärung: Passwort zurücksetzen, Schritt 1
+  ///
+  /// In de, this message translates to:
+  /// **'Gib die E-Mail-Adresse deines Kontos ein. Wir schicken dir einen Code, mit dem du ein neues Passwort festlegst.'**
+  String get resetIntro;
+
+  /// Knopf: Code per E-Mail anfordern
+  ///
+  /// In de, this message translates to:
+  /// **'Code schicken'**
+  String get resetSendCode;
+
+  /// Hinweis nach dem Anfordern
+  ///
+  /// In de, this message translates to:
+  /// **'Wenn es zu {email} ein Konto gibt, ist jetzt ein Code unterwegs. Schau auch im Spam-Ordner nach.'**
+  String resetCodeSent(String email);
+
+  /// Feld für den Code
+  ///
+  /// In de, this message translates to:
+  /// **'Code aus der E-Mail'**
+  String get resetCodeLabel;
+
+  /// Fehler: Code hat falsches Format
+  ///
+  /// In de, this message translates to:
+  /// **'Der Code besteht aus 6 Ziffern.'**
+  String get resetCodeInvalidFormat;
+
+  /// Feld für das neue Passwort
+  ///
+  /// In de, this message translates to:
+  /// **'Neues Passwort'**
+  String get resetNewPasswordLabel;
+
+  /// Knopf: neues Passwort speichern
+  ///
+  /// In de, this message translates to:
+  /// **'Neues Passwort speichern'**
+  String get resetSave;
+
+  /// Knopf: neuen Code anfordern
+  ///
+  /// In de, this message translates to:
+  /// **'Code nochmal schicken'**
+  String get resetSendAgain;
+
+  /// Hinweis: neuer Code angefordert
+  ///
+  /// In de, this message translates to:
+  /// **'Ein neuer Code ist unterwegs.'**
+  String get resetSentAgain;
 
   /// Überschrift nach der Registrierung, wenn die E-Mail bestätigt werden muss
   ///

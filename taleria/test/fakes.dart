@@ -22,6 +22,10 @@ class FakeBackend {
   final Map<String, ({String password, String userId})> accounts = {};
   final Map<String, ParentAccount> parentsByUser = {};
   final Map<String, String> pins = {};
+
+  /// Codes zum Zurücksetzen des Passworts (E-Mail → Code).
+  final Map<String, String> resetCodes = {};
+  String nextResetCode = '123456';
   final Map<String, String> childParent = {};
   final List<ChildProfile> children = [];
   final Map<String, ({String childId, DateTime validUntil, bool used})> codes = {};
@@ -147,6 +151,30 @@ class FakeAuthRepository implements AuthRepository {
     final account = backend.accounts[email];
     if (account == null || account.password != password) throw const AppFailure(FailureKind.invalidCredentials);
     backend.signInAs(email);
+  }
+
+  @override
+  Future<void> sendPasswordResetCode(String email) async {
+    backend.check();
+    if (backend.accounts.containsKey(email.trim())) backend.resetCodes[email.trim()] = backend.nextResetCode;
+  }
+
+  @override
+  Future<void> verifyPasswordResetCode({required String email, required String code}) async {
+    backend.check();
+    if (backend.resetCodes[email.trim()] != code) throw const AppFailure(FailureKind.codeInvalid);
+    backend.resetCodes.remove(email.trim());
+    backend.signInAs(email.trim());
+  }
+
+  @override
+  Future<void> updatePassword(String password) async {
+    backend.check();
+    final user = backend.currentUser;
+    if (user == null || user.isAnonymous) throw const AppFailure(FailureKind.notAllowed);
+    final email = backend.accounts.entries.firstWhere((e) => e.value.userId == user.id).key;
+    if (backend.accounts[email]!.password == password) throw const AppFailure(FailureKind.samePassword);
+    backend.accounts[email] = (password: password, userId: user.id);
   }
 
   @override

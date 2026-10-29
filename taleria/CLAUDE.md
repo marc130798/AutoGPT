@@ -408,7 +408,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - „Gerät an Kind übergeben“: Auf dem Eltern-Gerät kann ein Kind spielen (`active_child_id` in `shared_preferences`). Die Sitzung bleibt die der Eltern; die PIN schützt den Leuchtturm.
 - Löschen von Kinder-Profilen und Konten nur über Datenbank-Funktionen (`delete_child`, `delete_my_account`), damit auch die Kinder-Geräte abgemeldet werden. Admin-Konten können sich darüber nicht löschen.
 - Zusätzliches Paket: `shared_preferences` (vom Flutter-Team, war schon über `supabase_flutter` dabei).
-- Offen für später: Passwort zurücksetzen (braucht einen Link zurück in die App), Newsletter-Bestätigung per Double-Opt-in, Schutz vor massenhaften anonymen Anmeldungen (Captcha), Gratis-Grenze von einem Kinder-Profil (kommt mit dem Abo in Schritt 9).
+- Offen für später: Passwort zurücksetzen (seit 29.10.2026 da, mit Code statt Link, siehe unten), Newsletter-Bestätigung per Double-Opt-in, Schutz vor massenhaften anonymen Anmeldungen (Captcha), Gratis-Grenze von einem Kinder-Profil (kommt mit dem Abo in Schritt 9).
 
 **Schritt 3 (Intro), umgesetzt am 09.10.2026:**
 - Das Intro ist Station 1 des Hafens („Willkommen an Bord“): Intro-Film (Platzhalter) → Talo und Tala erzählen → „Willst du in unsere Crew?“ → Avatar → Schiffstaufe → Rundgang (Karte, Schatztruhe, Logbuch) → erster Wunschschatz (darf übersprungen werden) → Abschluss mit Rang Schiffsjunge und 50 Seemeilen → die Karte rollt sich auf.
@@ -741,6 +741,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
   - Auflösung der Schätzfrage: „Dein Tipp“ (Gold) und „Lösung“ (Grün) nebeneinander (`estimate-guess`, `estimate-answer`). Bei Zahlen ein Balken von der kleinsten bis zur größten Zahl, die Lösung wandert vom Tipp zu ihrem Platz (`estimate-scale`). Höchstens ein Siebtel der Skala daneben: „Ganz nah dran!“. Daneben liegen ist kein Fehler: kein Rot, kein Kreuz. Das Bild darüber ist auf dieser Seite kleiner.
 
 - **Namen der Inselfiguren mit Tier (Marcs Test am 20.10.2026: „Niemand kann sich die Namen der Tiere merken“, mit Marc gewählt):** Über der Sprechblase steht bei Figuren mit eigenem Namen das Tier dabei („Bruno, der Bär“, „Greta, die Ziege“, „Otti, der Otter“, „Olga, die Schildkröte“, „Elsa, die Elster“, „Moritz, das Murmeltier“; Tiere aus `FIGUREN.md`). Ist eine Antwort genau so ein Name (zum Beispiel „Wer hat Äpfel?“ → „Bruno“), zeigt der Antwort-Knopf das Gesicht der Figur und „Bruno, der Bär“. Auch die Händler in der Tauschkette tragen das Tier. Rollen wie „Händler“ oder „Verkäuferin“ bleiben, wie sie sind. Die Tiere stehen in `app_de.arb` (`figureAnimal`), die Regeln in `lib/features/common/figure_names.dart`. Neue Inselfiguren mit eigenem Namen dort ergänzen.
+- **Passwort zurücksetzen (29.10.2026, vor der Testphase mit Familien):** Unter „Anmelden“ steht „Passwort vergessen?“ (`forgot-password`). Die Eltern geben ihre E-Mail ein und bekommen einen **Code** (keinen Link), tippen ihn mit dem neuen Passwort ein, danach ist der Leuchtturm offen wie nach einer Anmeldung. Warum ein Code: Auf dem iPhone hat die App vom Home-Bildschirm einen anderen Speicher als Safari, ein Link aus der E-Mail käme nicht in der App an; den Code kann man auch auf einem anderen Gerät lesen, und er funktioniert später genauso in den Store-Apps. Gibt es zur E-Mail kein Konto, sagt die App das nicht (nur „Wenn es ein Konto gibt …“). Technik: `AuthRepository.sendPasswordResetCode`, `verifyPasswordResetCode` (`verifyOTP`, Typ `recovery`), `updatePassword`; `SessionController.requestPasswordReset` und `resetPassword` (ein schon geprüfter Code wird nicht noch einmal geprüft, falls nur das Speichern scheitert); Seite `lib/features/parent_auth/forgot_password_screen.dart`; neue Fehler `codeInvalid` und `samePassword`. **In Supabase nötig (Test und später Live):** Unter Authentication → Emails → Templates → „Reset Password“ den Text aus `supabase/email_vorlagen/passwort_zuruecksetzen.html` einsetzen (er enthält `{{ .Token }}`). Der eingebaute E-Mail-Versand von Supabase schickt nur an Mitglieder des Supabase-Teams und nur wenige Mails pro Stunde; für fremde Familien braucht es einen eigenen SMTP-Versand (zum Beispiel Brevo, siehe CRM-Gespräch).
 ---
 
 ## 17. Aktueller Stand und nächste Schritte (Stand 20.10.2026)
@@ -752,7 +753,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 - Dazu: die Wunschflasche und alle Mini-Spiele der Inseln 1 bis 3.
 - Der 3D-Look mit Marcs Bildern ist eingebaut: Karte, Startseite, Inseln, Stationen, Figuren, Ränge, Orden, Fundstücke und Menü-Seiten.
 - Außerdem: Musik und Töne, der Rundgang „Was ist wo?“ und Rang-Namen für Mädchen und Jungen.
-- Alle Tests sind grün: 405 App-Tests, die Datenbank-Tests und der Browser-Test.
+- Alle Tests sind grün: 407 App-Tests, die Datenbank-Tests und der Browser-Test.
 - Am 20.10.2026 gebaut: Marcs neuer Stations-Aufbau (Schätzfrage, Erklärung in Häppchen mit Antipp-Momenten, Auflösung), der ganze Animationsplan (Abschnitt 11), lebendigere Mini-Spiele und die acht Verbesserungen nach Claudes Durchsicht (Abschnitt 16).
 - Ziel jetzt: Marc testet die Inseln 1 bis 3 auf dem iPhone, danach wird alles für eine kleine Beta fertig gemacht.
 
@@ -808,7 +809,6 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Inhalte für die Inseln 4 bis 15.
    - Das Tauch-Spiel „Muscheln zählen“.
    - Die Urkunde als PDF.
-   - Passwort zurücksetzen.
    - QR-Code zum Anmelden.
    - Captcha.
    - Nach der Beta Schritt 12: der eigene Adminbereich.
