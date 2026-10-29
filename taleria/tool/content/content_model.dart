@@ -579,6 +579,7 @@ class Island {
     this.dives = const [],
     this.seaStops = const [],
     this.status = 'entwurf',
+    this.teaser = const [],
   });
 
   final String file;
@@ -611,6 +612,13 @@ class Island {
   /// entwurf, pruefung oder freigegeben (gilt für alles auf der Insel).
   final String status;
 
+  /// Ausblick auf die nächste Insel nach dem Insel-Abschluss (`ausblick`, 1 bis 3 Zeilen),
+  /// damit das Kind neugierig weitersegelt.
+  final List<Line> teaser;
+
+  /// Nächste Insel der Hauptroute, gesetzt von [loadIslands].
+  Island? next;
+
   /// Status in der Datenbank (draft, review, published).
   String get dbStatus => contentStatuses[status] ?? 'draft';
 
@@ -626,6 +634,12 @@ class Island {
       },
     'badge': ?badge,
     if (task != null) 'real_life_task': {'title': task!['titel'], 'text': task!['text']},
+    if (teaser.isNotEmpty)
+      'teaser': {
+        'scene': [for (final l in teaser) l.toDb()],
+        if (next != null) 'next_slug': next!.slug,
+        if (next != null) 'next_title': next!.title,
+      },
   };
 }
 
@@ -635,6 +649,9 @@ List<Island> loadIslands(Directory dir) {
     ..sort((a, b) => a.path.compareTo(b.path));
   final islands = [for (final f in files) parseIsland(f.uri.pathSegments.last, f.readAsStringSync())];
   islands.sort((a, b) => a.order.compareTo(b.order));
+  for (var i = 0; i + 1 < islands.length; i++) {
+    islands[i].next = islands[i + 1];
+  }
   return islands;
 }
 
@@ -734,6 +751,7 @@ Island parseIsland(String file, String source) {
     prompts: [for (final p in (json['kombuesen_fragen'] as List? ?? const [])) p as String],
     stations: stations,
     status: json['status'] as String? ?? 'entwurf',
+    teaser: lines(json['ausblick'], '$file, Ausblick'),
     seaStops: [
       for (final (k, raw) in ((json['stopps_auf_see'] as List?) ?? const []).indexed)
         () {
@@ -856,6 +874,13 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
     }
     check(island.stations.isNotEmpty, '$w: Insel ohne Stationen muss "nebel": true haben');
     check(island.badge != null && island.badge!.trim().length >= 2, '$w: "orden" fehlt');
+    // Ausblick auf die nächste Insel (Marc, 29.10.2026: Kinder sollen neugierig bleiben).
+    if (index + 1 < islands.length) {
+      check(island.teaser.isNotEmpty && island.teaser.length <= 3, '$w: "ausblick" braucht 1 bis 3 Zeilen');
+    }
+    for (final line in island.teaser) {
+      check(knownAssetKeys.contains('character.${line.speaker}'), '$w, Ausblick: unbekannte Figur "${line.speaker}"');
+    }
     check(knownAssetKeys.contains('badge.${island.slug}'), '$w: Bild badge.${island.slug} fehlt im Asset-Manifest');
 
     final numbers = [for (final s in island.stations) s.number];

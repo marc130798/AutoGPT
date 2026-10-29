@@ -24,6 +24,16 @@
     "Was glaubst du, wie viel unser Wocheneinkauf kostet?",
     "Womit haben wir bezahlt, als ich so alt war wie du?"
   ],
+  "ausblick": [
+    {
+      "wer": "talo",
+      "text": "Seht ihr die Insel mit dem hohen Turm da vorn? Das ist die Tauschinsel. Dort gibt es gar kein Geld."
+    },
+    {
+      "wer": "tala",
+      "text": "Kein Geld? Wie bezahlen die denn ihr Mittagessen?"
+    }
+  ],
   "stationen": [
     {
       "nr": 1,

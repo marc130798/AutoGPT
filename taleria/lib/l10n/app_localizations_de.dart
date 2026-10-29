@@ -802,6 +802,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get islandCompletedNext => 'Die nächste Insel ist jetzt offen.';
 
   @override
+  String get islandTeaserTitle => 'Was kommt als Nächstes?';
+
+  @override
   String get islandCompletedButton => 'Zur Karte';
 
   @override

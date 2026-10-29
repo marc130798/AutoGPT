@@ -51,6 +51,16 @@
     "Gibt es etwas, das dir viel wert ist, für andere aber kaum etwas?",
     "Wann musstest du zuletzt auf etwas verzichten, um dir etwas anderes leisten zu können?"
   ],
+  "ausblick": [
+    {
+      "wer": "tala",
+      "text": "Da vorn glitzert etwas! Eine ganze Insel voller schöner Dinge."
+    },
+    {
+      "wer": "talo",
+      "text": "Die Wunschinsel. Mal sehen, ob du dort einen kühlen Kopf behältst, Tala."
+    }
+  ],
   "stopps_auf_see": [
     {
       "art": "haendlerschiff",

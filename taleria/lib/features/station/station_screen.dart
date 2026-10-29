@@ -434,6 +434,10 @@ class _ResultView extends StatelessWidget {
                     ],
                   ),
                 ),
+                if (details?.teaser case final teaser? when teaser.isNotEmpty) ...[
+                  const SizedBox(height: 24),
+                  _IslandTeaser(details: details!),
+                ],
               ],
               if (result.find != null) ...[
                 const SizedBox(height: 32),
@@ -769,6 +773,42 @@ class _WreckView extends StatelessWidget {
                   ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// Ausblick auf die nächste Insel nach dem Insel-Abschluss: Bild, Name und ein
+/// paar Sätze von Talo und Tala, damit das Kind neugierig weitersegelt.
+class _IslandTeaser extends StatelessWidget {
+  const _IslandTeaser({required this.details});
+
+  final IslandDetails details;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Column(
+      key: const ValueKey('island-teaser'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        OpenFrame(
+          child: Column(
+            children: [
+              Text(l10n.islandTeaserTitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
+              if (details.nextSlug case final slug?) ...[
+                const SizedBox(height: 8),
+                TaleriaAsset(AssetKeys.mapIsland(slug), height: 130),
+              ],
+              if (details.nextTitle case final title?) ...[
+                const SizedBox(height: 4),
+                Text(title, textAlign: TextAlign.center, style: theme.textTheme.titleMedium),
+              ],
+            ],
+          ),
+        ),
+        for (final line in details.teaser) ...[const SizedBox(height: 8), SpeechBubble.line(line)],
       ],
     );
   }

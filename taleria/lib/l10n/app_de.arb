@@ -1104,6 +1104,10 @@
   "@islandCompletedNext": {
     "description": "Hinweis nach Abschluss einer Insel"
   },
+  "islandTeaserTitle": "Was kommt als Nächstes?",
+  "@islandTeaserTitle": {
+    "description": "Überschrift: Ausblick auf die nächste Insel nach dem Insel-Abschluss"
+  },
   "islandCompletedButton": "Zur Karte",
   "@islandCompletedButton": {
     "description": "Knopf nach Abschluss einer Insel"

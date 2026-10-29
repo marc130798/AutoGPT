@@ -255,6 +255,11 @@ void main() {
     await scrollTo(tester, find.text('Neuer Orden: Erster Landgang'));
     expect(find.text('Kartenstück gefunden!'), findsOneWidget);
     expect(find.text('Neuer Orden: Erster Landgang'), findsOneWidget);
+    // Ausblick auf die nächste Insel, damit das Kind neugierig weitersegelt.
+    await scrollTo(tester, find.byKey(const ValueKey('island-teaser')));
+    expect(find.text('Was kommt als Nächstes?'), findsOneWidget);
+    expect(find.text('Tauschinsel'), findsWidgets);
+    expect(find.textContaining('Dort gibt es gar kein Geld'), findsOneWidget);
     await tapText(tester, 'Zur Karte');
 
     // Zurück auf der Karte: Auf dem Weg zur Tauschinsel liegen zwei Stopps auf See.

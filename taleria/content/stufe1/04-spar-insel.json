@@ -50,6 +50,16 @@
     "Wofür hast du als Kind gespart?",
     "Wofür sparen wir als Familie gerade?"
   ],
+  "ausblick": [
+    {
+      "wer": "talo",
+      "text": "Hinter dem Nebel liegt eine ruhige Bucht mit einem kleinen Kiosk."
+    },
+    {
+      "wer": "tala",
+      "text": "Ein Kiosk? Dann muss ich mein Taschengeld aber gut einteilen …"
+    }
+  ],
   "stopps_auf_see": [
     {
       "art": "fischerboot",

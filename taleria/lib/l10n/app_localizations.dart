@@ -1537,6 +1537,12 @@ abstract class AppLocalizations {
   /// **'Die nächste Insel ist jetzt offen.'**
   String get islandCompletedNext;
 
+  /// Überschrift: Ausblick auf die nächste Insel nach dem Insel-Abschluss
+  ///
+  /// In de, this message translates to:
+  /// **'Was kommt als Nächstes?'**
+  String get islandTeaserTitle;
+
   /// Knopf nach Abschluss einer Insel
   ///
   /// In de, this message translates to:

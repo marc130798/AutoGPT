@@ -49,6 +49,16 @@
     "Was hast du dir mal sehr gewünscht und dann kaum benutzt?",
     "Was war dein schönstes Erlebnis, das fast kein Geld gekostet hat?"
   ],
+  "ausblick": [
+    {
+      "wer": "talo",
+      "text": "Spürst du das? Es wird kühler, und bunte Blätter treiben auf dem Wasser."
+    },
+    {
+      "wer": "tala",
+      "text": "Herbst! Da wohnt bestimmt jemand, der fleißig Vorräte sammelt."
+    }
+  ],
   "stopps_auf_see": [
     {
       "art": "haendlerschiff",

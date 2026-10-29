@@ -91,12 +91,16 @@ class IslandDetails {
     this.arrivalScene = const [],
     this.badge,
     this.realLifeTask,
+    this.teaser = const [],
+    this.nextSlug,
+    this.nextTitle,
   });
 
   factory IslandDetails.fromRow(Map<String, dynamic> row) {
     final content = (row['content'] as Map<String, dynamic>?) ?? const {};
     final arrival = content['arrival'] as Map<String, dynamic>?;
     final task = content['real_life_task'] as Map<String, dynamic>?;
+    final teaser = content['teaser'] as Map<String, dynamic>?;
     return IslandDetails(
       id: row['id'] as String,
       slug: row['slug'] as String,
@@ -111,8 +115,16 @@ class IslandDetails {
       realLifeTask: task == null
           ? null
           : RealLifeTask(title: task['title'] as String? ?? '', text: task['text'] as String? ?? ''),
+      teaser: [for (final l in (teaser?['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
+      nextSlug: teaser?['next_slug'] as String?,
+      nextTitle: teaser?['next_title'] as String?,
     );
   }
+
+  /// Ausblick auf die nächste Insel nach dem Abschluss (macht neugierig aufs Weitersegeln).
+  final List<DialogLine> teaser;
+  final String? nextSlug;
+  final String? nextTitle;
 
   final String id;
   final String slug;
