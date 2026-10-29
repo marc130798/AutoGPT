@@ -1951,7 +1951,7 @@ on conflict (id) do update set
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
   beginner = excluded.beginner;
 insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
-values (md5('taleria:stage1/spar-insel/station6/q3')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Wo liegt das Kleingeld für den Kiosk morgen gut?', '["Im Geldbeutel oder in der Bordkasse","Für viele Jahre fest auf dem Konto","Verteilt in verschiedenen Jackentaschen"]'::jsonb, 0, 'Geld, das man bald ausgibt, darf griffbereit sein, aber an einem festen Ort.', null, 'draft', null)
+values (md5('taleria:stage1/spar-insel/station6/q3')::uuid, md5('taleria:stage1/spar-insel/station6')::uuid, 'Wo liegt das Kleingeld für den Kiosk morgen gut?', '["Im Geldbeutel, an einem festen Platz","Für viele Jahre fest auf dem Konto","Verteilt in verschiedenen Jackentaschen"]'::jsonb, 0, 'Geld, das man bald ausgibt, darf griffbereit sein, aber an einem festen Ort.', null, 'draft', null)
 on conflict (id) do update set
   question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
   explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,

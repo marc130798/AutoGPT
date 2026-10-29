@@ -1,8 +1,9 @@
 /// Budget und Aufgaben (alles virtuell). Ohne Aussehen, ohne Supabase.
 library;
 
-/// Die drei Truhen. Kinderbereich: Bordkasse, Schatztruhe, Glückstruhe.
-/// Elternbereich: Ausgeben, Sparen, Verschenken.
+/// Eine Schatztruhe mit zwei Teilen (entschieden mit Marc am 29.10.2026):
+/// [spend] = frei zum Ausgeben, [save] = für Wunschschätze zurückgelegt.
+/// [give] (früher Glückstruhe) gibt es nur noch in alten Buchungen.
 enum Pot {
   spend('spend'),
   save('save'),
@@ -29,6 +30,9 @@ class PotBalances {
   };
 
   int get total => spend + save + give;
+
+  /// Frei zum Ausgeben.
+  int get free => spend;
 }
 
 enum LedgerType { allowance, task, transfer, manual, goal, purchase, donation }
@@ -107,19 +111,34 @@ class FamilyTask {
 }
 
 class SavingsGoal {
-  const SavingsGoal({required this.id, required this.title, required this.targetCents, this.reachedAt});
+  const SavingsGoal({
+    required this.id,
+    required this.title,
+    required this.targetCents,
+    this.savedCents = 0,
+    this.reachedAt,
+  });
 
   final String id;
   final String title;
   final int targetCents;
+
+  /// Für diesen Wunschschatz zurückgelegt.
+  final int savedCents;
   final DateTime? reachedAt;
 
   bool get reached => reachedAt != null;
 
-  /// Fortschritt 0 bis 1 anhand des Guthabens der Schatztruhe.
-  double progress(int saveBalanceCents) => reached ? 1 : (saveBalanceCents / targetCents).clamp(0, 1).toDouble();
+  /// Was noch fehlt.
+  int get missingCents => reached ? 0 : (targetCents - savedCents).clamp(0, targetCents);
 
-  bool canRedeem(int saveBalanceCents) => !reached && saveBalanceCents >= targetCents;
+  /// Fortschritt 0 bis 1 anhand des zurückgelegten Geldes.
+  double get progress => reached ? 1 : (savedCents / targetCents).clamp(0, 1).toDouble();
+
+  bool get canRedeem => !reached && savedCents >= targetCents;
+
+  SavingsGoal withSaved(int cents) =>
+      SavingsGoal(id: id, title: title, targetCents: targetCents, savedCents: cents, reachedAt: reachedAt);
 }
 
 /// Wunschflasche (CLAUDE.md Abschnitt 8): erst warten, dann entscheiden.

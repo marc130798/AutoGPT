@@ -461,7 +461,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'Meister Taleron, der Hüter des Meeres, hat die Karte zerrissen und die Teile auf den Inseln versteckt. Nur eine kluge Crew findet den Schatz.';
 
   @override
-  String get introStoryTalo3 => 'Unsere Bordkasse ist leer, und wir brauchen Verstärkung. Willst du in unsere Crew?';
+  String get introStoryTalo3 =>
+      'Unsere Schatztruhe ist fast leer, und wir brauchen Verstärkung. Willst du in unsere Crew?';
 
   @override
   String get introJoinButton => 'Ja, ich bin dabei!';
@@ -558,7 +559,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourChestBody =>
-      'Hier liegt dein Geld in drei Truhen: zum Ausgeben, zum Sparen und zum Verschenken. Hier sparst du auch für deine Wunschschätze.';
+      'Hier liegt dein ganzes Geld. Ein Teil ist frei zum Ausgeben. Für deine Wunschschätze legst du Geld zurück, bis es reicht.';
 
   @override
   String get tourDone => 'Verstanden!';
@@ -826,28 +827,25 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get treasureTitle => 'Deine Truhen';
+  String get treasureTitle => 'Deine Schatztruhe';
 
   @override
-  String get potSpendChild => 'Bordkasse';
+  String get potSpendChild => 'Frei zum Ausgeben';
 
   @override
-  String get potSaveChild => 'Schatztruhe';
+  String get potSaveChild => 'Für Wünsche zurückgelegt';
 
   @override
   String get potGiveChild => 'Glückstruhe';
 
   @override
-  String get potSpendHint => 'Zum Ausgeben. Davon kaufst du dir kleine Dinge, zum Beispiel ein Eis.';
+  String get potSpendHint => 'Davon darfst du dir etwas kaufen, zum Beispiel ein Eis.';
 
   @override
-  String get potSaveHint => 'Zum Sparen. Hier sammelst du für deine Wunschschätze, also für Dinge, die mehr kosten.';
+  String get potSaveHint => 'Dieses Geld hast du für deine Wunschschätze zurückgelegt.';
 
   @override
   String get potGiveHint => 'Zum Verschenken. Damit machst du anderen eine Freude, zum Beispiel mit einem Geschenk.';
-
-  @override
-  String get treasureMove => 'Geld in eine andere Truhe legen';
 
   @override
   String get potDetailsButton => 'Was ist drin?';
@@ -866,7 +864,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String potDetailsTotal(String pot) {
-    return 'Jetzt in der $pot';
+    return 'Stand jetzt: $pot';
   }
 
   @override
@@ -888,10 +886,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get potSumTask => 'Belohnungen für Aufträge';
 
   @override
-  String get potSumTransferIn => 'Aus anderen Truhen hergelegt';
+  String get potSumTransferIn => 'Wieder frei geworden';
 
   @override
-  String get potSumTransferOut => 'In andere Truhen gelegt';
+  String get potSumTransferOut => 'Für Wunschschätze zurückgelegt';
 
   @override
   String get potSumManual => 'Korrekturen von deinen Eltern';
@@ -907,9 +905,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get treasureSpend => 'Ich habe etwas gekauft';
-
-  @override
-  String get treasureGive => 'Ich habe etwas verschenkt';
 
   @override
   String treasureAllowance(String amount, String interval) {
@@ -961,7 +956,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String goalRedeemBody(String amount) {
-    return '$amount gehen aus der Schatztruhe. Viel Spaß mit deinem Wunsch!';
+    return 'Du hast $amount dafür zurückgelegt. Viel Spaß mit deinem Wunsch!';
   }
 
   @override
@@ -1006,15 +1001,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get ledgerDonation => 'Verschenkt';
 
   @override
-  String get moveTitle => 'Geld in eine andere Truhe legen';
-
-  @override
-  String get moveFrom => 'Von';
-
-  @override
-  String get moveTo => 'Nach';
-
-  @override
   String get amountLabel => 'Betrag in Euro';
 
   @override
@@ -1042,9 +1028,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get spendTitle => 'Was hast du gekauft?';
-
-  @override
-  String get giveTitle => 'Was hast du verschenkt?';
 
   @override
   String get tasksTitle => 'Aufträge';
@@ -1103,7 +1086,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String taskRewardBooked(String amount) {
-    return 'Die $amount kamen in deine Bordkasse.';
+    return 'Die $amount kamen in deine Schatztruhe.';
   }
 
   @override
@@ -1147,10 +1130,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get parentPotSpend => 'Ausgeben';
+  String get parentPotSpend => 'Frei zum Ausgeben';
 
   @override
-  String get parentPotSave => 'Sparen';
+  String get parentPotSave => 'Für Sparziele zurückgelegt';
 
   @override
   String get parentPotGive => 'Verschenken';
@@ -1242,9 +1225,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get manualHint => 'Positiv ist eine Gutschrift, mit Minus ein Abzug (zum Beispiel -2,50).';
-
-  @override
-  String get potLabel => 'Truhe';
 
   @override
   String rankName(String rank) {
@@ -2169,11 +2149,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get treasureTalaIntro =>
-      'Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.';
+      'Ich bin Tala, die Zahlmeisterin. Das ist deine Schatztruhe. Ein Teil deines Geldes ist frei, davon darfst du dir etwas kaufen. Für einen Wunschschatz legst du Geld zurück, bis es reicht.';
 
   @override
   String get goalsIntro =>
-      'Ein Wunschschatz ist etwas, das du dir wünschst und wofür du sparst, zum Beispiel ein Ball für 15 €. Der Balken zeigt, wie viel davon schon in deiner Schatztruhe liegt.';
+      'Ein Wunschschatz ist etwas, das du dir wünschst, zum Beispiel ein Ball für 15 €. Lege nach und nach Geld dafür zurück. Der Balken zeigt, wie viel schon zusammen ist.';
 
   @override
   String get ledgerIntro =>
@@ -2185,7 +2165,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tasksIntroTala =>
-      'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Bordkasse. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.';
+      'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Schatztruhe. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.';
 
   @override
   String get badgesIntro =>
@@ -2836,4 +2816,48 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tradeBoardTitle => 'Wer hat was?';
+
+  @override
+  String get treasureTotalLabel => 'In deiner Schatztruhe';
+
+  @override
+  String get goalSave => 'Geld zurücklegen';
+
+  @override
+  String get goalTakeBack => 'Zurücknehmen';
+
+  @override
+  String goalSaveTitle(String title) {
+    return 'Wie viel legst du für $title zurück?';
+  }
+
+  @override
+  String goalSaveHint(String free, String missing) {
+    return 'Frei sind $free. Für den Wunschschatz fehlen noch $missing.';
+  }
+
+  @override
+  String goalTakeBackTitle(String title) {
+    return 'Wie viel nimmst du von $title zurück?';
+  }
+
+  @override
+  String goalTakeBackHint(String saved) {
+    return 'Zurückgelegt sind $saved. Was du zurücknimmst, ist wieder frei.';
+  }
+
+  @override
+  String goalDeleteBody(String amount) {
+    return 'Die $amount, die du dafür zurückgelegt hast, sind dann wieder frei.';
+  }
+
+  @override
+  String goalNeedsLess(String amount) {
+    return 'Dafür fehlen nur noch $amount.';
+  }
+
+  @override
+  String parentGoalLine(String title, String saved, String target) {
+    return '$title: $saved von $target';
+  }
 }

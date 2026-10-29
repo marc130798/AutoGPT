@@ -922,7 +922,7 @@ abstract class AppLocalizations {
   /// Intro, Szene 5: Einladung in die Crew (ENTWURF)
   ///
   /// In de, this message translates to:
-  /// **'Unsere Bordkasse ist leer, und wir brauchen Verstärkung. Willst du in unsere Crew?'**
+  /// **'Unsere Schatztruhe ist fast leer, und wir brauchen Verstärkung. Willst du in unsere Crew?'**
   String get introStoryTalo3;
 
   /// Knopf: der Crew beitreten
@@ -1108,7 +1108,7 @@ abstract class AppLocalizations {
   /// Tala erklärt die Schatztruhe (ENTWURF)
   ///
   /// In de, this message translates to:
-  /// **'Hier liegt dein Geld in drei Truhen: zum Ausgeben, zum Sparen und zum Verschenken. Hier sparst du auch für deine Wunschschätze.'**
+  /// **'Hier liegt dein ganzes Geld. Ein Teil ist frei zum Ausgeben. Für deine Wunschschätze legst du Geld zurück, bis es reicht.'**
   String get tourChestBody;
 
   /// Knopf: Rundgang beenden
@@ -1570,19 +1570,19 @@ abstract class AppLocalizations {
   /// Titel der Truhen-Übersicht im Kinderbereich
   ///
   /// In de, this message translates to:
-  /// **'Deine Truhen'**
+  /// **'Deine Schatztruhe'**
   String get treasureTitle;
 
   /// Truhe zum Ausgeben (Glossar)
   ///
   /// In de, this message translates to:
-  /// **'Bordkasse'**
+  /// **'Frei zum Ausgeben'**
   String get potSpendChild;
 
   /// Truhe zum Sparen (Glossar)
   ///
   /// In de, this message translates to:
-  /// **'Schatztruhe'**
+  /// **'Für Wünsche zurückgelegt'**
   String get potSaveChild;
 
   /// Truhe zum Verschenken (Glossar)
@@ -1594,13 +1594,13 @@ abstract class AppLocalizations {
   /// Erklärung der Bordkasse
   ///
   /// In de, this message translates to:
-  /// **'Zum Ausgeben. Davon kaufst du dir kleine Dinge, zum Beispiel ein Eis.'**
+  /// **'Davon darfst du dir etwas kaufen, zum Beispiel ein Eis.'**
   String get potSpendHint;
 
   /// Erklärung der Schatztruhe
   ///
   /// In de, this message translates to:
-  /// **'Zum Sparen. Hier sammelst du für deine Wunschschätze, also für Dinge, die mehr kosten.'**
+  /// **'Dieses Geld hast du für deine Wunschschätze zurückgelegt.'**
   String get potSaveHint;
 
   /// Erklärung der Glückstruhe
@@ -1608,12 +1608,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Zum Verschenken. Damit machst du anderen eine Freude, zum Beispiel mit einem Geschenk.'**
   String get potGiveHint;
-
-  /// Knopf: Geld zwischen Truhen verschieben
-  ///
-  /// In de, this message translates to:
-  /// **'Geld in eine andere Truhe legen'**
-  String get treasureMove;
 
   /// Knopf auf einer Truhe: Übersicht öffnen
   ///
@@ -1648,7 +1642,7 @@ abstract class AppLocalizations {
   /// Übersicht einer Truhe: Summe (alle Truhen-Namen sind weiblich)
   ///
   /// In de, this message translates to:
-  /// **'Jetzt in der {pot}'**
+  /// **'Stand jetzt: {pot}'**
   String potDetailsTotal(String pot);
 
   /// Übersicht einer leeren Truhe
@@ -1684,13 +1678,13 @@ abstract class AppLocalizations {
   /// Übersicht einer Truhe: umgebucht, hinein
   ///
   /// In de, this message translates to:
-  /// **'Aus anderen Truhen hergelegt'**
+  /// **'Wieder frei geworden'**
   String get potSumTransferIn;
 
   /// Übersicht einer Truhe: umgebucht, hinaus
   ///
   /// In de, this message translates to:
-  /// **'In andere Truhen gelegt'**
+  /// **'Für Wunschschätze zurückgelegt'**
   String get potSumTransferOut;
 
   /// Übersicht einer Truhe: Art der Buchung
@@ -1722,12 +1716,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Ich habe etwas gekauft'**
   String get treasureSpend;
-
-  /// Knopf: Geschenk aus der Glückstruhe
-  ///
-  /// In de, this message translates to:
-  /// **'Ich habe etwas verschenkt'**
-  String get treasureGive;
 
   /// Taschengeld im Kinderbereich
   ///
@@ -1810,7 +1798,7 @@ abstract class AppLocalizations {
   /// Text beim Einlösen
   ///
   /// In de, this message translates to:
-  /// **'{amount} gehen aus der Schatztruhe. Viel Spaß mit deinem Wunsch!'**
+  /// **'Du hast {amount} dafür zurückgelegt. Viel Spaß mit deinem Wunsch!'**
   String goalRedeemBody(String amount);
 
   /// Knopf: Wunschschatz löschen
@@ -1891,24 +1879,6 @@ abstract class AppLocalizations {
   /// **'Verschenkt'**
   String get ledgerDonation;
 
-  /// Titel des Umbuchen-Dialogs
-  ///
-  /// In de, this message translates to:
-  /// **'Geld in eine andere Truhe legen'**
-  String get moveTitle;
-
-  /// Feld: Truhe, aus der umgebucht wird
-  ///
-  /// In de, this message translates to:
-  /// **'Von'**
-  String get moveFrom;
-
-  /// Feld: Truhe, in die umgebucht wird
-  ///
-  /// In de, this message translates to:
-  /// **'Nach'**
-  String get moveTo;
-
   /// Feld: Betrag
   ///
   /// In de, this message translates to:
@@ -1962,12 +1932,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Was hast du gekauft?'**
   String get spendTitle;
-
-  /// Titel: Geschenk aus der Glückstruhe
-  ///
-  /// In de, this message translates to:
-  /// **'Was hast du verschenkt?'**
-  String get giveTitle;
 
   /// Titel der Aufträge im Kinderbereich (Glossar)
   ///
@@ -2062,7 +2026,7 @@ abstract class AppLocalizations {
   /// Kinderbereich: wohin die Belohnung gebucht wurde
   ///
   /// In de, this message translates to:
-  /// **'Die {amount} kamen in deine Bordkasse.'**
+  /// **'Die {amount} kamen in deine Schatztruhe.'**
   String taskRewardBooked(String amount);
 
   /// Leuchtturm: Aufgabe offen seit
@@ -2110,13 +2074,13 @@ abstract class AppLocalizations {
   /// Truhe im Elternbereich (Glossar)
   ///
   /// In de, this message translates to:
-  /// **'Ausgeben'**
+  /// **'Frei zum Ausgeben'**
   String get parentPotSpend;
 
   /// Truhe im Elternbereich (Glossar)
   ///
   /// In de, this message translates to:
-  /// **'Sparen'**
+  /// **'Für Sparziele zurückgelegt'**
   String get parentPotSave;
 
   /// Truhe im Elternbereich (Glossar)
@@ -2292,12 +2256,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Positiv ist eine Gutschrift, mit Minus ein Abzug (zum Beispiel -2,50).'**
   String get manualHint;
-
-  /// Feld: Truhe auswählen (Elternbereich)
-  ///
-  /// In de, this message translates to:
-  /// **'Truhe'**
-  String get potLabel;
 
   /// Name eines Rangs (Glossar). Parameter ist der Code aus der Datenbank.
   ///
@@ -3628,13 +3586,13 @@ abstract class AppLocalizations {
   /// Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen
   ///
   /// In de, this message translates to:
-  /// **'Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.'**
+  /// **'Ich bin Tala, die Zahlmeisterin. Das ist deine Schatztruhe. Ein Teil deines Geldes ist frei, davon darfst du dir etwas kaufen. Für einen Wunschschatz legst du Geld zurück, bis es reicht.'**
   String get treasureTalaIntro;
 
   /// Schatztruhe: Erklärung, was ein Wunschschatz ist
   ///
   /// In de, this message translates to:
-  /// **'Ein Wunschschatz ist etwas, das du dir wünschst und wofür du sparst, zum Beispiel ein Ball für 15 €. Der Balken zeigt, wie viel davon schon in deiner Schatztruhe liegt.'**
+  /// **'Ein Wunschschatz ist etwas, das du dir wünschst, zum Beispiel ein Ball für 15 €. Lege nach und nach Geld dafür zurück. Der Balken zeigt, wie viel schon zusammen ist.'**
   String get goalsIntro;
 
   /// Schatztruhe: Erklärung, was das Kassenbuch ist
@@ -3652,7 +3610,7 @@ abstract class AppLocalizations {
   /// Aufträge: Tala erklärt Bestätigung, Belohnung und Pflicht
   ///
   /// In de, this message translates to:
-  /// **'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Bordkasse. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.'**
+  /// **'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Schatztruhe. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.'**
   String get tasksIntroTala;
 
   /// Orden: Talo erklärt oben, wie man Orden bekommt
@@ -4554,6 +4512,66 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Wer hat was?'**
   String get tradeBoardTitle;
+
+  /// Überschrift über dem ganzen Geld des Kindes
+  ///
+  /// In de, this message translates to:
+  /// **'In deiner Schatztruhe'**
+  String get treasureTotalLabel;
+
+  /// Knopf: Geld für einen Wunschschatz beiseitelegen
+  ///
+  /// In de, this message translates to:
+  /// **'Geld zurücklegen'**
+  String get goalSave;
+
+  /// Knopf: zurückgelegtes Geld wieder frei machen
+  ///
+  /// In de, this message translates to:
+  /// **'Zurücknehmen'**
+  String get goalTakeBack;
+
+  /// Titel im Betrags-Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Wie viel legst du für {title} zurück?'**
+  String goalSaveTitle(String title);
+
+  /// Hinweis im Dialog Zurücklegen
+  ///
+  /// In de, this message translates to:
+  /// **'Frei sind {free}. Für den Wunschschatz fehlen noch {missing}.'**
+  String goalSaveHint(String free, String missing);
+
+  /// Titel im Betrags-Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Wie viel nimmst du von {title} zurück?'**
+  String goalTakeBackTitle(String title);
+
+  /// Hinweis im Dialog Zurücknehmen
+  ///
+  /// In de, this message translates to:
+  /// **'Zurückgelegt sind {saved}. Was du zurücknimmst, ist wieder frei.'**
+  String goalTakeBackHint(String saved);
+
+  /// Hinweis beim Löschen eines Wunschschatzes mit Geld
+  ///
+  /// In de, this message translates to:
+  /// **'Die {amount}, die du dafür zurückgelegt hast, sind dann wieder frei.'**
+  String goalDeleteBody(String amount);
+
+  /// Fehler: mehr zurücklegen, als der Wunschschatz noch braucht
+  ///
+  /// In de, this message translates to:
+  /// **'Dafür fehlen nur noch {amount}.'**
+  String goalNeedsLess(String amount);
+
+  /// Leuchtturm: Sparziel mit zurückgelegtem Geld
+  ///
+  /// In de, this message translates to:
+  /// **'{title}: {saved} von {target}'**
+  String parentGoalLine(String title, String saved, String target);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

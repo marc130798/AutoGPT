@@ -97,9 +97,9 @@ void main() {
     await tapText(tester, 'Schatztruhe');
     expect(sounds.playingMusic, AssetKeys.musicHome);
     await tapKey(tester, 'pot-open-spend');
-    expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Übersicht der Bordkasse');
+    expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Übersicht des freien Geldes');
     await back();
-    await tapText(tester, 'Geld in eine andere Truhe legen');
+    await tapText(tester, 'Ich habe etwas gekauft');
     expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Dialog über der Schatztruhe');
     await tapText(tester, 'Abbrechen');
     await back();

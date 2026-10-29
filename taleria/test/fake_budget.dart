@@ -11,6 +11,9 @@ class FakeBudget implements BudgetRepository {
   final Map<String, List<SavingsGoal>> goals = {};
   final Map<String, AllowanceRule> allowances = {};
   final Map<String, String> entryChild = {};
+
+  /// Für welchen Wunschschatz eine Buchung zurückgelegt ist.
+  final Map<String, String> entryGoal = {};
   FailureKind? failWith;
   int _id = 0;
 
@@ -23,10 +26,23 @@ class FakeBudget implements BudgetRepository {
 
   String _next(String prefix) => '$prefix-${_id++}';
 
-  void _book(String childId, Pot pot, int amount, LedgerType type, {String? note}) {
+  void _book(String childId, Pot pot, int amount, LedgerType type, {String? note, String? goalId}) {
     final entry = LedgerEntry(id: _next('e'), pot: pot, amountCents: amount, type: type, createdAt: now, note: note);
     entries.add(entry);
     entryChild[entry.id] = childId;
+    if (goalId != null) entryGoal[entry.id] = goalId;
+  }
+
+  /// Für einen Wunschschatz zurückgelegt.
+  int saved(String goalId) =>
+      entries.where((e) => entryGoal[e.id] == goalId && e.pot == Pot.save).fold(0, (sum, e) => sum + e.amountCents);
+
+  (String, int)? _findGoal(String goalId) {
+    for (final e in goals.entries) {
+      final i = e.value.indexWhere((g) => g.id == goalId);
+      if (i >= 0) return (e.key, i);
+    }
+    return null;
   }
 
   int balance(String childId, Pot pot) =>
@@ -75,7 +91,9 @@ class FakeBudget implements BudgetRepository {
   Future<List<FamilyTask>> fetchTasks(String childId) async => [...?tasks[childId]];
 
   @override
-  Future<List<SavingsGoal>> fetchGoals(String childId) async => [...?goals[childId]];
+  Future<List<SavingsGoal>> fetchGoals(String childId) async => [
+    for (final g in goals[childId] ?? const <SavingsGoal>[]) g.withSaved(saved(g.id)),
+  ];
 
   @override
   Future<Map<String, int>> fetchSubmittedTaskCounts() async => {
@@ -180,25 +198,35 @@ class FakeBudget implements BudgetRepository {
   }
 
   @override
-  Future<void> movePots(String childId, {required Pot from, required Pot to, required int amountCents}) async {
+  Future<void> recordSpending(String childId, {required int amountCents, String? note}) async {
     _check();
-    _ensure(childId, from, amountCents);
-    _book(childId, from, -amountCents, LedgerType.transfer);
-    _book(childId, to, amountCents, LedgerType.transfer);
+    _ensure(childId, Pot.spend, amountCents);
+    _book(childId, Pot.spend, -amountCents, LedgerType.purchase, note: note);
   }
 
   @override
-  Future<void> recordSpending(String childId, {required Pot pot, required int amountCents, String? note}) async {
+  Future<void> bookManual(String childId, {required int amountCents, String? note}) async {
     _check();
-    _ensure(childId, pot, amountCents);
-    _book(childId, pot, -amountCents, pot == Pot.give ? LedgerType.donation : LedgerType.purchase, note: note);
+    if (balance(childId, Pot.spend) + amountCents < 0) throw const AppFailure(FailureKind.notEnoughMoney);
+    _book(childId, Pot.spend, amountCents, LedgerType.manual, note: note);
   }
 
   @override
-  Future<void> bookManual(String childId, {required Pot pot, required int amountCents, String? note}) async {
+  Future<void> moveGoalSavings(String goalId, int amountCents) async {
     _check();
-    if (balance(childId, pot) + amountCents < 0) throw const AppFailure(FailureKind.notEnoughMoney);
-    _book(childId, pot, amountCents, LedgerType.manual, note: note);
+    final found = _findGoal(goalId);
+    if (found == null) throw const AppFailure(FailureKind.notAllowed);
+    final (childId, i) = found;
+    final goal = goals[childId]![i];
+    if (goal.reached || amountCents == 0) throw const AppFailure(FailureKind.unknown);
+    if (amountCents > 0) {
+      _ensure(childId, Pot.spend, amountCents);
+      if (saved(goalId) + amountCents > goal.targetCents) throw const AppFailure(FailureKind.unknown, 'zu viel');
+    } else if (saved(goalId) + amountCents < 0) {
+      throw const AppFailure(FailureKind.notEnoughMoney);
+    }
+    _book(childId, Pot.spend, -amountCents, LedgerType.transfer, note: goal.title);
+    _book(childId, Pot.save, amountCents, LedgerType.transfer, note: goal.title, goalId: goalId);
   }
 
   @override
@@ -207,11 +235,20 @@ class FakeBudget implements BudgetRepository {
     (goals[childId] ??= []).add(SavingsGoal(id: _next('g'), title: title, targetCents: targetCents));
   }
 
+  /// Wie auf dem Server: Das zurückgelegte Geld ist danach wieder frei.
   @override
   Future<void> deleteGoal(String goalId) async {
-    for (final list in goals.values) {
-      list.removeWhere((g) => g.id == goalId && !g.reached);
+    final found = _findGoal(goalId);
+    if (found == null) return;
+    final (childId, i) = found;
+    final goal = goals[childId]![i];
+    if (goal.reached) return;
+    final money = saved(goalId);
+    if (money > 0) {
+      _book(childId, Pot.save, -money, LedgerType.transfer, note: goal.title, goalId: goalId);
+      _book(childId, Pot.spend, money, LedgerType.transfer, note: goal.title);
     }
+    goals[childId]!.removeAt(i);
   }
 
   @override
@@ -221,8 +258,8 @@ class FakeBudget implements BudgetRepository {
       final i = e.value.indexWhere((g) => g.id == goalId);
       if (i < 0) continue;
       final goal = e.value[i];
-      _ensure(e.key, Pot.save, goal.targetCents);
-      _book(e.key, Pot.save, -goal.targetCents, LedgerType.goal, note: goal.title);
+      if (saved(goal.id) < goal.targetCents) throw const AppFailure(FailureKind.notEnoughMoney);
+      _book(e.key, Pot.save, -goal.targetCents, LedgerType.goal, note: goal.title, goalId: goal.id);
       e.value[i] = SavingsGoal(id: goal.id, title: goal.title, targetCents: goal.targetCents, reachedAt: now);
     }
   }

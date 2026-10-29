@@ -91,21 +91,45 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('child-home-open-tasks')), findsNothing, reason: 'Auftrag ist gemeldet');
 
-    // --- Kind: Truhen, Umbuchen, Wunschschatz ---
+    // --- Kind: eine Schatztruhe, Wunschschatz mit zurückgelegtem Geld ---
     await tapText(tester, 'Schatztruhe');
-    expect(find.text(formatCents(500)), findsWidgets, reason: 'Taschengeld in der Bordkasse');
-    await tapText(tester, 'Geld in eine andere Truhe legen');
+    expect(find.text('Deine Schatztruhe'), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(const ValueKey('balance-spend'))).data, formatCents(500));
+    expect(find.text('Frei zum Ausgeben'), findsOneWidget);
+    expect(find.text('Für Wünsche zurückgelegt'), findsOneWidget);
+    expect(find.textContaining('Glückstruhe'), findsNothing);
+    expect(find.textContaining('Bordkasse'), findsNothing);
+
+    await tapText(tester, 'Neuer Wunschschatz');
+    await enter(tester, 'amount-dialog-title', 'Ball');
+    await enter(tester, 'amount-dialog-amount', '2');
+    await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Einlösen'), findsNothing, reason: 'Noch nichts zurückgelegt');
+
+    await tapText(tester, 'Geld zurücklegen');
     await enter(tester, 'amount-dialog-amount', '20');
     await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
     await tester.pumpAndSettle();
     expect(find.text('So viel ist nicht in der Truhe.'), findsOneWidget);
+    await enter(tester, 'amount-dialog-amount', '3');
+    await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Dafür fehlen nur noch ${formatCents(200)}.'), findsOneWidget);
     await enter(tester, 'amount-dialog-amount', '2');
     await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
     await tester.pumpAndSettle();
     expect(budget.balance(mila.id, Pot.spend), 300);
     expect(budget.balance(mila.id, Pot.save), 200);
 
-    // Die Truhen stehen oben, das Taschengeld darunter (Liste der obersten Seite).
+    await tapText(tester, 'Einlösen');
+    expect(find.text('Ball einlösen?'), findsOneWidget);
+    await tester.tap(find.widgetWithText(FilledButton, 'Einlösen').last);
+    await tester.pumpAndSettle();
+    expect(find.text('Erfüllt!'), findsOneWidget);
+    expect(budget.balance(mila.id, Pot.save), 0);
+
+    // Unter den Wunschschätzen steht das Taschengeld.
     await tester.dragUntilVisible(
       find.textContaining('Dein Taschengeld'),
       find.byType(Scrollable).last,
@@ -115,25 +139,13 @@ void main() {
     expect(find.textContaining('Dein Taschengeld: ${formatCents(500)} pro Woche'), findsOneWidget);
     expect(find.textContaining('Heuer'), findsNothing, reason: 'Kinder verstehen „Taschengeld“ besser');
 
-    await tapText(tester, 'Neuer Wunschschatz');
-    await enter(tester, 'amount-dialog-title', 'Ball');
-    await enter(tester, 'amount-dialog-amount', '2');
-    await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
-    await tester.pumpAndSettle();
-    await tapText(tester, 'Einlösen');
-    expect(find.text('Ball einlösen?'), findsOneWidget);
-    await tester.tap(find.widgetWithText(FilledButton, 'Einlösen').last);
-    await tester.pumpAndSettle();
-    expect(find.text('Erfüllt!'), findsOneWidget);
-    expect(budget.balance(mila.id, Pot.save), 0);
-
     // --- Eltern: bestätigen ---
     await openParentBudget(tester, backend, budget);
     expect(find.text('1 Aufgabe wartet auf Bestätigung'), findsOneWidget);
     await tapText(tester, 'Bestätigen');
     expect(budget.balance(mila.id, Pot.spend), 600, reason: '3 € Rest plus 3 € Belohnung');
     expect(find.text('Bestätigt am ${formatDate(budget.now)}'), findsOneWidget);
-    expect(find.text('${formatCents(300)} auf „Ausgeben“ gebucht'), findsOneWidget);
+    expect(find.text('${formatCents(300)} auf „Frei zum Ausgeben“ gebucht'), findsOneWidget);
   });
 
   testWidgets('Aufträge zeigen, wann sie erledigt und bestätigt wurden', (tester) async {
@@ -165,7 +177,7 @@ void main() {
       const Offset(0, -200),
     );
     expect(find.text('Erledigt am 09.10.2026, bestätigt am 10.10.2026'), findsOneWidget);
-    expect(find.text('Die ${formatCents(500)} kamen in deine Bordkasse.'), findsOneWidget);
+    expect(find.text('Die ${formatCents(500)} kamen in deine Schatztruhe.'), findsOneWidget);
     expect(find.text('Gemeldet am 09.10.2026'), findsOneWidget, reason: 'Zimmer wartet auf die Eltern');
 
     await openParentBudget(tester, backend, budget);
@@ -192,8 +204,9 @@ void main() {
       isChore: false,
     );
     await budget.reviewTask(budget.tasks[mila.id]!.single.id, approve: true);
-    await budget.movePots(mila.id, from: Pot.spend, to: Pot.save, amountCents: 200);
-    await budget.recordSpending(mila.id, pot: Pot.spend, amountCents: 150, note: 'Eis');
+    await budget.createGoal(mila.id, title: 'Ball', targetCents: 1000);
+    await budget.moveGoalSavings(budget.goals[mila.id]!.single.id, 200);
+    await budget.recordSpending(mila.id, amountCents: 150, note: 'Eis');
 
     Finder inRow(String key, String text) => find.descendant(of: find.byKey(ValueKey(key)), matching: find.text(text));
 
@@ -201,13 +214,13 @@ void main() {
     await tapText(tester, 'Schatztruhe');
     await tester.tap(find.byKey(const ValueKey('pot-open-spend')));
     await tester.pumpAndSettle();
-    expect(find.text('Bordkasse'), findsWidgets);
+    expect(find.text('Frei zum Ausgeben'), findsWidgets);
     expect(inRow('pot-sum-in-allowance', '+${formatCents(500)}'), findsOneWidget);
     expect(inRow('pot-sum-in-task', '+${formatCents(300)}'), findsOneWidget);
     expect(inRow('pot-sum-out-transfer', formatCents(-200)), findsOneWidget);
     expect(inRow('pot-sum-out-purchase', formatCents(-150)), findsOneWidget);
     expect(find.byKey(const ValueKey('pot-sum-older')), findsNothing);
-    expect(find.text('Jetzt in der Bordkasse'), findsOneWidget);
+    expect(find.text('Stand jetzt: Frei zum Ausgeben'), findsOneWidget);
     expect(
       tester.widget<Text>(find.byKey(const ValueKey('pot-sum-total'))).data,
       formatCents(450),
@@ -216,24 +229,14 @@ void main() {
     await tester.dragUntilVisible(find.text('Eis'), find.byType(Scrollable).last, const Offset(0, -200));
     expect(find.text('Rasen mähen'), findsOneWidget, reason: 'Belohnung steht mit Namen in der Liste');
 
-    // Die Schatztruhe hat nur das Umgepackte.
-    await tester.tap(find.byType(BackButton));
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.byKey(const ValueKey('pot-open-save')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const ValueKey('pot-open-save')));
-    await tester.pumpAndSettle();
-    expect(inRow('pot-sum-in-transfer', '+${formatCents(200)}'), findsOneWidget);
-    expect(find.text('Aus anderen Truhen hergelegt'), findsOneWidget);
+    expect(find.text('Für Wunschschätze zurückgelegt'), findsOneWidget);
 
-    // Die Glückstruhe ist noch leer.
+    // In der Truhe: alles zusammen 4,50 € frei und 2 € für den Ball.
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.byKey(const ValueKey('pot-open-give')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const ValueKey('pot-open-give')));
-    await tester.pumpAndSettle();
-    expect(find.textContaining('Hier ist noch nichts passiert.'), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(const ValueKey('balance-save'))).data, formatCents(200));
+    await tester.dragUntilVisible(find.text('Ball'), find.byType(Scrollable).last, const Offset(0, -200));
+    expect(find.text('${formatCents(200)} von ${formatCents(1000)}'), findsOneWidget);
   });
 
   testWidgets('Eltern lehnen ab, Kind sieht die Nachricht und meldet erneut', (tester) async {

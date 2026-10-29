@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../domain/budget_models.dart';
 import '../../domain/family_models.dart';
 import '../../domain/money.dart';
 import '../../domain/validators.dart';
@@ -12,49 +11,36 @@ import '../common/texts.dart';
 
 /// Was im Betrags-Dialog eingegeben wurde.
 class AmountInput {
-  const AmountInput({required this.amountCents, this.from, this.to, this.pot, this.note, this.title});
+  const AmountInput({required this.amountCents, this.note, this.title});
 
   final int amountCents;
-  final Pot? from;
-  final Pot? to;
-  final Pot? pot;
   final String? note;
   final String? title;
 }
 
-/// Ein Dialog für alle Beträge: Umbuchen (von/nach), Ausgabe (mit Notiz),
-/// Wunschschatz (mit Titel), Korrektur der Eltern (Truhe, auch negativ).
+/// Ein Dialog für alle Beträge: Ausgabe (mit Notiz), Wunschschatz (mit Titel),
+/// Zurücklegen, Korrektur der Eltern (auch negativ).
 /// [onSubmit] führt die Buchung aus. Fehler erscheinen im Dialog.
 Future<bool> showAmountDialog(
   BuildContext context, {
   required String title,
   required Future<void> Function(AmountInput input) onSubmit,
-  bool chooseFromTo = false,
-  bool choosePot = false,
   bool withNote = false,
   bool withTitle = false,
   bool allowNegative = false,
-  bool parentWording = false,
   String? amountLabel,
   String? hint,
-  Pot initialFrom = Pot.spend,
-  Pot initialTo = Pot.save,
 }) async {
   final done = await showDialog<bool>(
     context: context,
     builder: (_) => _AmountDialog(
       title: title,
       onSubmit: onSubmit,
-      chooseFromTo: chooseFromTo,
-      choosePot: choosePot,
       withNote: withNote,
       withTitle: withTitle,
       allowNegative: allowNegative,
-      parentWording: parentWording,
       amountLabel: amountLabel,
       hint: hint,
-      initialFrom: initialFrom,
-      initialTo: initialTo,
     ),
   );
   return done ?? false;
@@ -64,30 +50,20 @@ class _AmountDialog extends StatefulWidget {
   const _AmountDialog({
     required this.title,
     required this.onSubmit,
-    required this.chooseFromTo,
-    required this.choosePot,
     required this.withNote,
     required this.withTitle,
     required this.allowNegative,
-    required this.parentWording,
     required this.amountLabel,
     required this.hint,
-    required this.initialFrom,
-    required this.initialTo,
   });
 
   final String title;
   final Future<void> Function(AmountInput input) onSubmit;
-  final bool chooseFromTo;
-  final bool choosePot;
   final bool withNote;
   final bool withTitle;
   final bool allowNegative;
-  final bool parentWording;
   final String? amountLabel;
   final String? hint;
-  final Pot initialFrom;
-  final Pot initialTo;
 
   @override
   State<_AmountDialog> createState() => _AmountDialogState();
@@ -98,9 +74,6 @@ class _AmountDialogState extends State<_AmountDialog> {
   final _amount = TextEditingController();
   final _note = TextEditingController();
   final _title = TextEditingController();
-  late Pot _from = widget.initialFrom;
-  late Pot _to = widget.initialTo;
-  Pot _pot = Pot.spend;
   bool _busy = false;
   String? _error;
 
@@ -133,15 +106,14 @@ class _AmountDialogState extends State<_AmountDialog> {
       await widget.onSubmit(
         AmountInput(
           amountCents: _parsedAmount()!,
-          from: widget.chooseFromTo ? _from : null,
-          to: widget.chooseFromTo ? _to : null,
-          pot: widget.choosePot ? _pot : null,
           note: widget.withNote && _note.text.trim().isNotEmpty ? _note.text.trim() : null,
           title: widget.withTitle ? _title.text.trim() : null,
         ),
       );
     } on NotEnoughMoney {
       error = l10n.notEnoughMoney;
+    } on GoalNeedsLess catch (e) {
+      error = l10n.goalNeedsLess(formatCents(e.missingCents));
     } on AppFailure catch (e) {
       error = l10n.failure(e.kind);
     }
@@ -154,25 +126,6 @@ class _AmountDialogState extends State<_AmountDialog> {
         _error = error;
       });
     }
-  }
-
-  Widget _potPicker(String label, Pot value, ValueChanged<Pot> onChanged, {Pot? exclude}) {
-    final l10n = AppLocalizations.of(context);
-    return DropdownButtonFormField<Pot>(
-      initialValue: value,
-      decoration: InputDecoration(labelText: label, border: const OutlineInputBorder()),
-      items: [
-        for (final pot in Pot.values)
-          if (pot != exclude)
-            DropdownMenuItem(
-              value: pot,
-              child: Text(l10n.pot(pot, parent: widget.parentWording)),
-            ),
-      ],
-      onChanged: (pot) {
-        if (pot != null) setState(() => onChanged(pot));
-      },
-    );
   }
 
   @override
@@ -199,16 +152,6 @@ class _AmountDialogState extends State<_AmountDialog> {
               ),
               const SizedBox(height: 8),
             ],
-            if (widget.chooseFromTo) ...[
-              _potPicker(l10n.moveFrom, _from, (p) {
-                _from = p;
-                if (_to == p) _to = Pot.values.firstWhere((o) => o != p);
-              }),
-              const SizedBox(height: 12),
-              _potPicker(l10n.moveTo, _to, (p) => _to = p, exclude: _from),
-              const SizedBox(height: 12),
-            ],
-            if (widget.choosePot) ...[_potPicker(l10n.potLabel, _pot, (p) => _pot = p), const SizedBox(height: 12)],
             TextFormField(
               key: const ValueKey('amount-dialog-amount'),
               controller: _amount,

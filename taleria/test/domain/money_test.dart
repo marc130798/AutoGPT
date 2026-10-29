@@ -36,10 +36,12 @@ void main() {
 
   test('Wunschschatz: Fortschritt und Einlösen', () {
     const goal = SavingsGoal(id: 'g', title: 'Ball', targetCents: 2000);
-    expect(goal.progress(500), 0.25);
-    expect(goal.progress(5000), 1.0);
-    expect(goal.canRedeem(1999), isFalse);
-    expect(goal.canRedeem(2000), isTrue);
+    expect(goal.withSaved(500).progress, 0.25);
+    expect(goal.withSaved(500).missingCents, 1500);
+    expect(goal.withSaved(2000).progress, 1.0);
+    expect(goal.withSaved(1999).canRedeem, isFalse);
+    expect(goal.withSaved(2000).canRedeem, isTrue);
+    expect(goal.withSaved(2000).missingCents, 0);
   });
 
   test('Aufträge: wer was darf', () {

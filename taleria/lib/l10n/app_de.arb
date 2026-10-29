@@ -613,7 +613,7 @@
   "@introStoryTala2": {
     "description": "Intro, Szene 4: Meister Taleron (ENTWURF)"
   },
-  "introStoryTalo3": "Unsere Bordkasse ist leer, und wir brauchen Verstärkung. Willst du in unsere Crew?",
+  "introStoryTalo3": "Unsere Schatztruhe ist fast leer, und wir brauchen Verstärkung. Willst du in unsere Crew?",
   "@introStoryTalo3": {
     "description": "Intro, Szene 5: Einladung in die Crew (ENTWURF)"
   },
@@ -745,7 +745,7 @@
   "@tourChestTitle": {
     "description": "Rundgang: Schatztruhe"
   },
-  "tourChestBody": "Hier liegt dein Geld in drei Truhen: zum Ausgeben, zum Sparen und zum Verschenken. Hier sparst du auch für deine Wunschschätze.",
+  "tourChestBody": "Hier liegt dein ganzes Geld. Ein Teil ist frei zum Ausgeben. Für deine Wunschschätze legst du Geld zurück, bis es reicht.",
   "@tourChestBody": {
     "description": "Tala erklärt die Schatztruhe (ENTWURF)"
   },
@@ -1129,15 +1129,15 @@
       }
     }
   },
-  "treasureTitle": "Deine Truhen",
+  "treasureTitle": "Deine Schatztruhe",
   "@treasureTitle": {
     "description": "Titel der Truhen-Übersicht im Kinderbereich"
   },
-  "potSpendChild": "Bordkasse",
+  "potSpendChild": "Frei zum Ausgeben",
   "@potSpendChild": {
     "description": "Truhe zum Ausgeben (Glossar)"
   },
-  "potSaveChild": "Schatztruhe",
+  "potSaveChild": "Für Wünsche zurückgelegt",
   "@potSaveChild": {
     "description": "Truhe zum Sparen (Glossar)"
   },
@@ -1145,21 +1145,17 @@
   "@potGiveChild": {
     "description": "Truhe zum Verschenken (Glossar)"
   },
-  "potSpendHint": "Zum Ausgeben. Davon kaufst du dir kleine Dinge, zum Beispiel ein Eis.",
+  "potSpendHint": "Davon darfst du dir etwas kaufen, zum Beispiel ein Eis.",
   "@potSpendHint": {
     "description": "Erklärung der Bordkasse"
   },
-  "potSaveHint": "Zum Sparen. Hier sammelst du für deine Wunschschätze, also für Dinge, die mehr kosten.",
+  "potSaveHint": "Dieses Geld hast du für deine Wunschschätze zurückgelegt.",
   "@potSaveHint": {
     "description": "Erklärung der Schatztruhe"
   },
   "potGiveHint": "Zum Verschenken. Damit machst du anderen eine Freude, zum Beispiel mit einem Geschenk.",
   "@potGiveHint": {
     "description": "Erklärung der Glückstruhe"
-  },
-  "treasureMove": "Geld in eine andere Truhe legen",
-  "@treasureMove": {
-    "description": "Knopf: Geld zwischen Truhen verschieben"
   },
   "potDetailsButton": "Was ist drin?",
   "@potDetailsButton": {
@@ -1181,7 +1177,7 @@
   "@potDetailsOlder": {
     "description": "Übersicht einer Truhe: ältere Buchungen, die nicht einzeln geladen sind"
   },
-  "potDetailsTotal": "Jetzt in der {pot}",
+  "potDetailsTotal": "Stand jetzt: {pot}",
   "@potDetailsTotal": {
     "description": "Übersicht einer Truhe: Summe (alle Truhen-Namen sind weiblich)",
     "placeholders": {
@@ -1215,11 +1211,11 @@
   "@potSumTask": {
     "description": "Übersicht einer Truhe: Art der Buchung"
   },
-  "potSumTransferIn": "Aus anderen Truhen hergelegt",
+  "potSumTransferIn": "Wieder frei geworden",
   "@potSumTransferIn": {
     "description": "Übersicht einer Truhe: umgebucht, hinein"
   },
-  "potSumTransferOut": "In andere Truhen gelegt",
+  "potSumTransferOut": "Für Wunschschätze zurückgelegt",
   "@potSumTransferOut": {
     "description": "Übersicht einer Truhe: umgebucht, hinaus"
   },
@@ -1242,10 +1238,6 @@
   "treasureSpend": "Ich habe etwas gekauft",
   "@treasureSpend": {
     "description": "Knopf: Ausgabe aus der Bordkasse"
-  },
-  "treasureGive": "Ich habe etwas verschenkt",
-  "@treasureGive": {
-    "description": "Knopf: Geschenk aus der Glückstruhe"
   },
   "treasureAllowance": "Dein Taschengeld: {amount} {interval}",
   "@treasureAllowance": {
@@ -1325,7 +1317,7 @@
       }
     }
   },
-  "goalRedeemBody": "{amount} gehen aus der Schatztruhe. Viel Spaß mit deinem Wunsch!",
+  "goalRedeemBody": "Du hast {amount} dafür zurückgelegt. Viel Spaß mit deinem Wunsch!",
   "@goalRedeemBody": {
     "description": "Text beim Einlösen",
     "placeholders": {
@@ -1391,18 +1383,6 @@
   "@ledgerDonation": {
     "description": "Buchungsart"
   },
-  "moveTitle": "Geld in eine andere Truhe legen",
-  "@moveTitle": {
-    "description": "Titel des Umbuchen-Dialogs"
-  },
-  "moveFrom": "Von",
-  "@moveFrom": {
-    "description": "Feld: Truhe, aus der umgebucht wird"
-  },
-  "moveTo": "Nach",
-  "@moveTo": {
-    "description": "Feld: Truhe, in die umgebucht wird"
-  },
   "amountLabel": "Betrag in Euro",
   "@amountLabel": {
     "description": "Feld: Betrag"
@@ -1443,10 +1423,6 @@
   "spendTitle": "Was hast du gekauft?",
   "@spendTitle": {
     "description": "Titel: Ausgabe aus der Bordkasse"
-  },
-  "giveTitle": "Was hast du verschenkt?",
-  "@giveTitle": {
-    "description": "Titel: Geschenk aus der Glückstruhe"
   },
   "tasksTitle": "Aufträge",
   "@tasksTitle": {
@@ -1536,7 +1512,7 @@
       }
     }
   },
-  "taskRewardBooked": "Die {amount} kamen in deine Bordkasse.",
+  "taskRewardBooked": "Die {amount} kamen in deine Schatztruhe.",
   "@taskRewardBooked": {
     "description": "Kinderbereich: wohin die Belohnung gebucht wurde",
     "placeholders": {
@@ -1606,11 +1582,11 @@
       }
     }
   },
-  "parentPotSpend": "Ausgeben",
+  "parentPotSpend": "Frei zum Ausgeben",
   "@parentPotSpend": {
     "description": "Truhe im Elternbereich (Glossar)"
   },
-  "parentPotSave": "Sparen",
+  "parentPotSave": "Für Sparziele zurückgelegt",
   "@parentPotSave": {
     "description": "Truhe im Elternbereich (Glossar)"
   },
@@ -1745,10 +1721,6 @@
   "manualHint": "Positiv ist eine Gutschrift, mit Minus ein Abzug (zum Beispiel -2,50).",
   "@manualHint": {
     "description": "Hinweis zur Korrektur"
-  },
-  "potLabel": "Truhe",
-  "@potLabel": {
-    "description": "Feld: Truhe auswählen (Elternbereich)"
   },
   "rankName": "{rank, select, schiffsjunge{Schiffsjunge} matrose{Matrose} bootsmann{Bootsmann} steuermann{Steuermann} kapitaen{Kapitän} other{Neu an Bord}}",
   "@rankName": {
@@ -3020,11 +2992,11 @@
   "@lighthouseVibrationHint": {
     "description": "Leuchtturm: Erklärung unter dem Schalter fürs Vibrieren"
   },
-  "treasureTalaIntro": "Ich bin Tala, die Zahlmeisterin. Dein Geld liegt in drei Truhen. Jede Truhe hat eine eigene Aufgabe.",
+  "treasureTalaIntro": "Ich bin Tala, die Zahlmeisterin. Das ist deine Schatztruhe. Ein Teil deines Geldes ist frei, davon darfst du dir etwas kaufen. Für einen Wunschschatz legst du Geld zurück, bis es reicht.",
   "@treasureTalaIntro": {
     "description": "Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen"
   },
-  "goalsIntro": "Ein Wunschschatz ist etwas, das du dir wünschst und wofür du sparst, zum Beispiel ein Ball für 15 €. Der Balken zeigt, wie viel davon schon in deiner Schatztruhe liegt.",
+  "goalsIntro": "Ein Wunschschatz ist etwas, das du dir wünschst, zum Beispiel ein Ball für 15 €. Lege nach und nach Geld dafür zurück. Der Balken zeigt, wie viel schon zusammen ist.",
   "@goalsIntro": {
     "description": "Schatztruhe: Erklärung, was ein Wunschschatz ist"
   },
@@ -3036,7 +3008,7 @@
   "@tasksIntroTalo": {
     "description": "Aufträge: Talo erklärt oben, was Aufträge sind"
   },
-  "tasksIntroTala": "Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Bordkasse. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.",
+  "tasksIntroTala": "Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Schatztruhe. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.",
   "@tasksIntroTala": {
     "description": "Aufträge: Tala erklärt Bestätigung, Belohnung und Pflicht"
   },
@@ -3935,5 +3907,89 @@
   "tradeBoardTitle": "Wer hat was?",
   "@tradeBoardTitle": {
     "description": "Überschrift der Händler-Tafel in der Übung „Wer will was?“"
+  },
+  "treasureTotalLabel": "In deiner Schatztruhe",
+  "@treasureTotalLabel": {
+    "description": "Überschrift über dem ganzen Geld des Kindes"
+  },
+  "goalSave": "Geld zurücklegen",
+  "@goalSave": {
+    "description": "Knopf: Geld für einen Wunschschatz beiseitelegen"
+  },
+  "goalTakeBack": "Zurücknehmen",
+  "@goalTakeBack": {
+    "description": "Knopf: zurückgelegtes Geld wieder frei machen"
+  },
+  "goalSaveTitle": "Wie viel legst du für {title} zurück?",
+  "@goalSaveTitle": {
+    "description": "Titel im Betrags-Dialog",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "goalSaveHint": "Frei sind {free}. Für den Wunschschatz fehlen noch {missing}.",
+  "@goalSaveHint": {
+    "description": "Hinweis im Dialog Zurücklegen",
+    "placeholders": {
+      "free": {
+        "type": "String"
+      },
+      "missing": {
+        "type": "String"
+      }
+    }
+  },
+  "goalTakeBackTitle": "Wie viel nimmst du von {title} zurück?",
+  "@goalTakeBackTitle": {
+    "description": "Titel im Betrags-Dialog",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "goalTakeBackHint": "Zurückgelegt sind {saved}. Was du zurücknimmst, ist wieder frei.",
+  "@goalTakeBackHint": {
+    "description": "Hinweis im Dialog Zurücknehmen",
+    "placeholders": {
+      "saved": {
+        "type": "String"
+      }
+    }
+  },
+  "goalDeleteBody": "Die {amount}, die du dafür zurückgelegt hast, sind dann wieder frei.",
+  "@goalDeleteBody": {
+    "description": "Hinweis beim Löschen eines Wunschschatzes mit Geld",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalNeedsLess": "Dafür fehlen nur noch {amount}.",
+  "@goalNeedsLess": {
+    "description": "Fehler: mehr zurücklegen, als der Wunschschatz noch braucht",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "parentGoalLine": "{title}: {saved} von {target}",
+  "@parentGoalLine": {
+    "description": "Leuchtturm: Sparziel mit zurückgelegtem Geld",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "saved": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
   }
 }

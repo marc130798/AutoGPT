@@ -72,11 +72,9 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
       context,
       title: l10n.manualBooking,
       hint: l10n.manualHint,
-      choosePot: true,
       withNote: true,
       allowNegative: true,
-      parentWording: true,
-      onSubmit: (input) => c.bookManual(pot: input.pot!, amountCents: input.amountCents, note: input.note),
+      onSubmit: (input) => c.bookManual(amountCents: input.amountCents, note: input.note),
     );
   }
 
@@ -150,13 +148,24 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
                   Text(l10n.allowanceHint, style: theme.textTheme.bodySmall),
                   const SizedBox(height: 24),
                   Text(l10n.balanceHeading, style: theme.textTheme.titleLarge),
-                  for (final pot in Pot.values)
+                  for (final pot in const [Pot.spend, Pot.save])
                     ListTile(
+                      key: ValueKey('parent-balance-${pot.code}'),
                       contentPadding: EdgeInsets.zero,
                       title: Text(l10n.pot(pot, parent: true)),
                       trailing: Text(
                         formatCents(controller.balances.of(pot)),
                         style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  // Wofür das Kind gerade zurücklegt.
+                  for (final goal in controller.openGoals)
+                    Padding(
+                      key: ValueKey('parent-goal-${goal.id}'),
+                      padding: const EdgeInsets.only(left: 16, bottom: 4),
+                      child: Text(
+                        l10n.parentGoalLine(goal.title, formatCents(goal.savedCents), formatCents(goal.targetCents)),
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                   TextButton(onPressed: _manualBooking, child: Text(l10n.manualBooking)),

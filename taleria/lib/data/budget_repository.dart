@@ -39,11 +39,14 @@ abstract interface class BudgetRepository {
 
   Future<void> reviewTask(String taskId, {required bool approve, String? note});
 
-  Future<void> movePots(String childId, {required Pot from, required Pot to, required int amountCents});
+  /// Ausgabe vom freien Geld.
+  Future<void> recordSpending(String childId, {required int amountCents, String? note});
 
-  Future<void> recordSpending(String childId, {required Pot pot, required int amountCents, String? note});
+  /// Eltern: Korrektur beim freien Geld (auch negativ).
+  Future<void> bookManual(String childId, {required int amountCents, String? note});
 
-  Future<void> bookManual(String childId, {required Pot pot, required int amountCents, String? note});
+  /// Für einen Wunschschatz zurücklegen (positiv) oder wieder frei machen (negativ).
+  Future<void> moveGoalSavings(String goalId, int amountCents);
 
   Future<void> createGoal(String childId, {required String title, required int targetCents});
 
@@ -147,12 +150,17 @@ class SupabaseBudgetRepository implements BudgetRepository {
         .select('id, title, target_cents, reached_at')
         .eq('child_id', childId)
         .order('created_at', ascending: true);
+    final saved = await _client.rpc<List<dynamic>>('savings_goal_balances', params: {'p_child_id': childId});
+    final savedById = {
+      for (final r in saved.cast<Map<String, dynamic>>()) r['goal_id'] as String: (r['saved_cents'] as num).toInt(),
+    };
     return [
       for (final r in rows)
         SavingsGoal(
           id: r['id'] as String,
           title: r['title'] as String,
           targetCents: r['target_cents'] as int,
+          savedCents: savedById[r['id']] ?? 0,
           reachedAt: r['reached_at'] == null ? null : DateTime.parse(r['reached_at'] as String).toLocal(),
         ),
     ];
@@ -213,28 +221,24 @@ class SupabaseBudgetRepository implements BudgetRepository {
   );
 
   @override
-  Future<void> movePots(String childId, {required Pot from, required Pot to, required int amountCents}) => guardBackend(
+  Future<void> recordSpending(String childId, {required int amountCents, String? note}) => guardBackend(
     () => _client.rpc<void>(
-      'move_between_pots',
-      params: {'p_child_id': childId, 'p_from': from.code, 'p_to': to.code, 'p_amount_cents': amountCents},
+      'record_spending',
+      params: {'p_child_id': childId, 'p_pot': Pot.spend.code, 'p_amount_cents': amountCents, 'p_note': note},
     ),
   );
 
   @override
-  Future<void> recordSpending(String childId, {required Pot pot, required int amountCents, String? note}) =>
-      guardBackend(
-        () => _client.rpc<void>(
-          'record_spending',
-          params: {'p_child_id': childId, 'p_pot': pot.code, 'p_amount_cents': amountCents, 'p_note': note},
-        ),
-      );
-
-  @override
-  Future<void> bookManual(String childId, {required Pot pot, required int amountCents, String? note}) => guardBackend(
+  Future<void> bookManual(String childId, {required int amountCents, String? note}) => guardBackend(
     () => _client.rpc<void>(
       'book_manual',
-      params: {'p_child_id': childId, 'p_pot': pot.code, 'p_amount_cents': amountCents, 'p_note': note},
+      params: {'p_child_id': childId, 'p_pot': Pot.spend.code, 'p_amount_cents': amountCents, 'p_note': note},
     ),
+  );
+
+  @override
+  Future<void> moveGoalSavings(String goalId, int amountCents) => guardBackend(
+    () => _client.rpc<void>('move_goal_savings', params: {'p_goal_id': goalId, 'p_amount_cents': amountCents}),
   );
 
   @override

@@ -21,9 +21,11 @@ import 'ledger_tile.dart';
 import 'pot_detail_screen.dart';
 import 'wish_bottle_form.dart';
 
-/// Kinderbereich: Bordkasse, Schatztruhe, Glückstruhe, Wunschschätze und
-/// Kassenbuch, jeweils mit Bild und kinderleichter Erklärung; oben erklärt
-/// Tala (die Zahlmeisterin). Keine Kauf-Knöpfe, alle Beträge sind virtuell.
+/// Kinderbereich: eine Schatztruhe (entschieden mit Marc am 29.10.2026) mit
+/// freiem Geld und Geld, das für Wunschschätze zurückgelegt ist; dazu
+/// Taschengeld, Wunschflaschen und Kassenbuch, jeweils mit kinderleichter
+/// Erklärung. Oben erklärt Tala (die Zahlmeisterin). Keine Kauf-Knöpfe, alle
+/// Beträge sind virtuell.
 class TreasureScreen extends StatefulWidget {
   const TreasureScreen({super.key, required this.childId});
 
@@ -64,7 +66,7 @@ class _TreasureScreenState extends State<TreasureScreen> {
     });
   }
 
-  /// Jetzigen Stand merken: Beim nächsten Besuch fliegt nur neues Geld in die Truhen.
+  /// Jetzigen Stand merken: Beim nächsten Besuch fliegt nur neues Geld in die Truhe.
   void _remember(PotBalances balances) {
     final last = _remembered;
     if (last != null && Pot.values.every((p) => last.of(p) == balances.of(p))) return;
@@ -81,25 +83,36 @@ class _TreasureScreenState extends State<TreasureScreen> {
     super.dispose();
   }
 
-  Future<void> _move() {
+  Future<void> _spend() {
     final l10n = AppLocalizations.of(context);
     final c = _controller!;
     return showAmountDialog(
       context,
-      title: l10n.moveTitle,
-      chooseFromTo: true,
-      onSubmit: (input) => c.move(from: input.from!, to: input.to!, amountCents: input.amountCents),
+      title: l10n.spendTitle,
+      withNote: true,
+      onSubmit: (input) => c.recordSpending(amountCents: input.amountCents, note: input.note),
     );
   }
 
-  Future<void> _spend(Pot pot) {
+  Future<void> _saveFor(SavingsGoal goal) {
     final l10n = AppLocalizations.of(context);
     final c = _controller!;
     return showAmountDialog(
       context,
-      title: pot == Pot.give ? l10n.giveTitle : l10n.spendTitle,
-      withNote: true,
-      onSubmit: (input) => c.recordSpending(pot: pot, amountCents: input.amountCents, note: input.note),
+      title: l10n.goalSaveTitle(goal.title),
+      hint: l10n.goalSaveHint(formatCents(c.balances.free), formatCents(goal.missingCents)),
+      onSubmit: (input) => c.saveForGoal(goal, input.amountCents),
+    );
+  }
+
+  Future<void> _takeBack(SavingsGoal goal) {
+    final l10n = AppLocalizations.of(context);
+    final c = _controller!;
+    return showAmountDialog(
+      context,
+      title: l10n.goalTakeBackTitle(goal.title),
+      hint: l10n.goalTakeBackHint(formatCents(goal.savedCents)),
+      onSubmit: (input) => c.takeFromGoal(goal, input.amountCents),
     );
   }
 
@@ -170,7 +183,11 @@ class _TreasureScreenState extends State<TreasureScreen> {
   Future<void> _deleteGoal(SavingsGoal goal) async {
     final l10n = AppLocalizations.of(context);
     final c = _controller!;
-    final ok = await confirmDestructive(context, title: l10n.goalDeleteTitle(goal.title));
+    final ok = await confirmDestructive(
+      context,
+      title: l10n.goalDeleteTitle(goal.title),
+      body: goal.savedCents > 0 ? l10n.goalDeleteBody(formatCents(goal.savedCents)) : null,
+    );
     if (ok && mounted) await runWithFeedback(context, () => c.deleteGoal(goal));
   }
 
@@ -197,8 +214,9 @@ class _TreasureScreenState extends State<TreasureScreen> {
                   onRefresh: controller.load,
                   child: _TreasureContent(
                     controller: controller,
-                    onMove: _move,
                     onSpend: _spend,
+                    onSaveFor: _saveFor,
+                    onTakeBack: _takeBack,
                     onNewGoal: _newGoal,
                     onRedeem: _redeem,
                     onDeleteGoal: _deleteGoal,
@@ -221,8 +239,9 @@ class _TreasureScreenState extends State<TreasureScreen> {
 class _TreasureContent extends StatelessWidget {
   const _TreasureContent({
     required this.controller,
-    required this.onMove,
     required this.onSpend,
+    required this.onSaveFor,
+    required this.onTakeBack,
     required this.onNewGoal,
     required this.onRedeem,
     required this.onDeleteGoal,
@@ -237,8 +256,9 @@ class _TreasureContent extends StatelessWidget {
 
   /// Stand beim letzten Besuch: Was seitdem dazugekommen ist, fliegt hinein.
   final Map<String, int>? seen;
-  final VoidCallback onMove;
-  final ValueChanged<Pot> onSpend;
+  final VoidCallback onSpend;
+  final ValueChanged<SavingsGoal> onSaveFor;
+  final ValueChanged<SavingsGoal> onTakeBack;
   final VoidCallback onNewGoal;
   final ValueChanged<SavingsGoal> onRedeem;
   final ValueChanged<SavingsGoal> onDeleteGoal;
@@ -263,21 +283,33 @@ class _TreasureContent extends StatelessWidget {
           children: [SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.wave, text: l10n.treasureTalaIntro)],
         ),
         const SizedBox(height: 16),
-        for (final pot in Pot.values)
-          _PotCard(
-            pot: pot,
-            balance: balances.of(pot),
-            seen: seen?[pot.code],
-            onOpen: () => onOpenPot(pot),
-            action: switch (pot) {
-              Pot.spend => (l10n.treasureSpend, () => onSpend(Pot.spend)),
-              Pot.give => (l10n.treasureGive, () => onSpend(Pot.give)),
-              Pot.save => null,
-            },
-          ),
+        _ChestCard(
+          balances: balances,
+          seen: seen?.values.fold<int>(0, (sum, v) => sum + v),
+          onOpen: () => onOpenPot(Pot.spend),
+          onSpend: onSpend,
+        ),
         const SizedBox(height: 4),
-        FilledButton.tonalIcon(onPressed: onMove, icon: const Icon(Icons.swap_vert), label: Text(l10n.treasureMove)),
-        const SizedBox(height: 16),
+        _Section(
+          imageKey: AssetKeys.iconWish,
+          fallbackIcon: Icons.star_rounded,
+          title: l10n.goalsHeading,
+          intro: l10n.goalsIntro,
+          children: [
+            if (controller.goals.isEmpty) Text(l10n.goalsEmpty, style: theme.textTheme.bodyLarge),
+            for (final goal in [...controller.openGoals, ...controller.reachedGoals])
+              _GoalCard(
+                goal: goal,
+                free: balances.free,
+                onSave: () => onSaveFor(goal),
+                onTakeBack: () => onTakeBack(goal),
+                onRedeem: () => onRedeem(goal),
+                onDelete: () => onDeleteGoal(goal),
+              ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(onPressed: onNewGoal, icon: const Icon(Icons.add), label: Text(l10n.goalNew)),
+          ],
+        ),
         _Section(
           imageKey: null,
           fallbackIcon: Icons.event_repeat,
@@ -290,24 +322,6 @@ class _TreasureContent extends StatelessWidget {
                         '${l10n.treasureAllowanceNext(formatDate(allowance.nextRunAt))}',
               style: theme.textTheme.bodyLarge,
             ),
-          ],
-        ),
-        _Section(
-          imageKey: AssetKeys.iconWish,
-          fallbackIcon: Icons.star_rounded,
-          title: l10n.goalsHeading,
-          intro: l10n.goalsIntro,
-          children: [
-            if (controller.goals.isEmpty) Text(l10n.goalsEmpty, style: theme.textTheme.bodyLarge),
-            for (final goal in [...controller.openGoals, ...controller.reachedGoals])
-              _GoalCard(
-                goal: goal,
-                saved: balances.save,
-                onRedeem: () => onRedeem(goal),
-                onDelete: () => onDeleteGoal(goal),
-              ),
-            const SizedBox(height: 8),
-            OutlinedButton.icon(onPressed: onNewGoal, icon: const Icon(Icons.add), label: Text(l10n.goalNew)),
           ],
         ),
         if (controller.wishBottlesUnlocked)
@@ -420,26 +434,51 @@ class _Section extends StatelessWidget {
   }
 }
 
-/// Eine Truhe mit Bild, Stand und Erklärung. Antippen (oder „Was ist drin?“)
-/// öffnet die Übersicht, wie sich der Stand zusammensetzt.
-class _PotCard extends StatelessWidget {
-  const _PotCard({required this.pot, required this.balance, this.seen, required this.action, required this.onOpen});
+/// Die Schatztruhe: alles zusammen, darunter was frei ist und was für
+/// Wunschschätze zurückgelegt ist. Antippen (oder „Was ist drin?“) zeigt,
+/// wie sich das freie Geld zusammensetzt.
+class _ChestCard extends StatelessWidget {
+  const _ChestCard({required this.balances, required this.onOpen, required this.onSpend, this.seen});
 
-  final Pot pot;
-  final int balance;
+  final PotBalances balances;
 
   /// Stand beim letzten Besuch (`null` = unbekannt, dann fliegt nichts).
   final int? seen;
-  final (String, VoidCallback)? action;
   final VoidCallback onOpen;
+  final VoidCallback onSpend;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final palette = context.palette;
+    final total = balances.total;
+    Widget part(Pot pot, IconData icon, Color color) => Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Row(
+        children: [
+          Icon(icon, color: color, size: 26),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(l10n.pot(pot, parent: false), style: theme.textTheme.titleSmall),
+                Text(potHint(l10n, pot), style: theme.textTheme.bodySmall),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            formatCents(balances.of(pot)),
+            key: ValueKey('balance-${pot.code}'),
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+    );
     return Padding(
-      key: ValueKey('pot-${pot.code}'),
+      key: const ValueKey('treasure-chest'),
       padding: const EdgeInsets.only(bottom: 12),
       child: Material(
         color: palette.paper.withValues(alpha: 0.95),
@@ -454,62 +493,66 @@ class _PotCard extends StatelessWidget {
           onTap: onOpen,
           child: Padding(
             padding: const EdgeInsets.all(14),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CoinsIntoChest(
-                  chest: PotImage(pot: pot, size: 76),
-                  size: 76,
-                  from: seen ?? balance,
-                  to: balance,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                Row(
+                  children: [
+                    CoinsIntoChest(
+                      chest: TaleriaAsset(
+                        AssetKeys.iconTreasure,
+                        width: 84,
+                        height: 84,
+                        fallback: CircleAvatar(
+                          radius: 34,
+                          backgroundColor: palette.gold,
+                          child: const Icon(Icons.inventory_2_outlined, color: Colors.white, size: 34),
+                        ),
+                      ),
+                      size: 84,
+                      from: seen ?? total,
+                      to: total,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Text(
-                              l10n.pot(pot, parent: false),
-                              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
-                            ),
-                          ),
+                          Text(l10n.treasureTotalLabel, style: theme.textTheme.titleMedium),
                           CountUp(
-                            from: seen != null && seen! < balance ? seen! : balance,
-                            value: balance,
+                            from: seen != null && seen! < total ? seen! : total,
+                            value: total,
                             builder: (context, cents) => Text(
                               formatCents(cents),
-                              key: ValueKey('balance-${pot.code}'),
-                              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                              key: const ValueKey('balance-total'),
+                              style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(potHint(l10n, pot), style: theme.textTheme.bodyMedium),
-                      Wrap(
-                        spacing: 8,
-                        children: [
-                          TextButton.icon(
-                            key: ValueKey('pot-open-${pot.code}'),
-                            style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                            onPressed: onOpen,
-                            icon: const Icon(Icons.list_alt_rounded, size: 20),
-                            label: Text(l10n.potDetailsButton),
-                          ),
-                          if (action != null)
-                            TextButton.icon(
-                              style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                              onPressed: action!.$2,
-                              icon: const Icon(Icons.edit_note, size: 20),
-                              label: Text(action!.$1),
-                            ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                part(Pot.spend, Icons.shopping_bag_outlined, palette.sea),
+                part(Pot.save, Icons.star_rounded, palette.gold),
+                const SizedBox(height: 4),
+                Wrap(
+                  spacing: 8,
+                  children: [
+                    TextButton.icon(
+                      key: const ValueKey('pot-open-spend'),
+                      onPressed: onOpen,
+                      icon: const Icon(Icons.list_alt_rounded, size: 20),
+                      label: Text(l10n.potDetailsButton),
+                    ),
+                    TextButton.icon(
+                      key: const ValueKey('treasure-spend'),
+                      onPressed: onSpend,
+                      icon: const Icon(Icons.edit_note, size: 20),
+                      label: Text(l10n.treasureSpend),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -554,10 +597,21 @@ class _WishDueCard extends StatelessWidget {
 }
 
 class _GoalCard extends StatelessWidget {
-  const _GoalCard({required this.goal, required this.saved, required this.onRedeem, required this.onDelete});
+  const _GoalCard({
+    required this.goal,
+    required this.free,
+    required this.onSave,
+    required this.onTakeBack,
+    required this.onRedeem,
+    required this.onDelete,
+  });
 
   final SavingsGoal goal;
-  final int saved;
+
+  /// Freies Geld: Nur dann lässt sich etwas zurücklegen.
+  final int free;
+  final VoidCallback onSave;
+  final VoidCallback onTakeBack;
   final VoidCallback onRedeem;
   final VoidCallback onDelete;
 
@@ -567,6 +621,7 @@ class _GoalCard extends StatelessWidget {
     final theme = Theme.of(context);
     final palette = context.palette;
     return Card(
+      key: ValueKey('goal-${goal.id}'),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -583,21 +638,42 @@ class _GoalCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             LinearProgressIndicator(
-              value: goal.progress(saved),
+              value: goal.progress,
               minHeight: 12,
               borderRadius: BorderRadius.circular(6),
-              color: goal.reached ? palette.success : palette.gold,
+              color: goal.reached || goal.canRedeem ? palette.success : palette.gold,
             ),
             const SizedBox(height: 4),
             Text(
               goal.reached
                   ? formatCents(goal.targetCents)
-                  : l10n.goalProgress(formatCents(saved.clamp(0, goal.targetCents)), formatCents(goal.targetCents)),
+                  : l10n.goalProgress(formatCents(goal.savedCents), formatCents(goal.targetCents)),
+              key: ValueKey('goal-progress-${goal.id}'),
             ),
-            if (goal.canRedeem(saved))
-              Align(
-                alignment: Alignment.centerRight,
-                child: FilledButton(onPressed: onRedeem, child: Text(l10n.goalRedeem)),
+            if (!goal.reached)
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 8,
+                children: [
+                  if (goal.savedCents > 0)
+                    TextButton(
+                      key: ValueKey('goal-take-back-${goal.id}'),
+                      onPressed: onTakeBack,
+                      child: Text(l10n.goalTakeBack),
+                    ),
+                  if (goal.canRedeem)
+                    FilledButton(
+                      key: ValueKey('goal-redeem-${goal.id}'),
+                      onPressed: onRedeem,
+                      child: Text(l10n.goalRedeem),
+                    )
+                  else
+                    FilledButton.tonal(
+                      key: ValueKey('goal-save-${goal.id}'),
+                      onPressed: free > 0 ? onSave : null,
+                      child: Text(l10n.goalSave),
+                    ),
+                ],
               ),
           ],
         ),

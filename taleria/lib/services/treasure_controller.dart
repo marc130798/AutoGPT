@@ -79,15 +79,23 @@ class TreasureController extends ChangeNotifier {
 
   Future<void> submitTask(FamilyTask task) => _then(_budget.submitTask(task.id));
 
-  Future<void> move({required Pot from, required Pot to, required int amountCents}) {
-    _checkAmount(amountCents, from);
-    return _then(_budget.movePots(childId, from: from, to: to, amountCents: amountCents));
+  /// Ausgabe vom freien Geld.
+  Future<void> recordSpending({required int amountCents, String? note}) {
+    _checkAmount(amountCents, _balances.free);
+    return _then(_budget.recordSpending(childId, amountCents: amountCents, note: note));
   }
 
-  Future<void> recordSpending({required Pot pot, required int amountCents, String? note}) {
-    if (pot == Pot.save) throw ArgumentError.value(pot, 'pot', 'Aus der Schatztruhe wird nicht direkt ausgegeben');
-    _checkAmount(amountCents, pot);
-    return _then(_budget.recordSpending(childId, pot: pot, amountCents: amountCents, note: note));
+  /// Geld für einen Wunschschatz zurücklegen. Mehr, als noch fehlt, geht nicht.
+  Future<void> saveForGoal(SavingsGoal goal, int amountCents) {
+    _checkAmount(amountCents, _balances.free);
+    if (amountCents > goal.missingCents) throw GoalNeedsLess(goal.missingCents);
+    return _then(_budget.moveGoalSavings(goal.id, amountCents));
+  }
+
+  /// Zurückgelegtes Geld wieder frei machen.
+  Future<void> takeFromGoal(SavingsGoal goal, int amountCents) {
+    _checkAmount(amountCents, goal.savedCents);
+    return _then(_budget.moveGoalSavings(goal.id, -amountCents));
   }
 
   Future<void> createGoal({required String title, required int targetCents}) =>
@@ -96,7 +104,7 @@ class TreasureController extends ChangeNotifier {
   Future<void> deleteGoal(SavingsGoal goal) => _then(_budget.deleteGoal(goal.id));
 
   Future<void> redeemGoal(SavingsGoal goal) {
-    if (!goal.canRedeem(_balances.save)) throw StateError('Noch nicht genug in der Schatztruhe');
+    if (!goal.canRedeem) throw StateError('Noch nicht genug zurückgelegt');
     return _then(_budget.redeemGoal(goal.id));
   }
 
@@ -127,14 +135,14 @@ class TreasureController extends ChangeNotifier {
   Future<void> reviewTask(FamilyTask task, {required bool approve, String? note}) =>
       _then(_budget.reviewTask(task.id, approve: approve, note: note));
 
-  Future<void> bookManual({required Pot pot, required int amountCents, String? note}) =>
-      _then(_budget.bookManual(childId, pot: pot, amountCents: amountCents, note: note));
+  Future<void> bookManual({required int amountCents, String? note}) =>
+      _then(_budget.bookManual(childId, amountCents: amountCents, note: note));
 
   /// Schon in der App prüfen, damit die Rückmeldung sofort kommt.
   /// Der Server prüft dasselbe noch einmal.
-  void _checkAmount(int amountCents, Pot from) {
+  void _checkAmount(int amountCents, int available) {
     if (amountCents <= 0) throw ArgumentError.value(amountCents, 'amountCents', 'muss größer als 0 sein');
-    if (amountCents > _balances.of(from)) throw const NotEnoughMoney();
+    if (amountCents > available) throw const NotEnoughMoney();
   }
 
   Future<void> _then(Future<void> action) async {
@@ -146,4 +154,11 @@ class TreasureController extends ChangeNotifier {
 /// Es ist nicht genug Guthaben in der Truhe.
 class NotEnoughMoney implements Exception {
   const NotEnoughMoney();
+}
+
+/// Für den Wunschschatz fehlt nur noch [missingCents].
+class GoalNeedsLess implements Exception {
+  const GoalNeedsLess(this.missingCents);
+
+  final int missingCents;
 }

@@ -440,6 +440,8 @@ Taleron zeigt sich zum ersten Mal ganz: Er taucht neben dem Schiff auf, stellt s
 4. Tala zuckt mit den Schultern. Talo seufzt.
 5. Kurt öffnet sein dickes Logbuch: „Dann wird es Zeit für Ordnung.“
 
+> **Hinweis (29.10.2026):** Die App hat seit Marcs Entscheidung nur noch **eine Schatztruhe** mit freiem Geld und Geld, das für Wunschschätze zurückgelegt ist. Bordkasse und Glückstruhe gibt es dort nicht mehr. Bevor diese Insel gebaut wird, Station 2 („Die drei Truhen“), die Fragen G4 bis G6 und den Auftrag „Erster Lohn“ an die eine Schatztruhe anpassen (zum Beispiel: Geld einteilen in frei und zurückgelegt, Verschenken als eigene Idee). Das gilt auch für die Glückstruhe in der Station „Glücksbrunnen“ und Frage U10 weiter unten.
+
 **Stationen**
 
 | Nr. | Ort | Station | Typ | Inhalt | Lernziel |

@@ -21,6 +21,10 @@ create function test_helpers.balance(p_pot text) returns bigint language sql as 
   select balance_cents from public.pot_balances('c6000000-0000-0000-0000-000000000001') where pot = p_pot;
 $$;
 grant execute on function test_helpers.balance(text) to authenticated;
+create function test_helpers.saved(p_goal uuid) returns bigint language sql as $$
+  select saved_cents from public.savings_goal_balances('c6000000-0000-0000-0000-000000000001') where goal_id = p_goal;
+$$;
+grant execute on function test_helpers.saved(uuid) to authenticated;
 
 -- ---------------------------------------------------------------------------
 -- Heuer
@@ -136,29 +140,24 @@ select test_helpers.logout();
 -- ---------------------------------------------------------------------------
 
 select test_helpers.login('d6000000-0000-0000-0000-000000000001', 'aal1', true);
-select public.move_between_pots('c6000000-0000-0000-0000-000000000001', 'spend', 'save', 1000);
-select public.move_between_pots('c6000000-0000-0000-0000-000000000001', 'spend', 'give', 200);
-select test_helpers.expect_true(
-  test_helpers.balance('spend') = 1100 and test_helpers.balance('save') = 1000 and test_helpers.balance('give') = 200,
-  'Umbuchen: Bordkasse 11 €, Schatztruhe 10 €, Glückstruhe 2 €');
 select test_helpers.expect_error(
-  $$select public.move_between_pots('c6000000-0000-0000-0000-000000000001', 'give', 'spend', 500)$$,
-  'Nicht genug', 'Keine Truhe geht ins Minus');
-select test_helpers.expect_error(
-  $$select public.move_between_pots('c6000000-0000-0000-0000-000000000001', 'spend', 'save', -500)$$,
-  'größer als 0', 'Negative Umbuchung ist nicht erlaubt');
+  $$select public.move_between_pots('c6000000-0000-0000-0000-000000000001', 'spend', 'save', 1000)$$,
+  'permission denied', 'Umbuchen zwischen Truhen gibt es nicht mehr (eine Schatztruhe)');
+select test_helpers.expect_equal(
+  (select count(*) from public.pot_balances('c6000000-0000-0000-0000-000000000001')), 2,
+  'Eine Schatztruhe: nur freies und zurückgelegtes Geld');
 
 select public.record_spending('c6000000-0000-0000-0000-000000000001', 'spend', 350, 'Eis mit Freunden');
-select public.record_spending('c6000000-0000-0000-0000-000000000001', 'give', 200, 'Spende Tierheim');
-select test_helpers.expect_true(
-  test_helpers.balance('spend') = 750 and test_helpers.balance('give') = 0,
-  'Ausgabe und Geschenk werden abgezogen');
+select test_helpers.expect_equal(test_helpers.balance('spend'), 1950, 'Ausgabe wird vom freien Geld abgezogen');
 select test_helpers.expect_error(
   $$select public.record_spending('c6000000-0000-0000-0000-000000000001', 'save', 100, 'Heimlich')$$,
-  'nur aus Bordkasse', 'Aus der Schatztruhe wird nicht direkt ausgegeben');
+  'nur vom freien Geld', 'Zurückgelegtes Geld wird nicht direkt ausgegeben');
+select test_helpers.expect_error(
+  $$select public.record_spending('c6000000-0000-0000-0000-000000000001', 'give', 100, 'Spende')$$,
+  'nur vom freien Geld', 'Die Glückstruhe gibt es nicht mehr');
 select test_helpers.expect_error(
   $$select public.record_spending('c6000000-0000-0000-0000-000000000001', 'spend', 100000, 'Zu viel')$$,
-  'Nicht genug', 'Ausgabe größer als die Bordkasse wird abgelehnt');
+  'Nicht genug', 'Ausgabe größer als das freie Geld wird abgelehnt');
 
 select test_helpers.expect_error(
   $$select public.book_manual('c6000000-0000-0000-0000-000000000001', 'spend', 10000, 'Selbst gebucht')$$,
@@ -176,10 +175,33 @@ select test_helpers.expect_error(
 -- ---------------------------------------------------------------------------
 
 insert into public.savings_goals (id, child_id, title, target_cents)
-values ('86000000-0000-0000-0000-000000000001', 'c6000000-0000-0000-0000-000000000001', 'Fußball', 1500);
+values ('86000000-0000-0000-0000-000000000001', 'c6000000-0000-0000-0000-000000000001', 'Fußball', 1500),
+       ('86000000-0000-0000-0000-000000000002', 'c6000000-0000-0000-0000-000000000001', 'Buch', 800);
+
 select test_helpers.expect_error(
   $$select public.redeem_savings_goal('86000000-0000-0000-0000-000000000001')$$,
-  'Nicht genug', 'Wunschschatz erst einlösbar, wenn genug in der Schatztruhe ist');
+  'Nicht genug', 'Wunschschatz erst einlösbar, wenn genug dafür zurückgelegt ist');
+select public.move_goal_savings('86000000-0000-0000-0000-000000000001', 600);
+select public.move_goal_savings('86000000-0000-0000-0000-000000000002', 500);
+select test_helpers.expect_true(
+  test_helpers.saved('86000000-0000-0000-0000-000000000001') = 600
+  and test_helpers.saved('86000000-0000-0000-0000-000000000002') = 500
+  and test_helpers.balance('spend') = 850 and test_helpers.balance('save') = 1100,
+  'Zurücklegen: Geld je Wunschschatz, frei bleiben 8,50 €');
+select test_helpers.expect_error(
+  $$select public.move_goal_savings('86000000-0000-0000-0000-000000000002', 400)$$,
+  'Mehr braucht', 'Für einen Wunschschatz wird nicht mehr zurückgelegt, als er kostet');
+select test_helpers.expect_error(
+  $$select public.move_goal_savings('86000000-0000-0000-0000-000000000001', 5000)$$,
+  'Nicht genug', 'Zurücklegen nur vom freien Geld');
+select test_helpers.expect_error(
+  $$select public.move_goal_savings('86000000-0000-0000-0000-000000000001', -700)$$,
+  'Nicht genug', 'Zurücknehmen höchstens, was zurückgelegt ist');
+select public.move_goal_savings('86000000-0000-0000-0000-000000000001', -100);
+select test_helpers.expect_true(
+  test_helpers.saved('86000000-0000-0000-0000-000000000001') = 500 and test_helpers.balance('spend') = 950,
+  'Zurücknehmen macht Geld wieder frei');
+
 update public.savings_goals set target_cents = 1000 where id = '86000000-0000-0000-0000-000000000001';
 select test_helpers.expect_error(
   $$update public.savings_goals set reached_at = now() where id = '86000000-0000-0000-0000-000000000001'$$,
@@ -188,18 +210,34 @@ select test_helpers.expect_true(
   (select target_cents = 1000 and reached_at is null from public.savings_goals
    where id = '86000000-0000-0000-0000-000000000001'),
   'Kind ändert den Betrag eines offenen Wunschschatzes');
+select public.move_goal_savings('86000000-0000-0000-0000-000000000001', 500);
 select public.redeem_savings_goal('86000000-0000-0000-0000-000000000001');
 select test_helpers.expect_true(
   (select reached_at is not null from public.savings_goals where id = '86000000-0000-0000-0000-000000000001')
-  and test_helpers.balance('save') = 0,
-  'Wunschschatz eingelöst: Betrag aus der Schatztruhe, Wunsch erfüllt');
+  and test_helpers.saved('86000000-0000-0000-0000-000000000001') = 0
+  and test_helpers.balance('save') = 500 and test_helpers.balance('spend') = 450,
+  'Wunschschatz eingelöst: sein zurückgelegtes Geld ist ausgegeben, das andere bleibt');
 select test_helpers.expect_error(
   $$select public.redeem_savings_goal('86000000-0000-0000-0000-000000000001')$$,
   'schon eingelöst', 'Ein Wunschschatz wird nur einmal eingelöst');
+select test_helpers.expect_error(
+  $$select public.move_goal_savings('86000000-0000-0000-0000-000000000001', 100)$$,
+  'schon eingelöst', 'Für einen eingelösten Wunschschatz wird nichts mehr zurückgelegt');
 delete from public.savings_goals where id = '86000000-0000-0000-0000-000000000001';
 select test_helpers.expect_equal(
   (select count(*) from public.savings_goals where id = '86000000-0000-0000-0000-000000000001'), 1,
   'Eingelöste Wunschschätze bleiben erhalten');
+
+delete from public.savings_goals where id = '86000000-0000-0000-0000-000000000002';
+select test_helpers.expect_true(
+  test_helpers.balance('save') = 0 and test_helpers.balance('spend') = 950,
+  'Gelöschter Wunschschatz: sein Geld ist wieder frei');
+select test_helpers.logout();
+
+select test_helpers.login('a6000000-0000-0000-0000-000000000002');
+select test_helpers.expect_error(
+  $$select public.move_goal_savings('86000000-0000-0000-0000-000000000001', 100)$$,
+  'nicht gefunden', 'Fremde Eltern können nichts zurücklegen');
 select test_helpers.logout();
 
 -- ---------------------------------------------------------------------------
@@ -207,8 +245,11 @@ select test_helpers.logout();
 -- ---------------------------------------------------------------------------
 
 select test_helpers.login('a6000000-0000-0000-0000-000000000001');
-select public.book_manual('c6000000-0000-0000-0000-000000000001', 'spend', -250, 'Korrektur');
+select public.book_manual('c6000000-0000-0000-0000-000000000001', 'spend', -450, 'Korrektur');
 select test_helpers.expect_equal(test_helpers.balance('spend'), 500, 'Eltern buchen eine Korrektur');
+select test_helpers.expect_error(
+  $$select public.book_manual('c6000000-0000-0000-0000-000000000001', 'save', 100, 'Gespart')$$,
+  'Ungültige Buchung', 'Korrekturen nur beim freien Geld');
 select test_helpers.expect_error(
   $$select public.book_manual('c6000000-0000-0000-0000-000000000001', 'spend', -10000, 'Zu viel')$$,
   'Nicht genug', 'Auch Korrekturen bringen keine Truhe ins Minus');
@@ -220,9 +261,6 @@ select test_helpers.expect_equal((select count(*) from public.ledger_entries), 0
 select test_helpers.expect_equal(
   (select count(*) from public.pot_balances('c6000000-0000-0000-0000-000000000001')), 0,
   'Fremde Eltern sehen kein Guthaben');
-select test_helpers.expect_error(
-  $$select public.move_between_pots('c6000000-0000-0000-0000-000000000001', 'spend', 'save', 100)$$,
-  'nicht gefunden', 'Fremde Eltern können nicht umbuchen');
 select test_helpers.logout();
 
 select test_helpers.expect_error(
