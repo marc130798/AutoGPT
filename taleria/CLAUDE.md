@@ -800,6 +800,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Eine eigene Schrift einbinden, statt Roboto von Google.
    - Datenschutzerklärung, Impressum und AGB rechtlich prüfen lassen.
    - Die Nutzungsbedingungen von Gemini klären.
+   - Marke anmelden (besprochen mit Marc am 29.10.2026, erste Einschätzung von Claude, keine Rechtsberatung): Marcs Suche beim DPMA fand „Taleria“ nicht, „Talo“ nur als einzelne Firmen, „Tala“ nicht. Vor der Anmeldung auch TMview (EU-Marken) und die WIPO-Datenbank prüfen, ähnlich klingende Namen eingeschlossen, am besten mit einem Fachanwalt für Markenrecht. Reihenfolge: zuerst „Taleria“ als Wortmarke in den Klassen 9 (Apps), 41 (Bildung, Unterhaltung, Online-Spiele) und 28 (Spiele, Spielzeug), dann das Logo als Bildmarke, Talo und Tala erst später (bei „Talo“ gibt es Treffer, entscheidend sind deren Klassen). KI-Bilder sind in Deutschland vermutlich nicht urheberrechtlich geschützt; eine Bildmarke kann Logo und Figuren trotzdem schützen. Eine kleine geschlossene Beta mit Familien aus dem Bekanntenkreis geht vorher; vor der öffentlichen Startseite, den App-Stores und Werbung sollte die Marke angemeldet sein.
    - Die Entwürfe prüfen: Marc und eine Fachperson. Danach den `status` in den Inhaltsdateien setzen und die Live-Datenbank nur über `supabase/inhalte_live.sql` füllen.
 5. Später:
    - Schritt 9b: Kaufen mit RevenueCat, sobald Store-Konten und Preise da sind.
