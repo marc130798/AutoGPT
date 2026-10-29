@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Taleria Instagram</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800;900&display=swap">
+<style>
+  :root {
+    --sea: #3e8fb0; --sea-deep: #24476b; --night: #16304d; --gold: #d4a62a; --gold-soft: #f3d98a;
+    --coral: #e5675a; --paper: #fffbf2; --ink: #1c2b3a; --ink-soft: #4a5d70; --sky: #e6f3fa;
+    --display: "Baloo 2", sans-serif; --body: "Nunito", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #888; font-family: var(--body); color: var(--ink); display: grid; gap: 40px; padding: 40px; justify-content: start; }
+  img { display: block; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.02; }
+  p { margin: 0; }
+
+  .slide { position: relative; overflow: hidden; }
+  .post { width: 1080px; height: 1350px; }
+  .square { width: 1080px; height: 1080px; }
+  .story { width: 1080px; height: 1920px; }
+
+  /* Hintergründe */
+  .bg-sea { background: radial-gradient(120% 80% at 50% 0%, #5aa9c9 0%, #3e8fb0 35%, #24476b 80%, #16304d 100%); color: #fff; }
+  .bg-paper { background: radial-gradient(120% 90% at 50% 10%, #fffdf7 0%, #fff4dc 70%, #f7e6bd 100%); }
+  .bg-night { background: radial-gradient(110% 80% at 50% 20%, #2c5d86 0%, #1d3e62 55%, #112640 100%); color: #fff; }
+  .bg-coral { background: radial-gradient(120% 90% at 50% 0%, #fff1ea 0%, #ffd9cc 60%, #f6b9a8 100%); }
+  .photo { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .shade { position: absolute; inset: 0; }
+
+  /* Wellen unten */
+  .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 170px; }
+
+  /* Rahmen innen: Platz für den 3:4-Ausschnitt im Profilraster */
+  .inner { position: absolute; inset: 96px 80px 96px; display: flex; flex-direction: column; }
+
+  .chip { align-self: flex-start; font-weight: 900; font-size: 28px; letter-spacing: .06em; text-transform: uppercase;
+    padding: 10px 26px; border-radius: 999px; background: var(--gold); color: #2b1f05; }
+  .chip.light { background: rgba(255,255,255,.18); color: #fff; border: 3px solid rgba(255,255,255,.55); }
+  .chip.sea { background: var(--sea-deep); color: #fff; }
+
+  .big { font-size: 104px; font-weight: 800; letter-spacing: -.01em; }
+  .mid { font-size: 76px; font-weight: 800; }
+  .lead { font-size: 40px; font-weight: 700; line-height: 1.3; }
+  .gold-text { color: var(--gold-soft); }
+  .deep { color: var(--sea-deep); }
+
+  .brandmark { position: absolute; left: 50%; bottom: 52px; transform: translateX(-50%); width: 230px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.25)); }
+
+  .card { background: var(--paper); border: 6px solid var(--gold); border-radius: 44px; box-shadow: 0 18px 40px rgba(10,30,50,.28); color: var(--ink); }
+
+  .bubble { position: relative; background: #fff; border-radius: 40px; padding: 34px 40px; font-size: 40px; font-weight: 800; line-height: 1.28; color: var(--ink);
+    box-shadow: 0 14px 30px rgba(10,30,50,.22); }
+  .bubble small { display: block; font-family: var(--display); font-size: 30px; color: var(--coral); margin-bottom: 6px; }
+  .bubble.tail-left::after, .bubble.tail-right::after { content: ""; position: absolute; bottom: -26px; width: 0; height: 0;
+    border-left: 26px solid transparent; border-right: 26px solid transparent; border-top: 30px solid #fff; }
+  .bubble.tail-left::after { left: 90px; }
+  .bubble.tail-right::after { right: 90px; }
+
+  .fig { filter: drop-shadow(0 20px 22px rgba(0,0,0,.3)); }
+  .glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255,233,160,.75) 0%, rgba(255,233,160,0) 70%); }
+
+  .list { display: grid; gap: 26px; }
+  .row { display: grid; grid-template-columns: 150px 1fr; gap: 34px; align-items: center; }
+  .row .ic { width: 150px; height: 150px; border-radius: 40px; background: #fff; display: grid; place-items: center; box-shadow: 0 10px 22px rgba(10,30,50,.18); }
+  .row .ic img { max-width: 124px; max-height: 118px; }
+  .row h3 { font-size: 50px; color: var(--sea-deep); }
+  .row p { font-size: 33px; font-weight: 700; color: var(--ink-soft); line-height: 1.3; margin-top: 4px; }
+  .bg-sea .row h3, .bg-night .row h3 { color: #fff; }
+  .bg-sea .row p, .bg-night .row p { color: #d9ecf6; }
+
+  .check { display: grid; grid-template-columns: 84px 1fr; gap: 28px; align-items: center; font-size: 44px; font-weight: 800; }
+  .check i { width: 84px; height: 84px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; }
+  .check i svg { width: 48px; height: 48px; }
+
+  .islands { display: grid; gap: 24px; }
+  .isle { display: grid; grid-template-columns: 300px 1fr; align-items: center; gap: 26px; }
+  .isle img { width: 300px; filter: drop-shadow(0 16px 18px rgba(0,0,0,.35)); }
+  .isle b { display: block; font-family: var(--display); font-size: 30px; color: var(--gold-soft); letter-spacing: .05em; text-transform: uppercase; }
+  .isle h3 { font-size: 58px; color: #fff; }
+  .isle p { font-size: 34px; font-weight: 700; color: #d9ecf6; }
+
+  .pots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .pot { background: #fff; border-radius: 36px; padding: 26px 18px 30px; text-align: center; box-shadow: 0 12px 26px rgba(10,30,50,.18); }
+  .pot img { height: 150px; margin: 0 auto 14px; }
+  .pot h3 { font-size: 40px; color: var(--sea-deep); }
+  .pot p { font-size: 28px; font-weight: 700; color: var(--ink-soft); }
+
+  /* Highlight-Cover: Instagram zeigt nur den Kreis in der Mitte */
+  .cover { display: grid; place-items: center; }
+  .cover .disc { width: 760px; height: 760px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 50% 35%, #fffdf7, #fff1d2); border: 14px solid var(--gold); }
+  .cover .disc img { max-width: 520px; max-height: 470px; }
+  .cover .label { position: absolute; bottom: 330px; left: 0; right: 0; text-align: center; font-family: var(--display); font-weight: 800; font-size: 76px; color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ================= PROFILBILD ================= -->
+
+<!-- A: Talo und Tala (am besten im kleinen Kreis erkennbar) -->
+<div class="slide square bg-sea" id="profilbild_talo_tala">
+  <div class="glow" style="width:900px;height:900px;left:90px;top:40px"></div>
+  <img class="fig" src="../assets/images/character.talo.wave.png" style="position:absolute;height:880px;left:120px;top:250px">
+  <img class="fig" src="../assets/images/character.tala.wave.png" style="position:absolute;height:900px;left:530px;top:250px">
+</div>
+
+<!-- B: Logo -->
+<div class="slide square bg-sea" id="profilbild_logo">
+  <div class="glow" style="width:1000px;height:1000px;left:40px;top:40px"></div>
+  <img src="../assets/images/brand.logo.png" style="position:absolute;width:860px;left:110px;top:358px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))">
+</div>
+
+<!-- ================= POSTS (1080 × 1350) ================= -->
+
+<!-- 1 Vorstellung -->
+<div class="slide post bg-sea" id="post01_hallo">
+  <div class="photo" style="background-image:url(../assets/images/map.background.jpg);opacity:.45;background-position:center 30%"></div>
+  <div class="inner" style="align-items:center;text-align:center">
+    <span class="chip" style="align-self:center">Bald an Bord</span>
+    <h1 class="big" style="margin-top:44px">Geld verstehen.<br><span class="gold-text">Abenteuer erleben.</span></h1>
+    <p class="lead" style="margin-top:30px;max-width:840px">Die Lern-App, mit der Kinder ab 8&nbsp;Jahren spielerisch lernen, wie Geld funktioniert.</p>
+  </div>
+  <img class="fig" src="../assets/images/ship.crew.png" style="position:absolute;width:700px;left:190px;bottom:170px">
+  <img class="brandmark" src="../assets/images/brand.logo.png">
+</div>
+
+<!-- 2 Talo -->
+<div class="slide post bg-paper" id="post02_talo">
+  <div class="glow" style="width:900px;height:900px;left:-120px;top:420px"></div>
+  <div class="inner">
+    <span class="chip sea">Die Crew · 1</span>
+    <h1 class="big deep" style="margin-top:36px">Das ist Talo.</h1>
+    <p class="lead" style="margin-top:20px;max-width:560px;color:var(--ink-soft)">Kapitän, Fuchs und Schatzsucher. Er erklärt, wie Geld funktioniert, ganz ohne Fachchinesisch.</p>
+  </div>
+  <img class="fig" src="../assets/images/character.talo.wave.png" style="position:absolute;height:700px;left:20px;bottom:90px">
+  <div class="bubble tail-left" style="position:absolute;right:80px;bottom:470px;width:440px">„Willkommen an Bord, Crewmitglied!“</div>
+  <img class="brandmark" src="../assets/images/brand.logo.png" style="left:auto;right:80px;transform:none;bottom:120px;width:280px">
+</div>
+
+<!-- 3 Tala -->
+<div class="slide post bg-coral" id="post03_tala">
+  <div class="glow" style="width:900px;height:900px;right:-140px;top:420px"></div>
+  <div class="inner">
+    <span class="chip sea">Die Crew · 2</span>
+    <h1 class="big deep" style="margin-top:36px">Das ist Tala.</h1>
+    <p class="lead" style="margin-top:20px;max-width:560px;color:var(--ink-soft)">Die Zahlmeisterin der Crew. Sie zählt jeden Taler und macht auch mal Fehler, genau wie wir.</p>
+  </div>
+  <img class="fig" src="../assets/images/character.tala.happy.png" style="position:absolute;height:720px;right:40px;bottom:90px">
+  <div class="bubble tail-right" style="position:absolute;left:80px;bottom:470px;width:440px">„Jeder Taler zählt!“</div>
+  <img class="brandmark" src="../assets/images/brand.logo.png" style="left:80px;transform:none;bottom:120px;width:280px">
+</div>
+
+<!-- 4 So funktioniert's -->
+<div class="slide post bg-paper" id="post04_so_gehts">
+  <div class="inner">
+    <span class="chip">So funktioniert's</span>
+    <h1 class="mid deep" style="margin-top:30px">Lernen wie ein<br>Abenteuer</h1>
+    <div class="list" style="margin-top:56px">
+      <div class="row"><div class="ic"><img src="../assets/images/icon.map.png"></div><div><h3>Inseln entdecken</h3><p>Jede Insel ist ein Geld-Thema, von „Was ist Geld?“ bis Sparen.</p></div></div>
+      <div class="row"><div class="ic"><img src="../assets/images/icon.wish.png"></div><div><h3>Geschichten und Spiele</h3><p>Bildergeschichten, Schätzfragen und Mini-Spiele statt Frontalunterricht.</p></div></div>
+      <div class="row"><div class="ic"><img src="../assets/images/icon.badges.png"></div><div><h3>Belohnungen sammeln</h3><p>Seemeilen, Orden und Ränge, verdient und nie gekauft.</p></div></div>
+      <div class="row"><div class="ic"><img src="../assets/images/icon.treasure.png"></div><div><h3>Üben mit Taschengeld</h3><p>Virtuelles Taschengeld und Aufträge von den Eltern.</p></div></div>
+    </div>
+  </div>
+  <img class="brandmark" src="../assets/images/brand.logo.png">
+</div>
+
+<!-- 5 Die Inseln -->
+<div class="slide post bg-night" id="post05_inseln">
+  <div class="photo" style="background-image:url(../assets/images/map.background.jpg);opacity:.28"></div>
+  <div class="inner">
+    <span class="chip light">Das Meer von Taleria</span>
+    <h1 class="mid" style="margin-top:30px">Die ersten <span class="gold-text">drei Inseln</span></h1>
+    <div class="islands" style="margin-top:44px">
+      <div class="isle"><img src="../assets/images/map.island.hafen.png"><div><b>Insel 1</b><h3>Hafen</h3><p>Was ist Geld?</p></div></div>
+      <div class="isle"><img src="../assets/images/map.island.tauschinsel.png"><div><b>Insel 2</b><h3>Tauschinsel</h3><p>Tauschen und Wert</p></div></div>
+      <div class="isle"><img src="../assets/images/map.island.wunschinsel.png"><div><b>Insel 3</b><h3>Wunschinsel</h3><p>Brauchen oder Wollen?</p></div></div>
+    </div>
+    <p class="lead" style="margin-top:36px;font-size:34px;color:#d9ecf6">… und 12 weitere Inseln warten noch im Nebel.</p>
+  </div>
+  <img class="brandmark" src="../assets/images/brand.logo.png">
+</div>
+
+<!-- 6 Kombüsen-Frage (Tipp für Eltern) -->
+<div class="slide post bg-sea" id="post06_kombuesen_frage">
+  <div class="inner">
+    <span class="chip">Tipp für Eltern</span>
+    <h1 class="mid" style="margin-top:30px">Die Kombüsen-Frage<br><span class="gold-text">der Woche</span></h1>
+    <div class="card" style="margin-top:52px;padding:52px 54px">
+      <p style="font-family:var(--display);font-weight:800;font-size:58px;line-height:1.15;color:var(--sea-deep)">„Was würdest du mit 10&nbsp;€ kaufen? Und was davon brauchst du wirklich?“</p>
+      <p style="margin-top:26px;font-size:32px;font-weight:700;color:var(--ink-soft);max-width:520px">Einfach beim Abendessen fragen. Es gibt kein Richtig oder Falsch.</p>
+    </div>
+  </div>
+  <img class="fig" src="../assets/images/character.tala.think.png" style="position:absolute;height:560px;right:40px;bottom:120px">
+  <img class="brandmark" src="../assets/images/brand.logo.png" style="left:80px;transform:none">
+</div>
+
+<!-- 7 Tala macht den Fehler -->
+<div class="slide post bg-paper" id="post07_tala_fehler">
+  <div class="inner">
+    <span class="chip" style="background:var(--coral);color:#fff">Tala macht den Fehler · Folge 1</span>
+    <h1 class="mid deep" style="margin-top:30px">Alles am ersten Tag ausgegeben?</h1>
+    <div style="display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:end;margin-top:30px">
+      <img class="fig" src="../assets/images/character.talo.think.png" style="height:400px">
+      <div class="bubble tail-left" style="margin-bottom:180px"><small>Talo</small>Teil dein Geld in drei Truhen auf. Dann bleibt immer etwas übrig.</div>
+    </div>
+    <div class="pots" style="margin-top:6px">
+      <div class="pot"><img src="../assets/images/pot.spend.png"><h3>Ausgeben</h3><p>für ein Eis</p></div>
+      <div class="pot"><img src="../assets/images/icon.treasure.png"><h3>Sparen</h3><p>für einen Wunsch</p></div>
+      <div class="pot"><img src="../assets/images/pot.give.png"><h3>Verschenken</h3><p>für andere</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- 8 Für Eltern gemacht -->
+<div class="slide post bg-night" id="post08_fuer_eltern">
+  <div class="inner">
+    <span class="chip light">Für Eltern</span>
+    <h1 class="mid" style="margin-top:30px">Sicher an Bord.</h1>
+    <div class="list" style="margin-top:56px;gap:34px">
+      <div class="check"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#2b1f05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Keine Werbung</div>
+      <div class="check"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#2b1f05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Keine Käufe durch Kinder</div>
+      <div class="check"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#2b1f05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Alle Beträge sind virtuell</div>
+      <div class="check"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#2b1f05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Daten auf Servern in der EU</div>
+      <div class="check"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#2b1f05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Kein Druck, kein Countdown</div>
+    </div>
+    <p class="lead" style="margin-top:44px;font-size:34px;color:#d9ecf6;max-width:520px">Im Leuchtturm, dem Elternbereich, siehst du, was dein Kind lernt.</p>
+  </div>
+  <img class="fig" src="../assets/images/parent.lighthouse.png" style="position:absolute;height:560px;right:60px;bottom:150px">
+  <img class="brandmark" src="../assets/images/brand.logo.png" style="left:80px;transform:none">
+</div>
+
+<!-- 9 Testfamilien gesucht -->
+<div class="slide post bg-sea" id="post09_testfamilien">
+  <div class="photo" style="background-image:url(../assets/images/home.background.jpg);opacity:.35"></div>
+  <div class="inner" style="align-items:center;text-align:center">
+    <span class="chip" style="align-self:center">Mitmachen</span>
+    <h1 class="big" style="margin-top:40px">Testfamilien<br><span class="gold-text">gesucht!</span></h1>
+    <p class="lead" style="margin-top:28px;max-width:860px">Ihr habt ein Kind ab 8 Jahren und Lust, Taleria vor dem Start auszuprobieren? Schreibt uns eine Nachricht.</p>
+  </div>
+  <img class="fig" src="../assets/images/character.talo.wave.png" style="position:absolute;height:500px;left:170px;bottom:140px">
+  <img class="fig" src="../assets/images/character.tala.wave.png" style="position:absolute;height:520px;right:170px;bottom:140px">
+  <img class="brandmark" src="../assets/images/brand.logo.png">
+</div>
+
+<!-- ================= STORY (1080 × 1920) ================= -->
+
+<div class="slide story bg-sea" id="story_testfamilien">
+  <div class="photo" style="background-image:url(../assets/images/home.background.jpg);opacity:.4"></div>
+  <div class="inner" style="inset:230px 80px 300px;align-items:center;text-align:center">
+    <img src="../assets/images/brand.logo.png" style="width:420px;filter:drop-shadow(0 10px 16px rgba(0,0,0,.3))">
+    <h1 class="big" style="margin-top:60px">Testfamilien<br><span class="gold-text">gesucht!</span></h1>
+    <p class="lead" style="margin-top:34px;max-width:860px">Lern-App rund ums Geld für Kinder ab 8. Testet sie vor allen anderen.</p>
+    <div class="card" style="margin-top:50px;padding:30px 50px;font-family:var(--display);font-weight:800;font-size:52px;color:var(--sea-deep)">Schreib uns eine DM</div>
+  </div>
+  <img class="fig" src="../assets/images/character.talo.wave.png" style="position:absolute;height:640px;left:120px;bottom:260px">
+  <img class="fig" src="../assets/images/character.tala.wave.png" style="position:absolute;height:660px;right:120px;bottom:260px">
+</div>
+
+<!-- ================= HIGHLIGHT-COVER (1080 × 1920) ================= -->
+
+<div class="slide story bg-sea cover" id="highlight_app"><div class="disc"><img src="../assets/images/ship.crew.png"></div></div>
+<div class="slide story bg-sea cover" id="highlight_crew"><div class="disc"><img src="../assets/images/character.talo.wave.png" style="max-height:560px"></div></div>
+<div class="slide story bg-sea cover" id="highlight_inseln"><div class="disc"><img src="../assets/images/map.island.hafen.png"></div></div>
+<div class="slide story bg-sea cover" id="highlight_eltern"><div class="disc"><img src="../assets/images/parent.lighthouse.png" style="max-height:560px"></div></div>
+<div class="slide story bg-sea cover" id="highlight_tipps"><div class="disc"><img src="../assets/images/icon.treasure.png"></div></div>
+<div class="slide story bg-sea cover" id="highlight_beta"><div class="disc"><img src="../assets/images/icon.map.png"></div></div>
+
+<svg width="0" height="0" style="position:absolute"></svg>
+</body>
+</html>
