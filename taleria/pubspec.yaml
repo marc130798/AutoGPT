@@ -98,3 +98,25 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  # Roboto liegt in der App, damit der Browser sie nicht von Google lädt
+  # (CLAUDE.md Abschnitt 16, „Eigene Schrift“). Erzeugt mit tool/schriften_vorbereiten.py.
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-400.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto-500.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-600.ttf
+          weight: 600
+        - asset: assets/fonts/Roboto-700.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-800.ttf
+          weight: 800
+        - asset: assets/fonts/Roboto-900.ttf
+          weight: 900
+    # Pfeile (→ ↓), die Roboto nicht hat.
+    - family: TaleriaZeichen
+      fonts:
+        - asset: assets/fonts/TaleriaZeichen.ttf
