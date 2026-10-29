@@ -242,6 +242,39 @@ class MapLayout {
     return fit(candidates.first);
   }
 
+  /// Plätze für Tiere im Meer (Fisch, Wal, Delfin), eins zwischen je zwei
+  /// Inseln: in der Mitte des Meeres, am Rand weg vom Weg. Nie auf einer Insel,
+  /// einem Stopp oder auf dem, was in [avoid] liegt; passt nichts, fällt der
+  /// Platz weg.
+  List<Offset> critterSpots(Size size, {List<Rect> avoid = const []}) {
+    final spots = <Offset>[];
+    for (var index = 1; index < route.length; index++) {
+      final band = _seaBand(index);
+      if (band == null || band.bottom - band.top < size.height) continue;
+      final stops = [
+        for (final spot in seaStopSpots(index, 2))
+          Rect.fromCenter(center: spot, width: seaStopWidth, height: seaStopHeight),
+      ];
+      final blocked = [...stops, ...avoid];
+      final y = (band.top + band.bottom) / 2 - size.height / 2;
+      final routeX = _routeX(index, y + size.height / 2);
+      final left = Offset(8, y), right = Offset(max(8, width - size.width - 8), y);
+      // Zuerst die Seite weiter weg vom Weg, abwechselnd oben und unten im Meer.
+      final sides = routeX > width / 2 ? [left, right] : [right, left];
+      for (final candidate in [
+        ...sides,
+        for (final side in sides) Offset(side.dx, index.isEven ? band.top : band.bottom - size.height),
+      ]) {
+        final box = candidate & size;
+        if (!blocked.any(box.overlaps)) {
+          spots.add(candidate);
+          break;
+        }
+      }
+    }
+    return spots;
+  }
+
   /// Scroll-Abstand (Karte unten verankert), bei dem [y] in der Mitte steht.
   double offsetToShow(double y, double viewportHeight) =>
       (height - y - viewportHeight / 2).clamp(0.0, max(0.0, height - viewportHeight));

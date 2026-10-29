@@ -2860,4 +2860,89 @@ class AppLocalizationsDe extends AppLocalizations {
   String parentGoalLine(String title, String saved, String target) {
     return '$title: $saved von $target';
   }
+
+  @override
+  String get livelyTalo1 => 'Ahoi! Schön, dass du da bist.';
+
+  @override
+  String get livelyTalo2 => 'Ein guter Kapitän plant die Fahrt. Und sein Geld!';
+
+  @override
+  String get livelyTalo3 => 'Hihi, das kitzelt!';
+
+  @override
+  String get livelyTalo4 => 'Weißt du, wo das nächste Kartenstück liegt?';
+
+  @override
+  String get livelyTala1 => 'Hallo! Ich passe auf die Taler auf.';
+
+  @override
+  String get livelyTala2 => 'Tipp: Erst überlegen, dann kaufen!';
+
+  @override
+  String get livelyTala3 => 'Huch! Nicht so fest antippen!';
+
+  @override
+  String get livelyTala4 => 'Jeder Taler zählt. Auch die kleinen!';
+
+  @override
+  String get greetingWind => 'Der Wind steht gut! Heute kannst du weitersegeln.';
+
+  @override
+  String greetingWaitWind(String day) {
+    return 'Am $day frischt der Wind auf. Bis dahin kannst du tauchen, spielen oder in deine Schatztruhe schauen.';
+  }
+
+  @override
+  String greetingRankSoon(int xp, String rank) {
+    final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String xpString = xpNumberFormat.format(xp);
+
+    return 'Noch $xpString Seemeilen, dann bist du $rank!';
+  }
+
+  @override
+  String greetingGoalReady(String title) {
+    return 'Für $title hast du genug zurückgelegt. Du kannst deinen Wunschschatz einlösen!';
+  }
+
+  @override
+  String greetingGoalSoon(String title, String amount) {
+    return 'Für $title fehlen nur noch $amount. Du schaffst das!';
+  }
+
+  @override
+  String greetingStreak(int weeks) {
+    return 'Schon $weeks Wochen Fahrtwind hintereinander. Stark!';
+  }
+
+  @override
+  String get greetingReviews => 'Meister Taleron hat ein Rätsel für dich. Schau mal auf die Karte!';
+
+  @override
+  String get greetingTip0 => 'Tipp: Schlaf eine Nacht drüber, bevor du etwas Großes kaufst.';
+
+  @override
+  String get greetingTip1 => 'Wusstest du? Früher haben Menschen mit Muscheln bezahlt.';
+
+  @override
+  String get greetingTip2 => 'Tipp: Ein kleiner Betrag jede Woche wird mit der Zeit ein großer Schatz.';
+
+  @override
+  String get greetingTip3 => 'Ein guter Kapitän schaut zuerst auf die Karte. Und du zuerst auf den Preis!';
+
+  @override
+  String get greetingTip4 => 'Tipp: Vergleiche Preise, bevor du kaufst. Das spart Taler.';
+
+  @override
+  String get greetingTip5 => 'Jede Station bringt uns näher zur Goldenen Schatzkarte.';
+
+  @override
+  String get critterFish => 'Fisch im Meer, antippen';
+
+  @override
+  String get critterWhale => 'Wal im Meer, antippen';
+
+  @override
+  String get critterDolphin => 'Delfin im Meer, antippen';
 }

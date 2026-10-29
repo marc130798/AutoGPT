@@ -4572,6 +4572,150 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'{title}: {saved} von {target}'**
   String parentGoalLine(String title, String saved, String target);
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Ahoi! Schön, dass du da bist.'**
+  String get livelyTalo1;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Ein guter Kapitän plant die Fahrt. Und sein Geld!'**
+  String get livelyTalo2;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Hihi, das kitzelt!'**
+  String get livelyTalo3;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Weißt du, wo das nächste Kartenstück liegt?'**
+  String get livelyTalo4;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Hallo! Ich passe auf die Taler auf.'**
+  String get livelyTala1;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Tipp: Erst überlegen, dann kaufen!'**
+  String get livelyTala2;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Huch! Nicht so fest antippen!'**
+  String get livelyTala3;
+
+  /// ENTWURF: Satz beim Antippen der Figur auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Jeder Taler zählt. Auch die kleinen!'**
+  String get livelyTala4;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Der Wind steht gut! Heute kannst du weitersegeln.'**
+  String get greetingWind;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Am {day} frischt der Wind auf. Bis dahin kannst du tauchen, spielen oder in deine Schatztruhe schauen.'**
+  String greetingWaitWind(String day);
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Noch {xp} Seemeilen, dann bist du {rank}!'**
+  String greetingRankSoon(int xp, String rank);
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Für {title} hast du genug zurückgelegt. Du kannst deinen Wunschschatz einlösen!'**
+  String greetingGoalReady(String title);
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Für {title} fehlen nur noch {amount}. Du schaffst das!'**
+  String greetingGoalSoon(String title, String amount);
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Schon {weeks} Wochen Fahrtwind hintereinander. Stark!'**
+  String greetingStreak(int weeks);
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Meister Taleron hat ein Rätsel für dich. Schau mal auf die Karte!'**
+  String get greetingReviews;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Tipp: Schlaf eine Nacht drüber, bevor du etwas Großes kaufst.'**
+  String get greetingTip0;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Wusstest du? Früher haben Menschen mit Muscheln bezahlt.'**
+  String get greetingTip1;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Tipp: Ein kleiner Betrag jede Woche wird mit der Zeit ein großer Schatz.'**
+  String get greetingTip2;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Ein guter Kapitän schaut zuerst auf die Karte. Und du zuerst auf den Preis!'**
+  String get greetingTip3;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Tipp: Vergleiche Preise, bevor du kaufst. Das spart Taler.'**
+  String get greetingTip4;
+
+  /// ENTWURF: Satz des Tages auf der Startseite
+  ///
+  /// In de, this message translates to:
+  /// **'Jede Station bringt uns näher zur Goldenen Schatzkarte.'**
+  String get greetingTip5;
+
+  /// Vorlese-Text für ein Tier auf der Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Fisch im Meer, antippen'**
+  String get critterFish;
+
+  /// Vorlese-Text für ein Tier auf der Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Wal im Meer, antippen'**
+  String get critterWhale;
+
+  /// Vorlese-Text für ein Tier auf der Karte
+  ///
+  /// In de, this message translates to:
+  /// **'Delfin im Meer, antippen'**
+  String get critterDolphin;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

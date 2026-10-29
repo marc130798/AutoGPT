@@ -44,9 +44,13 @@ void main() {
     await tester.pumpAndSettle();
     await tapText(tester, 'Ich habe einen Code');
     await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
-    await tapText(tester, 'An Bord gehen');
+    // Die Startseite bewegt sich ständig (Möwen, Atmen), deshalb pump mit Zeit.
+    await tester.tap(find.text('An Bord gehen').last);
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 200));
+    }
     await tester.ensureVisible(find.text('Zur Karte'));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 300));
     await tester.tap(find.text('Zur Karte'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));

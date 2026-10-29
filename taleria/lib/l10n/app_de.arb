@@ -3991,5 +3991,133 @@
         "type": "String"
       }
     }
+  },
+  "livelyTalo1": "Ahoi! Schön, dass du da bist.",
+  "@livelyTalo1": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTalo2": "Ein guter Kapitän plant die Fahrt. Und sein Geld!",
+  "@livelyTalo2": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTalo3": "Hihi, das kitzelt!",
+  "@livelyTalo3": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTalo4": "Weißt du, wo das nächste Kartenstück liegt?",
+  "@livelyTalo4": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTala1": "Hallo! Ich passe auf die Taler auf.",
+  "@livelyTala1": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTala2": "Tipp: Erst überlegen, dann kaufen!",
+  "@livelyTala2": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTala3": "Huch! Nicht so fest antippen!",
+  "@livelyTala3": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "livelyTala4": "Jeder Taler zählt. Auch die kleinen!",
+  "@livelyTala4": {
+    "description": "ENTWURF: Satz beim Antippen der Figur auf der Startseite"
+  },
+  "greetingWind": "Der Wind steht gut! Heute kannst du weitersegeln.",
+  "@greetingWind": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingWaitWind": "Am {day} frischt der Wind auf. Bis dahin kannst du tauchen, spielen oder in deine Schatztruhe schauen.",
+  "@greetingWaitWind": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingRankSoon": "Noch {xp} Seemeilen, dann bist du {rank}!",
+  "@greetingRankSoon": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite",
+    "placeholders": {
+      "xp": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingGoalReady": "Für {title} hast du genug zurückgelegt. Du kannst deinen Wunschschatz einlösen!",
+  "@greetingGoalReady": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingGoalSoon": "Für {title} fehlen nur noch {amount}. Du schaffst das!",
+  "@greetingGoalSoon": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingStreak": "Schon {weeks} Wochen Fahrtwind hintereinander. Stark!",
+  "@greetingStreak": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite",
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "greetingReviews": "Meister Taleron hat ein Rätsel für dich. Schau mal auf die Karte!",
+  "@greetingReviews": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingTip0": "Tipp: Schlaf eine Nacht drüber, bevor du etwas Großes kaufst.",
+  "@greetingTip0": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingTip1": "Wusstest du? Früher haben Menschen mit Muscheln bezahlt.",
+  "@greetingTip1": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingTip2": "Tipp: Ein kleiner Betrag jede Woche wird mit der Zeit ein großer Schatz.",
+  "@greetingTip2": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingTip3": "Ein guter Kapitän schaut zuerst auf die Karte. Und du zuerst auf den Preis!",
+  "@greetingTip3": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingTip4": "Tipp: Vergleiche Preise, bevor du kaufst. Das spart Taler.",
+  "@greetingTip4": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "greetingTip5": "Jede Station bringt uns näher zur Goldenen Schatzkarte.",
+  "@greetingTip5": {
+    "description": "ENTWURF: Satz des Tages auf der Startseite"
+  },
+  "critterFish": "Fisch im Meer, antippen",
+  "@critterFish": {
+    "description": "Vorlese-Text für ein Tier auf der Karte"
+  },
+  "critterWhale": "Wal im Meer, antippen",
+  "@critterWhale": {
+    "description": "Vorlese-Text für ein Tier auf der Karte"
+  },
+  "critterDolphin": "Delfin im Meer, antippen",
+  "@critterDolphin": {
+    "description": "Vorlese-Text für ein Tier auf der Karte"
   }
 }

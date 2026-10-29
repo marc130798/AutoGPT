@@ -23,6 +23,7 @@ import '../station/station_screen.dart';
 import 'map_layout.dart';
 import 'map_painters.dart';
 import 'map_scene.dart';
+import 'sea_critters.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
 /// nach oben (Schatzinsel). Inseln im Nebel und gesperrte Inseln sind
@@ -698,6 +699,27 @@ class _MapScene extends StatelessWidget {
           ),
         ),
         for (final layer in layers) layer.$2,
+        // Tiere im Meer, zum Antippen nur zum Spaß. Nicht auf dem Schiff und nicht auf Taleron.
+        for (final (i, spot)
+            in layout
+                .critterSpots(
+                  SeaCritter.size,
+                  avoid: [
+                    if (shipPosition != null) layout.shipRect(shipPosition, shipScale),
+                    if (controller.encounter != null && shipId != null)
+                      layout.encounterSpot(shipId, _encounterSize) & _encounterSize,
+                  ],
+                )
+                .indexed)
+          Positioned(
+            left: spot.dx,
+            top: spot.dy,
+            child: SeaCritter(
+              key: ValueKey('critter-$i'),
+              kind: CritterKind.values[i % CritterKind.values.length],
+              clock: clock,
+            ),
+          ),
         if (controller.encounter != null && shipId != null && !traveling)
           if (layout.encounterSpot(
                 shipId,

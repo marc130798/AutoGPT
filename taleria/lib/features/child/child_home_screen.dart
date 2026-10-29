@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
-import '../../core/assets/character_image.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
 import '../../domain/family_models.dart';
+import '../../domain/budget_models.dart';
+import '../../domain/daily_greeting.dart';
+import '../../domain/money.dart';
 import '../../domain/progress_models.dart';
 import '../../domain/shipyard.dart';
 import '../../l10n/app_localizations.dart';
@@ -18,11 +20,14 @@ import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
 import '../common/game_sign.dart';
+import '../common/texts.dart';
+import '../common/lively_figure.dart';
 import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
 import '../intro/speech_bubble.dart';
 import '../map/island_map_screen.dart';
+import '../map/map_painters.dart';
 import '../progress/badges_screen.dart';
 import '../progress/collection_screen.dart';
 import '../progress/rank_ladder_screen.dart';
@@ -58,6 +63,8 @@ class ChildHomeScreen extends StatelessWidget {
         body: Stack(
           children: [
             const Positioned.fill(child: _DeckBackground()),
+            // Möwen am Himmel und Glitzern auf dem Meer (nur mit Bewegung).
+            const Positioned.fill(child: IgnorePointer(child: _DeckLife())),
             SafeArea(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
@@ -195,6 +202,91 @@ class _DeckBackground extends StatelessWidget {
   }
 }
 
+/// Bewegung auf dem Deck: ab und zu ein Möwenschwarm oben am Himmel und
+/// Lichtpunkte, die auf dem Meer glitzern. Steht still bei „Bewegung
+/// reduzieren“ und in Tests (`sceneMotion`).
+class _DeckLife extends StatefulWidget {
+  const _DeckLife();
+
+  @override
+  State<_DeckLife> createState() => _DeckLifeState();
+}
+
+class _DeckLifeState extends State<_DeckLife> with SingleTickerProviderStateMixin {
+  // Eine Minute pro Durchlauf, wie die Uhr der Karte.
+  late final AnimationController _clock = AnimationController(vsync: this, duration: const Duration(minutes: 1));
+  bool _motion = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _motion = AppScope.of(context).sceneMotion && !MediaQuery.disableAnimationsOf(context);
+    if (_motion && !_clock.isAnimating) {
+      // Gleich zu Beginn ein Schwarm, damit man ihn sieht.
+      _clock.value = 0.06;
+      _clock.repeat();
+    } else if (!_motion && _clock.isAnimating) {
+      _clock.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    _clock.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_motion) return const SizedBox.shrink();
+    return LayoutBuilder(
+      builder: (context, constraints) => Stack(
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            height: constraints.maxHeight * 0.4,
+            child: CustomPaint(painter: SeagullPainter(clock: _clock)),
+          ),
+          Positioned.fill(
+            child: CustomPaint(painter: _GlitterPainter(clock: _clock)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Lichtpunkte, die langsam auf- und abglimmen (wie Sonne auf dem Wasser).
+class _GlitterPainter extends CustomPainter {
+  _GlitterPainter({required this.clock}) : super(repaint: clock);
+
+  final Animation<double> clock;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final t = sceneSeconds(clock);
+    final rnd = Random(7);
+    for (var i = 0; i < 14; i++) {
+      final x = rnd.nextDouble() * size.width;
+      // Im oberen Teil, wo das Meer hinter dem Deck zu sehen ist.
+      final y = size.height * (0.12 + rnd.nextDouble() * 0.3);
+      final glow = max(0.0, osc(t, 10 + rnd.nextInt(8), rnd.nextDouble() * 6));
+      if (glow < 0.05) continue;
+      final r = 2.0 + 3.0 * glow;
+      final paint = Paint()..color = Colors.white.withValues(alpha: 0.75 * glow);
+      canvas.drawCircle(Offset(x, y), r * 0.45, paint);
+      canvas
+        ..drawLine(Offset(x - r * 1.6, y), Offset(x + r * 1.6, y), paint..strokeWidth = 1.4)
+        ..drawLine(Offset(x, y - r * 1.6), Offset(x, y + r * 1.6), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_GlitterPainter old) => false;
+}
+
 /// Talo links, der Avatar des Kindes im Bullauge in der Mitte, Tala rechts.
 /// Beide winken zur Begrüßung.
 class _CrewHeader extends StatelessWidget {
@@ -204,14 +296,19 @@ class _CrewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Expanded(
+        Expanded(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: CharacterImage(AssetKeys.talo, pose: CharacterPose.wave, width: 112, height: 140),
+            child: LivelyFigure(
+              character: AssetKeys.talo,
+              phase: 0,
+              lines: [l10n.livelyTalo1, l10n.livelyTalo2, l10n.livelyTalo3, l10n.livelyTalo4],
+            ),
           ),
         ),
         Container(
@@ -224,13 +321,21 @@ class _CrewHeader extends StatelessWidget {
             boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 10, offset: Offset(0, 4))],
           ),
           child: ClipOval(
-            child: Center(child: AvatarView(avatar: avatar, size: 112)),
+            // Der Avatar schaukelt im Bullauge, als wäre das Schiff auf See.
+            child: Center(
+              child: SeaSway(phase: 0.2, child: AvatarView(avatar: avatar, size: 112)),
+            ),
           ),
         ),
-        const Expanded(
+        Expanded(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: CharacterImage(AssetKeys.tala, pose: CharacterPose.wave, width: 112, height: 140),
+            child: LivelyFigure(
+              character: AssetKeys.tala,
+              phase: 0.5,
+              bubbleToLeft: true,
+              lines: [l10n.livelyTala1, l10n.livelyTala2, l10n.livelyTala3, l10n.livelyTala4],
+            ),
           ),
         ),
       ],
@@ -271,7 +376,7 @@ class _WelcomeCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlaggedShip(flag: flag, size: 60),
+                SeaSway(amount: 1.4, child: FlaggedShip(flag: flag, size: 60)),
                 const SizedBox(width: 8),
                 Flexible(
                   child: Text(
@@ -596,6 +701,9 @@ class _ProgressSectionState extends State<_ProgressSection> {
   /// Werft-Teile, die das Kind schon gesehen hat (auf diesem Gerät).
   int _shipyardSeen = 0;
 
+  /// Wunschschätze für den Satz des Tages („Für den Ball fehlen nur noch …“).
+  List<SavingsGoal> _goals = const [];
+
   ChildProfile get _child => widget.state.child;
 
   @override
@@ -606,6 +714,19 @@ class _ProgressSectionState extends State<_ProgressSection> {
       _controller = ChildStatsController(progress: progress, childId: _child.id)..load();
       unawaited(_controller!.markAppOpened());
       unawaited(_loadCollectionSeen());
+      unawaited(_loadGoals());
+    }
+  }
+
+  /// Ohne Wunschschätze sagt Talo eben etwas anderes; Fehler stören hier nicht.
+  Future<void> _loadGoals() async {
+    final budget = AppScope.of(context).budget;
+    if (budget == null) return;
+    try {
+      final goals = await budget.fetchGoals(_child.id);
+      if (mounted) setState(() => _goals = goals);
+    } on AppFailure {
+      // Kein Satz über Wunschschätze.
     }
   }
 
@@ -647,6 +768,7 @@ class _ProgressSectionState extends State<_ProgressSection> {
   Future<void> _open(Widget screen) async {
     await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => screen));
     if (mounted) await _controller?.load();
+    if (mounted) await _loadGoals();
   }
 
   @override
@@ -661,6 +783,11 @@ class _ProgressSectionState extends State<_ProgressSection> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (stats != null) ...[
+              _GreetingBubble(
+                greeting: dailyGreeting(day: DateTime.now(), stats: stats, goals: _goals),
+                rankForm: _child.rankForm,
+              ),
+              const SizedBox(height: 12),
               StatsCard(
                 stats: stats,
                 rankForm: _child.rankForm,
@@ -744,6 +871,43 @@ class _ProgressSectionState extends State<_ProgressSection> {
           ],
         );
       },
+    );
+  }
+}
+
+/// Satz des Tages von Talo oder Tala (jeden Tag ein anderer, ohne Druck).
+class _GreetingBubble extends StatelessWidget {
+  const _GreetingBubble({required this.greeting, required this.rankForm});
+
+  final DailyGreeting greeting;
+  final RankForm? rankForm;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final g = greeting;
+    final text = switch (g.kind) {
+      GreetingKind.wind => l10n.greetingWind,
+      GreetingKind.waitWind => l10n.greetingWaitWind(l10n.weekday('${g.date!.weekday}')),
+      GreetingKind.rankSoon => l10n.greetingRankSoon(g.number, l10n.rank(g.rank, rankForm)),
+      GreetingKind.goalReady => l10n.greetingGoalReady(g.title!),
+      GreetingKind.goalSoon => l10n.greetingGoalSoon(g.title!, formatCents(g.number)),
+      GreetingKind.streak => l10n.greetingStreak(g.number),
+      GreetingKind.reviews => l10n.greetingReviews,
+      GreetingKind.tip => switch (g.number) {
+        0 => l10n.greetingTip0,
+        1 => l10n.greetingTip1,
+        2 => l10n.greetingTip2,
+        3 => l10n.greetingTip3,
+        4 => l10n.greetingTip4,
+        _ => l10n.greetingTip5,
+      },
+    };
+    return SpeechBubble(
+      key: const ValueKey('home-greeting'),
+      speaker: g.speaker == 'tala' ? Speaker.tala : Speaker.talo,
+      pose: CharacterPose.happy,
+      text: text,
     );
   }
 }

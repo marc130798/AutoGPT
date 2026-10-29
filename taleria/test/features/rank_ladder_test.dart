@@ -27,6 +27,8 @@ void main() {
       find.byType(Scrollable).first,
       const Offset(0, -200),
     );
+    await tester.ensureVisible(find.byKey(const ValueKey('stats-open-ranks')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const ValueKey('stats-open-ranks')));
     await tester.pumpAndSettle();
   }

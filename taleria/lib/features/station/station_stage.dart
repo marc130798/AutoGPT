@@ -10,6 +10,7 @@ import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/lively_figure.dart';
 import '../common/figure_names.dart';
 import '../common/fog_reveal.dart';
 import 'figure_head.dart';
@@ -424,7 +425,7 @@ class FigureStage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            for (final figure in figures)
+            for (final (i, figure) in figures.indexed)
               Padding(
                 key: ValueKey('stage-${figure.character}'),
                 padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -435,18 +436,21 @@ class FigureStage extends StatelessWidget {
                   child: AnimatedOpacity(
                     opacity: figure.active ? 1 : 0.85,
                     duration: const Duration(milliseconds: 250),
-                    child: CharacterImage(
-                      figure.character,
-                      pose: figure.pose,
-                      width: width,
-                      height: height,
-                      alignment: Alignment.bottomCenter,
-                      fallback: Align(
+                    child: Breathing(
+                      phase: i * 0.37,
+                      child: CharacterImage(
+                        figure.character,
+                        pose: figure.pose,
+                        width: width,
+                        height: height,
                         alignment: Alignment.bottomCenter,
-                        child: AssetPlaceholder(
-                          entry: manifest.lookup(figure.character),
-                          width: min(height * 0.6, width),
-                          height: min(height * 0.6, width),
+                        fallback: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AssetPlaceholder(
+                            entry: manifest.lookup(figure.character),
+                            width: min(height * 0.6, width),
+                            height: min(height * 0.6, width),
+                          ),
                         ),
                       ),
                     ),
