@@ -48,3 +48,33 @@ Meister Taleron:
 ## Grobe Menge
 
 Die Sätze von Talo, Tala und den Inselfiguren auf den Inseln 1 bis 4 haben zusammen etwa 30.000 Zeichen (Talo etwa 12.000, Tala etwa 10.000, andere Figuren etwa 8.000). Bei ElevenLabs kostet ein Zeichen etwa ein „Credit“. Mit Wiederholungen, bis ein Satz gut klingt, eher 60.000 bis 90.000 Credits.
+
+## Testtexte für jede Stimme (immer dieselben, damit man vergleichen kann)
+
+Jeder Text prüft etwas anderes: Begrüßung, Freude, Nachdenken, Zahlen und Geld, eine Frage, Trost.
+
+**Talo**
+1. Begrüßung: „Ahoi und willkommen an Bord! Ich bin Talo, der Kapitän. Heute segeln wir zur Tauschinsel.“
+2. Freude: „Juhu, wir haben das Kartenstück gefunden! Das war richtig gute Arbeit, Crew!“
+3. Nachdenken: „Hm, Moment mal … Wenn Greta Äpfel will und Bruno Fisch hat, wo fangen wir dann an?“
+4. Zahlen: „Das Fischbrötchen kostet 2,50 Euro. Du bezahlst mit 5 Euro. Wie viel Wechselgeld bekommst du?“
+5. Frage: „Was meinst du: Brauchen wir das wirklich, oder wollen wir es nur haben?“
+6. Trost: „Nicht schlimm, das war knapp daneben. Ein guter Kapitän probiert es einfach noch einmal.“
+
+**Tala**
+1. Begrüßung: „Hallo! Ich bin Tala, die Zahlmeisterin. Ich passe auf unsere Schatztruhe auf. Meistens jedenfalls!“
+2. Freude: „Wahnsinn, drei Tausche für ein Seil! Jetzt kann unser Schiff endlich weiter!“
+3. Nachdenken: „Oh nein, ich wollte gerade alles für Bonbons ausgeben. Vielleicht sollte ich erst einmal überlegen …“
+4. Zahlen: „Wenn ich jede Woche 3 Taler zurücklege, habe ich nach 4 Wochen schon 12 Taler!“
+5. Frage: „Willst du deinen Wunsch in eine Wunschflasche stecken? Dann schauen wir morgen, ob du ihn noch willst.“
+6. Trost: „Hey, das macht doch nichts. Ich verrechne mich auch manchmal. Komm, wir rechnen zusammen nach.“
+
+**Meister Taleron**
+1. Begrüßung: „Ah … eine neue Crew auf meinem Meer. Willkommen, kleine Schatzsucher.“
+2. Freude: „Hohoho, sehr gut! Ihr seid klüger, als ihr ausseht.“
+3. Nachdenken: „Hmmm … lasst mich überlegen, welches Rätsel ich euch heute stelle.“
+4. Zahlen: „Ein Händler verkauft vier Fische für zehn Taler. Was kostet ein einzelner Fisch?“
+5. Frage: „Sagt mir: Was ist mehr wert, etwas, das man braucht, oder etwas, das man nur haben will?“
+6. Trost: „Nicht ganz. Aber Fehler sind wie Wellen: Sie kommen, und dann ziehen sie weiter. Versucht es noch einmal.“
+
+Worauf beim Anhören achten: Klingen „2,50 Euro“, „Zahlmeisterin“, „Seemeilen“ und „Taleria“ richtig? Klingt die Freude echt? Ist Taleron freundlich und nicht gruselig? Am besten zusammen mit einem Kind zwischen 8 und 12 anhören.
