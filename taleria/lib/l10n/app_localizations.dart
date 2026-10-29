@@ -4488,6 +4488,66 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'{name}, {animal}'**
   String figureWithAnimal(String name, String animal);
+
+  /// Titel der Werft (Avatar-Teile und Flaggen mit Seemeilen freischalten)
+  ///
+  /// In de, this message translates to:
+  /// **'Werft'**
+  String get shipyardTitle;
+
+  /// Tala erklärt die Werft
+  ///
+  /// In de, this message translates to:
+  /// **'Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei: Jacken, Hüte, Halstücher und Flaggen für dein Schiff. Tipp an, was dir gefällt.'**
+  String get shipyardIntro;
+
+  /// Nächstes Teil der Werft
+  ///
+  /// In de, this message translates to:
+  /// **'Noch {xp} Seemeilen bis: {item}'**
+  String shipyardNext(int xp, String item);
+
+  /// Alle Werft-Teile sind frei
+  ///
+  /// In de, this message translates to:
+  /// **'Du hast alles in der Werft frei. Stark!'**
+  String get shipyardAllUnlocked;
+
+  /// Hinweis beim Antippen eines gesperrten Teils; xp ist z. B. „ab 1.000 Seemeilen“
+  ///
+  /// In de, this message translates to:
+  /// **'Das wird {xp} frei. Segel einfach weiter!'**
+  String shipyardLocked(String xp);
+
+  /// Vorlese-Text für ein gesperrtes Teil
+  ///
+  /// In de, this message translates to:
+  /// **'{item}, noch gesperrt'**
+  String shipyardLockedLabel(String item);
+
+  /// Bereiche der Werft
+  ///
+  /// In de, this message translates to:
+  /// **'{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} other{Teile}}'**
+  String lookSlot(String slot);
+
+  /// Name eines Teils in der Werft
+  ///
+  /// In de, this message translates to:
+  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} other{Teil}}'**
+  String lookName(String id);
+
+  /// Kachel auf der Startseite zur Werft
+  ///
+  /// In de, this message translates to:
+  /// **'Werft'**
+  String get childHomeShipyardTile;
+
+  /// Hinweis unter der Werft-Kachel
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 neues Teil frei} other{{count} neue Teile frei}}'**
+  String childHomeShipyardNew(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

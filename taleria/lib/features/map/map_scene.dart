@@ -8,9 +8,11 @@ import '../../core/assets/asset_placeholder.dart';
 import '../../core/assets/character_image.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../domain/avatar.dart';
 import '../../domain/content_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
+import '../common/ship_flag.dart';
 import 'map_painters.dart';
 
 /// Eine längliche Wolke: Bild aus BILDER.md oder die gezeichnete Ersatz-Wolke.
@@ -285,12 +287,22 @@ class MapIslandMarker extends StatelessWidget {
 /// Das Schiff der Crew. Es wippt auf den Wellen und zieht beim Fahren eine
 /// Spur hinter sich her.
 class MapShip extends StatelessWidget {
-  const MapShip({super.key, required this.size, required this.clock, required this.facingLeft, required this.moving});
+  const MapShip({
+    super.key,
+    required this.size,
+    required this.clock,
+    required this.facingLeft,
+    required this.moving,
+    this.flag = ShipFlag.taleria,
+  });
 
   final double size;
   final Animation<double> clock;
   final bool facingLeft;
   final bool moving;
+
+  /// Flagge aus der Werft.
+  final ShipFlag flag;
 
   @override
   Widget build(BuildContext context) {
@@ -310,6 +322,7 @@ class MapShip extends StatelessWidget {
           child: SizedBox.square(
             dimension: size,
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 if (moving)
                   Positioned.fill(
@@ -322,6 +335,11 @@ class MapShip extends StatelessWidget {
                     height: size,
                     fallback: const CustomPaint(painter: ShipPainter()),
                   ),
+                ),
+                Positioned(
+                  left: size * 0.42,
+                  top: -size * 0.1,
+                  child: ShipFlagView(flag: flag, size: size * 0.28),
                 ),
               ],
             ),

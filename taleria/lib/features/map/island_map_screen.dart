@@ -8,6 +8,7 @@ import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../domain/avatar.dart';
 import '../../domain/content_models.dart';
 import '../../domain/family_models.dart';
 import '../../domain/progress_logic.dart';
@@ -416,6 +417,7 @@ extension on _IslandMapScreenState {
                   onTap: _onTap,
                   onStop: _openStop,
                   onEncounter: _openEncounter,
+                  flag: (widget.child.avatar ?? const AvatarConfig()).flag,
                 ),
               ),
             ),
@@ -516,6 +518,7 @@ class _MapScene extends StatelessWidget {
     required this.onTap,
     required this.onStop,
     required this.onEncounter,
+    required this.flag,
   });
 
   /// Platz für Meister Taleron mit Namen (Bild 72, Name in bis zu zwei Zeilen).
@@ -532,6 +535,7 @@ class _MapScene extends StatelessWidget {
   final ValueChanged<MapIsland> onTap;
   final ValueChanged<StationInfo> onStop;
   final VoidCallback onEncounter;
+  final ShipFlag flag;
 
   @override
   Widget build(BuildContext context) {
@@ -643,7 +647,7 @@ class _MapScene extends StatelessWidget {
           width: size,
           height: size,
           child: IgnorePointer(
-            child: MapShip(size: size, clock: clock, facingLeft: facingLeft, moving: traveling),
+            child: MapShip(size: size, clock: clock, facingLeft: facingLeft, moving: traveling, flag: flag),
           ),
         ),
       ));

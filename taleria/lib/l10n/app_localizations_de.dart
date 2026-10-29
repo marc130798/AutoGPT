@@ -2749,4 +2749,88 @@ class AppLocalizationsDe extends AppLocalizations {
   String figureWithAnimal(String name, String animal) {
     return '$name, $animal';
   }
+
+  @override
+  String get shipyardTitle => 'Werft';
+
+  @override
+  String get shipyardIntro =>
+      'Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei: Jacken, Hüte, Halstücher und Flaggen für dein Schiff. Tipp an, was dir gefällt.';
+
+  @override
+  String shipyardNext(int xp, String item) {
+    final intl.NumberFormat xpNumberFormat = intl.NumberFormat.decimalPattern(localeName);
+    final String xpString = xpNumberFormat.format(xp);
+
+    return 'Noch $xpString Seemeilen bis: $item';
+  }
+
+  @override
+  String get shipyardAllUnlocked => 'Du hast alles in der Werft frei. Stark!';
+
+  @override
+  String shipyardLocked(String xp) {
+    return 'Das wird $xp frei. Segel einfach weiter!';
+  }
+
+  @override
+  String shipyardLockedLabel(String item) {
+    return '$item, noch gesperrt';
+  }
+
+  @override
+  String lookSlot(String slot) {
+    String _temp0 = intl.Intl.selectLogic(slot, {
+      'outfit': 'Jacke',
+      'hat': 'Kopfbedeckung',
+      'scarf': 'Halstuch',
+      'flag': 'Flagge',
+      'other': 'Teile',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String lookName(String id) {
+    String _temp0 = intl.Intl.selectLogic(id, {
+      'outfit_navy': 'Blaue Jacke',
+      'outfit_red': 'Rote Jacke',
+      'outfit_green': 'Grüne Jacke',
+      'outfit_yellow': 'Gelbe Jacke',
+      'outfit_purple': 'Lila Jacke',
+      'outfit_orange': 'Orange Jacke',
+      'outfit_teal': 'Türkise Jacke',
+      'outfit_gold': 'Goldene Jacke',
+      'hat_none': 'Ohne',
+      'hat_captain': 'Kapitänsmütze',
+      'hat_bandana': 'Kopftuch',
+      'hat_straw': 'Strohhut',
+      'hat_tricorn': 'Dreispitz',
+      'hat_goldCaptain': 'Goldmütze',
+      'scarf_none': 'Ohne',
+      'scarf_red': 'Rotes Halstuch',
+      'scarf_gold': 'Goldenes Halstuch',
+      'flag_taleria': 'Taleria-Flagge',
+      'flag_stripes': 'Streifen-Flagge',
+      'flag_wave': 'Wellen-Flagge',
+      'flag_star': 'Sternen-Flagge',
+      'flag_sun': 'Sonnen-Flagge',
+      'other': 'Teil',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get childHomeShipyardTile => 'Werft';
+
+  @override
+  String childHomeShipyardNew(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count neue Teile frei',
+      one: '1 neues Teil frei',
+    );
+    return '$_temp0';
+  }
 }

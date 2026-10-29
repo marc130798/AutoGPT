@@ -11,6 +11,7 @@ import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
 import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
+import '../../domain/shipyard.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/child_stats_controller.dart';
 import '../../services/session_controller.dart';
@@ -34,6 +35,7 @@ import 'games_screen.dart';
 import 'lighthouse_button.dart';
 
 import 'rank_form_choice.dart';
+import 'shipyard_screen.dart';
 import 'sound_button.dart';
 
 /// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck mit Talo,
@@ -81,7 +83,11 @@ class ChildHomeScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   _CrewHeader(avatar: child.avatar ?? const AvatarConfig()),
                   const SizedBox(height: 12),
-                  _WelcomeCard(nickname: child.nickname, shipName: child.shipName),
+                  _WelcomeCard(
+                    nickname: child.nickname,
+                    shipName: child.shipName,
+                    flag: (child.avatar ?? const AvatarConfig()).flag,
+                  ),
                   const SizedBox(height: 16),
                   // Wer vor dieser Frage schon gespielt hat, wählt einmal hier.
                   if (child.rankForm == null) ...[_RankFormCard(childId: child.id), const SizedBox(height: 16)],
@@ -234,10 +240,11 @@ class _CrewHeader extends StatelessWidget {
 
 /// Begrüßung und das eigene Schiff mit seinem Namen.
 class _WelcomeCard extends StatelessWidget {
-  const _WelcomeCard({required this.nickname, required this.shipName});
+  const _WelcomeCard({required this.nickname, required this.shipName, required this.flag});
 
   final String nickname;
   final String? shipName;
+  final ShipFlag flag;
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +271,7 @@ class _WelcomeCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const TaleriaAsset(AssetKeys.crewShip, width: 64, height: 56),
+                FlaggedShip(flag: flag, size: 60),
                 const SizedBox(width: 8),
                 Flexible(
                   child: Text(
@@ -586,6 +593,9 @@ class _ProgressSectionState extends State<_ProgressSection> {
   /// Funde, die das Kind in der Sammlung schon gesehen hat (auf diesem Gerät).
   int _collectionSeen = 0;
 
+  /// Werft-Teile, die das Kind schon gesehen hat (auf diesem Gerät).
+  int _shipyardSeen = 0;
+
   ChildProfile get _child => widget.state.child;
 
   @override
@@ -600,8 +610,24 @@ class _ProgressSectionState extends State<_ProgressSection> {
   }
 
   Future<void> _loadCollectionSeen() async {
-    final seen = await AppScope.of(context).settings.collectionSeen(_child.id);
-    if (mounted) setState(() => _collectionSeen = seen);
+    final settings = AppScope.of(context).settings;
+    final seen = await settings.collectionSeen(_child.id);
+    final shipyard = await settings.lookUnlocksSeen(_child.id);
+    if (mounted) {
+      setState(() {
+        _collectionSeen = seen;
+        _shipyardSeen = shipyard;
+      });
+    }
+  }
+
+  /// Öffnet die Werft; danach gelten alle freien Teile als gesehen.
+  Future<void> _openShipyard(ChildStats stats) async {
+    final settings = AppScope.of(context).settings;
+    final unlocked = unlockedShipyardCount(stats.xp);
+    setState(() => _shipyardSeen = unlocked);
+    await settings.setLookUnlocksSeen(_child.id, unlocked);
+    await _open(ShipyardScreen(child: _child, xp: stats.xp));
   }
 
   /// Öffnet die Sammlung; danach gelten alle Funde als gesehen.
@@ -694,6 +720,25 @@ class _ProgressSectionState extends State<_ProgressSection> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 12),
+              Builder(
+                builder: (context) {
+                  final fresh = max(0, unlockedShipyardCount(stats.xp) - _shipyardSeen);
+                  return _HomeTile(
+                    key: const ValueKey('home-shipyard'),
+                    image: '',
+                    art: FlaggedShip(flag: (_child.avatar ?? const AvatarConfig()).flag, size: 64),
+                    fallbackIcon: Icons.sailing_rounded,
+                    label: l10n.childHomeShipyardTile,
+                    semanticLabel: l10n.childHomeShipyardTile,
+                    count: fresh,
+                    attention: true,
+                    hint: fresh > 0 ? l10n.childHomeShipyardNew(fresh) : null,
+                    hintKey: const ValueKey('child-home-shipyard-new'),
+                    onTap: () => _openShipyard(stats),
+                  );
+                },
               ),
             ],
           ],

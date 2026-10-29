@@ -3857,5 +3857,79 @@
         "type": "String"
       }
     }
+  },
+  "shipyardTitle": "Werft",
+  "@shipyardTitle": {
+    "description": "Titel der Werft (Avatar-Teile und Flaggen mit Seemeilen freischalten)"
+  },
+  "shipyardIntro": "Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei: Jacken, Hüte, Halstücher und Flaggen für dein Schiff. Tipp an, was dir gefällt.",
+  "@shipyardIntro": {
+    "description": "Tala erklärt die Werft"
+  },
+  "shipyardNext": "Noch {xp} Seemeilen bis: {item}",
+  "@shipyardNext": {
+    "description": "Nächstes Teil der Werft",
+    "placeholders": {
+      "xp": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "shipyardAllUnlocked": "Du hast alles in der Werft frei. Stark!",
+  "@shipyardAllUnlocked": {
+    "description": "Alle Werft-Teile sind frei"
+  },
+  "shipyardLocked": "Das wird {xp} frei. Segel einfach weiter!",
+  "@shipyardLocked": {
+    "description": "Hinweis beim Antippen eines gesperrten Teils; xp ist z. B. „ab 1.000 Seemeilen“",
+    "placeholders": {
+      "xp": {
+        "type": "String"
+      }
+    }
+  },
+  "shipyardLockedLabel": "{item}, noch gesperrt",
+  "@shipyardLockedLabel": {
+    "description": "Vorlese-Text für ein gesperrtes Teil",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "lookSlot": "{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} other{Teile}}",
+  "@lookSlot": {
+    "description": "Bereiche der Werft",
+    "placeholders": {
+      "slot": {
+        "type": "String"
+      }
+    }
+  },
+  "lookName": "{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} other{Teil}}",
+  "@lookName": {
+    "description": "Name eines Teils in der Werft",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "childHomeShipyardTile": "Werft",
+  "@childHomeShipyardTile": {
+    "description": "Kachel auf der Startseite zur Werft"
+  },
+  "childHomeShipyardNew": "{count, plural, =1{1 neues Teil frei} other{{count} neue Teile frei}}",
+  "@childHomeShipyardNew": {
+    "description": "Hinweis unter der Werft-Kachel",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

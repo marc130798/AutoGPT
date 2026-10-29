@@ -41,7 +41,11 @@ abstract final class AvatarPalette {
     OutfitColor.yellow: Color(0xFFE5B425),
     OutfitColor.purple: Color(0xFF7D4E9E),
     OutfitColor.orange: Color(0xFFE8792B),
+    OutfitColor.teal: Color(0xFF1F9AA0),
+    OutfitColor.gold: Color(0xFFD4A62A),
   };
+
+  static const scarf = {Scarf.red: Color(0xFFC0392B), Scarf.gold: Color(0xFFE6BB45)};
 }
 
 /// Zeichnet den Avatar aus einfachen Formen. Wird später durch die
@@ -114,6 +118,26 @@ class _AvatarPainter extends CustomPainter {
     );
     // Hals
     canvas.drawRect(Rect.fromCenter(center: Offset(w * 0.5, w * 0.64), width: w * 0.12, height: w * 0.08), skin);
+
+    // Halstuch aus der Werft: Band um den Hals und ein Zipfel vorn
+    if (AvatarPalette.scarf[avatar.scarf] case final color?) {
+      final scarf = Paint()..color = color;
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromCenter(center: Offset(w * 0.5, w * 0.675), width: w * 0.3, height: w * 0.07),
+          Radius.circular(w * 0.035),
+        ),
+        scarf,
+      );
+      canvas.drawPath(
+        Path()
+          ..moveTo(w * 0.47, w * 0.69)
+          ..lineTo(w * 0.56, w * 0.69)
+          ..lineTo(w * 0.53, w * 0.8)
+          ..close(),
+        scarf,
+      );
+    }
 
     // Kopf
     canvas.drawCircle(headCenter, headRadius, skin);
@@ -222,6 +246,68 @@ class _AvatarPainter extends CustomPainter {
           3.14,
           true,
           straw,
+        );
+      case Hat.tricorn:
+        // Dreispitz: breiter, dunkler Hut mit hochgeklappter Krempe und goldenem Rand
+        final hat = Paint()..color = const Color(0xFF2B2420);
+        final top = headCenter.translate(0, -headRadius * 0.8);
+        canvas.drawPath(
+          Path()
+            ..moveTo(top.dx - headRadius * 1.45, top.dy + headRadius * 0.15)
+            ..quadraticBezierTo(
+              top.dx,
+              top.dy - headRadius * 1.15,
+              top.dx + headRadius * 1.45,
+              top.dy + headRadius * 0.15,
+            )
+            ..quadraticBezierTo(
+              top.dx,
+              top.dy - headRadius * 0.2,
+              top.dx - headRadius * 1.45,
+              top.dy + headRadius * 0.15,
+            )
+            ..close(),
+          hat,
+        );
+        canvas.drawPath(
+          Path()
+            ..moveTo(top.dx - headRadius * 1.45, top.dy + headRadius * 0.15)
+            ..quadraticBezierTo(
+              top.dx,
+              top.dy - headRadius * 0.2,
+              top.dx + headRadius * 1.45,
+              top.dy + headRadius * 0.15,
+            ),
+          Paint()
+            ..color = const Color(0xFFD4A62A)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = w * 0.015,
+        );
+      case Hat.goldCaptain:
+        final cap = Paint()..color = const Color(0xFFF2F2EE);
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromCenter(
+              center: headCenter.translate(0, -headRadius * 0.95),
+              width: headRadius * 2.1,
+              height: headRadius * 0.7,
+            ),
+            Radius.circular(w * 0.04),
+          ),
+          cap,
+        );
+        canvas.drawRect(
+          Rect.fromCenter(
+            center: headCenter.translate(0, -headRadius * 0.6),
+            width: headRadius * 2.3,
+            height: headRadius * 0.16,
+          ),
+          Paint()..color = const Color(0xFFD4A62A),
+        );
+        canvas.drawCircle(
+          headCenter.translate(0, -headRadius * 0.95),
+          headRadius * 0.18,
+          Paint()..color = const Color(0xFFD4A62A),
         );
       case Hat.none:
         break;

@@ -7,6 +7,7 @@ import '../../core/assets/taleria_asset.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
+import '../../domain/shipyard.dart';
 import '../../domain/progress_models.dart';
 import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
@@ -219,15 +220,16 @@ class _AvatarStep extends StatelessWidget {
               ],
               _ColorRow(
                 title: l10n.avatarOutfit,
-                colors: [for (final c in OutfitColor.values) AvatarPalette.outfit[c]!],
-                selected: avatar.outfit.index,
-                onSelect: (i) => update(avatar.copyWith(outfit: OutfitColor.values[i])),
+                // Im Intro nur die Starter-Jacken; weitere schaltet die Werft mit Seemeilen frei.
+                colors: [for (final c in starterOutfits) AvatarPalette.outfit[c]!],
+                selected: starterOutfits.indexOf(avatar.outfit),
+                onSelect: (i) => update(avatar.copyWith(outfit: starterOutfits[i])),
               ),
               _ChipRow(
                 title: l10n.avatarHat,
                 labels: [l10n.avatarHatNone, l10n.avatarHatCaptain, l10n.avatarHatBandana, l10n.avatarHatStraw],
-                selected: avatar.hat.index,
-                onSelect: (i) => update(avatar.copyWith(hat: Hat.values[i])),
+                selected: starterHats.indexOf(avatar.hat),
+                onSelect: (i) => update(avatar.copyWith(hat: starterHats[i])),
               ),
             ],
           ),

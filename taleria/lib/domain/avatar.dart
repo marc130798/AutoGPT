@@ -13,9 +13,17 @@ enum HairStyle { short, long, curly, braid, none }
 
 enum HairColor { black, brown, blond, red, grey }
 
-enum OutfitColor { navy, red, green, yellow, purple, orange }
+/// Die ersten sechs gibt es von Anfang an, [teal] und [gold] schaltet die Werft frei.
+enum OutfitColor { navy, red, green, yellow, purple, orange, teal, gold }
 
-enum Hat { none, captain, bandana, straw }
+/// Die ersten vier gibt es von Anfang an, [tricorn] und [goldCaptain] schaltet die Werft frei.
+enum Hat { none, captain, bandana, straw, tricorn, goldCaptain }
+
+/// Halstuch, nur aus der Werft (Belohnung für Seemeilen).
+enum Scarf { none, red, gold }
+
+/// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
+enum ShipFlag { taleria, stripes, wave, star, sun }
 
 class AvatarConfig {
   const AvatarConfig({
@@ -25,6 +33,8 @@ class AvatarConfig {
     this.hairColor = HairColor.brown,
     this.outfit = OutfitColor.navy,
     this.hat = Hat.captain,
+    this.scarf = Scarf.none,
+    this.flag = ShipFlag.taleria,
   });
 
   /// Liest gespeicherte Werte. Unbekannte oder fehlende Werte werden zum
@@ -40,6 +50,8 @@ class AvatarConfig {
       hairColor: pick(HairColor.values, 'hairColor', fallback.hairColor),
       outfit: pick(OutfitColor.values, 'outfit', fallback.outfit),
       hat: pick(Hat.values, 'hat', fallback.hat),
+      scarf: pick(Scarf.values, 'scarf', fallback.scarf),
+      flag: pick(ShipFlag.values, 'flag', fallback.flag),
     );
   }
 
@@ -52,6 +64,8 @@ class AvatarConfig {
   final HairColor hairColor;
   final OutfitColor outfit;
   final Hat hat;
+  final Scarf scarf;
+  final ShipFlag flag;
 
   Map<String, dynamic> toJson() => {
     'v': formatVersion,
@@ -61,6 +75,8 @@ class AvatarConfig {
     'hairColor': hairColor.name,
     'outfit': outfit.name,
     'hat': hat.name,
+    'scarf': scarf.name,
+    'flag': flag.name,
   };
 
   bool get isAnimal => species != Species.human;
@@ -72,6 +88,8 @@ class AvatarConfig {
     HairColor? hairColor,
     OutfitColor? outfit,
     Hat? hat,
+    Scarf? scarf,
+    ShipFlag? flag,
   }) {
     return AvatarConfig(
       species: species ?? this.species,
@@ -80,6 +98,8 @@ class AvatarConfig {
       hairColor: hairColor ?? this.hairColor,
       outfit: outfit ?? this.outfit,
       hat: hat ?? this.hat,
+      scarf: scarf ?? this.scarf,
+      flag: flag ?? this.flag,
     );
   }
 
@@ -91,8 +111,10 @@ class AvatarConfig {
       other.hairStyle == hairStyle &&
       other.hairColor == hairColor &&
       other.outfit == outfit &&
-      other.hat == hat;
+      other.hat == hat &&
+      other.scarf == scarf &&
+      other.flag == flag;
 
   @override
-  int get hashCode => Object.hash(species, skin, hairStyle, hairColor, outfit, hat);
+  int get hashCode => Object.hash(species, skin, hairStyle, hairColor, outfit, hat, scarf, flag);
 }
