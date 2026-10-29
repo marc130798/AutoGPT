@@ -75,6 +75,15 @@
   .islands img { width: 100%; filter: drop-shadow(0 16px 16px rgba(0,0,0,.35)); }
   .islands figcaption { font-family: var(--display); font-weight: 800; font-size: 22px; color: #fff; margin-top: 4px; }
   .islands figcaption small { display: block; font-family: var(--body); font-weight: 700; font-size: 15px; color: #d9ecf6; }
+  .phone { position: relative; width: 210px; aspect-ratio: 390 / 844; border-radius: 34px; background: #0e1b2a; padding: 9px; box-shadow: 0 22px 40px rgba(10,25,45,.35), inset 0 0 0 2px #2b3c50; }
+  .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 26px; display: block; }
+  .phone::before { content: ""; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 62px; height: 16px; border-radius: 10px; background: #0e1b2a; z-index: 2; }
+  .phones .phone { width: 158px; border-radius: 28px; padding: 7px; }
+  .phones .phone img { border-radius: 22px; }
+  .phones { display: flex; gap: 48px; justify-content: center; align-items: flex-start; margin-top: 20px; }
+  .phones figure { margin: 0; text-align: center; }
+  .phones figcaption { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--sea-deep); margin-top: 12px; }
+  .phones figcaption small { display: block; font-family: var(--body); font-weight: 700; font-size: 14px; color: var(--ink-soft); }
 </style>
 </head>
 <body>
@@ -83,12 +92,13 @@
 <section class="slide sea">
   <div class="photo" style="background-image:url(../assets/images/map.background.jpg);opacity:.4"></div>
   <div style="position:relative;z-index:1;margin-top:40px">
-    <span class="pill">Lern-App · Finanzbildung ab 8 Jahren</span>
+    <span class="pill">App fürs Handy und Tablet · Finanzbildung ab 8 Jahren</span>
     <img src="../assets/images/brand.logo.png" style="width:420px;margin-top:34px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.35))">
     <h1 style="margin-top:26px">Geld verstehen.<br><span class="gold">Abenteuer erleben.</span></h1>
     <p class="lead" style="max-width:600px">Mit Talo und Tala segeln Kinder von Insel zu Insel und lernen spielerisch, wie Geld funktioniert. Die Eltern sind mit an Bord.</p>
   </div>
-  <img class="fig" src="../assets/images/ship.crew.png" style="position:absolute;right:40px;bottom:70px;width:560px">
+  <img class="fig" src="../assets/images/ship.crew.png" style="position:absolute;right:250px;bottom:120px;width:440px">
+  <div class="phone" style="position:absolute;right:80px;top:60px;width:240px;transform:rotate(4deg)"><img src="app/home.jpg" alt=""></div>
   <div class="num">1</div>
 </section>
 
@@ -121,6 +131,20 @@
   <img class="brand" src="../assets/images/brand.logo.png"><div class="num">3</div>
 </section>
 
+<!-- 3b Die App -->
+<section class="slide light">
+  <span class="eyebrow">Die App</span>
+  <h2>Taleria ist eine App fürs Handy und Tablet</h2>
+  <p class="lead" style="max-width:1000px;margin-top:10px;font-size:21px">Für iPhone, iPad und Android, im Hochformat und mit einer Hand bedienbar. Heute läuft die Testversion schon im Browser, später kommt Taleria in den App Store und zu Google Play.</p>
+  <div class="phones">
+    <figure><div class="phone"><img src="app/home.jpg" alt=""></div><figcaption>Startseite<small>Rang, Seemeilen, Truhen</small></figcaption></figure>
+    <figure><div class="phone"><img src="app/karte.jpg" alt=""></div><figcaption>Seekarte<small>das Schiff segelt mit</small></figcaption></figure>
+    <figure><div class="phone"><img src="app/geschichte.jpg" alt=""></div><figcaption>Bildergeschichte<small>lernen in kurzen Szenen</small></figcaption></figure>
+    <figure><div class="phone"><img src="app/ergebnis.jpg" alt=""></div><figcaption>Geschafft!<small>Sterne und Seemeilen</small></figcaption></figure>
+  </div>
+  <div class="num">4</div>
+</section>
+
 <!-- 4 Die Inseln -->
 <section class="slide night">
   <div class="photo" style="background-image:url(../assets/images/map.background.jpg);opacity:.25"></div>
@@ -134,7 +158,7 @@
     </div>
     <p class="lead" style="max-width:none;margin-top:22px;font-size:20px">Danach: Sparen · Taschengeld einteilen · Einkaufen · Werbung durchschauen · Geld verdienen · Bank und Konto · Zinsen · Leihen und Schulden · Sicher mit Geld · Risiko und Vorsorge · Planen und Investieren als Idee · Schatzinsel</p>
   </div>
-  <div class="num">4</div>
+  <div class="num">5</div>
 </section>
 
 <!-- 5 Eine Station -->
@@ -157,7 +181,7 @@
     <div class="card gold-b"><h3>Echte Mini-Spiele</h3><p>Fischbrötchen-Kasse, Markt-Einkauf, Eisstand, Tauschkette und Rucksack packen.</p></div>
     <div class="card gold-b"><h3>Belohnungen, nie gekauft</h3><p>Seemeilen, Ränge vom Schiffsjungen bis zur Kapitänin, Orden und Funde.</p></div>
   </div>
-  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">5</div>
+  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">6</div>
 </section>
 
 <!-- 6 Vier Säulen -->
@@ -170,7 +194,7 @@
     <div class="card"><img class="ic" src="../assets/images/icon.badges.png"><h3>Spielen</h3><p>Mini-Spiele, Tauchgänge und Begegnungen mit Meister Taleron, dem freundlichen Seeungeheuer.</p></div>
     <div class="card"><img class="ic" src="../assets/images/icon.tasks.png"><h3>Familie</h3><p>Aufträge der Eltern mit Bestätigung und Kombüsen-Fragen für Gespräche am Esstisch.</p></div>
   </div>
-  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">6</div>
+  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">7</div>
 </section>
 
 <!-- 7 Eltern -->
@@ -185,8 +209,9 @@
       <div class="check"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#2b1f05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></i><div>Tempo und Pausen<small>2, 3, 4 Stationen pro Woche oder freie Fahrt in den Ferien.</small></div></div>
     </div>
   </div>
-  <img class="fig" src="../assets/images/parent.lighthouse.png" style="position:absolute;right:90px;bottom:50px;height:560px">
-  <div class="num">7</div>
+  <img class="fig" src="../assets/images/parent.lighthouse.png" style="position:absolute;right:340px;bottom:40px;height:300px">
+  <div class="phone" style="position:absolute;right:90px;top:50px;width:244px;transform:rotate(3deg)"><img src="app/eltern.jpg" alt=""></div>
+  <div class="num">8</div>
 </section>
 
 <!-- 8 Sicherheit -->
@@ -201,7 +226,7 @@
     <div class="card"><h3>Eltern-Sperre</h3><p>Der Elternbereich ist mit einer PIN geschützt. Kinder-Geräte melden sich per Code an.</p></div>
     <div class="card"><h3>Kein Druck</h3><p>Keine Countdowns, keine Zufallsboxen. Fehler werden erklärt und kosten nichts.</p></div>
   </div>
-  <div class="num">8</div>
+  <div class="num">9</div>
 </section>
 
 <!-- 9 Geschäftsmodell -->
@@ -224,7 +249,7 @@
       <p>Stufe 2 für 13 bis 15 Jahre und eine eigene App ab 16, auf derselben Technik.</p>
     </div>
   </div>
-  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">9</div>
+  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">10</div>
 </section>
 
 <!-- 10 Stand -->
@@ -241,7 +266,7 @@
     <div class="card"><h3 style="margin-top:0">Gebaut</h3><p>Kinderbereich, Elternbereich, Anmeldung per Code, Fortschritt, Ränge, Wiederholung, Tauchgänge, Budget und Aufträge, Abo-Rechte, Adminbereich mit Statistik, Musik und Animationen.</p></div>
     <div class="card"><h3 style="margin-top:0">Gerade</h3><p>Testphase mit Familien aus dem Bekanntenkreis, mit Anleitung und Fragebogen. Danach Feinschliff für die Beta.</p></div>
   </div>
-  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">10</div>
+  <img class="brand" src="../assets/images/brand.logo.png"><div class="num">11</div>
 </section>
 
 <!-- 11 Fahrplan -->
@@ -259,7 +284,7 @@
     </div>
     <p class="lead" style="margin-top:42px;max-width:900px">Vor dem öffentlichen Start: Marke anmelden, Datenschutz und AGB rechtlich prüfen lassen, Inhalte von einer Fachperson prüfen lassen.</p>
   </div>
-  <div class="num">11</div>
+  <div class="num">12</div>
 </section>
 
 <!-- 12 Kontakt -->
@@ -273,7 +298,7 @@
   </div>
   <img class="fig" src="../assets/images/character.talo.happy.png" style="position:absolute;left:70px;bottom:20px;height:300px">
   <img class="fig" src="../assets/images/character.tala.happy.png" style="position:absolute;right:70px;bottom:20px;height:310px">
-  <div class="num">12</div>
+  <div class="num">13</div>
 </section>
 
 </body>

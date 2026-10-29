@@ -17,6 +17,9 @@
   .flow div { background: #fff; border: 0.4mm solid var(--line); border-radius: 3mm; padding: 2.5mm 2mm; text-align: center; font-size: 9pt; color: var(--ink-soft); }
   .flow b { display: block; font-family: var(--display); font-size: 11pt; color: var(--sea-deep); }
   .flow i { display: grid; place-items: center; width: 7mm; height: 7mm; margin: 0 auto 1.5mm; border-radius: 50%; background: var(--gold); font-style: normal; font-weight: 800; color: #2b1f05; }
+  .phones2 { display: flex; gap: 4mm; justify-content: center; }
+  .ph { width: 26mm; aspect-ratio: 390 / 844; background: #0e1b2a; border-radius: 4mm; padding: 1.2mm; box-shadow: 0 2mm 4mm rgba(10,25,45,.3); }
+  .ph img { width: 100%; height: 100%; object-fit: cover; border-radius: 3mm; display: block; }
   .ic { display: grid; grid-template-columns: 16mm 1fr; gap: 4mm; align-items: center; }
   .ic img { width: 14mm; height: 14mm; object-fit: contain; }
   .page .box { padding: 3mm 4.5mm; }
@@ -29,7 +32,7 @@
     <div>
       <span class="eyebrow">Kurz erklärt</span>
       <h1>Was ist Taleria?</h1>
-      <p>Eine Lern-App, mit der Kinder ab 8 Jahren spielerisch lernen, wie Geld funktioniert.</p>
+      <p>Eine Lern-App fürs Handy und Tablet, mit der Kinder ab 8 Jahren spielerisch lernen, wie Geld funktioniert.</p>
     </div>
     <img class="logo" src="../assets/images/brand.logo.png" alt="Taleria">
   </header>
@@ -38,9 +41,10 @@
     <div style="display:grid; gap:3mm">
       <h2>Ein Abenteuer auf dem Meer</h2>
       <p>Das Kind wird neues Crewmitglied auf dem Schiff von <b>Talo</b>, dem Fuchs und Kapitän, und <b>Tala</b>, dem Schwein und der Zahlmeisterin. Gemeinsam suchen sie die Teile einer zerrissenen Schatzkarte. Jede Insel auf dem Weg ist ein Thema rund ums Geld.</p>
+      <p>Taleria ist eine <b>App für iPhone, iPad und Android</b>. Zum Testen läuft sie schon im Browser, später gibt es sie im App Store und bei Google Play.</p>
       <p>Unterwegs taucht manchmal <b>Meister Taleron</b> auf, ein uraltes, freundliches Seeungeheuer. Er stellt Rätselfragen zu dem, was die Crew schon gelernt hat.</p>
     </div>
-    <img src="../assets/images/ship.crew.png" alt="" style="width:100%;height:44mm;object-fit:contain">
+    <div class="phones2"><div class="ph"><img src="../pitch/app/home.jpg" alt=""></div><div class="ph"><img src="../pitch/app/karte.jpg" alt=""></div></div>
   </div>
 
   <div class="box">
