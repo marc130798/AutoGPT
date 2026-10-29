@@ -1,0 +1,51 @@
+@page { size: A4; margin: 0; }
+:root {
+  --sea: #3e8fb0; --sea-deep: #24476b; --gold: #d4a62a; --coral: #e5675a;
+  --ink: #1c2b3a; --ink-soft: #4a5d70; --paper: #fffbf2; --sky: #e6f3fa; --line: #cfe3ee;
+  --display: "Baloo 2", "Trebuchet MS", sans-serif; --body: "Nunito", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: var(--ink); font-family: var(--body); font-size: 10.5pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; padding: 14mm 15mm 12mm; position: relative; overflow: hidden; page-break-after: always; display: flex; flex-direction: column; gap: 5mm; }
+.page:last-child { page-break-after: auto; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.1; }
+h1 { font-size: 26pt; color: var(--sea-deep); }
+h2 { font-size: 15pt; color: var(--sea-deep); }
+h3 { font-size: 12pt; }
+p { margin: 0; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 6mm;
+  margin: -14mm -15mm 0; padding: 10mm 15mm 8mm; background: linear-gradient(135deg, #24476b, #3e8fb0); color: #fff; }
+.top h1 { color: #fff; }
+.top p { color: #e9f4fa; font-weight: 700; }
+.top .logo { width: 52mm; }
+.eyebrow { font-weight: 800; font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase; color: #f3d98a; }
+.box { border-radius: 4mm; padding: 4mm 5mm; background: var(--sky); }
+.box.gold { background: var(--paper); border: 0.6mm solid var(--gold); }
+.box.coral { background: #fdf0ee; border: 0.6mm solid #f2b3ab; }
+.steps { display: grid; gap: 3.5mm; }
+.step { display: grid; grid-template-columns: 11mm 1fr; gap: 4mm; align-items: start; background: #fff; border: 0.4mm solid var(--line); border-radius: 4mm; padding: 3.5mm 4.5mm; }
+.num { width: 11mm; height: 11mm; border-radius: 50%; background: var(--gold); color: #2b1f05; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 14pt; }
+.step h3 { color: var(--sea-deep); margin-bottom: 1mm; }
+.step ul, .box ul { margin: 1mm 0 0; padding-left: 4.5mm; }
+.step li, .box li { margin-bottom: .6mm; }
+.k { font-weight: 800; background: var(--paper); border: 0.3mm solid var(--gold); border-radius: 1.5mm; padding: 0 1.4mm; white-space: nowrap; }
+.code { font-family: var(--display); font-weight: 800; letter-spacing: .1em; color: var(--sea-deep); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.foot { margin-top: auto; font-size: 8.5pt; color: var(--ink-soft); display: flex; justify-content: space-between; border-top: 0.3mm solid var(--line); padding-top: 2.5mm; }
+.writeline { border-bottom: 0.35mm solid #9fb3c2; height: 7.5mm; }
+.figs { display: flex; align-items: flex-end; gap: 2mm; }
+.figs img { height: 34mm; }
+
+/* Fragebogen */
+.q { display: grid; gap: 1.8mm; break-inside: avoid; }
+.q > b { font-family: var(--display); font-size: 11.5pt; color: var(--sea-deep); }
+.q .n { color: var(--gold); margin-right: 1.5mm; }
+.opts { display: flex; flex-wrap: wrap; gap: 2mm 5mm; }
+.opt { display: inline-flex; align-items: center; gap: 1.8mm; }
+.opt::before { content: ""; width: 4.2mm; height: 4.2mm; border: 0.45mm solid var(--sea-deep); border-radius: 1mm; background: #fff; flex: none; }
+.faces { display: flex; gap: 7mm; }
+.face { display: grid; justify-items: center; gap: 1mm; font-size: 8.5pt; color: var(--ink-soft); }
+.face svg { width: 12mm; height: 12mm; }
+.scale { display: flex; gap: 2mm; align-items: center; font-size: 8.5pt; color: var(--ink-soft); }
+.scale span.c { width: 7mm; height: 7mm; border: 0.45mm solid var(--sea-deep); border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--sea-deep); font-size: 8.5pt; }
+.qgrid { display: grid; gap: 4.2mm; }
