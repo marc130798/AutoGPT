@@ -432,6 +432,28 @@ Text für Bild 163:
 
 > Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen. Ein Logo für ein Kinder-Lernspiel auf einer Abenteuer-Insel: das Wort „Taleria“ (genau so geschrieben: T, a, l, e, r, i, a), in großen, dicken, runden und freundlichen Buchstaben aus glänzendem Gold mit dunkelbraunem Rand. Die Buchstaben stehen leicht geschwungen auf einem breiten Holzschild mit zwei Nägeln, wie an einem Hafen. Links neben dem Wort ein kleiner goldener Kompass, über dem „i“ ein kleiner funkelnder Stern statt des Punkts. Querformat, etwa doppelt so breit wie hoch, das Schild vollständig in der Bildmitte mit Abstand zu allen Rändern. Keine weiteren Wörter, keine Zahlen, keine Figuren, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
 
+## 4q. Tiere im Meer der Karte (Bild 164 bis 166)
+
+Auf Marcs Wunsch am 29.10.2026: Auf der Karte schwimmen zwischen den Inseln ein Fisch, ein Wal und ein Delfin, die beim Antippen springen oder eine Fontäne blasen. Bis die Bilder da sind, zeichnet die App einfache Tiere. Bewegung, Wasser, Spritzer und Fontäne macht der Code, deshalb brauchen die Bilder **kein Wasser**. Kein Video nötig. Bei allen drei das Hafen-Kartenbild (design/gemini/map.island.hafen.jpg) als Stil-Vorlage anhängen. Quadratisch, etwa 1024 × 1024.
+
+| Nr. | Datei | Bild | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 164 | `critter.fish` | Fisch im Sprung, von der Seite | Hafen-Kartenbild | fehlt |
+| 165 | `critter.whale` | Wal, Kopf und Rücken | Hafen-Kartenbild | fehlt |
+| 166 | `critter.dolphin` | Delfin im Sprung, von der Seite | Hafen-Kartenbild | fehlt |
+
+Text für Bild 164:
+
+> Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen, freundlich und niedlich für Kinder. Ein kleiner, fröhlicher orangefarbener Fisch mit weißen Streifen und großen freundlichen Augen, von der Seite gesehen, im Sprung leicht nach oben gebogen, der Kopf zeigt nach rechts. Ganzer Fisch mit Schwanzflosse. Ganz im Bild mit Abstand zu allen Rändern, kein Wasser, keine Spritzer, kein Schatten, kein Boden. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf.
+
+Text für Bild 165:
+
+> Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen, freundlich und niedlich für Kinder. Ein freundlicher, rundlicher blaugrauer Wal mit heller Bauchseite und einem lächelnden Mund, von der Seite gesehen, der Kopf zeigt nach rechts. Nur Kopf und vorderer Rücken mit dem Blasloch oben, so als würde er gerade aus dem Wasser auftauchen; der hintere Körper und die Schwanzflosse sind nicht zu sehen, unten gerade abgeschnitten. Ganz im Bild mit Abstand zu allen Rändern, kein Wasser, keine Spritzer, kein Schatten, kein Boden. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf.
+
+Text für Bild 166:
+
+> Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen, freundlich und niedlich für Kinder. Ein fröhlicher hellgrauer Delfin mit heller Bauchseite und lächelndem Gesicht, von der Seite gesehen, im Sprung zu einem schönen Bogen gebogen, der Kopf zeigt nach rechts. Ganzer Delfin mit Rückenflosse und Schwanzflosse. Ganz im Bild mit Abstand zu allen Rändern, kein Wasser, keine Spritzer, kein Schatten, kein Boden. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf.
+
 ## 4o. Spar-Insel (Insel 4)
 
 Vorbereitet am 11.10.2026 abends auf Marcs Wunsch, bevor die Texte der Spar-Insel geschrieben sind: Die Bildergeschichten geben die Geschichte vor, die Sätze schreibt Claude danach passend dazu. Reihenfolge: erst Karte (132), dann die Insel von innen (133, braucht 132 als Vorlage), dann Emma und Gustav (134, 135, sie sind Vorlagen für die Geschichten), danach Orden, Siegel, Funde und die Geschichten. Emma ist rotbraun, Gustav hellgrün: beide auf Pink. Gustav darf nicht wie eine bekannte Filmgrille aussehen (kein Zylinder, kein Regenschirm). Wo Zahlen nötig sind (Station 3: 50 Cent am Tag sind 3,50 € in der Woche; Station 5: Sparplan 30 Taler mit 5 pro Woche), zeichnet die App das Bild selbst. Ganze Texte in `design/prompts_spar_insel.txt`.
