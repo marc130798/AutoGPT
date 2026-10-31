@@ -827,6 +827,11 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
 5. Gesammelt mit Marc am 29.10.2026 („wir sammeln weiter“), noch nicht gebaut:
    - Ideen für mehr Leben: der eigene Avatar steht in Szenen und Spielen mit auf der Bühne (mit Teilen aus der Werft); die zerrissene Schatzkarte liegt auf der Startseite und füllt sich mit jeder geschafften Insel; Jahreszeiten als Deko (zum Beispiel Schnee im Dezember, wäre eine neue Regel neben „keine Tageszeit-Wechsel“, vorher Marc fragen); Sprecherstimmen für Talo und Tala; der Intro-Film.
    - Die Glückstruhe (Verschenken) vielleicht später mit einer Insel zum Teilen zurückbringen.
+   - Anregungen aus dem Buch „Ein Hund namens Money“ (Bodo Schäfer), besprochen am 31.10.2026, nur Ideen, nichts übernehmen (kein sprechender Lehrer-Hund, keine Begriffe oder Namen aus dem Buch, keine Renditen und keine Anlageprodukte, kein „reich werden“ als Ziel):
+     - Jeder Wunschschatz bekommt ein Bild, das das Kind auswählt (Ziel vor Augen).
+     - Freiwilliges „Logbuch der Erfolge“: Das Kind notiert, was es geschafft hat (zum Beispiel „2 € zurückgelegt“), ohne Druck.
+     - Beim Taschengeld schlägt Tala vor, gleich einen Teil für einen Wunschschatz zurückzulegen (passt zur einen Schatztruhe, Thema der Taschengeld-Bucht).
+     - Selbst verdienen (Verdienst-Insel), Zinseszins als wachsender Schneeball (Zins-Insel), „Investieren als Idee“ höchstens als Crew-Abenteuer mit der Familie (Zukunftsinsel). Details in `INSELN.md`, Abschnitt „Anregungen“.
    - Für die Testphase mit Familien: eigener E-Mail-Versand (SMTP, zum Beispiel Brevo), CRM mit Brevo, Marcs E-Mail-Adresse in Pitch und Flyern, Bilder der Spar-Insel (132 bis 162).
 6. Später:
    - Schritt 9b: Kaufen mit RevenueCat, sobald Store-Konten und Preise da sind.

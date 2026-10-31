@@ -1350,3 +1350,17 @@ So zu lesen: Die Schätzfrage kommt vor der Erklärung, die Auflösung steht in 
 | 2 | Wie viele Bewohner der Inseln 8 bis 14 kennst du noch mit Namen? (eigene Schätzung) | Einen Bewohner begrüßen | Die Aufgabe des Bewohners öffnen |
 | 3 | Wie viele der 20 Fragen schaffst du? (eigene Schätzung, wird verglichen) | Ins Muschelhorn blasen, Taleron taucht auf | Taleron zunicken: bereit |
 | 4 | Was ist in der Truhe? (die Goldene Schatzkarte) | Den Schlüssel im Schloss drehen | Die goldene Karte entrollen |
+
+---
+
+## Anregungen für spätere Inseln (31.10.2026)
+
+Aus dem Buch „Ein Hund namens Money“ (Bodo Schäfer), mit Marc besprochen. **Nur Ideen, nichts übernehmen:** kein sprechender Hund als Lehrer, keine Begriffe, Bilder oder Namen aus dem Buch, keine Zinsversprechen, keine Anlageprodukte, kein „reich werden“ als Ziel. Bei uns erklären Talo, Tala und Meister Taleron, und es geht um klugen Umgang mit Geld.
+
+- **Wunschinsel / Schatztruhe:** Jeder Wunschschatz bekommt ein Bild, das das Kind auswählt. Wer sein Ziel sieht, bleibt eher dran.
+- **Spar-Insel und Startseite:** ein freiwilliges „Logbuch der Erfolge“. Das Kind notiert, was es geschafft hat, zum Beispiel „2 € zurückgelegt“ oder „Auftrag erledigt“. Ohne Pflicht, ohne Fahrtwind-Druck.
+- **Taschengeld-Bucht (Insel 5):** Wenn Taschengeld kommt, schlägt Tala vor, gleich einen Teil für einen Wunschschatz zurückzulegen („erst zurücklegen, dann ausgeben“). Das Kind wählt selbst, wie viel.
+- **Verdienst-Insel (Insel 8):** eigene Ideen, mit denen Kinder etwas verdienen können (zum Beispiel Nachbarn helfen), passend zu den Aufträgen fürs echte Leben.
+- **Zins-Insel (Insel 10):** Zinseszins als Bild eines wachsenden Schneeballs oder einer wachsenden Muschelkette, mit kleinen, ehrlichen Zahlen und Quelle.
+- **Zukunftsinsel (Insel 14):** „Investieren als Idee“ höchstens als Crew-Abenteuer mit der Familie (gemeinsam ein Ziel planen und beobachten), ohne echte Produkte und ohne Empfehlung.
+
