@@ -35,6 +35,7 @@ abstract final class AssetKeys {
   static const iconTasks = 'icon.tasks';
   static const iconBadges = 'icon.badges';
   static const iconCollection = 'icon.collection';
+  static const iconGames = 'icon.games';
 
   /// Schatztruhe (Kinderbereich): Hintergrund und Bilder (BILDER.md, Abschnitt 4f).
   /// Die Schatztruhe selbst zeigt [iconTreasure].

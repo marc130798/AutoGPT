@@ -438,9 +438,9 @@ Auf Marcs Wunsch am 29.10.2026: Auf der Karte schwimmen zwischen den Inseln ein 
 
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
-| 164 | `critter.fish` | Fisch im Sprung, von der Seite | Hafen-Kartenbild | fehlt |
-| 165 | `critter.whale` | Wal, Kopf und Rücken | Hafen-Kartenbild | fehlt |
-| 166 | `critter.dolphin` | Delfin im Sprung, von der Seite | Hafen-Kartenbild | fehlt |
+| 164 | `critter.fish` | Fisch im Sprung, von der Seite | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
+| 165 | `critter.whale` | Wal, Kopf und Rücken | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
+| 166 | `critter.dolphin` | Delfin im Sprung, von der Seite | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
 
 Text für Bild 164:
 
@@ -463,15 +463,15 @@ Bitte prüfen: Die beiden dürfen **keinem bekannten Film-Löwen ähneln**. Die 
 
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
-| 167 | `avatar.lion` | Löwe, Entwurf | Talo (design/gemini/character.talo.jpg) | fehlt |
-| 168 | `avatar.lioness` | Löwin, Entwurf | Talo (design/gemini/character.talo.jpg) | fehlt |
-| 169 | `avatar.lion.wave` | Löwe winkt | Bild 167 | fehlt |
-| 170 | `avatar.lion.happy` | Löwe freut sich | Bild 167 | fehlt |
-| 171 | `avatar.lion.think` | Löwe denkt nach | Bild 167 | fehlt |
-| 172 | `avatar.lioness.wave` | Löwin winkt | Bild 168 | fehlt |
-| 173 | `avatar.lioness.happy` | Löwin freut sich | Bild 168 | fehlt |
-| 174 | `avatar.lioness.think` | Löwin denkt nach | Bild 168 | fehlt |
-| 175 | `icon.games` | Spielekiste für die Kachel „Spiele“ | Schatztruhe (icon.treasure) | fehlt |
+| 167 | `avatar.lion` | Löwe, Entwurf | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 16.11.2026) |
+| 168 | `avatar.lioness` | Löwin, Entwurf | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 16.11.2026) |
+| 169 | `avatar.lion.wave` | Löwe winkt | Bild 167 | da (Claude mit Gemini, 16.11.2026) |
+| 170 | `avatar.lion.happy` | Löwe freut sich | Bild 167 | da (Claude mit Gemini, 16.11.2026) |
+| 171 | `avatar.lion.think` | Löwe denkt nach | Bild 167 | da (Claude mit Gemini, 16.11.2026) |
+| 172 | `avatar.lioness.wave` | Löwin winkt | Bild 168 | da (Claude mit Gemini, 16.11.2026) |
+| 173 | `avatar.lioness.happy` | Löwin freut sich | Bild 168 | da (Claude mit Gemini, 16.11.2026) |
+| 174 | `avatar.lioness.think` | Löwin denkt nach | Bild 168 | da (Claude mit Gemini, 16.11.2026) |
+| 175 | `icon.games` | Spielekiste für die Kachel „Spiele“ | Schatztruhe (icon.treasure) | da (Claude mit Gemini, 16.11.2026) |
 
 Text für Bild 167:
 
@@ -521,7 +521,7 @@ Am 16.11.2026 mit Marc: Die Werft bekommt einen eigenen Hintergrund statt des Sc
 
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
-| 176 | `shipyard.background` | Werft von innen | Hafen-Kartenbild | fehlt |
+| 176 | `shipyard.background` | Werft von innen | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
 
 Text für Bild 176:
 

@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
+import '../../core/assets/taleria_asset.dart';
 import '../../l10n/app_localizations.dart';
 import 'map_painters.dart';
 
@@ -51,22 +53,91 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: _tap,
-        child: SizedBox.fromSize(
-          size: SeaCritter.size,
-          child: CustomPaint(
-            painter: _CritterPainter(kind: widget.kind, clock: widget.clock, jump: _jump),
-          ),
-        ),
+        child: SizedBox.fromSize(size: SeaCritter.size, child: _withImage(context)),
       ),
     );
   }
 }
 
+extension on _SeaCritterState {
+  /// Das Tier als Bild (wenn es im Manifest steht), darunter der Maler für Wasser und Spritzer.
+  Widget _withImage(BuildContext context) {
+    final key = 'critter.${widget.kind.name}';
+    final hasImage = AppScope.of(context).manifest.lookup(key).path != null;
+    final painter = CustomPaint(
+      painter: _CritterPainter(kind: widget.kind, clock: widget.clock, jump: _jump, drawBody: !hasImage),
+    );
+    if (!hasImage) return painter;
+    final image = TaleriaAsset(key, fit: BoxFit.contain, fallback: const SizedBox.shrink());
+    return AnimatedBuilder(
+      animation: Listenable.merge([widget.clock, _jump]),
+      builder: (context, _) {
+        final size = SeaCritter.size;
+        final water = size.height * 0.72;
+        final t = sceneSeconds(widget.clock);
+        final j = _jump.value;
+        final active = _jump.isAnimating || (j > 0 && j < 1);
+        final Widget? body = switch (widget.kind) {
+          // Springt nur beim Antippen aus dem Wasser, sonst ist nur sein Schatten zu sehen.
+          CritterKind.fish when active => _placed(
+            Offset(size.width * (0.15 + 0.7 * j), water - sin(j * pi) * 46),
+            const Size(34, 26),
+            -cos(j * pi) * 0.9,
+            image,
+          ),
+          CritterKind.dolphin when active => _placed(
+            Offset(size.width * (0.1 + 0.8 * j), water - sin(j * pi) * 40),
+            const Size(48, 38),
+            -cos(j * pi) * 0.8,
+            image,
+          ),
+          // Der Wal schaut mit Kopf und Rücken aus dem Wasser; unter der Wasserlinie ist er weg.
+          CritterKind.whale => Positioned(
+            left: size.width * 0.14,
+            top: 0,
+            width: size.width * 0.72,
+            height: water + 1,
+            child: ClipRect(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Transform.translate(
+                  offset: Offset(0, 8 + osc(t, 7) * 1.5 - (active ? sin(j * pi) * 3 : 0)),
+                  child: SizedBox(width: size.width * 0.72, height: 46, child: image),
+                ),
+              ),
+            ),
+          ),
+          _ => null,
+        };
+        return Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned.fill(child: painter),
+            ?body,
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _placed(Offset center, Size size, double angle, Widget image) => Positioned(
+    left: center.dx - size.width / 2,
+    top: center.dy - size.height / 2,
+    width: size.width,
+    height: size.height,
+    child: Transform.rotate(angle: angle, child: image),
+  );
+}
+
 class _CritterPainter extends CustomPainter {
-  _CritterPainter({required this.kind, required this.clock, required this.jump})
+  _CritterPainter({required this.kind, required this.clock, required this.jump, this.drawBody = true})
     : super(repaint: Listenable.merge([clock, jump]));
 
   final CritterKind kind;
+
+  /// `false`, wenn das Tier als Bild darüberliegt (BILDER.md 4q): Dann malt
+  /// der Maler nur Wasserringe, Spritzer, Schatten und Fontäne.
+  final bool drawBody;
   final Animation<double> clock;
   final Animation<double> jump;
 
@@ -115,6 +186,11 @@ class _CritterPainter extends CustomPainter {
     }
     final x = size.width * (0.15 + 0.7 * j);
     final y = water - sin(j * pi) * 46;
+    if (!drawBody) {
+      _splash(canvas, Offset(size.width * 0.15, water), j, 0, 0.25);
+      _splash(canvas, Offset(size.width * 0.85, water), j, 0.75, 1);
+      return;
+    }
     canvas.save();
     canvas.translate(x, y);
     canvas.rotate(-cos(j * pi) * 0.9);
@@ -140,16 +216,18 @@ class _CritterPainter extends CustomPainter {
       ..moveTo(size.width * 0.18, water)
       ..quadraticBezierTo(size.width * 0.45, water - 22 + bob, size.width * 0.82, water)
       ..close();
-    canvas.drawPath(back, Paint()..color = const Color(0xFF3E5C7A));
-    canvas.drawPath(
-      Path()
-        ..moveTo(size.width * 0.3, water - 6 + bob)
-        ..quadraticBezierTo(size.width * 0.45, water - 16 + bob, size.width * 0.6, water - 10 + bob),
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = Colors.white.withValues(alpha: 0.35),
-    );
+    if (drawBody) {
+      canvas.drawPath(back, Paint()..color = const Color(0xFF3E5C7A));
+      canvas.drawPath(
+        Path()
+          ..moveTo(size.width * 0.3, water - 6 + bob)
+          ..quadraticBezierTo(size.width * 0.45, water - 16 + bob, size.width * 0.6, water - 10 + bob),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+          ..color = Colors.white.withValues(alpha: 0.35),
+      );
+    }
     if (j == null) return;
     final spout = Offset(size.width * 0.42, water - 18 + bob);
     final drop = Paint()..color = const Color(0xFFDDF2FF);
@@ -177,6 +255,11 @@ class _CritterPainter extends CustomPainter {
     }
     final x = size.width * (0.1 + 0.8 * j);
     final y = water - sin(j * pi) * 40;
+    if (!drawBody) {
+      _splash(canvas, Offset(size.width * 0.1, water), j, 0, 0.25);
+      _splash(canvas, Offset(size.width * 0.9, water), j, 0.75, 1);
+      return;
+    }
     canvas.save();
     canvas.translate(x, y);
     canvas.rotate(-cos(j * pi) * 0.8);
@@ -222,5 +305,5 @@ class _CritterPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_CritterPainter old) => old.kind != kind;
+  bool shouldRepaint(_CritterPainter old) => old.kind != kind || old.drawBody != drawBody;
 }

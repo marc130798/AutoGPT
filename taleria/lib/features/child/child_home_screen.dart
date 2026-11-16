@@ -20,7 +20,6 @@ import '../../services/child_stats_controller.dart';
 import '../../services/session_controller.dart';
 import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
-import '../common/game_sign.dart';
 import '../common/texts.dart';
 import '../common/wood_sign.dart';
 import '../common/lively_figure.dart';
@@ -1011,9 +1010,7 @@ class _HomeBodyState extends State<_HomeBody> {
                   Expanded(
                     child: _DeckItem(
                       key: const ValueKey('home-games'),
-                      // Bis das Bild der Spielekiste da ist (BILDER.md Bild 175): das Spiel-Zeichen.
-                      image: '',
-                      art: const GameSign(size: 64),
+                      image: AssetKeys.iconGames,
                       fallbackIcon: Icons.sports_esports_rounded,
                       label: l10n.childHomeGamesTile,
                       semanticLabel: l10n.childHomeGamesTile,

@@ -2150,6 +2150,123 @@
         "shape": "rectangle"
       }
     },
+    "icon.games": {
+      "type": "image",
+      "path": "assets/images/icon.games.png",
+      "placeholder": {
+        "label": "Spiele",
+        "color": "#D9C49A",
+        "shape": "rounded"
+      }
+    },
+    "shipyard.background": {
+      "type": "image",
+      "path": "assets/images/shipyard.background.jpg",
+      "placeholder": {
+        "label": "Werft",
+        "color": "#C79A63",
+        "shape": "rectangle"
+      }
+    },
+    "critter.fish": {
+      "type": "image",
+      "path": "assets/images/critter.fish.png",
+      "placeholder": {
+        "label": "Fisch",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
+    "critter.whale": {
+      "type": "image",
+      "path": "assets/images/critter.whale.png",
+      "placeholder": {
+        "label": "Wal",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
+    "critter.dolphin": {
+      "type": "image",
+      "path": "assets/images/critter.dolphin.png",
+      "placeholder": {
+        "label": "Delfin",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lion": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.png",
+      "placeholder": {
+        "label": "Löwe",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lion.wave": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.wave.png",
+      "placeholder": {
+        "label": "Löwe winkt",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lion.happy": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.happy.png",
+      "placeholder": {
+        "label": "Löwe freut sich",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lion.think": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.think.png",
+      "placeholder": {
+        "label": "Löwe denkt nach",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lioness": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.png",
+      "placeholder": {
+        "label": "Löwin",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lioness.wave": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.wave.png",
+      "placeholder": {
+        "label": "Löwin winkt",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lioness.happy": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.happy.png",
+      "placeholder": {
+        "label": "Löwin freut sich",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
+    "avatar.lioness.think": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.think.png",
+      "placeholder": {
+        "label": "Löwin denkt nach",
+        "color": "#E9B949",
+        "shape": "rounded"
+      }
+    },
     "icon.treasure": {
       "type": "image",
       "path": "assets/images/icon.treasure.png",
