@@ -843,3 +843,24 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - QR-Code zum Anmelden.
    - Captcha.
    - Nach der Beta Schritt 12: der eigene Adminbereich.
+
+## 18. Übergabe für die nächste Sitzung (Stand 16.11.2026)
+
+Die Sitzung vom 16.11.2026 wurde zu lang. Hier steht, wo es weitergeht.
+
+**Gebaut am 16.11.2026 (alles getestet, 433 App-Tests grün, gepusht):**
+- Logbücher für alle vier Inseln mit Schatzcodes (ANKER7, MUSCHEL3, FLASCHE5, TALER9), Werft schaltet damit Teile frei. Im Leuchtturm „Logbücher zum Ausdrucken“ (`logbooks_screen.dart`); die PDFs liegen verkleinert in `logbuch/web/` (`tool/logbuch_verkleinern.py`) und kommen beim Bauen neben die Web-App (`tool/build_test_web.sh`).
+- Neue Schrift: Nunito (Text) und Baloo 2 (Überschriften), Roboto ist raus.
+- Neue Startseite als Schiffsdeck (Rang-Holzschild, Sprechblase, Crew, Holzschild „Zur Karte“, Bereiche als Bilder auf dem Deck). Seiten im Kinderbereich ohne blauen Balken (`TaleriaAppBar`: Holzschild und Holz-Zurück-Knopf).
+- Ränge von oben (Schiffsjunge) nach unten (Kapitän), kürzere Texte in Schatztruhe und Aufträgen, Erklärungen hinter „?“.
+- Orden als Ehrenwand: neuer Orden zoomt heran, das Kind hängt ihn auf, er fliegt an seinen Platz (`badgesSeen` in LocalSettings).
+- „Sammlung“ heißt jetzt „Taucherfunde“, Funde nach Inseln geordnet.
+- Werft mit Bühne (großes Schiff), Leuchtturm mit Kopfbild und Karten, Insel-Seite auf dem Meer, nächste Station mit Lichtwellen.
+
+**Offen, als Nächstes:**
+1. **Gemini mit Claude verbinden**, damit Claude die Bilder selbst erstellt. Marc hat in Google AI Studio 5 € Vorauszahlung, automatisches Aufladen aus. Der Schlüssel fehlt noch in der Umgebung. Die Gemini-Schnittstelle erwartet den Schlüssel im Header `x-goog-api-key` (oder `?key=`); das Eingabefeld von `request_credential` speichert nur `Authorization: Bearer`. Marc fand die Umgebungs-Einstellungen zu unübersichtlich. Erst prüfen, ob ein Bearer-Schlüssel reicht (zum Beispiel über die OpenAI-kompatible Schnittstelle `v1beta/openai/`), sonst Marc Schritt für Schritt beim Eintrag unter „Network secrets“ helfen. Nie nach dem Schlüssel im Chat fragen.
+2. **Bilder** (BILDER.md): Löwe und Löwin als Figur des Kindes (167 bis 174, mit Marc entschieden, ersetzt das gezeichnete Männchen), Spielekiste (175), Werft-Hintergrund (176). Danach: Figuren-Editor auf Löwe oder Löwin umbauen (Hut, Haare, Hautfarbe, Kleidung fallen weg, Datenmodell `AvatarConfig` ändert sich, vorher Marc den Plan zeigen) und die Werft schaltet Schiffsteile frei (Flaggen gibt es, dazu Segel, Galionsfigur, Laterne; das lila Halstuch aus dem Wunschinsel-Logbuch wird ein Schiffsteil).
+3. **Testversion bauen:** `env/test.json` fehlt nach einem Neustart des Containers. Marc muss Projekt-URL und Publishable Key des Test-Projekts nennen (nie den Secret Key). Im Testprojekt vorher die Migration `20261029000100_eine_schatztruhe.sql`, dann `supabase/seed.sql` ausführen (Kopierseite für Marc: https://claude.ai/artifact/N5j6YKAnPKUaCHJu2AKCww). ZIP-Größe mit Logbüchern prüfen (Ziel unter 30 MB).
+4. **Marcs Idee:** eine Belohnung beim Start der App abholen. Noch besprechen; muss zu den Regeln passen (verdient, kein Druck, keine Zufallsbox, kein Countdown, keine Push-Nachrichten).
+5. Unterseiten im Leuchtturm haben noch den blauen Balken; an den neuen Kopf anpassen.
+6. Arbeitsweise: Marc möchte jede Änderung mit Vorher-Nachher-Screenshots sehen (Goldens mit echten Bildern und Schriften, siehe Abschnitt 16, dann wieder löschen).
