@@ -592,17 +592,17 @@ Bonus-Spiel der Wunschinsel, Station 2 (Rucksack packen für drei Ausflüge, bes
 
 | Nr. | Datei | Bild | Vorlagen | Art | Stand |
 | --- | --- | --- | --- | --- | --- |
-| 117 | `game.backpack` | Startbild: Tala packt ihren Rucksack | character.tala | Szene 4:3 | fehlt |
-| 118 | `game.backpack.waterfall` | Ausflug 1: Wanderung zum Wasserfall | character.tala | Szene 4:3 | fehlt |
-| 119 | `game.backpack.beach` | Ausflug 2: Ein Tag am Strand | character.tala | Szene 4:3 | fehlt |
-| 120 | `game.backpack.night` | Ausflug 3: Nachts zum Leuchtturm | character.tala | Szene 4:3 | fehlt |
-| 121 | `item.wasserflasche` | Ding: Wasserflasche | – | freigestellt, quadratisch | fehlt |
-| 122 | `item.regenjacke` | Ding: Regenjacke | – | freigestellt, quadratisch | fehlt |
-| 123 | `item.sonnenhut` | Ding: Sonnenhut | – | freigestellt, quadratisch | fehlt |
-| 124 | `item.taschenlampe` | Ding: Taschenlampe | – | freigestellt, quadratisch | fehlt |
-| 125 | `item.glitzerbrille` | Ding: Glitzer-Sonnenbrille | – | freigestellt, quadratisch | fehlt |
-| 126 | `item.fernglas` | Ding: Fernglas | – | freigestellt, quadratisch | fehlt |
-| 127 | `item.kissen` | Ding: Kissen | – | freigestellt, quadratisch | fehlt |
+| 117 | `game.backpack` | Startbild: Tala packt ihren Rucksack | character.tala | Szene 4:3 | da (Claude mit Gemini, 16.11.2026) |
+| 118 | `game.backpack.waterfall` | Ausflug 1: Wanderung zum Wasserfall | character.tala | Szene 4:3 | da (Claude mit Gemini, 16.11.2026) |
+| 119 | `game.backpack.beach` | Ausflug 2: Ein Tag am Strand | character.tala | Szene 4:3 | da (Claude mit Gemini, 16.11.2026) |
+| 120 | `game.backpack.night` | Ausflug 3: Nachts zum Leuchtturm | character.tala | Szene 4:3 | da (Claude mit Gemini, 16.11.2026) |
+| 121 | `item.wasserflasche` | Ding: Wasserflasche | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
+| 122 | `item.regenjacke` | Ding: Regenjacke | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
+| 123 | `item.sonnenhut` | Ding: Sonnenhut | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
+| 124 | `item.taschenlampe` | Ding: Taschenlampe | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
+| 125 | `item.glitzerbrille` | Ding: Glitzer-Sonnenbrille | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
+| 126 | `item.fernglas` | Ding: Fernglas | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
+| 127 | `item.kissen` | Ding: Kissen | – | freigestellt, quadratisch | da (Claude mit Gemini, 16.11.2026) |
 
 ## 4l. Bilder für die echten Mini-Spiele
 
