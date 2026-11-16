@@ -4166,5 +4166,11 @@
     "description": "Unter einem gesperrten Logbuch-Teil"
   },
   "badgeCeremonyTitle": "Ein neuer Orden!",
-  "badgeCeremonyHang": "An die Wand hängen"
+  "@badgeCeremonyTitle": {
+    "description": "Orden-Wand: Überschrift, wenn ein neuer Orden hereinschwingt"
+  },
+  "badgeCeremonyHang": "An die Wand hängen",
+  "@badgeCeremonyHang": {
+    "description": "Orden-Wand: Knopf, mit dem das Kind den neuen Orden aufhängt"
+  }
 }

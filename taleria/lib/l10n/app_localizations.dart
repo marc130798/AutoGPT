@@ -4777,13 +4777,13 @@ abstract class AppLocalizations {
   /// **'aus dem Logbuch'**
   String get shipyardFromLogbook;
 
-  /// No description provided for @badgeCeremonyTitle.
+  /// Orden-Wand: Überschrift, wenn ein neuer Orden hereinschwingt
   ///
   /// In de, this message translates to:
   /// **'Ein neuer Orden!'**
   String get badgeCeremonyTitle;
 
-  /// No description provided for @badgeCeremonyHang.
+  /// Orden-Wand: Knopf, mit dem das Kind den neuen Orden aufhängt
   ///
   /// In de, this message translates to:
   /// **'An die Wand hängen'**
