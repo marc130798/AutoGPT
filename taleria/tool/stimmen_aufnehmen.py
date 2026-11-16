@@ -43,6 +43,12 @@ VOICES = {
     "elsa": "8giTRiS5FxN6KhDPSpAb",
     "emma": "r3c2R2ZpQNEy4OuOxyM2",
     "gustav": "xlsHIYy4lTH1hgpTECvs",
+    # Nebenrollen: feste Standard-Stimmen von ElevenLabs („premade“, belegen
+    # keinen Platz im Abo), Marcs Wahl am 16.11.2026.
+    "haendler": "pqHfZKP75CvOlQylNhV4",  # Bill
+    "verkaeuferin": "cgSgspJ2msm6clMCkdW9",  # Jessica
+    "bootsbauer": "bIHbv24MWmeRgasZH58o",  # Will
+    "moritz": "N2lVS1w4EtoT3dr4eOWO",  # Callum
 }
 MODEL = "eleven_multilingual_v2"
 # Sprache braucht keine Musik-Qualität: 32 kbit/s halten die Web-App klein.

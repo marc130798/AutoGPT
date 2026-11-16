@@ -59,6 +59,18 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.hafen.2.szene.2.mp3": {
+    "wer": "haendler",
+    "text": "Ein Halstuch? Tut mir leid, ich brauche Mehl für meine Brötchen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.hafen.2.szene.3.mp3": {
     "wer": "tala",
     "text": "Mehl hab ich nicht. Und jetzt?",
@@ -311,6 +323,18 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.hafen.5.szene.1.mp3": {
+    "wer": "bootsbauer",
+    "text": "Puh, heute haben wir das Boot vom Fischer repariert. Morgen ist Zahltag!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.hafen.5.szene.2.mp3": {
     "wer": "tala",
     "text": "Zahltag? Bekommt ihr Geld fürs Hämmern?",
@@ -386,6 +410,18 @@
   "voice.hafen.6.szene.1.mp3": {
     "wer": "tala",
     "text": "Was? So viel kostet ein Fischbrötchen? Der Fisch schwimmt doch einfach im Meer herum!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.szene.2.mp3": {
+    "wer": "verkaeuferin",
+    "text": "Der Fisch muss gefangen werden, das Brötchen gebacken, und mein Stand kostet Miete.",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -2700,9 +2736,45 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.tauschinsel.stopp1.abschluss.mp3": {
+    "wer": "haendler",
+    "text": "Sehr gut, ihr kennt euch mit Geld aus! Gute Fahrt zur Tauschinsel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.stopp1.szene.1.mp3": {
+    "wer": "haendler",
+    "text": "Ahoi, Crew! Ich segle mit meinem Händlerschiff auch zur Tauschinsel. Was habt ihr im Hafen gelernt?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.tauschinsel.stopp1.szene.2.mp3": {
     "wer": "talo",
     "text": "Eine ganze Menge! Frag ruhig.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.stopp1.szene.3.mp3": {
+    "wer": "haendler",
+    "text": "Dann beantwortet mir drei Fragen, und wir segeln zusammen weiter.",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -3132,9 +3204,33 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.wunschinsel.5.szene.1.mp3": {
+    "wer": "moritz",
+    "text": "Kommt rein, kommt rein! Viel habe ich nicht, aber es ist gemütlich.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.wunschinsel.5.szene.2.mp3": {
     "wer": "tala",
     "text": "Du hast ja fast gar nichts! Bist du nicht traurig?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.szene.3.mp3": {
+    "wer": "moritz",
+    "text": "Traurig? Ich habe meine Freunde, meine Sonnenplätze und meine Murmelsammlung. Ich bin sehr zufrieden.",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
