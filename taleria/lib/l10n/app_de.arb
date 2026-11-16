@@ -1122,6 +1122,10 @@
   "@mapSeaStopLocked": {
     "description": "Hinweis: Stopp auf See noch gesperrt"
   },
+  "seaStopHidden": "Ein Stopp im Nebel. Was wartet hier?",
+  "@seaStopHidden": {
+    "description": "Karte: Vorlesetext für einen noch nicht erreichten Stopp auf See unter einer Nebelwolke"
+  },
   "seaStopDone": "Stopp geschafft!",
   "@seaStopDone": {
     "description": "Ergebnis nach einem Stopp auf See"

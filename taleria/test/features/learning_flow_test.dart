@@ -276,8 +276,9 @@ void main() {
     );
     // Auf der Karte stehen die Schiffe von Händler und Otti.
     expect(find.byKey(const ValueKey('sea-stop-ship-ship.haendler')), findsOneWidget);
-    // Otti fährt auch vor der Spar-Insel: ihr Schiff steht zweimal auf der Karte.
-    expect(find.byKey(const ValueKey('sea-stop-ship-ship.fischer')), findsNWidgets(2));
+    // Noch nicht erreichte Stopps (Otti vor der Tauschinsel und vor der
+    // Spar-Insel) liegen unter einer Nebelwolke.
+    expect(find.byKey(const ValueKey('sea-stop-ship-ship.fischer')), findsNothing);
     for (final k in [1, 2]) {
       await tapKey(tester, 'sea-stop-tauschinsel-$k');
       // Nach dem Nebel liegt oben das Schiff auf dem Meer.

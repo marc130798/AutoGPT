@@ -500,6 +500,45 @@ class SeaStopMarker extends StatelessWidget {
         ),
       ),
     );
+    // Noch nicht erreicht: Der Stopp liegt unter einer kleinen Nebelwolke,
+    // damit man nicht sieht, wer auf einen wartet (Marcs Wunsch am 16.11.2026).
+    if (state == StationState.locked) {
+      final l10n = AppLocalizations.of(context);
+      return Semantics(
+        button: true,
+        label: l10n.seaStopHidden,
+        child: GestureDetector(
+          key: const ValueKey('sea-stop-fog'),
+          onTap: onTap,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: labelWidth,
+                height: size,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    TaleriaAsset(
+                      AssetKeys.mapClouds.first,
+                      width: labelWidth,
+                      height: size,
+                      fit: BoxFit.contain,
+                      fallback: Icon(Icons.cloud, size: size, color: Colors.white.withValues(alpha: 0.9)),
+                    ),
+                    Text(
+                      '?',
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w800, color: palette.seaDeep.withValues(alpha: 0.7)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Semantics(
       button: true,
       label: stop.content.title,
@@ -509,7 +548,7 @@ class SeaStopMarker extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Opacity(
-              opacity: state == StationState.locked ? 0.6 : 1,
+              opacity: 1,
               child: SizedBox(
                 width: shipWidth,
                 height: size,

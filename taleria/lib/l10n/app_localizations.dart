@@ -1633,6 +1633,12 @@ abstract class AppLocalizations {
   /// **'Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.'**
   String get mapSeaStopLocked;
 
+  /// Karte: Vorlesetext für einen noch nicht erreichten Stopp auf See unter einer Nebelwolke
+  ///
+  /// In de, this message translates to:
+  /// **'Ein Stopp im Nebel. Was wartet hier?'**
+  String get seaStopHidden;
+
   /// Ergebnis nach einem Stopp auf See
   ///
   /// In de, this message translates to:

@@ -851,6 +851,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mapSeaStopLocked => 'Diesen Stopp erreichst du, wenn du die Insel und den Stopp davor geschafft hast.';
 
   @override
+  String get seaStopHidden => 'Ein Stopp im Nebel. Was wartet hier?';
+
+  @override
   String get seaStopDone => 'Stopp geschafft!';
 
   @override

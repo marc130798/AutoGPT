@@ -161,7 +161,15 @@ void main() {
     expect(find.byKey(const ValueKey('sea-stop-tauschinsel-1')), findsOneWidget);
     expect(find.byKey(const ValueKey('sea-stop-tauschinsel-2')), findsOneWidget);
     expect(find.text('Das Händlerschiff'), findsOneWidget);
-    expect(find.text('Das Fischerboot'), findsOneWidget);
+    // Der zweite Stopp ist noch nicht erreicht und liegt unter einer Nebelwolke.
+    expect(find.text('Das Fischerboot'), findsNothing);
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('sea-stop-tauschinsel-2')),
+        matching: find.byKey(const ValueKey('sea-stop-fog')),
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('Stopp geschafft: Schiff fährt zum nächsten Stopp', (tester) async {
