@@ -213,7 +213,7 @@ class _PictureStoryState extends State<PictureStory> {
                         ),
                         child: AspectRatio(
                           aspectRatio: 4 / 3,
-                          child: _Picture(image: image),
+                          child: _Picture(image: image, opening: _index == 0),
                         ),
                       ),
                     ),
@@ -514,9 +514,12 @@ class _EstimateScale extends StatelessWidget {
 
 /// Ein Bild der Geschichte mit goldenem Rahmen; neue Bilder blenden über.
 class _Picture extends StatelessWidget {
-  const _Picture({required this.image});
+  const _Picture({required this.image, this.opening = false});
 
   final String image;
+
+  /// Erstes Bild der Station: blendet aus dem Dunkeln auf (wie ein Filmanfang).
+  final bool opening;
 
   @override
   Widget build(BuildContext context) {
@@ -540,16 +543,76 @@ class _Picture extends StatelessWidget {
                     height: box.maxHeight,
                     child: StoryDrawing(name: image.substring(storyDrawingPrefix.length)),
                   )
-                : TaleriaAsset(
-                    image,
+                : StoryZoom(
                     key: ValueKey('story-image-$image'),
-                    fit: BoxFit.cover,
-                    width: box.maxWidth,
-                    height: box.maxHeight,
+                    seed: image.hashCode,
+                    opening: opening,
+                    child: TaleriaAsset(image, fit: BoxFit.cover, width: box.maxWidth, height: box.maxHeight),
                   ),
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Lebendiger Einstieg statt Film (Marcs Wunsch am 16.11.2026): Jedes Bild der
+/// Geschichte zoomt in etwa 9 Sekunden langsam heran und wandert dabei ein
+/// wenig zur Seite (abwechselnd links und rechts, je nach Bild). Das erste
+/// Bild einer Station blendet zusätzlich aus dem Dunkeln auf. Gezeichnete
+/// Bilder mit Zahlen bewegen sich nicht. Ohne Bewegung (Tests, „Bewegung
+/// reduzieren“) steht das Bild still.
+class StoryZoom extends StatefulWidget {
+  const StoryZoom({super.key, required this.child, this.seed = 0, this.opening = false});
+
+  final Widget child;
+  final int seed;
+  final bool opening;
+
+  /// Größe am Ende des Zooms.
+  static const endScale = 1.1;
+
+  @override
+  State<StoryZoom> createState() => _StoryZoomState();
+}
+
+class _StoryZoomState extends State<StoryZoom> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(vsync: this, duration: const Duration(seconds: 9));
+  bool _motion = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _motion = AppScope.of(context).sceneMotion && !MediaQuery.disableAnimationsOf(context);
+    if (_motion && !_c.isAnimating && !_c.isCompleted) _c.forward();
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_motion) return widget.child;
+    final dir = widget.seed.isEven ? 1.0 : -1.0;
+    return AnimatedBuilder(
+      animation: _c,
+      child: widget.child,
+      builder: (context, child) {
+        final t = Curves.easeOutCubic.transform(_c.value);
+        final scale = 1 + (StoryZoom.endScale - 1) * t;
+        // Erste Sekunde: aus dem Dunkeln auf.
+        final dark = widget.opening ? (1 - (_c.value * 9).clamp(0.0, 1.0)) : 0.0;
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            Transform.scale(scale: scale, alignment: Alignment(0.6 * dir, -0.2), child: child),
+            if (dark > 0) ColoredBox(color: Colors.black.withValues(alpha: dark * 0.85)),
+          ],
+        );
+      },
     );
   }
 }
