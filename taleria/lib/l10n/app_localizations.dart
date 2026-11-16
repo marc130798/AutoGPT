@@ -1849,6 +1849,12 @@ abstract class AppLocalizations {
   /// **'Verschenkt'**
   String get potSumDonation;
 
+  /// Zeile in der Übersicht einer Truhe: Geld für geschaffte Stationen und Inseln
+  ///
+  /// In de, this message translates to:
+  /// **'Lern-Belohnungen'**
+  String get potSumLearning;
+
   /// Knopf: Ausgabe aus der Bordkasse
   ///
   /// In de, this message translates to:
@@ -2016,6 +2022,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Verschenkt'**
   String get ledgerDonation;
+
+  /// Buchungsart im Kassenbuch: Geld der Eltern für eine geschaffte Station oder Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Lern-Belohnung'**
+  String get ledgerLearning;
 
   /// Feld: Betrag
   ///
@@ -2286,6 +2298,90 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Das Taschengeld ist virtuell: Die App zählt mit, auszahlen tut ihr es selbst.'**
   String get allowanceHint;
+
+  /// Überschrift Lernstand
+  ///
+  /// In de, this message translates to:
+  /// **'Lernstand'**
+  String get learningHeading;
+
+  /// Überschrift im Leuchtturm, Taschengeld und Aufgaben
+  ///
+  /// In de, this message translates to:
+  /// **'Lern-Belohnung (freiwillig)'**
+  String get rewardHeading;
+
+  /// Hinweis für Eltern unter der Lern-Belohnung
+  ///
+  /// In de, this message translates to:
+  /// **'Tipp: Lieber kleine Beträge und eher pro Insel als pro Station, damit die Neugier wichtiger bleibt als das Geld. Geld gibt es nur beim ersten Schaffen, nicht fürs Wiederholen, für Tauchgänge oder Spiele. Wie beim Taschengeld ist es virtuell: Auszahlen tut ihr es selbst.'**
+  String get rewardHint;
+
+  /// Lern-Belohnung ist nicht eingestellt
+  ///
+  /// In de, this message translates to:
+  /// **'Aus. Wenn ihr wollt, bekommt euer Kind für neue Stationen oder geschaffte Inseln etwas in die Schatztruhe.'**
+  String get learningNone;
+
+  /// Eingestellte Lern-Belohnung pro Station
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} für jede neu geschaffte Station'**
+  String learningPerStation(String amount);
+
+  /// Eingestellte Lern-Belohnung pro Insel
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} für jede abgeschlossene Insel'**
+  String learningPerIsland(String amount);
+
+  /// Schätzung, wie viel Lern-Belohnung im Monat zusammenkommt
+  ///
+  /// In de, this message translates to:
+  /// **'Beim üblichen Tempo (2 Stationen pro Woche) sind das etwa {amount} im Monat.'**
+  String learningMonthly(String amount);
+
+  /// Knopf und Titel des Dialogs
+  ///
+  /// In de, this message translates to:
+  /// **'Lern-Belohnung festlegen'**
+  String get learningSet;
+
+  /// Knopf: Lern-Belohnung beenden
+  ///
+  /// In de, this message translates to:
+  /// **'Ausschalten'**
+  String get learningOff;
+
+  /// Eingabefeld im Dialog Lern-Belohnung
+  ///
+  /// In de, this message translates to:
+  /// **'Pro neu geschaffter Station'**
+  String get learningStationLabel;
+
+  /// Eingabefeld im Dialog Lern-Belohnung
+  ///
+  /// In de, this message translates to:
+  /// **'Pro abgeschlossener Insel'**
+  String get learningIslandLabel;
+
+  /// Hinweis in den Feldern der Lern-Belohnung
+  ///
+  /// In de, this message translates to:
+  /// **'Leer lassen = keine'**
+  String get learningEmptyHint;
+
+  /// Erklärung des Lernstands für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.'**
+  String get learningHint;
+
+  /// Kinderbereich, Ergebnis einer Station: Lern-Belohnung der Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Eltern legen dir {amount} in die Schatztruhe!'**
+  String learningRewardKid(String amount);
 
   /// Überschrift Aufgaben im Leuchtturm (Glossar)
   ///
@@ -3066,18 +3162,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Inhalt folgt'**
   String get islandStatusFog;
-
-  /// Überschrift Lernstand
-  ///
-  /// In de, this message translates to:
-  /// **'Lernstand'**
-  String get learningHeading;
-
-  /// Erklärung des Lernstands für Eltern
-  ///
-  /// In de, this message translates to:
-  /// **'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.'**
-  String get learningHint;
 
   /// Lernstand eines Themas: sicher
   ///

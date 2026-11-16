@@ -35,7 +35,21 @@ class PotBalances {
   int get free => spend;
 }
 
-enum LedgerType { allowance, task, transfer, manual, goal, purchase, donation }
+enum LedgerType { allowance, task, transfer, manual, goal, purchase, donation, learning }
+
+/// Lern-Belohnung der Eltern (freiwillig, 0 = aus): virtuelles Geld für jede
+/// neu geschaffte Station und jede abgeschlossene Insel. Gebucht wird auf dem
+/// Server (Migration `20261116000100_lern_belohnung.sql`).
+class LearningRewards {
+  const LearningRewards({this.stationCents = 0, this.islandCents = 0});
+
+  static const none = LearningRewards();
+
+  final int stationCents;
+  final int islandCents;
+
+  bool get active => stationCents > 0 || islandCents > 0;
+}
 
 class LedgerEntry {
   const LedgerEntry({

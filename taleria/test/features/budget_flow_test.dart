@@ -337,4 +337,32 @@ void main() {
       formatCents(budget.balance(mila.id, Pot.spend)),
     );
   });
+
+  testWidgets('Lern-Belohnung: Eltern stellen sie freiwillig ein und wieder aus', (tester) async {
+    final backend = FakeBackend();
+    final parent = backend.addParent(pin: '2468');
+    final mila = backend.addChild(parent);
+    final budget = FakeBudget();
+
+    await openParentBudget(tester, backend, budget);
+    expect(find.textContaining('Aus. Wenn ihr wollt'), findsOneWidget, reason: 'am Anfang aus');
+
+    await tapText(tester, 'Lern-Belohnung festlegen');
+    await enter(tester, 'learning-station', 'abc');
+    await tester.tap(find.byKey(const ValueKey('learning-save')));
+    await tester.pumpAndSettle();
+    expect(budget.learningRewards[mila.id], isNull, reason: 'ungültiger Betrag wird nicht gespeichert');
+
+    await enter(tester, 'learning-station', '');
+    await enter(tester, 'learning-island', '10');
+    await tester.tap(find.byKey(const ValueKey('learning-save')));
+    await tester.pumpAndSettle();
+    expect(budget.learningRewards[mila.id]!.stationCents, 0, reason: 'leer = keine');
+    expect(budget.learningRewards[mila.id]!.islandCents, 1000);
+    expect(find.text('${formatCents(1000)} für jede abgeschlossene Insel'), findsOneWidget);
+    expect(find.textContaining('etwa ${formatCents(1238)} im Monat'), findsOneWidget);
+
+    await tapText(tester, 'Ausschalten');
+    expect(budget.learningRewards[mila.id]!.active, isFalse);
+  });
 }

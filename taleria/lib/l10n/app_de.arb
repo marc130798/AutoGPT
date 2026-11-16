@@ -1327,6 +1327,10 @@
   "@potSumDonation": {
     "description": "Übersicht einer Truhe: Art der Buchung"
   },
+  "potSumLearning": "Lern-Belohnungen",
+  "@potSumLearning": {
+    "description": "Zeile in der Übersicht einer Truhe: Geld für geschaffte Stationen und Inseln"
+  },
   "treasureSpend": "Ich habe etwas gekauft",
   "@treasureSpend": {
     "description": "Knopf: Ausgabe aus der Bordkasse"
@@ -1474,6 +1478,10 @@
   "ledgerDonation": "Verschenkt",
   "@ledgerDonation": {
     "description": "Buchungsart"
+  },
+  "ledgerLearning": "Lern-Belohnung",
+  "@ledgerLearning": {
+    "description": "Buchungsart im Kassenbuch: Geld der Eltern für eine geschaffte Station oder Insel"
   },
   "amountLabel": "Betrag in Euro",
   "@amountLabel": {
@@ -1741,6 +1749,82 @@
   "allowanceHint": "Das Taschengeld ist virtuell: Die App zählt mit, auszahlen tut ihr es selbst.",
   "@allowanceHint": {
     "description": "Hinweis: Taschengeld ist virtuell"
+  },
+  "learningHeading": "Lernstand",
+  "@learningHeading": {
+    "description": "Überschrift Lernstand"
+  },
+  "rewardHeading": "Lern-Belohnung (freiwillig)",
+  "@rewardHeading": {
+    "description": "Überschrift im Leuchtturm, Taschengeld und Aufgaben"
+  },
+  "rewardHint": "Tipp: Lieber kleine Beträge und eher pro Insel als pro Station, damit die Neugier wichtiger bleibt als das Geld. Geld gibt es nur beim ersten Schaffen, nicht fürs Wiederholen, für Tauchgänge oder Spiele. Wie beim Taschengeld ist es virtuell: Auszahlen tut ihr es selbst.",
+  "@rewardHint": {
+    "description": "Hinweis für Eltern unter der Lern-Belohnung"
+  },
+  "learningNone": "Aus. Wenn ihr wollt, bekommt euer Kind für neue Stationen oder geschaffte Inseln etwas in die Schatztruhe.",
+  "@learningNone": {
+    "description": "Lern-Belohnung ist nicht eingestellt"
+  },
+  "learningPerStation": "{amount} für jede neu geschaffte Station",
+  "@learningPerStation": {
+    "description": "Eingestellte Lern-Belohnung pro Station",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "learningPerIsland": "{amount} für jede abgeschlossene Insel",
+  "@learningPerIsland": {
+    "description": "Eingestellte Lern-Belohnung pro Insel",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "learningMonthly": "Beim üblichen Tempo (2 Stationen pro Woche) sind das etwa {amount} im Monat.",
+  "@learningMonthly": {
+    "description": "Schätzung, wie viel Lern-Belohnung im Monat zusammenkommt",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "learningSet": "Lern-Belohnung festlegen",
+  "@learningSet": {
+    "description": "Knopf und Titel des Dialogs"
+  },
+  "learningOff": "Ausschalten",
+  "@learningOff": {
+    "description": "Knopf: Lern-Belohnung beenden"
+  },
+  "learningStationLabel": "Pro neu geschaffter Station",
+  "@learningStationLabel": {
+    "description": "Eingabefeld im Dialog Lern-Belohnung"
+  },
+  "learningIslandLabel": "Pro abgeschlossener Insel",
+  "@learningIslandLabel": {
+    "description": "Eingabefeld im Dialog Lern-Belohnung"
+  },
+  "learningEmptyHint": "Leer lassen = keine",
+  "@learningEmptyHint": {
+    "description": "Hinweis in den Feldern der Lern-Belohnung"
+  },
+  "learningHint": "Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.",
+  "@learningHint": {
+    "description": "Erklärung des Lernstands für Eltern"
+  },
+  "learningRewardKid": "Deine Eltern legen dir {amount} in die Schatztruhe!",
+  "@learningRewardKid": {
+    "description": "Kinderbereich, Ergebnis einer Station: Lern-Belohnung der Eltern",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
   },
   "tasksParentHeading": "Aufgaben",
   "@tasksParentHeading": {
@@ -2513,14 +2597,6 @@
   "islandStatusFog": "Inhalt folgt",
   "@islandStatusFog": {
     "description": "Insel im Nebel (Elternwort laut Glossar)"
-  },
-  "learningHeading": "Lernstand",
-  "@learningHeading": {
-    "description": "Überschrift Lernstand"
-  },
-  "learningHint": "Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.",
-  "@learningHint": {
-    "description": "Erklärung des Lernstands für Eltern"
   },
   "topicSecure": "Sicher",
   "@topicSecure": {

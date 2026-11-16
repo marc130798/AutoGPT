@@ -116,6 +116,29 @@ class StationController extends ChangeNotifier {
   /// Stopp auf See: Szene und Fragen, ohne „Weißt du noch?“ (er wiederholt selbst).
   bool get isSeaStop => station.isSeaStop;
 
+  LearningRewards _learning = LearningRewards.none;
+
+  /// Lern-Belohnung der Eltern, nur zum Anzeigen (gebucht wird auf dem Server).
+  Future<void> _loadLearningRewards() async {
+    try {
+      _learning = await _budget?.fetchLearningRewards(child.id) ?? LearningRewards.none;
+    } catch (_) {
+      // Ohne Verbindung fehlt nur der Hinweis, das Geld bucht der Server trotzdem.
+    }
+  }
+
+  /// So viel legen die Eltern für diese Station in die Schatztruhe (0 = nichts):
+  /// nur beim ersten Schaffen einer Pflichtstation (nicht Tauchgang, Stopp auf
+  /// See, Intro, Prüfung) und für eine abgeschlossene Insel. Gleiche Regeln
+  /// wie auf dem Server (Migration 20261116000100_lern_belohnung.sql).
+  int get learningRewardCents {
+    final r = _result;
+    if (r == null || !r.passed) return 0;
+    final counts =
+        r.xpAwarded > 0 && station.isRequired && !isDive && !isSeaStop && !isExam && !station.content.isOnboarding;
+    return (counts ? _learning.stationCents : 0) + (r.islandCompleted ? _learning.islandCents : 0);
+  }
+
   /// Lädt die Fragen und beginnt mit dem ersten Abschnitt.
   Future<void> start() async {
     _step = StationStep.loading;
@@ -126,6 +149,7 @@ class StationController extends ChangeNotifier {
       await _prepareWarmUp();
       _go(_firstStep());
       unawaited(_trackStart());
+      unawaited(_loadLearningRewards());
     } on AppFailure catch (e) {
       _failure = e.kind;
       _go(StationStep.failed);

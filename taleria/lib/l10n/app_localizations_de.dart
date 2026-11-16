@@ -975,6 +975,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get potSumDonation => 'Verschenkt';
 
   @override
+  String get potSumLearning => 'Lern-Belohnungen';
+
+  @override
   String get treasureSpend => 'Ich habe etwas gekauft';
 
   @override
@@ -1070,6 +1073,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get ledgerDonation => 'Verschenkt';
+
+  @override
+  String get ledgerLearning => 'Lern-Belohnung';
 
   @override
   String get amountLabel => 'Betrag in Euro';
@@ -1242,6 +1248,59 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get allowanceHint => 'Das Taschengeld ist virtuell: Die App zählt mit, auszahlen tut ihr es selbst.';
+
+  @override
+  String get learningHeading => 'Lernstand';
+
+  @override
+  String get rewardHeading => 'Lern-Belohnung (freiwillig)';
+
+  @override
+  String get rewardHint =>
+      'Tipp: Lieber kleine Beträge und eher pro Insel als pro Station, damit die Neugier wichtiger bleibt als das Geld. Geld gibt es nur beim ersten Schaffen, nicht fürs Wiederholen, für Tauchgänge oder Spiele. Wie beim Taschengeld ist es virtuell: Auszahlen tut ihr es selbst.';
+
+  @override
+  String get learningNone =>
+      'Aus. Wenn ihr wollt, bekommt euer Kind für neue Stationen oder geschaffte Inseln etwas in die Schatztruhe.';
+
+  @override
+  String learningPerStation(String amount) {
+    return '$amount für jede neu geschaffte Station';
+  }
+
+  @override
+  String learningPerIsland(String amount) {
+    return '$amount für jede abgeschlossene Insel';
+  }
+
+  @override
+  String learningMonthly(String amount) {
+    return 'Beim üblichen Tempo (2 Stationen pro Woche) sind das etwa $amount im Monat.';
+  }
+
+  @override
+  String get learningSet => 'Lern-Belohnung festlegen';
+
+  @override
+  String get learningOff => 'Ausschalten';
+
+  @override
+  String get learningStationLabel => 'Pro neu geschaffter Station';
+
+  @override
+  String get learningIslandLabel => 'Pro abgeschlossener Insel';
+
+  @override
+  String get learningEmptyHint => 'Leer lassen = keine';
+
+  @override
+  String get learningHint =>
+      'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.';
+
+  @override
+  String learningRewardKid(String amount) {
+    return 'Deine Eltern legen dir $amount in die Schatztruhe!';
+  }
 
   @override
   String get tasksParentHeading => 'Aufgaben';
@@ -1817,13 +1876,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get islandStatusFog => 'Inhalt folgt';
-
-  @override
-  String get learningHeading => 'Lernstand';
-
-  @override
-  String get learningHint =>
-      'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.';
 
   @override
   String get topicSecure => 'Sicher';

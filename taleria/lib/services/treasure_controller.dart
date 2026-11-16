@@ -28,6 +28,9 @@ class TreasureController extends ChangeNotifier {
   List<SavingsGoal> get goals => _goals;
   AllowanceRule? get allowance => _allowance;
 
+  LearningRewards _learning = LearningRewards.none;
+  LearningRewards get learningRewards => _learning;
+
   /// Wunschflaschen: erst nach der Station auf der Wunschinsel (oder mit einer Flasche).
   bool get wishBottlesUnlocked => _wishStatus.unlocked || _wishBottles.isNotEmpty;
 
@@ -60,6 +63,7 @@ class TreasureController extends ChangeNotifier {
         _budget.fetchAllowance(childId),
         _budget.fetchWishBottles(childId),
         _budget.fetchWishBottleStatus(childId),
+        _budget.fetchLearningRewards(childId),
       ]);
       _balances = results[0] as PotBalances;
       _ledger = results[1] as List<LedgerEntry>;
@@ -68,6 +72,7 @@ class TreasureController extends ChangeNotifier {
       _allowance = results[4] as AllowanceRule?;
       _wishBottles = results[5] as List<WishBottle>;
       _wishStatus = results[6] as WishBottleStatus;
+      _learning = results[7] as LearningRewards;
     } on AppFailure catch (e) {
       _failure = e.kind;
     }
@@ -131,6 +136,10 @@ class TreasureController extends ChangeNotifier {
   );
 
   Future<void> deleteTask(FamilyTask task) => _then(_budget.deleteTask(task.id));
+
+  /// Eltern: Lern-Belohnung festlegen (0 = aus).
+  Future<void> setLearningRewards({required int stationCents, required int islandCents}) =>
+      _then(_budget.setLearningRewards(childId, stationCents: stationCents, islandCents: islandCents));
 
   Future<void> reviewTask(FamilyTask task, {required bool approve, String? note}) =>
       _then(_budget.reviewTask(task.id, approve: approve, note: note));

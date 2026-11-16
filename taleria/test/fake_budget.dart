@@ -87,6 +87,17 @@ class FakeBudget implements BudgetRepository {
   @override
   Future<AllowanceRule?> fetchAllowance(String childId) async => allowances[childId];
 
+  final Map<String, LearningRewards> learningRewards = {};
+
+  @override
+  Future<LearningRewards> fetchLearningRewards(String childId) async =>
+      learningRewards[childId] ?? LearningRewards.none;
+
+  @override
+  Future<void> setLearningRewards(String childId, {required int stationCents, required int islandCents}) async {
+    learningRewards[childId] = LearningRewards(stationCents: stationCents, islandCents: islandCents);
+  }
+
   @override
   Future<List<FamilyTask>> fetchTasks(String childId) async => [...?tasks[childId]];
 

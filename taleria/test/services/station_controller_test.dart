@@ -28,7 +28,7 @@ void main() {
     settings = FakeLocalSettings();
   });
 
-  StationController controllerFor(String slug, int number, {int seed = 1}) {
+  StationController controllerFor(String slug, int number, {int seed = 1, FakeBudget? budget}) {
     final island = content.island(slug);
     final stations = content.stations[island.id]!;
     return StationController(
@@ -40,6 +40,7 @@ void main() {
       station: content.station(slug, number),
       allStations: stations,
       random: Random(seed),
+      budget: budget,
     );
   }
 
@@ -304,5 +305,51 @@ void main() {
       make().createWishBottle(const WishDraft(title: 'Ball', isBig: false)),
       throwsA(isA<AppFailure>()),
     );
+  });
+
+  test('Lern-Belohnung: nur beim ersten Schaffen, die Insel extra, Prüfung nicht als Station', () async {
+    final budget = FakeBudget();
+    await budget.setLearningRewards('kind', stationCents: 100, islandCents: 1000);
+
+    progress.completeStations('hafen', except: 8);
+    final c = controllerFor('hafen', 3, budget: budget);
+    await c.start();
+    while (c.step != StationStep.quiz) {
+      if (c.step == StationStep.warmUp) {
+        c.answerWarmUp(0);
+        c.nextWarmUp();
+      } else {
+        c.next();
+      }
+    }
+    await answerAll(c);
+    expect(c.learningRewardCents, 100);
+
+    // Nochmal gespielt: keine Seemeilen, kein Geld.
+    final again = controllerFor('hafen', 3, budget: budget);
+    await again.start();
+    while (again.step != StationStep.quiz) {
+      if (again.step == StationStep.warmUp) {
+        again.answerWarmUp(0);
+        again.nextWarmUp();
+      } else {
+        again.next();
+      }
+    }
+    await answerAll(again);
+    expect(again.learningRewardCents, 0);
+
+    // Prüfung bestanden: nur das Geld für die Insel.
+    progress.completeStations('hafen', except: 1);
+    final exam = controllerFor('hafen', 8, budget: budget);
+    await exam.start();
+    exam.next();
+    await answerAll(exam);
+    expect(exam.result!.islandCompleted, isTrue);
+    expect(exam.learningRewardCents, 1000);
+
+    // Ohne Einstellung: nichts.
+    final none = controllerFor('hafen', 8);
+    expect(none.learningRewardCents, 0);
   });
 }

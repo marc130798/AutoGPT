@@ -6,6 +6,7 @@ import '../../core/assets/taleria_asset.dart';
 import '../common/film_view.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
+import '../../domain/money.dart';
 import '../../domain/family_models.dart';
 import '../../domain/progress_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -75,6 +76,7 @@ class _StationScreenState extends State<StationScreen> {
           : (result.rankUp != null ? AssetKeys.soundRankUp : AssetKeys.soundStationDone),
     );
     _sounds.success();
+    if (controller.learningRewardCents > 0) _sounds.effect(AssetKeys.soundCoin);
     // Erst freuen, dann der Merksatz der Station (wenn es eine Aufnahme gibt).
     _sounds.voices([
       _cheer(controller, result.islandCompleted),
@@ -455,6 +457,25 @@ class _ResultView extends StatelessWidget {
               if (result.xpAwarded > 0) ...[
                 const SizedBox(height: 12),
                 _XpGain(xp: result.xpAwarded, stats: controller.statsAfter, rankForm: controller.child.rankForm),
+              ],
+              // Lern-Belohnung der Eltern (freiwillig, im Leuchtturm eingestellt).
+              if (controller.learningRewardCents > 0) ...[
+                const SizedBox(height: 12),
+                OpenFrame(
+                  key: const ValueKey('result-learning-reward'),
+                  child: Row(
+                    children: [
+                      const TaleriaAsset(AssetKeys.iconTreasure, width: 48, height: 48, fit: BoxFit.contain),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          l10n.learningRewardKid(formatCents(controller.learningRewardCents)),
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
               const SizedBox(height: 16),
               if (failedExam)

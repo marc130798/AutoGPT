@@ -47,6 +47,16 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
 
   Future<void> _stopAllowance() => runWithFeedback(context, () => _controller!.setAllowance());
 
+  Future<void> _setLearning() async {
+    await showDialog<void>(
+      context: context,
+      builder: (_) => _LearningDialog(controller: _controller!),
+    );
+  }
+
+  Future<void> _stopLearning() =>
+      runWithFeedback(context, () => _controller!.setLearningRewards(stationCents: 0, islandCents: 0));
+
   Future<void> _createTask() async {
     await showDialog<void>(
       context: context,
@@ -146,6 +156,8 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
                     ],
                   ),
                   Text(l10n.allowanceHint, style: theme.textTheme.bodySmall),
+                  const SizedBox(height: 24),
+                  _LearningSection(rewards: controller.learningRewards, onSet: _setLearning, onStop: _stopLearning),
                   const SizedBox(height: 24),
                   Text(l10n.balanceHeading, style: theme.textTheme.titleLarge),
                   for (final pot in const [Pot.spend, Pot.save])
@@ -491,6 +503,144 @@ class _RejectDialogState extends State<_RejectDialog> {
           key: const ValueKey('reject-submit'),
           onPressed: () => Navigator.of(context).pop(_note.text.trim()),
           child: Text(l10n.taskReject),
+        ),
+      ],
+    );
+  }
+}
+
+/// Lern-Belohnung im Leuchtturm (freiwillig, Marcs Wunsch am 16.11.2026):
+/// was eingestellt ist, eine Schätzung pro Monat und ein Hinweis für Eltern.
+class _LearningSection extends StatelessWidget {
+  const _LearningSection({required this.rewards, required this.onSet, required this.onStop});
+
+  final LearningRewards rewards;
+  final VoidCallback onSet;
+  final VoidCallback onStop;
+
+  /// Bei 2 Stationen pro Woche: gut 8,7 Stationen und 1,2 Inseln im Monat
+  /// (eine Insel hat 7 Stationen).
+  static int monthlyCents(LearningRewards r) => (r.stationCents * 26 / 3 + r.islandCents * 26 / 21).round();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Column(
+      key: const ValueKey('learning-section'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(l10n.rewardHeading, style: theme.textTheme.titleLarge),
+        const SizedBox(height: 4),
+        if (!rewards.active) Text(l10n.learningNone),
+        if (rewards.stationCents > 0) Text(l10n.learningPerStation(formatCents(rewards.stationCents))),
+        if (rewards.islandCents > 0) Text(l10n.learningPerIsland(formatCents(rewards.islandCents))),
+        if (rewards.active)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(l10n.learningMonthly(formatCents(monthlyCents(rewards))), style: theme.textTheme.bodyMedium),
+          ),
+        Wrap(
+          spacing: 8,
+          children: [
+            TextButton(key: const ValueKey('learning-set'), onPressed: onSet, child: Text(l10n.learningSet)),
+            if (rewards.active)
+              TextButton(key: const ValueKey('learning-off'), onPressed: onStop, child: Text(l10n.learningOff)),
+          ],
+        ),
+        Text(l10n.rewardHint, style: theme.textTheme.bodySmall),
+      ],
+    );
+  }
+}
+
+class _LearningDialog extends StatefulWidget {
+  const _LearningDialog({required this.controller});
+
+  final TreasureController controller;
+
+  @override
+  State<_LearningDialog> createState() => _LearningDialogState();
+}
+
+class _LearningDialogState extends State<_LearningDialog> {
+  final _formKey = GlobalKey<FormState>();
+  late final _station = TextEditingController(text: _initial(widget.controller.learningRewards.stationCents));
+  late final _island = TextEditingController(text: _initial(widget.controller.learningRewards.islandCents));
+  bool _busy = false;
+
+  static String _initial(int cents) => cents > 0 ? centsToInput(cents) : '';
+
+  @override
+  void dispose() {
+    _station.dispose();
+    _island.dispose();
+    super.dispose();
+  }
+
+  /// Leer = keine, sonst ein gültiger Betrag.
+  String? _validate(AppLocalizations l10n, String? v) =>
+      (v ?? '').trim().isEmpty ? null : l10n.amountProblem(validateAmount(v!));
+
+  int _cents(TextEditingController c) => c.text.trim().isEmpty ? 0 : parseEuroInput(c.text)!;
+
+  Future<void> _save() async {
+    if (!_formKey.currentState!.validate()) return;
+    final navigator = Navigator.of(context);
+    setState(() => _busy = true);
+    final ok = await runWithFeedback(
+      context,
+      () => widget.controller.setLearningRewards(stationCents: _cents(_station), islandCents: _cents(_island)),
+    );
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (ok) navigator.pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    InputDecoration deco(String label) => InputDecoration(
+      labelText: label,
+      hintText: l10n.learningEmptyHint,
+      suffixText: '€',
+      border: const OutlineInputBorder(),
+    );
+    return AlertDialog(
+      title: Text(l10n.learningSet),
+      scrollable: true,
+      content: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
+              key: const ValueKey('learning-station'),
+              controller: _station,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: deco(l10n.learningStationLabel),
+              validator: (v) => _validate(l10n, v),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              key: const ValueKey('learning-island'),
+              controller: _island,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: deco(l10n.learningIslandLabel),
+              validator: (v) => _validate(l10n, v),
+            ),
+            const SizedBox(height: 12),
+            Text(l10n.rewardHint, style: Theme.of(context).textTheme.bodySmall),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
+        FilledButton(
+          key: const ValueKey('learning-save'),
+          onPressed: _busy ? null : _save,
+          child: _busy ? const ButtonSpinner() : Text(l10n.saveButton),
         ),
       ],
     );

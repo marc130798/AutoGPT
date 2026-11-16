@@ -15,6 +15,12 @@ abstract interface class BudgetRepository {
 
   Future<AllowanceRule?> fetchAllowance(String childId);
 
+  /// Lern-Belohnung der Eltern (ohne Einstellung: aus).
+  Future<LearningRewards> fetchLearningRewards(String childId);
+
+  /// Eltern: Lern-Belohnung festlegen (0 = aus).
+  Future<void> setLearningRewards(String childId, {required int stationCents, required int islandCents});
+
   Future<List<FamilyTask>> fetchTasks(String childId);
 
   Future<List<SavingsGoal>> fetchGoals(String childId);
@@ -119,6 +125,26 @@ class SupabaseBudgetRepository implements BudgetRepository {
       nextRunAt: DateTime.parse(row['next_run_at'] as String).toLocal(),
     );
   });
+
+  @override
+  Future<LearningRewards> fetchLearningRewards(String childId) => guardBackend(() async {
+    final row = await _client
+        .from('learning_rewards')
+        .select('station_cents, island_cents')
+        .eq('child_id', childId)
+        .maybeSingle();
+    if (row == null) return LearningRewards.none;
+    return LearningRewards(stationCents: row['station_cents'] as int, islandCents: row['island_cents'] as int);
+  });
+
+  @override
+  Future<void> setLearningRewards(String childId, {required int stationCents, required int islandCents}) =>
+      guardBackend(
+        () => _client.rpc<void>(
+          'set_learning_rewards',
+          params: {'p_child_id': childId, 'p_station_cents': stationCents, 'p_island_cents': islandCents},
+        ),
+      );
 
   @override
   Future<List<FamilyTask>> fetchTasks(String childId) => guardBackend(() async {
