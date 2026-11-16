@@ -17,7 +17,16 @@ class ShowcaseTile extends StatelessWidget {
     required this.title,
     required this.caption,
     required this.earned,
+    this.wall = false,
+    this.glow = false,
   });
+
+  /// Wie an einer Wand: ohne Kasten, das Bild hängt an einem Nagel, der Name
+  /// steht auf einem Messingschild (Orden).
+  final bool wall;
+
+  /// Leuchtet golden (gerade aufgehängt).
+  final bool glow;
 
   final String assetKey;
   final String title;
@@ -28,6 +37,7 @@ class ShowcaseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (wall) return _buildWall(context);
     final theme = Theme.of(context);
     final palette = context.palette;
     return MergeSemantics(
@@ -83,6 +93,95 @@ class ShowcaseTile extends StatelessWidget {
                 Text(caption, textAlign: TextAlign.center, maxLines: 2, style: theme.textTheme.bodySmall),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWall(BuildContext context) {
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    return MergeSemantics(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => _showLarge(context),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 600),
+          padding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: glow ? const [BoxShadow(color: Color(0xAAFFD66B), blurRadius: 24, spreadRadius: 2)] : const [],
+          ),
+          child: Column(
+            children: [
+              // Nagel und Band: Der Orden hängt an der Wand.
+              SizedBox(
+                height: 22,
+                width: 60,
+                child: CustomPaint(painter: _NailPainter(earned: earned)),
+              ),
+              SizedBox(
+                height: 88,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Opacity(opacity: earned ? 1 : 0.45, child: TaleriaAsset(assetKey, width: 88, height: 88)),
+                    if (!earned)
+                      Positioned(
+                        right: 4,
+                        bottom: 0,
+                        child: CircleAvatar(
+                          radius: 13,
+                          backgroundColor: palette.paper,
+                          child: Icon(Icons.lock_outline, size: 16, color: palette.ink),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+              // Messingschild mit dem Namen.
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: earned
+                        ? const [Color(0xFFF6DE8D), Color(0xFFD1A845)]
+                        : const [Color(0xCCE9DFC8), Color(0xCCCFC3A8)],
+                  ),
+                  border: Border.all(color: earned ? const Color(0xFF8A6A1E) : const Color(0x998A7A5A)),
+                ),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: _fitWords(
+                    context,
+                    title,
+                    theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w800, color: const Color(0xFF3B2A08)),
+                    // Schild mit Rand und Innenabstand: etwas schmaler als der Platz.
+                    (_TextWidth.of(context) ?? 0) - 14,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                caption,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: const Color(0xFFFFF4DC),
+                  fontWeight: FontWeight.w700,
+                  shadows: const [Shadow(color: Color(0xCC000000), offset: Offset(0, 1), blurRadius: 3)],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -188,4 +287,28 @@ class _TextWidth extends InheritedWidget {
 
   @override
   bool updateShouldNotify(_TextWidth oldWidget) => oldWidget.width != width;
+}
+
+/// Messingnagel mit zwei Bändern nach unten zum Orden.
+class _NailPainter extends CustomPainter {
+  _NailPainter({required this.earned});
+
+  final bool earned;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final nail = Offset(size.width / 2, 5);
+    final band = Paint()
+      ..color = earned ? const Color(0xFF24476B) : const Color(0x6624476B)
+      ..strokeWidth = 3
+      ..strokeCap = StrokeCap.round;
+    canvas
+      ..drawLine(nail, Offset(size.width * 0.3, size.height), band)
+      ..drawLine(nail, Offset(size.width * 0.7, size.height), band)
+      ..drawCircle(nail, 5, Paint()..color = const Color(0xFF8A6A1E))
+      ..drawCircle(nail.translate(-1, -1), 2.5, Paint()..color = const Color(0xFFFFE9A8));
+  }
+
+  @override
+  bool shouldRepaint(_NailPainter old) => old.earned != earned;
 }

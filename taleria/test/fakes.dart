@@ -358,6 +358,7 @@ class FakeLocalSettings implements LocalSettings {
   bool vibration = true;
   final Map<String, int> collectionSeenBy = {};
   final Map<String, int> lookUnlocksSeenBy = {};
+  final Map<String, int> badgesSeenBy = {};
   final Map<String, Map<String, int>> potsSeenBy = {};
   final Set<String> introsSeen = {};
 
@@ -384,6 +385,12 @@ class FakeLocalSettings implements LocalSettings {
 
   @override
   Future<void> setCollectionSeen(String childId, int finds) async => collectionSeenBy[childId] = finds;
+
+  @override
+  Future<int> badgesSeen(String childId) async => badgesSeenBy[childId] ?? 0;
+
+  @override
+  Future<void> setBadgesSeen(String childId, int count) async => badgesSeenBy[childId] = count;
 
   @override
   Future<int> lookUnlocksSeen(String childId) async => lookUnlocksSeenBy[childId] ?? 0;

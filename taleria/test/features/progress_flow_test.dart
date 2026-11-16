@@ -277,6 +277,24 @@ void main() {
     expect(find.text('Mini-Spiele'), findsOneWidget);
   });
 
+  testWidgets('Neuer Orden: Die Wand zoomt heran, das Kind hängt ihn auf, nur einmal', (tester) async {
+    await startOnHome(tester, prepare: (p) => p.badgeDates['island-hafen'] = DateTime(2026, 11, 2));
+    await tapKey(tester, 'home-badges');
+    expect(find.text('Ein neuer Orden!'), findsOneWidget);
+    expect(find.byKey(const ValueKey('badge-hang')), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('badge-hang')));
+    await tester.pumpAndSettle();
+    expect(find.text('Ein neuer Orden!'), findsNothing);
+    expect(find.text('Verliehen am 02.11.2026'), findsOneWidget);
+
+    // Beim nächsten Besuch hängt er schon an der Wand.
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'home-badges');
+    expect(find.text('Ein neuer Orden!'), findsNothing);
+  });
+
   testWidgets('Unterwasser-Sammlung: Perlen und Funde', (tester) async {
     await startOnHome(
       tester,

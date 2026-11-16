@@ -2977,4 +2977,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get shipyardFromLogbook => 'aus dem Logbuch';
+
+  @override
+  String get badgeCeremonyTitle => 'Ein neuer Orden!';
+
+  @override
+  String get badgeCeremonyHang => 'An die Wand hängen';
 }

@@ -4776,6 +4776,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'aus dem Logbuch'**
   String get shipyardFromLogbook;
+
+  /// No description provided for @badgeCeremonyTitle.
+  ///
+  /// In de, this message translates to:
+  /// **'Ein neuer Orden!'**
+  String get badgeCeremonyTitle;
+
+  /// No description provided for @badgeCeremonyHang.
+  ///
+  /// In de, this message translates to:
+  /// **'An die Wand hängen'**
+  String get badgeCeremonyHang;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

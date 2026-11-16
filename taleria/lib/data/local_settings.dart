@@ -30,6 +30,12 @@ abstract interface class LocalSettings {
 
   Future<void> setCollectionSeen(String childId, int finds);
 
+  /// Wie viele Orden das Kind schon an der Wand gesehen hat. Ist es ein neuer,
+  /// wird er beim nächsten Öffnen der Orden feierlich aufgehängt.
+  Future<int> badgesSeen(String childId);
+
+  Future<void> setBadgesSeen(String childId, int count);
+
   /// Wie viele Werft-Teile das Kind schon gesehen hat (für die Zahl auf der Kachel).
   Future<int> lookUnlocksSeen(String childId);
 
@@ -118,6 +124,18 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setCollectionSeen(String childId, int finds) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('collection.$childId', finds);
+  }
+
+  @override
+  Future<int> badgesSeen(String childId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('badges.$childId') ?? 0;
+  }
+
+  @override
+  Future<void> setBadgesSeen(String childId, int count) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('badges.$childId', count);
   }
 
   @override

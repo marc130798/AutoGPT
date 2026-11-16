@@ -4164,5 +4164,7 @@
   "shipyardFromLogbook": "aus dem Logbuch",
   "@shipyardFromLogbook": {
     "description": "Unter einem gesperrten Logbuch-Teil"
-  }
+  },
+  "badgeCeremonyTitle": "Ein neuer Orden!",
+  "badgeCeremonyHang": "An die Wand hängen"
 }
