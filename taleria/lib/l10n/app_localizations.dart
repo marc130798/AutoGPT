@@ -127,6 +127,24 @@ abstract class AppLocalizations {
   /// **'Film folgt'**
   String get videoComingSoon;
 
+  /// Knopf unter einem laufenden Film (Intro, Ankunft auf einer Insel)
+  ///
+  /// In de, this message translates to:
+  /// **'Überspringen'**
+  String get filmSkip;
+
+  /// Knopf am Ende eines Films
+  ///
+  /// In de, this message translates to:
+  /// **'Nochmal ansehen'**
+  String get filmAgain;
+
+  /// Großer Abspiel-Knopf, wenn der Browser den Film erst nach dem Antippen startet
+  ///
+  /// In de, this message translates to:
+  /// **'Film abspielen'**
+  String get filmPlay;
+
   /// Allgemeiner Weiter-Knopf
   ///
   /// In de, this message translates to:

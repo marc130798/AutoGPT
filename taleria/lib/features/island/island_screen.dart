@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
-import '../../core/assets/video_placeholder.dart';
+import '../common/film_view.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/family_models.dart';
@@ -176,7 +176,7 @@ class _ArrivalState extends State<_Arrival> {
   Widget build(BuildContext context) {
     final details = widget.details;
     if (_showFilm) {
-      return VideoPlaceholder(
+      return FilmView(
         assetKey: details.arrivalVideoKey!,
         onContinue: () => details.arrivalScene.isEmpty ? widget.onDone() : setState(() => _showFilm = false),
       );

@@ -1814,7 +1814,7 @@
     },
     "video.intro": {
       "type": "video",
-      "path": null,
+      "path": "assets/video/video.intro.mp4",
       "placeholder": {
         "label": "Intro-Film",
         "color": "#24476B",

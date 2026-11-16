@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
-import '../../core/assets/video_placeholder.dart';
+import '../common/film_view.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
 import '../../domain/family_models.dart';
@@ -156,7 +156,7 @@ class _StationScreenState extends State<StationScreen> {
             },
             onNext: controller.nextWarmUp,
           ),
-          StationStep.video => VideoPlaceholder(assetKey: content.videoKey!, onContinue: controller.next),
+          StationStep.video => FilmView(assetKey: content.videoKey!, onContinue: controller.next),
           StationStep.scene => DialogSequence(
             lines: content.scene,
             title: content.place,

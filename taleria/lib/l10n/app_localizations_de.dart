@@ -28,6 +28,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get videoComingSoon => 'Film folgt';
 
   @override
+  String get filmSkip => 'Überspringen';
+
+  @override
+  String get filmAgain => 'Nochmal ansehen';
+
+  @override
+  String get filmPlay => 'Film abspielen';
+
+  @override
   String get continueButton => 'Weiter';
 
   @override

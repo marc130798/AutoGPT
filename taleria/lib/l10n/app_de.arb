@@ -24,6 +24,18 @@
   "@videoComingSoon": {
     "description": "Text auf dem Standbild, solange ein Film fehlt"
   },
+  "filmSkip": "Überspringen",
+  "@filmSkip": {
+    "description": "Knopf unter einem laufenden Film (Intro, Ankunft auf einer Insel)"
+  },
+  "filmAgain": "Nochmal ansehen",
+  "@filmAgain": {
+    "description": "Knopf am Ende eines Films"
+  },
+  "filmPlay": "Film abspielen",
+  "@filmPlay": {
+    "description": "Großer Abspiel-Knopf, wenn der Browser den Film erst nach dem Antippen startet"
+  },
   "continueButton": "Weiter",
   "@continueButton": {
     "description": "Allgemeiner Weiter-Knopf"

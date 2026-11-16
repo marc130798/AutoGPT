@@ -508,7 +508,8 @@
     "text": "Willkommen im Hafen von Taleria! Hier beginnt unser Abenteuer.",
     "datum": "2026-11-16",
     "plan": "starter",
-    "modell": "eleven_multilingual_v2"
+    "modell": "eleven_multilingual_v2",
+    "aussprache": "Taléria"
   },
   "voice.talo.arrive.wunschinsel.mp3": {
     "wer": "talo",

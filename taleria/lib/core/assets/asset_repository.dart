@@ -11,7 +11,7 @@ class AssetRepository {
   /// Diese Arten kann die App heute schon anzeigen. Für Rive, Lottie, Filme
   /// und Ton kommt das passende Paket dazu, sobald die erste echte Datei da ist.
   /// Bis dahin erscheint immer der Platzhalter.
-  static const supportedTypes = {AssetType.image};
+  static const supportedTypes = {AssetType.image, AssetType.audio, AssetType.video};
 
   final AssetBundle _bundle;
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
-import '../../core/assets/video_placeholder.dart';
+import '../common/film_view.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/environment_banner.dart';
@@ -72,7 +72,7 @@ class IntroVideoScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.palette.seaDeep,
       body: SafeArea(
-        child: VideoPlaceholder(assetKey: AssetKeys.introVideo, onContinue: () => Navigator.of(context).pop()),
+        child: FilmView(assetKey: AssetKeys.introVideo, onContinue: () => Navigator.of(context).pop()),
       ),
     );
   }

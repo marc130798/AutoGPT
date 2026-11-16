@@ -61,8 +61,20 @@ def lines() -> list[tuple[str, str, str]]:
     return out
 
 
+# Aussprache: So schreibt das Werkzeug Wörter für ElevenLabs, damit die Betonung
+# stimmt. Die Texte in der App bleiben unverändert. „Taleria“ wird auf dem e
+# betont (Marc, 16.11.2026: Variante A, vorher klang es wie „Tale-RI-a“).
+AUSSPRACHE = {"Taleria": "Taléria"}
+
+
+def spoken(text: str) -> str:
+    for word, sound in AUSSPRACHE.items():
+        text = re.sub(rf"\b{word}\b", sound, text)
+    return text
+
+
 def record(file: str, who: str, text: str) -> str:
-    body = json.dumps({"text": text, "model_id": MODEL}).encode()
+    body = json.dumps({"text": spoken(text), "model_id": MODEL}).encode()
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICES[who]}?output_format={FORMAT}"
     request = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
     for attempt in range(4):

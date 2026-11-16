@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
-import '../../core/assets/video_placeholder.dart';
+import '../common/film_view.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
 import '../../domain/progress_models.dart';
@@ -57,7 +57,7 @@ class _IntroFlowScreenState extends State<IntroFlowScreen> {
       builder: (context, _) {
         final step = controller.step;
         final body = switch (step) {
-          IntroStep.film => VideoPlaceholder(assetKey: AssetKeys.introVideo, onContinue: controller.filmFinished),
+          IntroStep.film => FilmView(assetKey: AssetKeys.introVideo, onContinue: controller.filmFinished),
           IntroStep.story => _StoryStep(onJoin: controller.joinCrew),
           IntroStep.avatar => _AvatarStep(controller: controller),
           IntroStep.rankForm => _RankFormStep(controller: controller),
