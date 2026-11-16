@@ -613,6 +613,18 @@ abstract class AppLocalizations {
   /// **'Konto'**
   String get lighthouseAccountHeading;
 
+  /// Leuchtturm: Satz unter der Überschrift oben
+  ///
+  /// In de, this message translates to:
+  /// **'Hier behältst du den Überblick.'**
+  String get lighthouseWelcome;
+
+  /// Leuchtturm: Überschrift über Musik, Vibrieren und Grafik-Übersicht
+  ///
+  /// In de, this message translates to:
+  /// **'Auf diesem Gerät'**
+  String get lighthouseDeviceHeading;
+
   /// Knopf: PIN ändern
   ///
   /// In de, this message translates to:
@@ -3580,7 +3592,7 @@ abstract class AppLocalizations {
   /// Leuchtturm: Erklärung unter dem Musik-Schalter
   ///
   /// In de, this message translates to:
-  /// **'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.'**
+  /// **'Meeresrauschen auf Startseite und Karte (nur dieses Gerät).'**
   String get lighthouseMusicHint;
 
   /// Leuchtturm: Schalter für kurzes Vibrieren, wenn das Kind eine Station schafft
@@ -3592,7 +3604,7 @@ abstract class AppLocalizations {
   /// Leuchtturm: Erklärung unter dem Schalter fürs Vibrieren
   ///
   /// In de, this message translates to:
-  /// **'Kurz vibrieren, wenn eine Station geschafft ist. Gilt nur für dieses Gerät, im Browser auf dem iPhone geht es nicht.'**
+  /// **'Wenn eine Station geschafft ist (nur dieses Gerät, nicht im iPhone-Browser).'**
   String get lighthouseVibrationHint;
 
   /// Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen

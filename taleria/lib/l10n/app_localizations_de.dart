@@ -287,6 +287,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get lighthouseAccountHeading => 'Konto';
 
   @override
+  String get lighthouseWelcome => 'Hier behältst du den Überblick.';
+
+  @override
+  String get lighthouseDeviceHeading => 'Auf diesem Gerät';
+
+  @override
   String get lighthouseChangePin => 'Eltern-PIN ändern';
 
   @override
@@ -2146,15 +2152,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get lighthouseMusic => 'Musik im Hauptmenü';
 
   @override
-  String get lighthouseMusicHint =>
-      'Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.';
+  String get lighthouseMusicHint => 'Meeresrauschen auf Startseite und Karte (nur dieses Gerät).';
 
   @override
   String get lighthouseVibration => 'Vibrieren bei Erfolgen';
 
   @override
-  String get lighthouseVibrationHint =>
-      'Kurz vibrieren, wenn eine Station geschafft ist. Gilt nur für dieses Gerät, im Browser auf dem iPhone geht es nicht.';
+  String get lighthouseVibrationHint => 'Wenn eine Station geschafft ist (nur dieses Gerät, nicht im iPhone-Browser).';
 
   @override
   String get treasureTalaIntro =>

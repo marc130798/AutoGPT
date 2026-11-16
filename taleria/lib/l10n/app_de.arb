@@ -373,6 +373,14 @@
     "description": "Knopf: neues Kinder-Profil"
   },
   "lighthouseAccountHeading": "Konto",
+  "lighthouseWelcome": "Hier behältst du den Überblick.",
+  "@lighthouseWelcome": {
+    "description": "Leuchtturm: Satz unter der Überschrift oben"
+  },
+  "lighthouseDeviceHeading": "Auf diesem Gerät",
+  "@lighthouseDeviceHeading": {
+    "description": "Leuchtturm: Überschrift über Musik, Vibrieren und Grafik-Übersicht"
+  },
   "@lighthouseAccountHeading": {
     "description": "Überschrift Konto-Einstellungen im Leuchtturm"
   },
@@ -3004,7 +3012,7 @@
   "@lighthouseMusic": {
     "description": "Leuchtturm: Schalter für die Musik auf Startseite und Karte"
   },
-  "lighthouseMusicHint": "Meeresrauschen auf Startseite und Karte, gilt für dieses Gerät. Die Töne bei richtigen Antworten schaltet das Kind mit dem Lautsprecher-Knopf.",
+  "lighthouseMusicHint": "Meeresrauschen auf Startseite und Karte (nur dieses Gerät).",
   "@lighthouseMusicHint": {
     "description": "Leuchtturm: Erklärung unter dem Musik-Schalter"
   },
@@ -3012,7 +3020,7 @@
   "@lighthouseVibration": {
     "description": "Leuchtturm: Schalter für kurzes Vibrieren, wenn das Kind eine Station schafft"
   },
-  "lighthouseVibrationHint": "Kurz vibrieren, wenn eine Station geschafft ist. Gilt nur für dieses Gerät, im Browser auf dem iPhone geht es nicht.",
+  "lighthouseVibrationHint": "Wenn eine Station geschafft ist (nur dieses Gerät, nicht im iPhone-Browser).",
   "@lighthouseVibrationHint": {
     "description": "Leuchtturm: Erklärung unter dem Schalter fürs Vibrieren"
   },

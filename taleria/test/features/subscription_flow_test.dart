@@ -96,8 +96,7 @@ void main() {
 
   testWidgets('Gratis: ein Kinder-Profil, für das zweite geht es zum Abo', (tester) async {
     await openLighthouse(tester);
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pumpAndSettle();
+    await tapText(tester, 'Kinder-Profil anlegen');
     expect(find.text('Weitere Kinder-Profile'), findsOneWidget);
     await tapText(tester, 'Zum Abo');
     expect(find.text('Basis (kostenlos)'), findsOneWidget);
@@ -105,8 +104,7 @@ void main() {
 
   testWidgets('Mit Abo: weiteres Kinder-Profil anlegen geht', (tester) async {
     await openLighthouse(tester, premium: true);
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pumpAndSettle();
+    await tapText(tester, 'Kinder-Profil anlegen');
     expect(find.text('Weitere Kinder-Profile'), findsNothing);
     expect(find.byKey(const ValueKey('nickname-field')), findsOneWidget);
   });
