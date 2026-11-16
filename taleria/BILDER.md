@@ -454,6 +454,67 @@ Text für Bild 166:
 
 > Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen, freundlich und niedlich für Kinder. Ein fröhlicher hellgrauer Delfin mit heller Bauchseite und lächelndem Gesicht, von der Seite gesehen, im Sprung zu einem schönen Bogen gebogen, der Kopf zeigt nach rechts. Ganzer Delfin mit Rückenflosse und Schwanzflosse. Ganz im Bild mit Abstand zu allen Rändern, kein Wasser, keine Spritzer, kein Schatten, kein Boden. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf.
 
+## 4r. Die Figur des Kindes: Löwe oder Löwin (Bild 167 bis 175)
+
+Am 16.11.2026 mit Marc entschieden: Die selbst gezeichnete Figur (Männchen) fliegt raus. Das Kind wählt stattdessen **einen jungen Löwen oder eine junge Löwin**, im gleichen 3D-Stil wie Talo und Tala. Keine Tierart, die sonst im Spiel vorkommt. Auf der neuen Startseite steht die Figur in der Mitte zwischen Talo und Tala (Entwurf: Startseite mit Deck, Holzschildern und Sprechblase).
+
+Vorgehen wie bei Talo und Tala: **zuerst die beiden Entwürfe** (167, 168), mit Talo als Stil-Vorlage. Erst wenn sie dir gefallen, die Posen, immer mit dem fertigen Entwurf als angehängtem Bild.
+Bitte prüfen: Die beiden dürfen **keinem bekannten Film-Löwen ähneln**. Die Kleidung hilft dabei, deshalb nicht weglassen.
+
+| Nr. | Datei | Bild | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 167 | `avatar.lion` | Löwe, Entwurf | Talo (design/gemini/character.talo.jpg) | fehlt |
+| 168 | `avatar.lioness` | Löwin, Entwurf | Talo (design/gemini/character.talo.jpg) | fehlt |
+| 169 | `avatar.lion.wave` | Löwe winkt | Bild 167 | fehlt |
+| 170 | `avatar.lion.happy` | Löwe freut sich | Bild 167 | fehlt |
+| 171 | `avatar.lion.think` | Löwe denkt nach | Bild 167 | fehlt |
+| 172 | `avatar.lioness.wave` | Löwin winkt | Bild 168 | fehlt |
+| 173 | `avatar.lioness.happy` | Löwin freut sich | Bild 168 | fehlt |
+| 174 | `avatar.lioness.think` | Löwin denkt nach | Bild 168 | fehlt |
+| 175 | `icon.games` | Spielekiste für die Kachel „Spiele“ | Schatztruhe (icon.treasure) | fehlt |
+
+Text für Bild 167:
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur für eine Kinder-App:
+
+Ein junger Löwe, etwa so alt wie ein Schulkind, Schiffsjunge auf einem kleinen Segelschiff. Warmes goldgelbes Fell, eine kleine, wuschelige, dunkel-kastanienbraune Kindermähne, die in alle Richtungen absteht, große runde freundliche Augen, kleine runde Nase, rundliche, kindgerechte Proportionen mit großem Kopf, gleich groß wie die Figur im angehängten Bild. Er trägt ein blau-weiß gestreiftes Matrosenhemd, eine kurze dunkelblaue Hose und weiße Turnschuhe. Kein Hut, kein Halstuch, nichts in den Händen. Er steht aufrecht und locker, ganzer Körper von vorn, neugieriges, freundliches Lächeln. Er soll keinem bekannten Film-Löwen ähneln. Quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern.
+
+Keine Schrift, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+Text für Bild 168:
+
+```
+Gleicher Stil und gleiches Licht wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur für eine Kinder-App:
+
+Eine junge Löwin, etwa so alt wie ein Schulkind, Schiffsjungin auf einem kleinen Segelschiff. Warmes, etwas helleres sandgoldenes Fell ohne Mähne, ein kleiner frecher Fellwirbel oben auf dem Kopf, runde Ohren, große runde freundliche Augen, ein paar helle Sommersprossen-Tupfen auf den Wangen, rundliche, kindgerechte Proportionen mit großem Kopf, gleich groß wie die Figur im angehängten Bild. Sie trägt ein blau-weiß gestreiftes Matrosenhemd, eine kurze dunkelblaue Hose und weiße Turnschuhe. Kein Hut, kein Halstuch, keine Krone, kein Kleid, nichts in den Händen. Sie steht aufrecht und locker, ganzer Körper von vorn, mutiges, fröhliches Lächeln. Sie soll keiner bekannten Film-Löwin ähneln. Quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern.
+
+Keine Schrift, keine Logos, keine Waffen.
+
+Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+Text für die Posen (169 bis 174): den fertigen Entwurf anhängen, dann je nach Pose den mittleren Satz tauschen. Bei der Löwin „Er“ durch „Sie“ ersetzen.
+
+```
+Gleiche Figur wie im angehängten Bild, gleicher Stil, gleiche Kleidung, gleiches Fell und gleiche Größe. POSE. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+```
+
+| Pose | statt „POSE“ einsetzen |
+| --- | --- |
+| winkt (`.wave`) | Er winkt fröhlich mit einer Hand und lacht |
+| freut sich (`.happy`) | Er reißt beide Arme jubelnd hoch und strahlt über das ganze Gesicht |
+| denkt nach (`.think`) | Er legt eine Hand ans Kinn, schaut leicht nach oben und überlegt |
+
+Text für Bild 175:
+
+> Gleicher Stil und gleiches Licht wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben). Eine kleine, offene Holzkiste wie an Bord eines Segelschiffs, aus der Spielsachen schauen: zwei große Würfel aus hellem Holz mit runden Punkten, ein bunter Kreisel, ein kleines Steckpuzzle-Teil und ein paar Murmeln. Leicht schräg von vorn, gleiche Größe und gleicher Blickwinkel wie die Truhe im angehängten Bild. Ganz im Bild mit Abstand zu allen Rändern. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+**Was das in der App ändert (noch nicht gebaut):** Die Auswahl im Figuren-Editor wird Löwe oder Löwin. Hut, Haare, Hautfarbe und Kleidungsfarbe fallen weg. Die Werft schaltet dann Teile fürs Schiff frei (Flaggen gibt es schon), das lila Halstuch aus dem Logbuch der Wunschinsel wird ein Schiffsteil. Bis die Bilder da sind, zeigt die App einen Platzhalter.
+
 ## 4o. Spar-Insel (Insel 4)
 
 Vorbereitet am 11.10.2026 abends auf Marcs Wunsch, bevor die Texte der Spar-Insel geschrieben sind: Die Bildergeschichten geben die Geschichte vor, die Sätze schreibt Claude danach passend dazu. Reihenfolge: erst Karte (132), dann die Insel von innen (133, braucht 132 als Vorlage), dann Emma und Gustav (134, 135, sie sind Vorlagen für die Geschichten), danach Orden, Siegel, Funde und die Geschichten. Emma ist rotbraun, Gustav hellgrün: beide auf Pink. Gustav darf nicht wie eine bekannte Filmgrille aussehen (kein Zylinder, kein Regenschirm). Wo Zahlen nötig sind (Station 3: 50 Cent am Tag sind 3,50 € in der Woche; Station 5: Sparplan 30 Taler mit 5 pro Woche), zeichnet die App das Bild selbst. Ganze Texte in `design/prompts_spar_insel.txt`.
