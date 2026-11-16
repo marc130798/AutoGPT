@@ -9,16 +9,31 @@ Aufruf im Ordner taleria/:
 Beispiel:
   python3 tool/gemini_bild.py design/gemini/avatar.lion.png "$(cat prompt.txt)" design/gemini/character.talo.jpg
 
-Kosten: Abgerechnet über Marcs Vorauszahlung in Google AI Studio (pro Bild wenige Cent).
+Kosten: Abgerechnet über Marcs Vorauszahlung in Google AI Studio, etwa 4 bis 5 Cent pro Bild
+(16.11.2026); Vorlagen werden verkleinert mitgeschickt, das spart Eingabe-Kosten.
 """
 
 import argparse
 import base64
+import io
 import json
-import mimetypes
 import sys
 import urllib.request
 from pathlib import Path
+
+from PIL import Image
+
+# Vorlagen werden für den Stil gebraucht, nicht für Details: kleiner schicken
+# spart Kosten (auch Vorlagen-Bilder werden als Eingabe berechnet).
+MAX_REF = 640
+
+
+def _ref_bytes(path: str) -> tuple[str, bytes]:
+    image = Image.open(path).convert("RGB")
+    image.thumbnail((MAX_REF, MAX_REF))
+    buffer = io.BytesIO()
+    image.save(buffer, format="JPEG", quality=85)
+    return "image/jpeg", buffer.getvalue()
 
 URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
@@ -34,8 +49,8 @@ def main() -> None:
 
     parts = []
     for ref in args.refs:
-        mime = mimetypes.guess_type(ref)[0] or "image/png"
-        parts.append({"inline_data": {"mime_type": mime, "data": base64.b64encode(Path(ref).read_bytes()).decode()}})
+        mime, data = _ref_bytes(ref)
+        parts.append({"inline_data": {"mime_type": mime, "data": base64.b64encode(data).decode()}})
     parts.append({"text": args.prompt})
     body = {
         "contents": [{"parts": parts}],
