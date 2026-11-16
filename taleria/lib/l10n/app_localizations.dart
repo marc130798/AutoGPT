@@ -649,6 +649,168 @@ abstract class AppLocalizations {
   /// **'Logbücher zum Ausdrucken'**
   String get logbooksTitle;
 
+  /// Titel der Anleitung im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'Anleitung für Eltern'**
+  String get guideTitle;
+
+  /// Untertitel des Eintrags Anleitung im Leuchtturm
+  ///
+  /// In de, this message translates to:
+  /// **'So funktioniert Taleria, Schritt für Schritt'**
+  String get guideTeaser;
+
+  /// Einleitung der Anleitung für Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Hier steht alles, was ihr für den Start wissen müsst. Tippt auf ein Thema, um es aufzuklappen.'**
+  String get guideIntro;
+
+  /// Anleitung für Eltern: Überschrift Was ist Taleria?
+  ///
+  /// In de, this message translates to:
+  /// **'Was ist Taleria?'**
+  String get guideAboutTitle;
+
+  /// Anleitung für Eltern: Text zu Was ist Taleria?
+  ///
+  /// In de, this message translates to:
+  /// **'Taleria ist ein Lernspiel rund ums Geld für Kinder von 8 bis 12. Mit Talo, dem Fuchs-Kapitän, und Tala, der Zahlmeisterin, segelt euer Kind von Insel zu Insel. Jede Insel ist ein Thema: Was ist Geld, Tauschen, Brauchen oder Wollen, Sparen und mehr. Alle Beträge sind virtuell. Es gibt keine Werbung, keine Käufe durch Kinder, keine Chats und keine Links nach außen.'**
+  String get guideAboutBody;
+
+  /// Anleitung für Eltern: Überschrift Kind verbinden
+  ///
+  /// In de, this message translates to:
+  /// **'Kind verbinden'**
+  String get guideConnectTitle;
+
+  /// Anleitung für Eltern: Text zu Kind verbinden
+  ///
+  /// In de, this message translates to:
+  /// **'Legt im Leuchtturm ein Kinder-Profil an (Spitzname und Geburtsjahr reichen). Spielt euer Kind auf einem eigenen Gerät, erzeugt ihr auf der Kinderseite einen Code. Er ist 15 Minuten gültig. Auf dem Gerät des Kindes tippt ihr „Ich habe einen Code“ und gebt ihn ein. Spielt euer Kind auf eurem Gerät, gebt ihr es einfach weiter: Der Leuchtturm bleibt mit eurer PIN geschützt.'**
+  String get guideConnectBody;
+
+  /// Anleitung für Eltern: Überschrift Tempo: zwei Stationen pro Woche
+  ///
+  /// In de, this message translates to:
+  /// **'Tempo: zwei Stationen pro Woche'**
+  String get guidePaceTitle;
+
+  /// Anleitung für Eltern: Text zu Tempo: zwei Stationen pro Woche
+  ///
+  /// In de, this message translates to:
+  /// **'Neue Stationen kommen mit dem Wind: Standard sind zwei pro Woche, montags und donnerstags. So bleibt Zeit zum Verstehen, und Taleria wird kein Dauerspiel. Auf der Kinderseite unter „Tempo und Serie“ könnt ihr 3 oder 4 pro Woche oder „freie Fahrt“ wählen, zum Beispiel in den Ferien. Wiederholen, Tauchgänge, Spiele und die Schatztruhe gehen jederzeit.'**
+  String get guidePaceBody;
+
+  /// Anleitung für Eltern: Überschrift So läuft eine Station
+  ///
+  /// In de, this message translates to:
+  /// **'So läuft eine Station'**
+  String get guideStationTitle;
+
+  /// Anleitung für Eltern: Text zu So läuft eine Station
+  ///
+  /// In de, this message translates to:
+  /// **'Eine Station dauert 5 bis 10 Minuten: Erst schätzt euer Kind (ohne richtig oder falsch), dann erklärt eine Bildergeschichte das Thema, vorgelesen von Talo, Tala und den Inselbewohnern. Danach kommen eine Übung oder ein Mini-Spiel und ein kurzer Check. Fehler kosten nichts. Nach jeder zweiten Station geht es zum Tauchen: Dort wird wiederholt. Am Ende jeder Insel wartet eine Prüfung mit Orden und einem Stück der Schatzkarte.'**
+  String get guideStationBody;
+
+  /// Anleitung für Eltern: Überschrift Seemeilen, Ränge und Fahrtwind
+  ///
+  /// In de, this message translates to:
+  /// **'Seemeilen, Ränge und Fahrtwind'**
+  String get guideProgressTitle;
+
+  /// Anleitung für Eltern: Text zu Seemeilen, Ränge und Fahrtwind
+  ///
+  /// In de, this message translates to:
+  /// **'Für jede Station gibt es Seemeilen. Damit steigt euer Kind Rang für Rang auf, vom Schiffsjungen oder Schiffsmädchen bis zum Kapitän oder zur Kapitänin. Belohnungen werden immer verdient, nie gekauft. Der Fahrtwind zählt die Wochen in Folge mit mindestens einer Station. Auf der Kinderseite könnt ihr ihn pausieren, zum Beispiel im Urlaub.'**
+  String get guideProgressBody;
+
+  /// Anleitung für Eltern: Überschrift Taschengeld, Schatztruhe und Wunschschätze
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld, Schatztruhe und Wunschschätze'**
+  String get guideMoneyTitle;
+
+  /// Anleitung für Eltern: Text zu Taschengeld, Schatztruhe und Wunschschätze
+  ///
+  /// In de, this message translates to:
+  /// **'In der Schatztruhe übt euer Kind mit virtuellem Geld: Es gibt freies Geld zum Ausgeben und Geld, das für einen Wunschschatz zurückgelegt ist. Ihr könnt ein Taschengeld festlegen (wöchentlich oder monatlich). Die App zählt nur mit, auszahlen tut ihr selbst. Mit der Wunschflasche lernt euer Kind, einen Wunsch erst einmal liegen zu lassen und dann zu entscheiden.'**
+  String get guideMoneyBody;
+
+  /// Anleitung für Eltern: Überschrift Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Aufträge'**
+  String get guideTasksTitle;
+
+  /// Anleitung für Eltern: Text zu Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'Ihr legt Aufträge an, zum Beispiel „Tisch decken“, mit oder ohne Belohnung. Euer Kind meldet einen Auftrag als erledigt, ihr bestätigt oder lehnt mit einer kurzen Nachricht ab. Erst nach eurer Bestätigung kommt die Belohnung ins freie Geld. Euer Kind kann sich nie selbst etwas buchen.'**
+  String get guideTasksBody;
+
+  /// Anleitung für Eltern: Überschrift Lern-Belohnung (freiwillig)
+  ///
+  /// In de, this message translates to:
+  /// **'Lern-Belohnung (freiwillig)'**
+  String get guideRewardTitle;
+
+  /// Anleitung für Eltern: Text zu Lern-Belohnung (freiwillig)
+  ///
+  /// In de, this message translates to:
+  /// **'Wenn ihr wollt, bekommt euer Kind für jede neu geschaffte Station und/oder jede abgeschlossene Insel einen Betrag in die Schatztruhe. Das stellt ihr unter „Taschengeld und Aufgaben“ ein. Euer Kind sieht am Ende jeder Insel, wie viel es bekommen hat. Unser Tipp: lieber kleine Beträge und eher pro Insel, damit die Neugier wichtiger bleibt als das Geld.'**
+  String get guideRewardBody;
+
+  /// Anleitung für Eltern: Überschrift Wochenbericht, Lernstand und Kombüsen-Fragen
+  ///
+  /// In de, this message translates to:
+  /// **'Wochenbericht, Lernstand und Kombüsen-Fragen'**
+  String get guideReportTitle;
+
+  /// Anleitung für Eltern: Text zu Wochenbericht, Lernstand und Kombüsen-Fragen
+  ///
+  /// In de, this message translates to:
+  /// **'Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Kombüsen-Fragen sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.'**
+  String get guideReportBody;
+
+  /// Anleitung für Eltern: Überschrift Logbücher zum Ausdrucken
+  ///
+  /// In de, this message translates to:
+  /// **'Logbücher zum Ausdrucken'**
+  String get guideLogbooksTitle;
+
+  /// Anleitung für Eltern: Text zu Logbücher zum Ausdrucken
+  ///
+  /// In de, this message translates to:
+  /// **'Zu jeder Insel gibt es ein Heft zum Ausdrucken mit Rätseln, Malaufgaben, einem Auftrag fürs echte Leben und einer Urkunde. Auf der Urkunde steht ein Schatzcode. Euer Kind gibt ihn in der Werft ein und bekommt ein besonderes Teil für sein Schiff.'**
+  String get guideLogbooksBody;
+
+  /// Anleitung für Eltern: Überschrift Ton, Stimmen und Vibrieren
+  ///
+  /// In de, this message translates to:
+  /// **'Ton, Stimmen und Vibrieren'**
+  String get guideSoundTitle;
+
+  /// Anleitung für Eltern: Text zu Ton, Stimmen und Vibrieren
+  ///
+  /// In de, this message translates to:
+  /// **'Euer Kind schaltet den Ton auf der Startseite oben links an oder aus. Hier im Leuchtturm unter „Auf diesem Gerät“ legt ihr fest, ob Musik und Klänge, die Stimmen von Talo und Tala und das Vibrieren bei Erfolgen an sind. Diese Schalter gelten nur für das Gerät, auf dem ihr sie umstellt.'**
+  String get guideSoundBody;
+
+  /// Anleitung für Eltern: Überschrift Sicherheit und Daten
+  ///
+  /// In de, this message translates to:
+  /// **'Sicherheit und Daten'**
+  String get guideSafetyTitle;
+
+  /// Anleitung für Eltern: Text zu Sicherheit und Daten
+  ///
+  /// In de, this message translates to:
+  /// **'Wir speichern nur Spitzname und Geburtsjahr eures Kindes, keinen echten Namen und keinen Standort, auf Servern in der EU. Es gibt keine Push-Nachrichten an Kinder, keine Countdowns und keine Zufallsboxen. Ihr könnt ein Kinder-Profil oder euer ganzes Konto jederzeit hier im Leuchtturm löschen.'**
+  String get guideSafetyBody;
+
   /// Leuchtturm: kurze Zeile unter dem Eintrag Logbücher
   ///
   /// In de, this message translates to:

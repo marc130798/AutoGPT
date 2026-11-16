@@ -15,6 +15,7 @@ import '../dev/asset_gallery_screen.dart';
 import 'child_budget_screen.dart';
 import 'child_detail_screen.dart';
 import 'child_form_screen.dart';
+import 'guide_screen.dart';
 import 'logbooks_screen.dart';
 import 'pin_screens.dart';
 import 'subscription_screen.dart';
@@ -192,6 +193,16 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                         // Logbücher zum Ausdrucken (PDF), mit Schatzcode für die Werft.
                         _SettingsCard(
                           children: [
+                            ListTile(
+                              key: const ValueKey('open-guide'),
+                              leading: const Icon(Icons.help_center_rounded),
+                              title: Text(l10n.guideTitle),
+                              subtitle: Text(l10n.guideTeaser),
+                              trailing: const Icon(Icons.chevron_right),
+                              onTap: () =>
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute<void>(builder: (_) => const GuideScreen())),
+                            ),
                             ListTile(
                               key: const ValueKey('open-logbooks'),
                               leading: const Icon(Icons.menu_book_rounded),

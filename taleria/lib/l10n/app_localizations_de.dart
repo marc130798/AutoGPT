@@ -305,6 +305,100 @@ class AppLocalizationsDe extends AppLocalizations {
   String get logbooksTitle => 'Logbücher zum Ausdrucken';
 
   @override
+  String get guideTitle => 'Anleitung für Eltern';
+
+  @override
+  String get guideTeaser => 'So funktioniert Taleria, Schritt für Schritt';
+
+  @override
+  String get guideIntro =>
+      'Hier steht alles, was ihr für den Start wissen müsst. Tippt auf ein Thema, um es aufzuklappen.';
+
+  @override
+  String get guideAboutTitle => 'Was ist Taleria?';
+
+  @override
+  String get guideAboutBody =>
+      'Taleria ist ein Lernspiel rund ums Geld für Kinder von 8 bis 12. Mit Talo, dem Fuchs-Kapitän, und Tala, der Zahlmeisterin, segelt euer Kind von Insel zu Insel. Jede Insel ist ein Thema: Was ist Geld, Tauschen, Brauchen oder Wollen, Sparen und mehr. Alle Beträge sind virtuell. Es gibt keine Werbung, keine Käufe durch Kinder, keine Chats und keine Links nach außen.';
+
+  @override
+  String get guideConnectTitle => 'Kind verbinden';
+
+  @override
+  String get guideConnectBody =>
+      'Legt im Leuchtturm ein Kinder-Profil an (Spitzname und Geburtsjahr reichen). Spielt euer Kind auf einem eigenen Gerät, erzeugt ihr auf der Kinderseite einen Code. Er ist 15 Minuten gültig. Auf dem Gerät des Kindes tippt ihr „Ich habe einen Code“ und gebt ihn ein. Spielt euer Kind auf eurem Gerät, gebt ihr es einfach weiter: Der Leuchtturm bleibt mit eurer PIN geschützt.';
+
+  @override
+  String get guidePaceTitle => 'Tempo: zwei Stationen pro Woche';
+
+  @override
+  String get guidePaceBody =>
+      'Neue Stationen kommen mit dem Wind: Standard sind zwei pro Woche, montags und donnerstags. So bleibt Zeit zum Verstehen, und Taleria wird kein Dauerspiel. Auf der Kinderseite unter „Tempo und Serie“ könnt ihr 3 oder 4 pro Woche oder „freie Fahrt“ wählen, zum Beispiel in den Ferien. Wiederholen, Tauchgänge, Spiele und die Schatztruhe gehen jederzeit.';
+
+  @override
+  String get guideStationTitle => 'So läuft eine Station';
+
+  @override
+  String get guideStationBody =>
+      'Eine Station dauert 5 bis 10 Minuten: Erst schätzt euer Kind (ohne richtig oder falsch), dann erklärt eine Bildergeschichte das Thema, vorgelesen von Talo, Tala und den Inselbewohnern. Danach kommen eine Übung oder ein Mini-Spiel und ein kurzer Check. Fehler kosten nichts. Nach jeder zweiten Station geht es zum Tauchen: Dort wird wiederholt. Am Ende jeder Insel wartet eine Prüfung mit Orden und einem Stück der Schatzkarte.';
+
+  @override
+  String get guideProgressTitle => 'Seemeilen, Ränge und Fahrtwind';
+
+  @override
+  String get guideProgressBody =>
+      'Für jede Station gibt es Seemeilen. Damit steigt euer Kind Rang für Rang auf, vom Schiffsjungen oder Schiffsmädchen bis zum Kapitän oder zur Kapitänin. Belohnungen werden immer verdient, nie gekauft. Der Fahrtwind zählt die Wochen in Folge mit mindestens einer Station. Auf der Kinderseite könnt ihr ihn pausieren, zum Beispiel im Urlaub.';
+
+  @override
+  String get guideMoneyTitle => 'Taschengeld, Schatztruhe und Wunschschätze';
+
+  @override
+  String get guideMoneyBody =>
+      'In der Schatztruhe übt euer Kind mit virtuellem Geld: Es gibt freies Geld zum Ausgeben und Geld, das für einen Wunschschatz zurückgelegt ist. Ihr könnt ein Taschengeld festlegen (wöchentlich oder monatlich). Die App zählt nur mit, auszahlen tut ihr selbst. Mit der Wunschflasche lernt euer Kind, einen Wunsch erst einmal liegen zu lassen und dann zu entscheiden.';
+
+  @override
+  String get guideTasksTitle => 'Aufträge';
+
+  @override
+  String get guideTasksBody =>
+      'Ihr legt Aufträge an, zum Beispiel „Tisch decken“, mit oder ohne Belohnung. Euer Kind meldet einen Auftrag als erledigt, ihr bestätigt oder lehnt mit einer kurzen Nachricht ab. Erst nach eurer Bestätigung kommt die Belohnung ins freie Geld. Euer Kind kann sich nie selbst etwas buchen.';
+
+  @override
+  String get guideRewardTitle => 'Lern-Belohnung (freiwillig)';
+
+  @override
+  String get guideRewardBody =>
+      'Wenn ihr wollt, bekommt euer Kind für jede neu geschaffte Station und/oder jede abgeschlossene Insel einen Betrag in die Schatztruhe. Das stellt ihr unter „Taschengeld und Aufgaben“ ein. Euer Kind sieht am Ende jeder Insel, wie viel es bekommen hat. Unser Tipp: lieber kleine Beträge und eher pro Insel, damit die Neugier wichtiger bleibt als das Geld.';
+
+  @override
+  String get guideReportTitle => 'Wochenbericht, Lernstand und Kombüsen-Fragen';
+
+  @override
+  String get guideReportBody =>
+      'Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Kombüsen-Fragen sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.';
+
+  @override
+  String get guideLogbooksTitle => 'Logbücher zum Ausdrucken';
+
+  @override
+  String get guideLogbooksBody =>
+      'Zu jeder Insel gibt es ein Heft zum Ausdrucken mit Rätseln, Malaufgaben, einem Auftrag fürs echte Leben und einer Urkunde. Auf der Urkunde steht ein Schatzcode. Euer Kind gibt ihn in der Werft ein und bekommt ein besonderes Teil für sein Schiff.';
+
+  @override
+  String get guideSoundTitle => 'Ton, Stimmen und Vibrieren';
+
+  @override
+  String get guideSoundBody =>
+      'Euer Kind schaltet den Ton auf der Startseite oben links an oder aus. Hier im Leuchtturm unter „Auf diesem Gerät“ legt ihr fest, ob Musik und Klänge, die Stimmen von Talo und Tala und das Vibrieren bei Erfolgen an sind. Diese Schalter gelten nur für das Gerät, auf dem ihr sie umstellt.';
+
+  @override
+  String get guideSafetyTitle => 'Sicherheit und Daten';
+
+  @override
+  String get guideSafetyBody =>
+      'Wir speichern nur Spitzname und Geburtsjahr eures Kindes, keinen echten Namen und keinen Standort, auf Servern in der EU. Es gibt keine Push-Nachrichten an Kinder, keine Countdowns und keine Zufallsboxen. Ihr könnt ein Kinder-Profil oder euer ganzes Konto jederzeit hier im Leuchtturm löschen.';
+
+  @override
   String get logbooksTeaser => 'Ein Heft pro Insel, mit Schatzcode für die Werft';
 
   @override

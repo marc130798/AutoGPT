@@ -397,6 +397,114 @@
   "@logbooksTitle": {
     "description": "Leuchtturm: Überschrift des Bereichs mit den Logbuch-PDFs"
   },
+  "guideTitle": "Anleitung für Eltern",
+  "@guideTitle": {
+    "description": "Titel der Anleitung im Leuchtturm"
+  },
+  "guideTeaser": "So funktioniert Taleria, Schritt für Schritt",
+  "@guideTeaser": {
+    "description": "Untertitel des Eintrags Anleitung im Leuchtturm"
+  },
+  "guideIntro": "Hier steht alles, was ihr für den Start wissen müsst. Tippt auf ein Thema, um es aufzuklappen.",
+  "@guideIntro": {
+    "description": "Einleitung der Anleitung für Eltern"
+  },
+  "guideAboutTitle": "Was ist Taleria?",
+  "@guideAboutTitle": {
+    "description": "Anleitung für Eltern: Überschrift Was ist Taleria?"
+  },
+  "guideAboutBody": "Taleria ist ein Lernspiel rund ums Geld für Kinder von 8 bis 12. Mit Talo, dem Fuchs-Kapitän, und Tala, der Zahlmeisterin, segelt euer Kind von Insel zu Insel. Jede Insel ist ein Thema: Was ist Geld, Tauschen, Brauchen oder Wollen, Sparen und mehr. Alle Beträge sind virtuell. Es gibt keine Werbung, keine Käufe durch Kinder, keine Chats und keine Links nach außen.",
+  "@guideAboutBody": {
+    "description": "Anleitung für Eltern: Text zu Was ist Taleria?"
+  },
+  "guideConnectTitle": "Kind verbinden",
+  "@guideConnectTitle": {
+    "description": "Anleitung für Eltern: Überschrift Kind verbinden"
+  },
+  "guideConnectBody": "Legt im Leuchtturm ein Kinder-Profil an (Spitzname und Geburtsjahr reichen). Spielt euer Kind auf einem eigenen Gerät, erzeugt ihr auf der Kinderseite einen Code. Er ist 15 Minuten gültig. Auf dem Gerät des Kindes tippt ihr „Ich habe einen Code“ und gebt ihn ein. Spielt euer Kind auf eurem Gerät, gebt ihr es einfach weiter: Der Leuchtturm bleibt mit eurer PIN geschützt.",
+  "@guideConnectBody": {
+    "description": "Anleitung für Eltern: Text zu Kind verbinden"
+  },
+  "guidePaceTitle": "Tempo: zwei Stationen pro Woche",
+  "@guidePaceTitle": {
+    "description": "Anleitung für Eltern: Überschrift Tempo: zwei Stationen pro Woche"
+  },
+  "guidePaceBody": "Neue Stationen kommen mit dem Wind: Standard sind zwei pro Woche, montags und donnerstags. So bleibt Zeit zum Verstehen, und Taleria wird kein Dauerspiel. Auf der Kinderseite unter „Tempo und Serie“ könnt ihr 3 oder 4 pro Woche oder „freie Fahrt“ wählen, zum Beispiel in den Ferien. Wiederholen, Tauchgänge, Spiele und die Schatztruhe gehen jederzeit.",
+  "@guidePaceBody": {
+    "description": "Anleitung für Eltern: Text zu Tempo: zwei Stationen pro Woche"
+  },
+  "guideStationTitle": "So läuft eine Station",
+  "@guideStationTitle": {
+    "description": "Anleitung für Eltern: Überschrift So läuft eine Station"
+  },
+  "guideStationBody": "Eine Station dauert 5 bis 10 Minuten: Erst schätzt euer Kind (ohne richtig oder falsch), dann erklärt eine Bildergeschichte das Thema, vorgelesen von Talo, Tala und den Inselbewohnern. Danach kommen eine Übung oder ein Mini-Spiel und ein kurzer Check. Fehler kosten nichts. Nach jeder zweiten Station geht es zum Tauchen: Dort wird wiederholt. Am Ende jeder Insel wartet eine Prüfung mit Orden und einem Stück der Schatzkarte.",
+  "@guideStationBody": {
+    "description": "Anleitung für Eltern: Text zu So läuft eine Station"
+  },
+  "guideProgressTitle": "Seemeilen, Ränge und Fahrtwind",
+  "@guideProgressTitle": {
+    "description": "Anleitung für Eltern: Überschrift Seemeilen, Ränge und Fahrtwind"
+  },
+  "guideProgressBody": "Für jede Station gibt es Seemeilen. Damit steigt euer Kind Rang für Rang auf, vom Schiffsjungen oder Schiffsmädchen bis zum Kapitän oder zur Kapitänin. Belohnungen werden immer verdient, nie gekauft. Der Fahrtwind zählt die Wochen in Folge mit mindestens einer Station. Auf der Kinderseite könnt ihr ihn pausieren, zum Beispiel im Urlaub.",
+  "@guideProgressBody": {
+    "description": "Anleitung für Eltern: Text zu Seemeilen, Ränge und Fahrtwind"
+  },
+  "guideMoneyTitle": "Taschengeld, Schatztruhe und Wunschschätze",
+  "@guideMoneyTitle": {
+    "description": "Anleitung für Eltern: Überschrift Taschengeld, Schatztruhe und Wunschschätze"
+  },
+  "guideMoneyBody": "In der Schatztruhe übt euer Kind mit virtuellem Geld: Es gibt freies Geld zum Ausgeben und Geld, das für einen Wunschschatz zurückgelegt ist. Ihr könnt ein Taschengeld festlegen (wöchentlich oder monatlich). Die App zählt nur mit, auszahlen tut ihr selbst. Mit der Wunschflasche lernt euer Kind, einen Wunsch erst einmal liegen zu lassen und dann zu entscheiden.",
+  "@guideMoneyBody": {
+    "description": "Anleitung für Eltern: Text zu Taschengeld, Schatztruhe und Wunschschätze"
+  },
+  "guideTasksTitle": "Aufträge",
+  "@guideTasksTitle": {
+    "description": "Anleitung für Eltern: Überschrift Aufträge"
+  },
+  "guideTasksBody": "Ihr legt Aufträge an, zum Beispiel „Tisch decken“, mit oder ohne Belohnung. Euer Kind meldet einen Auftrag als erledigt, ihr bestätigt oder lehnt mit einer kurzen Nachricht ab. Erst nach eurer Bestätigung kommt die Belohnung ins freie Geld. Euer Kind kann sich nie selbst etwas buchen.",
+  "@guideTasksBody": {
+    "description": "Anleitung für Eltern: Text zu Aufträge"
+  },
+  "guideRewardTitle": "Lern-Belohnung (freiwillig)",
+  "@guideRewardTitle": {
+    "description": "Anleitung für Eltern: Überschrift Lern-Belohnung (freiwillig)"
+  },
+  "guideRewardBody": "Wenn ihr wollt, bekommt euer Kind für jede neu geschaffte Station und/oder jede abgeschlossene Insel einen Betrag in die Schatztruhe. Das stellt ihr unter „Taschengeld und Aufgaben“ ein. Euer Kind sieht am Ende jeder Insel, wie viel es bekommen hat. Unser Tipp: lieber kleine Beträge und eher pro Insel, damit die Neugier wichtiger bleibt als das Geld.",
+  "@guideRewardBody": {
+    "description": "Anleitung für Eltern: Text zu Lern-Belohnung (freiwillig)"
+  },
+  "guideReportTitle": "Wochenbericht, Lernstand und Kombüsen-Fragen",
+  "@guideReportTitle": {
+    "description": "Anleitung für Eltern: Überschrift Wochenbericht, Lernstand und Kombüsen-Fragen"
+  },
+  "guideReportBody": "Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Kombüsen-Fragen sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.",
+  "@guideReportBody": {
+    "description": "Anleitung für Eltern: Text zu Wochenbericht, Lernstand und Kombüsen-Fragen"
+  },
+  "guideLogbooksTitle": "Logbücher zum Ausdrucken",
+  "@guideLogbooksTitle": {
+    "description": "Anleitung für Eltern: Überschrift Logbücher zum Ausdrucken"
+  },
+  "guideLogbooksBody": "Zu jeder Insel gibt es ein Heft zum Ausdrucken mit Rätseln, Malaufgaben, einem Auftrag fürs echte Leben und einer Urkunde. Auf der Urkunde steht ein Schatzcode. Euer Kind gibt ihn in der Werft ein und bekommt ein besonderes Teil für sein Schiff.",
+  "@guideLogbooksBody": {
+    "description": "Anleitung für Eltern: Text zu Logbücher zum Ausdrucken"
+  },
+  "guideSoundTitle": "Ton, Stimmen und Vibrieren",
+  "@guideSoundTitle": {
+    "description": "Anleitung für Eltern: Überschrift Ton, Stimmen und Vibrieren"
+  },
+  "guideSoundBody": "Euer Kind schaltet den Ton auf der Startseite oben links an oder aus. Hier im Leuchtturm unter „Auf diesem Gerät“ legt ihr fest, ob Musik und Klänge, die Stimmen von Talo und Tala und das Vibrieren bei Erfolgen an sind. Diese Schalter gelten nur für das Gerät, auf dem ihr sie umstellt.",
+  "@guideSoundBody": {
+    "description": "Anleitung für Eltern: Text zu Ton, Stimmen und Vibrieren"
+  },
+  "guideSafetyTitle": "Sicherheit und Daten",
+  "@guideSafetyTitle": {
+    "description": "Anleitung für Eltern: Überschrift Sicherheit und Daten"
+  },
+  "guideSafetyBody": "Wir speichern nur Spitzname und Geburtsjahr eures Kindes, keinen echten Namen und keinen Standort, auf Servern in der EU. Es gibt keine Push-Nachrichten an Kinder, keine Countdowns und keine Zufallsboxen. Ihr könnt ein Kinder-Profil oder euer ganzes Konto jederzeit hier im Leuchtturm löschen.",
+  "@guideSafetyBody": {
+    "description": "Anleitung für Eltern: Text zu Sicherheit und Daten"
+  },
   "logbooksTeaser": "Ein Heft pro Insel, mit Schatzcode für die Werft",
   "@logbooksTeaser": {
     "description": "Leuchtturm: kurze Zeile unter dem Eintrag Logbücher"
