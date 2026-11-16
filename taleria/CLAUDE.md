@@ -815,7 +815,7 @@ Kurzfassung für den Start einer neuen Sitzung. Die Einzelheiten stehen in Absch
    - Offen für Marc: Rive oder Bilder (Abschnitt 15).
 3. Kleine offene Punkte:
    - Lizenz der Musik bestätigen (vermutlich Pixabay, `ASSETS_LICENSES.md`).
-   - `rank.kapitaen`, `badge.wunschinsel` und `collectible.wreck_item` zeigen ein englisches „E“ für Osten. Diese Bilder neu machen, ohne Buchstaben (Texte: Bild 128 bis 130).
+   - Erledigt am 16.11.2026: `rank.kapitaen`, `badge.wunschinsel` und `collectible.wreck_item` ohne Buchstaben, `game.till` mit Talos Jacke (Bild 128 bis 131, von Claude mit Gemini).
    - Musik-Einstellung der Eltern für das Kinder-Gerät aus der Ferne. Dafür braucht es ein Feld in der Datenbank, vorher Marc fragen.
    - Bilder für „Talas Ausflüge“ (Nr. 117 bis 127, BILDER.md Abschnitt 4m): Marc macht sie mit Gemini, Claude stellt die Dinge frei und baut alles ein.
    - Bildtexte vorbereitet am 11.10.2026 abends (`design/prompts_spar_insel.txt`, BILDER.md Abschnitte 4n und 4o): Nachbesserungen 128 bis 131 (Kapitän, Orden Wunschinsel und Fundstück ohne „E“, Kasse mit Talos Jacke) und die ganze Spar-Insel 132 bis 162 (Karte, Insel von innen, Emma, Gustav, Orden, Taleron-Siegel A, drei Funde, 22 Bildergeschichten; zwei Bilder mit Zahlen zeichnet die App). Die Texte der Spar-Insel schreibt Claude passend zu diesen Bildern.

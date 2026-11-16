@@ -580,10 +580,10 @@ Aus den offenen Punkten (CLAUDE.md, Abschnitt 17): drei Bilder mit englischem �
 
 | Nr. | Datei | Was anders wird | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
-| 128 | `rank.kapitaen` | Rang Kapitän ohne Buchstaben | das jetzige Kapitäns-Abzeichen (design/gemini/rank.kapitaen.jpg) | fehlt |
-| 129 | `badge.wunschinsel` | Orden Wunschinsel ohne Buchstaben | der jetzige Orden der Wunschinsel (design/gemini/badge.wunschinsel.jpg) | fehlt |
-| 130 | `collectible.wreck_item` | Fundstück ohne Buchstaben | das jetzige Fundstück (design/gemini/collectible.wreck_item.jpg) | fehlt |
-| 131 | `game.till` | Startbild Kasse, Talo mit Jacke | Talo (design/gemini/character.talo.jpg) | fehlt |
+| 128 | `rank.kapitaen` | Rang Kapitän ohne Buchstaben | das jetzige Kapitäns-Abzeichen (design/gemini/rank.kapitaen.jpg) | da (Claude mit Gemini, 16.11.2026) |
+| 129 | `badge.wunschinsel` | Orden Wunschinsel ohne Buchstaben | der jetzige Orden der Wunschinsel (design/gemini/badge.wunschinsel.jpg) | da (Claude mit Gemini, 16.11.2026) |
+| 130 | `collectible.wreck_item` | Fundstück ohne Buchstaben | das jetzige Fundstück (design/gemini/collectible.wreck_item.jpg) | da (Claude mit Gemini, 16.11.2026) |
+| 131 | `game.till` | Startbild Kasse, Talo mit Jacke | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 16.11.2026) |
 
 ## 4m. Bilder für „Talas Ausflüge“ (Wunschinsel 2)
 
