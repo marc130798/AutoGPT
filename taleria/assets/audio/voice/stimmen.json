@@ -1,4 +1,304 @@
 {
+  "voice.app.introStoryTala1.mp3": {
+    "wer": "tala",
+    "text": "Und ich bin Tala, die Zahlmeisterin! Ich passe auf unsere Schatztruhe auf. Meistens jedenfalls.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.introStoryTala2.mp3": {
+    "wer": "tala",
+    "text": "Meister Taleron, der Hüter des Meeres, hat die Karte zerrissen und die Teile auf den Inseln versteckt. Nur eine kluge Crew findet den Schatz.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.introStoryTalo1.mp3": {
+    "wer": "talo",
+    "text": "Ahoi! Ich bin Talo, der Kapitän. Ich habe einen Kompass und meistens einen Plan.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.introStoryTalo2.mp3": {
+    "wer": "talo",
+    "text": "Heute Morgen ist eine Flaschenpost angetrieben. Darin war ein Stück einer alten Schatzkarte!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.introStoryTalo3.mp3": {
+    "wer": "talo",
+    "text": "Unsere Schatztruhe ist fast leer, und wir brauchen Verstärkung. Willst du in unsere Crew?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.rankFormQuestion.mp3": {
+    "wer": "tala",
+    "text": "Jetzt gehörst du zur Crew! Neue Crew-Mitglieder bekommen ihren ersten Rang. Wie soll deiner heißen?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.shipBody.mp3": {
+    "wer": "tala",
+    "text": "Jedes Schiff braucht einen Namen. Wie soll unseres heißen?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourBadgesBody.mp3": {
+    "wer": "talo",
+    "text": "Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourChestBody.mp3": {
+    "wer": "tala",
+    "text": "Hier liegt dein ganzes Geld. Ein Teil ist frei zum Ausgeben. Für deine Wunschschätze legst du Geld zurück, bis es reicht.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourCollectionBody.mp3": {
+    "wer": "tala",
+    "text": "Beim Tauchen an den Ankerplätzen findest du Perlen und alte Schätze aus Wracks. Hier liegt alles, was du gefunden hast.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourLighthouseBody.mp3": {
+    "wer": "talo",
+    "text": "Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ ganz unten auf der Startseite kannst du diesen Rundgang immer wieder anschauen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourMapBody.mp3": {
+    "wer": "talo",
+    "text": "Auf der Karte liegen alle Inseln. Tipp auf eine Insel und spiel ihre Stationen. Auf jeder Insel wartet ein Stück der Schatzkarte.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourRankBody.mp3": {
+    "wer": "talo",
+    "text": "Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind. Tipp auf das Schild, dann siehst du alle Ränge.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.tourTasksBody.mp3": {
+    "wer": "tala",
+    "text": "Hier stehen Aufgaben von deinen Eltern. Bist du fertig, tippst du auf „Erledigt!“. Die rote Zahl zeigt, wie viele noch offen sind.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.app.wishBody.mp3": {
+    "wer": "tala",
+    "text": "Wofür würdest du gern sparen? Ein Wunschschatz ist etwas, das du dir wünschst und wofür du Taler sammelst.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.erste.1.mp3": {
+    "wer": "tala",
+    "text": "Talo, schau mal! Unter dem Schiff bewegt sich etwas. Etwas sehr Großes.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.erste.2.mp3": {
+    "wer": "taleron",
+    "text": "Hoho! Wer segelt denn da durch mein Meer? Eine neue Crew, wie schön.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.erste.3.mp3": {
+    "wer": "talo",
+    "text": "Keine Angst! Das ist Meister Taleron, der Hüter des Meeres. Er ist uralt und sehr freundlich.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.erste.4.mp3": {
+    "wer": "taleron",
+    "text": "Ich lasse jedes Schiff passieren, das drei Rätsel löst. Rätsel über Dinge, die ihr schon gelernt habt.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.erste.5.mp3": {
+    "wer": "tala",
+    "text": "Und wenn wir uns irren?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.erste.6.mp3": {
+    "wer": "taleron",
+    "text": "Dann erkläre ich es euch, und ihr versucht es gleich noch einmal. Bei mir geht niemand unter.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.falsch.mp3": {
+    "wer": "taleron",
+    "text": "Nicht ganz. Hör gut zu, dann klappt es beim nächsten Versuch.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.geschafft.mp3": {
+    "wer": "taleron",
+    "text": "Drei Rätsel, drei Lösungen. Der Weg ist frei, junge Crew. Gute Fahrt!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.richtig.mp3": {
+    "wer": "taleron",
+    "text": "Hoho, richtig! Das hast du gut behalten.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.begegnung.taleron-raetsel.szene.1.mp3": {
+    "wer": "taleron",
+    "text": "Da seid ihr ja wieder! Mal sehen, was ihr noch wisst. Drei Rätsel, dann ist der Weg frei.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.hafen.2.1.mp3": {
     "wer": "talo",
     "text": "Beim Tauschen muss jeder genau das haben, was der andere gerade braucht. Das klappt nur selten.",
@@ -38,6 +338,90 @@
   "voice.hafen.2.4.mp3": {
     "wer": "talo",
     "text": "Mit Geld bekommt außerdem alles einen Preis in derselben Einheit. So kann man Preise vergleichen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Geld ist ein Tauschmittel: Fast jeder nimmt es an, man kann es aufheben und damit Preise vergleichen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Keiner! Niemand braucht gerade ein Halstuch. Genau deshalb haben die Menschen das Geld erfunden.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Auch hier will niemand ein Halstuch.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Zieh Tala zum nächsten Stand.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Die Münze nimmt der Händler gern!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Leg eine Münze statt des Halstuchs auf die Theke.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.2.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Wie viele Händler muss ich fragen, bis einer mein Halstuch nimmt?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -134,6 +518,90 @@
   "voice.hafen.3.4.mp3": {
     "wer": "talo",
     "text": "Heute bezahlen viele mit Karte oder Handy. Das Geld kommt dann von einem Konto. Die Idee ist gleich geblieben: Alle nehmen es an.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Geld hat sich verändert, aber es funktioniert immer gleich: Alle vertrauen darauf und nehmen es an.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Die ältesten Münzen sind rund 2.600 Jahre alt. Sie stammen aus Lydien, einem alten Königreich in der heutigen Türkei.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Darunter liegen Muscheln, Salz und alte Münzen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Wisch den Staub von der alten Kiste.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Richtig weit vorn: Muscheln waren eines der ersten Zahlungsmittel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Zieh die Muschel an den Anfang des Zeitstrahls.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.3.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie alt sind die ältesten Münzen der Welt?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -251,6 +719,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.hafen.4.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Jetzt kannst du Beträge mit Komma lesen, zusammenrechnen und Wechselgeld berechnen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.4.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Es sind 8 Münzen: 1, 2, 5, 10, 20 und 50 Cent sowie 1 und 2 Euro.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.4.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Auf der Rückseite hat jedes Land mit dem Euro sein eigenes Bild. Bezahlen kann man mit allen Euro-Münzen in allen diesen Ländern.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.4.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Dreh die Münze um und sieh dir die Rückseite an.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.4.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Erst die großen, dann die kleinen. So brauchst du weniger Münzen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.4.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Sortier die große Münze zuerst in die Schublade.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.4.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Wie viele verschiedene Euro-Münzen gibt es?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.hafen.4.szene.1.mp3": {
     "wer": "tala",
     "text": "In der Münzschublade herrscht Chaos! Alles liegt durcheinander.",
@@ -314,6 +866,90 @@
   "voice.hafen.5.4.mp3": {
     "wer": "tala",
     "text": "Also: Geld drucken darf man nicht, Geld verdienen schon!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Geld verdient man, indem man etwas leistet, das andere brauchen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Sie bekommen Lohn für ihre Arbeit. Geld selbst drucken ist verboten.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Fest! Das Boot ist repariert.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Hilf beim Reparieren: Tipp dreimal mit dem Hammer auf den Nagel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Lohn für gute Arbeit!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Gib dem Bootsbauer seinen Lohnbeutel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.5.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Woher bekommen die Bootsbauer ihr Geld?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -407,6 +1043,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.hafen.6.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Ein Preis besteht aus allen Kosten und einem kleinen Gewinn.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.aufloesung.mp3": {
+    "wer": "verkaeuferin",
+    "text": "Ungefähr ein Viertel. Von 4 Euro ist etwa 1 Euro für den Fisch. Der Rest ist für Brötchen, Miete, Lohn und Gewinn.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Lecker! Aber der Fisch ist nur ein Teil des Preises.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Leg den Fisch aufs Brötchen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Fisch, Brötchen, Miete, Lohn und Gewinn: Alles steckt im Preis.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Dreh das Preisschild um.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.6.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Wie viel vom Preis eines Fischbrötchens ist der Fisch?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.hafen.6.szene.1.mp3": {
     "wer": "tala",
     "text": "Was? So viel kostet ein Fischbrötchen? Der Fisch schwimmt doch einfach im Meer herum!",
@@ -491,6 +1211,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.hafen.7.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Wer Preise ungefähr kennt, kann besser planen und lässt sich nicht so leicht übers Ohr hauen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.7.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Für Kinder kostet eine Kinokarte meist zwischen 6 und 9 Euro, je nach Kino und Tag.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.7.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Ein Brötchen ist leicht und kostet wenig.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.7.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Leg das Brötchen auf die Waage.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.7.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Preise ändern sich und sind nicht überall gleich. Vergleichen lohnt sich!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.7.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Dreh das Preisschild um.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.7.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Was kostet eine Kinokarte für Kinder?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.hafen.7.szene.1.mp3": {
     "wer": "tala",
     "text": "Ich kaufe einfach alles! Das Eis, das Fahrrad und die Kinokarte!",
@@ -518,6 +1322,18 @@
   "voice.hafen.7.szene.3.mp3": {
     "wer": "tala",
     "text": "Äh … nicht so genau.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.hafen.8.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Das erste Kartenstück! Auf zur Tauschinsel!",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -614,6 +1430,90 @@
   "voice.spar-insel.1.4.mp3": {
     "wer": "emma",
     "text": "Ein kleiner Vorrat für schlechte Zeiten heißt Notgroschen. Wenn etwas kaputtgeht, muss man dann nicht gleich verzweifeln.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Ich glaube, ich will lieber wie Emma sein. Zumindest ein bisschen!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.aufloesung.mp3": {
+    "wer": "emma",
+    "text": "Ungefähr 200 Nüsse! Jeden Tag ein, zwei Nüsse, viele Wochen lang. So einen Vorrat sammelt man nicht an einem Tag.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Drei Nüsse für den Vorrat!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Sammle mit Emma Nüsse in den Beutel: Tippe dreimal.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Ein voller Vorrat! Emma muss im Winter nicht hungern.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Dreh die Tür des Speichers um. Was ist drin?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.1.schaetzfrage.mp3": {
+    "wer": "emma",
+    "text": "Was glaubst du: Wie viele Nüsse brauche ich für einen ganzen Winter?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -731,6 +1631,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.spar-insel.2.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Mein Wunschschatz: Rollschuhe, 40 Taler, bis zum Sommer! Leg deinen auch in der Schatztruhe an.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.2.aufloesung.mp3": {
+    "wer": "emma",
+    "text": "Mit dem klaren Ziel! Wer weiß, wofür, wie viel und bis wann, bleibt viel leichter dran.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.2.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Rote Rollschuhe! Das Bild erinnert Tala an ihr Ziel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.2.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Such ein Bild für Talas Wunschschatz aus: Tippe auf den Bilderrahmen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.2.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Jetzt hängt der Wunschschatz gut sichtbar am Baum.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.2.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Häng das Bild an den Ast.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.2.schaetzfrage.mp3": {
+    "wer": "emma",
+    "text": "Was glaubst du: Mit welchem Ziel schafft Tala es eher?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.spar-insel.2.szene.1.mp3": {
     "wer": "tala",
     "text": "Ich will auch sparen! Ich spare einfach … irgendwas. Irgendwann.",
@@ -818,6 +1802,90 @@
   "voice.spar-insel.3.4.mp3": {
     "wer": "talo",
     "text": "Nach einem Monat sind es schon etwa 15 Euro. Darum sagt man: Kleinvieh macht auch Mist.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.abschluss.mp3": {
+    "wer": "emma",
+    "text": "Kleinvieh macht auch Mist: Auch wenig wird viel, wenn man dranbleibt.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Über 180 Euro! Jeden Tag nur 50 Cent, aber ein ganzes Jahr lang. Kleine Beträge werden mit der Zeit groß.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Drei Tage, drei Münzen. Der Turm wächst!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Leg jeden Tag eine Münze auf den Turm: Tippe dreimal.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Viele Wochen später: Aus einzelnen Nüssen ist ein riesiger Turm geworden.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Blättere im Kalender viele Wochen weiter.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.3.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viele Euro hat man nach einem Jahr, wenn man jeden Tag 50 Cent zur Seite legt?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -935,6 +2003,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.spar-insel.4.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Warten ist schwer, aber drei Nüsse sind besser als eine!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.4.aufloesung.mp3": {
+    "wer": "emma",
+    "text": "Drei Nüsse! Dreimal so viel, nur weil sie eine Nacht gewartet hat.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.4.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Tala wartet. Das Körbchen mit drei Nüssen bleibt für sie stehen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.4.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Drück mit Tala den „Warten“-Knopf.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.4.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Guten Morgen! Drei Nüsse warten auf Tala.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.4.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Dreh den Kalender auf morgen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.4.schaetzfrage.mp3": {
+    "wer": "emma",
+    "text": "Was glaubst du: Wie viele Nüsse bekommt Tala, wenn sie bis morgen wartet?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.spar-insel.4.szene.1.mp3": {
     "wer": "emma",
     "text": "Setzt euch auf die Geduldsbank. Ich habe ein Angebot für euch.",
@@ -1031,6 +2183,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.spar-insel.5.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Mein Plan: 5 Taler pro Woche, in 8 Wochen habe ich die Rollschuhe!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.5.aufloesung.mp3": {
+    "wer": "emma",
+    "text": "Sechs Wochen! 6 mal 5 Taler sind 30 Taler.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.5.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Zwei Wochen geschafft, vier liegen noch vor Tala.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.5.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Füll mit Emma die ersten Wochenkästchen aus: Tippe zweimal.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.5.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Abgestempelt! Der Plan gilt.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.5.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Stempel den Sparplan ab.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.5.schaetzfrage.mp3": {
+    "wer": "emma",
+    "text": "Was glaubst du: Wie viele Wochen braucht man für 30 Taler, wenn man jede Woche 5 Taler spart?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.spar-insel.5.szene.1.mp3": {
     "wer": "emma",
     "text": "In meiner Planungs-Hütte schreibe ich auf, wann ich wie viel spare.",
@@ -1106,6 +2342,90 @@
   "voice.spar-insel.6.4.mp3": {
     "wer": "emma",
     "text": "Auf einem Konto ist das Geld sicherer aufbewahrt. Wie ein Konto funktioniert, lernt ihr später auf der Bank-Insel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.abschluss.mp3": {
+    "wer": "gustav",
+    "text": "Ich sammle meine Münzen jetzt alle an einem Ort. Versprochen!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.aufloesung.mp3": {
+    "wer": "emma",
+    "text": "Auf dem Konto! Dort kann es nicht verloren gehen oder gestohlen werden. Das Sparschwein ist aber auch ein guter Anfang.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Klimper, klimper! Das klingt nach einem guten Anfang.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Schüttel Talas Sparschwein: Tippe dreimal.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Alles an einem sicheren Platz. So geht nichts verloren.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Dreh den Schlüssel der Schatzkammer um.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.6.schaetzfrage.mp3": {
+    "wer": "emma",
+    "text": "Was glaubst du: Wo ist Geld am sichersten aufbewahrt?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -1199,6 +2519,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.spar-insel.7.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Ich mache die Challenge! Machst du mit? Leg in der Schatztruhe jede Woche etwas dazu.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.7.aufloesung.mp3": {
+    "wer": "emma",
+    "text": "12 Taler! 4 Wochen mal 3 Taler. Und wer dranbleibt, macht das Sparen zur Gewohnheit.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.7.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Die Challenge beginnt!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.7.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Läute die Start-Glocke für die Challenge.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.7.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Klonk! Die erste Woche ist geschafft.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.7.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Leg einen Taler in die Schatztruhe.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.7.schaetzfrage.mp3": {
+    "wer": "emma",
+    "text": "Was glaubst du: Wie viele Taler hat Tala nach 4 Wochen, wenn sie jede Woche 3 Taler in die Schatztruhe legt?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.spar-insel.7.szene.1.mp3": {
     "wer": "emma",
     "text": "Ihr habt so viel gelernt! Jetzt kommt die Schatztruhen-Challenge.",
@@ -1226,6 +2630,18 @@
   "voice.spar-insel.7.szene.3.mp3": {
     "wer": "emma",
     "text": "Vier Wochen lang legst du jede Woche etwas in deine Schatztruhe. Egal wie wenig.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.spar-insel.8.abschluss.mp3": {
+    "wer": "emma",
+    "text": "Bestanden! Das Kartenstück aus dem Vorratsspeicher gehört euch. Gute Fahrt, ihr Vorratsmeister!",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -2076,6 +3492,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.tauschinsel.1.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Tauschen klappt nur, wenn beide genau das wollen, was der andere hat. Sonst braucht man eine lange Tauschkette.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.1.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Drei Tausche: Eimer gegen Fisch, Fisch gegen Äpfel und Äpfel gegen das Seil.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.1.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Otti gibt dir dafür einen Fisch.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.1.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Bring den Eimer zu Otti.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.1.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Bruno gibt dir dafür Äpfel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.1.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Bring den Fisch zu Bruno.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.1.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Wie viele Tausche brauche ich, bis ich das Seil habe?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.tauschinsel.1.szene.1.mp3": {
     "wer": "tala",
     "text": "Ich brauche ein neues Seil fürs Schiff. Ich bezahle mit Talern!",
@@ -2160,6 +3660,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.tauschinsel.2.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Vor jedem Tausch nachdenken lohnt sich: Was brauche ich, und was gebe ich dafür her?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.2.aufloesung.mp3": {
+    "wer": "tala",
+    "text": "Zwei! Der Dachs wollte meine Kette für drei schrumpelige Äpfel. Die Ente hat mir die Laterne für meinen Korb gegeben.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.2.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Darin: eine Muschelkette, ein Korb und ein Stück Käse.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.2.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Öffne Talas Rucksack.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.2.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Die Ente schaut sich den Korb genau an.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.2.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Leg den Korb auf den Tauschtisch.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.2.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viele Händler muss Tala fragen, bis sie die Laterne hat?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.tauschinsel.2.szene.1.mp3": {
     "wer": "talo",
     "text": "Heute Nacht wollen wir weitersegeln. Dafür brauchen wir eine Laterne.",
@@ -2223,6 +3807,90 @@
   "voice.tauschinsel.3.3.mp3": {
     "wer": "talo",
     "text": "Deshalb kann ein Tausch für beide gut sein: Jeder bekommt das, was ihm mehr wert ist.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Wert ist nicht für jeden gleich. Er hängt von der Person und der Situation ab.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Da gibt es keine feste Antwort. Oben in der Hitze ist Wasser viel mehr wert als unten an der Quelle.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Puh! Jetzt ist Wasser noch mehr wert.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Tipp auf die Sonne. Es wird heißer!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Danke! Das war für mich gerade ein Schatz.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Reich Tala die Wasserflasche.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.3.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viele Muscheln würdest du oben auf dem Berg für eine Flasche Wasser geben?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -2328,6 +3996,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.tauschinsel.4.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Wollen viele etwas, das knapp ist, steigt der Preis. Will kaum jemand etwas, sinkt er.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.4.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Viermal so viele! An heißen Tagen wollen viel mehr Leute ein Eis.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.4.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Regen! Jetzt kommt kaum noch jemand.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.4.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Wisch von der Sonne zum Regen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.4.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Regentag: Der Preis geht runter, damit das Eis nicht liegen bleibt.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.4.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Dreh das Preisschild am Eisstand um.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.4.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Wie viele Kunden kommen an einem heißen Tag im Vergleich zu einem Regentag?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.tauschinsel.4.szene.1.mp3": {
     "wer": "tala",
     "text": "Darf ich heute den Eisstand übernehmen? Bitte, bitte!",
@@ -2424,6 +4176,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.tauschinsel.5.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Billig ist nicht immer günstig. Vergleichen lohnt sich, auch wie lange etwas hält.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.5.aufloesung.mp3": {
+    "wer": "tala",
+    "text": "Das gute! 12 billige Netze kosten im Jahr 60 Taler, das gute nur 20.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.5.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Ratsch! Das billige Netz ist schon gerissen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.5.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Zieh kräftig am billigen Netz.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.5.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Was für ein hoher Stapel!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.5.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Stapel die Taler für die billigen Netze: Tipp dreimal.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.5.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Welches Netz ist nach einem Jahr günstiger?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.tauschinsel.5.szene.1.mp3": {
     "wer": "otti",
     "text": "Mein Fischernetz ist schon wieder gerissen!",
@@ -2499,6 +4335,90 @@
   "voice.tauschinsel.6.3.mp3": {
     "wer": "talo",
     "text": "Es gibt kein Richtig oder Falsch. Wichtig ist, dass du weißt, worauf du verzichtest.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Jede Entscheidung bedeutet einen Verzicht. Überleg dir, was dir wichtiger ist.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.aufloesung.mp3": {
+    "wer": "tala",
+    "text": "4 Wochen. Das Fernrohr kostet 20 Taler, und ich lege jede Woche meine 5 Taler zurück.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Gespart! Das Eis muss heute warten.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Zieh den Taler zum Fernrohr.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Was für eine Aussicht über das ganze Meer!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Schau durchs Fernrohr: Tipp darauf.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.6.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viele Wochen muss Tala für das Fernrohr sparen?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -2592,6 +4512,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.tauschinsel.7.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Ein fairer Tausch: Beide wissen, was sie bekommen, und sind einverstanden.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.7.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "So viele, wie beide fair finden. Wichtig ist, dass beide wissen, wie selten die Karte ist.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.7.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Eine Karte ist selten, die andere ganz häufig. Wusste das jüngere Kind das?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.7.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Dreh die Sammelkarten um.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.7.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Abgemacht! Beide sind einverstanden.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.7.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Schlag ein zum fairen Tausch: Tipp auf die Hand.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.7.schaetzfrage.mp3": {
+    "wer": "olga",
+    "text": "Was glaubst du: Wie viele häufige Karten ist eine seltene Karte wert?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.tauschinsel.7.szene.1.mp3": {
     "wer": "olga",
     "text": "Willkommen, junge Crew. Bevor ich euch das Kartenstück gebe, möchte ich etwas sehen.",
@@ -2619,6 +4623,18 @@
   "voice.tauschinsel.7.szene.3.mp3": {
     "wer": "olga",
     "text": "Ob ihr fair tauschen könnt. Auf dem Schulhof gibt es nämlich nicht nur faire Tausche.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.tauschinsel.8.abschluss.mp3": {
+    "wer": "olga",
+    "text": "Klug und fair, so soll eine Crew sein. Gute Fahrt zur Wunschinsel!",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -2880,6 +4896,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.wunschinsel.1.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Bedürfnisse kommen zuerst, Wünsche sind erlaubt.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.1.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Fast keine! Im Glitzerladen gibt es vor allem Wünsche. Zum Leben braucht man Essen, Trinken, Kleidung und ein Zuhause.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.1.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Richtig: Brot ist ein Bedürfnis.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.1.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Wisch das Brot in den Korb „Brauche ich“.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.1.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Ohne Glitzer sieht man besser, was wirklich drin ist.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.1.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Putz das Schaufenster: Wisch einmal darüber.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.1.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viele Dinge im Glitzerladen braucht man wirklich zum Leben?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.wunschinsel.1.szene.1.mp3": {
     "wer": "elsa",
     "text": "Willkommen im Glitzerladen! Alles glänzt, alles ist zu haben!",
@@ -2955,6 +5055,90 @@
   "voice.wunschinsel.2.4.mp3": {
     "wer": "talo",
     "text": "Und wer sich für etwas entscheidet, verzichtet auf etwas anderes.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Reicht das Geld nicht für alles, entscheidet man nach Wichtigkeit.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Drei: Wasserflasche, Brot und Regenjacke kosten zusammen 9 Taler. Für Glitzerkram bleibt dann kaum etwas übrig.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Das Wichtigste zuerst!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Pack die Wasserflasche in den Rucksack.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Schade, aber dafür reicht das Geld nicht.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Nimm die Glitzersonnenbrille wieder heraus.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.2.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Wie viele wichtige Dinge passen für 10 Taler in meinen Rucksack?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -3048,6 +5232,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.wunschinsel.3.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Warten zeigt, ob man etwas wirklich will.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.3.aufloesung.mp3": {
+    "wer": "tala",
+    "text": "Nur noch 3! Die anderen sind einfach verschwunden. Darum lohnt sich die Warte-Regel.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.3.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Der Korken ist drauf.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.3.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Steck den Wunsch in die Wunschflasche.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.3.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Platsch! Jetzt heißt es warten.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.3.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Wirf die Flasche ins Meer: Wisch nach rechts.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.3.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Tala hat 10 Wünsche. Was glaubst du: Wie viele will sie nach einer Woche noch?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.wunschinsel.3.szene.1.mp3": {
     "wer": "tala",
     "text": "Den Glitzerkompass kaufe ich sofort! Jetzt gleich!",
@@ -3132,6 +5400,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.wunschinsel.4.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Gruppendruck erkennen und Nein sagen können, das macht stark.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.4.aufloesung.mp3": {
+    "wer": "tala",
+    "text": "Fast keine! Die Mützen waren nur kurz beliebt. Gut, dass ich keine gekauft habe.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.4.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Viel besser! Tala sieht wieder aus wie Tala.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.4.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Nimm Tala die rote Mütze ab.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.4.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Stark!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.4.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Daumen hoch fürs freundliche Nein-Sagen!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.4.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viele Möwen tragen eine Woche später noch die rote Mütze?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.wunschinsel.4.szene.1.mp3": {
     "wer": "tala",
     "text": "Guck mal, alle Möwen tragen rote Mützen! Ich brauche auch eine!",
@@ -3204,6 +5556,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.wunschinsel.5.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Geld hilft, aber Glück hat viele Quellen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.aufloesung.mp3": {
+    "wer": "tala",
+    "text": "Nur 2 Tage! Danach war es ganz normal. Freunde und gemeinsame Zeit machen länger froh.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Da liegt es jetzt …",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Leg das Spielzeug in die Ecke.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Moritz winkt fröhlich zurück.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Wink Moritz zu.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.5.schaetzfrage.mp3": {
+    "wer": "moritz",
+    "text": "Was glaubst du: Wie viele Tage freut sich Tala über ein neues Spielzeug?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.wunschinsel.5.szene.1.mp3": {
     "wer": "moritz",
     "text": "Kommt rein, kommt rein! Viel habe ich nicht, aber es ist gemütlich.",
@@ -3267,6 +5703,90 @@
   "voice.wunschinsel.6.3.mp3": {
     "wer": "talo",
     "text": "Erlebnisse teilt man mit anderen. Und viele schöne Erlebnisse kosten kaum Geld.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Erlebnisse bleiben oft länger in Erinnerung als Dinge.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "An den Ausflug! Erlebnisse bleiben oft länger in Erinnerung als Dinge.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Eine schöne Erinnerung!",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Kleb das Foto ins Album.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Noch mehr schöne Erlebnisse.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Blätter eine Seite im Album um.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.6.schaetzfrage.mp3": {
+    "wer": "tala",
+    "text": "Was glaubst du: Woran erinnert sich Talo nach einem Jahr eher?",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
@@ -3360,6 +5880,90 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.wunschinsel.7.abschluss.mp3": {
+    "wer": "talo",
+    "text": "Eine gute Wunschliste hilft beim Planen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.7.aufloesung.mp3": {
+    "wer": "talo",
+    "text": "Rechne es gleich nach! Mit Preisen auf der Liste siehst du, was du dir leisten kannst und wofür du sparen musst.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.7.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Das Wichtigste steht jetzt oben.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.7.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Zieh deinen wichtigsten Wunsch nach oben.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.7.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Der Brunnen beginnt zu leuchten …",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.7.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Wirf die fertige Liste in den Brunnen.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.7.schaetzfrage.mp3": {
+    "wer": "talo",
+    "text": "Was glaubst du: Wie viel kostet deine ganze Wunschliste?",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
   "voice.wunschinsel.7.szene.1.mp3": {
     "wer": "tala",
     "text": "Da ist der Wunschbrunnen! Und unten leuchtet das Kartenstück!",
@@ -3399,6 +6003,18 @@
   "voice.wunschinsel.7.szene.4.mp3": {
     "wer": "talo",
     "text": "Klug heißt: mit Preisen und nach Wichtigkeit sortiert.",
+    "datum": "2026-11-16",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    }
+  },
+  "voice.wunschinsel.8.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Geschafft! Das Kartenstück ist unser. Auf zur nächsten Insel!",
     "datum": "2026-11-16",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",

@@ -65,6 +65,26 @@ OVERRIDES = {
 }
 
 
+# Sätze aus app_de.arb, die im Intro und im Rundgang gesprochen werden (wer).
+APP_LINES = {
+    "introStoryTalo1": "talo",
+    "introStoryTala1": "tala",
+    "introStoryTalo2": "talo",
+    "introStoryTala2": "tala",
+    "introStoryTalo3": "talo",
+    "rankFormQuestion": "tala",
+    "shipBody": "tala",
+    "wishBody": "tala",
+    "tourMapBody": "talo",
+    "tourRankBody": "talo",
+    "tourChestBody": "tala",
+    "tourTasksBody": "tala",
+    "tourBadgesBody": "talo",
+    "tourCollectionBody": "tala",
+    "tourLighthouseBody": "talo",
+}
+
+
 def lines() -> list[tuple[str, str, str]]:
     """Alle Sätze mit Dateinamen. Die App spielt sie unter denselben Namen ab:
     Erklärung `voice.<insel>.<nr>.<i>`, Szene `voice.<insel>.<nr>.szene.<i>`,
@@ -91,6 +111,40 @@ def lines() -> list[tuple[str, str, str]]:
             end = stop.get("abschluss")
             if end and end.get("wer") in VOICES:
                 out.append((f"voice.{slug}.stopp{k}.abschluss.mp3", end["wer"], end["text"]))
+        for station in data.get("stationen", []):
+            base = f"voice.{slug}.{station['nr']}."
+            guess = station.get("schaetzfrage")
+            if guess and guess.get("wer") in VOICES:
+                out.append((f"{base}schaetzfrage.mp3", guess["wer"], guess["frage"]))
+            reveal = (guess or {}).get("aufloesung")
+            if isinstance(reveal, dict) and reveal.get("wer") in VOICES:
+                out.append((f"{base}aufloesung.mp3", reveal["wer"], reveal["text"]))
+            end = station.get("abschluss")
+            if isinstance(end, dict) and end.get("wer") in VOICES:
+                out.append((f"{base}abschluss.mp3", end["wer"], end["text"]))
+            # „Mach mit!“ liest immer Tala (Marc, 16.11.2026).
+            for k, tap in enumerate(station.get("antippen") or [], start=1):
+                out.append((f"{base}mitmachen.{k}.mp3", "tala", tap["text"]))
+                after = tap.get("danach") or tap.get("rueckseite")
+                if after:
+                    out.append((f"{base}mitmachen.{k}.danach.mp3", "tala", after))
+
+    # Meister Taleron und andere Begegnungen auf See.
+    encounters = json.loads((ROOT / "content" / "begegnungen.json").read_text(encoding="utf-8"))
+    for enc in encounters["begegnungen"]:
+        base = f"voice.begegnung.{enc['slug']}."
+        add(f"{base}erste.", enc.get("erste_begegnung"))
+        add(f"{base}szene.", enc.get("szene"))
+        for part in ("richtig", "falsch", "geschafft"):
+            line = enc.get(part)
+            if isinstance(line, dict) and line.get("wer") in VOICES:
+                out.append((f"{base}{part}.mp3", line["wer"], line["text"]))
+
+    # Texte der App: Geschichte im Intro und der Rundgang „Was ist wo?“.
+    arb = json.loads((ROOT / "lib" / "l10n" / "app_de.arb").read_text(encoding="utf-8"))
+    for key, who in APP_LINES.items():
+        out.append((f"voice.app.{key}.mp3", who, arb[key]))
+
     md = (ROOT / "design" / "sprachaufnahmen.md").read_text(encoding="utf-8")
     for file, who, text in re.findall(r"^\| \d+ \| `(voice\.[^`]+)` \| (\w+) \| (.+?) \|$", md, re.M):
         out.append((file, who.lower(), OVERRIDES.get(file, text)))

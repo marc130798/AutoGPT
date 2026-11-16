@@ -130,26 +130,43 @@ class _PictureStoryState extends State<PictureStory> {
     }
   }
 
-  /// Datei der Stimme zur Zeile [index], wenn Talo oder Tala sie sprechen.
-  String? _voiceFor(int index) {
+  /// Aufnahme mit diesem Namen (nach dem Anfang [PictureStory.voicePrefix]),
+  /// wenn es sie gibt. Seit 16.11.2026 sprechen alle Figuren, nicht nur Talo
+  /// und Tala.
+  String? _voice(String name) {
     final prefix = widget.voicePrefix;
     if (prefix == null) return null;
-    final speaker = widget.lines[index].speaker;
-    if (speaker != 'talo' && speaker != 'tala') return null;
-    return '$prefix${index + 1}.mp3';
+    final file = '$prefix$name.mp3';
+    return AppScope.of(context).sounds.hasVoice(file) ? file : null;
   }
 
-  /// Die Zeile der aktuellen Seite vorlesen (auf anderen Seiten schweigen).
+  /// Datei der Stimme zur Zeile [index].
+  String? _voiceFor(int index) => _voice('${index + 1}');
+
+  /// Nummer des Antipp-Moments (ab 1) für die Aufnahmen `mitmachen.<k>`.
+  int _tapNumber(TapMoment moment) => widget.taps.indexOf(moment) + 1;
+
+  /// Die aktuelle Seite vorlesen: die Zeile, bei „Mach mit!“ Talas Anweisung,
+  /// bei der Auflösung den Satz der Figur.
   void _speak() {
     final sounds = AppScope.of(context).sounds;
-    if (_pages[_index] case LinePage(:final index)) {
-      final file = _voiceFor(index);
-      if (file != null) {
-        sounds.voice(file);
-        return;
-      }
+    final file = switch (_pages[_index]) {
+      LinePage(:final index) => _voiceFor(index),
+      TapPage(:final moment) => _tapsDone.contains(_index) ? null : _voice('mitmachen.${_tapNumber(moment)}'),
+      RevealPage() => _voice('aufloesung'),
+    };
+    if (file != null) {
+      sounds.voice(file);
+    } else {
+      sounds.stopVoice();
     }
-    sounds.stopVoice();
+  }
+
+  /// Nach dem Mitmachen liest Tala vor, was passiert ist.
+  void _tapFinished(TapMoment moment) {
+    _tapsDone.add(_index);
+    final file = _voice('mitmachen.${_tapNumber(moment)}.danach');
+    if (file != null) AppScope.of(context).sounds.voice(file);
   }
 
   /// Gemerkt, damit die Stimme auch beim Schließen der Seite aufhört.
@@ -239,7 +256,7 @@ class _PictureStoryState extends State<PictureStory> {
                     TapPage(:final moment) => TapMomentView(
                       moment: moment,
                       done: _tapsDone.contains(_index),
-                      onDone: () => _tapsDone.add(_index),
+                      onDone: () => _tapFinished(moment),
                     ),
                     RevealPage() => _reveal(context),
                   },

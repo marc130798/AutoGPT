@@ -22,6 +22,7 @@ import '../common/button_spinner.dart';
 import '../common/texts.dart';
 import '../map/map_screen.dart';
 import 'speech_bubble.dart';
+import '../common/speak_once.dart';
 
 /// Das Intro: Film, Geschichte, Avatar, Schiffstaufe, Rundgang,
 /// erster Wunschschatz, Abschluss und die Karte öffnet sich.
@@ -119,7 +120,17 @@ class _StoryStepState extends State<_StoryStep> {
       (Speaker.talo, l10n.introStoryTalo3, null),
     ];
     final last = _shown >= lines.length;
+    const voiceKeys = ['introStoryTalo1', 'introStoryTala1', 'introStoryTalo2', 'introStoryTala2', 'introStoryTalo3'];
 
+    // Jede neue Zeile wird vorgelesen.
+    return SpeakOnce(
+      key: ValueKey('intro-voice-$_shown'),
+      files: ['voice.app.${voiceKeys[_shown - 1]}.mp3'],
+      child: _column(l10n, lines, last),
+    );
+  }
+
+  Widget _column(AppLocalizations l10n, List<(Speaker, String, CharacterPose?)> lines, bool last) {
     return Column(
       children: [
         Expanded(
@@ -208,7 +219,10 @@ class _RankFormStep extends StatelessWidget {
       children: [
         Text(l10n.rankFormTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
         const SizedBox(height: 16),
-        SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.rankFormQuestion),
+        SpeakOnce(
+          files: const ['voice.app.rankFormQuestion.mp3'],
+          child: SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.rankFormQuestion),
+        ),
         const SizedBox(height: 20),
         RankFormChoice(
           selected: controller.rankForm,
@@ -274,7 +288,10 @@ class _ShipStepState extends State<_ShipStep> {
               const SizedBox(height: 16),
               const Center(child: TaleriaAsset(AssetKeys.crewShip, width: 200, height: 120)),
               const SizedBox(height: 16),
-              SpeechBubble(speaker: Speaker.tala, text: l10n.shipBody),
+              SpeakOnce(
+                files: const ['voice.app.shipBody.mp3'],
+                child: SpeechBubble(speaker: Speaker.tala, text: l10n.shipBody),
+              ),
               const SizedBox(height: 24),
               TextField(
                 key: const ValueKey('ship-name-field'),
@@ -360,7 +377,10 @@ class _WishStepState extends State<_WishStep> {
               children: [
                 Text(l10n.wishTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
                 const SizedBox(height: 16),
-                SpeechBubble(speaker: Speaker.tala, text: l10n.wishBody),
+                SpeakOnce(
+                  files: const ['voice.app.wishBody.mp3'],
+                  child: SpeechBubble(speaker: Speaker.tala, text: l10n.wishBody),
+                ),
                 const SizedBox(height: 24),
                 TextFormField(
                   key: const ValueKey('wish-title-field'),

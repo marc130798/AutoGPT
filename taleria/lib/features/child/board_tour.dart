@@ -8,6 +8,7 @@ import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../intro/speech_bubble.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/speak_once.dart';
 
 /// Eine Station des Rundgangs: Bild, Name, wo sie auf der Startseite liegt,
 /// und wer sie erklärt.
@@ -92,6 +93,17 @@ List<TourStop> tourStops(AppLocalizations l10n) => [
 /// Rundgang „Was ist wo?“: Talo und Tala zeigen nacheinander jeden Bereich
 /// der Startseite mit seinem Bild und sagen, wo er liegt. Kommt in der
 /// Einführung und jederzeit über den Knopf oben auf der Startseite.
+/// Aufnahmen zu den Stationen des Rundgangs (`voice.app.<key>.mp3`, gleiche Reihenfolge).
+const tourVoiceKeys = [
+  'tourMapBody',
+  'tourRankBody',
+  'tourChestBody',
+  'tourTasksBody',
+  'tourBadgesBody',
+  'tourCollectionBody',
+  'tourLighthouseBody',
+];
+
 class BoardTour extends StatefulWidget {
   const BoardTour({super.key, required this.onDone});
 
@@ -116,73 +128,77 @@ class _BoardTourState extends State<BoardTour> {
     return Column(
       children: [
         Expanded(
-          child: ListView(
-            key: ValueKey('tour-stop-$_index'),
-            padding: const EdgeInsets.all(16),
-            children: [
-              PaperCard(
-                child: Column(
-                  children: [
-                    Text(l10n.tourTitle, style: theme.textTheme.titleMedium),
-                    const SizedBox(height: 12),
-                    TaleriaAsset(
-                      stop.image,
-                      width: 150,
-                      height: 130,
-                      fallback: Icon(stop.icon, size: 96, color: palette.seaDeep),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      stop.title,
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.place, size: 20, color: palette.coral),
-                        const SizedBox(width: 4),
-                        Flexible(
-                          child: Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '${l10n.tourWhere} ',
-                                  style: const TextStyle(fontWeight: FontWeight.w800),
-                                ),
-                                TextSpan(text: stop.where),
-                              ],
+          child: SpeakOnce(
+            key: ValueKey('tour-voice-$_index'),
+            files: ['voice.app.${tourVoiceKeys[_index]}.mp3'],
+            child: ListView(
+              key: ValueKey('tour-stop-$_index'),
+              padding: const EdgeInsets.all(16),
+              children: [
+                PaperCard(
+                  child: Column(
+                    children: [
+                      Text(l10n.tourTitle, style: theme.textTheme.titleMedium),
+                      const SizedBox(height: 12),
+                      TaleriaAsset(
+                        stop.image,
+                        width: 150,
+                        height: 130,
+                        fallback: Icon(stop.icon, size: 96, color: palette.seaDeep),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        stop.title,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.place, size: 20, color: palette.coral),
+                          const SizedBox(width: 4),
+                          Flexible(
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${l10n.tourWhere} ',
+                                    style: const TextStyle(fontWeight: FontWeight.w800),
+                                  ),
+                                  TextSpan(text: stop.where),
+                                ],
+                              ),
+                              key: const ValueKey('tour-where'),
+                              style: theme.textTheme.bodyMedium,
                             ),
-                            key: const ValueKey('tour-where'),
-                            style: theme.textTheme.bodyMedium,
                           ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 4),
+                SpeechBubble(speaker: stop.speaker, pose: stop.pose, text: stop.text),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var i = 0; i < stops.length; i++)
+                      Container(
+                        margin: const EdgeInsets.all(4),
+                        width: i == _index ? 14 : 10,
+                        height: i == _index ? 14 : 10,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: i == _index ? palette.gold : palette.paper.withValues(alpha: 0.85),
+                          border: Border.all(color: palette.seaDeep.withValues(alpha: 0.4)),
                         ),
-                      ],
-                    ),
+                      ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 4),
-              SpeechBubble(speaker: stop.speaker, pose: stop.pose, text: stop.text),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (var i = 0; i < stops.length; i++)
-                    Container(
-                      margin: const EdgeInsets.all(4),
-                      width: i == _index ? 14 : 10,
-                      height: i == _index ? 14 : 10,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: i == _index ? palette.gold : palette.paper.withValues(alpha: 0.85),
-                        border: Border.all(color: palette.seaDeep.withValues(alpha: 0.4)),
-                      ),
-                    ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         Padding(

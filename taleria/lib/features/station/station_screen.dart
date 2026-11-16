@@ -75,7 +75,11 @@ class _StationScreenState extends State<StationScreen> {
           : (result.rankUp != null ? AssetKeys.soundRankUp : AssetKeys.soundStationDone),
     );
     _sounds.success();
-    _sounds.voice(_cheer(controller, result.islandCompleted));
+    // Erst freuen, dann der Merksatz der Station (wenn es eine Aufnahme gibt).
+    _sounds.voices([
+      _cheer(controller, result.islandCompleted),
+      if (!controller.isSeaStop) '${_voiceBase()}abschluss.mp3',
+    ]);
   }
 
   /// Anfang der Aufnahmen dieser Station: `voice.<insel>.<nr>.` oder beim
@@ -176,7 +180,10 @@ class _StationScreenState extends State<StationScreen> {
             stage: content.seaStop?.ship == null,
             voicePrefix: '${_voiceBase()}szene.',
           ),
-          StationStep.estimate => EstimateView(estimate: content.estimate!, onSubmit: controller.submitEstimate),
+          StationStep.estimate => SpeakOnce(
+            files: ['${_voiceBase()}schaetzfrage.mp3'],
+            child: EstimateView(estimate: content.estimate!, onSubmit: controller.submitEstimate),
+          ),
           StationStep.lesson when content.hasPictureStory => PictureStory(
             lines: content.lesson,
             onDone: controller.next,

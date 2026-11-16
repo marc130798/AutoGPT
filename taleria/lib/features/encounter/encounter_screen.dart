@@ -69,6 +69,23 @@ class _EncounterScreenState extends State<EncounterScreen> {
   late Sounds _sounds;
   EncounterStep? _lastStep;
 
+  /// Anfang der Aufnahmen dieser Begegnung (tool/stimmen_aufnehmen.py).
+  String get _base => 'voice.begegnung.${widget.offer.encounter.slug}.';
+
+  /// Das Gespräch am Anfang ist vertont (seit 16.11.2026): Dann liest jede
+  /// Zeile ihre Figur vor, sonst sagt Taleron nur einen Begrüßungssatz.
+  String? get _scenePrefix {
+    final prefix =
+        '$_base${widget.offer.firstMeeting && widget.offer.encounter.firstScene.isNotEmpty ? 'erste' : 'szene'}.';
+    return _sounds.knownVoices?.contains('${prefix}1.mp3') ?? false ? prefix : null;
+  }
+
+  /// Die Aufnahme zum Inhalt (zum Beispiel `richtig`), sonst die alte.
+  String _line(String part, String fallback) {
+    final file = '$_base$part.mp3';
+    return _sounds.knownVoices?.contains(file) ?? false ? file : fallback;
+  }
+
   /// Meister Taleron spricht mit Marcs Stimme: zur Begrüßung (beim ersten
   /// Treffen etwas anderes) und zum Abschied.
   void _onStep() {
@@ -76,11 +93,17 @@ class _EncounterScreenState extends State<EncounterScreen> {
     if (step == _lastStep) return;
     _lastStep = step;
     if (step == EncounterStep.intro) {
-      _sounds.voice(widget.offer.firstMeeting ? 'voice.taleron.first.mp3' : 'voice.taleron.hello.mp3');
+      if (_scenePrefix == null) {
+        _sounds.voice(widget.offer.firstMeeting ? 'voice.taleron.first.mp3' : 'voice.taleron.hello.mp3');
+      }
     } else if (step == EncounterStep.result) {
-      _sounds.voice('voice.taleron.bye.mp3');
+      _sounds.voice(_line('geschafft', 'voice.taleron.bye.mp3'));
     }
   }
+
+  /// Richtig oder falsch: Talerons Satz, der auch auf dem Bildschirm steht.
+  void answerVoice(bool right) =>
+      _sounds.voice(right ? _line('richtig', 'voice.taleron.right.mp3') : _line('falsch', 'voice.taleron.wrong.mp3'));
 
   @override
   void dispose() {
@@ -105,7 +128,11 @@ class _EncounterScreenState extends State<EncounterScreen> {
           EncounterStep.intro => StagePanel(
             stage: EmergeFromSea(child: _figure(controller)),
             open: true,
-            child: DialogSequence(lines: widget.offer.openingScene, onDone: controller.introDone),
+            child: DialogSequence(
+              lines: widget.offer.openingScene,
+              onDone: controller.introDone,
+              voicePrefix: _scenePrefix,
+            ),
           ),
           EncounterStep.question => StagePanel(
             stage: _figure(controller),
@@ -229,7 +256,9 @@ class _RiddleView extends StatelessWidget {
                             controller.answer(i);
                             final sounds = AppScope.of(context).sounds;
                             if (run.answeredCorrectly) sounds.effect(AssetKeys.soundCorrect);
-                            sounds.voice(run.answeredCorrectly ? 'voice.taleron.right.mp3' : 'voice.taleron.wrong.mp3');
+                            context.findAncestorStateOfType<_EncounterScreenState>()?.answerVoice(
+                              run.answeredCorrectly,
+                            );
                           }
                         : null,
                   ),
