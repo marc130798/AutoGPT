@@ -30,6 +30,7 @@ class LedgerTile extends StatelessWidget {
       LedgerType.purchase => Icons.shopping_bag_outlined,
       LedgerType.donation => Icons.favorite_border,
       LedgerType.learning => Icons.emoji_events_outlined,
+      LedgerType.gift => Icons.card_giftcard,
     };
     final tint = positive ? palette.success : palette.coral;
     return ListTile(

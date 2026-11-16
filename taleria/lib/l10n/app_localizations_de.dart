@@ -1172,6 +1172,35 @@ class AppLocalizationsDe extends AppLocalizations {
   String get ledgerLearning => 'Lern-Belohnung';
 
   @override
+  String get ledgerGift => 'Geld bekommen';
+
+  @override
+  String get potSumGift => 'Geld bekommen';
+
+  @override
+  String get treasureReport => 'Ich habe Geld bekommen';
+
+  @override
+  String get treasureReportTitle => 'Geld bekommen';
+
+  @override
+  String get treasureReportHint =>
+      'Zum Beispiel von Oma oder zum Geburtstag. Deine Eltern bestätigen es, dann kommt es in deine Schatztruhe.';
+
+  @override
+  String treasureReportWaiting(String amount) {
+    return '$amount wartet auf deine Eltern';
+  }
+
+  @override
+  String get moneyReportsHeading => 'Euer Kind hat Geld gemeldet';
+
+  @override
+  String moneyReportLine(String amount, String date) {
+    return '$amount am $date';
+  }
+
+  @override
   String get amountLabel => 'Betrag in Euro';
 
   @override

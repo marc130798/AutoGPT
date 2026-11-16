@@ -28,6 +28,11 @@ class TreasureController extends ChangeNotifier {
   List<SavingsGoal> get goals => _goals;
   AllowanceRule? get allowance => _allowance;
 
+  List<MoneyReport> _reports = const [];
+
+  /// Gemeldetes Geld, das noch auf die Eltern wartet.
+  List<MoneyReport> get pendingReports => _reports.where((r) => r.status == MoneyReportStatus.pending).toList();
+
   LearningRewards _learning = LearningRewards.none;
   LearningRewards get learningRewards => _learning;
 
@@ -64,6 +69,7 @@ class TreasureController extends ChangeNotifier {
         _budget.fetchWishBottles(childId),
         _budget.fetchWishBottleStatus(childId),
         _budget.fetchLearningRewards(childId),
+        _budget.fetchMoneyReports(childId),
       ]);
       _balances = results[0] as PotBalances;
       _ledger = results[1] as List<LedgerEntry>;
@@ -73,6 +79,7 @@ class TreasureController extends ChangeNotifier {
       _wishBottles = results[5] as List<WishBottle>;
       _wishStatus = results[6] as WishBottleStatus;
       _learning = results[7] as LearningRewards;
+      _reports = results[8] as List<MoneyReport>;
     } on AppFailure catch (e) {
       _failure = e.kind;
     }
@@ -136,6 +143,14 @@ class TreasureController extends ChangeNotifier {
   );
 
   Future<void> deleteTask(FamilyTask task) => _then(_budget.deleteTask(task.id));
+
+  /// Kind: „Ich habe Geld bekommen“ (wartet auf die Eltern).
+  Future<void> reportMoney({required int amountCents, String? note}) =>
+      _then(_budget.reportMoney(childId, amountCents: amountCents, note: note));
+
+  /// Eltern: gemeldetes Geld bestätigen oder ablehnen.
+  Future<void> reviewMoneyReport(MoneyReport report, {required bool approve}) =>
+      _then(_budget.reviewMoneyReport(report.id, approve: approve));
 
   /// Eltern: Lern-Belohnung festlegen (0 = aus).
   Future<void> setLearningRewards({required int stationCents, required int islandCents}) =>

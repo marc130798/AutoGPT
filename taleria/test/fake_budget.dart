@@ -93,6 +93,46 @@ class FakeBudget implements BudgetRepository {
   Future<LearningRewards> fetchLearningRewards(String childId) async =>
       learningRewards[childId] ?? LearningRewards.none;
 
+  final Map<String, List<MoneyReport>> moneyReports = {};
+
+  @override
+  Future<List<MoneyReport>> fetchMoneyReports(String childId) async => [...?moneyReports[childId]];
+
+  @override
+  Future<void> reportMoney(String childId, {required int amountCents, String? note}) async {
+    _check();
+    (moneyReports[childId] ??= []).insert(
+      0,
+      MoneyReport(
+        id: _next('m'),
+        amountCents: amountCents,
+        note: note,
+        status: MoneyReportStatus.pending,
+        createdAt: now,
+      ),
+    );
+  }
+
+  @override
+  Future<void> reviewMoneyReport(String reportId, {required bool approve}) async {
+    _check();
+    for (final entry in moneyReports.entries) {
+      final list = entry.value;
+      final i = list.indexWhere((r) => r.id == reportId);
+      if (i < 0) continue;
+      final r = list[i];
+      list[i] = MoneyReport(
+        id: r.id,
+        amountCents: r.amountCents,
+        note: r.note,
+        status: approve ? MoneyReportStatus.approved : MoneyReportStatus.rejected,
+        createdAt: r.createdAt,
+      );
+      if (approve) _book(entry.key, Pot.spend, r.amountCents, LedgerType.gift, note: r.note);
+      return;
+    }
+  }
+
   /// Lern-Belohnungen, wie sie der Server bucht: (Kind, Station oder Insel) → Cent.
   final Map<(String, String), int> learningBooked = {};
 

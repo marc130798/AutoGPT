@@ -1591,6 +1591,51 @@
   "@ledgerLearning": {
     "description": "Buchungsart im Kassenbuch: Geld der Eltern für eine geschaffte Station oder Insel"
   },
+  "ledgerGift": "Geld bekommen",
+  "@ledgerGift": {
+    "description": "Buchungsart im Kassenbuch: gemeldetes Geld, von den Eltern bestätigt"
+  },
+  "potSumGift": "Geld bekommen",
+  "@potSumGift": {
+    "description": "Zeile in der Übersicht der Truhe: gemeldetes Geld"
+  },
+  "treasureReport": "Ich habe Geld bekommen",
+  "@treasureReport": {
+    "description": "Kinderbereich, Schatztruhe: Knopf, Geld melden (z. B. von Oma)"
+  },
+  "treasureReportTitle": "Geld bekommen",
+  "@treasureReportTitle": {
+    "description": "Titel des Dialogs Geld melden"
+  },
+  "treasureReportHint": "Zum Beispiel von Oma oder zum Geburtstag. Deine Eltern bestätigen es, dann kommt es in deine Schatztruhe.",
+  "@treasureReportHint": {
+    "description": "Hinweis im Dialog Geld melden"
+  },
+  "treasureReportWaiting": "{amount} wartet auf deine Eltern",
+  "@treasureReportWaiting": {
+    "description": "Kinderbereich: gemeldetes Geld, noch nicht bestätigt",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "moneyReportsHeading": "Euer Kind hat Geld gemeldet",
+  "@moneyReportsHeading": {
+    "description": "Leuchtturm: gemeldetes Geld zum Bestätigen"
+  },
+  "moneyReportLine": "{amount} am {date}",
+  "@moneyReportLine": {
+    "description": "Leuchtturm: Betrag und Datum einer Meldung",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "amountLabel": "Betrag in Euro",
   "@amountLabel": {
     "description": "Feld: Betrag"

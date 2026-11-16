@@ -202,7 +202,48 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
     final palette = context.palette;
     final allowance = controller.allowance;
     final balances = controller.balances;
+    final reports = controller.pendingReports;
     return [
+      // Gemeldetes Geld wartet ganz oben auf die Eltern.
+      if (reports.isNotEmpty)
+        _MoneyCard(
+          icon: Icons.card_giftcard,
+          title: l10n.moneyReportsHeading,
+          children: [
+            for (final report in reports)
+              Padding(
+                key: ValueKey('money-report-${report.id}'),
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.moneyReportLine(formatCents(report.amountCents), formatDate(report.createdAt)),
+                      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    if (report.note != null) Text(report.note!),
+                    Wrap(
+                      alignment: WrapAlignment.end,
+                      spacing: 8,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () =>
+                              runWithFeedback(context, () => controller.reviewMoneyReport(report, approve: false)),
+                          child: Text(l10n.taskReject),
+                        ),
+                        FilledButton(
+                          key: ValueKey('money-report-approve-${report.id}'),
+                          onPressed: () =>
+                              runWithFeedback(context, () => controller.reviewMoneyReport(report, approve: true)),
+                          child: Text(l10n.taskApprove),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       _MoneyCard(
         icon: Icons.account_balance_wallet_outlined,
         title: l10n.balanceHeading,

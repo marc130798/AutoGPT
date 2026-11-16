@@ -392,4 +392,30 @@ void main() {
     await tapText(tester, 'Ausschalten');
     expect(budget.learningRewards[mila.id]!.active, isFalse);
   });
+
+  testWidgets('Geld melden: Kind meldet Geld von Oma, Eltern bestätigen, erst dann ist es da', (tester) async {
+    final backend = FakeBackend();
+    final parent = backend.addParent(pin: '2468');
+    final mila = backend.addChild(parent);
+    final budget = FakeBudget();
+
+    await openChildDevice(tester, backend, budget, mila.id);
+    await tapText(tester, 'Schatztruhe');
+    await tapText(tester, 'Ich habe Geld bekommen');
+    await enter(tester, 'amount-dialog-amount', '5');
+    await enter(tester, 'amount-dialog-note', 'Von Oma');
+    await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('${formatCents(500)} wartet auf deine Eltern'), findsOneWidget);
+    expect(budget.balance(mila.id, Pot.spend), 0, reason: 'erst nach der Bestätigung');
+
+    await openParentBudget(tester, backend, budget, menu: 'Taschengeld und Schatztruhe');
+    expect(find.text('Euer Kind hat Geld gemeldet'), findsOneWidget);
+    expect(find.text('Von Oma'), findsOneWidget);
+    await tapText(tester, 'Bestätigen');
+    expect(budget.balance(mila.id, Pot.spend), 500);
+    expect(find.text('Euer Kind hat Geld gemeldet'), findsNothing);
+    expect(budget.entries.last.type, LedgerType.gift, reason: 'steht jetzt im Kassenbuch');
+    expect(budget.entries.last.note, 'Von Oma');
+  });
 }

@@ -21,6 +21,15 @@ abstract interface class BudgetRepository {
   /// Eltern: Lern-Belohnung festlegen (0 = aus).
   Future<void> setLearningRewards(String childId, {required int stationCents, required int islandCents});
 
+  /// Gemeldetes Geld des Kindes (neueste zuerst).
+  Future<List<MoneyReport>> fetchMoneyReports(String childId);
+
+  /// Kind (oder Eltern-Gerät): „Ich habe Geld bekommen“.
+  Future<void> reportMoney(String childId, {required int amountCents, String? note});
+
+  /// Eltern: gemeldetes Geld bestätigen (bucht ins freie Geld) oder ablehnen.
+  Future<void> reviewMoneyReport(String reportId, {required bool approve});
+
   /// Summe der Lern-Belohnungen für diese Stationen und Inseln (IDs).
   Future<int> fetchLearningTotal(String childId, List<String> referenceIds);
 
@@ -139,6 +148,39 @@ class SupabaseBudgetRepository implements BudgetRepository {
     if (row == null) return LearningRewards.none;
     return LearningRewards(stationCents: row['station_cents'] as int, islandCents: row['island_cents'] as int);
   });
+
+  @override
+  Future<List<MoneyReport>> fetchMoneyReports(String childId) => guardBackend(() async {
+    final rows = await _client
+        .from('money_reports')
+        .select('id, amount_cents, note, status, created_at')
+        .eq('child_id', childId)
+        .order('created_at', ascending: false)
+        .limit(30);
+    return [
+      for (final r in rows)
+        MoneyReport(
+          id: r['id'] as String,
+          amountCents: r['amount_cents'] as int,
+          note: r['note'] as String?,
+          status: MoneyReportStatus.values.byName(r['status'] as String),
+          createdAt: DateTime.parse(r['created_at'] as String).toLocal(),
+        ),
+    ];
+  });
+
+  @override
+  Future<void> reportMoney(String childId, {required int amountCents, String? note}) => guardBackend(
+    () => _client.rpc<void>(
+      'report_money',
+      params: {'p_child_id': childId, 'p_amount_cents': amountCents, 'p_note': note},
+    ),
+  );
+
+  @override
+  Future<void> reviewMoneyReport(String reportId, {required bool approve}) => guardBackend(
+    () => _client.rpc<void>('review_money_report', params: {'p_report_id': reportId, 'p_approve': approve}),
+  );
 
   @override
   Future<int> fetchLearningTotal(String childId, List<String> referenceIds) => guardBackend(() async {

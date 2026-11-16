@@ -75,6 +75,7 @@ extension TaleriaTexts on AppLocalizations {
     LedgerType.purchase => ledgerPurchase,
     LedgerType.donation => ledgerDonation,
     LedgerType.learning => ledgerLearning,
+    LedgerType.gift => ledgerGift,
   };
 
   /// Art der Buchung in der Übersicht einer Truhe (Geld hinein oder hinaus).
@@ -87,6 +88,7 @@ extension TaleriaTexts on AppLocalizations {
     LedgerType.purchase => potSumPurchase,
     LedgerType.donation => potSumDonation,
     LedgerType.learning => potSumLearning,
+    LedgerType.gift => potSumGift,
   };
 
   String taskStatus(TaskStatus status) => switch (status) {

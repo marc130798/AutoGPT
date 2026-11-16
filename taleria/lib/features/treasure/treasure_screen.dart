@@ -96,6 +96,19 @@ class _TreasureScreenState extends State<TreasureScreen> {
     );
   }
 
+  /// „Ich habe Geld bekommen“: Die Eltern bestätigen es im Leuchtturm.
+  Future<void> _report() {
+    final l10n = AppLocalizations.of(context);
+    final c = _controller!;
+    return showAmountDialog(
+      context,
+      title: l10n.treasureReportTitle,
+      hint: l10n.treasureReportHint,
+      withNote: true,
+      onSubmit: (input) => c.reportMoney(amountCents: input.amountCents, note: input.note),
+    );
+  }
+
   Future<void> _saveFor(SavingsGoal goal) {
     final l10n = AppLocalizations.of(context);
     final c = _controller!;
@@ -231,6 +244,7 @@ class _TreasureScreenState extends State<TreasureScreen> {
                   child: _TreasureContent(
                     controller: controller,
                     onSpend: _spend,
+                    onReport: _report,
                     onSaveFor: _saveFor,
                     onTakeBack: _takeBack,
                     onNewGoal: _newGoal,
@@ -255,6 +269,7 @@ class _TreasureScreenState extends State<TreasureScreen> {
 class _TreasureContent extends StatelessWidget {
   const _TreasureContent({
     required this.controller,
+    required this.onReport,
     required this.onSpend,
     required this.onSaveFor,
     required this.onTakeBack,
@@ -273,6 +288,7 @@ class _TreasureContent extends StatelessWidget {
   /// Stand beim letzten Besuch: Was seitdem dazugekommen ist, fliegt hinein.
   final Map<String, int>? seen;
   final VoidCallback onSpend;
+  final VoidCallback onReport;
   final ValueChanged<SavingsGoal> onSaveFor;
   final ValueChanged<SavingsGoal> onTakeBack;
   final VoidCallback onNewGoal;
@@ -305,6 +321,8 @@ class _TreasureContent extends StatelessWidget {
           seen: seen?.values.fold<int>(0, (sum, v) => sum + v),
           onOpen: () => onOpenPot(Pot.spend),
           onSpend: onSpend,
+          onReport: onReport,
+          waiting: [for (final r in controller.pendingReports) r.amountCents],
         ),
         const SizedBox(height: 4),
         _Section(
@@ -488,7 +506,19 @@ class _SectionState extends State<_Section> {
 /// Wunschschätze zurückgelegt ist. Antippen (oder „Was ist drin?“) zeigt,
 /// wie sich das freie Geld zusammensetzt.
 class _ChestCard extends StatelessWidget {
-  const _ChestCard({required this.balances, required this.onOpen, required this.onSpend, this.seen});
+  const _ChestCard({
+    required this.balances,
+    required this.onOpen,
+    required this.onSpend,
+    required this.onReport,
+    this.waiting = const [],
+    this.seen,
+  });
+
+  final VoidCallback onReport;
+
+  /// Gemeldetes Geld, das noch auf die Eltern wartet (Beträge in Cent).
+  final List<int> waiting;
 
   final PotBalances balances;
 
@@ -599,8 +629,31 @@ class _ChestCard extends StatelessWidget {
                       icon: const Icon(Icons.edit_note, size: 20),
                       label: Text(l10n.treasureSpend),
                     ),
+                    TextButton.icon(
+                      key: const ValueKey('treasure-report'),
+                      onPressed: onReport,
+                      icon: const Icon(Icons.card_giftcard, size: 20),
+                      label: Text(l10n.treasureReport),
+                    ),
                   ],
                 ),
+                for (final cents in waiting)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Row(
+                      children: [
+                        Icon(Icons.hourglass_top_rounded, size: 18, color: palette.gold),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            l10n.treasureReportWaiting(formatCents(cents)),
+                            key: const ValueKey('treasure-report-waiting'),
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),

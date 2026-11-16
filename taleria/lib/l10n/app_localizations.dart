@@ -2191,6 +2191,54 @@ abstract class AppLocalizations {
   /// **'Lern-Belohnung'**
   String get ledgerLearning;
 
+  /// Buchungsart im Kassenbuch: gemeldetes Geld, von den Eltern bestätigt
+  ///
+  /// In de, this message translates to:
+  /// **'Geld bekommen'**
+  String get ledgerGift;
+
+  /// Zeile in der Übersicht der Truhe: gemeldetes Geld
+  ///
+  /// In de, this message translates to:
+  /// **'Geld bekommen'**
+  String get potSumGift;
+
+  /// Kinderbereich, Schatztruhe: Knopf, Geld melden (z. B. von Oma)
+  ///
+  /// In de, this message translates to:
+  /// **'Ich habe Geld bekommen'**
+  String get treasureReport;
+
+  /// Titel des Dialogs Geld melden
+  ///
+  /// In de, this message translates to:
+  /// **'Geld bekommen'**
+  String get treasureReportTitle;
+
+  /// Hinweis im Dialog Geld melden
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Beispiel von Oma oder zum Geburtstag. Deine Eltern bestätigen es, dann kommt es in deine Schatztruhe.'**
+  String get treasureReportHint;
+
+  /// Kinderbereich: gemeldetes Geld, noch nicht bestätigt
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} wartet auf deine Eltern'**
+  String treasureReportWaiting(String amount);
+
+  /// Leuchtturm: gemeldetes Geld zum Bestätigen
+  ///
+  /// In de, this message translates to:
+  /// **'Euer Kind hat Geld gemeldet'**
+  String get moneyReportsHeading;
+
+  /// Leuchtturm: Betrag und Datum einer Meldung
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} am {date}'**
+  String moneyReportLine(String amount, String date);
+
   /// Feld: Betrag
   ///
   /// In de, this message translates to:

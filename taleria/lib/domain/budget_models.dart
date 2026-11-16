@@ -35,7 +35,27 @@ class PotBalances {
   int get free => spend;
 }
 
-enum LedgerType { allowance, task, transfer, manual, goal, purchase, donation, learning }
+enum LedgerType { allowance, task, transfer, manual, goal, purchase, donation, learning, gift }
+
+/// Geld, das das Kind gemeldet hat („Ich habe Geld bekommen“); die Eltern
+/// bestätigen es, erst dann kommt es ins freie Geld.
+enum MoneyReportStatus { pending, approved, rejected }
+
+class MoneyReport {
+  const MoneyReport({
+    required this.id,
+    required this.amountCents,
+    required this.status,
+    required this.createdAt,
+    this.note,
+  });
+
+  final String id;
+  final int amountCents;
+  final String? note;
+  final MoneyReportStatus status;
+  final DateTime createdAt;
+}
 
 /// Lern-Belohnung der Eltern (freiwillig, 0 = aus): virtuelles Geld für jede
 /// neu geschaffte Station und jede abgeschlossene Insel. Gebucht wird auf dem
