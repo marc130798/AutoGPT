@@ -6,12 +6,12 @@ import 'avatar.dart';
 /// Kind gewählt hat (im Avatar-JSON).
 ///
 /// Seit 16.11.2026 ist die Figur des Kindes Löwe oder Löwin (frei wählbar,
-/// [PlayerFigure]); Jacken, Hüte und Halstücher gibt es nicht mehr. Weitere
-/// Schiffsteile (Segel, Galionsfigur, Laterne) folgen mit eigenen Bildern.
-enum LookSlot { outfit, hat, scarf, flag }
+/// [PlayerFigure]); Jacken, Hüte und Halstücher gibt es nicht mehr. Dafür
+/// gibt es Segelfarben, Galionsfiguren und Flaggen fürs Schiff.
+enum LookSlot { outfit, hat, scarf, flag, sails, figurehead }
 
 /// Plätze, die die Werft heute zeigt.
-const shipyardSlots = [LookSlot.flag];
+const shipyardSlots = [LookSlot.sails, LookSlot.figurehead, LookSlot.flag];
 
 class LookItem {
   const LookItem(this.slot, this.value, this.minXp, {this.logbook});
@@ -35,10 +35,19 @@ class LookItem {
 /// Alle Teile der Werft in der Reihenfolge der Grenzen. Die Grenzen passen
 /// zu den Rängen: Matrose ab 1.500, Bootsmann ab 4.000, Steuermann ab 8.000.
 const shipyardItems = <LookItem>[
+  LookItem(LookSlot.sails, SailColor.white, 0),
+  LookItem(LookSlot.figurehead, Figurehead.none, 0),
   LookItem(LookSlot.flag, ShipFlag.taleria, 0),
+  LookItem(LookSlot.sails, SailColor.red, 200),
   LookItem(LookSlot.flag, ShipFlag.stripes, 400),
+  LookItem(LookSlot.sails, SailColor.blue, 700),
+  LookItem(LookSlot.figurehead, Figurehead.dolphin, 1000),
   LookItem(LookSlot.flag, ShipFlag.wave, 1500),
+  LookItem(LookSlot.sails, SailColor.green, 2000),
+  LookItem(LookSlot.sails, SailColor.gold, 3000),
   LookItem(LookSlot.flag, ShipFlag.star, 4000),
+  LookItem(LookSlot.sails, SailColor.purple, 5000),
+  LookItem(LookSlot.figurehead, Figurehead.lion, 6000),
   LookItem(LookSlot.flag, ShipFlag.sun, 8000),
   // Aus dem Logbuch zum Ausdrucken (Schatzcode auf der Urkunde).
   LookItem(LookSlot.flag, ShipFlag.anchor, 0, logbook: 'hafen'),
@@ -84,6 +93,8 @@ AvatarConfig wearLook(AvatarConfig avatar, LookItem item) => switch (item.value)
   final Hat h => avatar.copyWith(hat: h),
   final Scarf s => avatar.copyWith(scarf: s),
   final ShipFlag f => avatar.copyWith(flag: f),
+  final SailColor c => avatar.copyWith(sails: c),
+  final Figurehead g => avatar.copyWith(figurehead: g),
   _ => avatar,
 };
 
@@ -93,5 +104,7 @@ bool wearsLook(AvatarConfig avatar, LookItem item) => switch (item.value) {
   final Hat h => avatar.hat == h,
   final Scarf s => avatar.scarf == s,
   final ShipFlag f => avatar.flag == f,
+  final SailColor c => avatar.sails == c,
+  final Figurehead g => avatar.figurehead == g,
   _ => false,
 };

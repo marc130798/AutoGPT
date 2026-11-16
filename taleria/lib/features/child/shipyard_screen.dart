@@ -127,7 +127,7 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    ShipDock(flag: _avatar.flag),
+                    ShipDock(avatar: _avatar),
                     Positioned(
                       left: -4,
                       bottom: -14,
@@ -310,6 +310,14 @@ class _LookOption extends StatelessWidget {
           border: Border.all(color: palette.ink.withValues(alpha: 0.2), width: 2),
         ),
       ),
+      // Galionsfigur: die Figur selbst groß, „Ohne“ als Schiff.
+      LookSlot.figurehead when item.value != Figurehead.none => TaleriaAsset(
+        'figurehead.${(item.value as Figurehead).name}',
+        width: 60,
+        height: 60,
+        fallback: ShipSideView(avatar: wearLook(avatar, item), width: 70),
+      ),
+      LookSlot.sails || LookSlot.figurehead => ShipSideView(avatar: wearLook(avatar, item), width: 70),
       _ => AvatarView(avatar: wearLook(avatar, item), size: 60),
     };
     return Semantics(

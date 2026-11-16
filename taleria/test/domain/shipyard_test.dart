@@ -5,9 +5,10 @@ import 'package:taleria/domain/shipyard.dart';
 void main() {
   test('Teile werden mit Seemeilen frei, nichts wird abgezogen', () {
     expect(unlockedShipyardCount(0), 0);
-    expect(unlockedShipyardCount(399), 0);
-    expect(unlockedShipyardCount(400), 1);
-    expect(unlockedShipyardCount(1200), 1);
+    expect(unlockedShipyardCount(199), 0);
+    expect(unlockedShipyardCount(200), 1);
+    expect(unlockedShipyardCount(400), 2);
+    expect(unlockedShipyardCount(1200), 4);
     expect(unlockedShipyardCount(100000), shipyardItems.where((i) => i.minXp > 0).length);
     expect(nextShipyardItem(1200)!.id, 'flag_wave');
     expect(nextShipyardItem(8000), isNull);
@@ -41,7 +42,10 @@ void main() {
   });
 
   test('Die Werft zeigt nur noch Schiffsteile', () {
-    expect(shipyardItems.map((i) => i.slot).toSet(), {LookSlot.flag});
+    expect(shipyardItems.map((i) => i.slot).toSet(), {LookSlot.flag, LookSlot.sails, LookSlot.figurehead});
+    final dressed = wearLook(const AvatarConfig(), shipyardItems.firstWhere((i) => i.id == 'sails_red'));
+    expect(dressed.sails, SailColor.red);
+    expect(AvatarConfig.fromJson(dressed.copyWith(figurehead: Figurehead.lion).toJson()).figurehead, Figurehead.lion);
     expect(logbookItem('wunschinsel')!.value, ShipFlag.bottle);
   });
 

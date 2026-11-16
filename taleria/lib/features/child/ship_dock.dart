@@ -16,13 +16,11 @@ import '../common/wood_sign.dart';
 /// (Wunsch von Marc, 16.11.2026: seitlich in 3D statt schräg von oben).
 /// Ohne Bewegung (Tests, „Bewegung reduzieren“) steht alles still.
 class ShipDock extends StatefulWidget {
-  const ShipDock({super.key, required this.flag, this.height = 300});
+  const ShipDock({super.key, required this.avatar, this.height = 300});
 
-  final ShipFlag flag;
+  /// Flagge, Segel und Galionsfigur kommen aus dem Avatar des Kindes.
+  final AvatarConfig avatar;
   final double height;
-
-  /// Spitze des höchsten Masts im Bild `ship.side` (Anteil von Breite und Höhe).
-  static const _mastTip = Offset(0.322, 0.012);
 
   @override
   State<ShipDock> createState() => _ShipDockState();
@@ -67,7 +65,6 @@ class _ShipDockState extends State<ShipDock> with SingleTickerProviderStateMixin
             final shipHeight = shipWidth * 432 / 512;
             // Wasserlinie: Dort liegt der Rumpf im Becken.
             final waterline = h * 0.8;
-            final flagSize = shipWidth * 0.17;
             return Stack(
               fit: StackFit.expand,
               children: [
@@ -93,18 +90,7 @@ class _ShipDockState extends State<ShipDock> with SingleTickerProviderStateMixin
                           child: Transform.rotate(
                             angle: tilt,
                             alignment: Alignment.bottomCenter,
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                const Positioned.fill(child: TaleriaAsset(AssetKeys.shipSide, fit: BoxFit.contain)),
-                                // Die eigene Flagge oben am höchsten Mast.
-                                Positioned(
-                                  left: shipWidth * ShipDock._mastTip.dx - flagSize * 0.12,
-                                  top: shipHeight * ShipDock._mastTip.dy - flagSize * 0.92,
-                                  child: ShipFlagView(flag: widget.flag, size: flagSize),
-                                ),
-                              ],
-                            ),
+                            child: ShipSideView(avatar: widget.avatar, width: shipWidth),
                           ),
                         ),
                         // Wasser vor dem unteren Rumpf: Das Schiff liegt im Becken, nicht darauf.
@@ -193,4 +179,72 @@ class _WaterPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_WaterPainter old) => old.progress != progress || old.waterline != waterline;
+}
+
+/// Das eigene Schiff von der Seite: Bild `ship.side`, die Segel in der
+/// gewählten Farbe (Maske `ship.side.sails`), die Galionsfigur am Bug und die
+/// Flagge oben am höchsten Mast. In der Werft-Bühne und als Vorschau.
+class ShipSideView extends StatelessWidget {
+  const ShipSideView({super.key, required this.avatar, required this.width});
+
+  final AvatarConfig avatar;
+  final double width;
+
+  /// Seitenverhältnis des Bilds `ship.side` (512 × 432).
+  static const aspect = 432 / 512;
+
+  /// Spitze des höchsten Masts und Bug im Bild (Anteil von Breite und Höhe).
+  static const _mastTip = Offset(0.322, 0.012);
+  static const _bow = Offset(0.815, 0.74);
+
+  static const sailColors = {
+    SailColor.red: Color(0xFFD0453A),
+    SailColor.blue: Color(0xFF3D73C2),
+    SailColor.green: Color(0xFF3F9E62),
+    SailColor.gold: Color(0xFFE8B83E),
+    SailColor.purple: Color(0xFF8E5BB5),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final height = width * aspect;
+    final flagSize = width * 0.17;
+    final headSize = width * 0.2;
+    final tint = sailColors[avatar.sails];
+    return SizedBox(
+      width: width,
+      height: height,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          const Positioned.fill(child: TaleriaAsset(AssetKeys.shipSide, fit: BoxFit.contain)),
+          if (tint != null)
+            Positioned.fill(
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(tint, BlendMode.modulate),
+                child: const TaleriaAsset(AssetKeys.shipSideSails, fit: BoxFit.contain, fallback: SizedBox.shrink()),
+              ),
+            ),
+          if (avatar.figurehead != Figurehead.none)
+            Positioned(
+              left: width * _bow.dx - headSize * 0.35,
+              top: height * _bow.dy - headSize * 0.6,
+              width: headSize,
+              height: headSize,
+              child: TaleriaAsset(
+                'figurehead.${avatar.figurehead.name}',
+                fit: BoxFit.contain,
+                fallback: const SizedBox.shrink(),
+              ),
+            ),
+          // Die eigene Flagge oben am höchsten Mast.
+          Positioned(
+            left: width * _mastTip.dx - flagSize * 0.12,
+            top: height * _mastTip.dy - flagSize * 0.92,
+            child: ShipFlagView(flag: avatar.flag, size: flagSize),
+          ),
+        ],
+      ),
+    );
+  }
 }

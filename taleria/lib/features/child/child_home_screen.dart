@@ -40,6 +40,7 @@ import 'games_screen.dart';
 import 'lighthouse_button.dart';
 
 import 'rank_form_choice.dart';
+import 'ship_dock.dart';
 import 'shipyard_screen.dart';
 import 'sound_button.dart';
 
@@ -937,7 +938,7 @@ class _HomeBodyState extends State<_HomeBody> {
                             return _DeckItem(
                               key: const ValueKey('home-shipyard'),
                               image: '',
-                              art: FlaggedShip(flag: (child.avatar ?? const AvatarConfig()).flag, size: 78),
+                              art: ShipSideView(avatar: child.avatar ?? const AvatarConfig(), width: 92),
                               fallbackIcon: Icons.sailing_rounded,
                               label: l10n.childHomeShipyardTile,
                               semanticLabel: l10n.childHomeShipyardTile,

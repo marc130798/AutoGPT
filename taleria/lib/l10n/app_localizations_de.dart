@@ -2822,6 +2822,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'hat': 'Kopfbedeckung',
       'scarf': 'Halstuch',
       'flag': 'Flagge',
+      'sails': 'Segel',
+      'figurehead': 'Galionsfigur',
       'other': 'Teile',
     });
     return '$_temp0';
@@ -2857,6 +2859,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag_shell': 'Muschel-Flagge',
       'flag_coin': 'Taler-Flagge',
       'flag_bottle': 'Flaschenpost-Flagge',
+      'sails_white': 'Weiße Segel',
+      'sails_red': 'Rote Segel',
+      'sails_blue': 'Blaue Segel',
+      'sails_green': 'Grüne Segel',
+      'sails_gold': 'Goldene Segel',
+      'sails_purple': 'Lila Segel',
+      'figurehead_none': 'Ohne',
+      'figurehead_dolphin': 'Delfin',
+      'figurehead_lion': 'Goldener Löwe',
       'other': 'Teil',
     });
     return '$_temp0';

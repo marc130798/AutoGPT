@@ -2285,6 +2285,33 @@
         "shape": "rectangle"
       }
     },
+    "ship.side.sails": {
+      "type": "image",
+      "path": "assets/images/ship.side.sails.png",
+      "placeholder": {
+        "label": "Segel zum Einfärben",
+        "color": "#E6BB45",
+        "shape": "rounded"
+      }
+    },
+    "figurehead.lion": {
+      "type": "image",
+      "path": "assets/images/figurehead.lion.png",
+      "placeholder": {
+        "label": "Galionsfigur Löwe",
+        "color": "#E6BB45",
+        "shape": "rounded"
+      }
+    },
+    "figurehead.dolphin": {
+      "type": "image",
+      "path": "assets/images/figurehead.dolphin.png",
+      "placeholder": {
+        "label": "Galionsfigur Delfin",
+        "color": "#E6BB45",
+        "shape": "rounded"
+      }
+    },
     "icon.treasure": {
       "type": "image",
       "path": "assets/images/icon.treasure.png",

@@ -34,6 +34,7 @@ abstract final class AssetKeys {
   /// Hafenbecken der Werft und das eigene Schiff von der Seite (Bühne oben in der Werft).
   static const shipyardDock = 'shipyard.dock';
   static const shipSide = 'ship.side';
+  static const shipSideSails = 'ship.side.sails';
   static const iconMap = 'icon.map';
   static const iconTreasure = 'icon.treasure';
   static const iconTasks = 'icon.tasks';

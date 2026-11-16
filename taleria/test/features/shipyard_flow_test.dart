@@ -42,9 +42,9 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
     await tapText(tester, 'An Bord gehen');
 
-    // Ein Teil ist schon frei und leuchtet, bis das Kind die Werft öffnet.
+    // Vier Teile sind schon frei und leuchten, bis das Kind die Werft öffnet.
     await scrollTo(tester, find.byKey(const ValueKey('home-shipyard')));
-    expect(find.text('1 neues Teil frei'), findsOneWidget);
+    expect(find.text('4 neue Teile frei'), findsOneWidget);
     await tapKey(tester, 'home-shipyard');
 
     expect(find.text('Werft'), findsWidgets);
@@ -60,7 +60,9 @@ void main() {
     // Frei: wird sofort gespeichert.
     await tapKey(tester, 'look-flag_stripes');
     expect(backend.childById(mila.id).avatar!.flag, ShipFlag.stripes);
-    // Löwe oder Löwin: jederzeit umstellbar, die Flagge bleibt.
+    // Löwe oder Löwin: jederzeit umstellbar, die Flagge bleibt. Die Wahl steht weiter oben.
+    await tester.drag(find.byType(Scrollable).last, const Offset(0, 3000));
+    await tester.pumpAndSettle();
     await tapKey(tester, 'figure-lioness');
     expect(backend.childById(mila.id).avatar!.figure, PlayerFigure.lioness);
     expect(backend.childById(mila.id).avatar!.flag, ShipFlag.stripes);
@@ -68,7 +70,7 @@ void main() {
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     await scrollTo(tester, find.byKey(const ValueKey('home-shipyard')));
-    expect(find.text('1 neues Teil frei'), findsNothing);
+    expect(find.text('4 neue Teile frei'), findsNothing);
     expect(find.byKey(const ValueKey('ship-flag-stripes')), findsWidgets);
   });
 

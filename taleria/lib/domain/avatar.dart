@@ -31,6 +31,12 @@ enum Scarf { none, red, gold, purple }
 /// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
 enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin, bottle }
 
+/// Farbe der Segel des eigenen Schiffs (die App färbt die Segel ein).
+enum SailColor { white, red, blue, green, gold, purple }
+
+/// Galionsfigur vorne am Bug.
+enum Figurehead { none, dolphin, lion }
+
 class AvatarConfig {
   const AvatarConfig({
     this.figure = PlayerFigure.lion,
@@ -42,6 +48,8 @@ class AvatarConfig {
     this.hat = Hat.captain,
     this.scarf = Scarf.none,
     this.flag = ShipFlag.taleria,
+    this.sails = SailColor.white,
+    this.figurehead = Figurehead.none,
     this.logbooks = const {},
   });
 
@@ -61,6 +69,8 @@ class AvatarConfig {
       hat: pick(Hat.values, 'hat', fallback.hat),
       scarf: pick(Scarf.values, 'scarf', fallback.scarf),
       flag: pick(ShipFlag.values, 'flag', fallback.flag),
+      sails: pick(SailColor.values, 'sails', fallback.sails),
+      figurehead: pick(Figurehead.values, 'figurehead', fallback.figurehead),
       logbooks: {
         for (final l in (json['logbooks'] as List?) ?? const [])
           if (l is String) l,
@@ -81,6 +91,8 @@ class AvatarConfig {
   final Hat hat;
   final Scarf scarf;
   final ShipFlag flag;
+  final SailColor sails;
+  final Figurehead figurehead;
 
   /// Inseln, deren Schatzcode aus dem Logbuch das Kind eingelöst hat (zum Beispiel `hafen`).
   final Set<String> logbooks;
@@ -96,6 +108,8 @@ class AvatarConfig {
     'hat': hat.name,
     'scarf': scarf.name,
     'flag': flag.name,
+    'sails': sails.name,
+    'figurehead': figurehead.name,
     if (logbooks.isNotEmpty) 'logbooks': [...logbooks]..sort(),
   };
 
@@ -111,6 +125,8 @@ class AvatarConfig {
     Hat? hat,
     Scarf? scarf,
     ShipFlag? flag,
+    SailColor? sails,
+    Figurehead? figurehead,
     Set<String>? logbooks,
   }) {
     return AvatarConfig(
@@ -123,6 +139,8 @@ class AvatarConfig {
       hat: hat ?? this.hat,
       scarf: scarf ?? this.scarf,
       flag: flag ?? this.flag,
+      sails: sails ?? this.sails,
+      figurehead: figurehead ?? this.figurehead,
       logbooks: logbooks ?? this.logbooks,
     );
   }
@@ -139,6 +157,8 @@ class AvatarConfig {
       other.hat == hat &&
       other.scarf == scarf &&
       other.flag == flag &&
+      other.sails == sails &&
+      other.figurehead == figurehead &&
       other.logbooks.length == logbooks.length &&
       other.logbooks.containsAll(logbooks);
 
@@ -153,6 +173,8 @@ class AvatarConfig {
     hat,
     scarf,
     flag,
+    sails,
+    figurehead,
     Object.hashAllUnordered(logbooks),
   );
 }
