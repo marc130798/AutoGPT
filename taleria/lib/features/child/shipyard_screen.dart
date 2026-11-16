@@ -19,6 +19,7 @@ import '../common/ship_flag.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/play_effect.dart';
 
 /// Werft: Mit Seemeilen schaltet das Kind Jacken, Hüte, Halstücher und
 /// Flaggen fürs Schiff frei. Nichts kostet etwas und nichts ist kaufbar.
@@ -52,7 +53,7 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
         );
       return;
     }
-    await _save(wearLook(_avatar, item));
+    if (await _save(wearLook(_avatar, item)) && mounted) playEffect(context, AssetKeys.soundTool);
   }
 
   /// Schatzcode aus dem Logbuch einlösen: schaltet ein Teil frei, tragen muss das Kind es selbst.
@@ -70,6 +71,7 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
     final saved = await _save(_avatar.copyWith(logbooks: {..._avatar.logbooks, island}));
     final item = logbookItem(island);
     if (saved && item != null) {
+      if (mounted) playEffect(context, AssetKeys.soundUnlock);
       messenger
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text(l10n.shipyardCodeUnlocked(l10n.lookName(item.id)))));
@@ -107,6 +109,7 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
     final theme = Theme.of(context);
     final next = nextShipyardItem(widget.xp);
     return MenuMusic(
+      music: AssetKeys.ambienceShipyard,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.shipyardTitle),

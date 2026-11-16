@@ -62,17 +62,7 @@ Future<void> main() async {
   unawaited(session.start());
   // Im Browser einfache Audio-Elemente (iPhone), sonst das Paket audioplayers.
   final sounds =
-      createWebSounds(
-        manifest: manifest,
-        effects: const [
-          AssetKeys.soundCorrect,
-          AssetKeys.soundPearl,
-          AssetKeys.soundStationDone,
-          AssetKeys.soundIslandDone,
-          AssetKeys.soundCoin,
-        ],
-        settings: settings,
-      ) ??
+      createWebSounds(manifest: manifest, effects: AssetKeys.effects, settings: settings) ??
       AudioSounds(manifest: manifest, assets: assets, settings: settings);
   unawaited(sounds.load());
 

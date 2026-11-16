@@ -1,11 +1,14 @@
 import 'dart:math';
 
+import '../../core/assets/asset_keys.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../l10n/app_localizations.dart';
 import 'map_painters.dart';
+import '../common/play_effect.dart';
 
 /// Tiere im Meer der Karte, nur zum Spaß (Marcs Wunsch am 29.10.2026: die
 /// App soll lebendiger wirken). Antippen: Der Fisch springt, der Wal bläst
@@ -36,6 +39,7 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
   }
 
   void _tap() {
+    playEffect(context, widget.kind == CritterKind.whale ? AssetKeys.soundWhale : AssetKeys.soundSplash);
     if (MediaQuery.disableAnimationsOf(context)) return;
     _jump.forward(from: 0);
   }

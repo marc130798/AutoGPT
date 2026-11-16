@@ -3080,11 +3080,11 @@
   "@soundTurnOn": {
     "description": "Hinweis und Vorlesetext für den Lautsprecher-Knopf, wenn der Ton aus ist"
   },
-  "lighthouseMusic": "Musik im Hauptmenü",
+  "lighthouseMusic": "Musik und Klänge",
   "@lighthouseMusic": {
     "description": "Leuchtturm: Schalter für die Musik auf Startseite und Karte"
   },
-  "lighthouseMusicHint": "Meeresrauschen auf Startseite und Karte (nur dieses Gerät).",
+  "lighthouseMusicHint": "Meeresrauschen im Menü, leise Klänge auf den Inseln, unter Wasser und in der Werft (nur dieses Gerät).",
   "@lighthouseMusicHint": {
     "description": "Leuchtturm: Erklärung unter dem Musik-Schalter"
   },

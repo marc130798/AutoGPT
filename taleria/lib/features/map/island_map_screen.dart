@@ -25,6 +25,7 @@ import 'map_painters.dart';
 import 'map_scene.dart';
 import 'sea_critters.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/play_effect.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
 /// nach oben (Schatzinsel). Inseln im Nebel und gesperrte Inseln sind
@@ -157,11 +158,14 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
       if (!mounted) return;
       await _travel.forward(from: 0).orCancel;
       if (!mounted) return;
+      // Angekommen: die Schiffsglocke; an einer Insel springt danach das Schloss auf.
+      playEffect(context, AssetKeys.soundShipBell);
       setState(() {
         _travelFromId = null;
         _travelToId = null;
       });
       if (_unlockingId == null) return;
+      playEffect(context, AssetKeys.soundUnlock);
       await _unlock.forward(from: 0).orCancel;
     } on TickerCanceled {
       return;

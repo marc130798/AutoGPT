@@ -55,7 +55,7 @@ void main() {
     return (content: content, sounds: sounds, settings: settings);
   }
 
-  testWidgets('Meeresrauschen auf Startseite und Karte, still auf der Insel', (tester) async {
+  testWidgets('Meeresrauschen auf Startseite und Karte, auf der Insel ihr eigener Klang', (tester) async {
     final (:content, :sounds, :settings) = await startOnHome(tester);
     expect(sounds.playingMusic, AssetKeys.musicHome);
 
@@ -63,7 +63,7 @@ void main() {
     expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'läuft auf der Karte weiter');
 
     await tapKey(tester, 'island-hafen');
-    expect(sounds.playingMusic, isNull, reason: 'auf der Insel keine Musik');
+    expect(sounds.playingMusic, 'amb.hafen', reason: 'auf der Insel der leise Hafen-Klang');
 
     tester.state<NavigatorState>(find.byType(Navigator).first).pop();
     await tester.pumpAndSettle();
@@ -146,7 +146,8 @@ void main() {
 
     // Das Tausch-Spiel davor klingt bei jeder guten Wahl.
     expect(sounds.playedEffects, isNotEmpty);
-    expect(sounds.playedEffects.toSet(), {AssetKeys.soundCorrect});
+    expect(sounds.playedEffects.toSet().difference({AssetKeys.soundPage}), {AssetKeys.soundCorrect});
+    expect(sounds.playingMusic, 'amb.hafen', reason: 'die Station klingt wie ihre Insel');
     final beforeQuiz = sounds.playedEffects.length;
 
     // Erste Frage falsch: kein Ton.

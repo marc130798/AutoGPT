@@ -67,6 +67,65 @@ abstract final class AssetKeys {
   /// Münze gelegt (Münzen legen, Kasse, Markt).
   static const soundCoin = 'sound.coin';
 
+  /// Kurze Töne mit ElevenLabs (`tool/klaenge_erzeugen.py`, 16.11.2026).
+  static const soundChestOpen = 'sound.chest_open';
+  static const soundBadgeHang = 'sound.badge_hang';
+  static const soundMapUnroll = 'sound.map_unroll';
+  static const soundSplash = 'sound.splash';
+  static const soundWhale = 'sound.whale';
+  static const soundDive = 'sound.dive';
+  static const soundPage = 'sound.page';
+  static const soundUnlock = 'sound.unlock';
+  static const soundRankUp = 'sound.rank_up';
+  static const soundShipBell = 'sound.ship_bell';
+  static const soundFogRise = 'sound.fog_rise';
+  static const soundBottle = 'sound.bottle';
+  static const soundTool = 'sound.tool';
+
+  /// Klangkulissen statt Stille in den Missionen (leise, in Schleife, wie die
+  /// Musik im Hauptmenü und mit demselben Schalter im Leuchtturm).
+  static const ambienceUnderwater = 'amb.underwater';
+  static const ambienceOpenSea = 'amb.open_sea';
+  static const ambienceFog = 'amb.fog';
+  static const ambienceShipyard = 'amb.shipyard';
+
+  /// Klang einer Insel (`amb.hafen` …); fehlt die Datei, bleibt es still.
+  static String islandAmbience(String slug) => 'amb.$slug';
+
+  /// Alle kurzen Töne: Im Browser werden sie beim ersten Antippen einmal stumm
+  /// angespielt, damit das iPhone sie später auch ohne Antippen spielt.
+  static const effects = [
+    soundCorrect,
+    soundPearl,
+    soundStationDone,
+    soundIslandDone,
+    soundCoin,
+    soundChestOpen,
+    soundBadgeHang,
+    soundMapUnroll,
+    soundSplash,
+    soundWhale,
+    soundDive,
+    soundPage,
+    soundUnlock,
+    soundRankUp,
+    soundShipBell,
+    soundFogRise,
+    soundBottle,
+    soundTool,
+  ];
+
+  static const ambiences = [
+    ambienceUnderwater,
+    ambienceOpenSea,
+    ambienceFog,
+    ambienceShipyard,
+    'amb.hafen',
+    'amb.tauschinsel',
+    'amb.wunschinsel',
+    'amb.spar-insel',
+  ];
+
   static const introVideo = 'video.intro';
   static const logo = 'brand.logo';
 
@@ -109,11 +168,8 @@ abstract final class AssetKeys {
     introVideo,
     logo,
     musicHome,
-    soundCorrect,
-    soundPearl,
-    soundStationDone,
-    soundIslandDone,
-    soundCoin,
+    ...effects,
+    ...ambiences,
     underwaterBackground,
     pearl,
   ];

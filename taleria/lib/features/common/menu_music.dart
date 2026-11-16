@@ -9,10 +9,11 @@ import '../../services/sounds.dart';
 /// „Ich habe etwas gekauft“) hält die Musik nicht an.
 final menuRouteObserver = RouteObserver<PageRoute<dynamic>>();
 
-/// Spielt die Musik des Hauptmenüs, solange diese Seite vorn ist: Startseite,
-/// Karte und die anderen Menü-Seiten (Schatztruhe, Aufträge, Orden, Sammlung,
-/// Rundgang). Kommt eine Seite ohne Musik darüber (Insel, Station, Begegnung
-/// auf See, Leuchtturm), pausiert sie; geht es zurück, läuft sie weiter.
+/// Spielt Musik oder eine Klangkulisse, solange diese Seite vorn ist: das
+/// Meeresrauschen auf Startseite, Karte und den Menü-Seiten, seit 16.11.2026
+/// auch Klänge in Werft, auf der Insel, in Stationen (Insel, unter Wasser, auf
+/// See) und bei Meister Taleron (Nebel). Kommt eine Seite ohne Musik darüber
+/// (Leuchtturm), pausiert sie; geht es zurück, läuft sie weiter.
 class MenuMusic extends StatefulWidget {
   const MenuMusic({super.key, required this.child, this.music = AssetKeys.musicHome});
 
@@ -79,6 +80,12 @@ class _MenuMusicState extends State<MenuMusic> implements RouteAware {
 
   @override
   void didPop() => _release();
+
+  @override
+  void didUpdateWidget(MenuMusic old) {
+    super.didUpdateWidget(old);
+    if (old.music != widget.music && _owner == this) _sounds?.music(widget.music);
+  }
 
   @override
   Widget build(BuildContext context) => widget.child;

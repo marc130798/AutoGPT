@@ -18,6 +18,7 @@ import '../station/station_screen.dart';
 import '../station/station_stage.dart';
 import 'island_scene.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/menu_music.dart';
 
 /// Eine Insel: Ankunft beim ersten Besuch, danach die Stationen der Reihe nach.
 class IslandScreen extends StatefulWidget {
@@ -98,7 +99,10 @@ class _IslandScreenState extends State<IslandScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>
+      MenuMusic(music: AssetKeys.islandAmbience(widget.island.slug), child: _content(context));
+
+  Widget _content(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final controller = _controller!;
     return ListenableBuilder(

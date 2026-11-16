@@ -2205,10 +2205,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get soundTurnOn => 'Ton einschalten';
 
   @override
-  String get lighthouseMusic => 'Musik im Hauptmenü';
+  String get lighthouseMusic => 'Musik und Klänge';
 
   @override
-  String get lighthouseMusicHint => 'Meeresrauschen auf Startseite und Karte (nur dieses Gerät).';
+  String get lighthouseMusicHint =>
+      'Meeresrauschen im Menü, leise Klänge auf den Inseln, unter Wasser und in der Werft (nur dieses Gerät).';
 
   @override
   String get lighthouseVibration => 'Vibrieren bei Erfolgen';

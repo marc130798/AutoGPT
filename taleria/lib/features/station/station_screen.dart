@@ -28,6 +28,7 @@ import 'picture_story.dart';
 import 'quiz_view.dart';
 import 'station_stage.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/menu_music.dart';
 
 /// Eine Station von Anfang bis Ende. Gibt beim Schließen das Ergebnis
 /// zurück (oder `null`, wenn das Kind vorher abbricht).
@@ -66,7 +67,12 @@ class _StationScreenState extends State<StationScreen> {
     _lastStep = controller.step;
     final result = controller.result;
     if (controller.step != StationStep.result || result == null || !result.passed) return;
-    _sounds.effect(result.islandCompleted ? AssetKeys.soundIslandDone : AssetKeys.soundStationDone);
+    // Neuer Rang: eine eigene kleine Fanfare mit Schiffsglocke statt der normalen.
+    _sounds.effect(
+      result.islandCompleted
+          ? AssetKeys.soundIslandDone
+          : (result.rankUp != null ? AssetKeys.soundRankUp : AssetKeys.soundStationDone),
+    );
     _sounds.success();
     _sounds.voice(_cheer(controller, result.islandCompleted));
   }
@@ -122,7 +128,15 @@ class _StationScreenState extends State<StationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => MenuMusic(
+    // Leise Klänge: unter Wasser, auf See oder die Insel, auf der die Station liegt.
+    music: widget.station.isDive
+        ? AssetKeys.ambienceUnderwater
+        : (widget.station.isSeaStop ? AssetKeys.ambienceOpenSea : AssetKeys.islandAmbience(widget.island.slug)),
+    child: _content(context),
+  );
+
+  Widget _content(BuildContext context) {
     final controller = _controller!;
     final l10n = AppLocalizations.of(context);
     return ListenableBuilder(

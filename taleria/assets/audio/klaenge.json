@@ -1,0 +1,170 @@
+{
+  "amb.fog": {
+    "text": "Mysterious but friendly foggy sea ambience for a children's game: soft deep wind, slow waves, a distant low foghorn once, gentle shimmering magical tone in the background. Calm, not scary. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.hafen": {
+    "text": "Calm cozy harbor ambience for a children's game: gentle waves lapping against a wooden pier, soft creaking of moored wooden boats, distant seagulls, a faint ship bell far away. Peaceful. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.open_sea": {
+    "text": "Open sea ambience on a wooden sailing ship for a children's game: waves against the hull, sails flapping softly in the wind, ropes creaking. Calm adventure. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.shipyard": {
+    "text": "Small harbor shipyard workshop ambience for a children's game: occasional soft hammering on wood, a saw now and then, creaking planks, water lapping, seagulls far away. Calm and cozy. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.spar-insel": {
+    "text": "Peaceful autumn forest ambience for a children's game: soft wind through trees, rustling colorful falling leaves, gentle songbirds, an occasional distant woodpecker. Calm and cozy. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.tauschinsel": {
+    "text": "Friendly island village market ambience for a children's game: soft indistinct murmur of a small crowd in the distance, wooden carts, a goat bleating once far away, birds, light sea breeze. Cheerful and calm. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.underwater": {
+    "text": "Calm underwater ambience for a children's game: deep soft muffled water, gentle bubbles rising now and then, slow whale-like hum far away. Peaceful, not scary. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "amb.wunschinsel": {
+    "text": "Dreamy magical island ambience for a children's game: soft warm wind, gentle chimes and sparkling twinkles now and then, distant waves, tropical birds. Calm and wondrous. No music, no voices, no speech.",
+    "sekunden": 30,
+    "schleife": true,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.badge_hang": {
+    "text": "Small gold medal clinking softly onto a nail on a wooden wall, light metallic ting, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.bottle": {
+    "text": "A small glass bottle with a cork plopping gently into the sea and bobbing, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.chest_open": {
+    "text": "Wooden treasure chest lid opening with a soft creak and a bright magical sparkle, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.dive": {
+    "text": "Diving into water: a soft splash followed by bubbling as the sound goes underwater, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2.5,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.fog_rise": {
+    "text": "Soft magical whoosh of fog rolling in over the sea, gentle shimmer, mysterious but friendly, for a children's game. No music, no voices, no speech.",
+    "sekunden": 3,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.map_unroll": {
+    "text": "Old paper map unrolling quickly with a soft rustle, then a gentle magical shimmer, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.page": {
+    "text": "Single soft paper page turn of a storybook, for a children's game. No music, no voices, no speech.",
+    "sekunden": 1,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.rank_up": {
+    "text": "Short cheerful brass fanfare with a ship bell ding, celebrating a promotion, for a children's game. Short and happy. No music, no voices, no speech.",
+    "sekunden": 3,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.ship_bell": {
+    "text": "Two soft rings of a small brass ship bell, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.splash": {
+    "text": "Small playful water splash, a fish jumping out of the sea, for a children's game. No music, no voices, no speech.",
+    "sekunden": 1.5,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.tool": {
+    "text": "Two quick soft hammer taps on wood and a small sparkle, something new built, for a children's game. No music, no voices, no speech.",
+    "sekunden": 1.5,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.unlock": {
+    "text": "Small old padlock clicking open, followed by a short bright twinkle, for a children's game. No music, no voices, no speech.",
+    "sekunden": 1.5,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.whale": {
+    "text": "Friendly whale blowing water from its blowhole, a soft whoosh and spray, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2.5,
+    "schleife": false,
+    "datum": "2026-11-16",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  }
+}

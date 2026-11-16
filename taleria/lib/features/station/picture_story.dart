@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/asset_keys.dart';
 import '../../core/app_scope.dart';
 import '../../services/sounds.dart';
 import '../../core/assets/taleria_asset.dart';
@@ -10,6 +11,7 @@ import '../intro/speech_bubble.dart';
 import 'station_stage.dart';
 import 'story_drawings.dart';
 import 'tap_moment_view.dart';
+import '../common/play_effect.dart';
 
 /// Das Bild, das zu Zeile [index] gehört: ihr eigenes oder das letzte davor.
 String? pictureFor(List<DialogLine> lines, int index) {
@@ -115,6 +117,7 @@ class _PictureStoryState extends State<PictureStory> {
       _stopVoice();
       widget.onDone();
     } else {
+      playEffect(context, AssetKeys.soundPage);
       setState(() => _index++);
       _speak();
     }

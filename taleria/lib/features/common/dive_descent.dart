@@ -1,6 +1,10 @@
 import 'dart:math';
 
+import '../../core/assets/asset_keys.dart';
+
 import 'package:flutter/material.dart';
+
+import 'play_effect.dart';
 
 /// Abtauchen zu Beginn eines Tauchgangs (Animationsplan, CLAUDE.md
 /// Abschnitt 11): Das Wasser steigt mit welligem Rand über den Bildschirm,
@@ -21,10 +25,16 @@ class DiveDescent extends StatefulWidget {
 class _DiveDescentState extends State<DiveDescent> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(vsync: this, duration: DiveDescent.duration);
 
+  bool _sounded = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final reduced = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    if (!_sounded) {
+      _sounded = true;
+      playEffect(context, AssetKeys.soundDive);
+    }
     if (reduced) {
       _controller.value = 1;
     } else if (!_controller.isAnimating && _controller.value == 0) {

@@ -2568,6 +2568,195 @@
         "shape": "rounded"
       }
     },
+    "sound.chest_open": {
+      "type": "audio",
+      "path": "assets/audio/sound.chest_open.mp3",
+      "placeholder": {
+        "label": "Ton: Truhe auf",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.badge_hang": {
+      "type": "audio",
+      "path": "assets/audio/sound.badge_hang.mp3",
+      "placeholder": {
+        "label": "Ton: Orden",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.map_unroll": {
+      "type": "audio",
+      "path": "assets/audio/sound.map_unroll.mp3",
+      "placeholder": {
+        "label": "Ton: Karte",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.splash": {
+      "type": "audio",
+      "path": "assets/audio/sound.splash.mp3",
+      "placeholder": {
+        "label": "Ton: Platsch",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.whale": {
+      "type": "audio",
+      "path": "assets/audio/sound.whale.mp3",
+      "placeholder": {
+        "label": "Ton: Wal",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.dive": {
+      "type": "audio",
+      "path": "assets/audio/sound.dive.mp3",
+      "placeholder": {
+        "label": "Ton: Abtauchen",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.page": {
+      "type": "audio",
+      "path": "assets/audio/sound.page.mp3",
+      "placeholder": {
+        "label": "Ton: Blättern",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.unlock": {
+      "type": "audio",
+      "path": "assets/audio/sound.unlock.mp3",
+      "placeholder": {
+        "label": "Ton: Schloss",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.rank_up": {
+      "type": "audio",
+      "path": "assets/audio/sound.rank_up.mp3",
+      "placeholder": {
+        "label": "Ton: neuer Rang",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.ship_bell": {
+      "type": "audio",
+      "path": "assets/audio/sound.ship_bell.mp3",
+      "placeholder": {
+        "label": "Ton: Schiffsglocke",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.fog_rise": {
+      "type": "audio",
+      "path": "assets/audio/sound.fog_rise.mp3",
+      "placeholder": {
+        "label": "Ton: Nebel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.bottle": {
+      "type": "audio",
+      "path": "assets/audio/sound.bottle.mp3",
+      "placeholder": {
+        "label": "Ton: Flasche",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.tool": {
+      "type": "audio",
+      "path": "assets/audio/sound.tool.mp3",
+      "placeholder": {
+        "label": "Ton: Werft",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.hafen": {
+      "type": "audio",
+      "path": "assets/audio/amb.hafen.mp3",
+      "placeholder": {
+        "label": "Klang Hafen",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.tauschinsel": {
+      "type": "audio",
+      "path": "assets/audio/amb.tauschinsel.mp3",
+      "placeholder": {
+        "label": "Klang Tauschinsel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.wunschinsel": {
+      "type": "audio",
+      "path": "assets/audio/amb.wunschinsel.mp3",
+      "placeholder": {
+        "label": "Klang Wunschinsel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.spar-insel": {
+      "type": "audio",
+      "path": "assets/audio/amb.spar-insel.mp3",
+      "placeholder": {
+        "label": "Klang Spar-Insel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.underwater": {
+      "type": "audio",
+      "path": "assets/audio/amb.underwater.mp3",
+      "placeholder": {
+        "label": "Klang unter Wasser",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.open_sea": {
+      "type": "audio",
+      "path": "assets/audio/amb.open_sea.mp3",
+      "placeholder": {
+        "label": "Klang offenes Meer",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.fog": {
+      "type": "audio",
+      "path": "assets/audio/amb.fog.mp3",
+      "placeholder": {
+        "label": "Klang Nebel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "amb.shipyard": {
+      "type": "audio",
+      "path": "assets/audio/amb.shipyard.mp3",
+      "placeholder": {
+        "label": "Klang Werft",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
     "sound.island_done": {
       "type": "audio",
       "path": "assets/audio/sound.island_done.mp3",

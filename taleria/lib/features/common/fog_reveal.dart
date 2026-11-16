@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
+import 'play_effect.dart';
 
 /// Öffnet [page] so, dass erst Nebel über die Karte zieht. Danach lichtet
 /// [FogReveal] auf der neuen Seite den Nebel (Stopps auf See, Begegnungen).
@@ -36,10 +37,16 @@ class FogReveal extends StatefulWidget {
 class _FogRevealState extends State<FogReveal> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(vsync: this, duration: FogReveal.duration);
 
+  bool _sounded = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final reduced = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    if (!_sounded) {
+      _sounded = true;
+      playEffect(context, AssetKeys.soundFogRise);
+    }
     if (reduced) {
       _controller.value = 1;
     } else if (!_controller.isAnimating && _controller.value == 0) {

@@ -259,7 +259,9 @@ void main() {
     await tester.tap(key('story-back'));
     await tester.pumpAndSettle();
     expect(find.text('Offen!'), findsOneWidget);
-    expect(sounds.playedEffects, [AssetKeys.soundCoin], reason: 'nur einmal geklungen');
+    expect(sounds.playedEffects.where((e) => e != AssetKeys.soundPage), [
+      AssetKeys.soundCoin,
+    ], reason: 'nur einmal geklungen (Blättern raschelt extra)');
 
     await next();
     await next();

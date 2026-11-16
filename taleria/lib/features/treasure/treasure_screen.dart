@@ -21,6 +21,7 @@ import 'ledger_tile.dart';
 import 'pot_detail_screen.dart';
 import 'wish_bottle_form.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/play_effect.dart';
 
 /// Kinderbereich: eine Schatztruhe (entschieden mit Marc am 29.10.2026) mit
 /// freiem Geld und Geld, das für Wunschschätze zurückgelegt ist; dazu
@@ -146,7 +147,10 @@ class _TreasureScreenState extends State<TreasureScreen> {
     if (ok == true && mounted) {
       final sounds = AppScope.of(context).sounds;
       final done = await runWithFeedback(context, () => c.redeemGoal(goal));
-      if (done) sounds.voice('voice.tala.goal.mp3');
+      if (done) {
+        sounds.effect(AssetKeys.soundChestOpen);
+        sounds.voice('voice.tala.goal.mp3');
+      }
     }
   }
 
@@ -156,7 +160,13 @@ class _TreasureScreenState extends State<TreasureScreen> {
     ),
   );
 
-  Future<void> _newWish() => showWishBottleDialog(context, onSubmit: _controller!.createWishBottle);
+  Future<void> _newWish() => showWishBottleDialog(
+    context,
+    onSubmit: (draft) async {
+      await _controller!.createWishBottle(draft);
+      if (mounted) playEffect(context, AssetKeys.soundBottle);
+    },
+  );
 
   /// Wunschschatz aus einer angespülten Flasche. Ohne Preis (oder unter 1 €) fragt die App danach.
   Future<void> _keepWish(WishBottle bottle) async {

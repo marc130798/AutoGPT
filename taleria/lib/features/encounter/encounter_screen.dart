@@ -17,6 +17,7 @@ import '../station/dialog_sequence.dart';
 import '../station/quiz_view.dart';
 import '../station/station_stage.dart';
 import '../common/taleria_app_bar.dart';
+import '../common/menu_music.dart';
 
 /// Begegnung auf See (Kontrollfahrt): Eine Figur taucht auf und stellt
 /// Rätsel zu früheren Stationen. Falsche Antworten kosten nichts: Die Figur
@@ -90,7 +91,9 @@ class _EncounterScreenState extends State<EncounterScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => MenuMusic(music: AssetKeys.ambienceFog, child: _content(context));
+
+  Widget _content(BuildContext context) {
     final controller = _controller!;
     final l10n = AppLocalizations.of(context);
     return ListenableBuilder(

@@ -3694,13 +3694,13 @@ abstract class AppLocalizations {
   /// Leuchtturm: Schalter für die Musik auf Startseite und Karte
   ///
   /// In de, this message translates to:
-  /// **'Musik im Hauptmenü'**
+  /// **'Musik und Klänge'**
   String get lighthouseMusic;
 
   /// Leuchtturm: Erklärung unter dem Musik-Schalter
   ///
   /// In de, this message translates to:
-  /// **'Meeresrauschen auf Startseite und Karte (nur dieses Gerät).'**
+  /// **'Meeresrauschen im Menü, leise Klänge auf den Inseln, unter Wasser und in der Werft (nur dieses Gerät).'**
   String get lighthouseMusicHint;
 
   /// Leuchtturm: Schalter für kurzes Vibrieren, wenn das Kind eine Station schafft

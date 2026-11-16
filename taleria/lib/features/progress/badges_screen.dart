@@ -17,6 +17,7 @@ import '../common/texts.dart';
 import '../common/wood_sign.dart';
 import '../intro/speech_bubble.dart';
 import 'showcase.dart';
+import '../common/play_effect.dart';
 
 /// Orden-Sammlung des Kindes als Ehrenwand: verdiente Orden hängen an einem
 /// Nagel, die anderen sind blass und warten noch („Noch nicht gefunden“).
@@ -281,6 +282,7 @@ class _HangCeremonyState extends State<_HangCeremony> with TickerProviderStateMi
     if (_fly.isAnimating || _fly.isCompleted) return;
     widget.onHang();
     await _fly.forward();
+    if (mounted) playEffect(context, AssetKeys.soundBadgeHang);
     widget.onDone();
   }
 

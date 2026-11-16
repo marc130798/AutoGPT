@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../common/play_effect.dart';
 
 /// Ob Bewegungen gezeigt werden dürfen (Bedienungshilfen: Animationen reduzieren).
 bool _animate(BuildContext context) => !(MediaQuery.maybeDisableAnimationsOf(context) ?? false);
@@ -16,7 +17,7 @@ bool _animate(BuildContext context) => !(MediaQuery.maybeDisableAnimationsOf(con
 /// Schatzkarten-Effekt nach dem Insel-Abschluss (INSELN.md): Die alte Karte
 /// rollt sich auf, das neue Kartenstück fliegt hinein und fügt sich ein, die
 /// Karte leuchtet golden, Funken steigen auf; danach kommt der Orden.
-/// Etwa 3,5 Sekunden, einmalig, ohne Ton. Bei reduzierten Animationen sofort fertig.
+/// Etwa 3,5 Sekunden, einmalig, mit dem Rascheln der Karte (`sound.map_unroll`). Bei reduzierten Animationen sofort fertig.
 class IslandRewardEffect extends StatefulWidget {
   const IslandRewardEffect({super.key, this.badgeAssetKey});
 
@@ -45,6 +46,7 @@ class _IslandRewardEffectState extends State<IslandRewardEffect> with SingleTick
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_controller.isAnimating || _controller.isCompleted) return;
+    playEffect(context, AssetKeys.soundMapUnroll);
     if (_animate(context)) {
       _controller.forward();
     } else {
