@@ -83,6 +83,19 @@ class _ShipFlagPainter extends CustomPainter {
       case ShipFlag.star:
         canvas.drawRect(rect, Paint()..color = _gold);
         canvas.drawPath(_star(rect.center, rect.height * 0.36), Paint()..color = _navy);
+      case ShipFlag.anchor:
+        canvas.drawRect(rect, Paint()..color = _white);
+        final anchor = Paint()
+          ..color = _navy
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = rect.height * 0.09
+          ..strokeCap = StrokeCap.round;
+        final c = rect.center;
+        final h = rect.height;
+        canvas.drawCircle(c + Offset(0, -h * 0.28), h * 0.07, anchor);
+        canvas.drawLine(c + Offset(0, -h * 0.2), c + Offset(0, h * 0.3), anchor);
+        canvas.drawLine(c + Offset(-h * 0.17, -h * 0.08), c + Offset(h * 0.17, -h * 0.08), anchor);
+        canvas.drawArc(Rect.fromCircle(center: c + Offset(0, h * 0.05), radius: h * 0.25), 0.35, 2.44, false, anchor);
       case ShipFlag.sun:
         canvas.drawRect(rect, Paint()..color = _orange);
         canvas.drawCircle(rect.center, rect.height * 0.24, Paint()..color = _gold);

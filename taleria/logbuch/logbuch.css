@@ -1,0 +1,109 @@
+/* Logbuch zum Ausdrucken: baut auf ../testphase/stil.css auf. */
+.page { gap: 4.5mm; }
+.page > * { flex-shrink: 0; }
+
+/* Titelseite */
+.cover { background: linear-gradient(180deg, #e6f3fa 0%, #fffbf2 60%); }
+.cover-top { text-align: center; display: grid; justify-items: center; gap: 1.5mm; padding-top: 6mm; }
+.cover-top .logo { width: 70mm; }
+.cover-top h1 { font-size: 34pt; }
+.cover-top .sub { font-weight: 700; color: var(--ink-soft); font-size: 12pt; }
+.eyebrow.dark, .cover .eyebrow { color: var(--gold); }
+.crew-big { display: flex; justify-content: center; align-items: flex-end; gap: 6mm; }
+.crew-big img { height: 78mm; }
+.owner { display: grid; gap: 4mm; font-size: 12pt; }
+.howto ol { margin: 1.5mm 0 0; padding-left: 5mm; display: grid; gap: 1mm; font-size: 11pt; }
+
+/* Kopf jeder Seite */
+.head { display: flex; align-items: center; gap: 4mm; border-bottom: 0.6mm solid var(--gold); padding-bottom: 2.5mm; }
+.head h2 { font-size: 20pt; }
+.tag { background: var(--sea-deep); color: #fff; font-weight: 800; font-size: 9pt; border-radius: 10mm; padding: 1mm 3.5mm; letter-spacing: .03em; white-space: nowrap; }
+
+/* Aufgaben */
+.task { display: grid; grid-template-columns: 11mm 1fr; gap: 4mm; align-items: start; }
+.task h3 { color: var(--sea-deep); font-size: 13pt; margin-bottom: 1mm; }
+.task p { font-size: 11pt; }
+.tnum { width: 11mm; height: 11mm; border-radius: 50%; background: var(--gold); color: #2b1f05; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 15pt; }
+.hint { color: var(--ink-soft); font-size: 10pt !important; margin-top: 2mm !important; font-style: italic; }
+.inline-line { display: inline-block; width: 22mm; border-bottom: 0.4mm solid #9fb3c2; height: 4mm; vertical-align: bottom; }
+
+/* Tauschkette */
+.chain { display: flex; align-items: center; gap: 2.5mm; margin-top: 3mm; }
+.thing { width: 30mm; height: 30mm; border: 0.5mm solid var(--line); border-radius: 4mm; background: #fff; display: grid; justify-items: center; align-content: center; gap: 1mm; font-weight: 800; }
+.thing img { height: 18mm; }
+.thing.blank { border: 0.6mm dashed var(--gold); background: var(--paper); }
+.writebox { width: 24mm; height: 9mm; border-bottom: 0.4mm solid #9fb3c2; margin-top: 12mm; }
+.arrow { font-family: var(--display); font-size: 20pt; color: var(--gold); font-weight: 800; }
+
+/* Ankreuzen */
+.checks { display: grid; gap: 2mm; margin-top: 2mm; font-size: 11pt; }
+.checks.two { grid-template-columns: 1fr 1fr; }
+
+/* Reihenfolge und Einordnen */
+.order { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm 6mm; margin-top: 2.5mm; font-size: 11pt; }
+.order.three { grid-template-columns: 1fr 1fr 1fr; }
+.ord { display: flex; align-items: center; gap: 2.5mm; }
+.circle { width: 9mm; height: 9mm; border-radius: 50%; border: 0.5mm solid var(--sea-deep); background: #fff; flex: none; }
+
+/* Gesprächsfrage */
+.talk { display: grid; grid-template-columns: 22mm 1fr; gap: 4mm; align-items: center; background: #fdf6e3; border: 0.6mm solid var(--gold); }
+.talk img { width: 22mm; }
+.talk b { color: var(--sea-deep); font-size: 11.5pt; }
+
+/* Münzen und Scheine */
+.sums { display: grid; gap: 4mm; margin-top: 2.5mm; }
+.sum { display: flex; align-items: center; gap: 2.5mm; flex-wrap: wrap; }
+.coin { width: 15mm; height: 15mm; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 9pt; color: #2b1f05; border: 0.6mm solid rgba(0,0,0,.25); }
+/* 2 €: innen silbern, außen golden. 1 €: innen golden, außen silbern. */
+.coin.c2 { background: radial-gradient(circle, #d3d8dd 0 55%, #e3b94a 57% 100%); }
+.coin.c1 { background: radial-gradient(circle, #e3b94a 0 55%, #d3d8dd 57% 100%); }
+.coin.c50, .coin.c20, .coin.c10 { background: #e3b94a; width: 13mm; height: 13mm; }
+.coin.c5 { background: #c47a45; color: #fff; width: 11.5mm; height: 11.5mm; }
+.note { width: 26mm; height: 14mm; border-radius: 2mm; display: grid; place-items: center; font-weight: 800; background: linear-gradient(135deg, #b7c2c9, #e5e9ec); border: 0.5mm solid #8f9ba4; }
+.plus, .eq { font-family: var(--display); font-weight: 800; font-size: 16pt; color: var(--sea-deep); }
+.answer { width: 28mm; height: 12mm; border-bottom: 0.5mm solid #9fb3c2; display: flex; align-items: flex-end; justify-content: flex-end; font-weight: 800; padding-right: 1mm; }
+
+/* Tabellen */
+.grid { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 2.5mm; font-size: 11pt; }
+.grid th { text-align: left; background: var(--sky); color: var(--sea-deep); padding: 2mm 3mm; font-family: var(--display); }
+.grid td { border-bottom: 0.4mm solid var(--line); padding: 2.2mm 3mm; height: 11mm; }
+.grid td.fill { background: #fff; }
+.grid.detective td { height: 13mm; }
+.mini-img { height: 9mm; vertical-align: middle; margin-right: 1.5mm; }
+
+/* Mal-Kästen */
+.drawbox { height: 52mm; border: 0.6mm dashed var(--gold); border-radius: 4mm; background: #fff; margin-top: 2.5mm; }
+.drawbox.small { height: 55mm; }
+
+/* Verbinden */
+.match { display: grid; grid-template-columns: 1fr 1fr; gap: 20mm; margin-top: 3mm; }
+.mleft, .mright { display: grid; gap: 4mm; }
+.who { display: grid; grid-template-columns: 16mm 1fr 4mm; align-items: center; gap: 2.5mm; font-weight: 800; }
+.who img { width: 16mm; height: 16mm; object-fit: contain; }
+.who i, .what i { width: 4mm; height: 4mm; border-radius: 50%; background: var(--sea-deep); display: block; }
+.what { display: grid; grid-template-columns: 4mm 1fr; gap: 3mm; align-items: center; min-height: 16mm; font-size: 11pt; }
+
+/* Urkunde */
+.certificate-page { gap: 6mm; }
+.certificate { flex: 1 1 auto; border: 2.5mm double var(--gold); border-radius: 6mm; background: radial-gradient(circle at 50% 30%, #fffdf6, #fbf2da); display: grid; justify-items: center; align-content: center; gap: 3mm; text-align: center; padding: 10mm 14mm; }
+.certificate .logo { width: 52mm; }
+.certificate h1 { font-size: 34pt; }
+.certificate .badge { height: 52mm; }
+.cert-text { font-size: 12.5pt; max-width: 140mm; }
+.cert-name { width: 120mm; display: grid; gap: 1mm; }
+.cert-name .writeline { height: 12mm; }
+.cert-name span, .signs span { font-size: 9pt; color: var(--ink-soft); }
+.signs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10mm; width: 100%; margin-top: 4mm; align-items: end; }
+.signs > div { display: grid; gap: 1mm; justify-items: center; }
+.signs .script { font-family: "Caveat", "Segoe Script", cursive; font-size: 26pt; font-weight: 700; color: var(--sea-deep); line-height: 1; }
+.sline { width: 100%; border-bottom: 0.4mm solid #9fb3c2; }
+.writeline.date { width: 100%; }
+.code-box { display: grid; grid-template-columns: 30mm 1fr; gap: 5mm; align-items: center; background: var(--sea-deep); color: #fff; border-radius: 5mm; padding: 5mm 7mm; }
+.code-box img { width: 30mm; }
+.code-box p { font-size: 11pt; color: #e9f4fa; }
+.code-box b { color: #fff; }
+.treasure-code { font-family: var(--display); font-weight: 800; font-size: 30pt !important; letter-spacing: .25em; color: #f3d98a !important; line-height: 1.1; }
+
+/* Elternseite */
+.parents .box ul { font-size: 10pt; }
+.parents .cols { gap: 4mm; }

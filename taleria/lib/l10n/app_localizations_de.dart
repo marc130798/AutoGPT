@@ -2795,6 +2795,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag_wave': 'Wellen-Flagge',
       'flag_star': 'Sternen-Flagge',
       'flag_sun': 'Sonnen-Flagge',
+      'flag_anchor': 'Anker-Flagge',
       'other': 'Teil',
     });
     return '$_temp0';
@@ -2945,4 +2946,36 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get critterDolphin => 'Delfin im Meer, antippen';
+
+  @override
+  String get shipyardCodeButton => 'Schatzcode eingeben';
+
+  @override
+  String get shipyardCodeTitle => 'Schatzcode aus dem Logbuch';
+
+  @override
+  String get shipyardCodeHint => 'Den Code findest du auf der Urkunde in deinem Logbuch.';
+
+  @override
+  String get shipyardCodeLabel => 'Code';
+
+  @override
+  String get shipyardCodeSubmit => 'Einlösen';
+
+  @override
+  String get shipyardCodeWrong => 'Dieser Code passt nicht. Schau noch mal genau in dein Logbuch.';
+
+  @override
+  String get shipyardCodeUsed => 'Diesen Schatzcode hast du schon eingelöst.';
+
+  @override
+  String shipyardCodeUnlocked(String item) {
+    return 'Freigeschaltet: $item! Tippe es an, dann trägt dein Schiff es.';
+  }
+
+  @override
+  String get shipyardLockedLogbook => 'Das gibt es mit dem Schatzcode aus dem Logbuch.';
+
+  @override
+  String get shipyardFromLogbook => 'aus dem Logbuch';
 }

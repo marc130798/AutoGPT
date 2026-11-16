@@ -35,25 +35,63 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
 
   Future<void> _choose(LookItem item) async {
     final l10n = AppLocalizations.of(context);
-    if (!item.unlockedAt(widget.xp)) {
+    if (!item.isUnlocked(widget.xp, _avatar.logbooks)) {
+      // Ein neuer Hinweis ersetzt den alten, statt sich hinten anzustellen.
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(l10n.shipyardLocked(l10n.ranksFrom(item.minXp)))));
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              item.logbook != null ? l10n.shipyardLockedLogbook : l10n.shipyardLocked(l10n.ranksFrom(item.minXp)),
+            ),
+          ),
+        );
       return;
     }
+    await _save(wearLook(_avatar, item));
+  }
+
+  /// Schatzcode aus dem Logbuch einlösen: schaltet ein Teil frei, tragen muss das Kind es selbst.
+  Future<void> _enterCode() async {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final island = await showDialog<String>(context: context, builder: (_) => const _CodeDialog());
+    if (island == null || !mounted) return;
+    if (_avatar.logbooks.contains(island)) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.shipyardCodeUsed)));
+      return;
+    }
+    final saved = await _save(_avatar.copyWith(logbooks: {..._avatar.logbooks, island}));
+    final item = logbookItem(island);
+    if (saved && item != null) {
+      messenger
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(l10n.shipyardCodeUnlocked(l10n.lookName(item.id)))));
+    }
+  }
+
+  /// Speichert den Avatar (Teile und eingelöste Codes). Bei einem Fehler bleibt der alte Stand.
+  Future<bool> _save(AvatarConfig next) async {
+    final l10n = AppLocalizations.of(context);
     final services = AppScope.of(context);
     final messenger = ScaffoldMessenger.of(context);
     final before = _avatar;
     setState(() {
-      _avatar = wearLook(_avatar, item);
+      _avatar = next;
       _saving = true;
     });
     try {
       await services.children!.updateLook(widget.child.id, avatar: _avatar);
       await services.session.refresh();
+      return true;
     } on AppFailure catch (e) {
-      if (!mounted) return;
-      setState(() => _avatar = before);
-      messenger.showSnackBar(SnackBar(content: Text(l10n.failure(e.kind))));
+      if (mounted) {
+        setState(() => _avatar = before);
+        messenger.showSnackBar(SnackBar(content: Text(l10n.failure(e.kind))));
+      }
+      return false;
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -100,6 +138,13 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                         key: const ValueKey('shipyard-next'),
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(height: 8),
+                      OutlinedButton.icon(
+                        key: const ValueKey('shipyard-code'),
+                        onPressed: _saving ? null : _enterCode,
+                        icon: const Icon(Icons.vpn_key_outlined),
+                        label: Text(l10n.shipyardCodeButton),
+                      ),
                       if (_saving) ...[const SizedBox(height: 8), const LinearProgressIndicator()],
                     ],
                   ),
@@ -120,7 +165,7 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                               _LookOption(
                                 item: item,
                                 avatar: _avatar,
-                                unlocked: item.unlockedAt(widget.xp),
+                                unlocked: item.isUnlocked(widget.xp, _avatar.logbooks),
                                 selected: wearsLook(_avatar, item),
                                 onTap: () => _choose(item),
                               ),
@@ -242,7 +287,7 @@ class _LookOption extends StatelessWidget {
               ),
               if (!unlocked)
                 Text(
-                  l10n.ranksFrom(item.minXp),
+                  item.logbook != null ? l10n.shipyardFromLogbook : l10n.ranksFrom(item.minXp),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
@@ -250,6 +295,73 @@ class _LookOption extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Eingabe des Schatzcodes. Gibt die Insel zurück, wenn der Code passt.
+class _CodeDialog extends StatefulWidget {
+  const _CodeDialog();
+
+  @override
+  State<_CodeDialog> createState() => _CodeDialogState();
+}
+
+class _CodeDialogState extends State<_CodeDialog> {
+  final _code = TextEditingController();
+  bool _wrong = false;
+
+  @override
+  void dispose() {
+    _code.dispose();
+    super.dispose();
+  }
+
+  void _submit() {
+    final island = logbookForCode(_code.text);
+    if (island == null) {
+      setState(() => _wrong = true);
+      return;
+    }
+    Navigator.of(context).pop(island);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.shipyardCodeTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(l10n.shipyardCodeHint),
+          const SizedBox(height: 12),
+          TextField(
+            key: const ValueKey('shipyard-code-field'),
+            controller: _code,
+            autofocus: true,
+            textCapitalization: TextCapitalization.characters,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: l10n.shipyardCodeLabel,
+              errorText: _wrong ? l10n.shipyardCodeWrong : null,
+            ),
+            onChanged: (_) {
+              if (_wrong) setState(() => _wrong = false);
+            },
+            onSubmitted: (_) => _submit(),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
+        FilledButton(
+          key: const ValueKey('shipyard-code-submit'),
+          onPressed: _submit,
+          child: Text(l10n.shipyardCodeSubmit),
+        ),
+      ],
     );
   }
 }

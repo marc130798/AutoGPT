@@ -7,7 +7,7 @@ import 'avatar.dart';
 enum LookSlot { outfit, hat, scarf, flag }
 
 class LookItem {
-  const LookItem(this.slot, this.value, this.minXp);
+  const LookItem(this.slot, this.value, this.minXp, {this.logbook});
 
   final LookSlot slot;
   final Enum value;
@@ -15,8 +15,14 @@ class LookItem {
   /// Ab so vielen Seemeilen frei. 0 = von Anfang an.
   final int minXp;
 
+  /// Frei nur mit dem Schatzcode aus dem Logbuch dieser Insel (zum Beispiel `hafen`), nicht mit Seemeilen.
+  final String? logbook;
+
   String get id => '${slot.name}_${value.name}';
-  bool unlockedAt(int xp) => xp >= minXp;
+  bool unlockedAt(int xp) => logbook == null && xp >= minXp;
+
+  /// Frei: mit Seemeilen oder, bei Logbuch-Teilen, mit dem eingelösten Schatzcode.
+  bool isUnlocked(int xp, Set<String> logbooks) => logbook != null ? logbooks.contains(logbook) : xp >= minXp;
 }
 
 /// Alle Teile der Werft in der Reihenfolge der Grenzen. Die Grenzen passen
@@ -34,7 +40,23 @@ const shipyardItems = <LookItem>[
   LookItem(LookSlot.flag, ShipFlag.star, 4000),
   LookItem(LookSlot.hat, Hat.goldCaptain, 6000),
   LookItem(LookSlot.flag, ShipFlag.sun, 8000),
+  // Aus dem Logbuch zum Ausdrucken (Schatzcode auf der Urkunde).
+  LookItem(LookSlot.flag, ShipFlag.anchor, 0, logbook: 'hafen'),
 ];
+
+/// Schatzcodes aus den Logbüchern: Code → Insel. Nur Aussehen, nichts kaufbar.
+const logbookCodes = {'ANKER7': 'hafen'};
+
+/// Insel zum eingetippten Code, egal ob groß, klein, mit Leerzeichen oder Strich; sonst `null`.
+String? logbookForCode(String input) => logbookCodes[input.toUpperCase().replaceAll(RegExp(r'[\s\-]'), '')];
+
+/// Teil, das der Schatzcode der Insel [logbook] freischaltet.
+LookItem? logbookItem(String logbook) {
+  for (final i in shipyardItems) {
+    if (i.logbook == logbook) return i;
+  }
+  return null;
+}
 
 /// Jacken und Kopfbedeckungen, die es schon im Intro gibt.
 const starterOutfits = [
@@ -63,7 +85,7 @@ int unlockedShipyardCount(int xp) => shipyardItems.where((i) => i.minXp > 0 && i
 /// Das nächste Teil, das noch gesperrt ist, oder `null`, wenn alles frei ist.
 LookItem? nextShipyardItem(int xp) {
   for (final i in shipyardItems) {
-    if (!i.unlockedAt(xp)) return i;
+    if (i.logbook == null && !i.unlockedAt(xp)) return i;
   }
   return null;
 }

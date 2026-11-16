@@ -14,8 +14,9 @@ void main() {
   });
 
   test('Grenzen steigen und jedes Teil gibt es nur einmal', () {
-    for (var i = 1; i < shipyardItems.length; i++) {
-      expect(shipyardItems[i].minXp, greaterThanOrEqualTo(shipyardItems[i - 1].minXp));
+    final byXp = shipyardItems.where((i) => i.logbook == null).toList();
+    for (var i = 1; i < byXp.length; i++) {
+      expect(byXp[i].minXp, greaterThanOrEqualTo(byXp[i - 1].minXp));
     }
     final ids = [for (final slot in LookSlot.values) ...lookOptions(slot).map((i) => i.id)];
     expect(ids.toSet().length, ids.length);
@@ -43,5 +44,25 @@ void main() {
     final old = AvatarConfig.fromJson(const {'outfit': 'red'});
     expect(old.scarf, Scarf.none);
     expect(old.flag, ShipFlag.taleria);
+  });
+
+  test('Schatzcode aus dem Logbuch: schaltet die Anker-Flagge frei, Seemeilen helfen nicht', () {
+    expect(logbookForCode('ANKER7'), 'hafen');
+    expect(logbookForCode(' anker-7 '), 'hafen', reason: 'groß, klein, Leerzeichen und Strich egal');
+    expect(logbookForCode('ANKER8'), isNull);
+    final anchor = logbookItem('hafen')!;
+    expect(anchor.value, ShipFlag.anchor);
+    expect(anchor.isUnlocked(100000, const {}), isFalse);
+    expect(anchor.isUnlocked(0, const {'hafen'}), isTrue);
+    expect(nextShipyardItem(100000), isNull, reason: 'Logbuch-Teile zählen nicht als nächstes Seemeilen-Ziel');
+    expect(unlockedShipyardCount(100000), shipyardItems.where((i) => i.logbook == null && i.minXp > 0).length);
+  });
+
+  test('Eingelöste Codes stehen im Avatar-JSON', () {
+    final avatar = const AvatarConfig().copyWith(logbooks: {'hafen'}, flag: ShipFlag.anchor);
+    final back = AvatarConfig.fromJson(avatar.toJson());
+    expect(back, avatar);
+    expect(back.logbooks, {'hafen'});
+    expect(const AvatarConfig().toJson().containsKey('logbooks'), isFalse);
   });
 }

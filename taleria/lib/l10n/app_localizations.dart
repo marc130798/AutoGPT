@@ -4492,7 +4492,7 @@ abstract class AppLocalizations {
   /// Name eines Teils in der Werft
   ///
   /// In de, this message translates to:
-  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} other{Teil}}'**
+  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} other{Teil}}'**
   String lookName(String id);
 
   /// Kachel auf der Startseite zur Werft
@@ -4716,6 +4716,66 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Delfin im Meer, antippen'**
   String get critterDolphin;
+
+  /// Knopf in der Werft: Code aus dem Logbuch eingeben
+  ///
+  /// In de, this message translates to:
+  /// **'Schatzcode eingeben'**
+  String get shipyardCodeButton;
+
+  /// Titel des Code-Dialogs
+  ///
+  /// In de, this message translates to:
+  /// **'Schatzcode aus dem Logbuch'**
+  String get shipyardCodeTitle;
+
+  /// Erklärung im Code-Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Den Code findest du auf der Urkunde in deinem Logbuch.'**
+  String get shipyardCodeHint;
+
+  /// Eingabefeld für den Schatzcode
+  ///
+  /// In de, this message translates to:
+  /// **'Code'**
+  String get shipyardCodeLabel;
+
+  /// Knopf: Schatzcode einlösen
+  ///
+  /// In de, this message translates to:
+  /// **'Einlösen'**
+  String get shipyardCodeSubmit;
+
+  /// Fehler: falscher Schatzcode
+  ///
+  /// In de, this message translates to:
+  /// **'Dieser Code passt nicht. Schau noch mal genau in dein Logbuch.'**
+  String get shipyardCodeWrong;
+
+  /// Hinweis: Code schon benutzt
+  ///
+  /// In de, this message translates to:
+  /// **'Diesen Schatzcode hast du schon eingelöst.'**
+  String get shipyardCodeUsed;
+
+  /// Erfolg nach dem Einlösen
+  ///
+  /// In de, this message translates to:
+  /// **'Freigeschaltet: {item}! Tippe es an, dann trägt dein Schiff es.'**
+  String shipyardCodeUnlocked(String item);
+
+  /// Hinweis beim Antippen eines gesperrten Logbuch-Teils
+  ///
+  /// In de, this message translates to:
+  /// **'Das gibt es mit dem Schatzcode aus dem Logbuch.'**
+  String get shipyardLockedLogbook;
+
+  /// Unter einem gesperrten Logbuch-Teil
+  ///
+  /// In de, this message translates to:
+  /// **'aus dem Logbuch'**
+  String get shipyardFromLogbook;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

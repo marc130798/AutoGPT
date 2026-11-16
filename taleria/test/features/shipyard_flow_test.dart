@@ -70,4 +70,50 @@ void main() {
     expect(find.text('4 neue Teile frei'), findsNothing);
     expect(find.byKey(const ValueKey('ship-flag-stripes')), findsWidgets);
   });
+
+  testWidgets('Werft: Schatzcode aus dem Logbuch schaltet die Anker-Flagge frei', (tester) async {
+    final backend = FakeBackend();
+    final parent = backend.addParent(pin: '2468');
+    final mila = backend.addChild(parent);
+    backend.codes['ABCD2345'] = (childId: mila.id, validUntil: DateTime(2026), used: false);
+    final content = FakeContent();
+    await tester.pumpWidget(buildTestApp(backend: backend, content: content, progress: FakeProgress(content)));
+    await tester.pumpAndSettle();
+    await tapText(tester, 'Ich habe einen Code');
+    await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
+    await tapText(tester, 'An Bord gehen');
+    await tapKey(tester, 'home-shipyard');
+
+    // Vorher gesperrt, mit Hinweis aufs Logbuch.
+    await tapKey(tester, 'look-flag_anchor');
+    expect(find.text('Das gibt es mit dem Schatzcode aus dem Logbuch.'), findsOneWidget);
+
+    // Der Knopf steht oben auf der Seite.
+    await tester.drag(find.byType(Scrollable).last, const Offset(0, 3000));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'shipyard-code');
+    await tester.enterText(find.byKey(const ValueKey('shipyard-code-field')), 'ANKER8');
+    await tester.tap(find.byKey(const ValueKey('shipyard-code-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Dieser Code passt nicht. Schau noch mal genau in dein Logbuch.'), findsOneWidget);
+
+    await tester.enterText(find.byKey(const ValueKey('shipyard-code-field')), 'anker7');
+    await tester.tap(find.byKey(const ValueKey('shipyard-code-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Freigeschaltet: Anker-Flagge! Tippe es an, dann trägt dein Schiff es.'), findsOneWidget);
+    expect(backend.childById(mila.id).avatar!.logbooks, {'hafen'});
+
+    await tapKey(tester, 'look-flag_anchor');
+    expect(backend.childById(mila.id).avatar!.flag, ShipFlag.anchor);
+
+    // Ein zweites Mal geht nicht.
+    // Der Knopf steht oben auf der Seite.
+    await tester.drag(find.byType(Scrollable).last, const Offset(0, 3000));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'shipyard-code');
+    await tester.enterText(find.byKey(const ValueKey('shipyard-code-field')), 'ANKER7');
+    await tester.tap(find.byKey(const ValueKey('shipyard-code-submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Diesen Schatzcode hast du schon eingelöst.'), findsOneWidget);
+  });
 }

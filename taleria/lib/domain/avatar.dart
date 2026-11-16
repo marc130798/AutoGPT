@@ -23,7 +23,7 @@ enum Hat { none, captain, bandana, straw, tricorn, goldCaptain }
 enum Scarf { none, red, gold }
 
 /// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
-enum ShipFlag { taleria, stripes, wave, star, sun }
+enum ShipFlag { taleria, stripes, wave, star, sun, anchor }
 
 class AvatarConfig {
   const AvatarConfig({
@@ -35,6 +35,7 @@ class AvatarConfig {
     this.hat = Hat.captain,
     this.scarf = Scarf.none,
     this.flag = ShipFlag.taleria,
+    this.logbooks = const {},
   });
 
   /// Liest gespeicherte Werte. Unbekannte oder fehlende Werte werden zum
@@ -52,6 +53,10 @@ class AvatarConfig {
       hat: pick(Hat.values, 'hat', fallback.hat),
       scarf: pick(Scarf.values, 'scarf', fallback.scarf),
       flag: pick(ShipFlag.values, 'flag', fallback.flag),
+      logbooks: {
+        for (final l in (json['logbooks'] as List?) ?? const [])
+          if (l is String) l,
+      },
     );
   }
 
@@ -67,6 +72,9 @@ class AvatarConfig {
   final Scarf scarf;
   final ShipFlag flag;
 
+  /// Inseln, deren Schatzcode aus dem Logbuch das Kind eingelöst hat (zum Beispiel `hafen`).
+  final Set<String> logbooks;
+
   Map<String, dynamic> toJson() => {
     'v': formatVersion,
     'species': species.name,
@@ -77,6 +85,7 @@ class AvatarConfig {
     'hat': hat.name,
     'scarf': scarf.name,
     'flag': flag.name,
+    if (logbooks.isNotEmpty) 'logbooks': [...logbooks]..sort(),
   };
 
   bool get isAnimal => species != Species.human;
@@ -90,6 +99,7 @@ class AvatarConfig {
     Hat? hat,
     Scarf? scarf,
     ShipFlag? flag,
+    Set<String>? logbooks,
   }) {
     return AvatarConfig(
       species: species ?? this.species,
@@ -100,6 +110,7 @@ class AvatarConfig {
       hat: hat ?? this.hat,
       scarf: scarf ?? this.scarf,
       flag: flag ?? this.flag,
+      logbooks: logbooks ?? this.logbooks,
     );
   }
 
@@ -113,8 +124,11 @@ class AvatarConfig {
       other.outfit == outfit &&
       other.hat == hat &&
       other.scarf == scarf &&
-      other.flag == flag;
+      other.flag == flag &&
+      other.logbooks.length == logbooks.length &&
+      other.logbooks.containsAll(logbooks);
 
   @override
-  int get hashCode => Object.hash(species, skin, hairStyle, hairColor, outfit, hat, scarf, flag);
+  int get hashCode =>
+      Object.hash(species, skin, hairStyle, hairColor, outfit, hat, scarf, flag, Object.hashAllUnordered(logbooks));
 }
