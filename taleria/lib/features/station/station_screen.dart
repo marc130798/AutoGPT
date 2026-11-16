@@ -29,6 +29,7 @@ import 'quiz_view.dart';
 import 'station_stage.dart';
 import '../common/taleria_app_bar.dart';
 import '../common/menu_music.dart';
+import '../common/speak_once.dart';
 
 /// Eine Station von Anfang bis Ende. Gibt beim Schließen das Ergebnis
 /// zurück (oder `null`, wenn das Kind vorher abbricht).
@@ -77,8 +78,18 @@ class _StationScreenState extends State<StationScreen> {
     _sounds.voice(_cheer(controller, result.islandCompleted));
   }
 
+  /// Anfang der Aufnahmen dieser Station: `voice.<insel>.<nr>.` oder beim
+  /// Stopp auf See `voice.<insel>.stopp<k>.` (tool/stimmen_aufnehmen.py).
+  String _voiceBase() => widget.station.isSeaStop
+      ? 'voice.${widget.island.slug}.stopp${widget.station.sortOrder}.'
+      : 'voice.${widget.island.slug}.${widget.station.displayNumber}.';
+
   /// Talo oder Tala freuen sich mit (Marcs Stimmen), immer ein anderer Satz.
+  /// Beim Stopp auf See spricht, wenn es eine Aufnahme gibt, die Figur des
+  /// Stopps ihren Abschlusssatz.
   String _cheer(StationController controller, bool islandDone) {
+    final summary = '${_voiceBase()}abschluss.mp3';
+    if (controller.isSeaStop && _sounds.hasVoice(summary) && _sounds.knownVoices != null) return summary;
     final random = AppScope.of(context).random;
     final who = random.nextBool() ? 'talo' : 'tala';
     if (islandDone) return 'voice.$who.island.${random.nextInt(2) + 1}.mp3';
@@ -163,6 +174,7 @@ class _StationScreenState extends State<StationScreen> {
             onDone: controller.next,
             // Beim Stopp auf See mit Schiff steht oben das Schiff (siehe _framed).
             stage: content.seaStop?.ship == null,
+            voicePrefix: '${_voiceBase()}szene.',
           ),
           StationStep.estimate => EstimateView(estimate: content.estimate!, onSubmit: controller.submitEstimate),
           StationStep.lesson when content.hasPictureStory => PictureStory(
@@ -174,6 +186,7 @@ class _StationScreenState extends State<StationScreen> {
             voicePrefix: 'voice.${widget.island.slug}.${widget.station.displayNumber}.',
           ),
           StationStep.lesson => DialogSequence(
+            voicePrefix: 'voice.${widget.island.slug}.${widget.station.displayNumber}.',
             lines: [
               ...content.lesson,
               // Ohne Bilder steht die Auflösung als letzte Zeile da.
@@ -833,6 +846,13 @@ class _IslandTeaser extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    return SpeakOnce(
+      files: [for (var i = 1; i <= details.teaser.length; i++) 'voice.${details.slug}.ausblick.$i.mp3'],
+      child: _content(context, l10n, theme),
+    );
+  }
+
+  Widget _content(BuildContext context, AppLocalizations l10n, ThemeData theme) {
     return Column(
       key: const ValueKey('island-teaser'),
       crossAxisAlignment: CrossAxisAlignment.stretch,

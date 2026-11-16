@@ -196,4 +196,17 @@ void main() {
     sounds.setFilmPlaying(false);
     expect(sounds.musicDucked, isFalse);
   });
+
+  test('Mehrere Aufnahmen nacheinander, fehlende werden übersprungen', () {
+    final sounds = _Recording()..knownVoices = {'a.mp3', 'c.mp3'};
+    sounds.voices(['a.mp3', 'b.mp3', 'c.mp3']);
+    expect(sounds.playedVoices, ['a.mp3']);
+    sounds.finish();
+    expect(sounds.playedVoices, ['a.mp3', 'c.mp3'], reason: 'b gibt es nicht');
+    sounds.finish();
+    expect(sounds.musicDucked, isFalse);
+
+    sounds.voice('b.mp3');
+    expect(sounds.playedVoices, hasLength(2), reason: 'ohne Aufnahme still');
+  });
 }

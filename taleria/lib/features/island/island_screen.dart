@@ -164,9 +164,14 @@ class _ArrivalState extends State<_Arrival> {
   /// Wer auf der Insel begrüßt (Aufnahmen mit Marcs Stimmen).
   static const _greeters = {'hafen': 'talo', 'tauschinsel': 'tala', 'wunschinsel': 'talo', 'spar-insel': 'tala'};
 
+  /// Spricht die Ankunftsszene selbst (Aufnahmen `voice.<insel>.ankunft.<nr>`),
+  /// entfällt der kurze Begrüßungssatz.
+  bool get _sceneSpeaks =>
+      AppScope.of(context).sounds.knownVoices?.contains('voice.${widget.details.slug}.ankunft.1.mp3') ?? false;
+
   void _speak() {
     final who = _greeters[widget.details.slug];
-    if (_spoke || who == null) return;
+    if (_spoke || who == null || _sceneSpeaks) return;
     _spoke = true;
     final sounds = AppScope.of(context).sounds;
     WidgetsBinding.instance.addPostFrameCallback((_) => sounds.voice('voice.$who.arrive.${widget.details.slug}.mp3'));
@@ -187,7 +192,12 @@ class _ArrivalState extends State<_Arrival> {
     return StationBackdrop(
       assetKey: AssetKeys.islandBackground(details.slug),
       faded: true,
-      child: DialogSequence(lines: details.arrivalScene, onDone: widget.onDone, stage: true),
+      child: DialogSequence(
+        lines: details.arrivalScene,
+        onDone: widget.onDone,
+        stage: true,
+        voicePrefix: _sceneSpeaks ? 'voice.${details.slug}.ankunft.' : null,
+      ),
     );
   }
 }

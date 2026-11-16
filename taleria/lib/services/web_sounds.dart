@@ -120,7 +120,8 @@ class WebSounds extends Sounds {
   /// stumm angespielt, damit Safari später auch ohne Antippen spricht.
   late final web.HTMLAudioElement _voice = web.HTMLAudioElement()
     ..preload = 'auto'
-    ..addEventListener('ended', ((web.Event _) => voiceFinished()).toJS);
+    ..addEventListener('ended', ((web.Event _) => voiceFinished()).toJS)
+    ..addEventListener('error', ((web.Event _) => voiceFinished()).toJS);
   bool _voicePrimed = false;
 
   /// Musik-Lautstärke, solange eine Stimme spricht.

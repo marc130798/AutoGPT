@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -24,6 +25,7 @@ import 'services/audio_sounds.dart';
 import 'services/web_sounds_stub.dart' if (dart.library.js_interop) 'services/web_sounds.dart';
 import 'services/error_reporting.dart';
 import 'services/session_controller.dart';
+import 'services/sounds.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,6 +67,13 @@ Future<void> main() async {
       createWebSounds(manifest: manifest, effects: AssetKeys.effects, settings: settings) ??
       AudioSounds(manifest: manifest, assets: assets, settings: settings);
   unawaited(sounds.load());
+  // Welche Sprachaufnahmen es gibt (nicht jede Zeile hat eine Stimme).
+  unawaited(
+    rootBundle
+        .loadString('${Sounds.voiceFolder}/stimmen.json')
+        .then((text) => sounds.knownVoices = (jsonDecode(text) as Map<String, dynamic>).keys.toSet())
+        .catchError((Object _) => <String>{}),
+  );
 
   runApp(
     TaleriaApp(

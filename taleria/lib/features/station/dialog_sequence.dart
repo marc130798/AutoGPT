@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/sounds.dart';
 import '../common/wood_sign.dart';
 import '../intro/speech_bubble.dart';
 import 'station_stage.dart';
@@ -22,6 +24,7 @@ class DialogSequence extends StatefulWidget {
     this.title,
     this.doneLabel,
     this.stage = false,
+    this.voicePrefix,
   });
 
   final List<DialogLine> lines;
@@ -34,12 +37,48 @@ class DialogSequence extends StatefulWidget {
   /// Figuren auf einer Bühne über dem Gespräch zeigen.
   final bool stage;
 
+  /// Anfang der Sprachaufnahmen, zum Beispiel `voice.hafen.2.szene.`: Jede
+  /// neue Zeile wird vorgelesen (`<prefix><nr>.mp3`, Nummer ab 1). Zeilen
+  /// ohne Aufnahme bleiben still.
+  final String? voicePrefix;
+
   @override
   State<DialogSequence> createState() => _DialogSequenceState();
 }
 
 class _DialogSequenceState extends State<DialogSequence> {
   int _shown = 1;
+  Sounds? _sounds;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final first = _sounds == null;
+    _sounds = AppScope.of(context).sounds;
+    if (first) WidgetsBinding.instance.addPostFrameCallback((_) => _speak());
+  }
+
+  void _speak() {
+    final prefix = widget.voicePrefix;
+    if (prefix == null || !mounted) return;
+    _sounds?.voice('$prefix$_shown.mp3');
+  }
+
+  void _more() {
+    setState(() => _shown++);
+    _speak();
+  }
+
+  void _done() {
+    if (widget.voicePrefix != null) _sounds?.stopVoice();
+    widget.onDone();
+  }
+
+  @override
+  void dispose() {
+    if (widget.voicePrefix != null) _sounds?.stopVoice();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +100,8 @@ class _DialogSequenceState extends State<DialogSequence> {
       child: SizedBox(
         width: double.infinity,
         child: last
-            ? FilledButton(onPressed: widget.onDone, child: Text(widget.doneLabel ?? l10n.introNext))
-            : OutlinedButton(onPressed: () => setState(() => _shown++), child: Text(l10n.introNext)),
+            ? FilledButton(onPressed: _done, child: Text(widget.doneLabel ?? l10n.introNext))
+            : OutlinedButton(onPressed: _more, child: Text(l10n.introNext)),
       ),
     );
 

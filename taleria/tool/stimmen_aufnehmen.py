@@ -34,6 +34,15 @@ VOICES = {
     "talo": "50ziM9y8Nnahpd5X0J82",
     "tala": "GtGbvM5PvWwzWI8rtTKT",
     "taleron": "DrEioZtDeKuQuCiimPiq",
+    # Inselbewohner (Marc hat am 16.11.2026 aus je 3 Proben gewählt, dauerhaft
+    # in seinem Konto gespeichert mit tool/stimme_entwerfen.py).
+    "olga": "dplDM4GRTbPZEcekle86",
+    "bruno": "lM1QWXiTjt6Kx8EWVF7X",
+    "greta": "sch5SA569oWkXDPtDkXT",
+    "otti": "N8mipeQcK5GhXSiRPieg",
+    "elsa": "8giTRiS5FxN6KhDPSpAb",
+    "emma": "r3c2R2ZpQNEy4OuOxyM2",
+    "gustav": "xlsHIYy4lTH1hgpTECvs",
 }
 MODEL = "eleven_multilingual_v2"
 # Sprache braucht keine Musik-Qualität: 32 kbit/s halten die Web-App klein.
@@ -51,13 +60,31 @@ OVERRIDES = {
 
 
 def lines() -> list[tuple[str, str, str]]:
+    """Alle Sätze mit Dateinamen. Die App spielt sie unter denselben Namen ab:
+    Erklärung `voice.<insel>.<nr>.<i>`, Szene `voice.<insel>.<nr>.szene.<i>`,
+    Stopp auf See `voice.<insel>.stopp<k>.szene.<i>` und `.abschluss`,
+    Ankunft `voice.<insel>.ankunft.<i>`, Ausblick `voice.<insel>.ausblick.<i>`
+    (i zählt alle Zeilen ab 1, auch die ohne Stimme)."""
     out = []
+
+    def add(prefix, rows):
+        for i, line in enumerate(rows or [], start=1):
+            if line.get("wer") in VOICES:
+                out.append((f"{prefix}{i}.mp3", line["wer"], line["text"]))
+
     for name in ISLANDS:
         data = json.loads((ROOT / "content" / "stufe1" / f"{name}.json").read_text(encoding="utf-8"))
+        slug = data["slug"]
         for station in data.get("stationen", []):
-            for i, line in enumerate(station.get("erklaerung") or [], start=1):
-                if line.get("wer") in VOICES:
-                    out.append((f"voice.{data['slug']}.{station['nr']}.{i}.mp3", line["wer"], line["text"]))
+            add(f"voice.{slug}.{station['nr']}.", station.get("erklaerung"))
+            add(f"voice.{slug}.{station['nr']}.szene.", station.get("szene"))
+        add(f"voice.{slug}.ankunft.", (data.get("ankunft") or {}).get("szene"))
+        add(f"voice.{slug}.ausblick.", data.get("ausblick"))
+        for k, stop in enumerate(data.get("stopps_auf_see") or [], start=1):
+            add(f"voice.{slug}.stopp{k}.szene.", stop.get("szene"))
+            end = stop.get("abschluss")
+            if end and end.get("wer") in VOICES:
+                out.append((f"voice.{slug}.stopp{k}.abschluss.mp3", end["wer"], end["text"]))
     md = (ROOT / "design" / "sprachaufnahmen.md").read_text(encoding="utf-8")
     for file, who, text in re.findall(r"^\| \d+ \| `(voice\.[^`]+)` \| (\w+) \| (.+?) \|$", md, re.M):
         out.append((file, who.lower(), OVERRIDES.get(file, text)))

@@ -104,14 +104,39 @@ class Sounds extends ChangeNotifier {
   /// Still, wenn der Ton aus ist oder Stimmen nicht erlaubt sind; eine
   /// laufende Stimme hört dabei auf. Fehlt die Datei, bleibt es still.
   void voice(String file) {
-    if (!_enabled || !_voicesAllowed) return;
+    _queue.clear();
+    _start(file);
+  }
+
+  /// Mehrere Aufnahmen nacheinander (zum Beispiel der Ausblick am Ende einer
+  /// Insel). Fehlende Aufnahmen werden übersprungen.
+  void voices(List<String> files) {
+    _queue
+      ..clear()
+      ..addAll(files.where(hasVoice));
+    if (_queue.isNotEmpty) _start(_queue.removeAt(0));
+  }
+
+  final List<String> _queue = [];
+
+  void _start(String file) {
+    if (!_enabled || !_voicesAllowed || !hasVoice(file)) return;
     playedVoices.add(file);
     _setDucked(true);
     playVoice('$voiceFolder/$file');
   }
 
+  /// Welche Aufnahmen es gibt (aus `assets/audio/voice/stimmen.json`, beim
+  /// Start geladen). `null` = unbekannt, dann wird alles versucht (Tests).
+  Set<String>? knownVoices;
+
+  /// Gibt es diese Aufnahme? Nicht jede Zeile hat eine Stimme (zum Beispiel
+  /// Figuren ohne eigene Stimme).
+  bool hasVoice(String file) => knownVoices?.contains(file) ?? true;
+
   /// Die laufende Stimme beenden (zum Beispiel beim Verlassen einer Seite).
   void stopVoice() {
+    _queue.clear();
     stopVoiceAudio();
     _setDucked(false);
   }
@@ -137,7 +162,13 @@ class Sounds extends ChangeNotifier {
 
   /// Die Stimme ist zu Ende (meldet die Unterklasse).
   @protected
-  void voiceFinished() => _setDucked(false);
+  void voiceFinished() {
+    if (_queue.isNotEmpty) {
+      _start(_queue.removeAt(0));
+    } else {
+      _setDucked(false);
+    }
+  }
 
   /// Musik leiser stellen (`true`) oder wieder normal. Auf dem iPhone im
   /// Browser lässt sich die Lautstärke nicht ändern; dort sind die Dateien
