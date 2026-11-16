@@ -15,6 +15,7 @@ import '../common/scene_background.dart';
 import '../common/ship_flag.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Werft: Mit Seemeilen schaltet das Kind Jacken, Hüte, Halstücher und
 /// Flaggen fürs Schiff frei. Nichts kostet etwas und nichts ist kaufbar.
@@ -104,7 +105,8 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
     final next = nextShipyardItem(widget.xp);
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.shipyardTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.shipyardTitle),
         body: SceneBackground(
           assetKey: AssetKeys.homeBackground,
           child: SafeArea(

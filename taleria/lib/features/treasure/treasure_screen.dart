@@ -20,6 +20,7 @@ import 'amount_dialog.dart';
 import 'ledger_tile.dart';
 import 'pot_detail_screen.dart';
 import 'wish_bottle_form.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Kinderbereich: eine Schatztruhe (entschieden mit Marc am 29.10.2026) mit
 /// freiem Geld und Geld, das für Wunschschätze zurückgelegt ist; dazu
@@ -197,7 +198,8 @@ class _TreasureScreenState extends State<TreasureScreen> {
     final controller = _controller!;
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.treasureTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.treasureTitle),
         // Schatzkammer im Bauch des Schiffs; ohne Bild warmes Holz.
         body: SceneBackground(
           assetKey: AssetKeys.treasureBackground,

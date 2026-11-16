@@ -24,6 +24,7 @@ import 'map_layout.dart';
 import 'map_painters.dart';
 import 'map_scene.dart';
 import 'sea_critters.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
 /// nach oben (Schatzinsel). Inseln im Nebel und gesperrte Inseln sind
@@ -303,7 +304,8 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
     // Meeresrauschen wie auf der Startseite, ohne Unterbrechung.
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.mapTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.mapTitle),
         body: ListenableBuilder(
           listenable: controller,
           builder: (context, _) {

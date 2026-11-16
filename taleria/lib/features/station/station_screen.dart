@@ -27,6 +27,7 @@ import 'game_views.dart';
 import 'picture_story.dart';
 import 'quiz_view.dart';
 import 'station_stage.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Eine Station von Anfang bis Ende. Gibt beim Schließen das Ergebnis
 /// zurück (oder `null`, wenn das Kind vorher abbricht).
@@ -177,7 +178,8 @@ class _StationScreenState extends State<StationScreen> {
           ),
         };
         return Scaffold(
-          appBar: AppBar(title: Text(content.title)),
+          extendBodyBehindAppBar: true,
+          appBar: TaleriaAppBar(title: content.title),
           body: _fogged(
             controller.isSeaStop,
             _dived(

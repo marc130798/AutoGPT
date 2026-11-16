@@ -11,6 +11,7 @@ import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import 'showcase.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Orden-Sammlung des Kindes: verdiente Orden leuchten, die anderen sind
 /// blass und warten noch („Noch nicht gefunden“). Oben erklärt Talo, wie man
@@ -39,7 +40,8 @@ class _BadgesScreenState extends State<BadgesScreen> {
     final theme = Theme.of(context);
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.badgesTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.badgesTitle),
         body: SceneBackground(
           assetKey: AssetKeys.badgesBackground,
           child: SafeArea(

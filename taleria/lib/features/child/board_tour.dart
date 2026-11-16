@@ -7,6 +7,7 @@ import '../../l10n/app_localizations.dart';
 import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../intro/speech_bubble.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Eine Station des Rundgangs: Bild, Name, wo sie auf der Startseite liegt,
 /// und wer sie erklärt.
@@ -224,7 +225,8 @@ class BoardTourScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.tourButton)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.tourButton),
         body: SceneBackground(
           assetKey: AssetKeys.homeBackground,
           child: SafeArea(child: BoardTour(onDone: () => Navigator.of(context).pop())),

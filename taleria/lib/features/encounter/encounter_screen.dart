@@ -15,6 +15,7 @@ import '../progress/celebration.dart';
 import '../station/dialog_sequence.dart';
 import '../station/quiz_view.dart';
 import '../station/station_stage.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Begegnung auf See (Kontrollfahrt): Eine Figur taucht auf und stellt
 /// Rätsel zu früheren Stationen. Falsche Antworten kosten nichts: Die Figur
@@ -108,7 +109,8 @@ class _EncounterScreenState extends State<EncounterScreen> {
           ),
         };
         return Scaffold(
-          appBar: AppBar(title: Text(controller.encounter.title)),
+          extendBodyBehindAppBar: true,
+          appBar: TaleriaAppBar(title: controller.encounter.title),
           // Mitten auf dem Meer: Nebel zieht auf und lichtet sich.
           body: FogReveal(
             child: StationBackdrop(

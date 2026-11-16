@@ -12,6 +12,7 @@ import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import 'stats_card.dart' show rankProgressText;
+import '../common/taleria_app_bar.dart';
 
 /// Kinderbereich: alle Ränge als Zeitstrahl, unten der erste, oben der
 /// Kapitän. Zeigt, welche Ränge geschafft sind, wo das Kind steht und wie
@@ -45,7 +46,8 @@ class _RankLadderScreenState extends State<RankLadderScreen> {
     final form = widget.rankForm;
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.ranksTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.ranksTitle),
         body: SceneBackground(
           assetKey: AssetKeys.badgesBackground,
           child: SafeArea(

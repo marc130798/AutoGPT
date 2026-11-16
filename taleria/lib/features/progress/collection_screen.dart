@@ -12,6 +12,7 @@ import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import 'showcase.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Unterwasser-Sammlung: Perlen aus den Tauchgängen und Funde aus den Wracks,
 /// jeder Fund mit eigenem Bild. Die Unterwasserwelt liegt hinter der ganzen
@@ -41,7 +42,8 @@ class _CollectionScreenState extends State<CollectionScreen> {
     final theme = Theme.of(context);
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.collectionTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.collectionTitle),
         body: SceneBackground(
           assetKey: AssetKeys.underwaterBackground,
           child: SafeArea(

@@ -13,6 +13,7 @@ import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Kinderbereich: Aufträge der Eltern. „Erledigt!“ meldet den Auftrag,
 /// gutgeschrieben wird erst, wenn die Eltern bestätigen. Oben erklären Talo
@@ -59,7 +60,8 @@ class _TasksScreenState extends State<TasksScreen> {
     final controller = _controller!;
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.tasksTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.tasksTitle),
         body: SceneBackground(
           assetKey: AssetKeys.tasksBackground,
           child: SafeArea(

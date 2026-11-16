@@ -14,6 +14,7 @@ import '../common/texts.dart';
 import '../intro/speech_bubble.dart';
 import '../station/real_game_flow.dart';
 import '../station/station_stage.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Ein echtes Mini-Spiel auf der Seite „Spiele“: wo es herkommt und ob das
 /// Kind die Station schon geschafft hat.
@@ -76,7 +77,8 @@ class _GamesScreenState extends State<GamesScreen> {
     final theme = Theme.of(context);
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.gamesTitle)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: l10n.gamesTitle),
         body: SceneBackground(
           assetKey: AssetKeys.mapBackground,
           child: SafeArea(
@@ -209,7 +211,8 @@ class GameReplayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(entry.game.title)),
+      extendBodyBehindAppBar: true,
+      appBar: TaleriaAppBar(title: entry.game.title),
       body: StationBackdrop(
         assetKey: AssetKeys.islandBackground(entry.island.slug),
         faded: true,

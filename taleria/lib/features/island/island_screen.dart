@@ -15,6 +15,7 @@ import '../intro/speech_bubble.dart';
 import '../station/station_screen.dart';
 import '../station/station_stage.dart';
 import 'island_scene.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Eine Insel: Ankunft beim ersten Besuch, danach die Stationen der Reihe nach.
 class IslandScreen extends StatefulWidget {
@@ -125,7 +126,8 @@ class _IslandScreenState extends State<IslandScreen> {
           body = _StationList(controller: controller, onOpen: _openStation);
         }
         return Scaffold(
-          appBar: AppBar(title: Text(details?.title ?? widget.island.title)),
+          extendBodyBehindAppBar: true,
+          appBar: TaleriaAppBar(title: details?.title ?? widget.island.title),
           body: SafeArea(child: body),
         );
       },
@@ -262,7 +264,8 @@ class _StationList extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (routeContext) => Scaffold(
-          appBar: AppBar(title: Text(details.title)),
+          extendBodyBehindAppBar: true,
+          appBar: TaleriaAppBar(title: details.title),
           body: SafeArea(
             child: _Arrival(details: details, onDone: () => Navigator.of(routeContext).pop()),
           ),

@@ -12,6 +12,7 @@ import '../common/menu_music.dart';
 import '../common/scene_background.dart';
 import '../common/texts.dart';
 import 'ledger_tile.dart';
+import '../common/taleria_app_bar.dart';
 
 /// Kinderbereich: Übersicht einer Truhe (Bordkasse, Schatztruhe oder
 /// Glückstruhe), geöffnet durch Antippen der Truhe. Oben der Stand, darunter,
@@ -31,7 +32,8 @@ class PotDetailScreen extends StatelessWidget {
     final name = l10n.pot(pot, parent: false);
     return MenuMusic(
       child: Scaffold(
-        appBar: AppBar(title: Text(name)),
+        extendBodyBehindAppBar: true,
+        appBar: TaleriaAppBar(title: name),
         body: SceneBackground(
           assetKey: AssetKeys.treasureBackground,
           child: SafeArea(
