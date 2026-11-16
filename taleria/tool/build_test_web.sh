@@ -67,6 +67,9 @@ fi
 mkdir -p "$OUT/logbuch"
 cp logbuch/web/logbuch_*.pdf "$OUT/logbuch/"
 
+# Bilder im Build-Ordner als WebP (gleicher Name), spart etwa 8 MB.
+python3 tool/web_bilder_webp.py "$OUT/assets/assets/images"
+
 rm -f "$ZIP"
 # Weggelassen wird, was der Browser bei diesem Build nie lädt, damit die
 # ZIP-Datei klein genug zum Verschicken bleibt (unter 30 MB):
