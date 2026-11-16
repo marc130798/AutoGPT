@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../core/theme/taleria_palette.dart';
+import '../../core/assets/taleria_asset.dart';
+import '../../core/assets/asset_keys.dart';
 import '../../domain/budget_models.dart';
 import '../../domain/family_models.dart';
 import '../../domain/money.dart';
@@ -12,12 +15,19 @@ import '../common/texts.dart';
 import '../treasure/amount_dialog.dart';
 import '../treasure/ledger_tile.dart';
 
-/// Leuchtturm: Taschengeld, Aufgaben und Kontostand eines Kindes.
+/// Welche Seite: Aufträge erteilen oder Taschengeld und Schatztruhe
+/// (Marcs Wunsch am 16.11.2026: zwei eigene Menüpunkte statt einer Seite).
+enum BudgetSection { tasks, money }
+
+/// Leuchtturm: Aufgaben eines Kindes ([BudgetSection.tasks]) oder sein Geld
+/// ([BudgetSection.money]: Kontostand, Taschengeld, Lern-Belohnung,
+/// Sparziele und Kassenbuch).
 class ChildBudgetScreen extends StatefulWidget {
-  const ChildBudgetScreen({super.key, required this.child, required this.parentId});
+  const ChildBudgetScreen({super.key, required this.child, required this.parentId, this.section = BudgetSection.money});
 
   final ChildProfile child;
   final String parentId;
+  final BudgetSection section;
 
   @override
   State<ChildBudgetScreen> createState() => _ChildBudgetScreenState();
@@ -75,6 +85,19 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
     }
   }
 
+  /// Geld dazugeben (nur positiv): Geschenk, Geld von Oma …
+  Future<void> _addMoney() {
+    final l10n = AppLocalizations.of(context);
+    final c = _controller!;
+    return showAmountDialog(
+      context,
+      title: l10n.moneyAdd,
+      hint: l10n.moneyAddHint,
+      withNote: true,
+      onSubmit: (input) => c.bookManual(amountCents: input.amountCents, note: input.note),
+    );
+  }
+
   Future<void> _manualBooking() {
     final l10n = AppLocalizations.of(context);
     final c = _controller!;
@@ -91,15 +114,17 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     final controller = _controller!;
+    final tasks = widget.section == BudgetSection.tasks;
     return Scaffold(
-      appBar: AppBar(title: Text('${widget.child.nickname}: ${l10n.budgetTitle}')),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _createTask,
-        icon: const Icon(Icons.add_task),
-        label: Text(l10n.taskCreate),
-      ),
+      appBar: AppBar(title: Text('${widget.child.nickname}: ${tasks ? l10n.budgetTasksTitle : l10n.budgetMoneyTitle}')),
+      floatingActionButton: tasks
+          ? FloatingActionButton.extended(
+              onPressed: _createTask,
+              icon: const Icon(Icons.add_task),
+              label: Text(l10n.taskCreate),
+            )
+          : null,
       body: SafeArea(
         child: ListenableBuilder(
           listenable: controller,
@@ -108,84 +133,11 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
             if (controller.failure != null) {
               return Center(child: Text(l10n.failure(controller.failure!)));
             }
-            final allowance = controller.allowance;
-            final submitted = controller.tasksWith(TaskStatus.submitted);
-            final others = controller.tasks.where((t) => t.status != TaskStatus.submitted).toList();
             return RefreshIndicator(
               onRefresh: controller.load,
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
-                children: [
-                  // Aufgaben, die auf Bestätigung warten, stehen ganz oben.
-                  Text(l10n.tasksParentHeading, style: theme.textTheme.titleLarge),
-                  if (submitted.isNotEmpty) Text(l10n.pendingTasks(submitted.length)),
-                  for (final task in submitted)
-                    _ParentTaskCard(
-                      task: task,
-                      onApprove: () => runWithFeedback(context, () => controller.reviewTask(task, approve: true)),
-                      onReject: () => _reject(task),
-                    ),
-                  if (controller.tasks.isEmpty) Text(l10n.tasksParentEmpty),
-                  for (final task in others)
-                    _ParentTaskCard(
-                      task: task,
-                      onApprove: task.canApprove
-                          ? () => runWithFeedback(context, () => controller.reviewTask(task, approve: true))
-                          : null,
-                      onDelete: task.status == TaskStatus.approved
-                          ? null
-                          : () => runWithFeedback(context, () => controller.deleteTask(task)),
-                    ),
-                  const SizedBox(height: 24),
-                  Text(l10n.allowanceHeading, style: theme.textTheme.titleLarge),
-                  const SizedBox(height: 4),
-                  Text(
-                    allowance == null
-                        ? l10n.allowanceNone
-                        : l10n.allowanceCurrent(
-                            formatCents(allowance.amountCents),
-                            l10n.interval(allowance.interval),
-                            formatDate(allowance.nextRunAt),
-                          ),
-                  ),
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      TextButton(onPressed: _setAllowance, child: Text(l10n.allowanceSet)),
-                      if (allowance != null) TextButton(onPressed: _stopAllowance, child: Text(l10n.allowanceStop)),
-                    ],
-                  ),
-                  Text(l10n.allowanceHint, style: theme.textTheme.bodySmall),
-                  const SizedBox(height: 24),
-                  _LearningSection(rewards: controller.learningRewards, onSet: _setLearning, onStop: _stopLearning),
-                  const SizedBox(height: 24),
-                  Text(l10n.balanceHeading, style: theme.textTheme.titleLarge),
-                  for (final pot in const [Pot.spend, Pot.save])
-                    ListTile(
-                      key: ValueKey('parent-balance-${pot.code}'),
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(l10n.pot(pot, parent: true)),
-                      trailing: Text(
-                        formatCents(controller.balances.of(pot)),
-                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  // Wofür das Kind gerade zurücklegt.
-                  for (final goal in controller.openGoals)
-                    Padding(
-                      key: ValueKey('parent-goal-${goal.id}'),
-                      padding: const EdgeInsets.only(left: 16, bottom: 4),
-                      child: Text(
-                        l10n.parentGoalLine(goal.title, formatCents(goal.savedCents), formatCents(goal.targetCents)),
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                    ),
-                  TextButton(onPressed: _manualBooking, child: Text(l10n.manualBooking)),
-                  const SizedBox(height: 16),
-                  Text(l10n.ledgerHeading, style: theme.textTheme.titleLarge),
-                  if (controller.ledger.isEmpty) Text(l10n.ledgerEmpty),
-                  for (final entry in controller.ledger) LedgerTile(entry: entry, parent: true),
-                ],
+                children: tasks ? _taskList(context, controller) : _moneyList(context, controller),
               ),
             );
           },
@@ -193,6 +145,248 @@ class _ChildBudgetScreenState extends State<ChildBudgetScreen> {
       ),
     );
   }
+
+  /// Aufträge: zuerst, was auf Bestätigung wartet, dann offene, erledigte
+  /// und abgelehnte zugeklappt unten.
+  List<Widget> _taskList(BuildContext context, TreasureController controller) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final submitted = controller.tasksWith(TaskStatus.submitted);
+    final open = controller.tasksWith(TaskStatus.open);
+    final done = controller.tasks
+        .where((t) => t.status == TaskStatus.approved || t.status == TaskStatus.rejected)
+        .toList();
+    Widget card(FamilyTask task) => _ParentTaskCard(
+      task: task,
+      onApprove: task.canApprove
+          ? () => runWithFeedback(context, () => controller.reviewTask(task, approve: true))
+          : null,
+      onReject: task.status == TaskStatus.submitted ? () => _reject(task) : null,
+      onDelete: task.status == TaskStatus.approved || task.status == TaskStatus.submitted
+          ? null
+          : () => runWithFeedback(context, () => controller.deleteTask(task)),
+    );
+    return [
+      Text(l10n.tasksParentHeading, style: theme.textTheme.titleLarge),
+      if (controller.tasks.isEmpty) Text(l10n.tasksParentEmpty),
+      if (submitted.isNotEmpty) ...[
+        const SizedBox(height: 8),
+        _SectionLabel(icon: Icons.notifications_active_outlined, text: l10n.pendingTasks(submitted.length)),
+        for (final task in submitted) card(task),
+      ],
+      if (open.isNotEmpty) ...[
+        const SizedBox(height: 8),
+        _SectionLabel(icon: Icons.radio_button_unchecked, text: l10n.parentTasksOpen),
+        for (final task in open) card(task),
+      ],
+      if (done.isNotEmpty)
+        Card(
+          margin: const EdgeInsets.only(top: 12),
+          clipBehavior: Clip.antiAlias,
+          child: ExpansionTile(
+            key: const ValueKey('parent-tasks-done'),
+            leading: const Icon(Icons.task_alt),
+            title: Text(l10n.parentTasksDone(done.length)),
+            childrenPadding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            children: [for (final task in done) card(task)],
+          ),
+        ),
+    ];
+  }
+
+  /// Geld: Kontostand groß oben, darunter Taschengeld, Lern-Belohnung,
+  /// Sparziele und das Kassenbuch, jeweils als eigene Karte.
+  List<Widget> _moneyList(BuildContext context, TreasureController controller) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final allowance = controller.allowance;
+    final balances = controller.balances;
+    return [
+      _MoneyCard(
+        icon: Icons.account_balance_wallet_outlined,
+        title: l10n.balanceHeading,
+        children: [
+          Row(
+            children: [
+              for (final (pot, image) in const [(Pot.spend, AssetKeys.potSpend), (Pot.save, AssetKeys.iconTreasure)])
+                Expanded(
+                  child: Container(
+                    key: ValueKey('parent-balance-${pot.code}'),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: palette.gold.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Column(
+                      children: [
+                        TaleriaAsset(image, width: 56, height: 56, fit: BoxFit.contain),
+                        const SizedBox(height: 4),
+                        Text(
+                          formatCents(balances.of(pot)),
+                          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                        ),
+                        Text(
+                          l10n.pot(pot, parent: true),
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.moneyTotal(formatCents(balances.spend + balances.save)),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleMedium,
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            children: [
+              FilledButton.tonalIcon(
+                key: const ValueKey('money-add'),
+                onPressed: _addMoney,
+                icon: const Icon(Icons.add),
+                label: Text(l10n.moneyAdd),
+              ),
+              TextButton(onPressed: _manualBooking, child: Text(l10n.manualBooking)),
+            ],
+          ),
+        ],
+      ),
+      _MoneyCard(
+        icon: Icons.event_repeat_outlined,
+        title: l10n.allowanceHeading,
+        children: [
+          if (allowance == null)
+            Text(l10n.allowanceNone)
+          else ...[
+            Text(
+              l10n.allowanceAmountLine(formatCents(allowance.amountCents), l10n.interval(allowance.interval)),
+              style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            ),
+            Text(l10n.allowanceNextRun(formatDate(allowance.nextRunAt))),
+          ],
+          Wrap(
+            spacing: 8,
+            children: [
+              TextButton(onPressed: _setAllowance, child: Text(l10n.allowanceSet)),
+              if (allowance != null) TextButton(onPressed: _stopAllowance, child: Text(l10n.allowanceStop)),
+            ],
+          ),
+          Text(l10n.allowanceHint, style: theme.textTheme.bodySmall),
+        ],
+      ),
+      _MoneyCard(
+        icon: Icons.emoji_events_outlined,
+        title: l10n.rewardHeading,
+        children: [_LearningSection(rewards: controller.learningRewards, onSet: _setLearning, onStop: _stopLearning)],
+      ),
+      _MoneyCard(
+        icon: Icons.star_outline,
+        title: l10n.parentGoalsHeading,
+        children: [
+          if (controller.openGoals.isEmpty) Text(l10n.goalsParentEmpty),
+          for (final goal in controller.openGoals)
+            Padding(
+              key: ValueKey('parent-goal-${goal.id}'),
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    l10n.parentGoalLine(goal.title, formatCents(goal.savedCents), formatCents(goal.targetCents)),
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 4),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: LinearProgressIndicator(
+                      value: goal.targetCents == 0 ? 0 : (goal.savedCents / goal.targetCents).clamp(0, 1),
+                      minHeight: 10,
+                      color: palette.gold,
+                      backgroundColor: palette.gold.withValues(alpha: 0.18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+      _MoneyCard(
+        icon: Icons.menu_book_outlined,
+        title: l10n.ledgerHeading,
+        children: [
+          if (controller.ledger.isEmpty) Text(l10n.ledgerEmpty),
+          for (final entry in controller.ledger) LedgerTile(entry: entry, parent: true),
+        ],
+      ),
+    ];
+  }
+}
+
+/// Karte mit Symbol und Überschrift für einen Bereich der Geld-Seite.
+class _MoneyCard extends StatelessWidget {
+  const _MoneyCard({required this.icon, required this.title, required this.children});
+
+  final IconData icon;
+  final String title;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Card(
+      margin: const EdgeInsets.only(bottom: 14),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: palette.gold.withValues(alpha: 0.25),
+                  child: Icon(icon, size: 20, color: palette.seaDeep),
+                ),
+                const SizedBox(width: 10),
+                Expanded(child: Text(title, style: Theme.of(context).textTheme.titleLarge)),
+              ],
+            ),
+            const SizedBox(height: 12),
+            ...children,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Kleine Überschrift über einer Gruppe von Aufgaben.
+class _SectionLabel extends StatelessWidget {
+  const _SectionLabel({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      children: [
+        Icon(icon, size: 18, color: context.palette.seaDeep),
+        const SizedBox(width: 6),
+        Expanded(child: Text(text, style: Theme.of(context).textTheme.titleSmall)),
+      ],
+    ),
+  );
 }
 
 class _ParentTaskCard extends StatelessWidget {
@@ -530,8 +724,6 @@ class _LearningSection extends StatelessWidget {
       key: const ValueKey('learning-section'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.rewardHeading, style: theme.textTheme.titleLarge),
-        const SizedBox(height: 4),
         if (!rewards.active) Text(l10n.learningNone),
         if (rewards.stationCents > 0) Text(l10n.learningPerStation(formatCents(rewards.stationCents))),
         if (rewards.islandCents > 0) Text(l10n.learningPerIsland(formatCents(rewards.islandCents))),

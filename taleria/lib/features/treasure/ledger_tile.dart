@@ -21,8 +21,24 @@ class LedgerTile extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final palette = context.palette;
     final positive = entry.amountCents > 0;
+    final icon = switch (entry.type) {
+      LedgerType.allowance => Icons.event_repeat,
+      LedgerType.task => Icons.task_alt,
+      LedgerType.transfer => Icons.swap_horiz,
+      LedgerType.manual => Icons.edit_note,
+      LedgerType.goal => Icons.star,
+      LedgerType.purchase => Icons.shopping_bag_outlined,
+      LedgerType.donation => Icons.favorite_border,
+      LedgerType.learning => Icons.emoji_events_outlined,
+    };
+    final tint = positive ? palette.success : palette.coral;
     return ListTile(
       contentPadding: EdgeInsets.zero,
+      leading: CircleAvatar(
+        radius: 18,
+        backgroundColor: tint.withValues(alpha: 0.15),
+        child: Icon(icon, size: 20, color: tint),
+      ),
       title: Text(entry.note ?? l10n.ledgerType(entry.type)),
       subtitle: Text(
         [

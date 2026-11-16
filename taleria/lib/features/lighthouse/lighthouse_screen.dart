@@ -134,8 +134,11 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                                       onTap: () async {
                                         await Navigator.of(context).push(
                                           MaterialPageRoute<void>(
-                                            builder: (_) =>
-                                                ChildBudgetScreen(child: child, parentId: controller.parent.id),
+                                            builder: (_) => ChildBudgetScreen(
+                                              child: child,
+                                              parentId: controller.parent.id,
+                                              section: BudgetSection.tasks,
+                                            ),
                                           ),
                                         );
                                         await controller.loadPendingTasks();

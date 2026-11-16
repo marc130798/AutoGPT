@@ -1289,6 +1289,53 @@ class AppLocalizationsDe extends AppLocalizations {
   String get budgetTitle => 'Taschengeld und Aufgaben';
 
   @override
+  String get budgetTasksTitle => 'Aufträge erteilen';
+
+  @override
+  String get budgetTasksHint => 'Aufgaben anlegen, bestätigen oder ablehnen';
+
+  @override
+  String get budgetMoneyTitle => 'Taschengeld und Schatztruhe';
+
+  @override
+  String get budgetMoneyHint => 'Kontostand, Taschengeld, Sparziele und Kassenbuch';
+
+  @override
+  String get moneyAdd => 'Geld dazugeben';
+
+  @override
+  String get moneyAddHint => 'Zum Beispiel Geld von Oma oder ein Geschenk. Es kommt ins freie Geld.';
+
+  @override
+  String moneyTotal(String amount) {
+    return 'Zusammen $amount';
+  }
+
+  @override
+  String allowanceNextRun(String date) {
+    return 'Nächste Zahlung am $date';
+  }
+
+  @override
+  String allowanceAmountLine(String amount, String interval) {
+    return '$amount $interval';
+  }
+
+  @override
+  String parentTasksDone(int count) {
+    return 'Erledigt und abgelehnt ($count)';
+  }
+
+  @override
+  String get parentTasksOpen => 'Offen';
+
+  @override
+  String get goalsParentEmpty => 'Noch kein Sparziel. Euer Kind legt Wunschschätze in seiner Schatztruhe an.';
+
+  @override
+  String get parentGoalsHeading => 'Sparziele (Wunschschätze)';
+
+  @override
   String pendingTasks(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

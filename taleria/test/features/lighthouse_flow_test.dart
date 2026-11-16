@@ -189,7 +189,7 @@ void main() {
     await tapText(tester, 'Wartet auf deine Bestätigung');
     await tester.tap(find.descendant(of: find.byKey(const ValueKey('pending-overview')), matching: find.text('Mila')));
     await tester.pumpAndSettle();
-    expect(find.text('Mila: Taschengeld und Aufgaben'), findsOneWidget);
+    expect(find.text('Mila: Aufträge erteilen'), findsOneWidget);
     expect(find.text('Abwaschen'), findsOneWidget);
   });
 }

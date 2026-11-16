@@ -1781,6 +1781,81 @@
   "@budgetTitle": {
     "description": "Titel des Budget-Bereichs im Leuchtturm"
   },
+  "budgetTasksTitle": "Aufträge erteilen",
+  "@budgetTasksTitle": {
+    "description": "Leuchtturm: Menüpunkt und Titel für Aufgaben des Kindes"
+  },
+  "budgetTasksHint": "Aufgaben anlegen, bestätigen oder ablehnen",
+  "@budgetTasksHint": {
+    "description": "Leuchtturm: Untertitel des Menüpunkts Aufträge erteilen"
+  },
+  "budgetMoneyTitle": "Taschengeld und Schatztruhe",
+  "@budgetMoneyTitle": {
+    "description": "Leuchtturm: Menüpunkt und Titel für Geld des Kindes"
+  },
+  "budgetMoneyHint": "Kontostand, Taschengeld, Sparziele und Kassenbuch",
+  "@budgetMoneyHint": {
+    "description": "Leuchtturm: Untertitel des Menüpunkts Taschengeld und Schatztruhe"
+  },
+  "moneyAdd": "Geld dazugeben",
+  "@moneyAdd": {
+    "description": "Leuchtturm: Knopf, Eltern legen virtuelles Geld ins freie Geld"
+  },
+  "moneyAddHint": "Zum Beispiel Geld von Oma oder ein Geschenk. Es kommt ins freie Geld.",
+  "@moneyAddHint": {
+    "description": "Hinweis im Dialog Geld dazugeben"
+  },
+  "moneyTotal": "Zusammen {amount}",
+  "@moneyTotal": {
+    "description": "Leuchtturm: Summe der Schatztruhe",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "allowanceNextRun": "Nächste Zahlung am {date}",
+  "@allowanceNextRun": {
+    "description": "Leuchtturm: Datum der nächsten Taschengeld-Zahlung",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "allowanceAmountLine": "{amount} {interval}",
+  "@allowanceAmountLine": {
+    "description": "Leuchtturm: Betrag und Rhythmus des Taschengelds, z. B. 5,00 € wöchentlich",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "interval": {
+        "type": "String"
+      }
+    }
+  },
+  "parentTasksDone": "Erledigt und abgelehnt ({count})",
+  "@parentTasksDone": {
+    "description": "Leuchtturm: zugeklappter Bereich mit erledigten Aufgaben",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "parentTasksOpen": "Offen",
+  "@parentTasksOpen": {
+    "description": "Leuchtturm: offene Aufgaben"
+  },
+  "goalsParentEmpty": "Noch kein Sparziel. Euer Kind legt Wunschschätze in seiner Schatztruhe an.",
+  "@goalsParentEmpty": {
+    "description": "Leuchtturm: keine Sparziele"
+  },
+  "parentGoalsHeading": "Sparziele (Wunschschätze)",
+  "@parentGoalsHeading": {
+    "description": "Leuchtturm: Überschrift der Sparziele des Kindes"
+  },
   "pendingTasks": "{count, plural, =0{Keine Aufgaben warten} =1{1 Aufgabe wartet auf Bestätigung} other{{count} Aufgaben warten auf Bestätigung}}",
   "@pendingTasks": {
     "description": "Anzahl gemeldeter Aufgaben im Leuchtturm",

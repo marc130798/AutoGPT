@@ -32,7 +32,13 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  Future<void> openParentBudget(WidgetTester tester, FakeBackend backend, FakeBudget budget) async {
+  /// Öffnet im Leuchtturm „Aufträge erteilen“ (Standard) oder [menu].
+  Future<void> openParentBudget(
+    WidgetTester tester,
+    FakeBackend backend,
+    FakeBudget budget, {
+    String menu = 'Aufträge erteilen',
+  }) async {
     await switchDevice(tester);
     backend.signInAs('eltern@test.invalid');
     await tester.pumpWidget(buildTestApp(backend: backend, budget: budget));
@@ -40,7 +46,25 @@ void main() {
     await enter(tester, 'pin-gate-field', '2468');
     await tapText(tester, 'Öffnen');
     await tapText(tester, 'Mila');
-    await tapText(tester, 'Taschengeld und Aufgaben');
+    await tapText(tester, menu);
+  }
+
+  /// Zurück zur Kinderseite und den anderen Menüpunkt öffnen.
+  Future<void> switchMenu(WidgetTester tester, String menu) async {
+    await tester.tap(find.byType(BackButton).last);
+    await tester.pumpAndSettle();
+    await tapText(tester, menu);
+  }
+
+  /// Erledigte Aufgaben stehen zugeklappt unten.
+  Future<void> openDone(WidgetTester tester) async {
+    await tester.dragUntilVisible(
+      find.byKey(const ValueKey('parent-tasks-done')),
+      find.byType(Scrollable).last,
+      const Offset(0, -200),
+    );
+    await tester.tap(find.byKey(const ValueKey('parent-tasks-done')));
+    await tester.pumpAndSettle();
   }
 
   Future<void> openChildDevice(WidgetTester tester, FakeBackend backend, FakeBudget budget, String childId) async {
@@ -62,7 +86,7 @@ void main() {
     final budget = FakeBudget()..now = DateTime.now().add(const Duration(minutes: 1));
 
     // --- Eltern: Taschengeld und Aufgabe ---
-    await openParentBudget(tester, backend, budget);
+    await openParentBudget(tester, backend, budget, menu: 'Taschengeld und Schatztruhe');
     expect(find.text('Kein Taschengeld festgelegt.'), findsOneWidget);
     await tapText(tester, 'Taschengeld festlegen');
     await enter(tester, 'allowance-amount', '5');
@@ -70,6 +94,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('${formatCents(500)} pro Woche'), findsOneWidget);
 
+    await switchMenu(tester, 'Aufträge erteilen');
     await tapText(tester, 'Aufgabe anlegen');
     await enter(tester, 'task-title', 'Rasen mähen');
     await enter(tester, 'task-reward', '3');
@@ -144,6 +169,7 @@ void main() {
     expect(find.text('1 Aufgabe wartet auf Bestätigung'), findsOneWidget);
     await tapText(tester, 'Bestätigen');
     expect(budget.balance(mila.id, Pot.spend), 600, reason: '3 € Rest plus 3 € Belohnung');
+    await openDone(tester);
     expect(find.text('Bestätigt am ${formatDate(budget.now)}'), findsOneWidget);
     expect(find.text('${formatCents(300)} auf „Frei zum Ausgeben“ gebucht'), findsOneWidget);
   });
@@ -182,6 +208,7 @@ void main() {
 
     await openParentBudget(tester, backend, budget);
     expect(find.text('Gemeldet am 09.10.2026'), findsOneWidget);
+    await openDone(tester);
     expect(find.text('Bestätigt am 10.10.2026'), findsOneWidget);
   });
 
@@ -273,7 +300,7 @@ void main() {
     final mila = backend.addChild(parent);
     final budget = FakeBudget();
 
-    await openParentBudget(tester, backend, budget);
+    await openParentBudget(tester, backend, budget, menu: 'Taschengeld und Schatztruhe');
     await tapText(tester, 'Korrektur buchen');
     await enter(tester, 'amount-dialog-amount', '-2,50');
     await tester.tap(find.byKey(const ValueKey('amount-dialog-submit')));
@@ -344,7 +371,7 @@ void main() {
     final mila = backend.addChild(parent);
     final budget = FakeBudget();
 
-    await openParentBudget(tester, backend, budget);
+    await openParentBudget(tester, backend, budget, menu: 'Taschengeld und Schatztruhe');
     expect(find.textContaining('Aus. Wenn ihr wollt'), findsOneWidget, reason: 'am Anfang aus');
 
     await tapText(tester, 'Lern-Belohnung festlegen');

@@ -75,6 +75,15 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
     if (ok) navigator.pop();
   }
 
+  Future<void> _openBudget(ChildProfile child, BudgetSection section) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ChildBudgetScreen(child: child, parentId: widget.controller.parent.id, section: section),
+      ),
+    );
+    await widget.controller.loadPendingTasks();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -210,23 +219,31 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                   ),
                 ),
                 PaceCard(childId: child.id, rankForm: child.rankForm),
+                // Zwei Menüpunkte (Marcs Wunsch am 16.11.2026): Aufträge erteilen und Geld.
                 Card(
                   child: ListTile(
+                    key: const ValueKey('child-tasks'),
+                    minTileHeight: 64,
+                    leading: const Icon(Icons.assignment_outlined),
+                    title: Text(l10n.budgetTasksTitle),
+                    subtitle: Text(
+                      widget.controller.pendingFor(child.id) > 0
+                          ? l10n.pendingTasks(widget.controller.pendingFor(child.id))
+                          : l10n.budgetTasksHint,
+                    ),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => _openBudget(child, BudgetSection.tasks),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    key: const ValueKey('child-money'),
                     minTileHeight: 64,
                     leading: const Icon(Icons.savings_outlined),
-                    title: Text(l10n.budgetTitle),
-                    subtitle: widget.controller.pendingFor(child.id) > 0
-                        ? Text(l10n.pendingTasks(widget.controller.pendingFor(child.id)))
-                        : null,
+                    title: Text(l10n.budgetMoneyTitle),
+                    subtitle: Text(l10n.budgetMoneyHint),
                     trailing: const Icon(Icons.chevron_right),
-                    onTap: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => ChildBudgetScreen(child: child, parentId: widget.controller.parent.id),
-                        ),
-                      );
-                      await widget.controller.loadPendingTasks();
-                    },
+                    onTap: () => _openBudget(child, BudgetSection.money),
                   ),
                 ),
                 const SizedBox(height: 8),

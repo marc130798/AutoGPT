@@ -2377,6 +2377,84 @@ abstract class AppLocalizations {
   /// **'Taschengeld und Aufgaben'**
   String get budgetTitle;
 
+  /// Leuchtturm: Menüpunkt und Titel für Aufgaben des Kindes
+  ///
+  /// In de, this message translates to:
+  /// **'Aufträge erteilen'**
+  String get budgetTasksTitle;
+
+  /// Leuchtturm: Untertitel des Menüpunkts Aufträge erteilen
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgaben anlegen, bestätigen oder ablehnen'**
+  String get budgetTasksHint;
+
+  /// Leuchtturm: Menüpunkt und Titel für Geld des Kindes
+  ///
+  /// In de, this message translates to:
+  /// **'Taschengeld und Schatztruhe'**
+  String get budgetMoneyTitle;
+
+  /// Leuchtturm: Untertitel des Menüpunkts Taschengeld und Schatztruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Kontostand, Taschengeld, Sparziele und Kassenbuch'**
+  String get budgetMoneyHint;
+
+  /// Leuchtturm: Knopf, Eltern legen virtuelles Geld ins freie Geld
+  ///
+  /// In de, this message translates to:
+  /// **'Geld dazugeben'**
+  String get moneyAdd;
+
+  /// Hinweis im Dialog Geld dazugeben
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Beispiel Geld von Oma oder ein Geschenk. Es kommt ins freie Geld.'**
+  String get moneyAddHint;
+
+  /// Leuchtturm: Summe der Schatztruhe
+  ///
+  /// In de, this message translates to:
+  /// **'Zusammen {amount}'**
+  String moneyTotal(String amount);
+
+  /// Leuchtturm: Datum der nächsten Taschengeld-Zahlung
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Zahlung am {date}'**
+  String allowanceNextRun(String date);
+
+  /// Leuchtturm: Betrag und Rhythmus des Taschengelds, z. B. 5,00 € wöchentlich
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} {interval}'**
+  String allowanceAmountLine(String amount, String interval);
+
+  /// Leuchtturm: zugeklappter Bereich mit erledigten Aufgaben
+  ///
+  /// In de, this message translates to:
+  /// **'Erledigt und abgelehnt ({count})'**
+  String parentTasksDone(int count);
+
+  /// Leuchtturm: offene Aufgaben
+  ///
+  /// In de, this message translates to:
+  /// **'Offen'**
+  String get parentTasksOpen;
+
+  /// Leuchtturm: keine Sparziele
+  ///
+  /// In de, this message translates to:
+  /// **'Noch kein Sparziel. Euer Kind legt Wunschschätze in seiner Schatztruhe an.'**
+  String get goalsParentEmpty;
+
+  /// Leuchtturm: Überschrift der Sparziele des Kindes
+  ///
+  /// In de, this message translates to:
+  /// **'Sparziele (Wunschschätze)'**
+  String get parentGoalsHeading;
+
   /// Anzahl gemeldeter Aufgaben im Leuchtturm
   ///
   /// In de, this message translates to:
