@@ -67,8 +67,9 @@ class _RankLadderScreenState extends State<RankLadderScreen> {
                 if (steps == null) return const Center(child: CircularProgressIndicator());
                 final current = stats.rank?.index ?? -1;
                 final progress = stats.nextRankNeedsCertificate ? 0.0 : (stats.progressToNextRank ?? 0.0);
-                // Von oben (Kapitän) nach unten (erster Rang).
-                final top = steps.reversed.toList();
+                // Von oben (erster Rang) nach unten (Kapitän): Wo das Kind steht,
+                // sieht es gleich, ohne zu scrollen (Wunsch von Marc, 16.11.2026).
+                final top = steps;
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
@@ -78,6 +79,7 @@ class _RankLadderScreenState extends State<RankLadderScreen> {
                       text: l10n.ranksIntro(l10n.rank(Rank.kapitaen, form)),
                     ),
                     const SizedBox(height: 12),
+                    // Seemeilen, Weg zum nächsten Rang und Fahrtwind auf einen Blick.
                     PaperCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,38 +87,29 @@ class _RankLadderScreenState extends State<RankLadderScreen> {
                           Text(
                             l10n.statsXp(stats.xp),
                             key: const ValueKey('ranks-xp'),
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              color: palette.gold,
-                              fontWeight: FontWeight.w800,
-                            ),
+                            style: theme.textTheme.headlineSmall?.copyWith(color: palette.gold),
                           ),
-                          const SizedBox(height: 4),
                           Text(rankProgressText(l10n, stats, form), style: theme.textTheme.bodyLarge),
-                        ],
-                      ),
-                    ),
-                    // Fahrtwind: wie viele Wochen hintereinander, und was das ist.
-                    PaperCard(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.air_rounded, color: palette.seaDeep, size: 28),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
+                          const Divider(height: 20),
+                          Row(
+                            children: [
+                              Icon(Icons.air_rounded, color: palette.seaDeep, size: 26),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
                                   stats.streakPaused ? l10n.streakPaused : l10n.streakWeeks(stats.streakWeeks),
                                   key: const ValueKey('stats-streak'),
                                   style: theme.textTheme.titleMedium,
                                 ),
-                                Text(
-                                  l10n.streakHint,
-                                  key: const ValueKey('stats-streak-hint'),
-                                  style: theme.textTheme.bodyMedium,
-                                ),
-                              ],
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 36),
+                            child: Text(
+                              l10n.streakHint,
+                              key: const ValueKey('stats-streak-hint'),
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ),
                         ],
@@ -128,9 +121,9 @@ class _RankLadderScreenState extends State<RankLadderScreen> {
                         children: [
                           for (final (i, step) in top.indexed) ...[
                             if (i > 0)
-                              // Strecke zwischen diesem Rang und dem darüber, von unten gefüllt.
+                              // Strecke vom Rang darüber zu diesem, von oben gefüllt.
                               _Segment(
-                                fill: switch (step.rank.index) {
+                                fill: switch (top[i - 1].rank.index) {
                                   final r when r < current => 1.0,
                                   final r when r == current => progress,
                                   _ => 0.0,
@@ -270,7 +263,7 @@ class _RankNode extends StatelessWidget {
   }
 }
 
-/// Linie zwischen zwei Rängen, von unten gefüllt (0 bis 1).
+/// Linie zwischen zwei Rängen, von oben gefüllt (0 bis 1).
 class _Segment extends StatelessWidget {
   const _Segment({required this.fill});
 
@@ -292,7 +285,7 @@ class _Segment extends StatelessWidget {
               borderRadius: BorderRadius.circular(3),
             ),
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topCenter,
               child: FractionallySizedBox(
                 heightFactor: fill.clamp(0.0, 1.0),
                 widthFactor: 1,

@@ -378,8 +378,10 @@ class _TreasureContent extends StatelessWidget {
   }
 }
 
-/// Ein Abschnitt auf Papier: Bild, Überschrift, kurze Erklärung, Inhalt.
-class _Section extends StatelessWidget {
+/// Ein Abschnitt auf Papier: Bild, Überschrift, Inhalt. Die kurze Erklärung
+/// [intro] steht nicht immer da, sondern klappt mit dem „?“ neben der
+/// Überschrift auf (weniger Text auf einen Blick, Wunsch von Marc).
+class _Section extends StatefulWidget {
   const _Section({
     required this.imageKey,
     required this.fallbackIcon,
@@ -396,9 +398,24 @@ class _Section extends StatelessWidget {
   final List<Widget> children;
 
   @override
+  State<_Section> createState() => _SectionState();
+}
+
+class _SectionState extends State<_Section> {
+  bool _help = false;
+
+  @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final palette = context.palette;
+    final (imageKey, fallbackIcon, title, intro, children) = (
+      widget.imageKey,
+      widget.fallbackIcon,
+      widget.title,
+      widget.intro,
+      widget.children,
+    );
     final icon = CircleAvatar(
       radius: 26,
       backgroundColor: palette.sand,
@@ -421,13 +438,29 @@ class _Section extends StatelessWidget {
               SizedBox(
                 width: 56,
                 height: 56,
-                child: imageKey == null ? icon : TaleriaAsset(imageKey!, width: 56, height: 56, fallback: icon),
+                child: imageKey == null ? icon : TaleriaAsset(imageKey, width: 56, height: 56, fallback: icon),
               ),
               const SizedBox(width: 12),
               Expanded(child: Text(title, style: theme.textTheme.titleLarge)),
+              if (intro != null)
+                IconButton(
+                  key: ValueKey('section-help-$title'),
+                  tooltip: _help ? l10n.pageIntroHide : l10n.pageIntroShow,
+                  onPressed: () => setState(() => _help = !_help),
+                  icon: Icon(_help ? Icons.close_rounded : Icons.help_outline_rounded, color: palette.seaDeep),
+                ),
             ],
           ),
-          if (intro != null) ...[const SizedBox(height: 8), Text(intro!, style: theme.textTheme.bodyMedium)],
+          AnimatedSize(
+            duration: const Duration(milliseconds: 200),
+            alignment: Alignment.topCenter,
+            child: intro != null && _help
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(intro, style: theme.textTheme.bodyMedium),
+                  )
+                : const SizedBox(width: double.infinity),
+          ),
           const SizedBox(height: 12),
           ...children,
         ],
@@ -464,10 +497,7 @@ class _ChestCard extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.pot(pot, parent: false), style: theme.textTheme.titleSmall),
-                Text(potHint(l10n, pot), style: theme.textTheme.bodySmall),
-              ],
+              children: [Text(l10n.pot(pot, parent: false), style: theme.textTheme.titleSmall)],
             ),
           ),
           const SizedBox(width: 8),

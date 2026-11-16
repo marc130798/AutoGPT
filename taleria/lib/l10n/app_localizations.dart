@@ -1732,7 +1732,7 @@ abstract class AppLocalizations {
   /// Hinweis ohne Taschengeld
   ///
   /// In de, this message translates to:
-  /// **'Du bekommst hier noch kein Taschengeld. Frag deine Eltern, ob sie es eintragen.'**
+  /// **'Noch kein Taschengeld eingetragen. Frag deine Eltern!'**
   String get treasureNoAllowance;
 
   /// Hinweis: Geld ist virtuell
@@ -1960,7 +1960,7 @@ abstract class AppLocalizations {
   /// Hinweis ohne Aufträge
   ///
   /// In de, this message translates to:
-  /// **'Gerade keine Aufträge. Deine Eltern können im Leuchtturm welche anlegen.'**
+  /// **'Gerade keine Aufträge. Deine Eltern legen sie im Leuchtturm an.'**
   String get tasksEmpty;
 
   /// Knopf: Auftrag als erledigt melden
@@ -2278,7 +2278,7 @@ abstract class AppLocalizations {
   /// Talo erklärt den Zeitstrahl der Ränge (ENTWURF)
   ///
   /// In de, this message translates to:
-  /// **'Mit jeder Seemeile segelst du ein Stück weiter. Ganz oben wartet {captain}. Dafür brauchst du die Goldene Schatzkarte.'**
+  /// **'Sammle Seemeilen und steig Rang für Rang auf. Am Ende wartet {captain}.'**
   String ranksIntro(String captain);
 
   /// Grenze eines Rangs
@@ -2380,7 +2380,7 @@ abstract class AppLocalizations {
   /// Erklärung Fahrtwind im Kinderbereich
   ///
   /// In de, this message translates to:
-  /// **'Spiel jede Woche mindestens eine Station. Jede Woche hintereinander macht deinen Fahrtwind stärker.'**
+  /// **'Spiel jede Woche eine Station, dann weht dein Fahrtwind.'**
   String get streakHint;
 
   /// Knopf zur Orden-Sammlung mit Anzahl
@@ -3586,31 +3586,31 @@ abstract class AppLocalizations {
   /// Schatztruhe: Tala erklärt oben in der Sprechblase die drei Truhen
   ///
   /// In de, this message translates to:
-  /// **'Ich bin Tala, die Zahlmeisterin. Das ist deine Schatztruhe. Ein Teil deines Geldes ist frei, davon darfst du dir etwas kaufen. Für einen Wunschschatz legst du Geld zurück, bis es reicht.'**
+  /// **'Das ist deine Schatztruhe! Freies Geld darfst du ausgeben. Für Wunschschätze legst du etwas zurück.'**
   String get treasureTalaIntro;
 
   /// Schatztruhe: Erklärung, was ein Wunschschatz ist
   ///
   /// In de, this message translates to:
-  /// **'Ein Wunschschatz ist etwas, das du dir wünschst, zum Beispiel ein Ball für 15 €. Lege nach und nach Geld dafür zurück. Der Balken zeigt, wie viel schon zusammen ist.'**
+  /// **'Spar Schritt für Schritt für etwas, das du dir wünschst. Der Balken zeigt, wie viel schon da ist.'**
   String get goalsIntro;
 
   /// Schatztruhe: Erklärung, was das Kassenbuch ist
   ///
   /// In de, this message translates to:
-  /// **'Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.'**
+  /// **'Hier siehst du, was dazukam und was du ausgegeben hast.'**
   String get ledgerIntro;
 
   /// Aufträge: Talo erklärt oben, was Aufträge sind
   ///
   /// In de, this message translates to:
-  /// **'Aufträge sind Aufgaben von deinen Eltern, zum Beispiel: Zimmer aufräumen. Bist du fertig, tippst du auf „Erledigt!“.'**
+  /// **'Hier stehen Aufgaben von deinen Eltern. Fertig? Dann tipp auf „Erledigt!“.'**
   String get tasksIntroTalo;
 
   /// Aufträge: Tala erklärt Bestätigung, Belohnung und Pflicht
   ///
   /// In de, this message translates to:
-  /// **'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Schatztruhe. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.'**
+  /// **'Deine Eltern schauen nach. Eine Belohnung kommt in deine Schatztruhe.'**
   String get tasksIntroTala;
 
   /// Orden: Talo erklärt oben, wie man Orden bekommt

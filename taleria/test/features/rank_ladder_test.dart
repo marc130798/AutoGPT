@@ -54,6 +54,6 @@ void main() {
     await openLadder(tester, form: RankForm.maedchen, xp: 50);
     expect(inStep('schiffsjunge', 'Schiffsmädchen'), findsOneWidget);
     expect(inStep('kapitaen', 'Kapitänin'), findsOneWidget);
-    expect(find.textContaining('Ganz oben wartet Kapitänin'), findsOneWidget);
+    expect(find.textContaining('Am Ende wartet Kapitänin'), findsOneWidget);
   });
 }

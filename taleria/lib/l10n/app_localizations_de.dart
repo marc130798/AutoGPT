@@ -917,7 +917,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get treasureNoAllowance => 'Du bekommst hier noch kein Taschengeld. Frag deine Eltern, ob sie es eintragen.';
+  String get treasureNoAllowance => 'Noch kein Taschengeld eingetragen. Frag deine Eltern!';
 
   @override
   String get treasureVirtual =>
@@ -1042,7 +1042,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tasksDoneHeading => 'Erledigt';
 
   @override
-  String get tasksEmpty => 'Gerade keine Aufträge. Deine Eltern können im Leuchtturm welche anlegen.';
+  String get tasksEmpty => 'Gerade keine Aufträge. Deine Eltern legen sie im Leuchtturm an.';
 
   @override
   String get taskDoneButton => 'Erledigt!';
@@ -1247,7 +1247,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String ranksIntro(String captain) {
-    return 'Mit jeder Seemeile segelst du ein Stück weiter. Ganz oben wartet $captain. Dafür brauchst du die Goldene Schatzkarte.';
+    return 'Sammle Seemeilen und steig Rang für Rang auf. Am Ende wartet $captain.';
   }
 
   @override
@@ -1325,8 +1325,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get streakPaused => 'Fahrtwind macht gerade Pause';
 
   @override
-  String get streakHint =>
-      'Spiel jede Woche mindestens eine Station. Jede Woche hintereinander macht deinen Fahrtwind stärker.';
+  String get streakHint => 'Spiel jede Woche eine Station, dann weht dein Fahrtwind.';
 
   @override
   String badgesButton(int count) {
@@ -2149,23 +2148,20 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get treasureTalaIntro =>
-      'Ich bin Tala, die Zahlmeisterin. Das ist deine Schatztruhe. Ein Teil deines Geldes ist frei, davon darfst du dir etwas kaufen. Für einen Wunschschatz legst du Geld zurück, bis es reicht.';
+      'Das ist deine Schatztruhe! Freies Geld darfst du ausgeben. Für Wunschschätze legst du etwas zurück.';
 
   @override
   String get goalsIntro =>
-      'Ein Wunschschatz ist etwas, das du dir wünschst, zum Beispiel ein Ball für 15 €. Lege nach und nach Geld dafür zurück. Der Balken zeigt, wie viel schon zusammen ist.';
+      'Spar Schritt für Schritt für etwas, das du dir wünschst. Der Balken zeigt, wie viel schon da ist.';
 
   @override
-  String get ledgerIntro =>
-      'Hier steht alles, was mit deinem Geld passiert ist: was dazugekommen ist und was du ausgegeben hast. So weißt du immer, wohin dein Geld gegangen ist.';
+  String get ledgerIntro => 'Hier siehst du, was dazukam und was du ausgegeben hast.';
 
   @override
-  String get tasksIntroTalo =>
-      'Aufträge sind Aufgaben von deinen Eltern, zum Beispiel: Zimmer aufräumen. Bist du fertig, tippst du auf „Erledigt!“.';
+  String get tasksIntroTalo => 'Hier stehen Aufgaben von deinen Eltern. Fertig? Dann tipp auf „Erledigt!“.';
 
   @override
-  String get tasksIntroTala =>
-      'Dann schauen deine Eltern nach. Steht eine Belohnung dabei, kommt sie in deine Schatztruhe. Bei „Pflicht“ gibt es kein Geld, das gehört einfach dazu.';
+  String get tasksIntroTala => 'Deine Eltern schauen nach. Eine Belohnung kommt in deine Schatztruhe.';
 
   @override
   String get badgesIntro =>

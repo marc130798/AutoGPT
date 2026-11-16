@@ -9,7 +9,7 @@ import '../test_helpers.dart';
 /// zugeklappt mit „?“-Knopf (Marcs Wunsch am 20.10.2026).
 void main() {
   const badgesIntro = 'Für jede Insel, die du schaffst, bekommst du einen Orden.';
-  const tasksIntro = 'Aufträge sind Aufgaben von deinen Eltern';
+  const tasksIntro = 'Hier stehen Aufgaben von deinen Eltern';
   final help = find.byKey(const ValueKey('page-intro-help'));
 
   Future<void> tapText(WidgetTester tester, String text) async {
