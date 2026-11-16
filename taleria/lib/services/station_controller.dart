@@ -116,27 +116,23 @@ class StationController extends ChangeNotifier {
   /// Stopp auf See: Szene und Fragen, ohne „Weißt du noch?“ (er wiederholt selbst).
   bool get isSeaStop => station.isSeaStop;
 
-  LearningRewards _learning = LearningRewards.none;
+  int _islandReward = 0;
 
-  /// Lern-Belohnung der Eltern, nur zum Anzeigen (gebucht wird auf dem Server).
-  Future<void> _loadLearningRewards() async {
+  /// Lern-Belohnung der Eltern für die ganze Insel (alle Stationen und die
+  /// Insel selbst), nur nach dem Insel-Abschluss und nur, wenn die Eltern
+  /// etwas eingestellt hatten (Marc, 16.11.2026: nicht nach jeder Station).
+  /// Gebucht hat der Server; hier wird nur zusammengezählt.
+  int get learningRewardCents => _islandReward;
+
+  Future<void> _loadIslandReward() async {
+    final budget = _budget;
+    if (budget == null) return;
     try {
-      _learning = await _budget?.fetchLearningRewards(child.id) ?? LearningRewards.none;
+      _islandReward = await budget.fetchLearningTotal(child.id, [island.id, for (final s in allStations) s.id]);
+      if (!_disposed && _islandReward > 0) notifyListeners();
     } catch (_) {
-      // Ohne Verbindung fehlt nur der Hinweis, das Geld bucht der Server trotzdem.
+      // Ohne Verbindung fehlt nur der Hinweis, das Geld ist trotzdem gebucht.
     }
-  }
-
-  /// So viel legen die Eltern für diese Station in die Schatztruhe (0 = nichts):
-  /// nur beim ersten Schaffen einer Pflichtstation (nicht Tauchgang, Stopp auf
-  /// See, Intro, Prüfung) und für eine abgeschlossene Insel. Gleiche Regeln
-  /// wie auf dem Server (Migration 20261116000100_lern_belohnung.sql).
-  int get learningRewardCents {
-    final r = _result;
-    if (r == null || !r.passed) return 0;
-    final counts =
-        r.xpAwarded > 0 && station.isRequired && !isDive && !isSeaStop && !isExam && !station.content.isOnboarding;
-    return (counts ? _learning.stationCents : 0) + (r.islandCompleted ? _learning.islandCents : 0);
   }
 
   /// Lädt die Fragen und beginnt mit dem ersten Abschnitt.
@@ -149,7 +145,6 @@ class StationController extends ChangeNotifier {
       await _prepareWarmUp();
       _go(_firstStep());
       unawaited(_trackStart());
-      unawaited(_loadLearningRewards());
     } on AppFailure catch (e) {
       _failure = e.kind;
       _go(StationStep.failed);
@@ -278,6 +273,7 @@ class StationController extends ChangeNotifier {
       _result = await _progress.submitStation(childId: child.id, stationId: station.id, answers: _quiz!.submission);
       _go(StationStep.result);
       unawaited(_loadStatsAfter());
+      if (_result!.islandCompleted) unawaited(_loadIslandReward());
     } on AppFailure catch (e) {
       _failure = e.kind;
       _go(StationStep.failed);

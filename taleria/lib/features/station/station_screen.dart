@@ -76,7 +76,6 @@ class _StationScreenState extends State<StationScreen> {
           : (result.rankUp != null ? AssetKeys.soundRankUp : AssetKeys.soundStationDone),
     );
     _sounds.success();
-    if (controller.learningRewardCents > 0) _sounds.effect(AssetKeys.soundCoin);
     // Erst freuen, dann der Merksatz der Station (wenn es eine Aufnahme gibt).
     _sounds.voices([
       _cheer(controller, result.islandCompleted),
@@ -458,7 +457,8 @@ class _ResultView extends StatelessWidget {
                 const SizedBox(height: 12),
                 _XpGain(xp: result.xpAwarded, stats: controller.statsAfter, rankForm: controller.child.rankForm),
               ],
-              // Lern-Belohnung der Eltern (freiwillig, im Leuchtturm eingestellt).
+              // Lern-Belohnung der Eltern für die ganze Insel (freiwillig, im
+              // Leuchtturm eingestellt; nur am Ende der Insel).
               if (controller.learningRewardCents > 0) ...[
                 const SizedBox(height: 12),
                 OpenFrame(

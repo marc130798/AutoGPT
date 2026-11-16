@@ -1299,7 +1299,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String learningRewardKid(String amount) {
-    return 'Deine Eltern legen dir $amount in die Schatztruhe!';
+    return 'Deine Eltern haben dir für diese Insel $amount in die Schatztruhe gelegt!';
   }
 
   @override

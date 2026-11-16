@@ -93,6 +93,19 @@ class FakeBudget implements BudgetRepository {
   Future<LearningRewards> fetchLearningRewards(String childId) async =>
       learningRewards[childId] ?? LearningRewards.none;
 
+  /// Lern-Belohnungen, wie sie der Server bucht: (Kind, Station oder Insel) → Cent.
+  final Map<(String, String), int> learningBooked = {};
+
+  /// Bucht eine Lern-Belohnung wie der Trigger auf dem Server.
+  void bookLearning(String childId, String referenceId, int cents) {
+    learningBooked[(childId, referenceId)] = cents;
+    _book(childId, Pot.spend, cents, LedgerType.learning);
+  }
+
+  @override
+  Future<int> fetchLearningTotal(String childId, List<String> referenceIds) async =>
+      referenceIds.fold<int>(0, (sum, id) => sum + (learningBooked[(childId, id)] ?? 0));
+
   @override
   Future<void> setLearningRewards(String childId, {required int stationCents, required int islandCents}) async {
     learningRewards[childId] = LearningRewards(stationCents: stationCents, islandCents: islandCents);

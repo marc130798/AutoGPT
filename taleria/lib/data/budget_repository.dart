@@ -21,6 +21,9 @@ abstract interface class BudgetRepository {
   /// Eltern: Lern-Belohnung festlegen (0 = aus).
   Future<void> setLearningRewards(String childId, {required int stationCents, required int islandCents});
 
+  /// Summe der Lern-Belohnungen für diese Stationen und Inseln (IDs).
+  Future<int> fetchLearningTotal(String childId, List<String> referenceIds);
+
   Future<List<FamilyTask>> fetchTasks(String childId);
 
   Future<List<SavingsGoal>> fetchGoals(String childId);
@@ -135,6 +138,18 @@ class SupabaseBudgetRepository implements BudgetRepository {
         .maybeSingle();
     if (row == null) return LearningRewards.none;
     return LearningRewards(stationCents: row['station_cents'] as int, islandCents: row['island_cents'] as int);
+  });
+
+  @override
+  Future<int> fetchLearningTotal(String childId, List<String> referenceIds) => guardBackend(() async {
+    if (referenceIds.isEmpty) return 0;
+    final rows = await _client
+        .from('ledger_entries')
+        .select('amount_cents')
+        .eq('child_id', childId)
+        .eq('entry_type', 'learning')
+        .inFilter('reference_id', referenceIds);
+    return rows.fold<int>(0, (sum, r) => sum + (r['amount_cents'] as int));
   });
 
   @override

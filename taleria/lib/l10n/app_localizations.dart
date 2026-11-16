@@ -2377,10 +2377,10 @@ abstract class AppLocalizations {
   /// **'Der Lernstand kommt aus den Wiederholungen. „Sicher“ heißt: auch nach Tagen noch gewusst. „Wackelt noch“ heißt: zuletzt falsch beantwortet, das kommt in den nächsten Wiederholungen wieder dran.'**
   String get learningHint;
 
-  /// Kinderbereich, Ergebnis einer Station: Lern-Belohnung der Eltern
+  /// Kinderbereich, Ende einer Insel: Lern-Belohnung der Eltern für die ganze Insel
   ///
   /// In de, this message translates to:
-  /// **'Deine Eltern legen dir {amount} in die Schatztruhe!'**
+  /// **'Deine Eltern haben dir für diese Insel {amount} in die Schatztruhe gelegt!'**
   String learningRewardKid(String amount);
 
   /// Überschrift Aufgaben im Leuchtturm (Glossar)

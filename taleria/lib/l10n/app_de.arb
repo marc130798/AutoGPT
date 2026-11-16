@@ -1817,9 +1817,9 @@
   "@learningHint": {
     "description": "Erklärung des Lernstands für Eltern"
   },
-  "learningRewardKid": "Deine Eltern legen dir {amount} in die Schatztruhe!",
+  "learningRewardKid": "Deine Eltern haben dir für diese Insel {amount} in die Schatztruhe gelegt!",
   "@learningRewardKid": {
-    "description": "Kinderbereich, Ergebnis einer Station: Lern-Belohnung der Eltern",
+    "description": "Kinderbereich, Ende einer Insel: Lern-Belohnung der Eltern für die ganze Insel",
     "placeholders": {
       "amount": {
         "type": "String"

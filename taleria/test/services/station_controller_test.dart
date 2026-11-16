@@ -307,10 +307,17 @@ void main() {
     );
   });
 
-  test('Lern-Belohnung: nur beim ersten Schaffen, die Insel extra, Prüfung nicht als Station', () async {
+  test('Lern-Belohnung: Hinweis nur am Ende der Insel, mit der Summe der ganzen Insel', () async {
     final budget = FakeBudget();
-    await budget.setLearningRewards('kind', stationCents: 100, islandCents: 1000);
+    final island = content.island('hafen');
+    // So hat der Server während der Insel gebucht: zwei Stationen und die Insel.
+    budget
+      ..bookLearning('kind', content.station('hafen', 2).id, 50)
+      ..bookLearning('kind', content.station('hafen', 3).id, 50)
+      ..bookLearning('kind', island.id, 500)
+      ..bookLearning('kind', 'andere-insel', 999);
 
+    // Nach einer normalen Station: kein Hinweis.
     progress.completeStations('hafen', except: 8);
     final c = controllerFor('hafen', 3, budget: budget);
     await c.start();
@@ -323,33 +330,26 @@ void main() {
       }
     }
     await answerAll(c);
-    expect(c.learningRewardCents, 100);
+    await pumpEventQueue();
+    expect(c.learningRewardCents, 0);
 
-    // Nochmal gespielt: keine Seemeilen, kein Geld.
-    final again = controllerFor('hafen', 3, budget: budget);
-    await again.start();
-    while (again.step != StationStep.quiz) {
-      if (again.step == StationStep.warmUp) {
-        again.answerWarmUp(0);
-        again.nextWarmUp();
-      } else {
-        again.next();
-      }
-    }
-    await answerAll(again);
-    expect(again.learningRewardCents, 0);
-
-    // Prüfung bestanden: nur das Geld für die Insel.
+    // Insel geschafft: alles dieser Insel zusammen, nichts von anderen Inseln.
     progress.completeStations('hafen', except: 1);
     final exam = controllerFor('hafen', 8, budget: budget);
     await exam.start();
     exam.next();
     await answerAll(exam);
+    await pumpEventQueue();
     expect(exam.result!.islandCompleted, isTrue);
-    expect(exam.learningRewardCents, 1000);
+    expect(exam.learningRewardCents, 600);
 
-    // Ohne Einstellung: nichts.
-    final none = controllerFor('hafen', 8);
+    // Ohne Einstellung der Eltern gibt es keine Buchungen und keinen Hinweis.
+    progress.completeStations('hafen', except: 1);
+    final none = controllerFor('hafen', 8, budget: FakeBudget());
+    await none.start();
+    none.next();
+    await answerAll(none);
+    await pumpEventQueue();
     expect(none.learningRewardCents, 0);
   });
 }
