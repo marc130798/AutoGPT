@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -7,6 +8,7 @@ import '../../core/app_scope.dart';
 import '../../core/assets/asset_manifest.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/sounds.dart';
 
 /// Spielt einen Film aus dem Asset-Manifest (Intro, Ankunft auf einer Insel),
 /// im Hochformat 9:16 (Paket `video_player`, mit Marc am 16.11.2026
@@ -33,10 +35,12 @@ class _FilmViewState extends State<FilmView> {
   bool _failed = false;
   bool _ended = false;
   bool _blocked = false;
+  Sounds? _sounds;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _sounds = AppScope.of(context).sounds;
     if (!_checked) {
       _checked = true;
       unawaited(_start());
@@ -51,11 +55,9 @@ class _FilmViewState extends State<FilmView> {
       if (mounted) setState(() => _failed = true);
       return;
     }
-    services.sounds.stopVoice();
     final video = VideoPlayerController.asset(path);
     try {
       await video.initialize();
-      await video.setVolume(services.sounds.enabled ? 1 : 0);
     } catch (error) {
       debugPrint('Film nicht abspielbar: $error');
       await video.dispose();
@@ -68,24 +70,36 @@ class _FilmViewState extends State<FilmView> {
     }
     video.addListener(_onTick);
     setState(() => _video = video);
-    await _play();
+    // Im Browser (iPhone) startet ein Film mit Ton nur nach einem Antippen:
+    // erst der große Knopf „Film abspielen“, dann läuft er mit Ton.
+    if (kIsWeb) {
+      setState(() => _blocked = true);
+    } else {
+      _play();
+    }
   }
 
-  Future<void> _play() async {
+  /// Startet den Film. Lautstärke und Abspielen laufen ohne Warten direkt
+  /// nacheinander, damit Safari das Antippen noch zuordnet und Ton erlaubt.
+  void _play() {
     final video = _video;
     if (video == null) return;
-    try {
-      if (_ended) await video.seekTo(Duration.zero);
-      await video.play();
-      if (mounted) setState(() => _ended = _blocked = false);
-    } catch (_) {
-      // Browser erlaubt Ton erst nach dem Antippen.
-      if (mounted) setState(() => _blocked = true);
-    }
+    final sounds = AppScope.of(context).sounds;
+    sounds.stopVoice();
+    if (_ended) unawaited(video.seekTo(Duration.zero));
+    unawaited(video.setVolume(sounds.enabled ? 1 : 0));
+    unawaited(video.play());
+    sounds.setFilmPlaying(true);
+    setState(() => _ended = _blocked = false);
   }
 
   void _onTick() {
     final value = _video!.value;
+    // Verweigert der Browser das Abspielen, wieder den Abspiel-Knopf zeigen.
+    if (value.hasError && !_blocked && mounted) {
+      setState(() => _blocked = true);
+      return;
+    }
     final ended =
         value.isInitialized && !value.isPlaying && value.position >= value.duration - const Duration(milliseconds: 200);
     if (ended != _ended && mounted) setState(() => _ended = ended);
@@ -93,6 +107,7 @@ class _FilmViewState extends State<FilmView> {
 
   @override
   void dispose() {
+    _sounds?.setFilmPlaying(false);
     _video?.removeListener(_onTick);
     _video?.dispose();
     super.dispose();
@@ -119,14 +134,27 @@ class _FilmViewState extends State<FilmView> {
                         const Center(child: CircularProgressIndicator(color: Colors.white))
                       else
                         VideoPlayer(video, key: const ValueKey('film-player')),
+                      Positioned(
+                        left: 8,
+                        top: 8,
+                        child: IconButton.filledTonal(
+                          key: const ValueKey('film-back'),
+                          tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                          onPressed: widget.onContinue,
+                          icon: const Icon(Icons.arrow_back_rounded),
+                        ),
+                      ),
                       if (_blocked || _ended)
                         Center(
-                          child: IconButton.filled(
+                          child: FilledButton.icon(
                             key: const ValueKey('film-play'),
-                            iconSize: 56,
-                            tooltip: _ended ? l10n.filmAgain : l10n.filmPlay,
+                            style: FilledButton.styleFrom(
+                              minimumSize: const Size(200, 64),
+                              textStyle: Theme.of(context).textTheme.titleLarge,
+                            ),
                             onPressed: _play,
-                            icon: Icon(_ended ? Icons.replay_rounded : Icons.play_arrow_rounded),
+                            icon: Icon(_ended ? Icons.replay_rounded : Icons.play_arrow_rounded, size: 36),
+                            label: Text(_ended ? l10n.filmAgain : l10n.filmPlay),
                           ),
                         ),
                     ],

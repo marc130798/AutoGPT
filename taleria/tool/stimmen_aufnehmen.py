@@ -38,6 +38,9 @@ VOICES = {
 MODEL = "eleven_multilingual_v2"
 # Sprache braucht keine Musik-Qualität: 32 kbit/s halten die Web-App klein.
 FORMAT = "mp3_44100_32"
+# Langsamer sprechen (Marc, 16.11.2026: „die sind alle zu schnell“, Probe B
+# gewählt). Ändert sich etwas hier, nimmt das Werkzeug alles neu auf.
+SETTINGS = {"speed": 0.87, "stability": 0.5, "similarity_boost": 0.75}
 ISLANDS = ["01-hafen", "02-tauschinsel", "03-wunschinsel", "04-spar-insel"]
 
 # Momente, deren Text sich seit der Liste geändert hat (jetzt wie in der App).
@@ -74,7 +77,7 @@ def spoken(text: str) -> str:
 
 
 def record(file: str, who: str, text: str) -> str:
-    body = json.dumps({"text": spoken(text), "model_id": MODEL}).encode()
+    body = json.dumps({"text": spoken(text), "model_id": MODEL, "voice_settings": SETTINGS}).encode()
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOICES[who]}?output_format={FORMAT}"
     request = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
     for attempt in range(4):
@@ -102,7 +105,12 @@ def main() -> None:
     todo = [
         (f, w, t)
         for f, w, t in lines()
-        if args.nur in f and (index.get(f, {}).get("text") != t or not (OUT / f).exists())
+        if args.nur in f
+        and (
+            index.get(f, {}).get("text") != t
+            or index.get(f, {}).get("einstellungen") != SETTINGS
+            or not (OUT / f).exists()
+        )
     ]
     chars = sum(len(t) for _, _, t in todo)
     print(f"{len(todo)} Sätze aufzunehmen, {chars} Zeichen")
@@ -111,7 +119,16 @@ def main() -> None:
     today = datetime.date.today().isoformat()
     with ThreadPoolExecutor(3) as pool:
         for (file, who, text), result in zip(todo, pool.map(lambda x: record(*x), todo)):
-            index[result] = {"wer": who, "text": text, "datum": today, "plan": args.plan, "modell": MODEL}
+            index[result] = {
+                "wer": who,
+                "text": text,
+                "datum": today,
+                "plan": args.plan,
+                "modell": MODEL,
+                "einstellungen": SETTINGS,
+            }
+            if spoken(text) != text:
+                index[result]["aussprache"] = spoken(text)
             print("gespeichert:", result, flush=True)
     INDEX.write_text(json.dumps(dict(sorted(index.items())), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

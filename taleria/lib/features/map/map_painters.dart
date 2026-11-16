@@ -985,6 +985,30 @@ List<Seagull> seagullsAt(double t, Size size) => [
         ),
 ];
 
+/// Eine gezeichnete Möwe als geschwungenes „M“ (Ersatz, solange die Bilder
+/// `critter.seagull.*` fehlen); die Flügelspitzen heben und senken sich.
+void paintSeagull(Canvas canvas, Offset c, double s, double flap) {
+  final outline = Paint()
+    ..color = SceneColors.navy.withValues(alpha: 0.55)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 4.5
+    ..strokeCap = StrokeCap.round;
+  final wing = Paint()
+    ..color = SceneColors.foam
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2.5
+    ..strokeCap = StrokeCap.round;
+  final tip = -s * (0.15 + 0.35 * flap);
+  final bend = -s * (0.55 - 0.2 * flap);
+  final path = Path()
+    ..moveTo(c.dx - s, c.dy + tip)
+    ..quadraticBezierTo(c.dx - s * 0.45, c.dy + bend, c.dx, c.dy)
+    ..quadraticBezierTo(c.dx + s * 0.45, c.dy + bend, c.dx + s, c.dy + tip);
+  canvas
+    ..drawPath(path, outline)
+    ..drawPath(path, wing);
+}
+
 /// Möwen über der Karte (über dem Bildschirm, nicht über der Karte selbst).
 class SeagullPainter extends CustomPainter {
   SeagullPainter({required this.clock}) : super(repaint: clock);
@@ -993,29 +1017,8 @@ class SeagullPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final outline = Paint()
-      ..color = SceneColors.navy.withValues(alpha: 0.55)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4.5
-      ..strokeCap = StrokeCap.round;
-    final wing = Paint()
-      ..color = SceneColors.foam
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.5
-      ..strokeCap = StrokeCap.round;
     for (final gull in seagullsAt(sceneSeconds(clock), size)) {
-      final s = gull.span;
-      // Flügel als geschwungenes „M“, die Spitzen heben und senken sich.
-      final tip = -s * (0.15 + 0.35 * gull.flap);
-      final bend = -s * (0.55 - 0.2 * gull.flap);
-      final c = gull.at;
-      final path = Path()
-        ..moveTo(c.dx - s, c.dy + tip)
-        ..quadraticBezierTo(c.dx - s * 0.45, c.dy + bend, c.dx, c.dy)
-        ..quadraticBezierTo(c.dx + s * 0.45, c.dy + bend, c.dx + s, c.dy + tip);
-      canvas
-        ..drawPath(path, outline)
-        ..drawPath(path, wing);
+      paintSeagull(canvas, gull.at, gull.span, gull.flap);
     }
   }
 

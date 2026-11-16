@@ -82,7 +82,7 @@ class WebSounds extends Sounds {
     _musicKey = key;
     audio
       ..loop = true
-      ..volume = musicVolume
+      ..volume = musicDucked ? duckedVolume : musicVolume
       ..currentTime = 0;
     _play(audio, music: true);
   }
@@ -118,8 +118,20 @@ class WebSounds extends Sounds {
 
   /// Ein Audio-Element für alle Stimmen. Beim ersten Antippen wird es einmal
   /// stumm angespielt, damit Safari später auch ohne Antippen spricht.
-  final _voice = web.HTMLAudioElement()..preload = 'auto';
+  late final web.HTMLAudioElement _voice = web.HTMLAudioElement()
+    ..preload = 'auto'
+    ..addEventListener('ended', ((web.Event _) => voiceFinished()).toJS);
   bool _voicePrimed = false;
+
+  /// Musik-Lautstärke, solange eine Stimme spricht.
+  static const duckedVolume = musicVolume * 0.35;
+
+  @override
+  void duckMusic(bool on) {
+    final key = _musicKey;
+    final audio = key == null ? null : _elements[key];
+    audio?.volume = on ? duckedVolume : musicVolume;
+  }
 
   @override
   void playVoice(String path) {

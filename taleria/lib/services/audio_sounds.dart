@@ -22,7 +22,7 @@ class AudioSounds extends Sounds {
   static const effectVolume = 0.8;
 
   final _music = AudioPlayer(playerId: 'taleria-music');
-  final _voice = AudioPlayer(playerId: 'taleria-voice');
+  late final _voice = AudioPlayer(playerId: 'taleria-voice')..onPlayerComplete.listen((_) => voiceFinished());
   final _effects = <String, AudioPlayer>{};
   final _available = <String, Future<bool>>{};
   late final AppLifecycleListener _lifecycle;
@@ -84,6 +84,9 @@ class AudioSounds extends Sounds {
 
   @override
   void stopVoiceAudio() => _try(_voice.stop);
+
+  @override
+  void duckMusic(bool on) => _try(() => _music.setVolume(on ? musicVolume * 0.35 : musicVolume));
 
   @override
   void unlock() {

@@ -31,6 +31,11 @@ class _Recording extends Sounds {
 
   @override
   void stopVoiceAudio() => calls.add('stop voice');
+
+  @override
+  void duckMusic(bool on) => calls.add(on ? 'leiser' : 'normal');
+
+  void finish() => voiceFinished();
 }
 
 void main() {
@@ -124,10 +129,11 @@ void main() {
     final sounds = _Recording(settings: settings);
     await sounds.load();
     sounds.voice('voice.talo.tap.1.mp3');
-    expect(sounds.calls, ['voice assets/audio/voice/voice.talo.tap.1.mp3']);
+    expect(sounds.calls, ['leiser', 'voice assets/audio/voice/voice.talo.tap.1.mp3']);
 
     await sounds.setEnabled(false);
-    expect(sounds.calls.last, 'stop voice', reason: 'Ton aus beendet die Stimme');
+    expect(sounds.calls, contains('stop voice'), reason: 'Ton aus beendet die Stimme');
+    expect(sounds.musicDucked, isFalse);
     sounds.voice('voice.talo.tap.2.mp3');
     await sounds.setEnabled(true);
 
@@ -172,5 +178,22 @@ void main() {
     ]) {
       expect(files, contains(name));
     }
+  });
+
+  test('Musik wird leiser, solange eine Stimme spricht oder ein Film läuft', () {
+    final sounds = _Recording();
+    sounds.voice('voice.talo.tap.1.mp3');
+    expect(sounds.musicDucked, isTrue);
+    sounds.voice('voice.talo.tap.2.mp3');
+    sounds.finish();
+    expect(sounds.musicDucked, isFalse);
+    expect(sounds.calls.where((c) => c == 'leiser' || c == 'normal'), ['leiser', 'normal']);
+
+    sounds.setFilmPlaying(true);
+    sounds.voice('voice.talo.tap.3.mp3');
+    sounds.stopVoice();
+    expect(sounds.musicDucked, isTrue, reason: 'der Film läuft noch');
+    sounds.setFilmPlaying(false);
+    expect(sounds.musicDucked, isFalse);
   });
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import '../../core/assets/asset_keys.dart';
@@ -13,6 +14,8 @@ import '../common/play_effect.dart';
 /// Tiere im Meer der Karte, nur zum Spaß (Marcs Wunsch am 29.10.2026: die
 /// App soll lebendiger wirken). Antippen: Der Fisch springt, der Wal bläst
 /// eine Fontäne, der Delfin macht einen Bogen. Es gibt nichts zu gewinnen.
+/// Seit 16.11.2026 (Marcs Wunsch) springen sie auch von selbst, jedes Tier in
+/// seinem eigenen Takt, still; nur beim Antippen gibt es einen Ton.
 enum CritterKind { fish, whale, dolphin }
 
 class SeaCritter extends StatefulWidget {
@@ -31,9 +34,34 @@ class SeaCritter extends StatefulWidget {
 
 class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateMixin {
   late final AnimationController _jump = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
+  Timer? _auto;
+
+  /// Wie oft das Tier von selbst springt (Sekunden).
+  static const autoEvery = {CritterKind.fish: 9, CritterKind.dolphin: 12, CritterKind.whale: 16};
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final motion = AppScope.of(context).sceneMotion && !MediaQuery.disableAnimationsOf(context);
+    if (motion && _auto == null) {
+      // Jedes Tier mit eigenem Versatz, damit nicht alle gleichzeitig springen.
+      final offset = Random(identityHashCode(this)).nextInt(autoEvery[widget.kind]!);
+      _auto = Timer(Duration(seconds: 2 + offset), _autoJump);
+    } else if (!motion) {
+      _auto?.cancel();
+      _auto = null;
+    }
+  }
+
+  void _autoJump() {
+    if (!mounted) return;
+    if (!_jump.isAnimating) _jump.forward(from: 0);
+    _auto = Timer(Duration(seconds: autoEvery[widget.kind]!), _autoJump);
+  }
 
   @override
   void dispose() {
+    _auto?.cancel();
     _jump.dispose();
     super.dispose();
   }

@@ -2190,6 +2190,33 @@
         "shape": "rounded"
       }
     },
+    "critter.seagull.up": {
+      "type": "image",
+      "path": "assets/images/critter.seagull.up.png",
+      "placeholder": {
+        "label": "Möwe Flügel oben",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
+    "critter.seagull.glide": {
+      "type": "image",
+      "path": "assets/images/critter.seagull.glide.png",
+      "placeholder": {
+        "label": "Möwe gleitet",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
+    "critter.seagull.down": {
+      "type": "image",
+      "path": "assets/images/critter.seagull.down.png",
+      "placeholder": {
+        "label": "Möwe Flügel unten",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
     "critter.dolphin": {
       "type": "image",
       "path": "assets/images/critter.dolphin.png",

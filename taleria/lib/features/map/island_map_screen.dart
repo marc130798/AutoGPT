@@ -26,6 +26,7 @@ import 'map_scene.dart';
 import 'sea_critters.dart';
 import '../common/taleria_app_bar.dart';
 import '../common/play_effect.dart';
+import 'seagull_flock.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
 /// nach oben (Schatzinsel). Inseln im Nebel und gesperrte Inseln sind
@@ -354,12 +355,7 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
                 // Ab und zu fliegen Möwen über den Bildschirm.
                 if (_motion)
                   Positioned.fill(
-                    child: IgnorePointer(
-                      child: CustomPaint(
-                        key: const ValueKey('map-seagulls'),
-                        painter: SeagullPainter(clock: _clock),
-                      ),
-                    ),
+                    child: SeagullFlock(key: const ValueKey('map-seagulls'), clock: _clock, scale: 1.3),
                   ),
                 Positioned.fill(
                   child: FogIntro(progress: _intro, onSkip: () => _intro.value = 1),

@@ -43,6 +43,7 @@ import 'rank_form_choice.dart';
 import 'ship_dock.dart';
 import 'shipyard_screen.dart';
 import 'sound_button.dart';
+import '../map/seagull_flock.dart';
 
 /// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck. Oben Rang
 /// und Leuchtturm, darunter die Crew (Talo, das Kind, Tala) mit dem Satz des
@@ -183,7 +184,7 @@ class _DeckLifeState extends State<_DeckLife> with SingleTickerProviderStateMixi
             right: 0,
             top: 0,
             height: constraints.maxHeight * 0.4,
-            child: CustomPaint(painter: SeagullPainter(clock: _clock)),
+            child: SeagullFlock(clock: _clock),
           ),
           Positioned.fill(
             child: CustomPaint(painter: _GlitterPainter(clock: _clock)),

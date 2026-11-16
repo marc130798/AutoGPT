@@ -106,11 +106,44 @@ class Sounds extends ChangeNotifier {
   void voice(String file) {
     if (!_enabled || !_voicesAllowed) return;
     playedVoices.add(file);
+    _setDucked(true);
     playVoice('$voiceFolder/$file');
   }
 
   /// Die laufende Stimme beenden (zum Beispiel beim Verlassen einer Seite).
-  void stopVoice() => stopVoiceAudio();
+  void stopVoice() {
+    stopVoiceAudio();
+    _setDucked(false);
+  }
+
+  /// Musik leiser, solange eine Stimme spricht oder ein Film läuft
+  /// (Marcs Test am 16.11.2026: „man hört die Stimmen beim Rauschen nicht“).
+  bool get musicDucked => _voiceDucked || _filmDucked;
+  bool _voiceDucked = false;
+  bool _filmDucked = false;
+
+  void _setDucked(bool on) {
+    final before = musicDucked;
+    _voiceDucked = on;
+    if (musicDucked != before) duckMusic(musicDucked);
+  }
+
+  /// Ein Film läuft (mit eigenem Ton): Musik leiser, danach wieder normal.
+  void setFilmPlaying(bool on) {
+    final before = musicDucked;
+    _filmDucked = on;
+    if (musicDucked != before) duckMusic(musicDucked);
+  }
+
+  /// Die Stimme ist zu Ende (meldet die Unterklasse).
+  @protected
+  void voiceFinished() => _setDucked(false);
+
+  /// Musik leiser stellen (`true`) oder wieder normal. Auf dem iPhone im
+  /// Browser lässt sich die Lautstärke nicht ändern; dort sind die Dateien
+  /// selbst leise.
+  @protected
+  void duckMusic(bool on) {}
 
   Future<void> setVibrationAllowed(bool on) async {
     _vibrationAllowed = on;

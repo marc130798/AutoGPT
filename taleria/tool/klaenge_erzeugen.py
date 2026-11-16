@@ -86,11 +86,11 @@ def _mittel(datei):
 
 
 def verkleinern(key, roh, ziel):
-    """Leise und klein: Kulissen im Mittel -30 dB wie `music.home`, kurze Töne
+    """Leise und klein: Kulissen im Mittel -38 dB wie `music.home` (seit 16.11.2026 leiser, damit man die Stimmen hört), kurze Töne
     -24 dB wie `sound.correct`, Spitzen begrenzt (auf dem iPhone lässt sich die
     Lautstärke im Browser nicht im Code senken, es zählt die Datei)."""
     schleife = KLAENGE[key][1]
-    gain = (-30.0 if schleife else -24.0) - _mittel(roh)
+    gain = (-38.0 if schleife else -24.0) - _mittel(roh)
     args = ['ffmpeg', '-y', '-loglevel', 'error', '-i', roh,
             '-af', f'volume={gain:.1f}dB,alimiter=limit={0.5 if schleife else 0.6}:level=disabled']
     args += ['-b:a', '64k'] if schleife else ['-ac', '1', '-b:a', '96k']
