@@ -517,6 +517,14 @@
   "@logbooksOpen": {
     "description": "Logbücher: Knopf, der das PDF zum Ausdrucken öffnet"
   },
+  "logbooksDownload": "Herunterladen",
+  "@logbooksDownload": {
+    "description": "Leuchtturm, Logbücher: Knopf zum Speichern des PDF"
+  },
+  "logbooksBackHint": "Das Heft öffnet sich in einem neuen Fenster. Zurück zur App kommt ihr mit „Fertig“ oben links (iPhone) oder indem ihr das Fenster schließt.",
+  "@logbooksBackHint": {
+    "description": "Leuchtturm, Logbücher: wie man vom PDF zurück zur App kommt"
+  },
   "logbooksPages": "7 Seiten, DIN A4",
   "@logbooksPages": {
     "description": "Logbücher: Umfang eines Hefts"
@@ -1692,6 +1700,15 @@
   "tasksDoneHeading": "Erledigt",
   "@tasksDoneHeading": {
     "description": "Überschrift erledigter Aufträge"
+  },
+  "tasksDoneCount": "{count, plural, =1{1 erledigter Auftrag} other{{count} erledigte Aufträge}}",
+  "@tasksDoneCount": {
+    "description": "Kinderbereich, Aufträge: zugeklappte erledigte Aufträge",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "tasksEmpty": "Gerade keine Aufträge. Deine Eltern legen sie im Leuchtturm an.",
   "@tasksEmpty": {

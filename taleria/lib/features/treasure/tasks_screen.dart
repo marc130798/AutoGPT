@@ -105,8 +105,8 @@ class _TasksScreenState extends State<TasksScreen> {
                       for (final task in open) _ChildTaskCard(task: task, onSubmit: () => _submit(task)),
                       if (waiting.isNotEmpty) PaperHeading(l10n.tasksWaitingHeading),
                       for (final task in waiting) _ChildTaskCard(task: task),
-                      if (done.isNotEmpty) PaperHeading(l10n.tasksDoneHeading),
-                      for (final task in done) _ChildTaskCard(task: task),
+                      // Erledigtes steht ganz unten und ist zugeklappt (Marcs Wunsch).
+                      if (done.isNotEmpty) ...[const SizedBox(height: 8), _DoneSection(tasks: done)],
                     ],
                   ),
                 );
@@ -190,4 +190,45 @@ String? _dateLine(AppLocalizations l10n, FamilyTask task) {
     TaskStatus.approved when (submitted ?? reviewed) != null => l10n.taskDoneOn((submitted ?? reviewed)!),
     _ => null,
   };
+}
+
+/// Erledigte Aufträge, zugeklappt: Antippen zeigt sie.
+class _DoneSection extends StatefulWidget {
+  const _DoneSection({required this.tasks});
+
+  final List<FamilyTask> tasks;
+
+  @override
+  State<_DoneSection> createState() => _DoneSectionState();
+}
+
+class _DoneSectionState extends State<_DoneSection> {
+  bool _open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        PaperCard(
+          child: InkWell(
+            key: const ValueKey('tasks-done-toggle'),
+            onTap: () => setState(() => _open = !_open),
+            child: Row(
+              children: [
+                const Icon(Icons.task_alt_rounded),
+                const SizedBox(width: 10),
+                Expanded(child: Text(l10n.tasksDoneCount(widget.tasks.length), style: theme.textTheme.titleMedium)),
+                Icon(_open ? Icons.expand_less : Icons.expand_more),
+              ],
+            ),
+          ),
+        ),
+        if (_open)
+          for (final task in widget.tasks) _ChildTaskCard(task: task),
+      ],
+    );
+  }
 }

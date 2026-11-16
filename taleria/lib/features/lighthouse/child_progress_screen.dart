@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/taleria_asset.dart';
+import '../../core/assets/asset_keys.dart';
 import '../../core/app_scope.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/family_models.dart';
@@ -139,16 +141,53 @@ class _IslandCard extends StatelessWidget {
       IslandState.premium => const Icon(Icons.workspace_premium_outlined),
       IslandState.fog => const Icon(Icons.cloud_outlined),
     };
+    // Das Bild der Insel von der Karte, mit dem Stand als kleinem Zeichen
+    // (Marcs Wunsch am 16.11.2026); Inseln im Nebel und gesperrte blass.
+    final picture = SizedBox(
+      width: 64,
+      height: 52,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned.fill(
+            child: Opacity(
+              opacity: report.reached ? 1 : 0.45,
+              child: TaleriaAsset(
+                AssetKeys.mapIsland(report.island.slug),
+                fit: BoxFit.contain,
+                fallback: Center(child: icon),
+              ),
+            ),
+          ),
+          Positioned(
+            right: -4,
+            bottom: -4,
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+              child: SizedBox(width: 20, height: 20, child: FittedBox(child: icon)),
+            ),
+          ),
+        ],
+      ),
+    );
     if (!report.reached) {
       return Card(
         key: ValueKey('report-${report.island.slug}'),
-        child: ListTile(leading: icon, title: Text(report.island.title), subtitle: Text(subtitle)),
+        child: ListTile(
+          minTileHeight: 72,
+          leading: picture,
+          title: Text(report.island.title),
+          subtitle: Text(subtitle),
+        ),
       );
     }
     return Card(
       key: ValueKey('report-${report.island.slug}'),
+      clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
-        leading: icon,
+        minTileHeight: 72,
+        leading: picture,
         title: Text(report.island.title),
         subtitle: Text(subtitle),
         initiallyExpanded: report.state == IslandState.open,

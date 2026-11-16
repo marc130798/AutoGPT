@@ -196,12 +196,15 @@ void main() {
 
     await openChildDevice(tester, backend, budget, mila.id);
     await tapText(tester, 'Aufträge');
-    // Erledigte Aufträge stehen unten.
+    // Erledigtes ist unten zugeklappt.
+    expect(find.text('Erledigt am 09.10.2026, bestätigt am 10.10.2026'), findsNothing);
     await tester.dragUntilVisible(
-      find.text('Erledigt am 09.10.2026, bestätigt am 10.10.2026'),
+      find.byKey(const ValueKey('tasks-done-toggle')),
       find.byType(Scrollable).last,
       const Offset(0, -200),
     );
+    await tester.tap(find.byKey(const ValueKey('tasks-done-toggle')));
+    await tester.pumpAndSettle();
     expect(find.text('Erledigt am 09.10.2026, bestätigt am 10.10.2026'), findsOneWidget);
     expect(find.text('Die ${formatCents(500)} kamen in deine Schatztruhe.'), findsOneWidget);
     expect(find.text('Gemeldet am 09.10.2026'), findsOneWidget, reason: 'Zimmer wartet auf die Eltern');

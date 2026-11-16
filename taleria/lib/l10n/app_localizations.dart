@@ -829,6 +829,18 @@ abstract class AppLocalizations {
   /// **'PDF öffnen'**
   String get logbooksOpen;
 
+  /// Leuchtturm, Logbücher: Knopf zum Speichern des PDF
+  ///
+  /// In de, this message translates to:
+  /// **'Herunterladen'**
+  String get logbooksDownload;
+
+  /// Leuchtturm, Logbücher: wie man vom PDF zurück zur App kommt
+  ///
+  /// In de, this message translates to:
+  /// **'Das Heft öffnet sich in einem neuen Fenster. Zurück zur App kommt ihr mit „Fertig“ oben links (iPhone) oder indem ihr das Fenster schließt.'**
+  String get logbooksBackHint;
+
   /// Logbücher: Umfang eines Hefts
   ///
   /// In de, this message translates to:
@@ -2316,6 +2328,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Erledigt'**
   String get tasksDoneHeading;
+
+  /// Kinderbereich, Aufträge: zugeklappte erledigte Aufträge
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{1 erledigter Auftrag} other{{count} erledigte Aufträge}}'**
+  String tasksDoneCount(int count);
 
   /// Hinweis ohne Aufträge
   ///

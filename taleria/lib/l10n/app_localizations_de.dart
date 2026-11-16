@@ -409,6 +409,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get logbooksOpen => 'PDF öffnen';
 
   @override
+  String get logbooksDownload => 'Herunterladen';
+
+  @override
+  String get logbooksBackHint =>
+      'Das Heft öffnet sich in einem neuen Fenster. Zurück zur App kommt ihr mit „Fertig“ oben links (iPhone) oder indem ihr das Fenster schließt.';
+
+  @override
   String get logbooksPages => '7 Seiten, DIN A4';
 
   @override
@@ -1240,6 +1247,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tasksDoneHeading => 'Erledigt';
+
+  @override
+  String tasksDoneCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count erledigte Aufträge',
+      one: '1 erledigter Auftrag',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get tasksEmpty => 'Gerade keine Aufträge. Deine Eltern legen sie im Leuchtturm an.';

@@ -11,10 +11,13 @@ import '../../services/open_file_stub.dart' if (dart.library.js_interop) '../../
 /// drucken oder speichern die Eltern sie. Nur im Elternbereich, denn im
 /// Kinderbereich gibt es keine Links nach außen (CLAUDE.md).
 class LogbooksScreen extends StatelessWidget {
-  const LogbooksScreen({super.key, this.open = openFileNextToApp});
+  const LogbooksScreen({super.key, this.open = openFileNextToApp, this.download = downloadFileNextToApp});
 
   /// Öffnet eine Datei neben der App; `false`, wenn das hier nicht geht.
   final bool Function(String path) open;
+
+  /// Lädt eine Datei neben der App herunter; `false`, wenn das hier nicht geht.
+  final bool Function(String path, String fileName) download;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +29,20 @@ class LogbooksScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           Text(l10n.logbooksIntro, style: theme.textTheme.bodyLarge),
+          const SizedBox(height: 6),
+          Text(l10n.logbooksBackHint, style: theme.textTheme.bodySmall),
           const SizedBox(height: 16),
           for (final book in logbooks)
             _LogbookCard(
               book: book,
               onOpen: () {
                 if (open(book.path)) return;
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(content: Text(l10n.logbooksOnlyWeb)));
+              },
+              onDownload: () {
+                if (download(book.path, 'Taleria_Logbuch_${book.island}.pdf')) return;
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(SnackBar(content: Text(l10n.logbooksOnlyWeb)));
@@ -44,10 +55,11 @@ class LogbooksScreen extends StatelessWidget {
 }
 
 class _LogbookCard extends StatelessWidget {
-  const _LogbookCard({required this.book, required this.onOpen});
+  const _LogbookCard({required this.book, required this.onOpen, required this.onDownload});
 
   final Logbook book;
   final VoidCallback onOpen;
+  final VoidCallback onDownload;
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +99,23 @@ class _LogbookCard extends StatelessWidget {
                   Text(book.title, style: theme.textTheme.titleLarge),
                   Text(l10n.logbooksPages, style: theme.textTheme.bodyMedium),
                   const SizedBox(height: 10),
-                  FilledButton.icon(
-                    key: ValueKey('logbook-open-${book.island}'),
-                    onPressed: onOpen,
-                    icon: const Icon(Icons.picture_as_pdf_outlined),
-                    label: Text(l10n.logbooksOpen),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 6,
+                    children: [
+                      FilledButton.icon(
+                        key: ValueKey('logbook-open-${book.island}'),
+                        onPressed: onOpen,
+                        icon: const Icon(Icons.picture_as_pdf_outlined),
+                        label: Text(l10n.logbooksOpen),
+                      ),
+                      OutlinedButton.icon(
+                        key: ValueKey('logbook-download-${book.island}'),
+                        onPressed: onDownload,
+                        icon: const Icon(Icons.download_rounded),
+                        label: Text(l10n.logbooksDownload),
+                      ),
+                    ],
                   ),
                 ],
               ),

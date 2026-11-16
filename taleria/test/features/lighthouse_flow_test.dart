@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taleria/features/lighthouse/logbooks_screen.dart';
 import 'package:taleria/domain/learning_status.dart';
 
 import '../fake_budget.dart';
@@ -77,6 +78,30 @@ void main() {
     // In den Tests läuft keine Web-Version: Dann gibt es einen Hinweis statt des PDFs.
     await tapKey(tester, 'logbook-open-hafen');
     expect(find.text('Die Logbücher findest du in der Web-Version von Taleria.'), findsOneWidget);
+  });
+
+  testWidgets('Logbücher: Herunterladen mit Dateinamen', (tester) async {
+    final downloads = <(String, String)>[];
+    await tester.pumpWidget(buildTestApp());
+    await tester.pumpAndSettle();
+    final context = tester.element(find.byType(Navigator).first);
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => LogbooksScreen(
+          open: (_) => true,
+          download: (path, name) {
+            downloads.add((path, name));
+            return true;
+          },
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Zurück zur App'), findsOneWidget);
+    await scrollTo(tester, find.byKey(const ValueKey('logbook-download-tauschinsel')));
+    await tester.tap(find.byKey(const ValueKey('logbook-download-tauschinsel')));
+    await tester.pumpAndSettle();
+    expect(downloads, [('logbuch/logbuch_tauschinsel.pdf', 'Taleria_Logbuch_tauschinsel.pdf')]);
   });
 
   testWidgets('Fortschritt pro Insel und Lernstand pro Thema', (tester) async {
