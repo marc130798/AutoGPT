@@ -45,7 +45,7 @@ abstract final class AvatarPalette {
     OutfitColor.gold: Color(0xFFD4A62A),
   };
 
-  static const scarf = {Scarf.red: Color(0xFFC0392B), Scarf.gold: Color(0xFFE6BB45)};
+  static const scarf = {Scarf.red: Color(0xFFC0392B), Scarf.gold: Color(0xFFE6BB45), Scarf.purple: Color(0xFF8E5BB5)};
 }
 
 /// Zeichnet den Avatar aus einfachen Formen. Wird später durch die

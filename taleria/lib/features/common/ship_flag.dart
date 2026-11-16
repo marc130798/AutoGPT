@@ -96,6 +96,44 @@ class _ShipFlagPainter extends CustomPainter {
         canvas.drawLine(c + Offset(0, -h * 0.2), c + Offset(0, h * 0.3), anchor);
         canvas.drawLine(c + Offset(-h * 0.17, -h * 0.08), c + Offset(h * 0.17, -h * 0.08), anchor);
         canvas.drawArc(Rect.fromCircle(center: c + Offset(0, h * 0.05), radius: h * 0.25), 0.35, 2.44, false, anchor);
+      case ShipFlag.shell:
+        canvas.drawRect(rect, Paint()..color = _teal);
+        final c = rect.center + Offset(0, rect.height * 0.08);
+        final h = rect.height;
+        final shell = Path()
+          ..moveTo(c.dx, c.dy + h * 0.28)
+          ..lineTo(c.dx - h * 0.34, c.dy - h * 0.06)
+          ..quadraticBezierTo(c.dx, c.dy - h * 0.62, c.dx + h * 0.34, c.dy - h * 0.06)
+          ..close();
+        canvas.drawPath(shell, Paint()..color = const Color(0xFFF6D7C3));
+        final rib = Paint()
+          ..color = const Color(0xFFC98F72)
+          ..strokeWidth = h * 0.04;
+        for (final dx in [-0.2, -0.07, 0.07, 0.2]) {
+          canvas.drawLine(Offset(c.dx, c.dy + h * 0.26), Offset(c.dx + h * dx, c.dy - h * 0.22), rib);
+        }
+      case ShipFlag.coin:
+        canvas.drawRect(rect, Paint()..color = _navy);
+        canvas.drawCircle(rect.center, rect.height * 0.32, Paint()..color = _gold);
+        canvas.drawCircle(
+          rect.center,
+          rect.height * 0.24,
+          Paint()
+            ..color = const Color(0xFFB8862B)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = rect.height * 0.05,
+        );
+        final tPaint = Paint()
+          ..color = const Color(0xFFB8862B)
+          ..strokeWidth = rect.height * 0.07
+          ..strokeCap = StrokeCap.round;
+        final t = rect.center;
+        canvas.drawLine(
+          t + Offset(-rect.height * 0.1, -rect.height * 0.1),
+          t + Offset(rect.height * 0.1, -rect.height * 0.1),
+          tPaint,
+        );
+        canvas.drawLine(t + Offset(0, -rect.height * 0.1), t + Offset(0, rect.height * 0.12), tPaint);
       case ShipFlag.sun:
         canvas.drawRect(rect, Paint()..color = _orange);
         canvas.drawCircle(rect.center, rect.height * 0.24, Paint()..color = _gold);

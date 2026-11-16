@@ -107,3 +107,31 @@
 /* Elternseite */
 .parents .box ul { font-size: 10pt; }
 .parents .cols { gap: 4mm; }
+
+/* Händler-Tafel (Tauschinsel) */
+.traders { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 2.5mm 0; }
+.trader { display: grid; justify-items: center; gap: 0.5mm; background: #fff; border: 0.5mm solid var(--line); border-radius: 4mm; padding: 2.5mm 1.5mm; text-align: center; font-size: 9.5pt; }
+.trader img { height: 17mm; }
+.trader b { font-size: 9.5pt; color: var(--sea-deep); }
+.trader .wants { font-weight: 800; color: var(--sea-deep); }
+.steps-line { display: flex; align-items: center; gap: 3mm; margin: 2.5mm 0; font-family: var(--display); font-weight: 800; color: var(--gold); font-size: 15pt; }
+.steps-line span { color: var(--ink); font-size: 11pt; background: var(--paper); border: 0.5mm solid var(--gold); border-radius: 3mm; padding: 1.5mm 3mm; }
+.steps-line i { display: inline-block; width: 34mm; height: 9mm; border-bottom: 0.5mm solid #9fb3c2; }
+
+/* Wunschflasche */
+.bottle { display: grid; justify-items: center; margin-top: 2mm; }
+.bottle-neck { width: 18mm; height: 10mm; border: 0.6mm solid var(--sea); border-bottom: none; border-radius: 2mm 2mm 0 0; background: #eef8fc; }
+.bottle-body { width: 100%; border: 0.6mm solid var(--sea); border-radius: 12mm; background: #eef8fc; padding: 6mm 9mm; display: grid; gap: 2mm; font-size: 11pt; }
+.bottle-body .opt { margin-right: 5mm; }
+
+/* Drei Malkästen */
+.three-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+.three-boxes .drawbox.small { height: 42mm; }
+
+/* Sparziel und Sparplan */
+.goal-card { display: grid; grid-template-columns: 55mm 1fr; gap: 5mm; margin-top: 2mm; align-items: start; }
+.goal-card .drawbox.small { height: 45mm; margin-top: 0; }
+.goal-lines { display: grid; gap: 1.5mm; font-size: 11pt; }
+.plan { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2mm; margin-top: 3mm; }
+.week { display: grid; justify-items: center; gap: 1mm; font-size: 8.5pt; color: var(--ink-soft); }
+.week .cell { width: 100%; height: 16mm; border: 0.5mm solid var(--gold); border-radius: 2mm; background: #fff; }

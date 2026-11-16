@@ -4492,7 +4492,7 @@ abstract class AppLocalizations {
   /// Name eines Teils in der Werft
   ///
   /// In de, this message translates to:
-  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} other{Teil}}'**
+  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} other{Teil}}'**
   String lookName(String id);
 
   /// Kachel auf der Startseite zur Werft

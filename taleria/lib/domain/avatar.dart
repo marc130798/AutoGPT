@@ -20,10 +20,10 @@ enum OutfitColor { navy, red, green, yellow, purple, orange, teal, gold }
 enum Hat { none, captain, bandana, straw, tricorn, goldCaptain }
 
 /// Halstuch, nur aus der Werft (Belohnung für Seemeilen).
-enum Scarf { none, red, gold }
+enum Scarf { none, red, gold, purple }
 
 /// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
-enum ShipFlag { taleria, stripes, wave, star, sun, anchor }
+enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin }
 
 class AvatarConfig {
   const AvatarConfig({

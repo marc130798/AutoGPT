@@ -42,10 +42,13 @@ const shipyardItems = <LookItem>[
   LookItem(LookSlot.flag, ShipFlag.sun, 8000),
   // Aus dem Logbuch zum Ausdrucken (Schatzcode auf der Urkunde).
   LookItem(LookSlot.flag, ShipFlag.anchor, 0, logbook: 'hafen'),
+  LookItem(LookSlot.flag, ShipFlag.shell, 0, logbook: 'tauschinsel'),
+  LookItem(LookSlot.scarf, Scarf.purple, 0, logbook: 'wunschinsel'),
+  LookItem(LookSlot.flag, ShipFlag.coin, 0, logbook: 'spar-insel'),
 ];
 
 /// Schatzcodes aus den Logbüchern: Code → Insel. Nur Aussehen, nichts kaufbar.
-const logbookCodes = {'ANKER7': 'hafen'};
+const logbookCodes = {'ANKER7': 'hafen', 'MUSCHEL3': 'tauschinsel', 'FLASCHE5': 'wunschinsel', 'TALER9': 'spar-insel'};
 
 /// Insel zum eingetippten Code, egal ob groß, klein, mit Leerzeichen oder Strich; sonst `null`.
 String? logbookForCode(String input) => logbookCodes[input.toUpperCase().replaceAll(RegExp(r'[\s\-]'), '')];

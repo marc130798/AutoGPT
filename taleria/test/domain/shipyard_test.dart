@@ -65,4 +65,13 @@ void main() {
     expect(back.logbooks, {'hafen'});
     expect(const AvatarConfig().toJson().containsKey('logbooks'), isFalse);
   });
+
+  test('Jeder Logbuch-Code schaltet genau ein eigenes Teil frei', () {
+    final items = {for (final island in logbookCodes.values) logbookItem(island)};
+    expect(items, isNot(contains(null)));
+    expect(items.length, logbookCodes.length, reason: 'jede Insel ihr eigenes Teil');
+    expect(logbookForCode('muschel 3'), 'tauschinsel');
+    expect(logbookForCode('Flasche5'), 'wunschinsel');
+    expect(logbookForCode('TALER-9'), 'spar-insel');
+  });
 }

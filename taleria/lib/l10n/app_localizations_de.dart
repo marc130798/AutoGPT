@@ -2790,12 +2790,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'scarf_none': 'Ohne',
       'scarf_red': 'Rotes Halstuch',
       'scarf_gold': 'Goldenes Halstuch',
+      'scarf_purple': 'Lila Halstuch',
       'flag_taleria': 'Taleria-Flagge',
       'flag_stripes': 'Streifen-Flagge',
       'flag_wave': 'Wellen-Flagge',
       'flag_star': 'Sternen-Flagge',
       'flag_sun': 'Sonnen-Flagge',
       'flag_anchor': 'Anker-Flagge',
+      'flag_shell': 'Muschel-Flagge',
+      'flag_coin': 'Taler-Flagge',
       'other': 'Teil',
     });
     return '$_temp0';
