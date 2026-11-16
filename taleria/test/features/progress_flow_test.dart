@@ -279,6 +279,10 @@ void main() {
 
   testWidgets('Neuer Orden: Die Wand zoomt heran, das Kind hängt ihn auf, nur einmal', (tester) async {
     await startOnHome(tester, prepare: (p) => p.badgeDates['island-hafen'] = DateTime(2026, 11, 2));
+    // Der neue Orden leuchtet auf der Startseite als Zahl.
+    final tile = find.byKey(const ValueKey('home-badges'));
+    await scrollTo(tester, tile);
+    expect(find.descendant(of: tile, matching: find.text('1')), findsOneWidget);
     await tapKey(tester, 'home-badges');
     expect(find.text('Ein neuer Orden!'), findsOneWidget);
     expect(find.byKey(const ValueKey('badge-hang')), findsOneWidget);
@@ -288,9 +292,13 @@ void main() {
     expect(find.text('Ein neuer Orden!'), findsNothing);
     expect(find.text('Verliehen am 02.11.2026'), findsOneWidget);
 
-    // Beim nächsten Besuch hängt er schon an der Wand.
+    // Zurück auf der Startseite ist die Zahl weg (Marcs Test am 16.11.2026).
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
+    await scrollTo(tester, tile);
+    expect(find.descendant(of: tile, matching: find.text('1')), findsNothing);
+
+    // Beim nächsten Besuch hängt er schon an der Wand.
     await tapKey(tester, 'home-badges');
     expect(find.text('Ein neuer Orden!'), findsNothing);
   });

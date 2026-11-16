@@ -236,43 +236,29 @@ class _Crew extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+        // Die Crew steht an Deck hinter der Reling: Das Geländer verdeckt die
+        // Füße, dahinter liegt das Deck (Marcs Test am 16.11.2026: „die
+        // Tiere schweben, schaut billig aus“).
+        Stack(
+          clipBehavior: Clip.none,
           children: [
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: LivelyFigure(
-                  character: AssetKeys.talo,
-                  phase: 0,
-                  width: 116,
-                  height: 150,
-                  lines: [l10n.livelyTalo1, l10n.livelyTalo2, l10n.livelyTalo3, l10n.livelyTalo4],
-                  voices: [for (var i = 1; i <= 4; i++) 'voice.talo.tap.$i.mp3'],
-                ),
-              ),
+            const Positioned(
+              left: -16,
+              right: -16,
+              bottom: 0,
+              height: _CrewDeck.height,
+              child: _CrewDeck(behind: true),
             ),
-            // Das Kind selbst: Löwe oder Löwin, winkt; Antippen lässt es etwas sagen.
-            LivelyFigure(
-              character: avatarKey(child.avatar ?? const AvatarConfig()),
-              phase: 0.25,
-              width: 124,
-              height: 170,
-              lines: [l10n.livelyKid1, l10n.livelyKid2, l10n.livelyKid3],
+            Padding(
+              padding: const EdgeInsets.only(bottom: _CrewDeck.feet),
+              child: _figures(l10n),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: LivelyFigure(
-                  character: AssetKeys.tala,
-                  phase: 0.5,
-                  width: 116,
-                  height: 156,
-                  bubbleToLeft: true,
-                  lines: [l10n.livelyTala1, l10n.livelyTala2, l10n.livelyTala3, l10n.livelyTala4],
-                  voices: [for (var i = 1; i <= 4; i++) 'voice.tala.tap.$i.mp3'],
-                ),
-              ),
+            const Positioned(
+              left: -16,
+              right: -16,
+              bottom: 0,
+              height: _CrewDeck.height,
+              child: IgnorePointer(child: _CrewDeck(behind: false)),
             ),
           ],
         ),
@@ -285,6 +271,143 @@ class _Crew extends StatelessWidget {
       ],
     );
   }
+
+  Widget _figures(AppLocalizations l10n) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: LivelyFigure(
+              character: AssetKeys.talo,
+              phase: 0,
+              width: 116,
+              height: 150,
+              lines: [l10n.livelyTalo1, l10n.livelyTalo2, l10n.livelyTalo3, l10n.livelyTalo4],
+              voices: [for (var i = 1; i <= 4; i++) 'voice.talo.tap.$i.mp3'],
+            ),
+          ),
+        ),
+        // Das Kind selbst: Löwe oder Löwin, winkt; Antippen lässt es etwas sagen.
+        LivelyFigure(
+          character: avatarKey(child.avatar ?? const AvatarConfig()),
+          phase: 0.25,
+          width: 124,
+          height: 170,
+          lines: [l10n.livelyKid1, l10n.livelyKid2, l10n.livelyKid3],
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: LivelyFigure(
+              character: AssetKeys.tala,
+              phase: 0.5,
+              width: 116,
+              height: 156,
+              bubbleToLeft: true,
+              lines: [l10n.livelyTala1, l10n.livelyTala2, l10n.livelyTala3, l10n.livelyTala4],
+              voices: [for (var i = 1; i <= 4; i++) 'voice.tala.tap.$i.mp3'],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Deck mit Reling unter der Crew, in zwei Ebenen: [behind] malt das Deck
+/// hinter den Füßen (Planken und Schatten), sonst das Geländer davor
+/// (Handlauf und Stäbe), das die Füße verdeckt.
+class _CrewDeck extends StatelessWidget {
+  const _CrewDeck({required this.behind});
+
+  final bool behind;
+
+  static const height = 64.0;
+
+  /// So weit stehen die Füße über der Unterkante.
+  static const feet = 18.0;
+
+  @override
+  Widget build(BuildContext context) => CustomPaint(painter: _CrewDeckPainter(behind: behind));
+}
+
+class _CrewDeckPainter extends CustomPainter {
+  const _CrewDeckPainter({required this.behind});
+
+  final bool behind;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    if (behind) {
+      // Deck hinter der Reling: dunkle Planken, die nach unten heller werden.
+      final deck = Rect.fromLTWH(0, h * 0.42, w, h * 0.58);
+      canvas.drawRect(
+        deck,
+        Paint()
+          ..shader = const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF7A4E26), WoodColors.mid],
+          ).createShader(deck),
+      );
+      final seam = Paint()
+        ..color = const Color(0x553C230F)
+        ..strokeWidth = 1;
+      for (var y = deck.top + 7; y < h; y += 7) {
+        canvas.drawLine(Offset(0, y), Offset(w, y), seam);
+      }
+      // Weiche Schatten unter den Füßen (Talo, Kind, Tala).
+      final shadow = Paint()
+        ..color = const Color(0x77301A08)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5);
+      for (final (x, rw) in [(w * 0.2, 66.0), (w * 0.5, 80.0), (w * 0.8, 66.0)]) {
+        canvas.drawOval(Rect.fromCenter(center: Offset(x, h - _CrewDeck.feet - 2), width: rw, height: 12), shadow);
+      }
+      return;
+    }
+    // Reling davor: Stäbe, unten ein Balken, oben der Handlauf.
+    const rail = 9.0;
+    final railTop = h - _CrewDeck.feet - 16;
+    final post = Paint()
+      ..shader = const LinearGradient(colors: [WoodColors.edge, WoodColors.mid, WoodColors.edge])
+          .createShader(Rect.fromLTWH(0, 0, 10, h));
+    const gap = 26.0;
+    for (var x = 6.0; x < w; x += gap) {
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(Rect.fromLTWH(x, railTop + rail - 2, 7, h - railTop - rail), const Radius.circular(2)),
+        post,
+      );
+    }
+    void beam(double top, double height) {
+      final r = RRect.fromRectAndRadius(Rect.fromLTWH(0, top, w, height), const Radius.circular(3));
+      canvas.drawRRect(
+        r.shift(const Offset(0, 3)),
+        Paint()
+          ..color = const Color(0x55000000)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3),
+      );
+      canvas.drawRRect(
+        r,
+        Paint()
+          ..shader = const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFD9A874), WoodColors.mid, WoodColors.edge],
+            stops: [0, 0.55, 1],
+          ).createShader(r.outerRect),
+      );
+    }
+
+    beam(railTop, rail);
+    beam(h - 10, 10);
+  }
+
+  @override
+  bool shouldRepaint(_CrewDeckPainter old) => old.behind != behind;
 }
 
 /// Holzschild mit dem Namen des Kindes, darunter sein Schiff. Die Begrüßung
@@ -813,6 +936,9 @@ class _HomeBodyState extends State<_HomeBody> {
   /// Funde, die das Kind in der Sammlung schon gesehen hat (auf diesem Gerät).
   int _collectionSeen = 0;
 
+  /// Orden, die schon an der Wand hängen (setzt die Orden-Seite nach der Feier).
+  int _badgesSeen = 0;
+
   /// Werft-Teile, die das Kind schon gesehen hat (auf diesem Gerät).
   int _shipyardSeen = 0;
 
@@ -849,8 +975,10 @@ class _HomeBodyState extends State<_HomeBody> {
     final settings = AppScope.of(context).settings;
     final seen = await settings.collectionSeen(_child.id);
     final shipyard = await settings.lookUnlocksSeen(_child.id);
+    final badges = await settings.badgesSeen(_child.id);
     if (mounted) {
       setState(() {
+        _badgesSeen = badges;
         _collectionSeen = seen;
         _shipyardSeen = shipyard;
       });
@@ -864,6 +992,14 @@ class _HomeBodyState extends State<_HomeBody> {
     setState(() => _shipyardSeen = unlocked);
     await settings.setLookUnlocksSeen(_child.id, unlocked);
     await _open(ShipyardScreen(child: _child, xp: stats.xp));
+  }
+
+  /// Öffnet die Orden-Wand. Neue Orden werden dort feierlich aufgehängt und
+  /// gelten danach als gesehen; dann verschwindet die Zahl (Marcs Test am
+  /// 16.11.2026: vorher stand dort immer die Zahl aller Orden).
+  Future<void> _openBadges() async {
+    await _open(BadgesScreen(childId: _child.id));
+    if (mounted) await _loadCollectionSeen();
   }
 
   /// Öffnet die Sammlung; danach gelten alle Funde als gesehen.
@@ -989,8 +1125,9 @@ class _HomeBodyState extends State<_HomeBody> {
                       fallbackIcon: Icons.military_tech_outlined,
                       label: l10n.childHomeBadgesTile,
                       semanticLabel: l10n.badgesButton(stats.badgeCount),
-                      count: stats.badgeCount,
-                      onTap: () => _open(BadgesScreen(childId: child.id)),
+                      count: max(0, stats.badgeCount - _badgesSeen),
+                      attention: true,
+                      onTap: _openBadges,
                     ),
                   ),
                   Expanded(
