@@ -371,11 +371,11 @@ class AppLocalizationsDe extends AppLocalizations {
       'Wenn ihr wollt, bekommt euer Kind für jede neu geschaffte Station und/oder jede abgeschlossene Insel einen Betrag in die Schatztruhe. Das stellt ihr unter „Taschengeld und Aufgaben“ ein. Euer Kind sieht am Ende jeder Insel, wie viel es bekommen hat. Unser Tipp: lieber kleine Beträge und eher pro Insel, damit die Neugier wichtiger bleibt als das Geld.';
 
   @override
-  String get guideReportTitle => 'Wochenbericht, Lernstand und Kombüsen-Fragen';
+  String get guideReportTitle => 'Wochenbericht, Lernstand und Fragen für zu Hause';
 
   @override
   String get guideReportBody =>
-      'Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Kombüsen-Fragen sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.';
+      'Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Fragen für zu Hause sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.';
 
   @override
   String get guideLogbooksTitle => 'Logbücher zum Ausdrucken';
@@ -1826,7 +1826,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get childDetailProgress => 'Fortschritt und Lernstand';
 
   @override
-  String get childDetailKitchen => 'Kombüsen-Fragen';
+  String get childDetailKitchen => 'Fragen für zu Hause';
 
   @override
   String get childDetailKitchenHint => 'Gesprächsideen und Aufträge fürs echte Leben';
@@ -1995,7 +1995,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get kitchenTitle => 'Kombüsen-Fragen';
+  String get kitchenTitle => 'Fragen für zu Hause';
 
   @override
   String kitchenIntro(String nickname) {

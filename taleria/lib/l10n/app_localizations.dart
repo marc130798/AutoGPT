@@ -766,13 +766,13 @@ abstract class AppLocalizations {
   /// Anleitung für Eltern: Überschrift Wochenbericht, Lernstand und Kombüsen-Fragen
   ///
   /// In de, this message translates to:
-  /// **'Wochenbericht, Lernstand und Kombüsen-Fragen'**
+  /// **'Wochenbericht, Lernstand und Fragen für zu Hause'**
   String get guideReportTitle;
 
   /// Anleitung für Eltern: Text zu Wochenbericht, Lernstand und Kombüsen-Fragen
   ///
   /// In de, this message translates to:
-  /// **'Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Kombüsen-Fragen sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.'**
+  /// **'Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Fragen für zu Hause sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.'**
   String get guideReportBody;
 
   /// Anleitung für Eltern: Überschrift Logbücher zum Ausdrucken
@@ -3160,7 +3160,7 @@ abstract class AppLocalizations {
   /// Leuchtturm: Eintrag zu den Gesprächsideen
   ///
   /// In de, this message translates to:
-  /// **'Kombüsen-Fragen'**
+  /// **'Fragen für zu Hause'**
   String get childDetailKitchen;
 
   /// Untertitel des Eintrags Kombüsen-Fragen
@@ -3358,7 +3358,7 @@ abstract class AppLocalizations {
   /// Überschrift der Gesprächsideen
   ///
   /// In de, this message translates to:
-  /// **'Kombüsen-Fragen'**
+  /// **'Fragen für zu Hause'**
   String get kitchenTitle;
 
   /// Einleitung Kombüsen-Fragen

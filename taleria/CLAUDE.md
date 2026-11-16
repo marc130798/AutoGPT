@@ -84,7 +84,7 @@ Im Code verwenden wir englische Namen. Die Texte in der App kommen aus diesem Gl
 | `encounter` | Begegnung auf See (Seeungeheuer, Händlerschiff …) | Wiederholung |
 | `pace` | Wind („die nächste Station erreichst du am …“) | Tempo (Stationen pro Woche) |
 | `parent_area` | (nicht sichtbar) | Leuchtturm / Elternbereich |
-| `conversation_prompt` | (nicht sichtbar) | Kombüsen-Fragen |
+| `conversation_prompt` | (nicht sichtbar) | Fragen für zu Hause (bis 16.11.2026 „Kombüsen-Fragen“) |
 | `family_challenge` | Crew-Abenteuer | Familien-Challenge |
 
 Alle sichtbaren Texte der App-Oberfläche liegen in Übersetzungsdateien (zuerst Deutsch), nie fest im Code. Inhaltstexte (Namen von Inseln und Expeditionen, Stationstexte, Fragen) stehen in der Datenbank (entschieden mit Marc am 09.10.2026), damit neue Inhalte kein App-Update brauchen.

@@ -473,11 +473,11 @@
   "@guideRewardBody": {
     "description": "Anleitung für Eltern: Text zu Lern-Belohnung (freiwillig)"
   },
-  "guideReportTitle": "Wochenbericht, Lernstand und Kombüsen-Fragen",
+  "guideReportTitle": "Wochenbericht, Lernstand und Fragen für zu Hause",
   "@guideReportTitle": {
     "description": "Anleitung für Eltern: Überschrift Wochenbericht, Lernstand und Kombüsen-Fragen"
   },
-  "guideReportBody": "Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Kombüsen-Fragen sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.",
+  "guideReportBody": "Auf der Kinderseite seht ihr den Wochenbericht: Was diese Woche geschafft wurde und was noch wackelt. Unter „Fortschritt und Lernstand“ steht pro Thema, was sicher sitzt. Die Fragen für zu Hause sind Ideen, um zu Hause über Geld zu sprechen, passend zur Insel, auf der euer Kind gerade ist.",
   "@guideReportBody": {
     "description": "Anleitung für Eltern: Text zu Wochenbericht, Lernstand und Kombüsen-Fragen"
   },
@@ -2507,7 +2507,7 @@
   "@childDetailProgress": {
     "description": "Leuchtturm: Eintrag zur Fortschritts-Seite eines Kindes"
   },
-  "childDetailKitchen": "Kombüsen-Fragen",
+  "childDetailKitchen": "Fragen für zu Hause",
   "@childDetailKitchen": {
     "description": "Leuchtturm: Eintrag zu den Gesprächsideen"
   },
@@ -2731,7 +2731,7 @@
       }
     }
   },
-  "kitchenTitle": "Kombüsen-Fragen",
+  "kitchenTitle": "Fragen für zu Hause",
   "@kitchenTitle": {
     "description": "Überschrift der Gesprächsideen"
   },
