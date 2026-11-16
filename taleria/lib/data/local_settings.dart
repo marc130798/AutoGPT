@@ -56,6 +56,11 @@ abstract interface class LocalSettings {
 
   Future<void> setVibrationAllowed(bool allowed);
 
+  /// Stimmen von Talo, Tala und Meister Taleron erlaubt (Schalter im Leuchtturm). Standard: ja.
+  Future<bool> voicesAllowed();
+
+  Future<void> setVoicesAllowed(bool allowed);
+
   /// Stand der Truhen beim letzten Besuch der Schatztruhe (Cent je Truhe),
   /// `null` beim ersten Besuch. Ist seitdem Geld dazugekommen, fliegen Taler hinein.
   Future<Map<String, int>?> potsSeen(String childId);
@@ -184,6 +189,18 @@ class SharedPreferencesSettings implements LocalSettings {
   Future<void> setVibrationAllowed(bool allowed) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('vibration', allowed);
+  }
+
+  @override
+  Future<bool> voicesAllowed() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('voices') ?? true;
+  }
+
+  @override
+  Future<void> setVoicesAllowed(bool allowed) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('voices', allowed);
   }
 
   @override

@@ -22,6 +22,7 @@ class AudioSounds extends Sounds {
   static const effectVolume = 0.8;
 
   final _music = AudioPlayer(playerId: 'taleria-music');
+  final _voice = AudioPlayer(playerId: 'taleria-voice');
   final _effects = <String, AudioPlayer>{};
   final _available = <String, Future<bool>>{};
   late final AppLifecycleListener _lifecycle;
@@ -76,6 +77,15 @@ class AudioSounds extends Sounds {
   });
 
   @override
+  void playVoice(String path) => _try(() async {
+    await _voice.stop();
+    await _voice.play(AssetSource(path.substring('assets/'.length)), volume: 1);
+  });
+
+  @override
+  void stopVoiceAudio() => _try(_voice.stop);
+
+  @override
   void unlock() {
     if (!_blocked || playingMusic == null) return;
     _blocked = false;
@@ -97,6 +107,7 @@ class AudioSounds extends Sounds {
   void dispose() {
     _lifecycle.dispose();
     _music.dispose();
+    _voice.dispose();
     for (final player in _effects.values) {
       player.dispose();
     }

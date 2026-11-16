@@ -679,6 +679,24 @@ abstract class AppLocalizations {
   /// **'Wo ist die nächste Schatzkarte?'**
   String get livelyKid3;
 
+  /// Bildergeschichte: Knopf, der den Satz noch einmal vorliest
+  ///
+  /// In de, this message translates to:
+  /// **'Nochmal hören'**
+  String get storyListenAgain;
+
+  /// Leuchtturm: Schalter für die gesprochenen Sätze
+  ///
+  /// In de, this message translates to:
+  /// **'Stimmen von Talo und Tala'**
+  String get lighthouseVoices;
+
+  /// Leuchtturm: Erklärung unter dem Schalter für die Stimmen
+  ///
+  /// In de, this message translates to:
+  /// **'Sie lesen Erklärungen vor und freuen sich mit (nur dieses Gerät).'**
+  String get lighthouseVoicesHint;
+
   /// Figur des Kindes: Löwe
   ///
   /// In de, this message translates to:

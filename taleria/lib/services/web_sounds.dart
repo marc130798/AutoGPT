@@ -116,8 +116,46 @@ class WebSounds extends Sounds {
     _play(audio);
   }
 
+  /// Ein Audio-Element für alle Stimmen. Beim ersten Antippen wird es einmal
+  /// stumm angespielt, damit Safari später auch ohne Antippen spricht.
+  final _voice = web.HTMLAudioElement()..preload = 'auto';
+  bool _voicePrimed = false;
+
+  @override
+  void playVoice(String path) {
+    _voice
+      ..pause()
+      ..muted = false
+      ..src = ui_web.assetManager.getAssetUrl(path)
+      ..currentTime = 0;
+    _play(_voice);
+  }
+
+  @override
+  void stopVoiceAudio() => _voice.pause();
+
   @override
   void unlock() {
+    if (!_voicePrimed) {
+      _voicePrimed = true;
+      if (_voice.src.isEmpty) {
+        _voice
+          ..src = ui_web.assetManager.getAssetUrl('${Sounds.voiceFolder}/voice.talo.tap.1.mp3')
+          ..muted = true;
+        _voice.play().toDart.then(
+          (_) {
+            if (_voice.muted) {
+              _voice
+                ..pause()
+                ..muted = false;
+            }
+          },
+          onError: (Object _) {
+            _voice.muted = false;
+          },
+        );
+      }
+    }
     // Jeder Ton einmal stumm anspielen. Klappt es nicht (auf dem Handy zählt
     // erst das Loslassen als Antippen), beim nächsten Mal wieder versuchen.
     for (final key in effects) {
@@ -171,6 +209,7 @@ class WebSounds extends Sounds {
     for (final audio in _elements.values) {
       audio.pause();
     }
+    _voice.pause();
     super.dispose();
   }
 }

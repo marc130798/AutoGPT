@@ -56,6 +56,7 @@ class _StationScreenState extends State<StationScreen> {
   StationStep? _lastStep;
 
   Sounds get _sounds => AppScope.of(context).sounds;
+  Sounds? _voiceSounds;
 
   /// Am Ende eine Fanfare (groß, wenn die Insel geschafft ist) und kurzes
   /// Vibrieren. Nach einer nicht bestandenen Prüfung keins von beiden.
@@ -67,6 +68,28 @@ class _StationScreenState extends State<StationScreen> {
     if (controller.step != StationStep.result || result == null || !result.passed) return;
     _sounds.effect(result.islandCompleted ? AssetKeys.soundIslandDone : AssetKeys.soundStationDone);
     _sounds.success();
+    _sounds.voice(_cheer(controller, result.islandCompleted));
+  }
+
+  /// Talo oder Tala freuen sich mit (Marcs Stimmen), immer ein anderer Satz.
+  String _cheer(StationController controller, bool islandDone) {
+    final random = AppScope.of(context).random;
+    final who = random.nextBool() ? 'talo' : 'tala';
+    if (islandDone) return 'voice.$who.island.${random.nextInt(2) + 1}.mp3';
+    if (controller.isDive) return 'voice.tala.dive.${random.nextInt(2) + 1}.mp3';
+    if (controller.isSeaStop) return 'voice.talo.seastop.${random.nextInt(2) + 1}.mp3';
+    return 'voice.$who.station.${random.nextInt(3) + 1}.mp3';
+  }
+
+  /// Nach der ersten falschen Antwort einer Station macht eine Stimme Mut
+  /// („Nicht schlimm …“), danach bleibt es still, damit es nicht nervt.
+  bool _comforted = false;
+
+  void _comfort(bool correct) {
+    if (correct || _comforted) return;
+    _comforted = true;
+    final random = AppScope.of(context).random;
+    _sounds.voice('voice.${random.nextBool() ? 'talo' : 'tala'}.oops.${random.nextInt(2) + 1}.mp3');
   }
 
   @override
@@ -85,12 +108,14 @@ class _StationScreenState extends State<StationScreen> {
         budget: services.budget,
         random: services.random,
       )..addListener(_onStep);
+      _voiceSounds = services.sounds;
       _controller!.start();
     }
   }
 
   @override
   void dispose() {
+    _voiceSounds?.stopVoice();
     _controller?.removeListener(_onStep);
     _controller?.dispose();
     super.dispose();
@@ -113,6 +138,7 @@ class _StationScreenState extends State<StationScreen> {
             onAnswer: (i) {
               controller.answerWarmUp(i);
               if (controller.warmUp!.answeredCorrectly) _sounds.effect(AssetKeys.soundCorrect);
+              _comfort(controller.warmUp!.answeredCorrectly);
             },
             onNext: controller.nextWarmUp,
           ),
@@ -131,6 +157,7 @@ class _StationScreenState extends State<StationScreen> {
             taps: content.taps,
             estimate: content.estimate,
             guess: controller.guess,
+            voicePrefix: 'voice.${widget.island.slug}.${widget.station.displayNumber}.',
           ),
           StationStep.lesson => DialogSequence(
             lines: [
@@ -167,6 +194,7 @@ class _StationScreenState extends State<StationScreen> {
               if (controller.quiz!.answeredCorrectly) {
                 _sounds.effect(controller.isDive ? AssetKeys.soundPearl : AssetKeys.soundCorrect);
               }
+              _comfort(controller.quiz!.answeredCorrectly);
             },
             onNext: controller.nextQuiz,
           ),

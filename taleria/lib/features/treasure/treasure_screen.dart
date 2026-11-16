@@ -143,7 +143,11 @@ class _TreasureScreenState extends State<TreasureScreen> {
         ],
       ),
     );
-    if (ok == true && mounted) await runWithFeedback(context, () => c.redeemGoal(goal));
+    if (ok == true && mounted) {
+      final sounds = AppScope.of(context).sounds;
+      final done = await runWithFeedback(context, () => c.redeemGoal(goal));
+      if (done) sounds.voice('voice.tala.goal.mp3');
+    }
   }
 
   void _openPot(Pot pot) => Navigator.of(context).push(
@@ -282,6 +286,7 @@ class _TreasureContent extends StatelessWidget {
         PageIntro(
           childId: controller.childId,
           page: 'treasure',
+          voice: 'voice.tala.treasure.mp3',
           children: [SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.wave, text: l10n.treasureTalaIntro)],
         ),
         const SizedBox(height: 16),

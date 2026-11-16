@@ -417,6 +417,18 @@
   "@livelyKid3": {
     "description": "Startseite: die Figur des Kindes beim Antippen"
   },
+  "storyListenAgain": "Nochmal hören",
+  "@storyListenAgain": {
+    "description": "Bildergeschichte: Knopf, der den Satz noch einmal vorliest"
+  },
+  "lighthouseVoices": "Stimmen von Talo und Tala",
+  "@lighthouseVoices": {
+    "description": "Leuchtturm: Schalter für die gesprochenen Sätze"
+  },
+  "lighthouseVoicesHint": "Sie lesen Erklärungen vor und freuen sich mit (nur dieses Gerät).",
+  "@lighthouseVoicesHint": {
+    "description": "Leuchtturm: Erklärung unter dem Schalter für die Stimmen"
+  },
   "figureLion": "Löwe",
   "@figureLion": {
     "description": "Figur des Kindes: Löwe"

@@ -9,7 +9,10 @@ import '../../l10n/app_localizations.dart';
 /// kleiner „?“-Knopf klappt sie auf und wieder zu (Marcs Wunsch am
 /// 20.10.2026). Gemerkt wird das je Kind auf diesem Gerät.
 class PageIntro extends StatefulWidget {
-  const PageIntro({super.key, required this.childId, required this.page, required this.children});
+  const PageIntro({super.key, required this.childId, required this.page, required this.children, this.voice});
+
+  /// Sprachaufnahme, die beim ersten Besuch die Erklärung vorliest.
+  final String? voice;
 
   final String childId;
 
@@ -41,7 +44,10 @@ class _PageIntroState extends State<PageIntro> {
         _seen = seen;
         _open = !seen;
       });
-      if (!seen) settings.setPageIntroSeen(widget.childId, widget.page).ignore();
+      if (!seen) {
+        settings.setPageIntroSeen(widget.childId, widget.page).ignore();
+        if (widget.voice case final voice?) AppScope.of(context).sounds.voice(voice);
+      }
     });
   }
 

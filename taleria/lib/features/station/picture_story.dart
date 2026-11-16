@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/app_scope.dart';
+import '../../services/sounds.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -63,9 +65,15 @@ class PictureStory extends StatefulWidget {
     this.taps = const [],
     this.estimate,
     this.guess,
+    this.voicePrefix,
   });
 
   final List<DialogLine> lines;
+
+  /// Anfang der Sprachaufnahmen dieser Erklärung, zum Beispiel
+  /// `voice.hafen.2.`; Zeile n spricht dann `voice.hafen.2.n.mp3` (nur Talo
+  /// und Tala, aufgenommen mit `tool/stimmen_aufnehmen.py`). `null` = still.
+  final String? voicePrefix;
   final VoidCallback onDone;
 
   /// Antipp-Momente zwischen den Bildern (keine Prüfung).
@@ -102,10 +110,68 @@ class _PictureStoryState extends State<PictureStory> {
     return 0;
   }
 
-  void _next() => _last ? widget.onDone() : setState(() => _index++);
+  void _next() {
+    if (_last) {
+      _stopVoice();
+      widget.onDone();
+    } else {
+      setState(() => _index++);
+      _speak();
+    }
+  }
 
   void _back() {
-    if (_index > 0) setState(() => _index--);
+    if (_index > 0) {
+      setState(() => _index--);
+      _speak();
+    }
+  }
+
+  /// Datei der Stimme zur Zeile [index], wenn Talo oder Tala sie sprechen.
+  String? _voiceFor(int index) {
+    final prefix = widget.voicePrefix;
+    if (prefix == null) return null;
+    final speaker = widget.lines[index].speaker;
+    if (speaker != 'talo' && speaker != 'tala') return null;
+    return '$prefix${index + 1}.mp3';
+  }
+
+  /// Die Zeile der aktuellen Seite vorlesen (auf anderen Seiten schweigen).
+  void _speak() {
+    final sounds = AppScope.of(context).sounds;
+    if (_pages[_index] case LinePage(:final index)) {
+      final file = _voiceFor(index);
+      if (file != null) {
+        sounds.voice(file);
+        return;
+      }
+    }
+    sounds.stopVoice();
+  }
+
+  /// Gemerkt, damit die Stimme auch beim Schließen der Seite aufhört.
+  Sounds? _sounds;
+
+  void _stopVoice() => _sounds?.stopVoice();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _sounds = AppScope.of(context).sounds;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _speak();
+    });
+  }
+
+  @override
+  void dispose() {
+    _stopVoice();
+    super.dispose();
   }
 
   @override
@@ -150,7 +216,23 @@ class _PictureStoryState extends State<PictureStory> {
                     ),
                   const SizedBox(height: 12),
                   switch (page) {
-                    LinePage(:final index) => SpeechBubble.line(lines[index]),
+                    LinePage(:final index) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SpeechBubble.line(lines[index]),
+                        // Nochmal hören (nur wenn es eine Aufnahme gibt).
+                        if (_voiceFor(index) case final file?)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton.filledTonal(
+                              key: const ValueKey('story-voice'),
+                              tooltip: l10n.storyListenAgain,
+                              onPressed: () => AppScope.of(context).sounds.voice(file),
+                              icon: const Icon(Icons.volume_up_rounded),
+                            ),
+                          ),
+                      ],
+                    ),
                     TapPage(:final moment) => TapMomentView(
                       moment: moment,
                       done: _tapsDone.contains(_index),

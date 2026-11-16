@@ -356,6 +356,7 @@ class FakeLocalSettings implements LocalSettings {
   bool sound = true;
   bool music = true;
   bool vibration = true;
+  bool voices = true;
   final Map<String, int> collectionSeenBy = {};
   final Map<String, int> lookUnlocksSeenBy = {};
   final Map<String, int> badgesSeenBy = {};
@@ -373,6 +374,12 @@ class FakeLocalSettings implements LocalSettings {
 
   @override
   Future<void> setVibrationAllowed(bool allowed) async => vibration = allowed;
+
+  @override
+  Future<bool> voicesAllowed() async => voices;
+
+  @override
+  Future<void> setVoicesAllowed(bool allowed) async => voices = allowed;
 
   @override
   Future<Map<String, int>?> potsSeen(String childId) async => potsSeenBy[childId];

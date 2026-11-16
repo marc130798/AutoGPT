@@ -321,6 +321,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get livelyKid3 => 'Wo ist die nächste Schatzkarte?';
 
   @override
+  String get storyListenAgain => 'Nochmal hören';
+
+  @override
+  String get lighthouseVoices => 'Stimmen von Talo und Tala';
+
+  @override
+  String get lighthouseVoicesHint => 'Sie lesen Erklärungen vor und freuen sich mit (nur dieses Gerät).';
+
+  @override
   String get figureLion => 'Löwe';
 
   @override

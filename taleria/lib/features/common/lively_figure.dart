@@ -21,7 +21,11 @@ class LivelyFigure extends StatefulWidget {
     this.height = 140,
     this.phase = 0,
     this.bubbleToLeft = false,
+    this.voices = const [],
   });
+
+  /// Sprachaufnahmen zu [lines], gleiche Reihenfolge (leer = still).
+  final List<String> voices;
 
   final String character;
   final CharacterPose pose;
@@ -79,6 +83,7 @@ class _LivelyFigureState extends State<LivelyFigure> with TickerProviderStateMix
     if (widget.lines.isEmpty) return;
     setState(() {
       _saying = widget.lines[_next % widget.lines.length];
+      if (widget.voices.isNotEmpty) AppScope.of(context).sounds.voice(widget.voices[_next % widget.voices.length]);
       _next++;
     });
     _reaction.forward(from: 0).whenComplete(() {

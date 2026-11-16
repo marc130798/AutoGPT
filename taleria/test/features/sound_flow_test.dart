@@ -165,6 +165,11 @@ void main() {
     expect(quiz.where((e) => e == AssetKeys.soundCorrect), hasLength(4));
     expect(quiz.last, AssetKeys.soundStationDone);
     expect(sounds.vibrations, 1, reason: 'kurzes Vibrieren bei „Station geschafft“');
+
+    // Stimmen: Mut nach der ersten falschen Antwort (nur einmal), am Ende freut
+    // sich Talo oder Tala.
+    expect(sounds.playedVoices.where((v) => v.contains('.oops.')), hasLength(1));
+    expect(sounds.playedVoices.last, matches(RegExp(r'^voice\.(talo|tala)\.station\.[1-3]\.mp3$')));
   });
 
   testWidgets('Leuchtturm: Eltern schalten die Musik im Hauptmenü aus', (tester) async {
@@ -187,5 +192,11 @@ void main() {
     await tapKey(tester, 'vibration-switch');
     expect(sounds.vibrationAllowed, isFalse);
     expect(settings.vibration, isFalse);
+
+    await tapKey(tester, 'voices-switch');
+    expect(sounds.voicesAllowed, isFalse);
+    expect(settings.voices, isFalse);
+    sounds.voice('voice.talo.tap.1.mp3');
+    expect(sounds.playedVoices, isNot(contains('voice.talo.tap.1.mp3')), reason: 'Stimmen aus: still');
   });
 }

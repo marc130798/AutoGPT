@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taleria/services/sounds.dart';
 
@@ -23,6 +25,12 @@ class _Recording extends Sounds {
 
   @override
   void vibrate() => calls.add('vibrate');
+
+  @override
+  void playVoice(String path) => calls.add('voice $path');
+
+  @override
+  void stopVoiceAudio() => calls.add('stop voice');
 }
 
 void main() {
@@ -45,7 +53,7 @@ void main() {
     expect(sounds.playedEffects, isEmpty);
     expect(settings.sound, isFalse, reason: 'gilt auch beim nächsten Öffnen');
     await sounds.setEnabled(true);
-    expect(sounds.calls, ['start music.home', 'pause', 'resume']);
+    expect(sounds.calls, ['start music.home', 'stop voice', 'pause', 'resume']);
   });
 
   test('Musik im Leuchtturm aus: keine Musik, Töne bei richtig bleiben', () async {
@@ -109,5 +117,60 @@ void main() {
     final reloaded = _Recording(settings: settings);
     await reloaded.load();
     expect(reloaded.vibrationAllowed, isFalse);
+  });
+
+  test('Stimmen: spielen aus dem Ordner, still bei Ton aus oder im Leuchtturm abgeschaltet', () async {
+    final settings = FakeLocalSettings();
+    final sounds = _Recording(settings: settings);
+    await sounds.load();
+    sounds.voice('voice.talo.tap.1.mp3');
+    expect(sounds.calls, ['voice assets/audio/voice/voice.talo.tap.1.mp3']);
+
+    await sounds.setEnabled(false);
+    expect(sounds.calls.last, 'stop voice', reason: 'Ton aus beendet die Stimme');
+    sounds.voice('voice.talo.tap.2.mp3');
+    await sounds.setEnabled(true);
+
+    await sounds.setVoicesAllowed(false);
+    expect(settings.voices, isFalse);
+    sounds.voice('voice.talo.tap.3.mp3');
+    expect(sounds.playedVoices, ['voice.talo.tap.1.mp3']);
+
+    final reloaded = _Recording(settings: settings);
+    await reloaded.load();
+    expect(reloaded.voicesAllowed, isFalse);
+  });
+
+  test('Jede Stimme, die die App abspielt, gibt es als Aufnahme', () {
+    // Siehe tool/stimmen_aufnehmen.py; fehlt eine Datei, bleibt es nur still.
+    final files = Directory(Sounds.voiceFolder).listSync().map((f) => f.uri.pathSegments.last).toSet();
+    for (final name in [
+      for (var i = 1; i <= 4; i++) ...['voice.talo.tap.$i.mp3', 'voice.tala.tap.$i.mp3'],
+      for (var i = 1; i <= 3; i++) ...['voice.talo.station.$i.mp3', 'voice.tala.station.$i.mp3'],
+      for (var i = 1; i <= 2; i++) ...[
+        'voice.talo.island.$i.mp3',
+        'voice.tala.island.$i.mp3',
+        'voice.talo.oops.$i.mp3',
+        'voice.tala.oops.$i.mp3',
+        'voice.tala.dive.$i.mp3',
+        'voice.talo.seastop.$i.mp3',
+      ],
+      for (var i = 0; i < 6; i++) 'voice.${i.isEven ? 'tala' : 'talo'}.tip.$i.mp3',
+      'voice.talo.welcome.mp3',
+      'voice.tala.welcome.mp3',
+      'voice.talo.wind.mp3',
+      'voice.talo.nowind.mp3',
+      'voice.talo.reviews.mp3',
+      'voice.tala.treasure.mp3',
+      'voice.tala.shipyard.mp3',
+      'voice.tala.goal.mp3',
+      for (final t in ['first', 'hello', 'right', 'wrong', 'bye']) 'voice.taleron.$t.mp3',
+      'voice.talo.arrive.hafen.mp3',
+      'voice.tala.arrive.tauschinsel.mp3',
+      'voice.talo.arrive.wunschinsel.mp3',
+      'voice.tala.arrive.spar-insel.mp3',
+    ]) {
+      expect(files, contains(name));
+    }
   });
 }

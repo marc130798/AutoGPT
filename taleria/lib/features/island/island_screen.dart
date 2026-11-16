@@ -155,6 +155,18 @@ class _Arrival extends StatefulWidget {
 
 class _ArrivalState extends State<_Arrival> {
   late bool _showFilm = widget.details.arrivalVideoKey != null;
+  bool _spoke = false;
+
+  /// Wer auf der Insel begrüßt (Aufnahmen mit Marcs Stimmen).
+  static const _greeters = {'hafen': 'talo', 'tauschinsel': 'tala', 'wunschinsel': 'talo', 'spar-insel': 'tala'};
+
+  void _speak() {
+    final who = _greeters[widget.details.slug];
+    if (_spoke || who == null) return;
+    _spoke = true;
+    final sounds = AppScope.of(context).sounds;
+    WidgetsBinding.instance.addPostFrameCallback((_) => sounds.voice('voice.$who.arrive.${widget.details.slug}.mp3'));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +177,7 @@ class _ArrivalState extends State<_Arrival> {
         onContinue: () => details.arrivalScene.isEmpty ? widget.onDone() : setState(() => _showFilm = false),
       );
     }
+    _speak();
     // Vor dem leicht verblassten Inselbild, die Figur, die spricht, groß
     // darüber (Marcs Test am 20.10.2026: vorher nur heller Grund).
     return StationBackdrop(

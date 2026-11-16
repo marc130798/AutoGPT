@@ -120,6 +120,7 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                 PageIntro(
                   childId: widget.child.id,
                   page: 'shipyard',
+                  voice: 'voice.tala.shipyard.mp3',
                   children: [SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.shipyardIntro)],
                 ),
                 const SizedBox(height: 8),

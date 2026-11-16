@@ -247,6 +247,7 @@ class _Crew extends StatelessWidget {
                   width: 116,
                   height: 150,
                   lines: [l10n.livelyTalo1, l10n.livelyTalo2, l10n.livelyTalo3, l10n.livelyTalo4],
+                  voices: [for (var i = 1; i <= 4; i++) 'voice.talo.tap.$i.mp3'],
                 ),
               ),
             ),
@@ -268,6 +269,7 @@ class _Crew extends StatelessWidget {
                   height: 156,
                   bubbleToLeft: true,
                   lines: [l10n.livelyTala1, l10n.livelyTala2, l10n.livelyTala3, l10n.livelyTala4],
+                  voices: [for (var i = 1; i <= 4; i++) 'voice.tala.tap.$i.mp3'],
                 ),
               ),
             ),
@@ -877,6 +879,24 @@ class _HomeBodyState extends State<_HomeBody> {
     super.dispose();
   }
 
+  /// Einmal pro App-Start liest Talo oder Tala den Satz des Tages vor (mit
+  /// Marcs Stimmen); passt keine Aufnahme, sagen sie „Willkommen zurück“.
+  static bool _greeted = false;
+
+  void _speakGreeting(DailyGreeting g) {
+    if (_greeted) return;
+    _greeted = true;
+    final file = switch (g.kind) {
+      GreetingKind.wind => 'voice.talo.wind.mp3',
+      GreetingKind.waitWind => 'voice.talo.nowind.mp3',
+      GreetingKind.reviews => 'voice.talo.reviews.mp3',
+      GreetingKind.tip => 'voice.${g.speaker}.tip.${g.number}.mp3',
+      _ => 'voice.${g.speaker}.welcome.mp3',
+    };
+    final sounds = AppScope.of(context).sounds;
+    WidgetsBinding.instance.addPostFrameCallback((_) => sounds.voice(file));
+  }
+
   Future<void> _open(Widget screen) async {
     await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => screen));
     if (mounted) await _controller?.load();
@@ -914,9 +934,12 @@ class _HomeBodyState extends State<_HomeBody> {
             ),
             const SizedBox(height: 6),
             if (stats != null)
-              _GreetingBubble(
-                greeting: dailyGreeting(day: DateTime.now(), stats: stats, goals: _goals),
-                rankForm: child.rankForm,
+              Builder(
+                builder: (context) {
+                  final greeting = dailyGreeting(day: DateTime.now(), stats: stats, goals: _goals);
+                  _speakGreeting(greeting);
+                  return _GreetingBubble(greeting: greeting, rankForm: child.rankForm);
+                },
               ),
             _Crew(child: child),
             const SizedBox(height: 14),

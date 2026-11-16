@@ -4,12 +4,14 @@ import 'package:flutter/foundation.dart';
 
 import '../data/local_settings.dart';
 
-/// Musik im Hauptmenü, kurze Töne (richtige Antwort, Station geschafft) und
-/// kurzes Vibrieren bei Erfolgen.
+/// Musik im Hauptmenü, kurze Töne (richtige Antwort, Station geschafft),
+/// Stimmen von Talo, Tala und Meister Taleron und kurzes Vibrieren bei Erfolgen.
 ///
 /// Diese Klasse kennt nur die Regeln:
 /// - Ton aus (Lautsprecher-Knopf des Kindes): alles still.
 /// - Musik nicht erlaubt (Schalter im Leuchtturm): keine Musik, Töne ja.
+/// - Stimmen nicht erlaubt (Schalter im Leuchtturm): keine Stimmen, sonst alles.
+///   Es spricht immer nur eine Stimme; eine neue beendet die alte.
 /// - Vibrieren nicht erlaubt (Schalter im Leuchtturm): kein Vibrieren, unabhängig vom Ton.
 /// - Jeder Bildschirm sagt mit [music], welche Musik er möchte (`null` = keine).
 /// - Ist die App im Hintergrund, pausiert die Musik.
@@ -30,6 +32,7 @@ class Sounds extends ChangeNotifier {
   bool _enabled = true;
   bool _musicAllowed = true;
   bool _vibrationAllowed = true;
+  bool _voicesAllowed = true;
   bool _inBackground = false;
   String? _wanted;
   String? _playing;
@@ -44,6 +47,12 @@ class Sounds extends ChangeNotifier {
 
   /// Kurzes Vibrieren bei Erfolgen erlaubt (Schalter im Leuchtturm).
   bool get vibrationAllowed => _vibrationAllowed;
+
+  /// Stimmen erlaubt (Schalter im Leuchtturm).
+  bool get voicesAllowed => _voicesAllowed;
+
+  /// Alle Sprachaufnahmen, die gespielt wurden (für Tests).
+  final List<String> playedVoices = [];
 
   /// Wie oft vibriert wurde (für Tests).
   int vibrations = 0;
@@ -61,12 +70,14 @@ class Sounds extends ChangeNotifier {
     _enabled = await settings.soundOn();
     _musicAllowed = await settings.musicAllowed();
     _vibrationAllowed = await settings.vibrationAllowed();
+    _voicesAllowed = await settings.voicesAllowed();
     _apply();
     notifyListeners();
   }
 
   Future<void> setEnabled(bool on) async {
     _enabled = on;
+    if (!on) stopVoice();
     _apply();
     notifyListeners();
     await settings?.setSoundOn(on);
@@ -78,6 +89,28 @@ class Sounds extends ChangeNotifier {
     notifyListeners();
     await settings?.setMusicAllowed(on);
   }
+
+  Future<void> setVoicesAllowed(bool on) async {
+    _voicesAllowed = on;
+    if (!on) stopVoice();
+    notifyListeners();
+    await settings?.setVoicesAllowed(on);
+  }
+
+  /// Ordner der Sprachaufnahmen (aufgenommen mit `tool/stimmen_aufnehmen.py`).
+  static const voiceFolder = 'assets/audio/voice';
+
+  /// Eine Sprachaufnahme abspielen, zum Beispiel `voice.talo.tap.1.mp3`.
+  /// Still, wenn der Ton aus ist oder Stimmen nicht erlaubt sind; eine
+  /// laufende Stimme hört dabei auf. Fehlt die Datei, bleibt es still.
+  void voice(String file) {
+    if (!_enabled || !_voicesAllowed) return;
+    playedVoices.add(file);
+    playVoice('$voiceFolder/$file');
+  }
+
+  /// Die laufende Stimme beenden (zum Beispiel beim Verlassen einer Seite).
+  void stopVoice() => stopVoiceAudio();
 
   Future<void> setVibrationAllowed(bool on) async {
     _vibrationAllowed = on;
@@ -151,6 +184,13 @@ class Sounds extends ChangeNotifier {
 
   @protected
   void vibrate() {}
+
+  /// Pfad wie `assets/audio/voice/voice.talo.tap.1.mp3`.
+  @protected
+  void playVoice(String path) {}
+
+  @protected
+  void stopVoiceAudio() {}
 
   @override
   void dispose() {

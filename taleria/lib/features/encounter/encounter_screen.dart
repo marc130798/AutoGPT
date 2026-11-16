@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_scope.dart';
+import '../../services/sounds.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
@@ -58,12 +59,32 @@ class _EncounterScreenState extends State<EncounterScreen> {
         offer: widget.offer,
         level: widget.level,
         random: services.random,
-      )..start();
+      )..addListener(_onStep);
+      _sounds = services.sounds;
+      _controller!.start();
+    }
+  }
+
+  late Sounds _sounds;
+  EncounterStep? _lastStep;
+
+  /// Meister Taleron spricht mit Marcs Stimme: zur Begrüßung (beim ersten
+  /// Treffen etwas anderes) und zum Abschied.
+  void _onStep() {
+    final step = _controller!.step;
+    if (step == _lastStep) return;
+    _lastStep = step;
+    if (step == EncounterStep.intro) {
+      _sounds.voice(widget.offer.firstMeeting ? 'voice.taleron.first.mp3' : 'voice.taleron.hello.mp3');
+    } else if (step == EncounterStep.result) {
+      _sounds.voice('voice.taleron.bye.mp3');
     }
   }
 
   @override
   void dispose() {
+    _sounds.stopVoice();
+    _controller?.removeListener(_onStep);
     _controller?.dispose();
     super.dispose();
   }
@@ -203,7 +224,9 @@ class _RiddleView extends StatelessWidget {
                     onPressed: chosen == null
                         ? () {
                             controller.answer(i);
-                            if (run.answeredCorrectly) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+                            final sounds = AppScope.of(context).sounds;
+                            if (run.answeredCorrectly) sounds.effect(AssetKeys.soundCorrect);
+                            sounds.voice(run.answeredCorrectly ? 'voice.taleron.right.mp3' : 'voice.taleron.wrong.mp3');
                           }
                         : null,
                   ),
