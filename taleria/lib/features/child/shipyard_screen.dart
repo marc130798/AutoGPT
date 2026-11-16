@@ -10,7 +10,7 @@ import '../../domain/shipyard.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/avatar_view.dart';
 import '../common/menu_music.dart';
-import '../common/lively_figure.dart';
+import 'ship_dock.dart';
 import '../common/wood_sign.dart';
 import '../common/page_intro.dart';
 import '../common/scene_background.dart';
@@ -122,37 +122,30 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                   children: [SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.shipyardIntro)],
                 ),
                 const SizedBox(height: 8),
-                // Die Bühne: das eigene Schiff groß auf der Helling, davor das Kind.
-                SizedBox(
-                  height: 200,
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Positioned(
-                        right: 8,
-                        bottom: 0,
-                        child: SeaSway(amount: 1.2, child: FlaggedShip(flag: _avatar.flag, size: 190)),
-                      ),
-                      Positioned(
-                        left: 12,
-                        bottom: 0,
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: const Color(0xFFFFFBF0),
-                            border: Border.all(color: const Color(0xFFB8862B), width: 5),
-                            boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 8, offset: Offset(0, 4))],
-                          ),
-                          child: ClipOval(
-                            child: AvatarView(key: const ValueKey('shipyard-avatar'), avatar: _avatar, size: 100),
-                          ),
+                // Das eigene Schiff schwimmt im Hafenbecken, davor das Kind.
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ShipDock(flag: _avatar.flag),
+                    Positioned(
+                      left: -4,
+                      bottom: -14,
+                      child: Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xFFFFFBF0),
+                          border: Border.all(color: const Color(0xFFB8862B), width: 4),
+                          boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 8, offset: Offset(0, 4))],
+                        ),
+                        child: ClipOval(
+                          child: AvatarView(key: const ValueKey('shipyard-avatar'), avatar: _avatar, size: 78),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 14),
                 // Seemeilen und das nächste Teil, dazu der Schatzcode aus dem Logbuch.
                 WoodPanel(
                   padding: const EdgeInsets.fromLTRB(14, 8, 14, 10),
