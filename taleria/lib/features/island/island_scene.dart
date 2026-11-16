@@ -10,6 +10,10 @@ import '../../domain/content_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/game_sign.dart';
+import '../../domain/avatar.dart';
+import '../common/avatar_view.dart';
+import '../common/lively_figure.dart';
+import '../../core/assets/character_image.dart';
 
 /// Weg, wenn das Inselbild keinen eigenen hat (oder noch fehlt): in Kurven
 /// vom Steg unten bis nach oben.
@@ -110,7 +114,16 @@ class IslandScene extends StatelessWidget {
     required this.stations,
     required this.stateOf,
     required this.onOpen,
+    this.avatar,
   });
+
+  /// Spielfigur des Kindes (Löwe oder Löwin). Sie steht an der Station, die
+  /// gerade dran ist, und läuft zur nächsten, wenn eine geschafft ist (Marcs
+  /// Wunsch am 16.11.2026). `null` = keine Figur.
+  final AvatarConfig? avatar;
+
+  /// Größe der Spielfigur auf der Insel.
+  static const playerSize = Size(54, 74);
 
   /// Seitenverhältnis der Inselbilder (BILDER.md: Hochformat 9:16).
   static const aspect = 9 / 16;
@@ -153,6 +166,7 @@ class IslandScene extends StatelessWidget {
                     fallback: CustomPaint(painter: _FallbackIslandPainter(route)),
                   ),
                 ),
+                ?_player(spots, size, next, motion),
                 for (final (i, station) in stations.indexed)
                   Positioned(
                     left: spots[i].dx * size.width - marker / 2,
@@ -175,6 +189,56 @@ class IslandScene extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+extension on IslandScene {
+  /// Die Spielfigur steht links neben der Station, die dran ist (sonst an der
+  /// letzten geschafften). Ändert sich die Station, läuft sie hinüber.
+  Widget? _player(List<Offset> spots, Size size, StationInfo? next, bool motion) {
+    final avatar = this.avatar;
+    if (avatar == null || stations.isEmpty) return null;
+    var index = next == null ? -1 : stations.indexOf(next);
+    if (index < 0) {
+      index = stations.lastIndexWhere((s) => stateOf(s) == StationState.done);
+      if (index < 0) index = 0;
+    }
+    final spot = spots[index];
+    const s = IslandScene.playerSize;
+    return AnimatedPositioned(
+      key: const ValueKey('island-player'),
+      duration: motion ? const Duration(milliseconds: 1600) : Duration.zero,
+      curve: Curves.easeInOutCubic,
+      left: spot.dx * size.width - 25 - s.width * 0.85,
+      top: spot.dy * size.height - s.height + 18,
+      width: s.width,
+      height: s.height,
+      child: IgnorePointer(
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            // Weicher Schatten unter den Füßen.
+            Positioned(
+              left: s.width * 0.15,
+              right: s.width * 0.15,
+              bottom: -3,
+              height: 10,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [BoxShadow(color: Color(0x66000000), blurRadius: 6)],
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: Breathing(
+                child: CharacterImage(avatarKey(avatar), width: s.width, height: s.height, fallback: const SizedBox()),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

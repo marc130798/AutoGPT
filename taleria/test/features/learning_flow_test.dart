@@ -145,6 +145,10 @@ void main() {
 
     // Keine Ankunft im Hafen (der Film lief schon im Intro), direkt die Stationen.
     expect(find.byKey(const ValueKey('island-scene')), findsOneWidget);
+    // Die Spielfigur (Löwe oder Löwin) steht neben Station 2, die dran ist.
+    double playerTop() => tester.getTopLeft(find.byKey(const ValueKey('island-player'))).dy;
+    double markerTop(String key) => tester.getTopLeft(find.byKey(ValueKey(key))).dy;
+    expect((playerTop() - markerTop('station-2')).abs(), lessThan(80));
     await tapKey(tester, 'station-3');
     expect(find.text('Diese Station öffnet sich, wenn du die Station davor geschafft hast.'), findsOneWidget);
     await tapKey(tester, 'station-1');
@@ -188,6 +192,8 @@ void main() {
 
     await tapText(tester, 'Zurück zur Insel');
     expect(progress.done, contains('island-hafen/station2'));
+    // Station geschafft: Die Figur ist zum Ankerplatz weitergelaufen.
+    expect((playerTop() - markerTop('dive-1')).abs(), lessThan(80));
 
     // Nach Station 2 wirft das Schiff Anker: Station 3 wartet auf den Tauchgang.
     await tapKey(tester, 'station-3');

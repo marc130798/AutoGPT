@@ -19,6 +19,7 @@ import '../station/station_stage.dart';
 import 'island_scene.dart';
 import '../common/taleria_app_bar.dart';
 import '../common/menu_music.dart';
+import '../../domain/avatar.dart';
 
 /// Eine Insel: Ankunft beim ersten Besuch, danach die Stationen der Reihe nach.
 class IslandScreen extends StatefulWidget {
@@ -261,6 +262,7 @@ class _StationList extends StatelessWidget {
             stations: required,
             stateOf: controller.stateOf,
             onOpen: onOpen,
+            avatar: controller.child.avatar ?? const AvatarConfig(),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
