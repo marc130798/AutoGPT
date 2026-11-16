@@ -21,6 +21,12 @@ class ShowcaseTile extends StatelessWidget {
     this.glow = false,
   });
 
+  /// Größe des Bilds an der Wand und wie weit seine Mitte unter der Oberkante
+  /// des Platzes liegt (Rand 4, Nagel 22, halbes Bild 44). Daran landet der
+  /// Orden, wenn er aufgehängt wird.
+  static const double wallImageSize = 88;
+  static const double wallImageCenter = 4 + 22 + wallImageSize / 2;
+
   /// Wie an einer Wand: ohne Kasten, das Bild hängt an einem Nagel, der Name
   /// steht auf einem Messingschild (Orden).
   final bool wall;
@@ -126,7 +132,10 @@ class ShowcaseTile extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Opacity(opacity: earned ? 1 : 0.45, child: TaleriaAsset(assetKey, width: 88, height: 88)),
+                    Opacity(
+                      opacity: earned ? 1 : 0.45,
+                      child: TaleriaAsset(assetKey, width: wallImageSize, height: wallImageSize),
+                    ),
                     if (!earned)
                       Positioned(
                         right: 4,
