@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/assets/asset_keys.dart';
+import '../../core/assets/character_image.dart';
 import '../../domain/avatar.dart';
 
 /// Farben des Avatar-Baukastens. Die Namen der Werte stehen in
@@ -48,14 +50,29 @@ abstract final class AvatarPalette {
   static const scarf = {Scarf.red: Color(0xFFC0392B), Scarf.gold: Color(0xFFE6BB45), Scarf.purple: Color(0xFF8E5BB5)};
 }
 
-/// Zeichnet den Avatar aus einfachen Formen. Wird später durch die
-/// Rive-Animation `character.avatar` ersetzt, mit denselben Auswahl-Werten.
+/// Bildschlüssel der Figur des Kindes, zum Beispiel `avatar.lioness`.
+String avatarKey(AvatarConfig avatar) => 'avatar.${avatar.figure.name}';
+
+/// Die Figur des Kindes: Löwe oder Löwin als Bild (BILDER.md 4r), auf Wunsch
+/// in einer Pose. Mit [portrait] nur Kopf und Schultern (für runde Rahmen).
+/// Fehlt das Bild, zeichnet die App die frühere einfache Figur.
 class AvatarView extends StatelessWidget {
-  const AvatarView({super.key, required this.avatar, this.size = 160, this.semanticLabel});
+  const AvatarView({
+    super.key,
+    required this.avatar,
+    this.size = 160,
+    this.semanticLabel,
+    this.pose,
+    this.portrait = false,
+  });
 
   final AvatarConfig avatar;
   final double size;
   final String? semanticLabel;
+  final CharacterPose? pose;
+
+  /// Nur Kopf und Schultern, das Bild füllt das Quadrat.
+  final bool portrait;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +81,15 @@ class AvatarView extends StatelessWidget {
       image: true,
       child: SizedBox.square(
         dimension: size,
-        child: CustomPaint(painter: _AvatarPainter(avatar)),
+        child: CharacterImage(
+          avatarKey(avatar),
+          pose: pose,
+          width: size,
+          height: size,
+          fit: portrait ? BoxFit.fitWidth : BoxFit.contain,
+          alignment: portrait ? const Alignment(0, -0.75) : Alignment.bottomCenter,
+          fallback: CustomPaint(painter: _AvatarPainter(avatar)),
+        ),
       ),
     );
   }

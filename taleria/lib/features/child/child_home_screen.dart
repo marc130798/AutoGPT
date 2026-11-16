@@ -249,7 +249,14 @@ class _Crew extends StatelessWidget {
                 ),
               ),
             ),
-            _PlayerFigure(avatar: child.avatar ?? const AvatarConfig()),
+            // Das Kind selbst: Löwe oder Löwin, winkt; Antippen lässt es etwas sagen.
+            LivelyFigure(
+              character: avatarKey(child.avatar ?? const AvatarConfig()),
+              phase: 0.25,
+              width: 124,
+              height: 170,
+              lines: [l10n.livelyKid1, l10n.livelyKid2, l10n.livelyKid3],
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -272,35 +279,6 @@ class _Crew extends StatelessWidget {
           flag: (child.avatar ?? const AvatarConfig()).flag,
         ),
       ],
-    );
-  }
-}
-
-/// Die Figur des Kindes in der Mitte der Crew. Bis die Bilder von Löwe und
-/// Löwin da sind (BILDER.md Abschnitt 4r), steht die gezeichnete Figur in
-/// einem runden Rahmen mit Messingrand und schaukelt wie auf See.
-class _PlayerFigure extends StatelessWidget {
-  const _PlayerFigure({required this.avatar});
-
-  final AvatarConfig avatar;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 128,
-      height: 128,
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: const RadialGradient(colors: [Color(0xFFFFFBF0), Color(0xFFF1E3C4)]),
-        border: Border.all(color: const Color(0xFFB8862B), width: 6),
-        boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 10, offset: Offset(0, 5))],
-      ),
-      child: ClipOval(
-        child: Center(
-          child: SeaSway(phase: 0.2, child: AvatarView(avatar: avatar, size: 110)),
-        ),
-      ),
     );
   }
 }

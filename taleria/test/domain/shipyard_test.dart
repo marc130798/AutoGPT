@@ -5,9 +5,9 @@ import 'package:taleria/domain/shipyard.dart';
 void main() {
   test('Teile werden mit Seemeilen frei, nichts wird abgezogen', () {
     expect(unlockedShipyardCount(0), 0);
-    expect(unlockedShipyardCount(199), 0);
-    expect(unlockedShipyardCount(200), 1);
-    expect(unlockedShipyardCount(1200), 4);
+    expect(unlockedShipyardCount(399), 0);
+    expect(unlockedShipyardCount(400), 1);
+    expect(unlockedShipyardCount(1200), 1);
     expect(unlockedShipyardCount(100000), shipyardItems.where((i) => i.minXp > 0).length);
     expect(nextShipyardItem(1200)!.id, 'flag_wave');
     expect(nextShipyardItem(8000), isNull);
@@ -22,28 +22,27 @@ void main() {
     expect(ids.toSet().length, ids.length);
   });
 
-  test('Intro-Jacken und -Hüte sind frei, Werft-Teile nicht im Intro', () {
-    expect(lookOptions(LookSlot.outfit).where((i) => i.minXp == 0).map((i) => i.value), starterOutfits);
-    expect(starterOutfits, isNot(contains(OutfitColor.gold)));
-    expect(starterHats, isNot(contains(Hat.goldCaptain)));
-  });
-
-  test('Anziehen ändert nur den einen Platz', () {
-    const avatar = AvatarConfig();
-    final item = shipyardItems.firstWhere((i) => i.id == 'scarf_red');
+  test('Flagge hissen ändert nur die Flagge, die Figur bleibt', () {
+    const avatar = AvatarConfig(figure: PlayerFigure.lioness);
+    final item = shipyardItems.firstWhere((i) => i.id == 'flag_stripes');
     final worn = wearLook(avatar, item);
-    expect(worn.scarf, Scarf.red);
-    expect(worn.copyWith(scarf: Scarf.none), avatar);
+    expect(worn.flag, ShipFlag.stripes);
+    expect(worn.figure, PlayerFigure.lioness);
     expect(wearsLook(worn, item), isTrue);
     expect(wearsLook(avatar, item), isFalse);
   });
 
-  test('Halstuch und Flagge stehen im Avatar-JSON, alte Avatare bleiben gültig', () {
-    final avatar = const AvatarConfig().copyWith(scarf: Scarf.gold, flag: ShipFlag.sun);
+  test('Figur und Flagge stehen im Avatar-JSON, alte Avatare werden zum Löwen', () {
+    final avatar = const AvatarConfig().copyWith(figure: PlayerFigure.lioness, flag: ShipFlag.sun);
     expect(AvatarConfig.fromJson(avatar.toJson()), avatar);
-    final old = AvatarConfig.fromJson(const {'outfit': 'red'});
-    expect(old.scarf, Scarf.none);
+    final old = AvatarConfig.fromJson(const {'outfit': 'red', 'species': 'cat'});
+    expect(old.figure, PlayerFigure.lion);
     expect(old.flag, ShipFlag.taleria);
+  });
+
+  test('Die Werft zeigt nur noch Schiffsteile', () {
+    expect(shipyardItems.map((i) => i.slot).toSet(), {LookSlot.flag});
+    expect(logbookItem('wunschinsel')!.value, ShipFlag.bottle);
   });
 
   test('Schatzcode aus dem Logbuch: schaltet die Anker-Flagge frei, Seemeilen helfen nicht', () {

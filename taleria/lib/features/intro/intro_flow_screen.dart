@@ -7,7 +7,6 @@ import '../../core/assets/taleria_asset.dart';
 import '../../core/assets/video_placeholder.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/avatar.dart';
-import '../../domain/shipyard.dart';
 import '../../domain/progress_models.dart';
 import '../../domain/validators.dart';
 import '../../l10n/app_localizations.dart';
@@ -17,6 +16,7 @@ import '../child/board_tour.dart';
 import '../child/lighthouse_button.dart';
 import '../child/rank_form_choice.dart';
 import '../common/avatar_view.dart';
+import '../common/figure_choice.dart';
 import '../common/busy_action.dart';
 import '../common/button_spinner.dart';
 import '../common/texts.dart';
@@ -172,65 +172,15 @@ class _AvatarStep extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             children: [
               Text(l10n.avatarTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
-              const SizedBox(height: 8),
-              Center(
-                child: AvatarView(key: const ValueKey('avatar-preview'), avatar: avatar, size: 180),
+              const SizedBox(height: 16),
+              // Löwe oder Löwin (seit 16.11.2026 statt des Baukastens, BILDER.md 4r).
+              FigureChoice(
+                key: const ValueKey('avatar-preview'),
+                avatar: avatar,
+                onChoose: (f) => update(avatar.copyWith(figure: f)),
               ),
-              _ChipRow(
-                title: l10n.avatarSpecies,
-                labels: [
-                  l10n.avatarSpeciesHuman,
-                  l10n.avatarSpeciesCat,
-                  l10n.avatarSpeciesDog,
-                  l10n.avatarSpeciesBear,
-                  l10n.avatarSpeciesRabbit,
-                  l10n.avatarSpeciesMouse,
-                ],
-                selected: avatar.species.index,
-                onSelect: (i) => update(avatar.copyWith(species: Species.values[i])),
-              ),
-              _ColorRow(
-                title: avatar.isAnimal ? l10n.avatarFur : l10n.avatarSkin,
-                colors: [
-                  for (final s in SkinTone.values) (avatar.isAnimal ? AvatarPalette.fur : AvatarPalette.skin)[s]!,
-                ],
-                selected: avatar.skin.index,
-                onSelect: (i) => update(avatar.copyWith(skin: SkinTone.values[i])),
-              ),
-              // Frisur und Haarfarbe gibt es nur für Menschen.
-              if (!avatar.isAnimal) ...[
-                _ChipRow(
-                  title: l10n.avatarHairStyle,
-                  labels: [
-                    l10n.avatarHairShort,
-                    l10n.avatarHairLong,
-                    l10n.avatarHairCurly,
-                    l10n.avatarHairBraid,
-                    l10n.avatarHairNone,
-                  ],
-                  selected: avatar.hairStyle.index,
-                  onSelect: (i) => update(avatar.copyWith(hairStyle: HairStyle.values[i])),
-                ),
-                _ColorRow(
-                  title: l10n.avatarHairColor,
-                  colors: [for (final c in HairColor.values) AvatarPalette.hair[c]!],
-                  selected: avatar.hairColor.index,
-                  onSelect: (i) => update(avatar.copyWith(hairColor: HairColor.values[i])),
-                ),
-              ],
-              _ColorRow(
-                title: l10n.avatarOutfit,
-                // Im Intro nur die Starter-Jacken; weitere schaltet die Werft mit Seemeilen frei.
-                colors: [for (final c in starterOutfits) AvatarPalette.outfit[c]!],
-                selected: starterOutfits.indexOf(avatar.outfit),
-                onSelect: (i) => update(avatar.copyWith(outfit: starterOutfits[i])),
-              ),
-              _ChipRow(
-                title: l10n.avatarHat,
-                labels: [l10n.avatarHatNone, l10n.avatarHatCaptain, l10n.avatarHatBandana, l10n.avatarHatStraw],
-                selected: starterHats.indexOf(avatar.hat),
-                onSelect: (i) => update(avatar.copyWith(hat: starterHats[i])),
-              ),
+              const SizedBox(height: 16),
+              Text(l10n.figureHint, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
             ],
           ),
         ),
@@ -244,108 +194,6 @@ class _AvatarStep extends StatelessWidget {
   }
 }
 
-class _ColorRow extends StatelessWidget {
-  const _ColorRow({required this.title, required this.colors, required this.selected, required this.onSelect});
-
-  final String title;
-  final List<Color> colors;
-  final int selected;
-  final ValueChanged<int> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final palette = context.palette;
-    return _Section(
-      title: title,
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: [
-          for (var i = 0; i < colors.length; i++)
-            Semantics(
-              button: true,
-              selected: i == selected,
-              label: l10n.avatarColorOption(title, i + 1),
-              child: InkResponse(
-                onTap: () => onSelect(i),
-                radius: 28,
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: colors[i],
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: i == selected ? palette.ink : palette.placeholderBorder,
-                      width: i == selected ? 4 : 1,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ChipRow extends StatelessWidget {
-  const _ChipRow({required this.title, required this.labels, required this.selected, required this.onSelect});
-
-  final String title;
-  final List<String> labels;
-  final int selected;
-  final ValueChanged<int> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    return _Section(
-      title: title,
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: [
-          for (var i = 0; i < labels.length; i++)
-            ChoiceChip(
-              label: Text(labels[i]),
-              selected: i == selected,
-              onSelected: (_) => onSelect(i),
-              materialTapTargetSize: MaterialTapTargetSize.padded,
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.child});
-
-  final String title;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          child,
-        ],
-      ),
-    );
-  }
-}
-
-// -----------------------------------------------------------------------------
-// Rang-Namen
-// -----------------------------------------------------------------------------
-
-/// Tala fragt, wie die Ränge heißen sollen: Schiffsjunge … oder Schiffsmädchen ….
 class _RankFormStep extends StatelessWidget {
   const _RankFormStep({required this.controller});
 

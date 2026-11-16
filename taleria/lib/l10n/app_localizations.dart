@@ -661,6 +661,48 @@ abstract class AppLocalizations {
   /// **'Die Logbücher findest du in der Web-Version von Taleria.'**
   String get logbooksOnlyWeb;
 
+  /// Startseite: die Figur des Kindes beim Antippen
+  ///
+  /// In de, this message translates to:
+  /// **'Ahoi! Auf zur nächsten Insel!'**
+  String get livelyKid1;
+
+  /// Startseite: die Figur des Kindes beim Antippen
+  ///
+  /// In de, this message translates to:
+  /// **'Ich bin bereit!'**
+  String get livelyKid2;
+
+  /// Startseite: die Figur des Kindes beim Antippen
+  ///
+  /// In de, this message translates to:
+  /// **'Wo ist die nächste Schatzkarte?'**
+  String get livelyKid3;
+
+  /// Figur des Kindes: Löwe
+  ///
+  /// In de, this message translates to:
+  /// **'Löwe'**
+  String get figureLion;
+
+  /// Figur des Kindes: Löwin
+  ///
+  /// In de, this message translates to:
+  /// **'Löwin'**
+  String get figureLioness;
+
+  /// Intro: Hinweis unter der Wahl von Löwe oder Löwin
+  ///
+  /// In de, this message translates to:
+  /// **'Du kannst deine Figur später in der Werft jederzeit wechseln.'**
+  String get figureHint;
+
+  /// Werft: Überschrift über der Wahl von Löwe oder Löwin
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Figur'**
+  String get shipyardFigure;
+
   /// Werft: Hinweis unter dem Knopf für den Schatzcode, woher das Logbuch kommt
   ///
   /// In de, this message translates to:
@@ -4564,7 +4606,7 @@ abstract class AppLocalizations {
   /// Name eines Teils in der Werft
   ///
   /// In de, this message translates to:
-  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} other{Teil}}'**
+  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} other{Teil}}'**
   String lookName(String id);
 
   /// Kachel auf der Startseite zur Werft

@@ -292,7 +292,7 @@ def wunschinsel():
              + '      <div class="writeline"></div><div class="writeline"></div>\n'))
     s += certificate(t, "Klarer Kompass", "badge.wunschinsel.png",
         "was man wirklich braucht, wie die Warte-Regel hilft und wie man Nein sagt",
-        "FLASCHE5", "das <b>Lila Halstuch</b> für deine Figur", 6)
+        "FLASCHE5", "die <b>Flaschenpost-Flagge</b> für dein Schiff", 6)
     s += parents(t, [
         ("Seite 2", ["Brauchen: Trinkwasser, Winterjacke, Zahnbürste, Brot, Bett. Wünschen: Videospiel, Sticker, Kinokarte, Glitzer-Turnschuhe.",
                      "Sinnvolle Reihenfolge zum Beispiel: Heft, Geschenk, dann Eis oder Comic. Heft, Geschenk und Eis kosten 12 €, 3 € bleiben übrig. Comic statt Eis ginge nicht (16 €)."]),

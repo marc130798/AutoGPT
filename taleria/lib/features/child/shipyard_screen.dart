@@ -10,6 +10,7 @@ import '../../domain/shipyard.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/avatar_view.dart';
 import '../common/menu_music.dart';
+import '../common/figure_choice.dart';
 import 'ship_dock.dart';
 import '../common/wood_sign.dart';
 import '../common/page_intro.dart';
@@ -139,7 +140,12 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                           boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 8, offset: Offset(0, 4))],
                         ),
                         child: ClipOval(
-                          child: AvatarView(key: const ValueKey('shipyard-avatar'), avatar: _avatar, size: 78),
+                          child: AvatarView(
+                            key: const ValueKey('shipyard-avatar'),
+                            avatar: _avatar,
+                            size: 78,
+                            portrait: true,
+                          ),
                         ),
                       ),
                     ),
@@ -192,7 +198,25 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                for (final slot in LookSlot.values)
+                // Löwe oder Löwin, jederzeit umstellbar.
+                PaperCard(
+                  key: const ValueKey('shipyard-figure'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(l10n.shipyardFigure, style: theme.textTheme.titleLarge),
+                      const SizedBox(height: 8),
+                      FigureChoice(
+                        avatar: _avatar,
+                        size: 110,
+                        onChoose: (f) {
+                          if (f != _avatar.figure && !_saving) _save(_avatar.copyWith(figure: f));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                for (final slot in shipyardSlots)
                   PaperCard(
                     key: ValueKey('shipyard-${slot.name}'),
                     child: Column(

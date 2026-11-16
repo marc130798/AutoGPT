@@ -3,7 +3,13 @@
 /// Oberfläche fest (heute einfache Formen, später Grafiken).
 library;
 
-/// Mensch oder Tier (FIGUREN.md: „Mensch oder Tier nach Wahl“).
+/// Die Figur des Kindes seit 16.11.2026 (mit Marc entschieden): ein junger
+/// Löwe oder eine junge Löwin im 3D-Stil von Talo und Tala (BILDER.md 4r).
+/// Die alten Werte (Art, Haut, Haare, Jacke, Hut, Halstuch) bleiben im JSON
+/// lesbar, werden aber nicht mehr gezeigt.
+enum PlayerFigure { lion, lioness }
+
+/// Mensch oder Tier (früherer Baukasten, nicht mehr sichtbar).
 enum Species { human, cat, dog, bear, rabbit, mouse }
 
 /// Haut- oder Fellfarbe, je nach [Species].
@@ -23,10 +29,11 @@ enum Hat { none, captain, bandana, straw, tricorn, goldCaptain }
 enum Scarf { none, red, gold, purple }
 
 /// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
-enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin }
+enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin, bottle }
 
 class AvatarConfig {
   const AvatarConfig({
+    this.figure = PlayerFigure.lion,
     this.species = Species.human,
     this.skin = SkinTone.s3,
     this.hairStyle = HairStyle.short,
@@ -45,6 +52,7 @@ class AvatarConfig {
     if (json == null) return fallback;
     T pick<T extends Enum>(List<T> values, String key, T orElse) => values.asNameMap()[json[key]] ?? orElse;
     return AvatarConfig(
+      figure: pick(PlayerFigure.values, 'figure', fallback.figure),
       species: pick(Species.values, 'species', fallback.species),
       skin: pick(SkinTone.values, 'skin', fallback.skin),
       hairStyle: pick(HairStyle.values, 'hair', fallback.hairStyle),
@@ -63,6 +71,8 @@ class AvatarConfig {
   /// Version des Formats, falls sich der Baukasten später ändert.
   static const formatVersion = 1;
 
+  /// Löwe oder Löwin. Wer vorher eine andere Figur hatte, bekommt den Löwen.
+  final PlayerFigure figure;
   final Species species;
   final SkinTone skin;
   final HairStyle hairStyle;
@@ -77,6 +87,7 @@ class AvatarConfig {
 
   Map<String, dynamic> toJson() => {
     'v': formatVersion,
+    'figure': figure.name,
     'species': species.name,
     'skin': skin.name,
     'hair': hairStyle.name,
@@ -91,6 +102,7 @@ class AvatarConfig {
   bool get isAnimal => species != Species.human;
 
   AvatarConfig copyWith({
+    PlayerFigure? figure,
     Species? species,
     SkinTone? skin,
     HairStyle? hairStyle,
@@ -102,6 +114,7 @@ class AvatarConfig {
     Set<String>? logbooks,
   }) {
     return AvatarConfig(
+      figure: figure ?? this.figure,
       species: species ?? this.species,
       skin: skin ?? this.skin,
       hairStyle: hairStyle ?? this.hairStyle,
@@ -117,6 +130,7 @@ class AvatarConfig {
   @override
   bool operator ==(Object other) =>
       other is AvatarConfig &&
+      other.figure == figure &&
       other.species == species &&
       other.skin == skin &&
       other.hairStyle == hairStyle &&
@@ -129,6 +143,16 @@ class AvatarConfig {
       other.logbooks.containsAll(logbooks);
 
   @override
-  int get hashCode =>
-      Object.hash(species, skin, hairStyle, hairColor, outfit, hat, scarf, flag, Object.hashAllUnordered(logbooks));
+  int get hashCode => Object.hash(
+    figure,
+    species,
+    skin,
+    hairStyle,
+    hairColor,
+    outfit,
+    hat,
+    scarf,
+    flag,
+    Object.hashAllUnordered(logbooks),
+  );
 }

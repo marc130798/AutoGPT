@@ -1,10 +1,17 @@
 import 'avatar.dart';
 
-/// Werft: Teile für den Avatar und Flaggen fürs Schiff, die das Kind mit
-/// Seemeilen freischaltet (CLAUDE.md Abschnitt 8: verdient, nie gekauft).
-/// Nichts wird ausgegeben: Wer die Grenze erreicht, darf das Teil tragen.
-/// Gespeichert wird nur, was das Kind trägt (im Avatar-JSON).
+/// Werft: Teile fürs eigene Schiff, die das Kind mit Seemeilen freischaltet
+/// (CLAUDE.md Abschnitt 8: verdient, nie gekauft). Nichts wird ausgegeben: Wer
+/// die Grenze erreicht, darf das Teil nutzen. Gespeichert wird nur, was das
+/// Kind gewählt hat (im Avatar-JSON).
+///
+/// Seit 16.11.2026 ist die Figur des Kindes Löwe oder Löwin (frei wählbar,
+/// [PlayerFigure]); Jacken, Hüte und Halstücher gibt es nicht mehr. Weitere
+/// Schiffsteile (Segel, Galionsfigur, Laterne) folgen mit eigenen Bildern.
 enum LookSlot { outfit, hat, scarf, flag }
+
+/// Plätze, die die Werft heute zeigt.
+const shipyardSlots = [LookSlot.flag];
 
 class LookItem {
   const LookItem(this.slot, this.value, this.minXp, {this.logbook});
@@ -29,21 +36,14 @@ class LookItem {
 /// zu den Rängen: Matrose ab 1.500, Bootsmann ab 4.000, Steuermann ab 8.000.
 const shipyardItems = <LookItem>[
   LookItem(LookSlot.flag, ShipFlag.taleria, 0),
-  LookItem(LookSlot.scarf, Scarf.none, 0),
-  LookItem(LookSlot.scarf, Scarf.red, 200),
   LookItem(LookSlot.flag, ShipFlag.stripes, 400),
-  LookItem(LookSlot.outfit, OutfitColor.teal, 700),
-  LookItem(LookSlot.hat, Hat.tricorn, 1000),
   LookItem(LookSlot.flag, ShipFlag.wave, 1500),
-  LookItem(LookSlot.scarf, Scarf.gold, 2000),
-  LookItem(LookSlot.outfit, OutfitColor.gold, 3000),
   LookItem(LookSlot.flag, ShipFlag.star, 4000),
-  LookItem(LookSlot.hat, Hat.goldCaptain, 6000),
   LookItem(LookSlot.flag, ShipFlag.sun, 8000),
   // Aus dem Logbuch zum Ausdrucken (Schatzcode auf der Urkunde).
   LookItem(LookSlot.flag, ShipFlag.anchor, 0, logbook: 'hafen'),
   LookItem(LookSlot.flag, ShipFlag.shell, 0, logbook: 'tauschinsel'),
-  LookItem(LookSlot.scarf, Scarf.purple, 0, logbook: 'wunschinsel'),
+  LookItem(LookSlot.flag, ShipFlag.bottle, 0, logbook: 'wunschinsel'),
   LookItem(LookSlot.flag, ShipFlag.coin, 0, logbook: 'spar-insel'),
 ];
 
@@ -61,23 +61,8 @@ LookItem? logbookItem(String logbook) {
   return null;
 }
 
-/// Jacken und Kopfbedeckungen, die es schon im Intro gibt.
-const starterOutfits = [
-  OutfitColor.navy,
-  OutfitColor.red,
-  OutfitColor.green,
-  OutfitColor.yellow,
-  OutfitColor.purple,
-  OutfitColor.orange,
-];
-const starterHats = [Hat.none, Hat.captain, Hat.bandana, Hat.straw];
-
-/// Alle Möglichkeiten eines Platzes: zuerst die aus dem Intro (frei), dann die der Werft.
+/// Alle Möglichkeiten eines Platzes.
 List<LookItem> lookOptions(LookSlot slot) => [
-  if (slot == LookSlot.outfit)
-    for (final o in starterOutfits) LookItem(slot, o, 0),
-  if (slot == LookSlot.hat)
-    for (final h in starterHats) LookItem(slot, h, 0),
   for (final i in shipyardItems)
     if (i.slot == slot) i,
 ];

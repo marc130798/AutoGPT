@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taleria/core/app_scope.dart';
 import 'package:taleria/domain/avatar.dart';
 import 'package:taleria/domain/family_models.dart';
 import 'package:taleria/features/common/avatar_view.dart';
@@ -50,8 +51,8 @@ void main() {
 
     // Avatar
     expect(find.text('Wie siehst du aus?'), findsOneWidget);
-    await tapText(tester, 'Locken');
-    await tapText(tester, 'Strohhut');
+    await tester.tap(find.byKey(const ValueKey('figure-lioness')));
+    await tester.pumpAndSettle();
     await tapText(tester, 'So sehe ich aus!');
 
     // Rang-Namen: Mila wählt Schiffsmädchen
@@ -116,8 +117,7 @@ void main() {
     expect(mila.onboardingCompleted, isTrue);
     expect(mila.shipName, 'Goldmöwe');
     expect(mila.rankForm, RankForm.maedchen);
-    expect(mila.avatar?.hat, Hat.straw);
-    expect(mila.avatar?.hairStyle, HairStyle.curly);
+    expect(mila.avatar?.figure, PlayerFigure.lioness);
     expect(backend.savingsGoals.single.title, 'Fahrradhelm');
     expect(backend.savingsGoals.single.targetCents, 4000);
     expect(backend.xpByChild[mila.id], 50);
@@ -156,35 +156,34 @@ void main() {
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
   });
 
-  testWidgets('Tier-Avatar: Fellfarbe statt Frisur', (tester) async {
+  testWidgets('Figur: Löwe ist vorgewählt, ohne Wahl bleibt es der Löwe', (tester) async {
     final backend = await startNewChild(tester);
     await tapText(tester, 'Weiter');
     for (var i = 0; i < 4; i++) {
       await tapText(tester, 'Weiter');
     }
     await tapText(tester, 'Ja, ich bin dabei!');
-    expect(find.text('Frisur'), findsOneWidget);
-    await tapText(tester, 'Katze');
-    expect(find.text('Fellfarbe'), findsOneWidget);
-    expect(find.text('Frisur'), findsNothing);
-    expect(find.text('Haarfarbe'), findsNothing);
+    expect(find.byKey(const ValueKey('figure-lion')), findsOneWidget);
+    expect(find.byKey(const ValueKey('figure-lioness')), findsOneWidget);
+    expect(find.text('Frisur'), findsNothing, reason: 'kein Baukasten mehr');
     await tapText(tester, 'So sehe ich aus!');
-    expect(backend.children.single.avatar?.species, Species.cat);
+    expect(backend.children.single.avatar?.figure, PlayerFigure.lion);
   });
 
   testWidgets('Jeder Avatar lässt sich zeichnen', (tester) async {
-    for (final species in Species.values) {
-      for (final hat in Hat.values) {
-        for (final hair in HairStyle.values) {
-          await tester.pumpWidget(
-            MaterialApp(
+    for (final figure in PlayerFigure.values) {
+      for (final species in Species.values) {
+        await tester.pumpWidget(
+          AppScope(
+            services: buildTestApp().services,
+            child: MaterialApp(
               home: AvatarView(
-                avatar: AvatarConfig(species: species, hat: hat, hairStyle: hair),
+                avatar: AvatarConfig(figure: figure, species: species),
               ),
             ),
-          );
-          expect(tester.takeException(), isNull, reason: '$species $hat $hair');
-        }
+          ),
+        );
+        expect(tester.takeException(), isNull, reason: '$figure $species');
       }
     }
   });

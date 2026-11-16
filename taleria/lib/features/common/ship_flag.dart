@@ -134,6 +134,28 @@ class _ShipFlagPainter extends CustomPainter {
           tPaint,
         );
         canvas.drawLine(t + Offset(0, -rect.height * 0.1), t + Offset(0, rect.height * 0.12), tPaint);
+      case ShipFlag.bottle:
+        // Flaschenpost (Logbuch der Wunschinsel): grüne Flasche mit Brief auf Lila.
+        canvas.drawRect(rect, Paint()..color = const Color(0xFF7D4E9E));
+        final h = rect.height;
+        final c = rect.center;
+        final glass = Paint()..color = const Color(0xFF9FD8C4);
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromCenter(center: c + Offset(h * 0.04, 0), width: h * 0.62, height: h * 0.34),
+            Radius.circular(h * 0.14),
+          ),
+          glass,
+        );
+        canvas.drawRect(Rect.fromCenter(center: c + Offset(-h * 0.36, 0), width: h * 0.16, height: h * 0.14), glass);
+        canvas.drawRect(
+          Rect.fromCenter(center: c + Offset(-h * 0.46, 0), width: h * 0.07, height: h * 0.16),
+          Paint()..color = const Color(0xFFB07A45),
+        );
+        canvas.drawRect(
+          Rect.fromCenter(center: c + Offset(h * 0.05, 0), width: h * 0.32, height: h * 0.14),
+          Paint()..color = _white,
+        );
       case ShipFlag.sun:
         canvas.drawRect(rect, Paint()..color = _orange);
         canvas.drawCircle(rect.center, rect.height * 0.24, Paint()..color = _gold);

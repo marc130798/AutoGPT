@@ -312,6 +312,27 @@ class AppLocalizationsDe extends AppLocalizations {
   String get logbooksOnlyWeb => 'Die Logbücher findest du in der Web-Version von Taleria.';
 
   @override
+  String get livelyKid1 => 'Ahoi! Auf zur nächsten Insel!';
+
+  @override
+  String get livelyKid2 => 'Ich bin bereit!';
+
+  @override
+  String get livelyKid3 => 'Wo ist die nächste Schatzkarte?';
+
+  @override
+  String get figureLion => 'Löwe';
+
+  @override
+  String get figureLioness => 'Löwin';
+
+  @override
+  String get figureHint => 'Du kannst deine Figur später in der Werft jederzeit wechseln.';
+
+  @override
+  String get shipyardFigure => 'Deine Figur';
+
+  @override
   String get shipyardLogbookHint =>
       'Den Schatzcode findest du in deinem Logbuch. Deine Eltern können es im Leuchtturm ausdrucken.';
 
@@ -2835,6 +2856,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag_anchor': 'Anker-Flagge',
       'flag_shell': 'Muschel-Flagge',
       'flag_coin': 'Taler-Flagge',
+      'flag_bottle': 'Flaschenpost-Flagge',
       'other': 'Teil',
     });
     return '$_temp0';

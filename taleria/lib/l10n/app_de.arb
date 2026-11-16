@@ -405,6 +405,34 @@
   "@logbooksOnlyWeb": {
     "description": "Logbücher: Hinweis, wenn das PDF auf diesem Gerät nicht geöffnet werden kann"
   },
+  "livelyKid1": "Ahoi! Auf zur nächsten Insel!",
+  "@livelyKid1": {
+    "description": "Startseite: die Figur des Kindes beim Antippen"
+  },
+  "livelyKid2": "Ich bin bereit!",
+  "@livelyKid2": {
+    "description": "Startseite: die Figur des Kindes beim Antippen"
+  },
+  "livelyKid3": "Wo ist die nächste Schatzkarte?",
+  "@livelyKid3": {
+    "description": "Startseite: die Figur des Kindes beim Antippen"
+  },
+  "figureLion": "Löwe",
+  "@figureLion": {
+    "description": "Figur des Kindes: Löwe"
+  },
+  "figureLioness": "Löwin",
+  "@figureLioness": {
+    "description": "Figur des Kindes: Löwin"
+  },
+  "figureHint": "Du kannst deine Figur später in der Werft jederzeit wechseln.",
+  "@figureHint": {
+    "description": "Intro: Hinweis unter der Wahl von Löwe oder Löwin"
+  },
+  "shipyardFigure": "Deine Figur",
+  "@shipyardFigure": {
+    "description": "Werft: Überschrift über der Wahl von Löwe oder Löwin"
+  },
   "shipyardLogbookHint": "Den Schatzcode findest du in deinem Logbuch. Deine Eltern können es im Leuchtturm ausdrucken.",
   "@shipyardLogbookHint": {
     "description": "Werft: Hinweis unter dem Knopf für den Schatzcode, woher das Logbuch kommt"
@@ -3946,7 +3974,7 @@
       }
     }
   },
-  "lookName": "{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} other{Teil}}",
+  "lookName": "{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} other{Teil}}",
   "@lookName": {
     "description": "Name eines Teils in der Werft",
     "placeholders": {
