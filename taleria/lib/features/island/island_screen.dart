@@ -9,7 +9,9 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/island_controller.dart';
+import '../common/scene_background.dart';
 import '../common/texts.dart';
+import '../common/wood_sign.dart';
 import '../station/dialog_sequence.dart';
 import '../intro/speech_bubble.dart';
 import '../station/station_screen.dart';
@@ -128,7 +130,12 @@ class _IslandScreenState extends State<IslandScreen> {
         return Scaffold(
           extendBodyBehindAppBar: true,
           appBar: TaleriaAppBar(title: details?.title ?? widget.island.title),
-          body: SafeArea(child: body),
+          // Das Meer der Karte hinter der ganzen Seite: Die Insel schwimmt
+          // darin, oben ist keine leere weiße Fläche (Wunsch von Marc).
+          body: SceneBackground(
+            assetKey: AssetKeys.mapBackground,
+            child: SafeArea(child: body),
+          ),
         );
       },
     );
@@ -177,7 +184,6 @@ class _StationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     final details = controller.details!;
     // Stopps auf See liegen auf der Karte vor der Insel, nicht auf ihr.
     final stations = controller.stations.where((s) => !s.isSeaStop).toList();
@@ -236,7 +242,11 @@ class _StationList extends StatelessWidget {
               children: [
                 // In Kindersprache, was es hier zu lernen gibt (Marcs Wunsch am 20.10.2026).
                 if (details.learn.isNotEmpty) ...[_LearnCard(points: details.learn), const SizedBox(height: 20)],
-                Text(l10n.islandStationsHeading, style: theme.textTheme.titleLarge),
+                // Auf dem Meer gut lesbar: als Holzschild.
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: WoodSign(text: l10n.islandStationsHeading),
+                ),
                 const SizedBox(height: 8),
                 for (final station in stations)
                   _StationTile(
@@ -266,8 +276,11 @@ class _StationList extends StatelessWidget {
         builder: (routeContext) => Scaffold(
           extendBodyBehindAppBar: true,
           appBar: TaleriaAppBar(title: details.title),
-          body: SafeArea(
-            child: _Arrival(details: details, onDone: () => Navigator.of(routeContext).pop()),
+          body: SceneBackground(
+            assetKey: AssetKeys.mapBackground,
+            child: SafeArea(
+              child: _Arrival(details: details, onDone: () => Navigator.of(routeContext).pop()),
+            ),
           ),
         ),
       ),
