@@ -204,10 +204,17 @@ class StationMarker extends StatefulWidget {
   State<StationMarker> createState() => _StationMarkerState();
 }
 
-class _StationMarkerState extends State<StationMarker> with SingleTickerProviderStateMixin {
+class _StationMarkerState extends State<StationMarker> with TickerProviderStateMixin {
   late final AnimationController _pulse = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1400),
+  );
+
+  /// Lichtwellen, die von der nächsten Station nach außen laufen (wie ein
+  /// Stein im Wasser), damit das Kind sofort sieht, wo es weitergeht.
+  late final AnimationController _ripple = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2000),
   );
 
   @override
@@ -225,8 +232,12 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
   void _sync() {
     if (widget.highlight && widget.motion) {
       if (!_pulse.isAnimating) _pulse.repeat(reverse: true);
+      if (!_ripple.isAnimating) _ripple.repeat();
     } else {
       _pulse
+        ..stop()
+        ..value = 0;
+      _ripple
         ..stop()
         ..value = 0;
     }
@@ -235,6 +246,7 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
   @override
   void dispose() {
     _pulse.dispose();
+    _ripple.dispose();
     super.dispose();
   }
 
@@ -285,10 +297,10 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
         behavior: HitTestBehavior.opaque,
         onTap: widget.onTap,
         child: AnimatedBuilder(
-          animation: _pulse,
+          animation: Listenable.merge([_pulse, _ripple]),
           builder: (context, child) {
             final glow = widget.highlight ? 0.55 + 0.45 * _pulse.value : 0.0;
-            return Transform.scale(
+            final marker = Transform.scale(
               scale: widget.highlight ? 1.06 + 0.06 * _pulse.value : 1,
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -334,6 +346,20 @@ class _StationMarkerState extends State<StationMarker> with SingleTickerProvider
                   ],
                 ),
               ),
+            );
+            if (!widget.highlight) return marker;
+            // Unter der Station: ein warmer Lichtfleck und zwei Wellen.
+            return Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: CustomPaint(painter: _RipplePainter(progress: widget.motion ? _ripple.value : 0.35)),
+                  ),
+                ),
+                marker,
+              ],
             );
           },
           child: symbol,
@@ -384,4 +410,42 @@ class _FallbackIslandPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_FallbackIslandPainter oldDelegate) => oldDelegate.route != route;
+}
+
+/// Lichtwellen um die nächste Station: zwei goldene Ringe laufen nach außen
+/// und verblassen, darunter ein weicher Lichtschein.
+class _RipplePainter extends CustomPainter {
+  _RipplePainter({required this.progress});
+
+  /// 0 bis 1, eine Welle pro Durchlauf.
+  final double progress;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final r = size.shortestSide / 2;
+    canvas.drawCircle(
+      center,
+      r * 2.1,
+      Paint()
+        ..shader = RadialGradient(colors: [const Color(0xFFFFE08A).withValues(alpha: 0.55), const Color(0x00FFE08A)])
+            .createShader(Rect.fromCircle(center: center, radius: r * 2.1)),
+    );
+    for (final offset in [0.0, 0.5]) {
+      final t = (progress + offset) % 1;
+      final radius = r * (1.05 + 1.15 * t);
+      final alpha = (1 - t) * 0.85;
+      canvas.drawCircle(
+        center,
+        radius,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4 * (1 - t) + 1.5
+          ..color = const Color(0xFFFFF1B8).withValues(alpha: alpha),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_RipplePainter old) => old.progress != progress;
 }
