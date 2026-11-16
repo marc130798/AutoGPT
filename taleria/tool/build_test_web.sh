@@ -61,6 +61,12 @@ if ! grep -q '<title>Taleria (Test)</title>' "$OUT/index.html"; then
   exit 1
 fi
 
+# Logbücher zum Ausdrucken (verkleinert mit tool/logbuch_verkleinern.py): Sie liegen
+# neben der App, der Leuchtturm öffnet sie unter logbuch/…pdf. Nicht in den Assets,
+# damit die App nicht schwerer wird und sie nur laden, wer sie öffnet.
+mkdir -p "$OUT/logbuch"
+cp logbuch/web/logbuch_*.pdf "$OUT/logbuch/"
+
 rm -f "$ZIP"
 # Weggelassen wird, was der Browser bei diesem Build nie lädt, damit die
 # ZIP-Datei klein genug zum Verschicken bleibt (unter 30 MB):

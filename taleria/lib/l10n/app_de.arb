@@ -381,6 +381,38 @@
   "@lighthouseDeviceHeading": {
     "description": "Leuchtturm: Überschrift über Musik, Vibrieren und Grafik-Übersicht"
   },
+  "logbooksTitle": "Logbücher zum Ausdrucken",
+  "@logbooksTitle": {
+    "description": "Leuchtturm: Überschrift des Bereichs mit den Logbuch-PDFs"
+  },
+  "logbooksTeaser": "Ein Heft pro Insel, mit Schatzcode für die Werft",
+  "@logbooksTeaser": {
+    "description": "Leuchtturm: kurze Zeile unter dem Eintrag Logbücher"
+  },
+  "logbooksIntro": "Zu jeder Insel gibt es ein Logbuch mit Rätseln, Rechenaufgaben und Aufgaben fürs echte Leben. Am besten bearbeitet ihr es, nachdem dein Kind die Insel in der App gespielt hat. Auf der letzten Seite steht ein Schatzcode: Dein Kind gibt ihn in der Werft ein und bekommt dafür ein besonderes Teil.",
+  "@logbooksIntro": {
+    "description": "Logbücher: Erklärung für Eltern oben auf der Seite"
+  },
+  "logbooksOpen": "PDF öffnen",
+  "@logbooksOpen": {
+    "description": "Logbücher: Knopf, der das PDF zum Ausdrucken öffnet"
+  },
+  "logbooksPages": "7 Seiten, DIN A4",
+  "@logbooksPages": {
+    "description": "Logbücher: Umfang eines Hefts"
+  },
+  "logbooksOnlyWeb": "Die Logbücher findest du in der Web-Version von Taleria.",
+  "@logbooksOnlyWeb": {
+    "description": "Logbücher: Hinweis, wenn das PDF auf diesem Gerät nicht geöffnet werden kann"
+  },
+  "shipyardLogbookHint": "Den Schatzcode findest du in deinem Logbuch. Deine Eltern können es im Leuchtturm ausdrucken.",
+  "@shipyardLogbookHint": {
+    "description": "Werft: Hinweis unter dem Knopf für den Schatzcode, woher das Logbuch kommt"
+  },
+  "shipyardCodeHint": "Den Code findest du auf der Urkunde in deinem Logbuch.",
+  "@shipyardCodeHint": {
+    "description": "Erklärung im Code-Dialog"
+  },
   "@lighthouseAccountHeading": {
     "description": "Überschrift Konto-Einstellungen im Leuchtturm"
   },
@@ -4159,10 +4191,6 @@
   "shipyardCodeTitle": "Schatzcode aus dem Logbuch",
   "@shipyardCodeTitle": {
     "description": "Titel des Code-Dialogs"
-  },
-  "shipyardCodeHint": "Den Code findest du auf der Urkunde in deinem Logbuch.",
-  "@shipyardCodeHint": {
-    "description": "Erklärung im Code-Dialog"
   },
   "shipyardCodeLabel": "Code",
   "@shipyardCodeLabel": {

@@ -293,6 +293,32 @@ class AppLocalizationsDe extends AppLocalizations {
   String get lighthouseDeviceHeading => 'Auf diesem Gerät';
 
   @override
+  String get logbooksTitle => 'Logbücher zum Ausdrucken';
+
+  @override
+  String get logbooksTeaser => 'Ein Heft pro Insel, mit Schatzcode für die Werft';
+
+  @override
+  String get logbooksIntro =>
+      'Zu jeder Insel gibt es ein Logbuch mit Rätseln, Rechenaufgaben und Aufgaben fürs echte Leben. Am besten bearbeitet ihr es, nachdem dein Kind die Insel in der App gespielt hat. Auf der letzten Seite steht ein Schatzcode: Dein Kind gibt ihn in der Werft ein und bekommt dafür ein besonderes Teil.';
+
+  @override
+  String get logbooksOpen => 'PDF öffnen';
+
+  @override
+  String get logbooksPages => '7 Seiten, DIN A4';
+
+  @override
+  String get logbooksOnlyWeb => 'Die Logbücher findest du in der Web-Version von Taleria.';
+
+  @override
+  String get shipyardLogbookHint =>
+      'Den Schatzcode findest du in deinem Logbuch. Deine Eltern können es im Leuchtturm ausdrucken.';
+
+  @override
+  String get shipyardCodeHint => 'Den Code findest du auf der Urkunde in deinem Logbuch.';
+
+  @override
   String get lighthouseChangePin => 'Eltern-PIN ändern';
 
   @override
@@ -2965,9 +2991,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get shipyardCodeTitle => 'Schatzcode aus dem Logbuch';
-
-  @override
-  String get shipyardCodeHint => 'Den Code findest du auf der Urkunde in deinem Logbuch.';
 
   @override
   String get shipyardCodeLabel => 'Code';

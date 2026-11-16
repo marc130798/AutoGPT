@@ -188,6 +188,16 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                     label: Text(l10n.shipyardCodeButton),
                   ),
                 ),
+                const SizedBox(height: 6),
+                Text(
+                  l10n.shipyardLogbookHint,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    shadows: const [Shadow(color: Color(0xCC000000), offset: Offset(0, 1), blurRadius: 3)],
+                  ),
+                ),
                 const SizedBox(height: 16),
                 for (final slot in LookSlot.values)
                   PaperCard(

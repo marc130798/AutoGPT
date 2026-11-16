@@ -15,6 +15,7 @@ import '../dev/asset_gallery_screen.dart';
 import 'child_budget_screen.dart';
 import 'child_detail_screen.dart';
 import 'child_form_screen.dart';
+import 'logbooks_screen.dart';
 import 'pin_screens.dart';
 import 'subscription_screen.dart';
 
@@ -186,6 +187,22 @@ class _LighthouseScreenState extends State<LighthouseScreen> {
                           onPressed: _addChild,
                           icon: const Icon(Icons.person_add_alt_1_outlined),
                           label: Text(l10n.lighthouseAddChild),
+                        ),
+                        const SizedBox(height: 16),
+                        // Logbücher zum Ausdrucken (PDF), mit Schatzcode für die Werft.
+                        _SettingsCard(
+                          children: [
+                            ListTile(
+                              key: const ValueKey('open-logbooks'),
+                              leading: const Icon(Icons.menu_book_rounded),
+                              title: Text(l10n.logbooksTitle),
+                              subtitle: Text(l10n.logbooksTeaser),
+                              trailing: const Icon(Icons.chevron_right),
+                              onTap: () =>
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute<void>(builder: (_) => const LogbooksScreen())),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 28),
                         Text(l10n.lighthouseAccountHeading, style: theme.textTheme.titleLarge),

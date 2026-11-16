@@ -625,6 +625,54 @@ abstract class AppLocalizations {
   /// **'Auf diesem Gerät'**
   String get lighthouseDeviceHeading;
 
+  /// Leuchtturm: Überschrift des Bereichs mit den Logbuch-PDFs
+  ///
+  /// In de, this message translates to:
+  /// **'Logbücher zum Ausdrucken'**
+  String get logbooksTitle;
+
+  /// Leuchtturm: kurze Zeile unter dem Eintrag Logbücher
+  ///
+  /// In de, this message translates to:
+  /// **'Ein Heft pro Insel, mit Schatzcode für die Werft'**
+  String get logbooksTeaser;
+
+  /// Logbücher: Erklärung für Eltern oben auf der Seite
+  ///
+  /// In de, this message translates to:
+  /// **'Zu jeder Insel gibt es ein Logbuch mit Rätseln, Rechenaufgaben und Aufgaben fürs echte Leben. Am besten bearbeitet ihr es, nachdem dein Kind die Insel in der App gespielt hat. Auf der letzten Seite steht ein Schatzcode: Dein Kind gibt ihn in der Werft ein und bekommt dafür ein besonderes Teil.'**
+  String get logbooksIntro;
+
+  /// Logbücher: Knopf, der das PDF zum Ausdrucken öffnet
+  ///
+  /// In de, this message translates to:
+  /// **'PDF öffnen'**
+  String get logbooksOpen;
+
+  /// Logbücher: Umfang eines Hefts
+  ///
+  /// In de, this message translates to:
+  /// **'7 Seiten, DIN A4'**
+  String get logbooksPages;
+
+  /// Logbücher: Hinweis, wenn das PDF auf diesem Gerät nicht geöffnet werden kann
+  ///
+  /// In de, this message translates to:
+  /// **'Die Logbücher findest du in der Web-Version von Taleria.'**
+  String get logbooksOnlyWeb;
+
+  /// Werft: Hinweis unter dem Knopf für den Schatzcode, woher das Logbuch kommt
+  ///
+  /// In de, this message translates to:
+  /// **'Den Schatzcode findest du in deinem Logbuch. Deine Eltern können es im Leuchtturm ausdrucken.'**
+  String get shipyardLogbookHint;
+
+  /// Erklärung im Code-Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Den Code findest du auf der Urkunde in deinem Logbuch.'**
+  String get shipyardCodeHint;
+
   /// Knopf: PIN ändern
   ///
   /// In de, this message translates to:
@@ -4752,12 +4800,6 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Schatzcode aus dem Logbuch'**
   String get shipyardCodeTitle;
-
-  /// Erklärung im Code-Dialog
-  ///
-  /// In de, this message translates to:
-  /// **'Den Code findest du auf der Urkunde in deinem Logbuch.'**
-  String get shipyardCodeHint;
 
   /// Eingabefeld für den Schatzcode
   ///

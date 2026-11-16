@@ -2114,6 +2114,42 @@
         "shape": "rounded"
       }
     },
+    "logbook.hafen": {
+      "type": "image",
+      "path": "assets/images/logbook.hafen.jpg",
+      "placeholder": {
+        "label": "Logbuch Hafen",
+        "color": "#E6F3FA",
+        "shape": "rectangle"
+      }
+    },
+    "logbook.tauschinsel": {
+      "type": "image",
+      "path": "assets/images/logbook.tauschinsel.jpg",
+      "placeholder": {
+        "label": "Logbuch Tauschinsel",
+        "color": "#E6F3FA",
+        "shape": "rectangle"
+      }
+    },
+    "logbook.wunschinsel": {
+      "type": "image",
+      "path": "assets/images/logbook.wunschinsel.jpg",
+      "placeholder": {
+        "label": "Logbuch Wunschinsel",
+        "color": "#E6F3FA",
+        "shape": "rectangle"
+      }
+    },
+    "logbook.spar-insel": {
+      "type": "image",
+      "path": "assets/images/logbook.spar-insel.jpg",
+      "placeholder": {
+        "label": "Logbuch Spar-Insel",
+        "color": "#E6F3FA",
+        "shape": "rectangle"
+      }
+    },
     "icon.treasure": {
       "type": "image",
       "path": "assets/images/icon.treasure.png",
