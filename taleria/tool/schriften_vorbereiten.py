@@ -2,11 +2,14 @@
 
 Warum: Ohne eigene Schrift lädt Flutter im Browser Roboto (und Ersatzschriften für
 fehlende Zeichen) von Google. Damit fremde Familien beim Testen nichts an Google
-schicken, liegt Roboto in der App. Die Zeichen → und ↓ hat Roboto nicht; sie kommen
-aus einer kleinen Ersatzschrift aus Baloo 2 („TaleriaZeichen“).
+schicken, liegen die Schriften in der App:
+  Nunito  für Fließtext, Knöpfe und kleine Überschriften (rund und gut lesbar),
+  Baloo 2 für große Überschriften und Holzschilder (passt zum Logo).
+Am 16.11.2026 mit Marc entschieden, vorher war es Roboto. Fehlende Zeichen wie
+→ und ↓ kommen aus einer kleinen Ersatzschrift aus Baloo 2 („TaleriaZeichen“).
 
 Quellen (SIL Open Font License 1.1, Lizenztexte daneben):
-  https://github.com/google/fonts/tree/main/ofl/roboto  (Roboto[wdth,wght].ttf)
+  https://github.com/google/fonts/tree/main/ofl/nunito  (Nunito[wght].ttf)
   https://github.com/google/fonts/tree/main/ofl/baloo2  (Baloo2[wght].ttf)
 
 Aufruf im Ordner taleria/:  python3 tool/schriften_vorbereiten.py
@@ -31,7 +34,8 @@ UNICODES = (
     + [0x20AC, 0x2122, 0x2190, 0x2191, 0x2192, 0x2193, 0x2212, 0x2713]
 )
 
-ROBOTO_WEIGHTS = [400, 500, 600, 700, 800, 900]
+NUNITO_WEIGHTS = [400, 600, 700, 800]
+BALOO_WEIGHTS = [600, 700, 800]
 
 
 def _subset(font: TTFont, unicodes: list[int]) -> None:
@@ -46,14 +50,16 @@ def _subset(font: TTFont, unicodes: list[int]) -> None:
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    for weight in ROBOTO_WEIGHTS:
-        font = instancer.instantiateVariableFont(
-            TTFont(SRC / "Roboto[wdth,wght].ttf"), {"wght": weight, "wdth": 100}, updateFontNames=False
-        )
-        _subset(font, UNICODES)
-        path = OUT / f"Roboto-{weight}.ttf"
-        font.save(path)
-        print(path.relative_to(ROOT), path.stat().st_size // 1024, "KB")
+    for family, source, weights in (
+        ("Nunito", "Nunito[wght].ttf", NUNITO_WEIGHTS),
+        ("Baloo2", "Baloo2[wght].ttf", BALOO_WEIGHTS),
+    ):
+        for weight in weights:
+            font = instancer.instantiateVariableFont(TTFont(SRC / source), {"wght": weight}, updateFontNames=False)
+            _subset(font, UNICODES)
+            path = OUT / f"{family}-{weight}.ttf"
+            font.save(path)
+            print(path.relative_to(ROOT), path.stat().st_size // 1024, "KB")
 
     font = instancer.instantiateVariableFont(TTFont(SRC / "Baloo2[wght].ttf"), {"wght": 700}, updateFontNames=False)
     _subset(font, [0x2190, 0x2191, 0x2192, 0x2193, 0x2713])

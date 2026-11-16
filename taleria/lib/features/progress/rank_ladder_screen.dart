@@ -93,6 +93,33 @@ class _RankLadderScreenState extends State<RankLadderScreen> {
                         ],
                       ),
                     ),
+                    // Fahrtwind: wie viele Wochen hintereinander, und was das ist.
+                    PaperCard(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.air_rounded, color: palette.seaDeep, size: 28),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  stats.streakPaused ? l10n.streakPaused : l10n.streakWeeks(stats.streakWeeks),
+                                  key: const ValueKey('stats-streak'),
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                                Text(
+                                  l10n.streakHint,
+                                  key: const ValueKey('stats-streak-hint'),
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     PaperCard(
                       padding: const EdgeInsets.fromLTRB(8, 16, 16, 16),
                       child: Column(

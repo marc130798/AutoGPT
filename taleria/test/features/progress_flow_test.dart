@@ -65,8 +65,14 @@ void main() {
     ], reason: 'Messung: Kinderbereich geöffnet, ohne Station');
     expect(tester.widget<Text>(find.byKey(const ValueKey('stats-rank'))).data, 'Schiffsjunge');
     expect(find.text('50 Seemeilen'), findsOneWidget);
+
+    // Die Erklärungen stehen bei den Rängen, die Startseite bleibt ruhig.
+    expect(find.text('Noch kein Fahrtwind'), findsNothing);
+    await tapKey(tester, 'stats-open-ranks');
     expect(find.text('Noch 1.450 Seemeilen bis Matrose'), findsOneWidget);
     expect(find.text('Noch kein Fahrtwind'), findsOneWidget);
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
 
     await tapKey(tester, 'home-badges');
     expect(find.text('Noch keine Orden. Schließe deine erste Insel ab!'), findsOneWidget);
@@ -157,6 +163,9 @@ void main() {
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    // Das Rang-Schild steht ganz oben.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, 3000));
     await tester.pumpAndSettle();
     expect(tester.widget<Text>(find.byKey(const ValueKey('stats-rank'))).data, 'Matrose');
   });
@@ -277,6 +286,7 @@ void main() {
     );
     // Ein neuer Fund leuchtet auf der Startseite, bis das Kind die Sammlung öffnet.
     final tile = find.byKey(const ValueKey('home-collection'));
+    await scrollTo(tester, tile);
     expect(find.descendant(of: tile, matching: find.text('1')), findsOneWidget);
     expect(find.text('1 neuer Fund'), findsOneWidget);
     await tapKey(tester, 'home-collection');

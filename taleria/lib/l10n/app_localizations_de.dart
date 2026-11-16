@@ -2185,17 +2185,17 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourBack => 'Zurück';
 
   @override
-  String get tourMapWhere => 'Auf der Startseite die große blaue Kachel „Zur Karte“';
+  String get tourMapWhere => 'Auf der Startseite das große Holzschild „Zur Karte“';
 
   @override
   String get tourRankTitle => 'Rang, Seemeilen und Fahrtwind';
 
   @override
-  String get tourRankWhere => 'Auf der Startseite direkt unter der Begrüßung';
+  String get tourRankWhere => 'Auf der Startseite ganz oben, das Holzschild in der Mitte';
 
   @override
   String get tourRankBody =>
-      'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind.';
+      'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind. Tipp auf das Schild, dann siehst du alle Ränge.';
 
   @override
   String get tourChestWhere => 'Auf der Startseite unter der Karte, links';
@@ -2204,7 +2204,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourTasksTitle => 'Aufträge';
 
   @override
-  String get tourTasksWhere => 'Auf der Startseite unter der Karte, rechts';
+  String get tourTasksWhere => 'Auf der Startseite unter der Karte, in der Mitte';
 
   @override
   String get tourTasksBody =>
@@ -2214,7 +2214,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourBadgesTitle => 'Orden';
 
   @override
-  String get tourBadgesWhere => 'Auf der Startseite ganz unten, links';
+  String get tourBadgesWhere => 'Auf der Startseite in der unteren Reihe, links';
 
   @override
   String get tourBadgesBody =>
@@ -2224,7 +2224,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourCollectionTitle => 'Sammlung';
 
   @override
-  String get tourCollectionWhere => 'Auf der Startseite ganz unten, rechts';
+  String get tourCollectionWhere => 'Auf der Startseite in der unteren Reihe, in der Mitte';
 
   @override
   String get tourCollectionBody =>
@@ -2238,7 +2238,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourLighthouseBody =>
-      'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.';
+      'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ ganz unten auf der Startseite kannst du diesen Rundgang immer wieder anschauen.';
 
   @override
   String rankNameMaedchen(String rank) {

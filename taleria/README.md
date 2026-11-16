@@ -276,8 +276,8 @@ Das erzeugt `build/taleria_test_web.zip`. So kommt sie aufs iPhone:
    Taleria startet dann wie eine App, ohne Adressleiste.
 4. Neue Fassung: Skript erneut ausführen, bei Netlify unter *Deploys* den neuen Ordner hineinziehen.
 
-Die Adresse nur an Tester weitergeben. Die Webseite lädt die Schrift Roboto von Google
-(Standard von Flutter im Browser); vor einer Beta mit fremden Familien eine eigene Schrift einbinden.
+Die Adresse nur an Tester weitergeben. Die Schriften (Nunito und Baloo 2) liegen in der App,
+der Browser lädt nichts von Google.
 
 ## Adminbereich
 

@@ -58,8 +58,11 @@ void main() {
     await tap(tester, find.byKey(const ValueKey('rank-form-maedchen')));
     expect(backend.childById(mila.id).rankForm, RankForm.maedchen);
     expect(find.byKey(const ValueKey('home-rank-form')), findsNothing, reason: 'nur einmal gefragt');
-    await scrollTo(tester, find.byKey(const ValueKey('stats-rank')));
+    // Das Rang-Schild steht ganz oben.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, 3000));
+    await tester.pumpAndSettle();
     expect(tester.widget<Text>(find.byKey(const ValueKey('stats-rank'))).data, 'Schiffsmädchen');
+    await tap(tester, find.byKey(const ValueKey('stats-open-ranks')));
     expect(find.text('Noch 1.450 Seemeilen bis Matrosin'), findsOneWidget);
   });
 

@@ -9,6 +9,9 @@ import '../test_helpers.dart';
 void main() {
   Future<void> tapKey(WidgetTester tester, String key) async {
     final finder = find.byKey(ValueKey(key));
+    if (finder.evaluate().isEmpty) {
+      await tester.dragUntilVisible(finder, find.byType(Scrollable).first, const Offset(0, -200));
+    }
     await Scrollable.ensureVisible(tester.element(finder), alignment: 0.5);
     await tester.pumpAndSettle();
     await tester.tap(finder);

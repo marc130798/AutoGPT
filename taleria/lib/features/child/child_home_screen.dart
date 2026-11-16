@@ -7,6 +7,7 @@ import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../core/theme/taleria_theme.dart' show displayFont;
 import '../../domain/avatar.dart';
 import '../../domain/family_models.dart';
 import '../../domain/budget_models.dart';
@@ -21,6 +22,7 @@ import '../common/avatar_view.dart';
 import '../common/busy_action.dart';
 import '../common/game_sign.dart';
 import '../common/texts.dart';
+import '../common/wood_sign.dart';
 import '../common/lively_figure.dart';
 import '../common/menu_music.dart';
 import '../common/scene_background.dart';
@@ -31,7 +33,6 @@ import '../map/map_painters.dart';
 import '../progress/badges_screen.dart';
 import '../progress/collection_screen.dart';
 import '../progress/rank_ladder_screen.dart';
-import '../progress/stats_card.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
 import 'board_tour.dart';
@@ -43,10 +44,11 @@ import 'rank_form_choice.dart';
 import 'shipyard_screen.dart';
 import 'sound_button.dart';
 
-/// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck mit Talo,
-/// Tala, dem Avatar im Bullauge, dem eigenen Schiff und großen Bild-Kacheln
-/// (Bilder aus BILDER.md, Abschnitt 4). Keine Preise, keine Kauf-Knöpfe,
-/// keine Links nach außen.
+/// Kinderbereich nach dem Intro: Startseite auf dem Schiffsdeck. Oben Rang
+/// und Leuchtturm, darunter die Crew (Talo, das Kind, Tala) mit dem Satz des
+/// Tages, ein großes Holzschild zur Karte und die Bereiche als Bilder auf dem
+/// Deck (Entwurf vom 16.11.2026 mit Marc, BILDER.md Abschnitt 4r). Keine Preise,
+/// keine Kauf-Knöpfe, keine Links nach außen.
 class ChildHomeScreen extends StatelessWidget {
   const ChildHomeScreen({super.key, required this.state});
 
@@ -54,9 +56,6 @@ class ChildHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final child = state.child;
-
     // Meeresrauschen, solange die Startseite vorn ist.
     return MenuMusic(
       child: Scaffold(
@@ -65,70 +64,7 @@ class ChildHomeScreen extends StatelessWidget {
             const Positioned.fill(child: _DeckBackground()),
             // Möwen am Himmel und Glitzern auf dem Meer (nur mit Bewegung).
             const Positioned.fill(child: IgnorePointer(child: _DeckLife())),
-            SafeArea(
-              child: ListView(
-                padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SoundButton(),
-                      const SizedBox(width: 4),
-                      DeckRoundButton(
-                        key: const ValueKey('tour-button'),
-                        icon: Icons.explore_rounded,
-                        label: l10n.tourButton,
-                        tooltip: l10n.tourButton,
-                        onTap: () =>
-                            Navigator.of(context)
-                                .push(MaterialPageRoute<void>(builder: (_) => const BoardTourScreen())),
-                      ),
-                      const Spacer(),
-                      LighthouseButton(state: state),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  _CrewHeader(avatar: child.avatar ?? const AvatarConfig()),
-                  const SizedBox(height: 12),
-                  _WelcomeCard(
-                    nickname: child.nickname,
-                    shipName: child.shipName,
-                    flag: (child.avatar ?? const AvatarConfig()).flag,
-                  ),
-                  const SizedBox(height: 16),
-                  // Wer vor dieser Frage schon gespielt hat, wählt einmal hier.
-                  if (child.rankForm == null) ...[_RankFormCard(childId: child.id), const SizedBox(height: 16)],
-                  _ProgressSection(
-                    state: state,
-                    budgetRow: IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(child: _TreasureButton(childId: child.id)),
-                          const SizedBox(width: 12),
-                          Expanded(child: _TasksButton(childId: child.id)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: context.palette.paper.withValues(alpha: 0.88),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: TextButton(
-                        onPressed: () =>
-                            Navigator.of(context)
-                                .push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
-                        child: Text(l10n.childHomeIntroAgain),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            SafeArea(child: _HomeBody(state: state)),
           ],
         ),
       ),
@@ -287,65 +223,93 @@ class _GlitterPainter extends CustomPainter {
   bool shouldRepaint(_GlitterPainter old) => false;
 }
 
-/// Talo links, der Avatar des Kindes im Bullauge in der Mitte, Tala rechts.
-/// Beide winken zur Begrüßung.
-class _CrewHeader extends StatelessWidget {
-  const _CrewHeader({required this.avatar});
+/// Talo links, das Kind in der Mitte mit seinem Namen, Tala rechts. Talo und
+/// Tala winken und sagen beim Antippen etwas.
+class _Crew extends StatelessWidget {
+  const _Crew({required this.child});
 
-  final AvatarConfig avatar;
+  final ChildProfile child;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final palette = context.palette;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Column(
       children: [
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: LivelyFigure(
-              character: AssetKeys.talo,
-              phase: 0,
-              lines: [l10n.livelyTalo1, l10n.livelyTalo2, l10n.livelyTalo3, l10n.livelyTalo4],
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: LivelyFigure(
+                  character: AssetKeys.talo,
+                  phase: 0,
+                  width: 116,
+                  height: 150,
+                  lines: [l10n.livelyTalo1, l10n.livelyTalo2, l10n.livelyTalo3, l10n.livelyTalo4],
+                ),
+              ),
             ),
-          ),
+            _PlayerFigure(avatar: child.avatar ?? const AvatarConfig()),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: LivelyFigure(
+                  character: AssetKeys.tala,
+                  phase: 0.5,
+                  width: 116,
+                  height: 156,
+                  bubbleToLeft: true,
+                  lines: [l10n.livelyTala1, l10n.livelyTala2, l10n.livelyTala3, l10n.livelyTala4],
+                ),
+              ),
+            ),
+          ],
         ),
-        Container(
-          width: 132,
-          height: 132,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: palette.paper,
-            border: Border.all(color: const Color(0xFFB8862B), width: 7),
-            boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 10, offset: Offset(0, 4))],
-          ),
-          child: ClipOval(
-            // Der Avatar schaukelt im Bullauge, als wäre das Schiff auf See.
-            child: Center(
-              child: SeaSway(phase: 0.2, child: AvatarView(avatar: avatar, size: 112)),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: LivelyFigure(
-              character: AssetKeys.tala,
-              phase: 0.5,
-              bubbleToLeft: true,
-              lines: [l10n.livelyTala1, l10n.livelyTala2, l10n.livelyTala3, l10n.livelyTala4],
-            ),
-          ),
+        const SizedBox(height: 6),
+        _NameSign(
+          nickname: child.nickname,
+          shipName: child.shipName,
+          flag: (child.avatar ?? const AvatarConfig()).flag,
         ),
       ],
     );
   }
 }
 
-/// Begrüßung und das eigene Schiff mit seinem Namen.
-class _WelcomeCard extends StatelessWidget {
-  const _WelcomeCard({required this.nickname, required this.shipName, required this.flag});
+/// Die Figur des Kindes in der Mitte der Crew. Bis die Bilder von Löwe und
+/// Löwin da sind (BILDER.md Abschnitt 4r), steht die gezeichnete Figur in
+/// einem runden Rahmen mit Messingrand und schaukelt wie auf See.
+class _PlayerFigure extends StatelessWidget {
+  const _PlayerFigure({required this.avatar});
+
+  final AvatarConfig avatar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 128,
+      height: 128,
+      margin: const EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: const RadialGradient(colors: [Color(0xFFFFFBF0), Color(0xFFF1E3C4)]),
+        border: Border.all(color: const Color(0xFFB8862B), width: 6),
+        boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 10, offset: Offset(0, 5))],
+      ),
+      child: ClipOval(
+        child: Center(
+          child: SeaSway(phase: 0.2, child: AvatarView(avatar: avatar, size: 110)),
+        ),
+      ),
+    );
+  }
+}
+
+/// Holzschild mit dem Namen des Kindes, darunter sein Schiff. Die Begrüßung
+/// liest der Bildschirmleser vor.
+class _NameSign extends StatelessWidget {
+  const _NameSign({required this.nickname, required this.shipName, required this.flag});
 
   final String nickname;
   final String? shipName;
@@ -355,37 +319,107 @@ class _WelcomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final palette = context.palette;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      decoration: BoxDecoration(
-        color: palette.paper.withValues(alpha: 0.94),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.7), width: 2),
-        boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
-      ),
-      child: Column(
-        children: [
-          Text(
-            l10n.childHomeWelcome(nickname),
-            textAlign: TextAlign.center,
-            style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
-          ),
-          if (shipName != null) ...[
-            const SizedBox(height: 6),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SeaSway(amount: 1.4, child: FlaggedShip(flag: flag, size: 60)),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
+    return Semantics(
+      label: l10n.childHomeWelcome(nickname),
+      excludeSemantics: true,
+      child: WoodPanel(
+        key: const ValueKey('home-name'),
+        padding: const EdgeInsets.fromLTRB(18, 2, 18, 4),
+        radius: 14,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(nickname, style: theme.textTheme.headlineSmall?.copyWith(color: WoodColors.cream, height: 1.2)),
+            if (shipName != null)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FlaggedShip(flag: flag, size: 26),
+                  const SizedBox(width: 4),
+                  Text(
                     l10n.childHomeShip(shipName!),
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                    style: theme.textTheme.labelLarge?.copyWith(color: WoodColors.cream, fontSize: 14),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Holzschild oben: Rang mit Abzeichen, Seemeilen und ein Balken bis zum
+/// nächsten Rang. Weht Fahrtwind, steht er als kleines Zeichen daneben.
+/// Antippen öffnet alle Ränge (dort stehen auch die Erklärungen).
+class _RankPlaque extends StatelessWidget {
+  const _RankPlaque({required this.stats, required this.rankForm, required this.onTap});
+
+  final ChildStats stats;
+  final RankForm? rankForm;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final rank = stats.rank;
+    final progress = stats.nextRankNeedsCertificate ? 0.0 : stats.progressToNextRank;
+    final wind = !stats.streakPaused && stats.streakWeeks > 0;
+    return WoodPanel(
+      key: const ValueKey('stats-open-ranks'),
+      onTap: onTap,
+      semanticLabel: '${l10n.rank(rank, rankForm)}, ${l10n.statsXp(stats.xp)}. ${l10n.ranksOpen}',
+      padding: const EdgeInsets.fromLTRB(5, 5, 12, 6),
+      radius: 30,
+      child: Row(
+        children: [
+          Opacity(
+            opacity: rank == null ? 0.5 : 1,
+            child: ClipOval(
+              child: TaleriaAsset(AssetKeys.rank((rank ?? Rank.schiffsjunge).code), width: 40, height: 40),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    l10n.rank(rank, rankForm),
+                    key: const ValueKey('stats-rank'),
+                    maxLines: 1,
+                    style: theme.textTheme.titleLarge?.copyWith(color: WoodColors.cream, fontSize: 18, height: 1.1),
                   ),
                 ),
+                Text(
+                  l10n.statsXp(stats.xp),
+                  key: const ValueKey('stats-xp'),
+                  style: theme.textTheme.labelMedium?.copyWith(color: WoodColors.brass, fontWeight: FontWeight.w800),
+                ),
+                if (progress != null) ...[
+                  const SizedBox(height: 3),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 7,
+                      color: WoodColors.brass,
+                      backgroundColor: const Color(0x55000000),
+                    ),
+                  ),
+                ],
               ],
             ),
+          ),
+          if (wind) ...[
+            const SizedBox(width: 6),
+            const Icon(Icons.air_rounded, size: 20),
+            Text('${stats.streakWeeks}', style: theme.textTheme.labelLarge?.copyWith(color: WoodColors.cream)),
           ],
         ],
       ),
@@ -393,11 +427,98 @@ class _WelcomeCard extends StatelessWidget {
   }
 }
 
-/// Große Kachel mit Bild für die Startseite (Schatztruhe, Aufträge, Orden,
-/// Sammlung). [count] erscheint als Zahl am Bild: golden für Sammelstände,
-/// korallenrot, wenn etwas auf das Kind wartet ([attention]).
-class _HomeTile extends StatelessWidget {
-  const _HomeTile({
+/// Satz des Tages von Talo oder Tala (jeden Tag ein anderer, ohne Druck),
+/// als Sprechblase über der Crew. Die Spitze zeigt auf den, der spricht.
+class _GreetingBubble extends StatelessWidget {
+  const _GreetingBubble({required this.greeting, required this.rankForm});
+
+  final DailyGreeting greeting;
+  final RankForm? rankForm;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final palette = context.palette;
+    final g = greeting;
+    final text = switch (g.kind) {
+      GreetingKind.wind => l10n.greetingWind,
+      GreetingKind.waitWind => l10n.greetingWaitWind(l10n.weekday('${g.date!.weekday}')),
+      GreetingKind.rankSoon => l10n.greetingRankSoon(g.number, l10n.rank(g.rank, rankForm)),
+      GreetingKind.goalReady => l10n.greetingGoalReady(g.title!),
+      GreetingKind.goalSoon => l10n.greetingGoalSoon(g.title!, formatCents(g.number)),
+      GreetingKind.streak => l10n.greetingStreak(g.number),
+      GreetingKind.reviews => l10n.greetingReviews,
+      GreetingKind.tip => switch (g.number) {
+        0 => l10n.greetingTip0,
+        1 => l10n.greetingTip1,
+        2 => l10n.greetingTip2,
+        3 => l10n.greetingTip3,
+        4 => l10n.greetingTip4,
+        _ => l10n.greetingTip5,
+      },
+    };
+    final tala = g.speaker == 'tala';
+    final (name, color) = tala ? (l10n.speakerTala, palette.tala) : (l10n.speakerTalo, palette.talo);
+    return Semantics(
+      container: true,
+      label: '$name: $text',
+      excludeSemantics: true,
+      child: Column(
+        key: const ValueKey('home-greeting'),
+        crossAxisAlignment: tala ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [BoxShadow(color: Color(0x33081C30), blurRadius: 8, offset: Offset(0, 3))],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: theme.textTheme.titleSmall?.copyWith(fontFamily: displayFont, color: color),
+                ),
+                Text(text, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700, height: 1.3)),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 48),
+            child: CustomPaint(size: const Size(22, 12), painter: _BubbleTail()),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Spitze der Sprechblase, nach unten zur sprechenden Figur.
+class _BubbleTail extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width, 0)
+      ..lineTo(size.width / 2, size.height)
+      ..close();
+    canvas.drawPath(path, Paint()..color = Colors.white);
+  }
+
+  @override
+  bool shouldRepaint(_BubbleTail old) => false;
+}
+
+/// Ein Bereich als Bild auf dem Deck (Schatztruhe, Aufträge, Orden …), ohne
+/// Kasten: das Bild, darunter der Name auf einem hellen Schildchen. [count]
+/// erscheint als Zahl am Bild: golden für Sammelstände, korallenrot, wenn
+/// etwas auf das Kind wartet ([attention]). [hint] steht klein darunter.
+class _DeckItem extends StatefulWidget {
+  const _DeckItem({
     super.key,
     required this.image,
     required this.fallbackIcon,
@@ -413,7 +534,7 @@ class _HomeTile extends StatelessWidget {
 
   final String image;
 
-  /// Statt des Bilds [image] ein gezeichnetes Zeichen (zum Beispiel das Spiel-Zeichen).
+  /// Statt des Bilds [image] ein gezeichnetes Bild (zum Beispiel das eigene Schiff).
   final Widget? art;
   final IconData fallbackIcon;
   final String label;
@@ -425,63 +546,95 @@ class _HomeTile extends StatelessWidget {
   final String? semanticLabel;
 
   @override
+  State<_DeckItem> createState() => _DeckItemState();
+}
+
+class _DeckItemState extends State<_DeckItem> {
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final palette = context.palette;
+    final w = widget;
     return Semantics(
       button: true,
-      label: semanticLabel,
-      child: Material(
-        color: palette.paper.withValues(alpha: 0.95),
-        elevation: 3,
-        shadowColor: const Color(0x66081C30),
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-          side: BorderSide(color: palette.gold.withValues(alpha: 0.7), width: 2),
-        ),
-        child: InkWell(
-          onTap: onTap,
+      label: w.semanticLabel,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: (_) => setState(() => _pressed = true),
+        onTapCancel: () => setState(() => _pressed = false),
+        onTapUp: (_) => setState(() => _pressed = false),
+        onTap: w.onTap,
+        // Beim Antippen wird das Bild kurz etwas kleiner, wie ein Knopf.
+        child: AnimatedScale(
+          scale: _pressed ? 0.93 : 1,
+          duration: const Duration(milliseconds: 90),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 12, 10, 12),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 76,
+                  height: 78,
                   child: Stack(
                     clipBehavior: Clip.none,
-                    alignment: Alignment.center,
+                    alignment: Alignment.bottomCenter,
                     children: [
-                      art ??
+                      w.art ??
                           TaleriaAsset(
-                            image,
-                            height: 76,
-                            fallback: Icon(fallbackIcon, size: 52, color: palette.seaDeep),
+                            w.image,
+                            height: 78,
+                            width: 104,
+                            fallback: Icon(w.fallbackIcon, size: 52, color: palette.seaDeep),
                           ),
-                      if (count > 0)
+                      if (w.count > 0)
                         Positioned(
-                          top: -6,
-                          right: -18,
-                          child: _CountBubble(count: count, attention: attention),
+                          top: -4,
+                          right: 0,
+                          child: _CountBubble(count: w.count, attention: w.attention),
                         ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 8),
-                // Eine Zeile, notfalls etwas kleiner: „Sammlung“ brach in schmalen Kacheln mitten im Wort um.
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800, color: palette.ink),
+                const SizedBox(height: 4),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                  decoration: BoxDecoration(
+                    color: const Color(0xF2FFF8E6),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [BoxShadow(color: Color(0x33081C30), offset: Offset(0, 2))],
+                  ),
+                  // Eine Zeile, notfalls etwas kleiner: „Sammlung“ brach in schmalen Spalten mitten im Wort um.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      w.label,
+                      maxLines: 1,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontFamily: displayFont,
+                        fontWeight: FontWeight.w800,
+                        color: palette.ink,
+                        height: 1.25,
+                      ),
+                    ),
                   ),
                 ),
-                if (hint != null) ...[
-                  const SizedBox(height: 4),
-                  Text(hint!, key: hintKey, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+                if (w.hint != null) ...[
+                  const SizedBox(height: 3),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: palette.coral.withValues(alpha: 0.92),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      w.hint!,
+                      key: w.hintKey,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.labelSmall?.copyWith(color: Colors.white, fontWeight: FontWeight.w800),
+                    ),
+                  ),
                 ],
               ],
             ),
@@ -518,9 +671,9 @@ class _CountBubble extends StatelessWidget {
   }
 }
 
-/// Die große Kachel zur Karte, das Wichtigste auf der Startseite.
-class _MapTile extends StatelessWidget {
-  const _MapTile({required this.onTap});
+/// Das große Holzschild zur Karte, das Wichtigste auf der Startseite.
+class _MapSign extends StatelessWidget {
+  const _MapSign({required this.onTap});
 
   final VoidCallback onTap;
 
@@ -528,39 +681,23 @@ class _MapTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final palette = context.palette;
-    return Material(
-      color: palette.seaDeep,
-      elevation: 4,
-      shadowColor: const Color(0x66081C30),
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22),
-        side: BorderSide(color: palette.gold, width: 2.5),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-          child: Row(
-            children: [
-              TaleriaAsset(
-                AssetKeys.iconMap,
-                width: 120,
-                height: 84,
-                fallback: Icon(Icons.map, size: 56, color: palette.paper),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  l10n.childHomeMapButton,
-                  style: theme.textTheme.headlineSmall?.copyWith(color: palette.paper, fontWeight: FontWeight.w800),
-                ),
-              ),
-              Icon(Icons.chevron_right_rounded, color: palette.gold, size: 36),
-            ],
+    return WoodPanel(
+      onTap: onTap,
+      semanticLabel: l10n.childHomeMapButton,
+      radius: 20,
+      padding: const EdgeInsets.fromLTRB(8, 6, 16, 6),
+      child: Row(
+        children: [
+          const TaleriaAsset(AssetKeys.iconMap, width: 104, height: 70, fallback: Icon(Icons.map_rounded, size: 48)),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              l10n.childHomeMapButton,
+              style: theme.textTheme.headlineMedium?.copyWith(color: WoodColors.cream, shadows: WoodColors.textShadows),
+            ),
           ),
-        ),
+          const Icon(Icons.arrow_forward_rounded, size: 34),
+        ],
       ),
     );
   }
@@ -609,7 +746,7 @@ class _TreasureButtonState extends State<_TreasureButton> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return _HomeTile(
+    return _DeckItem(
       image: AssetKeys.iconTreasure,
       fallbackIcon: Icons.inventory_2_outlined,
       label: l10n.childHomeTreasureButton,
@@ -665,7 +802,7 @@ class _TasksButtonState extends State<_TasksButton> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return _HomeTile(
+    return _DeckItem(
       image: AssetKeys.iconTasks,
       fallbackIcon: Icons.checklist,
       label: l10n.childHomeTasksButton,
@@ -678,21 +815,18 @@ class _TasksButtonState extends State<_TasksButton> {
   }
 }
 
-/// Rang, Seemeilen und Fahrtwind, dazu der Weg zur Karte und zu den Orden.
-/// Lädt neu, wenn das Kind von der Karte oder den Orden zurückkommt.
-class _ProgressSection extends StatefulWidget {
-  const _ProgressSection({required this.state, required this.budgetRow});
+/// Alles auf dem Deck. Lädt Rang, Funde und Wunschschätze neu, wenn das Kind
+/// von einer anderen Seite zurückkommt.
+class _HomeBody extends StatefulWidget {
+  const _HomeBody({required this.state});
 
   final SessionChild state;
 
-  /// Schatztruhe und Aufträge, zwischen Karte und Orden.
-  final Widget budgetRow;
-
   @override
-  State<_ProgressSection> createState() => _ProgressSectionState();
+  State<_HomeBody> createState() => _HomeBodyState();
 }
 
-class _ProgressSectionState extends State<_ProgressSection> {
+class _HomeBodyState extends State<_HomeBody> {
   ChildStatsController? _controller;
 
   /// Funde, die das Kind in der Sammlung schon gesehen hat (auf diesem Gerät).
@@ -775,99 +909,142 @@ class _ProgressSectionState extends State<_ProgressSection> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final controller = _controller;
+    final child = _child;
     return ListenableBuilder(
       listenable: controller ?? const AlwaysStoppedAnimation(0),
       builder: (context, _) {
         final stats = controller?.stats;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(12, 4, 12, 24),
           children: [
-            if (stats != null) ...[
+            Row(
+              children: [
+                const SoundButton(),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: stats == null
+                      ? const SizedBox.shrink()
+                      : _RankPlaque(
+                          stats: stats,
+                          rankForm: child.rankForm,
+                          onTap: () => _open(RankLadderScreen(stats: stats, rankForm: child.rankForm)),
+                        ),
+                ),
+                const SizedBox(width: 6),
+                LighthouseButton(state: widget.state),
+              ],
+            ),
+            const SizedBox(height: 6),
+            if (stats != null)
               _GreetingBubble(
                 greeting: dailyGreeting(day: DateTime.now(), stats: stats, goals: _goals),
-                rankForm: _child.rankForm,
+                rankForm: child.rankForm,
               ),
-              const SizedBox(height: 12),
-              StatsCard(
-                stats: stats,
-                rankForm: _child.rankForm,
-                onOpenRanks: () => _open(RankLadderScreen(stats: stats, rankForm: _child.rankForm)),
-              ),
-              const SizedBox(height: 16),
-            ],
-            _MapTile(onTap: () => _open(IslandMapScreen(child: _child))),
-            const SizedBox(height: 12),
-            widget.budgetRow,
-            if (stats != null) ...[
-              const SizedBox(height: 12),
-              IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: _HomeTile(
-                        key: const ValueKey('home-badges'),
-                        image: AssetKeys.iconBadges,
-                        fallbackIcon: Icons.military_tech_outlined,
-                        label: l10n.childHomeBadgesTile,
-                        semanticLabel: l10n.badgesButton(stats.badgeCount),
-                        count: stats.badgeCount,
-                        onTap: () => _open(BadgesScreen(childId: _child.id)),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      // Die Zahl leuchtet nur für neue Funde, die das Kind noch nicht gesehen hat.
-                      child: _HomeTile(
-                        key: const ValueKey('home-collection'),
-                        image: AssetKeys.iconCollection,
-                        fallbackIcon: Icons.scuba_diving,
-                        label: l10n.childHomeCollectionTile,
-                        semanticLabel: l10n.collectionButton(stats.finds),
-                        count: max(0, stats.finds - _collectionSeen),
-                        attention: true,
-                        hint: stats.finds > _collectionSeen
-                            ? l10n.childHomeNewFinds(stats.finds - _collectionSeen)
-                            : null,
-                        hintKey: const ValueKey('child-home-new-finds'),
-                        onTap: () => _openCollection(stats),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _HomeTile(
-                        key: const ValueKey('home-games'),
-                        image: '',
-                        art: const GameSign(size: 64),
-                        fallbackIcon: Icons.sports_esports_rounded,
-                        label: l10n.childHomeGamesTile,
-                        semanticLabel: l10n.childHomeGamesTile,
-                        onTap: () => _open(GamesScreen(child: _child)),
-                      ),
-                    ),
-                  ],
+            _Crew(child: child),
+            const SizedBox(height: 14),
+            // Wer vor dieser Frage schon gespielt hat, wählt einmal hier.
+            if (child.rankForm == null) ...[_RankFormCard(childId: child.id), const SizedBox(height: 14)],
+            _MapSign(onTap: () => _open(IslandMapScreen(child: child))),
+            const SizedBox(height: 14),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: _TreasureButton(childId: child.id)),
+                Expanded(child: _TasksButton(childId: child.id)),
+                Expanded(
+                  child: stats == null
+                      ? const SizedBox.shrink()
+                      : Builder(
+                          builder: (context) {
+                            final fresh = max(0, unlockedShipyardCount(stats.xp) - _shipyardSeen);
+                            return _DeckItem(
+                              key: const ValueKey('home-shipyard'),
+                              image: '',
+                              art: FlaggedShip(flag: (child.avatar ?? const AvatarConfig()).flag, size: 78),
+                              fallbackIcon: Icons.sailing_rounded,
+                              label: l10n.childHomeShipyardTile,
+                              semanticLabel: l10n.childHomeShipyardTile,
+                              count: fresh,
+                              attention: true,
+                              hint: fresh > 0 ? l10n.childHomeShipyardNew(fresh) : null,
+                              hintKey: const ValueKey('child-home-shipyard-new'),
+                              onTap: () => _openShipyard(stats),
+                            );
+                          },
+                        ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Builder(
-                builder: (context) {
-                  final fresh = max(0, unlockedShipyardCount(stats.xp) - _shipyardSeen);
-                  return _HomeTile(
-                    key: const ValueKey('home-shipyard'),
-                    image: '',
-                    art: FlaggedShip(flag: (_child.avatar ?? const AvatarConfig()).flag, size: 64),
-                    fallbackIcon: Icons.sailing_rounded,
-                    label: l10n.childHomeShipyardTile,
-                    semanticLabel: l10n.childHomeShipyardTile,
-                    count: fresh,
-                    attention: true,
-                    hint: fresh > 0 ? l10n.childHomeShipyardNew(fresh) : null,
-                    hintKey: const ValueKey('child-home-shipyard-new'),
-                    onTap: () => _openShipyard(stats),
-                  );
-                },
+              ],
+            ),
+            if (stats != null) ...[
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _DeckItem(
+                      key: const ValueKey('home-badges'),
+                      image: AssetKeys.iconBadges,
+                      fallbackIcon: Icons.military_tech_outlined,
+                      label: l10n.childHomeBadgesTile,
+                      semanticLabel: l10n.badgesButton(stats.badgeCount),
+                      count: stats.badgeCount,
+                      onTap: () => _open(BadgesScreen(childId: child.id)),
+                    ),
+                  ),
+                  Expanded(
+                    // Die Zahl leuchtet nur für neue Funde, die das Kind noch nicht gesehen hat.
+                    child: _DeckItem(
+                      key: const ValueKey('home-collection'),
+                      image: AssetKeys.iconCollection,
+                      fallbackIcon: Icons.scuba_diving,
+                      label: l10n.childHomeCollectionTile,
+                      semanticLabel: l10n.collectionButton(stats.finds),
+                      count: max(0, stats.finds - _collectionSeen),
+                      attention: true,
+                      hint: stats.finds > _collectionSeen
+                          ? l10n.childHomeNewFinds(stats.finds - _collectionSeen)
+                          : null,
+                      hintKey: const ValueKey('child-home-new-finds'),
+                      onTap: () => _openCollection(stats),
+                    ),
+                  ),
+                  Expanded(
+                    child: _DeckItem(
+                      key: const ValueKey('home-games'),
+                      // Bis das Bild der Spielekiste da ist (BILDER.md Bild 175): das Spiel-Zeichen.
+                      image: '',
+                      art: const GameSign(size: 64),
+                      fallbackIcon: Icons.sports_esports_rounded,
+                      label: l10n.childHomeGamesTile,
+                      semanticLabel: l10n.childHomeGamesTile,
+                      onTap: () => _open(GamesScreen(child: child)),
+                    ),
+                  ),
+                ],
               ),
             ],
+            const SizedBox(height: 18),
+            // Hilfen, die man selten braucht: klein am Ende.
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _DeckLink(
+                  key: const ValueKey('tour-button'),
+                  icon: Icons.explore_rounded,
+                  label: l10n.tourButton,
+                  onTap: () =>
+                      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const BoardTourScreen())),
+                ),
+                _DeckLink(
+                  icon: Icons.play_circle_outline_rounded,
+                  label: l10n.childHomeIntroAgain,
+                  onTap: () =>
+                      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const IntroVideoScreen())),
+                ),
+              ],
+            ),
           ],
         );
       },
@@ -875,39 +1052,38 @@ class _ProgressSectionState extends State<_ProgressSection> {
   }
 }
 
-/// Satz des Tages von Talo oder Tala (jeden Tag ein anderer, ohne Druck).
-class _GreetingBubble extends StatelessWidget {
-  const _GreetingBubble({required this.greeting, required this.rankForm});
+/// Kleiner heller Knopf am Ende der Startseite (Rundgang, Intro).
+class _DeckLink extends StatelessWidget {
+  const _DeckLink({super.key, required this.icon, required this.label, required this.onTap});
 
-  final DailyGreeting greeting;
-  final RankForm? rankForm;
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final g = greeting;
-    final text = switch (g.kind) {
-      GreetingKind.wind => l10n.greetingWind,
-      GreetingKind.waitWind => l10n.greetingWaitWind(l10n.weekday('${g.date!.weekday}')),
-      GreetingKind.rankSoon => l10n.greetingRankSoon(g.number, l10n.rank(g.rank, rankForm)),
-      GreetingKind.goalReady => l10n.greetingGoalReady(g.title!),
-      GreetingKind.goalSoon => l10n.greetingGoalSoon(g.title!, formatCents(g.number)),
-      GreetingKind.streak => l10n.greetingStreak(g.number),
-      GreetingKind.reviews => l10n.greetingReviews,
-      GreetingKind.tip => switch (g.number) {
-        0 => l10n.greetingTip0,
-        1 => l10n.greetingTip1,
-        2 => l10n.greetingTip2,
-        3 => l10n.greetingTip3,
-        4 => l10n.greetingTip4,
-        _ => l10n.greetingTip5,
-      },
-    };
-    return SpeechBubble(
-      key: const ValueKey('home-greeting'),
-      speaker: g.speaker == 'tala' ? Speaker.tala : Speaker.talo,
-      pose: CharacterPose.happy,
-      text: text,
+    final palette = context.palette;
+    return Material(
+      color: palette.paper.withValues(alpha: 0.9),
+      shape: const StadiumBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 20, color: palette.seaDeep),
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: palette.seaDeep, fontSize: 15),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

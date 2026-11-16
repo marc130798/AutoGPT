@@ -108,7 +108,7 @@ void main() {
     await tapText(tester, "Los geht's");
 
     // Kinderbereich mit Schiffsname
-    expect(find.text('Willkommen an Bord, Mila!'), findsOneWidget);
+    expect(find.bySemanticsLabel('Willkommen an Bord, Mila!'), findsOneWidget);
     expect(find.text('Dein Schiff: Goldmöwe'), findsOneWidget);
 
     // Gespeichert wurde alles auf dem Server, Geld in Cent.

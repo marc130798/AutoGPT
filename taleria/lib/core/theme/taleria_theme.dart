@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'taleria_palette.dart';
 import 'wave_transition.dart';
 
+/// Schrift für Fließtext, Knöpfe und kleine Überschriften.
+const String bodyFont = 'Nunito';
+
+/// Schrift für große Überschriften und Holzschilder (rund, wie das Logo).
+const String displayFont = 'Baloo2';
+
 /// Mindestgröße für alles, was man antippen kann (CLAUDE.md Abschnitt 11).
 const double minTapTarget = 48;
 
@@ -38,10 +44,26 @@ ThemeData _buildTheme(TaleriaPalette palette) {
   );
 
   // Etwas größere Schrift, gut lesbar für 10-Jährige.
-  // Roboto liegt in der App (pubspec.yaml); Pfeile kommen aus „TaleriaZeichen“.
-  final base = ThemeData(useMaterial3: true, colorScheme: colorScheme, fontFamilyFallback: const ['TaleriaZeichen']);
+  // Die Schriften liegen in der App (pubspec.yaml): Nunito für Text und Knöpfe,
+  // Baloo 2 für große Überschriften (passt zum Logo). Pfeile aus „TaleriaZeichen“.
+  final base = ThemeData(
+    useMaterial3: true,
+    colorScheme: colorScheme,
+    fontFamily: bodyFont,
+    fontFamilyFallback: const ['TaleriaZeichen'],
+  );
+  TextStyle? display(TextStyle? style) => style?.copyWith(fontFamily: displayFont, fontWeight: FontWeight.w800);
   final textTheme = base.textTheme
       .copyWith(
+        displayLarge: display(base.textTheme.displayLarge),
+        displayMedium: display(base.textTheme.displayMedium),
+        displaySmall: display(base.textTheme.displaySmall),
+        headlineLarge: display(base.textTheme.headlineLarge),
+        headlineMedium: display(base.textTheme.headlineMedium),
+        headlineSmall: display(base.textTheme.headlineSmall),
+        titleLarge: display(base.textTheme.titleLarge),
+        titleMedium: base.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        titleSmall: base.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
         bodyLarge: base.textTheme.bodyLarge?.copyWith(fontSize: 18, height: 1.4),
         bodyMedium: base.textTheme.bodyMedium?.copyWith(fontSize: 16, height: 1.4),
         labelLarge: base.textTheme.labelLarge?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
@@ -57,7 +79,12 @@ ThemeData _buildTheme(TaleriaPalette palette) {
     materialTapTargetSize: MaterialTapTargetSize.padded,
     extensions: [palette],
     pageTransitionsTheme: _waveTransitions,
-    appBarTheme: AppBarTheme(backgroundColor: palette.seaDeep, foregroundColor: palette.paper, centerTitle: true),
+    appBarTheme: AppBarTheme(
+      backgroundColor: palette.seaDeep,
+      foregroundColor: palette.paper,
+      centerTitle: true,
+      titleTextStyle: textTheme.titleLarge?.copyWith(color: palette.paper, fontSize: 24),
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: buttonSize,

@@ -3646,7 +3646,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Karte zu finden ist
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite die große blaue Kachel „Zur Karte“'**
+  /// **'Auf der Startseite das große Holzschild „Zur Karte“'**
   String get tourMapWhere;
 
   /// Rundgang: Titel der Station Rang
@@ -3658,13 +3658,13 @@ abstract class AppLocalizations {
   /// Rundgang: wo Rang und Seemeilen stehen
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite direkt unter der Begrüßung'**
+  /// **'Auf der Startseite ganz oben, das Holzschild in der Mitte'**
   String get tourRankWhere;
 
   /// Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind
   ///
   /// In de, this message translates to:
-  /// **'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind.'**
+  /// **'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind. Tipp auf das Schild, dann siehst du alle Ränge.'**
   String get tourRankBody;
 
   /// Rundgang: wo die Schatztruhe ist
@@ -3682,7 +3682,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Aufträge sind
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite unter der Karte, rechts'**
+  /// **'Auf der Startseite unter der Karte, in der Mitte'**
   String get tourTasksWhere;
 
   /// Rundgang: Tala erklärt die Aufträge
@@ -3700,7 +3700,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Orden sind
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite ganz unten, links'**
+  /// **'Auf der Startseite in der unteren Reihe, links'**
   String get tourBadgesWhere;
 
   /// Rundgang: Talo erklärt die Orden
@@ -3718,7 +3718,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Sammlung ist
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite ganz unten, rechts'**
+  /// **'Auf der Startseite in der unteren Reihe, in der Mitte'**
   String get tourCollectionWhere;
 
   /// Rundgang: Tala erklärt die Unterwasser-Sammlung
@@ -3742,7 +3742,7 @@ abstract class AppLocalizations {
   /// Rundgang: Talo erklärt Leuchtturm, Ton und den Rundgang-Knopf
   ///
   /// In de, this message translates to:
-  /// **'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.'**
+  /// **'Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ ganz unten auf der Startseite kannst du diesen Rundgang immer wieder anschauen.'**
   String get tourLighthouseBody;
 
   /// Rang-Namen in der Form, die Mädchen meist wählen (Glossar)

@@ -137,7 +137,7 @@ void main() {
 
     await enter(tester, 'child-code-field', 'abcd 2345');
     await tapText(tester, 'An Bord gehen');
-    expect(find.text('Willkommen an Bord, Mila!'), findsOneWidget);
+    expect(find.bySemanticsLabel('Willkommen an Bord, Mila!'), findsOneWidget);
 
     await tester.tap(find.byKey(const ValueKey('lighthouse-button')));
     await tester.pumpAndSettle();
@@ -155,7 +155,7 @@ void main() {
     await tapText(tester, 'Ich habe einen Code');
     await enter(tester, 'child-code-field', 'ABCD2345');
     await tapText(tester, 'An Bord gehen');
-    expect(find.text('Willkommen an Bord, Mila!'), findsOneWidget);
+    expect(find.bySemanticsLabel('Willkommen an Bord, Mila!'), findsOneWidget);
 
     backend.signOutDevice(backend.currentUser!.id);
     await tester.pumpAndSettle();

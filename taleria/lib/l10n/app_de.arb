@@ -3032,7 +3032,7 @@
   "@tourBack": {
     "description": "Rundgang: Knopf zur vorigen Station"
   },
-  "tourMapWhere": "Auf der Startseite die große blaue Kachel „Zur Karte“",
+  "tourMapWhere": "Auf der Startseite das große Holzschild „Zur Karte“",
   "@tourMapWhere": {
     "description": "Rundgang: wo die Karte zu finden ist"
   },
@@ -3040,11 +3040,11 @@
   "@tourRankTitle": {
     "description": "Rundgang: Titel der Station Rang"
   },
-  "tourRankWhere": "Auf der Startseite direkt unter der Begrüßung",
+  "tourRankWhere": "Auf der Startseite ganz oben, das Holzschild in der Mitte",
   "@tourRankWhere": {
     "description": "Rundgang: wo Rang und Seemeilen stehen"
   },
-  "tourRankBody": "Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind.",
+  "tourRankBody": "Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind. Tipp auf das Schild, dann siehst du alle Ränge.",
   "@tourRankBody": {
     "description": "Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind"
   },
@@ -3056,7 +3056,7 @@
   "@tourTasksTitle": {
     "description": "Rundgang: Titel der Station Aufträge"
   },
-  "tourTasksWhere": "Auf der Startseite unter der Karte, rechts",
+  "tourTasksWhere": "Auf der Startseite unter der Karte, in der Mitte",
   "@tourTasksWhere": {
     "description": "Rundgang: wo die Aufträge sind"
   },
@@ -3068,7 +3068,7 @@
   "@tourBadgesTitle": {
     "description": "Rundgang: Titel der Station Orden"
   },
-  "tourBadgesWhere": "Auf der Startseite ganz unten, links",
+  "tourBadgesWhere": "Auf der Startseite in der unteren Reihe, links",
   "@tourBadgesWhere": {
     "description": "Rundgang: wo die Orden sind"
   },
@@ -3080,7 +3080,7 @@
   "@tourCollectionTitle": {
     "description": "Rundgang: Titel der Station Sammlung"
   },
-  "tourCollectionWhere": "Auf der Startseite ganz unten, rechts",
+  "tourCollectionWhere": "Auf der Startseite in der unteren Reihe, in der Mitte",
   "@tourCollectionWhere": {
     "description": "Rundgang: wo die Sammlung ist"
   },
@@ -3096,7 +3096,7 @@
   "@tourLighthouseWhere": {
     "description": "Rundgang: wo Leuchtturm, Ton und Rundgang sind"
   },
-  "tourLighthouseBody": "Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ kannst du diesen Rundgang immer wieder anschauen.",
+  "tourLighthouseBody": "Der Leuchtturm oben rechts gehört deinen Eltern. Oben links schaltest du den Ton an oder aus. Und mit „Was ist wo?“ ganz unten auf der Startseite kannst du diesen Rundgang immer wieder anschauen.",
   "@tourLighthouseBody": {
     "description": "Rundgang: Talo erklärt Leuchtturm, Ton und den Rundgang-Knopf"
   },
