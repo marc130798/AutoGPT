@@ -49,3 +49,11 @@ p { margin: 0; }
 .scale { display: flex; gap: 2mm; align-items: center; font-size: 8.5pt; color: var(--ink-soft); }
 .scale span.c { width: 7mm; height: 7mm; border: 0.45mm solid var(--sea-deep); border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--sea-deep); font-size: 8.5pt; }
 .qgrid { display: grid; gap: 4.2mm; }
+/* Kompakte Seite (16.11.2026): für Seiten mit mehr Inhalt, damit sie auf A4 passen. */
+.page.dense { gap: 3mm; font-size: 9.6pt; line-height: 1.35; }
+.page.dense .box { padding: 3mm 4mm; }
+.page.dense .qgrid { gap: 2.4mm !important; }
+.page.dense .q { gap: 1.2mm; }
+.page.dense .q > b { font-size: 10.5pt; }
+.page.dense .opts { gap: 1.4mm 4mm; }
+.page.dense .writeline { height: 6mm; }
