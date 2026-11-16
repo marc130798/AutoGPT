@@ -522,6 +522,8 @@ Am 16.11.2026 mit Marc: Die Werft bekommt einen eigenen Hintergrund statt des Sc
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
 | 176 | `shipyard.background` | Werft von innen | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
+| 177 | `shipyard.dock` | Werft mit Hafenbecken (Bühne oben in der Werft) | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
+| 178 | `ship.side` | Crew-Schiff genau von der Seite, ohne Flagge (die App setzt die gewählte Flagge) | Crew-Schiff (`ship.crew`) | da (Claude mit Gemini, 16.11.2026) |
 
 Text für Bild 176:
 

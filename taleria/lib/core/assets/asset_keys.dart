@@ -30,6 +30,10 @@ abstract final class AssetKeys {
 
   /// Hintergrund der Werft (BILDER.md Bild 176). Bis er da ist: [homeBackground].
   static const shipyardBackground = 'shipyard.background';
+
+  /// Hafenbecken der Werft und das eigene Schiff von der Seite (Bühne oben in der Werft).
+  static const shipyardDock = 'shipyard.dock';
+  static const shipSide = 'ship.side';
   static const iconMap = 'icon.map';
   static const iconTreasure = 'icon.treasure';
   static const iconTasks = 'icon.tasks';

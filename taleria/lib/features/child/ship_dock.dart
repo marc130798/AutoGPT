@@ -6,19 +6,23 @@ import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../domain/avatar.dart';
-import '../common/lively_figure.dart';
+import '../common/ship_flag.dart';
 import '../common/wood_sign.dart';
-import 'shipyard_screen.dart' show FlaggedShip;
 
-/// Hafenbecken in der Werft: das eigene Schiff schwimmt in einem Becken aus
-/// Wasser mit Holzrand, schaukelt, Wellen ziehen vorbei und am Rumpf schäumt
-/// es. So hebt es sich vom Holz der Werft ab (Wunsch von Marc, 16.11.2026).
+/// Bühne oben in der Werft: Blick ins Hafenbecken (Bild `shipyard.dock`), darin
+/// das eigene Schiff von der Seite (`ship.side`) mit der gewählten Flagge am
+/// höchsten Mast. Das Schiff liegt im Wasser: Es schaukelt, vorne am Rumpf
+/// laufen Wellen und Gischt, der untere Rand des Rumpfs liegt unter Wasser
+/// (Wunsch von Marc, 16.11.2026: seitlich in 3D statt schräg von oben).
 /// Ohne Bewegung (Tests, „Bewegung reduzieren“) steht alles still.
 class ShipDock extends StatefulWidget {
-  const ShipDock({super.key, required this.flag, this.height = 230});
+  const ShipDock({super.key, required this.flag, this.height = 300});
 
   final ShipFlag flag;
   final double height;
+
+  /// Spitze des höchsten Masts im Bild `ship.side` (Anteil von Breite und Höhe).
+  static const _mastTip = Offset(0.322, 0.012);
 
   @override
   State<ShipDock> createState() => _ShipDockState();
@@ -51,129 +55,142 @@ class _ShipDockState extends State<ShipDock> with SingleTickerProviderStateMixin
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(26),
         border: Border.all(color: WoodColors.edge, width: 3),
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [WoodColors.light, WoodColors.dark],
-        ),
         boxShadow: const [BoxShadow(color: Color(0x66081C30), blurRadius: 12, offset: Offset(0, 6))],
       ),
-      // Der Holzrand (Steg) um das Wasser.
-      padding: const EdgeInsets.all(7),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(19),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            const TaleriaAsset(
-              AssetKeys.mapBackground,
-              fit: BoxFit.cover,
-              fallback: ColoredBox(color: Color(0xFF3FB6D3)),
-            ),
-            // Etwas Licht von oben, unten tieferes Blau.
-            const DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0x33FFFFFF), Color(0x00FFFFFF), Color(0x55134A6B)],
-                ),
-              ),
-            ),
-            CustomPaint(painter: _WavePainter(clock: _waves)),
-            // Das Schiff mit Schaum am Rumpf.
-            Align(
-              alignment: const Alignment(0.15, 0.55),
-              child: SeaSway(
-                amount: 1.6,
-                child: Stack(
-                  clipBehavior: Clip.none,
+        borderRadius: BorderRadius.circular(23),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final w = constraints.maxWidth;
+            final h = constraints.maxHeight;
+            final shipWidth = min(w * 0.64, 240.0);
+            final shipHeight = shipWidth * 432 / 512;
+            // Wasserlinie: Dort liegt der Rumpf im Becken.
+            final waterline = h * 0.8;
+            final flagSize = shipWidth * 0.17;
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                const TaleriaAsset(
+                  AssetKeys.shipyardDock,
+                  fit: BoxFit.cover,
                   alignment: Alignment.bottomCenter,
-                  children: [
-                    Positioned(
-                      bottom: 6,
-                      child: AnimatedBuilder(
-                        animation: _waves,
-                        builder: (context, _) {
-                          final p = 0.5 + 0.5 * sin(_waves.value * 2 * pi * 2);
-                          return CustomPaint(
-                            size: Size(170 + 14 * p, 34),
-                            painter: _FoamPainter(strength: p),
-                          );
-                        },
-                      ),
-                    ),
-                    FlaggedShip(flag: widget.flag, size: 180),
-                  ],
+                  fallback: ColoredBox(color: Color(0xFF3FB6D3)),
                 ),
-              ),
-            ),
-          ],
+                AnimatedBuilder(
+                  animation: _waves,
+                  builder: (context, _) {
+                    final t = _waves.value * 2 * pi;
+                    final bob = sin(t * 2) * 2.5;
+                    final tilt = sin(t * 2 + 0.8) * 0.018;
+                    return Stack(
+                      children: [
+                        Positioned(
+                          left: (w - shipWidth) / 2,
+                          top: waterline - shipHeight * 0.93 + bob,
+                          width: shipWidth,
+                          height: shipHeight,
+                          child: Transform.rotate(
+                            angle: tilt,
+                            alignment: Alignment.bottomCenter,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                const Positioned.fill(child: TaleriaAsset(AssetKeys.shipSide, fit: BoxFit.contain)),
+                                // Die eigene Flagge oben am höchsten Mast.
+                                Positioned(
+                                  left: shipWidth * ShipDock._mastTip.dx - flagSize * 0.12,
+                                  top: shipHeight * ShipDock._mastTip.dy - flagSize * 0.92,
+                                  child: ShipFlagView(flag: widget.flag, size: flagSize),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Wasser vor dem unteren Rumpf: Das Schiff liegt im Becken, nicht darauf.
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          top: waterline - 8 + bob * 0.3,
+                          bottom: 0,
+                          child: const DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Color(0x002AA6BE), Color(0xCC2AA6BE), Color(0xE61D8AA3)],
+                                stops: [0, 0.35, 1],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: _WaterPainter(
+                              progress: _waves.value,
+                              waterline: waterline,
+                              hull: Rect.fromLTWH(
+                                (w - shipWidth) / 2 + shipWidth * 0.12,
+                                waterline - 6,
+                                shipWidth * 0.8,
+                                12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
   }
 }
 
-/// Helle Wellenlinien, die langsam durch das Becken ziehen.
-class _WavePainter extends CustomPainter {
-  _WavePainter({required this.clock}) : super(repaint: clock);
+/// Wellenlinien auf dem Wasser und Gischt entlang des Rumpfs.
+class _WaterPainter extends CustomPainter {
+  _WaterPainter({required this.progress, required this.waterline, required this.hull});
 
-  final Animation<double> clock;
+  final double progress;
+  final double waterline;
+  final Rect hull;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final t = clock.value;
-    final paint = Paint()
+    final line = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 2.2;
-    final rnd = Random(3);
-    for (var i = 0; i < 9; i++) {
-      final y = size.height * (0.15 + 0.8 * rnd.nextDouble());
-      final speed = 0.6 + rnd.nextDouble() * 0.8;
-      final x = ((rnd.nextDouble() + t * speed) % 1.2 - 0.1) * size.width;
-      final w = 18.0 + rnd.nextDouble() * 22;
-      paint.color = Colors.white.withValues(alpha: 0.25 + 0.3 * rnd.nextDouble());
+      ..strokeWidth = 2;
+    final rnd = Random(5);
+    for (var i = 0; i < 10; i++) {
+      final y = waterline - 14 + rnd.nextDouble() * (size.height - waterline + 10);
+      final speed = 0.5 + rnd.nextDouble();
+      final x = ((rnd.nextDouble() + progress * speed) % 1.2 - 0.1) * size.width;
+      final w = 16.0 + rnd.nextDouble() * 22;
+      line.color = Colors.white.withValues(alpha: 0.3 + 0.35 * rnd.nextDouble());
       canvas.drawPath(
         Path()
           ..moveTo(x, y)
-          ..quadraticBezierTo(x + w / 2, y - 4, x + w, y),
-        paint,
+          ..quadraticBezierTo(x + w / 2, y - 3, x + w, y),
+        line,
       );
     }
-  }
-
-  @override
-  bool shouldRepaint(_WavePainter old) => false;
-}
-
-/// Weiche Gischt um den Rumpf: verschwommene helle Ovale, keine harte Kante.
-class _FoamPainter extends CustomPainter {
-  _FoamPainter({required this.strength});
-
-  final double strength;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.center(Offset.zero);
-    final soft = Paint()
-      ..color = Colors.white.withValues(alpha: 0.4 + 0.2 * strength)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
-    canvas.drawOval(Rect.fromCenter(center: center, width: size.width, height: size.height * 0.7), soft);
-    final crest = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..color = Colors.white.withValues(alpha: 0.7);
-    canvas.drawArc(
-      Rect.fromCenter(center: center, width: size.width * 0.95, height: size.height * 0.75),
-      0.15,
-      pi - 0.3,
-      false,
-      crest,
+    // Weiche Gischt am Rumpf, am Bug (rechts) etwas mehr.
+    final pulse = 0.5 + 0.5 * sin(progress * 2 * pi * 3);
+    final foam = Paint()
+      ..color = Colors.white.withValues(alpha: 0.5 + 0.2 * pulse)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
+    canvas.drawOval(hull.inflate(2), foam);
+    canvas.drawOval(
+      Rect.fromCenter(center: hull.centerRight.translate(-4, 0), width: 34 + 8 * pulse, height: 14),
+      foam,
     );
   }
 
   @override
-  bool shouldRepaint(_FoamPainter old) => old.strength != strength;
+  bool shouldRepaint(_WaterPainter old) => old.progress != progress || old.waterline != waterline;
 }

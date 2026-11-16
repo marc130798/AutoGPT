@@ -2267,6 +2267,24 @@
         "shape": "rounded"
       }
     },
+    "ship.side": {
+      "type": "image",
+      "path": "assets/images/ship.side.png",
+      "placeholder": {
+        "label": "Schiff von der Seite",
+        "color": "#3FB6D3",
+        "shape": "rectangle"
+      }
+    },
+    "shipyard.dock": {
+      "type": "image",
+      "path": "assets/images/shipyard.dock.jpg",
+      "placeholder": {
+        "label": "Hafenbecken der Werft",
+        "color": "#3FB6D3",
+        "shape": "rectangle"
+      }
+    },
     "icon.treasure": {
       "type": "image",
       "path": "assets/images/icon.treasure.png",
