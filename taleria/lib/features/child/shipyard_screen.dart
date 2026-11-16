@@ -10,6 +10,8 @@ import '../../domain/shipyard.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/avatar_view.dart';
 import '../common/menu_music.dart';
+import '../common/lively_figure.dart';
+import '../common/wood_sign.dart';
 import '../common/page_intro.dart';
 import '../common/scene_background.dart';
 import '../common/ship_flag.dart';
@@ -108,7 +110,8 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.shipyardTitle),
         body: SceneBackground(
-          assetKey: AssetKeys.homeBackground,
+          assetKey: AssetKeys.shipyardBackground,
+          fallbackKey: AssetKeys.homeBackground,
           child: SafeArea(
             child: ListView(
               padding: const EdgeInsets.all(16),
@@ -118,46 +121,81 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                   page: 'shipyard',
                   children: [SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.shipyardIntro)],
                 ),
-                const SizedBox(height: 12),
-                PaperCard(
-                  child: Column(
+                const SizedBox(height: 8),
+                // Die Bühne: das eigene Schiff groß auf der Helling, davor das Kind.
+                SizedBox(
+                  height: 200,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          AvatarView(key: const ValueKey('shipyard-avatar'), avatar: _avatar, size: 120),
-                          FlaggedShip(flag: _avatar.flag, size: 110),
-                        ],
+                      Positioned(
+                        right: 8,
+                        bottom: 0,
+                        child: SeaSway(amount: 1.2, child: FlaggedShip(flag: _avatar.flag, size: 190)),
                       ),
-                      const SizedBox(height: 12),
-                      Text(l10n.statsXp(widget.xp), textAlign: TextAlign.center, style: theme.textTheme.titleMedium),
-                      const SizedBox(height: 4),
+                      Positioned(
+                        left: 12,
+                        bottom: 0,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFFFFFBF0),
+                            border: Border.all(color: const Color(0xFFB8862B), width: 5),
+                            boxShadow: const [BoxShadow(color: Color(0x55081C30), blurRadius: 8, offset: Offset(0, 4))],
+                          ),
+                          child: ClipOval(
+                            child: AvatarView(key: const ValueKey('shipyard-avatar'), avatar: _avatar, size: 100),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                // Seemeilen und das nächste Teil, dazu der Schatzcode aus dem Logbuch.
+                WoodPanel(
+                  padding: const EdgeInsets.fromLTRB(14, 8, 14, 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        l10n.statsXp(widget.xp),
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.titleLarge?.copyWith(color: WoodColors.brass),
+                      ),
                       Text(
                         next == null
                             ? l10n.shipyardAllUnlocked
                             : l10n.shipyardNext(next.minXp - widget.xp, l10n.lookName(next.id)),
                         key: const ValueKey('shipyard-next'),
                         textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      OutlinedButton.icon(
-                        key: const ValueKey('shipyard-code'),
-                        onPressed: _saving ? null : _enterCode,
-                        icon: const Icon(Icons.vpn_key_outlined),
-                        label: Text(l10n.shipyardCodeButton),
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: WoodColors.cream,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       if (_saving) ...[const SizedBox(height: 8), const LinearProgressIndicator()],
                     ],
                   ),
                 ),
+                const SizedBox(height: 10),
+                Center(
+                  child: FilledButton.icon(
+                    key: const ValueKey('shipyard-code'),
+                    onPressed: _saving ? null : _enterCode,
+                    icon: const Icon(Icons.vpn_key_rounded),
+                    label: Text(l10n.shipyardCodeButton),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 for (final slot in LookSlot.values)
                   PaperCard(
                     key: ValueKey('shipyard-${slot.name}'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        PaperHeading(l10n.lookSlot(slot.name)),
+                        Text(l10n.lookSlot(slot.name), style: theme.textTheme.titleLarge),
                         const SizedBox(height: 8),
                         Wrap(
                           spacing: 10,

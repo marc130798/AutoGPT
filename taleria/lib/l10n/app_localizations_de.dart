@@ -2741,7 +2741,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get shipyardIntro =>
-      'Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei: Jacken, Hüte, Halstücher und Flaggen für dein Schiff. Tipp an, was dir gefällt.';
+      'Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei. Tipp an, was dir gefällt.';
 
   @override
   String shipyardNext(int xp, String item) {

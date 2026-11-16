@@ -3858,7 +3858,7 @@
   "@shipyardTitle": {
     "description": "Titel der Werft (Avatar-Teile und Flaggen mit Seemeilen freischalten)"
   },
-  "shipyardIntro": "Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei: Jacken, Hüte, Halstücher und Flaggen für dein Schiff. Tipp an, was dir gefällt.",
+  "shipyardIntro": "Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei. Tipp an, was dir gefällt.",
   "@shipyardIntro": {
     "description": "Tala erklärt die Werft"
   },

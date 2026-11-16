@@ -27,6 +27,9 @@ abstract final class AssetKeys {
 
   /// Startseite des Kindes: Hintergrund und Bilder der Kacheln (BILDER.md, Abschnitt 4).
   static const homeBackground = 'home.background';
+
+  /// Hintergrund der Werft (BILDER.md Bild 176). Bis er da ist: [homeBackground].
+  static const shipyardBackground = 'shipyard.background';
   static const iconMap = 'icon.map';
   static const iconTreasure = 'icon.treasure';
   static const iconTasks = 'icon.tasks';

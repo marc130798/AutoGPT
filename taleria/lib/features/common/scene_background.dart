@@ -4,12 +4,26 @@ import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
 
 /// Bild über die ganze Seite (Schatzkammer, Kajüte, Unterwasserwelt …),
-/// darauf der Inhalt. Ohne Bild ein warmer Holz-Verlauf.
+/// darauf der Inhalt. Ohne Bild das Bild [fallbackKey], sonst ein warmer
+/// Holz-Verlauf.
 class SceneBackground extends StatelessWidget {
-  const SceneBackground({super.key, required this.assetKey, required this.child});
+  const SceneBackground({super.key, required this.assetKey, required this.child, this.fallbackKey});
 
   final String assetKey;
+
+  /// Ersatzbild, solange es [assetKey] noch nicht gibt.
+  final String? fallbackKey;
   final Widget child;
+
+  static const _wood = DecoratedBox(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [Color(0xFFE9D3AE), Color(0xFFC79A63)],
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +33,7 @@ class SceneBackground extends StatelessWidget {
           child: TaleriaAsset(
             assetKey,
             fit: BoxFit.cover,
-            fallback: const DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFFE9D3AE), Color(0xFFC79A63)],
-                ),
-              ),
-            ),
+            fallback: fallbackKey == null ? _wood : TaleriaAsset(fallbackKey!, fit: BoxFit.cover, fallback: _wood),
           ),
         ),
         Positioned.fill(child: child),

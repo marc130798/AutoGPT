@@ -515,6 +515,18 @@ Text für Bild 175:
 
 **Was das in der App ändert (noch nicht gebaut):** Die Auswahl im Figuren-Editor wird Löwe oder Löwin. Hut, Haare, Hautfarbe und Kleidungsfarbe fallen weg. Die Werft schaltet dann Teile fürs Schiff frei (Flaggen gibt es schon), das lila Halstuch aus dem Logbuch der Wunschinsel wird ein Schiffsteil. Bis die Bilder da sind, zeigt die App einen Platzhalter.
 
+## 4s. Hintergrund der Werft (Bild 176)
+
+Am 16.11.2026 mit Marc: Die Werft bekommt einen eigenen Hintergrund statt des Schiffsdecks. Bis er da ist, zeigt die App das Deck. Die App stellt das Schiff des Kindes groß unten rechts davor, deshalb darf im Bild **kein Schiff** auf der Helling stehen. Hochformat wie die anderen Hintergründe (etwa 768 × 1376), das Hafenbild als Stil-Vorlage anhängen (`design/gemini/map.island.hafen.jpg`).
+
+| Nr. | Datei | Bild | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 176 | `shipyard.background` | Werft von innen | Hafen-Kartenbild | fehlt |
+
+Text für Bild 176:
+
+> Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht, weiche runde Formen, freundlich für Kinder. Hochformat. Blick in eine gemütliche, große Holzwerft am Hafen, späte Nachmittagssonne fällt schräg durch ein offenes Tor und hohe Fenster. Unten in der Mitte eine leere hölzerne Helling (schräge Holzrampe mit Schienen) Richtung Wasser, auf ihr steht **kein Schiff**, sie ist frei. An den Wänden hängen Werkzeuge, aufgerollte Seile, Segeltuch-Ballen in Rot, Weiß und Blau, ein paar bunte Flaggen an einer Leine quer unter dem Dach, Farbtöpfe und Pinsel auf einem Regal, ein Hobel und Holzbretter in einer Ecke. Oben viel ruhige Fläche (Dachbalken und helles Licht), unten der Holzboden. Keine Figuren, keine Tiere, keine Schrift, keine Logos, keine Waffen.
+
 ## 4o. Spar-Insel (Insel 4)
 
 Vorbereitet am 11.10.2026 abends auf Marcs Wunsch, bevor die Texte der Spar-Insel geschrieben sind: Die Bildergeschichten geben die Geschichte vor, die Sätze schreibt Claude danach passend dazu. Reihenfolge: erst Karte (132), dann die Insel von innen (133, braucht 132 als Vorlage), dann Emma und Gustav (134, 135, sie sind Vorlagen für die Geschichten), danach Orden, Siegel, Funde und die Geschichten. Emma ist rotbraun, Gustav hellgrün: beide auf Pink. Gustav darf nicht wie eine bekannte Filmgrille aussehen (kein Zylinder, kein Regenschirm). Wo Zahlen nötig sind (Station 3: 50 Cent am Tag sind 3,50 € in der Woche; Station 5: Sparplan 30 Taler mit 5 pro Woche), zeichnet die App das Bild selbst. Ganze Texte in `design/prompts_spar_insel.txt`.

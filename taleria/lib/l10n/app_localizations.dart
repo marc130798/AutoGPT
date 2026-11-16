@@ -4468,7 +4468,7 @@ abstract class AppLocalizations {
   /// Tala erklärt die Werft
   ///
   /// In de, this message translates to:
-  /// **'Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei: Jacken, Hüte, Halstücher und Flaggen für dein Schiff. Tipp an, was dir gefällt.'**
+  /// **'Willkommen in der Werft! Hier kann man nichts kaufen. Mit deinen Seemeilen wird nach und nach Neues frei. Tipp an, was dir gefällt.'**
   String get shipyardIntro;
 
   /// Nächstes Teil der Werft
