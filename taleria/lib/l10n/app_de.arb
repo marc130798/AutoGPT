@@ -2078,7 +2078,7 @@
       }
     }
   },
-  "diveFind": "Fund für deine Sammlung: {title}",
+  "diveFind": "Neuer Taucherfund: {title}",
   "@diveFind": {
     "description": "Neuer Fund aus dem Wrack",
     "placeholders": {
@@ -2135,7 +2135,7 @@
   "@childHomeBadgesTile": {
     "description": "Kachel auf der Startseite des Kindes zur Orden-Sammlung"
   },
-  "childHomeCollectionTile": "Sammlung",
+  "childHomeCollectionTile": "Taucherfunde",
   "@childHomeCollectionTile": {
     "description": "Kachel auf der Startseite des Kindes zur Unterwasser-Sammlung"
   },
@@ -2148,7 +2148,7 @@
       }
     }
   },
-  "collectionButton": "Unterwasser-Sammlung ({count})",
+  "collectionButton": "Taucherfunde ({count})",
   "@collectionButton": {
     "description": "Knopf zur Unterwasser-Sammlung mit Zahl der Funde",
     "placeholders": {
@@ -2157,7 +2157,7 @@
       }
     }
   },
-  "collectionTitle": "Unterwasser-Sammlung",
+  "collectionTitle": "Deine Taucherfunde",
   "@collectionTitle": {
     "description": "Überschrift der Unterwasser-Sammlung"
   },
@@ -2175,6 +2175,30 @@
     "description": "Hinweis ohne Funde"
   },
   "collectionFoundOn": "Gefunden am {date}",
+  "collectionIslandCount": "{found} von {total} gefunden",
+  "@collectionIslandCount": {
+    "description": "Taucherfunde: wie viele Funde einer Insel schon gefunden sind",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "collectionFoundTotal": "{found} von {total} Funden",
+  "@collectionFoundTotal": {
+    "description": "Taucherfunde: alle Funde zusammen, oben neben den Perlen",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "@collectionFoundOn": {
     "description": "Datum eines Fundes",
     "placeholders": {
@@ -2294,7 +2318,7 @@
       }
     }
   },
-  "weeklyFinds": "{count, plural, =1{1 neuer Fund in der Sammlung} other{{count} neue Funde in der Sammlung}}",
+  "weeklyFinds": "{count, plural, =1{1 neuer Taucherfund} other{{count} neue Taucherfunde}}",
   "@weeklyFinds": {
     "description": "Wochenbericht",
     "placeholders": {
@@ -3016,7 +3040,7 @@
   "@badgesIntro": {
     "description": "Orden: Talo erklärt oben, wie man Orden bekommt"
   },
-  "collectionIntro": "Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.",
+  "collectionIntro": "Alles, was du beim Tauchen an den Ankerplätzen findest: Perlen und alte Schätze aus den Wracks.",
   "@collectionIntro": {
     "description": "Sammlung: Tala erklärt oben, was man beim Tauchen findet"
   },
@@ -3076,7 +3100,7 @@
   "@tourBadgesBody": {
     "description": "Rundgang: Talo erklärt die Orden"
   },
-  "tourCollectionTitle": "Sammlung",
+  "tourCollectionTitle": "Taucherfunde",
   "@tourCollectionTitle": {
     "description": "Rundgang: Titel der Station Sammlung"
   },

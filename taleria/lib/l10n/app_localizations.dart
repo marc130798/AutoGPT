@@ -2632,7 +2632,7 @@ abstract class AppLocalizations {
   /// Neuer Fund aus dem Wrack
   ///
   /// In de, this message translates to:
-  /// **'Fund für deine Sammlung: {title}'**
+  /// **'Neuer Taucherfund: {title}'**
   String diveFind(String title);
 
   /// Fortschritt im Sortier-Spiel
@@ -2686,7 +2686,7 @@ abstract class AppLocalizations {
   /// Kachel auf der Startseite des Kindes zur Unterwasser-Sammlung
   ///
   /// In de, this message translates to:
-  /// **'Sammlung'**
+  /// **'Taucherfunde'**
   String get childHomeCollectionTile;
 
   /// Hinweis unter der Sammlung: Funde, die das Kind noch nicht angeschaut hat
@@ -2698,13 +2698,13 @@ abstract class AppLocalizations {
   /// Knopf zur Unterwasser-Sammlung mit Zahl der Funde
   ///
   /// In de, this message translates to:
-  /// **'Unterwasser-Sammlung ({count})'**
+  /// **'Taucherfunde ({count})'**
   String collectionButton(int count);
 
   /// Überschrift der Unterwasser-Sammlung
   ///
   /// In de, this message translates to:
-  /// **'Unterwasser-Sammlung'**
+  /// **'Deine Taucherfunde'**
   String get collectionTitle;
 
   /// Perlen in der Sammlung
@@ -2724,6 +2724,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Gefunden am {date}'**
   String collectionFoundOn(String date);
+
+  /// Taucherfunde: wie viele Funde einer Insel schon gefunden sind
+  ///
+  /// In de, this message translates to:
+  /// **'{found} von {total} gefunden'**
+  String collectionIslandCount(int found, int total);
+
+  /// Taucherfunde: alle Funde zusammen, oben neben den Perlen
+  ///
+  /// In de, this message translates to:
+  /// **'{found} von {total} Funden'**
+  String collectionFoundTotal(int found, int total);
 
   /// Hinweis auf der Karte, wenn alle offenen Inseln geschafft sind
   ///
@@ -2830,7 +2842,7 @@ abstract class AppLocalizations {
   /// Wochenbericht
   ///
   /// In de, this message translates to:
-  /// **'{count, plural, =1{1 neuer Fund in der Sammlung} other{{count} neue Funde in der Sammlung}}'**
+  /// **'{count, plural, =1{1 neuer Taucherfund} other{{count} neue Taucherfunde}}'**
   String weeklyFinds(int count);
 
   /// Wochenbericht
@@ -3622,7 +3634,7 @@ abstract class AppLocalizations {
   /// Sammlung: Tala erklärt oben, was man beim Tauchen findet
   ///
   /// In de, this message translates to:
-  /// **'Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.'**
+  /// **'Alles, was du beim Tauchen an den Ankerplätzen findest: Perlen und alte Schätze aus den Wracks.'**
   String get collectionIntro;
 
   /// Startseite: Knopf oben, öffnet den Rundgang mit allen Bereichen
@@ -3712,7 +3724,7 @@ abstract class AppLocalizations {
   /// Rundgang: Titel der Station Sammlung
   ///
   /// In de, this message translates to:
-  /// **'Sammlung'**
+  /// **'Taucherfunde'**
   String get tourCollectionTitle;
 
   /// Rundgang: wo die Sammlung ist

@@ -1511,7 +1511,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String diveFind(String title) {
-    return 'Fund für deine Sammlung: $title';
+    return 'Neuer Taucherfund: $title';
   }
 
   @override
@@ -1543,7 +1543,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get childHomeBadgesTile => 'Orden';
 
   @override
-  String get childHomeCollectionTile => 'Sammlung';
+  String get childHomeCollectionTile => 'Taucherfunde';
 
   @override
   String childHomeNewFinds(int count) {
@@ -1553,11 +1553,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String collectionButton(int count) {
-    return 'Unterwasser-Sammlung ($count)';
+    return 'Taucherfunde ($count)';
   }
 
   @override
-  String get collectionTitle => 'Unterwasser-Sammlung';
+  String get collectionTitle => 'Deine Taucherfunde';
 
   @override
   String collectionPearls(int count) {
@@ -1577,6 +1577,16 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String collectionFoundOn(String date) {
     return 'Gefunden am $date';
+  }
+
+  @override
+  String collectionIslandCount(int found, int total) {
+    return '$found von $total gefunden';
+  }
+
+  @override
+  String collectionFoundTotal(int found, int total) {
+    return '$found von $total Funden';
   }
 
   @override
@@ -1663,8 +1673,8 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count neue Funde in der Sammlung',
-      one: '1 neuer Fund in der Sammlung',
+      other: '$count neue Taucherfunde',
+      one: '1 neuer Taucherfund',
     );
     return '$_temp0';
   }
@@ -2169,7 +2179,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get collectionIntro =>
-      'Beim Tauchen an den Ankerplätzen sammelst du Perlen und findest alte Schätze in den Wracks. Hier liegt alles, was du schon gefunden hast.';
+      'Alles, was du beim Tauchen an den Ankerplätzen findest: Perlen und alte Schätze aus den Wracks.';
 
   @override
   String get tourButton => 'Was ist wo?';
@@ -2217,7 +2227,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden.';
 
   @override
-  String get tourCollectionTitle => 'Sammlung';
+  String get tourCollectionTitle => 'Taucherfunde';
 
   @override
   String get tourCollectionWhere => 'Auf der Startseite in der unteren Reihe, in der Mitte';

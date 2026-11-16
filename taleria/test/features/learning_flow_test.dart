@@ -208,7 +208,7 @@ void main() {
     expect(find.text('Wieder an Bord!'), findsOneWidget);
     expect(find.text('4 Perlen gefunden'), findsOneWidget);
     await scrollTo(tester, find.byKey(const ValueKey('dive-find')));
-    expect(find.text('Fund für deine Sammlung: Alte Handelsmünze'), findsOneWidget);
+    expect(find.text('Neuer Taucherfund: Alte Handelsmünze'), findsOneWidget);
     await tapText(tester, 'Zurück zur Insel');
     expect(progress.done, contains('island-hafen/dive1'));
 

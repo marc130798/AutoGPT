@@ -82,7 +82,7 @@ void main() {
     await back();
     expect(sounds.playingMusic, AssetKeys.musicHome, reason: 'Startseite nach der Karte');
 
-    for (final page in ['Aufträge', 'Orden', 'Sammlung', 'Was ist wo?']) {
+    for (final page in ['Aufträge', 'Orden', 'Taucherfunde', 'Was ist wo?']) {
       if (find.text(page).evaluate().isEmpty) {
         // „Was ist wo?“ steht ganz oben.
         await tester.dragUntilVisible(find.text(page), find.byType(Scrollable).first, const Offset(0, 200));
