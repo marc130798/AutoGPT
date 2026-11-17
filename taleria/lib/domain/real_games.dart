@@ -339,3 +339,279 @@ class BackpackGame {
     _gone = false;
   }
 }
+
+/// Emmas Wintervorrat: An jedem Herbsttag isst Emma gleich ([eat], wenige
+/// Nüsse) oder vergräbt sie für später ([store], mehr Nüsse). Danach kommt der
+/// Winter: Reicht der Vorrat, klopft Gustav hungrig an und das Kind entscheidet,
+/// ob Emma teilt. Reicht er nicht, beginnt der Herbst von vorn (ein Fehler).
+class WinterStoreGame {
+  WinterStoreGame(this.game) : spec = game.winter!;
+
+  final GameInfo game;
+  final WinterStoreSpec spec;
+
+  int _day = 0;
+  int _eaten = 0;
+  int _stored = 0;
+  int _mistakes = 0;
+  bool? _shared;
+
+  /// Was an jedem Tag gewählt wurde (true = gewartet).
+  final List<bool> choices = [];
+
+  int get day => _day;
+  int get days => spec.days.length;
+  int get eaten => _eaten;
+  int get stored => _stored;
+  int get need => spec.need;
+  int get mistakes => _mistakes;
+  int get stars => starsForMistakes(_mistakes);
+
+  /// Gustav isst jeden Tag alles sofort.
+  int get gustavEaten => days * spec.now;
+
+  /// Herbst vorbei: Jetzt ist Winter.
+  bool get winter => _day >= days;
+  bool get enough => _stored >= spec.need;
+
+  /// Was nach dem Winter übrig bleibt (zum Teilen).
+  int get surplus => max(0, _stored - spec.need);
+
+  /// null = noch nicht entschieden (oder nichts zum Teilen).
+  bool? get shared => _shared;
+
+  /// Geschafft: genug im Vorrat und über das Teilen entschieden (falls etwas übrig ist).
+  bool get finished => winter && enough && (surplus == 0 || _shared != null);
+
+  void eat() => _choose(false);
+  void store() => _choose(true);
+
+  void _choose(bool wait) {
+    if (winter) return;
+    choices.add(wait);
+    if (wait) {
+      _stored += spec.later;
+    } else {
+      _eaten += spec.now;
+    }
+    _day++;
+    if (winter && !enough) _mistakes++;
+  }
+
+  void decideShare(bool share) {
+    if (!winter || !enough || surplus == 0 || _shared != null) return;
+    _shared = share;
+  }
+
+  /// Reicht der Vorrat nicht: noch einmal von vorn.
+  void restart() {
+    _day = 0;
+    _eaten = 0;
+    _stored = 0;
+    _shared = null;
+    choices.clear();
+  }
+}
+
+/// Sparschwein füttern: Zuerst einen Sparbetrag pro Woche wählen ([choosePlan]),
+/// dann jede Woche füttern ([feed]); der Rest kommt in die Hosentasche. In
+/// manchen Wochen lockt etwas zum Kaufen oder es gibt ein Geschenk. Am Ende
+/// zählt, ob das Schwein genug für den Wunschschatz hat; sonst von vorn.
+class PiggyBankGame {
+  PiggyBankGame(this.game) : spec = game.piggy!;
+
+  final GameInfo game;
+  final PiggyBankSpec spec;
+
+  int? _plan;
+  int _week = 0;
+  bool _fed = false;
+  bool _eventDone = false;
+  int _pig = 0;
+  int _pocket = 0;
+  int _mistakes = 0;
+  final List<String> bought = [];
+
+  int? get plan => _plan;
+  int get week => _week;
+  int get weeks => spec.weeks.length;
+  PiggyWeek get current => spec.weeks[min(_week, weeks - 1)];
+  int get pig => _pig;
+  int get pocket => _pocket;
+  int get mistakes => _mistakes;
+  int get stars => starsForMistakes(_mistakes);
+  bool get fed => _fed;
+  bool get started => _plan != null;
+
+  /// Was der Plan ohne Geschenke und Käufe ergibt.
+  int planTotal(int amount) => amount * weeks;
+
+  /// Die Woche ist fertig: gefüttert und das Ereignis entschieden.
+  bool get weekDone => _fed && (current.event == null || _eventDone);
+  bool get eventOpen => _fed && current.event != null && !_eventDone;
+  bool get over => _week >= weeks;
+  bool get reached => _pig >= spec.goalPrice;
+  bool get finished => over && reached;
+
+  void choosePlan(int amount) {
+    if (started || !spec.plans.contains(amount)) return;
+    _plan = amount;
+  }
+
+  void feed() {
+    if (!started || over || _fed) return;
+    _pig += _plan!;
+    _pocket += spec.income - _plan!;
+    _fed = true;
+  }
+
+  bool get canBuyFromPocket => _pocket >= (current.event?.price ?? 0);
+  bool get canBuyFromPig => _pig >= (current.event?.price ?? 0);
+
+  /// Versuchung: aus der Hosentasche kaufen, aus dem Schwein kaufen oder lassen.
+  void buy({required bool fromPig}) {
+    final event = current.event;
+    if (!eventOpen || event == null || event.gift) return;
+    if (fromPig ? !canBuyFromPig : !canBuyFromPocket) return;
+    if (fromPig) {
+      _pig -= event.price;
+    } else {
+      _pocket -= event.price;
+    }
+    bought.add(event.item);
+    _eventDone = true;
+  }
+
+  void skip() {
+    if (eventOpen && !(current.event?.gift ?? true)) _eventDone = true;
+  }
+
+  /// Geschenk: ins Schwein oder in die Hosentasche.
+  void takeGift({required bool intoPig}) {
+    final event = current.event;
+    if (!eventOpen || event == null || !event.gift) return;
+    if (intoPig) {
+      _pig += event.price;
+    } else {
+      _pocket += event.price;
+    }
+    _eventDone = true;
+  }
+
+  void nextWeek() {
+    if (!weekDone || over) return;
+    _week++;
+    _fed = false;
+    _eventDone = false;
+    if (over && !reached) _mistakes++;
+  }
+
+  /// Nicht gereicht: neuer Plan, alles von vorn.
+  void restart() {
+    _plan = null;
+    _week = 0;
+    _fed = false;
+    _eventDone = false;
+    _pig = 0;
+    _pocket = 0;
+    bought.clear();
+  }
+}
+
+/// Ergebnis beim Trick-Erkennen im Glitzerladen.
+enum ShopGuess { right, wrong }
+
+/// Elsas Glitzerladen: Elsa preist jedes Ding mit einem Verkaufstrick an. Das
+/// Kind erkennt den Trick ([guess]) und entscheidet dann, ob Tala das Ding
+/// wirklich braucht ([decide]). Falscher Trick und Gekauftes, das nicht auf
+/// der Liste steht, zählen als Fehler; ein Ding von der Liste muss mit.
+class GlitterShopGame {
+  GlitterShopGame(this.game);
+
+  final GameInfo game;
+  int _offer = 0;
+  int _mistakes = 0;
+  bool _spotted = false;
+  bool? _bought;
+  bool _wrongSkip = false;
+  late int _money = game.budget ?? 0;
+  final List<String> bought = [];
+  final Set<String> wrongTricks = {};
+
+  int get index => _offer;
+  int get total => game.offers.length;
+  ShopOffer get offer => game.offers[min(_offer, total - 1)];
+  bool get isLast => _offer == total - 1;
+  int get money => _money;
+  int get mistakes => _mistakes;
+  int get stars => starsForMistakes(_mistakes);
+  bool get spotted => _spotted;
+
+  /// null = noch nicht entschieden.
+  bool? get decision => _bought;
+
+  /// Ein Ding von der Liste wurde abgelehnt.
+  bool get wrongSkip => _wrongSkip;
+  bool get offerDone => _bought != null;
+  bool get finished => isLast && offerDone;
+
+  /// Drei Möglichkeiten: der richtige Trick und zwei andere, fest pro Angebot gemischt.
+  List<String> get trickOptions {
+    final others = [
+      for (final t in shopTricks)
+        if (t != offer.trick) t,
+    ]..shuffle(Random(_offer + 7));
+    return [offer.trick, ...others.take(2)]..shuffle(Random(_offer + 3));
+  }
+
+  ShopGuess guess(String trick) {
+    if (_spotted) return ShopGuess.right;
+    if (trick == offer.trick) {
+      _spotted = true;
+      return ShopGuess.right;
+    }
+    if (wrongTricks.add(trick)) _mistakes++;
+    return ShopGuess.wrong;
+  }
+
+  bool get canAfford => _money >= offer.price;
+
+  /// Kaufen oder lassen. Ein Ding von der Liste lässt sich nicht weglassen.
+  void decide({required bool buy}) {
+    if (!_spotted || offerDone) return;
+    if (!buy && offer.needed) {
+      if (!_wrongSkip) _mistakes++;
+      _wrongSkip = true;
+      return;
+    }
+    if (buy) {
+      if (!canAfford) return;
+      _money -= offer.price;
+      bought.add(offer.item);
+      if (!offer.needed) _mistakes++;
+    }
+    _bought = buy;
+  }
+
+  /// Unnötig Gekauftes zurückgeben, damit die Taler für die Liste reichen.
+  void giveBack(String item) {
+    final o = game.offers.where((o) => o.item == item && !o.needed).firstOrNull;
+    if (o == null || !bought.remove(item)) return;
+    _money += o.price;
+  }
+
+  /// Gekauft, aber nicht auf der Liste.
+  List<String> get extras => [
+    for (final item in bought)
+      if (!game.offers.any((o) => o.item == item && o.needed)) item,
+  ];
+
+  void next() {
+    if (!offerDone || isLast) return;
+    _offer++;
+    _spotted = false;
+    _bought = null;
+    _wrongSkip = false;
+    wrongTricks.clear();
+  }
+}

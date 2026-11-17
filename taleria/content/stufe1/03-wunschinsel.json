@@ -342,6 +342,60 @@
           "text": "Bedürfnisse kommen zuerst. Wünsche sind erlaubt, wenn das Wichtige da ist."
         }
       },
+      "minispiel": {
+        "art": "glitter_shop",
+        "titel": "Elsas Glitzerladen",
+        "beschreibung": "Durchschau Elsas Verkaufstricks und kauf nur, was Tala wirklich braucht.",
+        "aufgabe": "Tala braucht eine Zahnbürste und ein Seil. Elsa will ihr aber noch viel mehr verkaufen. Finde bei jedem Angebot Elsas Trick. Dann entscheide: Braucht Tala das wirklich?",
+        "startbild": "game.glitter_shop",
+        "geld": 12,
+        "angebote": [
+          {
+            "ding": "Glitzer-Haarspange",
+            "text": "Nur heute! Morgen ist diese Haarspange weg. Schnell zugreifen!",
+            "trick": "nur_heute",
+            "preis": 4,
+            "gebraucht": false,
+            "aufloesung": "Elsa macht Druck, damit Tala nicht nachdenkt. Wer etwas wirklich braucht, kann auch morgen noch überlegen."
+          },
+          {
+            "ding": "Zahnbürste",
+            "text": "Diese Zahnbürste hat eine Glitzer-Schachtel mit Schleife. Und drinnen ist eine ganz normale Zahnbürste.",
+            "trick": "glitzer",
+            "preis": 2,
+            "gebraucht": true,
+            "aufloesung": "Die Schachtel glitzert, aber putzen tut nur die Bürste. Tala braucht eine Zahnbürste, also ist der Kauf gut. Die Schachtel ist nur Verpackung."
+          },
+          {
+            "ding": "Leuchtsteine",
+            "text": "Alle Kinder auf der Insel haben schon Leuchtsteine. Du willst doch nicht die Einzige ohne sein?",
+            "trick": "alle_haben",
+            "preis": 5,
+            "gebraucht": false,
+            "aufloesung": "Nur weil andere etwas haben, braucht Tala es noch lange nicht. Das stimmt meistens auch gar nicht, dass alle es haben."
+          },
+          {
+            "ding": "Seil",
+            "text": "Dieses Seil kostete früher 10 Taler. Heute nur 4! Ein echtes Schnäppchen!",
+            "trick": "falscher_rabatt",
+            "preis": 4,
+            "gebraucht": true,
+            "aufloesung": "Ob das Seil je 10 Taler gekostet hat, weiß niemand. Wichtig ist nur: 4 Taler ist der Preis. Tala braucht ein Seil, also ist es trotzdem ein guter Kauf."
+          },
+          {
+            "ding": "Muschelketten",
+            "text": "Kauf zwei Muschelketten, dann bekommst du einen Glitzerstein gratis dazu!",
+            "trick": "gratis_dazu",
+            "preis": 6,
+            "gebraucht": false,
+            "aufloesung": "Gratis ist der Stein nur, wenn Tala 6 Taler für zwei Ketten ausgibt, die sie gar nicht braucht. So kauft man mehr, als man wollte."
+          }
+        ],
+        "geschafft": {
+          "wer": "elsa",
+          "text": "Hm! Du lässt dich ja gar nicht reinlegen. Du bist eine richtig schlaue Kundin, Tala!"
+        }
+      },
       "abschluss": {
         "wer": "tala",
         "text": "Bedürfnisse kommen zuerst, Wünsche sind erlaubt."

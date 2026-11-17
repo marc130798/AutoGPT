@@ -543,4 +543,91 @@ void main() {
     expect(find.text('?'), findsNothing);
     expect(find.text('Die Truhe springt auf!'), findsOneWidget);
   });
+
+  testWidgets('Emmas Wintervorrat (Spar-Insel 4): zu oft gegessen, nochmal, teilen', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('spar-insel', 4).content.miniGame!;
+    expect(game.type, 'winter_store');
+    var done = false;
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () => done = true, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Herbsttag 1 von 6'), findsOneWidget);
+    expect(find.text('0 von 12 Nüssen für den Winter'), findsOneWidget);
+
+    // Jeden Tag gleich essen: Im Winter reicht es nicht.
+    for (var i = 0; i < 6; i++) {
+      await tapKey(tester, 'winter-eat');
+    }
+    expect(find.byKey(const ValueKey('winter-not-enough')), findsOneWidget);
+    await tapKey(tester, 'winter-again');
+
+    // Einmal essen, sonst vergraben: 15 Nüsse, 3 mehr als nötig.
+    await tapKey(tester, 'winter-eat');
+    for (var i = 0; i < 5; i++) {
+      await tapKey(tester, 'winter-wait');
+    }
+    expect(find.byKey(const ValueKey('winter-enough')), findsOneWidget);
+    expect(find.text('Gustav 3 Nüsse abgeben'), findsOneWidget);
+    await tapKey(tester, 'winter-share');
+    expect(find.byKey(const ValueKey('winter-shared')), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-2')), findsOneWidget, reason: 'ein Fehler kostet keinen Stern');
+    await tapKey(tester, 'game-done');
+    expect(done, isTrue);
+  });
+
+  testWidgets('Sparschwein füttern (Spar-Insel 5): Plan zu klein, nochmal, geschafft', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('spar-insel', 5).content.miniGame!;
+    expect(game.type, 'piggy_bank');
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+
+    Future<void> playWeeks() async {
+      for (var week = 0; week < 6; week++) {
+        await tapKey(tester, 'piggy-feed');
+        if (find.byKey(const ValueKey('piggy-skip')).evaluate().isNotEmpty) await tapKey(tester, 'piggy-skip');
+        if (find.byKey(const ValueKey('piggy-gift-pig')).evaluate().isNotEmpty) await tapKey(tester, 'piggy-gift-pig');
+        await tapKey(tester, 'piggy-next');
+      }
+    }
+
+    // 3 Taler pro Woche: Die Rechnung zeigt schon, dass es nicht reicht.
+    await tapKey(tester, 'piggy-plan-3');
+    expect(find.text('6 Wochen × 3 Taler = 18 Taler'), findsOneWidget);
+    await tapKey(tester, 'piggy-start');
+    await playWeeks();
+    expect(find.byKey(const ValueKey('piggy-missed')), findsOneWidget, reason: '18 + 4 geschenkt sind 22 von 30');
+    await tapKey(tester, 'piggy-again');
+
+    await tapKey(tester, 'piggy-plan-5');
+    await tapKey(tester, 'piggy-start');
+    await playWeeks();
+    expect(find.byKey(const ValueKey('piggy-reached')), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-2')), findsOneWidget);
+  });
+
+  testWidgets('Elsas Glitzerladen (Wunschinsel 1): Tricks erkennen, nur die Liste kaufen', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('wunschinsel', 1).content.miniGame!;
+    expect(game.type, 'glitter_shop');
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Talas Liste: Zahnbürste, Seil'), findsOneWidget);
+
+    for (var i = 0; i < game.offers.length; i++) {
+      final offer = game.offers[i];
+      await tapKey(tester, 'shop-trick-${offer.trick}');
+      expect(find.byKey(const ValueKey('shop-reveal')), findsOneWidget);
+      await tapKey(tester, offer.needed ? 'shop-buy' : 'shop-leave');
+      if (i < game.offers.length - 1) await tapKey(tester, 'shop-next');
+    }
+    expect(find.text('6 Taler sind übrig. Die legt Tala in ihre Schatztruhe.'), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-2')), findsOneWidget, reason: 'drei Sterne ohne Fehler');
+  });
 }

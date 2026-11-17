@@ -946,6 +946,33 @@
         "shape": "rectangle"
       }
     },
+    "game.winter_store": {
+      "type": "image",
+      "path": "assets/images/game.winter_store.jpg",
+      "placeholder": {
+        "label": "Bild: Emma vergräbt Nüsse im Herbstwald",
+        "color": "#C98A4B",
+        "shape": "rectangle"
+      }
+    },
+    "game.piggy_bank": {
+      "type": "image",
+      "path": "assets/images/game.piggy_bank.jpg",
+      "placeholder": {
+        "label": "Bild: Tala füttert ihr Sparschwein",
+        "color": "#E8A0A8",
+        "shape": "rectangle"
+      }
+    },
+    "game.glitter_shop": {
+      "type": "image",
+      "path": "assets/images/game.glitter_shop.jpg",
+      "placeholder": {
+        "label": "Bild: Elsas Glitzerladen",
+        "color": "#B49AD8",
+        "shape": "rectangle"
+      }
+    },
     "game.backpack.waterfall": {
       "type": "image",
       "path": "assets/images/game.backpack.waterfall.jpg",

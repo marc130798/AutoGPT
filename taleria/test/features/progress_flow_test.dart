@@ -260,13 +260,24 @@ void main() {
       findsOneWidget,
       reason: 'Startbild der Kasse statt des Spiel-Zeichens',
     );
+    // Gesperrt warten die Spiele der Inseln danach, auch die neuen der Spar-Insel.
     await scrollTo(tester, find.text('Talas Ausflüge'));
-    expect(find.textContaining('Noch nicht geschafft:'), findsNWidgets(3));
+    expect(find.text('Noch nicht geschafft: Spar-Insel, Station 5'), findsOneWidget);
 
-    // Gesperrte Spiele lassen sich nicht öffnen.
+    // Gesperrte Spiele lassen sich nicht öffnen. Die Liste ist lang, darum zurück nach oben.
+    await tester.dragUntilVisible(
+      find.byKey(const ValueKey('games-island-tauschinsel/station1')),
+      find.byType(Scrollable).first,
+      const Offset(0, 200),
+    );
     await tapKey(tester, 'games-island-tauschinsel/station1');
     expect(find.text('Mini-Spiele'), findsOneWidget);
 
+    await tester.dragUntilVisible(
+      find.byKey(const ValueKey('games-island-hafen/station4')),
+      find.byType(Scrollable).first,
+      const Offset(0, 200),
+    );
     await tapKey(tester, 'games-island-hafen/station4');
     expect(find.text('Mini-Spiel!'), findsOneWidget);
     expect(find.text('Nur zum Spaß: Hier gibt es keine Seemeilen.'), findsOneWidget);

@@ -10,11 +10,14 @@ import '../common/game_sign.dart';
 import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
 import 'backpack_game_view.dart';
+import 'glitter_shop_game_view.dart';
 import 'ice_stand_game_view.dart';
 import 'market_game_view.dart';
+import 'piggy_bank_game_view.dart';
 import 'station_stage.dart';
 import 'till_game_view.dart';
 import 'trade_chain_game_view.dart';
+import 'winter_store_game_view.dart';
 
 /// Ablauf eines echten Mini-Spiels: Startbild „Mini-Spiel!“, das Spiel, am
 /// Ende Sterne und der Satz aus den Inhalten. In der Station führt [onDone]
@@ -76,6 +79,9 @@ class _RealGameFlowState extends State<RealGameFlow> {
     'market' => MarketGameView(game: widget.game, onFinished: _finished),
     'ice_stand' => IceStandGameView(game: widget.game, onFinished: _finished),
     'backpack' => BackpackGameView(game: widget.game, onFinished: _finished),
+    'winter_store' => WinterStoreGameView(game: widget.game, onFinished: _finished),
+    'piggy_bank' => PiggyBankGameView(game: widget.game, onFinished: _finished),
+    'glitter_shop' => GlitterShopGameView(game: widget.game, onFinished: _finished),
     _ => TradeChainGameView(game: widget.game, onFinished: _finished),
   };
 }

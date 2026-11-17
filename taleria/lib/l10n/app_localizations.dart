@@ -5328,6 +5328,354 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'An die Wand hängen'**
   String get badgeCeremonyHang;
+
+  /// Wintervorrat: welcher Herbsttag dran ist
+  ///
+  /// In de, this message translates to:
+  /// **'Herbsttag {number} von {total}'**
+  String winterDay(int number, int total);
+
+  /// Wintervorrat: Überschrift des Vorrats
+  ///
+  /// In de, this message translates to:
+  /// **'Emmas Vorrat'**
+  String get winterStoreLabel;
+
+  /// Wintervorrat: Stand des Vorrats
+  ///
+  /// In de, this message translates to:
+  /// **'{stored} von {need} Nüssen für den Winter'**
+  String winterStoreCount(int stored, int need);
+
+  /// Wintervorrat: was Emma schon gegessen hat
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Noch nichts gegessen} =1{Schon 1 Nuss gegessen} other{Schon {count} Nüsse gegessen}}'**
+  String winterEaten(int count);
+
+  /// Wintervorrat: Knopf gleich essen
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Jetzt 1 Nuss essen} other{Jetzt {count} Nüsse essen}}'**
+  String winterEat(int count);
+
+  /// Wintervorrat: Knopf warten und vergraben
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Warten: 1 Nuss vergraben} other{Warten: {count} Nüsse vergraben}}'**
+  String winterWait(int count);
+
+  /// Wintervorrat: Gustav, die Grille, spart nie
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Gustav isst immer alles sofort.} =1{Gustav isst immer alles sofort. 1 Nuss hat er schon gegessen, vergraben hat er nichts.} other{Gustav isst immer alles sofort. {count} Nüsse hat er schon gegessen, vergraben hat er nichts.}}'**
+  String winterGustav(int count);
+
+  /// Wintervorrat: der Herbst ist vorbei
+  ///
+  /// In de, this message translates to:
+  /// **'Der Winter ist da! Schnee liegt auf der Insel.'**
+  String get winterCame;
+
+  /// Wintervorrat: genug gespart
+  ///
+  /// In de, this message translates to:
+  /// **'Der Vorrat reicht! Emma kommt gut durch den Winter.'**
+  String get winterEnough;
+
+  /// Wintervorrat: zu wenig gespart
+  ///
+  /// In de, this message translates to:
+  /// **'Nur {stored} von {need} Nüssen. Das reicht nicht für den ganzen Winter.'**
+  String winterNotEnough(int stored, int need);
+
+  /// Wintervorrat: von vorn beginnen
+  ///
+  /// In de, this message translates to:
+  /// **'Den Herbst nochmal spielen'**
+  String get winterAgain;
+
+  /// Wintervorrat: was übrig ist
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Emma hat 1 Nuss mehr, als sie braucht.} other{Emma hat {count} Nüsse mehr, als sie braucht.}}'**
+  String winterSurplus(int count);
+
+  /// Wintervorrat: Knopf teilen
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Gustav 1 Nuss abgeben} other{Gustav {count} Nüsse abgeben}}'**
+  String winterShare(int count);
+
+  /// Wintervorrat: Knopf nicht teilen
+  ///
+  /// In de, this message translates to:
+  /// **'Alles behalten'**
+  String get winterKeep;
+
+  /// Sparschwein: der Wunschschatz
+  ///
+  /// In de, this message translates to:
+  /// **'Ziel: {goal} für {price} Taler'**
+  String piggyGoal(String goal, int price);
+
+  /// Sparschwein: Taschengeld pro Woche
+  ///
+  /// In de, this message translates to:
+  /// **'Jede Woche bekommt Tala {count} Taler Taschengeld.'**
+  String piggyIncome(int count);
+
+  /// Sparschwein: Plan wählen
+  ///
+  /// In de, this message translates to:
+  /// **'Wie viele Taler soll das Sparschwein jede Woche bekommen?'**
+  String get piggyPlanQuestion;
+
+  /// Sparschwein: ein möglicher Plan
+  ///
+  /// In de, this message translates to:
+  /// **'{amount} Taler pro Woche'**
+  String piggyPlanOption(int amount);
+
+  /// Sparschwein: Rechnung zum Plan
+  ///
+  /// In de, this message translates to:
+  /// **'{weeks} Wochen × {amount} Taler = {total} Taler'**
+  String piggyPlanCheck(int weeks, int amount, int total);
+
+  /// Sparschwein: Plan bestätigen
+  ///
+  /// In de, this message translates to:
+  /// **'Mit diesem Plan starten'**
+  String get piggyStart;
+
+  /// Sparschwein: welche Woche dran ist
+  ///
+  /// In de, this message translates to:
+  /// **'Woche {number} von {total}'**
+  String piggyWeek(int number, int total);
+
+  /// Sparschwein: Knopf füttern
+  ///
+  /// In de, this message translates to:
+  /// **'Sparschwein füttern ({amount} Taler)'**
+  String piggyFeed(int amount);
+
+  /// Sparschwein: Stand im Schwein
+  ///
+  /// In de, this message translates to:
+  /// **'Im Sparschwein: {count} von {price} Talern'**
+  String piggyPig(int count, int price);
+
+  /// Sparschwein: freies Geld
+  ///
+  /// In de, this message translates to:
+  /// **'In der Hosentasche: {count} Taler'**
+  String piggyPocket(int count);
+
+  /// Sparschwein: was lockt
+  ///
+  /// In de, this message translates to:
+  /// **'{item} für {price} Taler'**
+  String piggyOffer(String item, int price);
+
+  /// Sparschwein: Geschenk
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Taler geschenkt!'**
+  String piggyGift(int count);
+
+  /// Sparschwein: Knopf kaufen vom freien Geld
+  ///
+  /// In de, this message translates to:
+  /// **'Mit der Hosentasche kaufen'**
+  String get piggyBuyPocket;
+
+  /// Sparschwein: Knopf kaufen aus dem Schwein
+  ///
+  /// In de, this message translates to:
+  /// **'Aus dem Sparschwein nehmen'**
+  String get piggyBuyPig;
+
+  /// Sparschwein: nicht kaufen
+  ///
+  /// In de, this message translates to:
+  /// **'Nein, danke'**
+  String get piggySkip;
+
+  /// Sparschwein: Geschenk ins Schwein
+  ///
+  /// In de, this message translates to:
+  /// **'Ins Sparschwein'**
+  String get piggyGiftPig;
+
+  /// Sparschwein: Geschenk behalten
+  ///
+  /// In de, this message translates to:
+  /// **'In die Hosentasche'**
+  String get piggyGiftPocket;
+
+  /// Sparschwein: weiter
+  ///
+  /// In de, this message translates to:
+  /// **'Nächste Woche'**
+  String get piggyNextWeek;
+
+  /// Sparschwein: Ziel erreicht
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft! Im Sparschwein ist genug für: {goal}.'**
+  String piggyReached(String goal);
+
+  /// Sparschwein: Ziel verpasst
+  ///
+  /// In de, this message translates to:
+  /// **'Nur {count} von {price} Talern. Das reicht noch nicht.'**
+  String piggyMissed(int count, int price);
+
+  /// Sparschwein: von vorn
+  ///
+  /// In de, this message translates to:
+  /// **'Neuen Plan machen'**
+  String get piggyAgain;
+
+  /// Sparschwein: was gekauft wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Unterwegs gekauft: {items}.'**
+  String piggyBought(String items);
+
+  /// Glitzerladen: Talas Taler
+  ///
+  /// In de, this message translates to:
+  /// **'Im Geldbeutel: {count} Taler'**
+  String shopMoney(int count);
+
+  /// Glitzerladen: was Tala braucht
+  ///
+  /// In de, this message translates to:
+  /// **'Talas Liste: {items}'**
+  String shopList(String items);
+
+  /// Glitzerladen: welches Angebot dran ist
+  ///
+  /// In de, this message translates to:
+  /// **'Angebot {number} von {total}'**
+  String shopOfferCount(int number, int total);
+
+  /// Glitzerladen: Frage nach dem Trick
+  ///
+  /// In de, this message translates to:
+  /// **'Welchen Trick benutzt Elsa?'**
+  String get shopWhichTrick;
+
+  /// Glitzerladen: Trick erkannt
+  ///
+  /// In de, this message translates to:
+  /// **'Richtig erkannt!'**
+  String get shopTrickRight;
+
+  /// Glitzerladen: falscher Trick
+  ///
+  /// In de, this message translates to:
+  /// **'Das ist es nicht. Lies noch einmal genau, was Elsa sagt.'**
+  String get shopTrickWrong;
+
+  /// Glitzerladen: kaufen oder nicht
+  ///
+  /// In de, this message translates to:
+  /// **'Braucht Tala das wirklich?'**
+  String get shopNeed;
+
+  /// Glitzerladen: Knopf kaufen
+  ///
+  /// In de, this message translates to:
+  /// **'Kaufen ({price} Taler)'**
+  String shopBuy(int price);
+
+  /// Glitzerladen: Knopf nicht kaufen
+  ///
+  /// In de, this message translates to:
+  /// **'Nein, danke'**
+  String get shopLeave;
+
+  /// Glitzerladen: Ding von der Liste weggelassen
+  ///
+  /// In de, this message translates to:
+  /// **'Halt! Das steht auf Talas Liste. Das braucht sie wirklich.'**
+  String get shopNeededSkip;
+
+  /// Glitzerladen: unnötig gekauft
+  ///
+  /// In de, this message translates to:
+  /// **'Das stand nicht auf der Liste. Elsas Trick hat geklappt.'**
+  String get shopExtraBought;
+
+  /// Glitzerladen: Nötiges gekauft
+  ///
+  /// In de, this message translates to:
+  /// **'Gut! Das steht auf der Liste.'**
+  String get shopGoodBuy;
+
+  /// Glitzerladen: Unnötiges liegen gelassen
+  ///
+  /// In de, this message translates to:
+  /// **'Gut gemacht! Tala lässt es liegen.'**
+  String get shopGoodLeave;
+
+  /// Glitzerladen: zu wenig Taler
+  ///
+  /// In de, this message translates to:
+  /// **'Die Taler reichen nicht. Gib etwas zurück, das nicht auf der Liste steht.'**
+  String get shopNotEnough;
+
+  /// Glitzerladen: Knopf zurückgeben
+  ///
+  /// In de, this message translates to:
+  /// **'{item} zurückgeben'**
+  String shopGiveBack(String item);
+
+  /// Glitzerladen: weiter
+  ///
+  /// In de, this message translates to:
+  /// **'Nächstes Angebot'**
+  String get shopNext;
+
+  /// Glitzerladen: am Ende übrig
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Taler sind übrig. Die legt Tala in ihre Schatztruhe.'**
+  String shopEnd(int count);
+
+  /// Verkaufstrick: Zeitdruck
+  ///
+  /// In de, this message translates to:
+  /// **'Nur heute!'**
+  String get shopTrickHurry;
+
+  /// Verkaufstrick: alle anderen haben es schon
+  ///
+  /// In de, this message translates to:
+  /// **'Alle haben das'**
+  String get shopTrickEveryone;
+
+  /// Verkaufstrick: durchgestrichener Preis, der nie galt
+  ///
+  /// In de, this message translates to:
+  /// **'Falscher Rabatt'**
+  String get shopTrickFakeSale;
+
+  /// Verkaufstrick: etwas gratis, wenn man mehr kauft
+  ///
+  /// In de, this message translates to:
+  /// **'Gratis dazu'**
+  String get shopTrickFreeExtra;
+
+  /// Verkaufstrick: schöne Verpackung, wenig drin
+  ///
+  /// In de, this message translates to:
+  /// **'Glitzer-Verpackung'**
+  String get shopTrickSparkle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

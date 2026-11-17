@@ -3315,4 +3315,272 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get badgeCeremonyHang => 'An die Wand hängen';
+
+  @override
+  String winterDay(int number, int total) {
+    return 'Herbsttag $number von $total';
+  }
+
+  @override
+  String get winterStoreLabel => 'Emmas Vorrat';
+
+  @override
+  String winterStoreCount(int stored, int need) {
+    return '$stored von $need Nüssen für den Winter';
+  }
+
+  @override
+  String winterEaten(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Schon $count Nüsse gegessen',
+      one: 'Schon 1 Nuss gegessen',
+      zero: 'Noch nichts gegessen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String winterEat(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Jetzt $count Nüsse essen',
+      one: 'Jetzt 1 Nuss essen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String winterWait(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Warten: $count Nüsse vergraben',
+      one: 'Warten: 1 Nuss vergraben',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String winterGustav(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Gustav isst immer alles sofort. $count Nüsse hat er schon gegessen, vergraben hat er nichts.',
+      one: 'Gustav isst immer alles sofort. 1 Nuss hat er schon gegessen, vergraben hat er nichts.',
+      zero: 'Gustav isst immer alles sofort.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get winterCame => 'Der Winter ist da! Schnee liegt auf der Insel.';
+
+  @override
+  String get winterEnough => 'Der Vorrat reicht! Emma kommt gut durch den Winter.';
+
+  @override
+  String winterNotEnough(int stored, int need) {
+    return 'Nur $stored von $need Nüssen. Das reicht nicht für den ganzen Winter.';
+  }
+
+  @override
+  String get winterAgain => 'Den Herbst nochmal spielen';
+
+  @override
+  String winterSurplus(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Emma hat $count Nüsse mehr, als sie braucht.',
+      one: 'Emma hat 1 Nuss mehr, als sie braucht.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String winterShare(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Gustav $count Nüsse abgeben',
+      one: 'Gustav 1 Nuss abgeben',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get winterKeep => 'Alles behalten';
+
+  @override
+  String piggyGoal(String goal, int price) {
+    return 'Ziel: $goal für $price Taler';
+  }
+
+  @override
+  String piggyIncome(int count) {
+    return 'Jede Woche bekommt Tala $count Taler Taschengeld.';
+  }
+
+  @override
+  String get piggyPlanQuestion => 'Wie viele Taler soll das Sparschwein jede Woche bekommen?';
+
+  @override
+  String piggyPlanOption(int amount) {
+    return '$amount Taler pro Woche';
+  }
+
+  @override
+  String piggyPlanCheck(int weeks, int amount, int total) {
+    return '$weeks Wochen × $amount Taler = $total Taler';
+  }
+
+  @override
+  String get piggyStart => 'Mit diesem Plan starten';
+
+  @override
+  String piggyWeek(int number, int total) {
+    return 'Woche $number von $total';
+  }
+
+  @override
+  String piggyFeed(int amount) {
+    return 'Sparschwein füttern ($amount Taler)';
+  }
+
+  @override
+  String piggyPig(int count, int price) {
+    return 'Im Sparschwein: $count von $price Talern';
+  }
+
+  @override
+  String piggyPocket(int count) {
+    return 'In der Hosentasche: $count Taler';
+  }
+
+  @override
+  String piggyOffer(String item, int price) {
+    return '$item für $price Taler';
+  }
+
+  @override
+  String piggyGift(int count) {
+    return '$count Taler geschenkt!';
+  }
+
+  @override
+  String get piggyBuyPocket => 'Mit der Hosentasche kaufen';
+
+  @override
+  String get piggyBuyPig => 'Aus dem Sparschwein nehmen';
+
+  @override
+  String get piggySkip => 'Nein, danke';
+
+  @override
+  String get piggyGiftPig => 'Ins Sparschwein';
+
+  @override
+  String get piggyGiftPocket => 'In die Hosentasche';
+
+  @override
+  String get piggyNextWeek => 'Nächste Woche';
+
+  @override
+  String piggyReached(String goal) {
+    return 'Geschafft! Im Sparschwein ist genug für: $goal.';
+  }
+
+  @override
+  String piggyMissed(int count, int price) {
+    return 'Nur $count von $price Talern. Das reicht noch nicht.';
+  }
+
+  @override
+  String get piggyAgain => 'Neuen Plan machen';
+
+  @override
+  String piggyBought(String items) {
+    return 'Unterwegs gekauft: $items.';
+  }
+
+  @override
+  String shopMoney(int count) {
+    return 'Im Geldbeutel: $count Taler';
+  }
+
+  @override
+  String shopList(String items) {
+    return 'Talas Liste: $items';
+  }
+
+  @override
+  String shopOfferCount(int number, int total) {
+    return 'Angebot $number von $total';
+  }
+
+  @override
+  String get shopWhichTrick => 'Welchen Trick benutzt Elsa?';
+
+  @override
+  String get shopTrickRight => 'Richtig erkannt!';
+
+  @override
+  String get shopTrickWrong => 'Das ist es nicht. Lies noch einmal genau, was Elsa sagt.';
+
+  @override
+  String get shopNeed => 'Braucht Tala das wirklich?';
+
+  @override
+  String shopBuy(int price) {
+    return 'Kaufen ($price Taler)';
+  }
+
+  @override
+  String get shopLeave => 'Nein, danke';
+
+  @override
+  String get shopNeededSkip => 'Halt! Das steht auf Talas Liste. Das braucht sie wirklich.';
+
+  @override
+  String get shopExtraBought => 'Das stand nicht auf der Liste. Elsas Trick hat geklappt.';
+
+  @override
+  String get shopGoodBuy => 'Gut! Das steht auf der Liste.';
+
+  @override
+  String get shopGoodLeave => 'Gut gemacht! Tala lässt es liegen.';
+
+  @override
+  String get shopNotEnough => 'Die Taler reichen nicht. Gib etwas zurück, das nicht auf der Liste steht.';
+
+  @override
+  String shopGiveBack(String item) {
+    return '$item zurückgeben';
+  }
+
+  @override
+  String get shopNext => 'Nächstes Angebot';
+
+  @override
+  String shopEnd(int count) {
+    return '$count Taler sind übrig. Die legt Tala in ihre Schatztruhe.';
+  }
+
+  @override
+  String get shopTrickHurry => 'Nur heute!';
+
+  @override
+  String get shopTrickEveryone => 'Alle haben das';
+
+  @override
+  String get shopTrickFakeSale => 'Falscher Rabatt';
+
+  @override
+  String get shopTrickFreeExtra => 'Gratis dazu';
+
+  @override
+  String get shopTrickSparkle => 'Glitzer-Verpackung';
 }

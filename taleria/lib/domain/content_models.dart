@@ -383,6 +383,164 @@ class BackpackTrip {
   final List<BackpackNeed> needs;
 }
 
+/// Emmas Wintervorrat: Herbsttage, an denen Emma wählt, ob sie gleich isst
+/// oder Nüsse für den Winter vergräbt.
+class WinterStoreSpec {
+  const WinterStoreSpec({
+    required this.days,
+    required this.now,
+    required this.later,
+    required this.need,
+    this.knock,
+    this.share,
+    this.keep,
+    this.hungry,
+  });
+
+  factory WinterStoreSpec.fromJson(Map<String, dynamic> json) {
+    DialogLine? line(Object? raw) => raw is Map<String, dynamic> ? DialogLine.fromJson(raw) : null;
+    return WinterStoreSpec(
+      days: [
+        for (final d in (json['days'] as List?) ?? const [])
+          [
+            for (final l in ((d as Map<String, dynamic>)['scene'] as List?) ?? const [])
+              DialogLine.fromJson(l as Map<String, dynamic>),
+          ],
+      ],
+      now: (json['now'] as num?)?.toInt() ?? 1,
+      later: (json['later'] as num?)?.toInt() ?? 3,
+      need: (json['need'] as num?)?.toInt() ?? 0,
+      knock: line(json['knock']),
+      share: line(json['share']),
+      keep: line(json['keep']),
+      hungry: line(json['hungry']),
+    );
+  }
+
+  /// Ein Eintrag pro Herbsttag: was an diesem Tag gesagt wird.
+  final List<List<DialogLine>> days;
+
+  /// Nüsse, die Emma isst, wenn sie nicht wartet.
+  final int now;
+
+  /// Nüsse, die in den Vorrat kommen, wenn sie wartet.
+  final int later;
+
+  /// So viele Nüsse braucht Emma für den Winter.
+  final int need;
+
+  /// Gustav klopft hungrig an; Antwort beim Teilen und beim Behalten.
+  final DialogLine? knock;
+  final DialogLine? share;
+  final DialogLine? keep;
+
+  /// Der Vorrat reicht nicht.
+  final DialogLine? hungry;
+}
+
+/// Ereignis in einer Woche des Sparschwein-Spiels.
+class PiggyEvent {
+  const PiggyEvent({required this.gift, required this.line, required this.item, required this.price});
+
+  factory PiggyEvent.fromJson(Map<String, dynamic> json) => PiggyEvent(
+    gift: json['kind'] == 'gift',
+    line: DialogLine.fromJson(json),
+    item: json['item'] as String? ?? '',
+    price: (json['price'] as num?)?.toInt() ?? 0,
+  );
+
+  /// Geschenk (Taler dazu) oder Versuchung (etwas zum Kaufen).
+  final bool gift;
+  final DialogLine line;
+  final String item;
+  final int price;
+}
+
+/// Sparschwein füttern: Plan wählen, Woche für Woche füttern, Versuchungen.
+class PiggyBankSpec {
+  const PiggyBankSpec({
+    required this.goal,
+    required this.goalPrice,
+    required this.income,
+    required this.plans,
+    required this.weeks,
+  });
+
+  factory PiggyBankSpec.fromJson(Map<String, dynamic> json) => PiggyBankSpec(
+    goal: json['goal'] as String? ?? '',
+    goalPrice: (json['goal_price'] as num?)?.toInt() ?? 0,
+    income: (json['income'] as num?)?.toInt() ?? 0,
+    plans: [for (final p in (json['plans'] as List?) ?? const []) (p as num).toInt()],
+    weeks: [
+      for (final w in (json['weeks'] as List?) ?? const [])
+        PiggyWeek(
+          scene: [
+            for (final l in ((w as Map<String, dynamic>)['scene'] as List?) ?? const [])
+              DialogLine.fromJson(l as Map<String, dynamic>),
+          ],
+          event: w['event'] is Map<String, dynamic> ? PiggyEvent.fromJson(w['event'] as Map<String, dynamic>) : null,
+        ),
+    ],
+  );
+
+  /// Wunschschatz und sein Preis in Talern.
+  final String goal;
+  final int goalPrice;
+
+  /// Taschengeld pro Woche in Talern.
+  final int income;
+
+  /// Mögliche Sparbeträge pro Woche.
+  final List<int> plans;
+  final List<PiggyWeek> weeks;
+}
+
+class PiggyWeek {
+  const PiggyWeek({this.scene = const [], this.event});
+
+  final List<DialogLine> scene;
+  final PiggyEvent? event;
+}
+
+/// Verkaufstricks im Glitzerladen. Die Namen stehen in den Übersetzungen.
+const shopTricks = ['hurry', 'everyone', 'fake_sale', 'free_extra', 'sparkle'];
+
+/// Ein Angebot im Glitzerladen: Elsa preist ein Ding mit einem Trick an.
+class ShopOffer {
+  const ShopOffer({
+    required this.item,
+    required this.pitch,
+    required this.trick,
+    required this.price,
+    required this.needed,
+    required this.reveal,
+  });
+
+  factory ShopOffer.fromJson(Map<String, dynamic> json) => ShopOffer(
+    item: json['item'] as String? ?? '',
+    pitch: DialogLine.fromJson({'speaker': 'elsa', ...json}),
+    trick: json['trick'] as String? ?? '',
+    price: (json['price'] as num?)?.toInt() ?? 0,
+    needed: json['needed'] as bool? ?? false,
+    reveal: json['reveal'] as String? ?? '',
+  );
+
+  final String item;
+
+  /// Was Elsa sagt.
+  final DialogLine pitch;
+
+  /// Einer aus [shopTricks].
+  final String trick;
+  final int price;
+
+  /// Steht auf Talas Liste?
+  final bool needed;
+
+  /// Was hinter dem Trick steckt.
+  final String reveal;
+}
+
 class GameInfo {
   const GameInfo({
     required this.type,
@@ -409,6 +567,9 @@ class GameInfo {
     this.traders = const [],
     this.deadEnd,
     this.trips = const [],
+    this.winter,
+    this.piggy,
+    this.offers = const [],
     this.beginner,
     this.wholeNumbers = false,
     this.image,
@@ -468,14 +629,27 @@ class GameInfo {
         ? DialogLine.fromJson(game['dead_end'] as Map<String, dynamic>)
         : null,
     trips: [for (final t in (game['trips'] as List?) ?? const []) BackpackTrip.fromJson(t as Map<String, dynamic>)],
+    winter: game['type'] == 'winter_store' ? WinterStoreSpec.fromJson(game) : null,
+    piggy: game['type'] == 'piggy_bank' ? PiggyBankSpec.fromJson(game) : null,
+    offers: [for (final o in (game['offers'] as List?) ?? const []) ShopOffer.fromJson(o as Map<String, dynamic>)],
   );
 
   /// Echte Mini-Spiele mit eigener Spielwelt (Startbild, Sterne, auf der
   /// Startseite nochmal spielbar). Die anderen Spielarten sind Übungen.
-  static const realGames = {'till', 'market', 'ice_stand', 'trade_chain', 'backpack'};
+  static const realGames = {
+    'till',
+    'market',
+    'ice_stand',
+    'trade_chain',
+    'backpack',
+    'winter_store',
+    'piggy_bank',
+    'glitter_shop',
+  };
 
   /// sort, order, choice, coins, pick, number, wish_bottle, die echten Spiele
-  /// till, market, ice_stand, trade_chain, backpack oder eine Spielart, die
+  /// till, market, ice_stand, trade_chain, backpack, winter_store, piggy_bank,
+  /// glitter_shop oder eine Spielart, die
   /// erst später gebaut wird (Platzhalter).
   final String type;
   final String title;
@@ -516,6 +690,15 @@ class GameInfo {
   /// Rucksack packen: Ausflüge; [items] sind die Dinge im Packhaus (Preise in Talern).
   final List<BackpackTrip> trips;
 
+  /// Emmas Wintervorrat (`winter_store`).
+  final WinterStoreSpec? winter;
+
+  /// Sparschwein füttern (`piggy_bank`).
+  final PiggyBankSpec? piggy;
+
+  /// Glitzerladen (`glitter_shop`): Angebote mit Verkaufstricks; [budget] in Talern.
+  final List<ShopOffer> offers;
+
   /// Fassung mit ganzen Zahlen für Einsteiger, falls das Spiel Kommazahlen hat.
   final GameInfo? beginner;
 
@@ -548,6 +731,9 @@ class GameInfo {
     'ice_stand' => days.isNotEmpty && priceMin >= 1 && priceMax > priceMin,
     'trade_chain' => start != null && goal != null && traders.isNotEmpty,
     'backpack' => trips.isNotEmpty && items.isNotEmpty && items.every((i) => i.price != null),
+    'winter_store' => (winter?.days.isNotEmpty ?? false) && winter!.need > 0,
+    'piggy_bank' => (piggy?.weeks.isNotEmpty ?? false) && piggy!.plans.isNotEmpty && piggy!.goalPrice > 0,
+    'glitter_shop' => budget != null && offers.isNotEmpty && offers.every((o) => shopTricks.contains(o.trick)),
     _ => false,
   };
 }

@@ -1113,6 +1113,86 @@
           "text": "Geduld ist wie ein Muskel. Je öfter du wartest, desto leichter wird es."
         }
       },
+      "minispiel": {
+        "art": "winter_store",
+        "titel": "Emmas Wintervorrat",
+        "beschreibung": "Hilf Emma, genug Nüsse für den Winter zu sammeln.",
+        "aufgabe": "Es ist Herbst. Jeden Tag findet Emma Nüsse. Sie kann gleich 1 Nuss essen oder warten und 3 Nüsse für den Winter vergraben. Für den Winter braucht sie 12 Nüsse. Ab und zu essen ist erlaubt!",
+        "startbild": "game.winter_store",
+        "tage": [
+          {
+            "szene": [
+              {
+                "wer": "emma",
+                "text": "Unter der großen Eiche liegen Nüsse! Ich habe solchen Hunger."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "gustav",
+                "text": "Komm, Emma, iss doch einfach! Ich esse immer alles sofort."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "emma",
+                "text": "Heute regnet es. Ein paar Nüsse liegen am Bach."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Schau mal, Emma. Die Blätter werden schon bunt. Der Winter kommt bald."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "gustav",
+                "text": "Mmh, ich hab gerade meine Nuss gegessen. Lecker!"
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "emma",
+                "text": "Der letzte warme Tag! Danach kommt der Frost."
+              }
+            ]
+          }
+        ],
+        "jetzt": 1,
+        "spaeter": 3,
+        "winter": 12,
+        "gustav_klopft": {
+          "wer": "gustav",
+          "text": "Klopf, klopf! Emma, ich habe nichts mehr zu essen. Hast du ein paar Nüsse für mich?"
+        },
+        "teilen": {
+          "wer": "gustav",
+          "text": "Danke, Emma! Nächsten Herbst vergrabe ich auch ein paar Nüsse. Versprochen!"
+        },
+        "behalten": {
+          "wer": "emma",
+          "text": "Tut mir leid, Gustav. Aber komm im Frühling mit, dann zeige ich dir, wie man einen Vorrat anlegt."
+        },
+        "zu_wenig": {
+          "wer": "emma",
+          "text": "Oh nein, mein Versteck ist schon leer, und es ist noch so lange kalt. Ich hätte öfter warten sollen."
+        },
+        "geschafft": {
+          "wer": "emma",
+          "text": "Warten war manchmal schwer. Aber jetzt habe ich den ganzen Winter genug. Geduld lohnt sich!"
+        }
+      },
       "abschluss": {
         "wer": "tala",
         "text": "Warten ist schwer, aber drei Nüsse sind besser als eine!"
@@ -1296,6 +1376,95 @@
           "wer": "emma",
           "name": "Emma",
           "text": "Mit einem Sparplan weißt du immer, wann du am Ziel bist."
+        }
+      },
+      "minispiel": {
+        "art": "piggy_bank",
+        "titel": "Sparschwein füttern",
+        "beschreibung": "Mach einen Sparplan und füttere das Sparschwein, bis es für die Laterne reicht.",
+        "aufgabe": "Tala wünscht sich eine Laterne für 30 Taler. Jede Woche bekommt sie 8 Taler Taschengeld. Wähle, wie viel davon jede Woche ins Sparschwein kommt. Der Rest bleibt in der Hosentasche.",
+        "startbild": "game.piggy_bank",
+        "ziel": "Laterne",
+        "ziel_taler": 30,
+        "taschengeld": 8,
+        "plaene": [
+          3,
+          5,
+          7
+        ],
+        "wochen": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Woche 1! Mein Sparschwein ist noch ganz leer und hungrig."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Auf dem Markt gibt es heute frische Zuckerwatte."
+              }
+            ],
+            "ereignis": {
+              "art": "versuchung",
+              "wer": "haendler",
+              "text": "Zuckerwatte! Ganz frisch und rosa!",
+              "ding": "Zuckerwatte",
+              "taler": 3
+            }
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Diese Woche passiert nichts Besonderes. Einfach füttern!"
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Oh, ein Brief von Oma Hilde!"
+              }
+            ],
+            "ereignis": {
+              "art": "geschenk",
+              "wer": "tala",
+              "text": "Oma schreibt: „Hier sind 4 Taler für dich. Mach etwas Schönes damit!“",
+              "taler": 4
+            }
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Im Hafen gibt es ein Spielzeugboot im Schaufenster."
+              }
+            ],
+            "ereignis": {
+              "art": "versuchung",
+              "wer": "verkaeuferin",
+              "text": "Das Spielzeugboot ist heute ganz besonders schön. Willst du es?",
+              "ding": "Spielzeugboot",
+              "taler": 6
+            }
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Die letzte Woche! Ob es für die Laterne reicht?"
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Mein Plan hat geklappt! Jede Woche ein bisschen, und am Ende reicht es für die Laterne."
         }
       },
       "abschluss": {

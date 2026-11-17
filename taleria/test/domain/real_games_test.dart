@@ -207,4 +207,134 @@ void main() {
     expect(bag.saved, 3);
     expect(bag.stars, 3, reason: 'ein Fehler kostet noch keinen Stern');
   });
+
+  test('Wintervorrat: zu wenig gespart, von vorn, teilen, Sterne', () {
+    final game = GameInfo.fromJson({
+      'type': 'winter_store',
+      'title': 'Wintervorrat',
+      'now': 1,
+      'later': 3,
+      'need': 9,
+      'days': [
+        for (var i = 0; i < 4; i++) {'scene': []},
+      ],
+    });
+    final w = WinterStoreGame(game);
+    expect(game.isPlayable, isTrue);
+    expect(game.isRealGame, isTrue);
+    w
+      ..eat()
+      ..eat()
+      ..store()
+      ..eat();
+    expect((w.winter, w.stored, w.eaten, w.enough, w.mistakes), (true, 3, 3, false, 1));
+    w.store();
+    expect(w.stored, 3, reason: 'Im Winter gibt es nichts mehr zu sammeln');
+
+    w.restart();
+    w
+      ..store()
+      ..store()
+      ..store()
+      ..store();
+    expect((w.stored, w.surplus, w.finished), (12, 3, false));
+    expect(w.gustavEaten, 4);
+    w.decideShare(true);
+    expect((w.shared, w.finished, w.stars), (true, true, 3));
+  });
+
+  test('Sparschwein: Plan, Versuchung, Geschenk, verpasst und geschafft', () {
+    final game = GameInfo.fromJson({
+      'type': 'piggy_bank',
+      'title': 'Sparschwein',
+      'goal': 'Laterne',
+      'goal_price': 20,
+      'income': 8,
+      'plans': [3, 5],
+      'weeks': [
+        {'scene': []},
+        {
+          'scene': [],
+          'event': {
+            'kind': 'temptation',
+            'speaker': 'haendler',
+            'text': 'Zuckerwatte!',
+            'item': 'Zuckerwatte',
+            'price': 4,
+          },
+        },
+        {
+          'scene': [],
+          'event': {'kind': 'gift', 'speaker': 'tala', 'text': 'Von Oma', 'price': 2},
+        },
+        {'scene': []},
+      ],
+    });
+    final pig = PiggyBankGame(game);
+    expect(pig.planTotal(5), 20);
+    pig.choosePlan(5);
+    pig.feed();
+    expect((pig.pig, pig.pocket), (5, 3));
+    pig.nextWeek();
+    pig.feed();
+    expect(pig.eventOpen, isTrue);
+    pig.nextWeek();
+    expect(pig.week, 1, reason: 'Erst entscheiden, dann weiter');
+    pig.buy(fromPig: true);
+    expect(pig.pig, 6);
+    expect(pig.bought, ['Zuckerwatte']);
+    pig.nextWeek();
+    pig.feed();
+    pig.takeGift(intoPig: true);
+    pig.nextWeek();
+    pig.feed();
+    pig.nextWeek();
+    expect((pig.over, pig.pig, pig.reached, pig.mistakes), (true, 18, false, 1));
+
+    pig.restart();
+    pig.choosePlan(5);
+    for (var i = 0; i < 4; i++) {
+      pig.feed();
+      if (pig.current.event?.gift == false) pig.buy(fromPig: false);
+      if (pig.current.event?.gift == true) pig.takeGift(intoPig: false);
+      pig.nextWeek();
+    }
+    expect((pig.finished, pig.pig, pig.stars), (true, 20, 3));
+  });
+
+  test('Glitzerladen: Trick erkennen, Liste, zurückgeben, Sterne', () {
+    final game = GameInfo.fromJson({
+      'type': 'glitter_shop',
+      'title': 'Glitzerladen',
+      'budget': 6,
+      'offers': [
+        {'item': 'Spange', 'text': 'Nur heute!', 'trick': 'hurry', 'price': 4, 'needed': false, 'reveal': 'Druck'},
+        {'item': 'Seil', 'text': 'Statt 10 nur 4', 'trick': 'fake_sale', 'price': 4, 'needed': true, 'reveal': 'Preis'},
+      ],
+    });
+    final shop = GlitterShopGame(game);
+    expect(game.isPlayable, isTrue);
+    expect(shop.trickOptions, hasLength(3));
+    expect(shop.trickOptions, contains('hurry'));
+    shop.decide(buy: true);
+    expect(shop.offerDone, isFalse, reason: 'Zuerst den Trick erkennen');
+    expect(shop.guess('everyone'), ShopGuess.wrong);
+    expect(shop.guess('everyone'), ShopGuess.wrong);
+    expect(shop.mistakes, 1, reason: 'Derselbe falsche Trick zählt nur einmal');
+    expect(shop.guess('hurry'), ShopGuess.right);
+    shop.decide(buy: true);
+    expect((shop.money, shop.mistakes), (2, 2));
+    expect(shop.extras, ['Spange']);
+    shop.next();
+
+    shop.guess('fake_sale');
+    shop.decide(buy: false);
+    expect((shop.wrongSkip, shop.offerDone, shop.mistakes), (true, false, 3));
+    expect(shop.canAfford, isFalse);
+    shop.giveBack('Spange');
+    expect(shop.money, 6);
+    shop.decide(buy: true);
+    expect((shop.finished, shop.money, shop.stars), (true, 2, 2));
+    expect(shop.bought, ['Seil']);
+  });
 }

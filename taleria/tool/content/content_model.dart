@@ -176,8 +176,29 @@ class Station {
 ///   * ice_stand   Eisstand: an jedem Tag einen Preis setzen (Angebot und Nachfrage)
 ///   * trade_chain Tauschkette: tauschen, bis man das Ziel-Ding hat
 ///   * backpack    Rucksack packen: für jeden Ausflug mit Talern einpacken, was man wirklich braucht
+///   * winter_store  Emmas Wintervorrat: jeden Herbsttag gleich essen oder für den Winter vergraben
+///   * piggy_bank    Sparschwein füttern: Sparplan wählen, Woche für Woche füttern, Versuchungen
+///   * glitter_shop  Glitzerladen: Verkaufstricks erkennen und nur kaufen, was auf der Liste steht
 const builtGames = {'sort', 'order', 'choice', 'coins', 'pick', 'number', ...realGames};
-const realGames = {'till', 'market', 'ice_stand', 'trade_chain', 'backpack'};
+const realGames = {
+  'till',
+  'market',
+  'ice_stand',
+  'trade_chain',
+  'backpack',
+  'winter_store',
+  'piggy_bank',
+  'glitter_shop',
+};
+
+/// Verkaufstricks im Glitzerladen: Inhaltsdatei → Datenbank (wie `shopTricks` in der App).
+const shopTricks = {
+  'nur_heute': 'hurry',
+  'alle_haben': 'everyone',
+  'falscher_rabatt': 'fake_sale',
+  'gratis_dazu': 'free_extra',
+  'glitzer': 'sparkle',
+};
 
 /// Wetter am Eisstand: Inhaltsdatei → Datenbank.
 const iceWeather = {'sonne': 'sun', 'wolken': 'clouds', 'regen': 'rain'};
@@ -319,6 +340,55 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
             },
         ],
       },
+      if (type == 'winter_store') ...{
+        'days': [
+          for (final t in ((g['tage'] as List?) ?? const []).cast<Map<String, dynamic>>()) {'scene': lines(t['szene'])},
+        ],
+        'now': g['jetzt'],
+        'later': g['spaeter'],
+        'need': g['winter'],
+        'knock': ?line(g['gustav_klopft']),
+        'share': ?line(g['teilen']),
+        'keep': ?line(g['behalten']),
+        'hungry': ?line(g['zu_wenig']),
+      },
+      if (type == 'piggy_bank') ...{
+        'goal': g['ziel'],
+        'goal_price': g['ziel_taler'],
+        'income': g['taschengeld'],
+        'plans': g['plaene'],
+        'weeks': [
+          for (final w in ((g['wochen'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'scene': lines(w['szene']),
+              if (w['ereignis'] case final Map<String, dynamic> e)
+                'event': {
+                  'kind': e['art'] == 'geschenk' ? 'gift' : 'temptation',
+                  'speaker': e['wer'],
+                  'name': ?e['name'],
+                  'text': e['text'],
+                  'item': ?e['ding'],
+                  'price': e['taler'],
+                },
+            },
+        ],
+      },
+      if (type == 'glitter_shop') ...{
+        'budget': g['geld'],
+        'offers': [
+          for (final o in ((g['angebote'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'item': o['ding'],
+              'speaker': o['wer'] ?? 'elsa',
+              'name': ?o['name'],
+              'text': o['text'],
+              'trick': shopTricks[o['trick']],
+              'price': o['preis'],
+              'needed': o['gebraucht'] == true,
+              'reveal': o['aufloesung'],
+            },
+        ],
+      },
       'done': ?line(g['geschafft']),
       if (easy != null) 'beginner': gameToDb(easy),
     },
@@ -438,7 +508,10 @@ List<Object?> gameAmounts(Map<String, dynamic> g) {
 
 /// Braucht das Spiel eine Fassung mit ganzen Zahlen (Komma im Text oder Cent-Beträge)?
 bool gameNeedsBeginner(Map<String, dynamic> g) {
-  final plain = {...g}..remove('einsteiger');
+  // „plaene“ ist eine Zahlenliste ([3,5,7]), keine Kommazahl.
+  final plain = {...g}
+    ..remove('einsteiger')
+    ..remove('plaene');
   return commaNumber.hasMatch(jsonEncode(plain)) || !gameAmounts(plain).every(wholeCents);
 }
 
@@ -1360,6 +1433,77 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
         prices.keys.any((d) => !needed.contains(d)),
         '$w: jedes Ding wird irgendwo gebraucht, kein reiner Wunsch dabei',
       );
+    case 'winter_store':
+      final days = (game['tage'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      final now = game['jetzt'], later = game['spaeter'], need = game['winter'];
+      check(days.length >= 4 && days.length <= 8, '$w: 4 bis 8 Herbsttage');
+      for (final (i, t) in days.indexed) {
+        for (final (k, l) in ((t['szene'] as List?) ?? const []).indexed) {
+          speaker(l, '$w, Tag ${i + 1}, Szene ${k + 1}');
+        }
+      }
+      check(now is int && now >= 1, '$w: "jetzt" muss eine Zahl ab 1 sein');
+      check(later is int && now is int && later > now, '$w: "spaeter" muss mehr sein als "jetzt" (Geduld lohnt sich)');
+      for (final key in ['gustav_klopft', 'teilen', 'behalten', 'zu_wenig']) {
+        speaker(game[key], '$w, "$key"');
+      }
+      if (need is int && later is int && days.isNotEmpty) {
+        // Mindestens ein Tag darf Emma essen, aber nicht an der Hälfte der Tage.
+        check(need <= later * (days.length - 1), '$w: "winter" verlangt, dass Emma nie isst');
+        check(
+          need > later * (days.length - (days.length + 1) ~/ 2),
+          '$w: "winter" ist zu leicht, Essen an jedem zweiten Tag reicht',
+        );
+      } else {
+        problems.add('$w: "winter" (Nüsse für den Winter) fehlt');
+      }
+    case 'piggy_bank':
+      final price = game['ziel_taler'], income = game['taschengeld'];
+      final plans = ((game['plaene'] as List?) ?? const []).whereType<int>().toList();
+      final weeks = (game['wochen'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(text(game['ziel']), '$w: "ziel" fehlt');
+      check(price is int && price > 0, '$w: "ziel_taler" fehlt');
+      check(income is int && income > 0 && income <= 20, '$w: "taschengeld" (1 bis 20 Taler pro Woche)');
+      check(weeks.length >= 3 && weeks.length <= 8, '$w: 3 bis 8 Wochen');
+      check(plans.length >= 2 && plans.length <= 4, '$w: 2 bis 4 Pläne');
+      if (income is int) {
+        check(plans.every((p) => p >= 1 && p <= income), '$w: jeder Plan zwischen 1 und dem Taschengeld');
+      }
+      if (price is int) {
+        // Planen muss sich lohnen: ein Plan reicht, einer nicht.
+        check(plans.any((p) => p * weeks.length >= price), '$w: kein Plan reicht für das Ziel');
+        check(plans.any((p) => p * weeks.length < price), '$w: jeder Plan reicht, es gibt nichts zu rechnen');
+      }
+      for (final (i, wk) in weeks.indexed) {
+        final ww = '$w, Woche ${i + 1}';
+        for (final (k, l) in ((wk['szene'] as List?) ?? const []).indexed) {
+          speaker(l, '$ww, Szene ${k + 1}');
+        }
+        if (wk['ereignis'] case final Map<String, dynamic> e) {
+          check(e['art'] == 'versuchung' || e['art'] == 'geschenk', '$ww: "art" muss versuchung oder geschenk sein');
+          speaker(e, '$ww, Ereignis');
+          check(e['taler'] is int && (e['taler'] as int) > 0, '$ww: "taler" fehlt');
+          if (e['art'] == 'versuchung') check(text(e['ding']), '$ww: "ding" fehlt');
+        }
+      }
+    case 'glitter_shop':
+      final budget = game['geld'];
+      final offers = (game['angebote'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(budget is int && budget > 0, '$w: "geld" in Talern fehlt');
+      check(offers.length >= 3 && offers.length <= 6, '$w: 3 bis 6 Angebote');
+      var neededCost = 0;
+      for (final (i, o) in offers.indexed) {
+        final ow = '$w, Angebot ${i + 1}';
+        speaker({'wer': o['wer'] ?? 'elsa', 'text': o['text']}, ow);
+        check(text(o['ding']), '$ow: "ding" fehlt');
+        check(shopTricks.containsKey(o['trick']), '$ow: "trick" muss einer von ${shopTricks.keys.join(', ')} sein');
+        check(o['preis'] is int && (o['preis'] as int) > 0, '$ow: "preis" in Talern fehlt');
+        check(text(o['aufloesung']), '$ow: "aufloesung" fehlt (was hinter dem Trick steckt)');
+        if (o['gebraucht'] == true && o['preis'] is int) neededCost += o['preis'] as int;
+      }
+      check(offers.any((o) => o['gebraucht'] == true), '$w: mindestens ein Ding steht auf Talas Liste');
+      check(offers.any((o) => o['gebraucht'] != true), '$w: mindestens ein Ding ist nur Verlockung');
+      if (budget is int) check(neededCost <= budget, '$w: die Liste kostet $neededCost Taler, mehr als $budget');
     default:
       problems.add('$w: unbekannte Spielart "$type"');
   }

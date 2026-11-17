@@ -4609,5 +4609,410 @@
   "badgeCeremonyHang": "An die Wand hängen",
   "@badgeCeremonyHang": {
     "description": "Orden-Wand: Knopf, mit dem das Kind den neuen Orden aufhängt"
+  },
+  "winterDay": "Herbsttag {number} von {total}",
+  "@winterDay": {
+    "description": "Wintervorrat: welcher Herbsttag dran ist",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "winterStoreLabel": "Emmas Vorrat",
+  "@winterStoreLabel": {
+    "description": "Wintervorrat: Überschrift des Vorrats"
+  },
+  "winterStoreCount": "{stored} von {need} Nüssen für den Winter",
+  "@winterStoreCount": {
+    "description": "Wintervorrat: Stand des Vorrats",
+    "placeholders": {
+      "stored": {
+        "type": "int"
+      },
+      "need": {
+        "type": "int"
+      }
+    }
+  },
+  "winterEaten": "{count, plural, =0{Noch nichts gegessen} =1{Schon 1 Nuss gegessen} other{Schon {count} Nüsse gegessen}}",
+  "@winterEaten": {
+    "description": "Wintervorrat: was Emma schon gegessen hat",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winterEat": "{count, plural, =1{Jetzt 1 Nuss essen} other{Jetzt {count} Nüsse essen}}",
+  "@winterEat": {
+    "description": "Wintervorrat: Knopf gleich essen",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winterWait": "{count, plural, =1{Warten: 1 Nuss vergraben} other{Warten: {count} Nüsse vergraben}}",
+  "@winterWait": {
+    "description": "Wintervorrat: Knopf warten und vergraben",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winterGustav": "{count, plural, =0{Gustav isst immer alles sofort.} =1{Gustav isst immer alles sofort. 1 Nuss hat er schon gegessen, vergraben hat er nichts.} other{Gustav isst immer alles sofort. {count} Nüsse hat er schon gegessen, vergraben hat er nichts.}}",
+  "@winterGustav": {
+    "description": "Wintervorrat: Gustav, die Grille, spart nie",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winterCame": "Der Winter ist da! Schnee liegt auf der Insel.",
+  "@winterCame": {
+    "description": "Wintervorrat: der Herbst ist vorbei"
+  },
+  "winterEnough": "Der Vorrat reicht! Emma kommt gut durch den Winter.",
+  "@winterEnough": {
+    "description": "Wintervorrat: genug gespart"
+  },
+  "winterNotEnough": "Nur {stored} von {need} Nüssen. Das reicht nicht für den ganzen Winter.",
+  "@winterNotEnough": {
+    "description": "Wintervorrat: zu wenig gespart",
+    "placeholders": {
+      "stored": {
+        "type": "int"
+      },
+      "need": {
+        "type": "int"
+      }
+    }
+  },
+  "winterAgain": "Den Herbst nochmal spielen",
+  "@winterAgain": {
+    "description": "Wintervorrat: von vorn beginnen"
+  },
+  "winterSurplus": "{count, plural, =1{Emma hat 1 Nuss mehr, als sie braucht.} other{Emma hat {count} Nüsse mehr, als sie braucht.}}",
+  "@winterSurplus": {
+    "description": "Wintervorrat: was übrig ist",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winterShare": "{count, plural, =1{Gustav 1 Nuss abgeben} other{Gustav {count} Nüsse abgeben}}",
+  "@winterShare": {
+    "description": "Wintervorrat: Knopf teilen",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winterKeep": "Alles behalten",
+  "@winterKeep": {
+    "description": "Wintervorrat: Knopf nicht teilen"
+  },
+  "piggyGoal": "Ziel: {goal} für {price} Taler",
+  "@piggyGoal": {
+    "description": "Sparschwein: der Wunschschatz",
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      },
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyIncome": "Jede Woche bekommt Tala {count} Taler Taschengeld.",
+  "@piggyIncome": {
+    "description": "Sparschwein: Taschengeld pro Woche",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyPlanQuestion": "Wie viele Taler soll das Sparschwein jede Woche bekommen?",
+  "@piggyPlanQuestion": {
+    "description": "Sparschwein: Plan wählen"
+  },
+  "piggyPlanOption": "{amount} Taler pro Woche",
+  "@piggyPlanOption": {
+    "description": "Sparschwein: ein möglicher Plan",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyPlanCheck": "{weeks} Wochen × {amount} Taler = {total} Taler",
+  "@piggyPlanCheck": {
+    "description": "Sparschwein: Rechnung zum Plan",
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyStart": "Mit diesem Plan starten",
+  "@piggyStart": {
+    "description": "Sparschwein: Plan bestätigen"
+  },
+  "piggyWeek": "Woche {number} von {total}",
+  "@piggyWeek": {
+    "description": "Sparschwein: welche Woche dran ist",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyFeed": "Sparschwein füttern ({amount} Taler)",
+  "@piggyFeed": {
+    "description": "Sparschwein: Knopf füttern",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyPig": "Im Sparschwein: {count} von {price} Talern",
+  "@piggyPig": {
+    "description": "Sparschwein: Stand im Schwein",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyPocket": "In der Hosentasche: {count} Taler",
+  "@piggyPocket": {
+    "description": "Sparschwein: freies Geld",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyOffer": "{item} für {price} Taler",
+  "@piggyOffer": {
+    "description": "Sparschwein: was lockt",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyGift": "{count} Taler geschenkt!",
+  "@piggyGift": {
+    "description": "Sparschwein: Geschenk",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyBuyPocket": "Mit der Hosentasche kaufen",
+  "@piggyBuyPocket": {
+    "description": "Sparschwein: Knopf kaufen vom freien Geld"
+  },
+  "piggyBuyPig": "Aus dem Sparschwein nehmen",
+  "@piggyBuyPig": {
+    "description": "Sparschwein: Knopf kaufen aus dem Schwein"
+  },
+  "piggySkip": "Nein, danke",
+  "@piggySkip": {
+    "description": "Sparschwein: nicht kaufen"
+  },
+  "piggyGiftPig": "Ins Sparschwein",
+  "@piggyGiftPig": {
+    "description": "Sparschwein: Geschenk ins Schwein"
+  },
+  "piggyGiftPocket": "In die Hosentasche",
+  "@piggyGiftPocket": {
+    "description": "Sparschwein: Geschenk behalten"
+  },
+  "piggyNextWeek": "Nächste Woche",
+  "@piggyNextWeek": {
+    "description": "Sparschwein: weiter"
+  },
+  "piggyReached": "Geschafft! Im Sparschwein ist genug für: {goal}.",
+  "@piggyReached": {
+    "description": "Sparschwein: Ziel erreicht",
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "piggyMissed": "Nur {count} von {price} Talern. Das reicht noch nicht.",
+  "@piggyMissed": {
+    "description": "Sparschwein: Ziel verpasst",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "piggyAgain": "Neuen Plan machen",
+  "@piggyAgain": {
+    "description": "Sparschwein: von vorn"
+  },
+  "piggyBought": "Unterwegs gekauft: {items}.",
+  "@piggyBought": {
+    "description": "Sparschwein: was gekauft wurde",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "shopMoney": "Im Geldbeutel: {count} Taler",
+  "@shopMoney": {
+    "description": "Glitzerladen: Talas Taler",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "shopList": "Talas Liste: {items}",
+  "@shopList": {
+    "description": "Glitzerladen: was Tala braucht",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "shopOfferCount": "Angebot {number} von {total}",
+  "@shopOfferCount": {
+    "description": "Glitzerladen: welches Angebot dran ist",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "shopWhichTrick": "Welchen Trick benutzt Elsa?",
+  "@shopWhichTrick": {
+    "description": "Glitzerladen: Frage nach dem Trick"
+  },
+  "shopTrickRight": "Richtig erkannt!",
+  "@shopTrickRight": {
+    "description": "Glitzerladen: Trick erkannt"
+  },
+  "shopTrickWrong": "Das ist es nicht. Lies noch einmal genau, was Elsa sagt.",
+  "@shopTrickWrong": {
+    "description": "Glitzerladen: falscher Trick"
+  },
+  "shopNeed": "Braucht Tala das wirklich?",
+  "@shopNeed": {
+    "description": "Glitzerladen: kaufen oder nicht"
+  },
+  "shopBuy": "Kaufen ({price} Taler)",
+  "@shopBuy": {
+    "description": "Glitzerladen: Knopf kaufen",
+    "placeholders": {
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "shopLeave": "Nein, danke",
+  "@shopLeave": {
+    "description": "Glitzerladen: Knopf nicht kaufen"
+  },
+  "shopNeededSkip": "Halt! Das steht auf Talas Liste. Das braucht sie wirklich.",
+  "@shopNeededSkip": {
+    "description": "Glitzerladen: Ding von der Liste weggelassen"
+  },
+  "shopExtraBought": "Das stand nicht auf der Liste. Elsas Trick hat geklappt.",
+  "@shopExtraBought": {
+    "description": "Glitzerladen: unnötig gekauft"
+  },
+  "shopGoodBuy": "Gut! Das steht auf der Liste.",
+  "@shopGoodBuy": {
+    "description": "Glitzerladen: Nötiges gekauft"
+  },
+  "shopGoodLeave": "Gut gemacht! Tala lässt es liegen.",
+  "@shopGoodLeave": {
+    "description": "Glitzerladen: Unnötiges liegen gelassen"
+  },
+  "shopNotEnough": "Die Taler reichen nicht. Gib etwas zurück, das nicht auf der Liste steht.",
+  "@shopNotEnough": {
+    "description": "Glitzerladen: zu wenig Taler"
+  },
+  "shopGiveBack": "{item} zurückgeben",
+  "@shopGiveBack": {
+    "description": "Glitzerladen: Knopf zurückgeben",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "shopNext": "Nächstes Angebot",
+  "@shopNext": {
+    "description": "Glitzerladen: weiter"
+  },
+  "shopEnd": "{count} Taler sind übrig. Die legt Tala in ihre Schatztruhe.",
+  "@shopEnd": {
+    "description": "Glitzerladen: am Ende übrig",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "shopTrickHurry": "Nur heute!",
+  "@shopTrickHurry": {
+    "description": "Verkaufstrick: Zeitdruck"
+  },
+  "shopTrickEveryone": "Alle haben das",
+  "@shopTrickEveryone": {
+    "description": "Verkaufstrick: alle anderen haben es schon"
+  },
+  "shopTrickFakeSale": "Falscher Rabatt",
+  "@shopTrickFakeSale": {
+    "description": "Verkaufstrick: durchgestrichener Preis, der nie galt"
+  },
+  "shopTrickFreeExtra": "Gratis dazu",
+  "@shopTrickFreeExtra": {
+    "description": "Verkaufstrick: etwas gratis, wenn man mehr kauft"
+  },
+  "shopTrickSparkle": "Glitzer-Verpackung",
+  "@shopTrickSparkle": {
+    "description": "Verkaufstrick: schöne Verpackung, wenig drin"
   }
 }
