@@ -11,6 +11,7 @@ import '../../l10n/app_localizations.dart';
 import '../common/menu_music.dart';
 import '../common/page_intro.dart';
 import '../common/scene_background.dart';
+import '../common/underwater_life.dart';
 import '../common/texts.dart';
 import '../common/wood_sign.dart';
 import '../intro/speech_bubble.dart';
@@ -77,63 +78,75 @@ class _CollectionScreenState extends State<CollectionScreen> {
         appBar: TaleriaAppBar(title: l10n.collectionTitle),
         body: SceneBackground(
           assetKey: AssetKeys.underwaterBackground,
-          child: SafeArea(
-            child: FutureBuilder<List<CollectibleInfo>>(
-              future: _items,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  final error = snapshot.error;
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Text(l10n.failure(error is AppFailure ? error.kind : FailureKind.unknown)),
-                    ),
-                  );
-                }
-                final items = snapshot.data;
-                if (items == null) return const Center(child: CircularProgressIndicator());
-                final found = items.where((i) => i.found).length;
-                return ListView(
-                  padding: const EdgeInsets.all(16),
-                  children: [
-                    PageIntro(
-                      childId: widget.childId,
-                      page: 'collection',
-                      voices: const ['voice.app.collectionIntro.mp3'],
-                      children: [
-                        SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.collectionIntro),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    _Treasure(pearls: widget.pearls, found: found, total: items.length),
-                    const SizedBox(height: 12),
-                    if (found == 0) ...[
-                      PaperCard(child: Text(l10n.collectionEmpty, style: theme.textTheme.bodyLarge)),
-                      const SizedBox(height: 12),
-                    ],
-                    for (final (island, finds) in _byIsland(items)) ...[
-                      if (island != null) _IslandHeader(island: island, finds: finds),
-                      const SizedBox(height: 8),
-                      ShowcaseGrid(
+          // Blasen, Lichtstrahlen und Fische hinter den Funden (Marcs Wunsch am 17.11.2026).
+          child: Stack(
+            children: [
+              const Positioned.fill(child: UnderwaterLife()),
+              Positioned.fill(
+                child: SafeArea(
+                  child: FutureBuilder<List<CollectibleInfo>>(
+                    future: _items,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        final error = snapshot.error;
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Text(l10n.failure(error is AppFailure ? error.kind : FailureKind.unknown)),
+                          ),
+                        );
+                      }
+                      final items = snapshot.data;
+                      if (items == null) return const Center(child: CircularProgressIndicator());
+                      final found = items.where((i) => i.found).length;
+                      return ListView(
+                        padding: const EdgeInsets.all(16),
                         children: [
-                          for (final item in finds)
-                            ShowcaseTile(
-                              key: ValueKey('find-${item.slug}'),
-                              assetKey: item.assetKey,
-                              title: item.title,
-                              caption: item.found
-                                  ? l10n.collectionFoundOn(formatDate(item.foundAt!))
-                                  : l10n.badgeNotYet,
-                              earned: item.found,
+                          PageIntro(
+                            childId: widget.childId,
+                            page: 'collection',
+                            voices: const ['voice.app.collectionIntro.mp3'],
+                            children: [
+                              SpeechBubble(
+                                speaker: Speaker.tala,
+                                pose: CharacterPose.happy,
+                                text: l10n.collectionIntro,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          _Treasure(pearls: widget.pearls, found: found, total: items.length),
+                          const SizedBox(height: 12),
+                          if (found == 0) ...[
+                            PaperCard(child: Text(l10n.collectionEmpty, style: theme.textTheme.bodyLarge)),
+                            const SizedBox(height: 12),
+                          ],
+                          for (final (island, finds) in _byIsland(items)) ...[
+                            if (island != null) _IslandHeader(island: island, finds: finds),
+                            const SizedBox(height: 8),
+                            ShowcaseGrid(
+                              children: [
+                                for (final item in finds)
+                                  ShowcaseTile(
+                                    key: ValueKey('find-${item.slug}'),
+                                    assetKey: item.assetKey,
+                                    title: item.title,
+                                    caption: item.found
+                                        ? l10n.collectionFoundOn(formatDate(item.foundAt!))
+                                        : l10n.badgeNotYet,
+                                    earned: item.found,
+                                  ),
+                              ],
                             ),
+                            const SizedBox(height: 12),
+                          ],
                         ],
-                      ),
-                      const SizedBox(height: 12),
-                    ],
-                  ],
-                );
-              },
-            ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
