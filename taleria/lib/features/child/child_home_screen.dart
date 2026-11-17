@@ -62,9 +62,10 @@ class ChildHomeScreen extends StatelessWidget {
         body: Stack(
           children: [
             const Positioned.fill(child: _SkyAndSea()),
-            // Möwen am Himmel und Glitzern auf dem Meer (nur mit Bewegung).
+            // Oben ohne Rand: Das Schiffsbild mit Himmel reicht bis unter die Statusleiste.
+            SafeArea(top: false, child: _HomeBody(state: state)),
+            // Möwenschwärme fliegen über das Bild (nur mit Bewegung); einzelne landen auf der Reling.
             const Positioned.fill(child: IgnorePointer(child: _DeckLife())),
-            SafeArea(child: _HomeBody(state: state)),
           ],
         ),
       ),
@@ -706,49 +707,58 @@ class _HomeBodyState extends State<_HomeBody> {
       builder: (context, _) {
         final stats = controller?.stats;
         return ListView(
-          padding: const EdgeInsets.only(top: 4, bottom: 24),
+          padding: const EdgeInsets.only(bottom: 24),
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                children: [
-                  const SoundButton(),
-                  const SizedBox(width: 6),
-                  Expanded(
-                    child: stats == null
-                        ? const SizedBox.shrink()
-                        : _RankPlaque(
-                            stats: stats,
-                            rankForm: child.rankForm,
-                            onTap: () => _open(RankLadderScreen(stats: stats, rankForm: child.rankForm)),
-                          ),
-                  ),
-                  const SizedBox(width: 6),
-                  LighthouseButton(state: widget.state),
-                ],
-              ),
-            ),
-            const SizedBox(height: 6),
-            if (stats != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Builder(
-                  builder: (context) {
-                    final greeting = dailyGreeting(day: DateTime.now(), stats: stats, goals: _goals);
-                    _speakGreeting(greeting);
-                    return _GreetingBubble(greeting: greeting, rankForm: child.rankForm);
-                  },
-                ),
-              ),
-            // Wer vor dieser Frage schon gespielt hat, wählt einmal hier.
+            // Wer vor dieser Frage schon gespielt hat, wählt einmal hier, ganz oben.
             if (child.rankForm == null)
               Padding(
-                padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                padding: EdgeInsets.fromLTRB(12, MediaQuery.paddingOf(context).top + 8, 12, 8),
                 child: _RankFormCard(childId: child.id),
               ),
             // Das Schiff im Schnitt (Marcs Wahl am 17.11.2026, Entwurf 2): oben
             // auf dem Deck die Crew, darunter jeder Bereich als Raum zum Antippen.
             _ShipCutaway(
+              // Oben im Himmel, unter der Statusleiste des Handys.
+              header: Padding(
+                padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top + 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          const SoundButton(),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: stats == null
+                                ? const SizedBox.shrink()
+                                : _RankPlaque(
+                                    stats: stats,
+                                    rankForm: child.rankForm,
+                                    onTap: () => _open(RankLadderScreen(stats: stats, rankForm: child.rankForm)),
+                                  ),
+                          ),
+                          const SizedBox(width: 6),
+                          LighthouseButton(state: widget.state),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    if (stats != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Builder(
+                          builder: (context) {
+                            final greeting = dailyGreeting(day: DateTime.now(), stats: stats, goals: _goals);
+                            _speakGreeting(greeting);
+                            return _GreetingBubble(greeting: greeting, rankForm: child.rankForm);
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+              ),
               crew: _crew(l10n, child),
               nameSign: _NameSign(
                 nickname: child.nickname,
@@ -908,19 +918,30 @@ const shipRoomRects = {
   ShipRoom.games: Rect.fromLTRB(0.50, 0.72, 0.97, 0.90),
 };
 
-/// Höhe des Decks im Bild (dort stehen die Füße der Crew) und des Namensschilds am Rumpf.
+/// Höhe des Decks im Schiff (dort stehen die Füße der Crew) und des Namensschilds am Rumpf,
+/// als Anteil des Schiffsteils (ohne Himmel darüber).
 const _deckFloor = 0.295;
 const _hullSign = 0.322;
 
-/// Seitenverhältnis von `home.ship` (768 × 1376).
-const _shipAspect = 768 / 1376;
+/// `home.ship` ist 768 × 1745: oben 369 Pixel Himmel mit Mastspitze (seit
+/// 17.11.2026, Marcs Test: vorher stand über dem Bild ein blauer Kasten),
+/// darunter das Schiff im Schnitt (768 × 1376, darauf beziehen sich
+/// [shipRoomRects], [_deckFloor] und [_hullSign]).
+const _shipAspect = 768 / 1745;
+const _skyPart = 369 / 1745;
+const _shipPart = 1376 / 1745;
 
-/// Das Schiff im Schnitt über die ganze Breite: Bild, Crew auf dem Deck,
-/// Namensschild am Rumpf und die Räume. Fehlt das Bild, steht ein Holz-Verlauf
-/// da; die Räume sind trotzdem antippbar.
+/// Plätze auf der Reling, an denen Möwen landen (Anteile im Schiffsteil).
+const _perches = [Offset(0.13, 0.166), Offset(0.87, 0.166)];
+
+/// Das Schiff im Schnitt über die ganze Breite, oben mit Himmel: Bild, oben
+/// [header] (Rang, Leuchtturm, Satz des Tages), Möwen, die auf der Reling
+/// landen, die Crew auf dem Deck, das Namensschild am Rumpf und die Räume.
+/// Fehlt das Bild, steht ein Holz-Verlauf da; die Räume sind trotzdem antippbar.
 class _ShipCutaway extends StatelessWidget {
-  const _ShipCutaway({required this.crew, required this.nameSign, required this.rooms});
+  const _ShipCutaway({required this.header, required this.crew, required this.nameSign, required this.rooms});
 
+  final Widget header;
   final Widget crew;
   final Widget nameSign;
   final Map<ShipRoom, Widget> rooms;
@@ -931,6 +952,9 @@ class _ShipCutaway extends StatelessWidget {
       builder: (context, box) {
         final w = box.maxWidth;
         final h = w / _shipAspect;
+        final top = h * _skyPart;
+        final ship = h * _shipPart;
+        double y(double f) => top + f * ship;
         // Die Crew ist für 390 Punkte Breite gebaut und wächst mit dem Bild.
         final scale = (w / 390).clamp(0.8, 1.6);
         return SizedBox(
@@ -948,8 +972,8 @@ class _ShipCutaway extends StatelessWidget {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Color(0xFF9CC3E6), Color(0xFFB5835A), Color(0xFF7A4E2C)],
-                        stops: [0, 0.3, 1],
+                        colors: [Color(0xFF9CC3E6), Color(0xFF9CC3E6), Color(0xFFB5835A), Color(0xFF7A4E2C)],
+                        stops: [0, 0.4, 0.45, 1],
                       ),
                     ),
                   ),
@@ -958,29 +982,132 @@ class _ShipCutaway extends StatelessWidget {
               for (final entry in rooms.entries)
                 Positioned(
                   left: shipRoomRects[entry.key]!.left * w,
-                  top: shipRoomRects[entry.key]!.top * h,
+                  top: y(shipRoomRects[entry.key]!.top),
                   width: shipRoomRects[entry.key]!.width * w,
-                  height: shipRoomRects[entry.key]!.height * h,
+                  height: shipRoomRects[entry.key]!.height * ship,
                   child: entry.value,
                 ),
+              // Möwen fliegen heran und landen auf der Reling (Marcs Wunsch am 17.11.2026).
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: _LandingGull(perches: [for (final p in _perches) Offset(p.dx * w, y(p.dy))], size: w * 0.11),
+                ),
+              ),
               // Die Crew steht auf dem Deck, die Füße auf den Planken.
               Positioned(
                 left: 0,
                 right: 0,
-                bottom: h * (1 - _deckFloor),
+                bottom: h - y(_deckFloor),
                 child: Transform.scale(scale: scale, alignment: Alignment.bottomCenter, child: crew),
               ),
               Positioned(
                 left: 0,
                 right: 0,
-                top: h * _hullSign - 20,
+                top: y(_hullSign) - 20,
                 // Kleiner, damit es den Kartenraum darunter nicht verdeckt.
                 child: Center(
                   child: Transform.scale(scale: 0.72 * scale, alignment: Alignment.topCenter, child: nameSign),
                 ),
               ),
+              // Rang, Leuchtturm und Satz des Tages liegen oben im Himmel.
+              Positioned(left: 0, right: 0, top: 0, child: header),
             ],
           ),
+        );
+      },
+    );
+  }
+}
+
+/// Eine Möwe fliegt heran, landet auf der Reling, sitzt eine Weile und
+/// fliegt weiter; beim nächsten Mal landet sie auf der anderen Seite. Ohne
+/// Bewegung (reduziert oder in Tests) sitzt sie einfach auf der Reling.
+class _LandingGull extends StatefulWidget {
+  const _LandingGull({required this.perches, required this.size});
+
+  /// Fußpunkte auf der Reling.
+  final List<Offset> perches;
+  final double size;
+
+  @override
+  State<_LandingGull> createState() => _LandingGullState();
+}
+
+class _LandingGullState extends State<_LandingGull> with SingleTickerProviderStateMixin {
+  /// Ein Durchgang: 3 s anfliegen, 10 s sitzen, 3 s abfliegen, 6 s Pause.
+  static const _cycle = 22.0;
+  late final AnimationController _clock = AnimationController(vsync: this, duration: const Duration(seconds: 22));
+  bool _motion = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _motion = AppScope.of(context).sceneMotion && !MediaQuery.disableAnimationsOf(context);
+    if (_motion && !_clock.isAnimating) {
+      _clock.repeat();
+    } else if (!_motion) {
+      _clock.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    _clock.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = widget.size;
+    final sitH = size * 445 / 512;
+    Widget sitting(Offset foot) => Positioned(
+      left: foot.dx - size / 2,
+      top: foot.dy - sitH,
+      width: size,
+      height: sitH,
+      child: const TaleriaAsset('critter.seagull.sit', fit: BoxFit.contain, fallback: SizedBox()),
+    );
+    if (!_motion) return Stack(children: [sitting(widget.perches.first)]);
+    return AnimatedBuilder(
+      animation: _clock,
+      builder: (context, _) {
+        final t = _clock.value * _cycle;
+        // Abwechselnd links und rechts landen.
+        final round = (_clock.lastElapsedDuration?.inSeconds ?? 0) ~/ _cycle;
+        final foot = widget.perches[round % widget.perches.length];
+        final fromLeft = foot.dx > MediaQuery.sizeOf(context).width / 2;
+        if (t >= 3 && t < 13) {
+          // Sitzt und nickt leicht.
+          final bob = sin(t * 2.4) * 1.5;
+          return Stack(children: [sitting(foot.translate(0, bob))]);
+        }
+        if (t >= 16) return const SizedBox.shrink();
+        final flying = t < 3;
+        final p = flying ? Curves.easeOut.transform(t / 3) : Curves.easeIn.transform((t - 13) / 3);
+        final far = Offset(fromLeft ? -size * 2 : MediaQuery.sizeOf(context).width + size * 2, foot.dy - size * 3);
+        final away = Offset(fromLeft ? MediaQuery.sizeOf(context).width + size * 2 : -size * 2, foot.dy - size * 4);
+        final pos = flying ? Offset.lerp(far, foot, p)! : Offset.lerp(foot, away, p)!;
+        final towardRight = flying ? fromLeft : !fromLeft;
+        final frame = (t * 6).floor() % 3;
+        final flapW = size * 1.6;
+        final flapH = flapW / SeagullFlock.aspect;
+        return Stack(
+          children: [
+            Positioned(
+              left: pos.dx - flapW / 2,
+              top: pos.dy - flapH * 0.8,
+              width: flapW,
+              height: flapH,
+              child: Transform.flip(
+                flipX: !towardRight,
+                child: TaleriaAsset(
+                  ['critter.seagull.up', 'critter.seagull.glide', 'critter.seagull.down'][frame],
+                  fit: BoxFit.contain,
+                  fallback: const SizedBox(),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );

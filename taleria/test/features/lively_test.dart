@@ -26,6 +26,9 @@ void main() {
   testWidgets('Talo und Tala antippen: Sie sagen etwas, jedes Mal den nächsten Satz', (tester) async {
     await startOnHome(tester);
     final talo = find.byKey(const ValueKey('lively-character.talo'));
+    // Über dem Schiff liegt der Himmel; im breiten Testfenster steht das Deck weiter unten.
+    await tester.ensureVisible(talo);
+    await tester.pumpAndSettle();
     await tester.tap(talo);
     await tester.pump(const Duration(milliseconds: 300));
     expect(find.text('Ahoi! Schön, dass du da bist.'), findsOneWidget);

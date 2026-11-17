@@ -2244,6 +2244,15 @@
         "shape": "rounded"
       }
     },
+    "critter.seagull.sit": {
+      "type": "image",
+      "path": "assets/images/critter.seagull.sit.png",
+      "placeholder": {
+        "label": "Möwe gleitet",
+        "color": "#3FB6D3",
+        "shape": "rounded"
+      }
+    },
     "critter.seagull.glide": {
       "type": "image",
       "path": "assets/images/critter.seagull.glide.png",
