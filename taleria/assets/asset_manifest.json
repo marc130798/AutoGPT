@@ -973,6 +973,24 @@
         "shape": "rectangle"
       }
     },
+    "game.kiosk_week": {
+      "type": "image",
+      "path": "assets/images/game.kiosk_week.jpg",
+      "placeholder": {
+        "label": "Mias Kiosk-Woche",
+        "color": "#E0A526",
+        "shape": "rounded"
+      }
+    },
+    "game.logbook": {
+      "type": "image",
+      "path": "assets/images/game.logbook.jpg",
+      "placeholder": {
+        "label": "Kurts Logbuch",
+        "color": "#E0A526",
+        "shape": "rounded"
+      }
+    },
     "game.piggy_bank": {
       "type": "image",
       "path": "assets/images/game.piggy_bank.jpg",

@@ -383,6 +383,58 @@ class BackpackTrip {
   final List<BackpackNeed> needs;
 }
 
+/// Ein Tag in Mias Kiosk-Woche: Angebot am Kiosk oder etwas, das sein muss.
+class KioskDay {
+  const KioskDay({
+    required this.day,
+    required this.item,
+    required this.price,
+    this.must = false,
+    this.scene = const [],
+  });
+
+  factory KioskDay.fromJson(Map<String, dynamic> json) => KioskDay(
+    day: json['day'] as String? ?? '',
+    item: json['item'] as String? ?? '',
+    price: (json['price'] as num?)?.toInt() ?? 0,
+    must: json['must'] as bool? ?? false,
+    scene: [for (final l in (json['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
+  );
+
+  final String day;
+  final String item;
+
+  /// Preis in Talern.
+  final int price;
+
+  /// Muss bezahlt werden (zum Beispiel die Busfahrt), kein Wunsch.
+  final bool must;
+  final List<DialogLine> scene;
+}
+
+/// Ein Kassenzettel in Kurts Logbuch.
+class LogbookEntry {
+  const LogbookEntry({required this.text, required this.amount, required this.income, required this.group});
+
+  factory LogbookEntry.fromJson(Map<String, dynamic> json) => LogbookEntry(
+    text: json['text'] as String? ?? '',
+    amount: (json['amount'] as num?)?.toInt() ?? 0,
+    income: json['kind'] == 'in',
+    group: json['group'] as String? ?? '',
+  );
+
+  final String text;
+
+  /// Betrag in Talern.
+  final int amount;
+
+  /// Einnahme (sonst Ausgabe).
+  final bool income;
+
+  /// Wofür (bei Ausgaben), zum Beispiel „Süßes“.
+  final String group;
+}
+
 /// Emmas Wintervorrat: Herbsttage, an denen Emma wählt, ob sie gleich isst
 /// oder Nüsse für den Winter vergräbt.
 class WinterStoreSpec {
@@ -570,6 +622,10 @@ class GameInfo {
     this.winter,
     this.piggy,
     this.offers = const [],
+    this.kioskDays = const [],
+    this.broke,
+    this.logStart = 0,
+    this.logEntries = const [],
     this.beginner,
     this.wholeNumbers = false,
     this.image,
@@ -632,6 +688,14 @@ class GameInfo {
     winter: game['type'] == 'winter_store' ? WinterStoreSpec.fromJson(game) : null,
     piggy: game['type'] == 'piggy_bank' ? PiggyBankSpec.fromJson(game) : null,
     offers: [for (final o in (game['offers'] as List?) ?? const []) ShopOffer.fromJson(o as Map<String, dynamic>)],
+    kioskDays: [
+      for (final d in (game['kiosk_days'] as List?) ?? const []) KioskDay.fromJson(d as Map<String, dynamic>),
+    ],
+    broke: game['broke'] is Map<String, dynamic> ? DialogLine.fromJson(game['broke'] as Map<String, dynamic>) : null,
+    logStart: (game['log_start'] as num?)?.toInt() ?? 0,
+    logEntries: [
+      for (final e in (game['log_entries'] as List?) ?? const []) LogbookEntry.fromJson(e as Map<String, dynamic>),
+    ],
   );
 
   /// Echte Mini-Spiele mit eigener Spielwelt (Startbild, Sterne, auf der
@@ -645,6 +709,8 @@ class GameInfo {
     'winter_store',
     'piggy_bank',
     'glitter_shop',
+    'kiosk_week',
+    'logbook',
   };
 
   /// sort, order, choice, coins, pick, number, wish_bottle, die echten Spiele
@@ -699,6 +765,15 @@ class GameInfo {
   /// Glitzerladen (`glitter_shop`): Angebote mit Verkaufstricks; [budget] in Talern.
   final List<ShopOffer> offers;
 
+  /// Mias Kiosk-Woche (`kiosk_week`): Tage am Kiosk, [budget] in Talern für die Woche;
+  /// [broke] sagt Mia, wenn das Geld für etwas Nötiges nicht mehr reicht.
+  final List<KioskDay> kioskDays;
+  final DialogLine? broke;
+
+  /// Kurts Logbuch (`logbook`): Taler am Anfang und Kassenzettel der Reihe nach.
+  final int logStart;
+  final List<LogbookEntry> logEntries;
+
   /// Fassung mit ganzen Zahlen für Einsteiger, falls das Spiel Kommazahlen hat.
   final GameInfo? beginner;
 
@@ -734,6 +809,8 @@ class GameInfo {
     'winter_store' => (winter?.days.isNotEmpty ?? false) && winter!.need > 0,
     'piggy_bank' => (piggy?.weeks.isNotEmpty ?? false) && piggy!.plans.isNotEmpty && piggy!.goalPrice > 0,
     'glitter_shop' => budget != null && offers.isNotEmpty && offers.every((o) => shopTricks.contains(o.trick)),
+    'kiosk_week' => budget != null && kioskDays.isNotEmpty,
+    'logbook' => logEntries.isNotEmpty,
     _ => false,
   };
 }

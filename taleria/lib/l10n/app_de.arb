@@ -5057,5 +5057,164 @@
         "type": "String"
       }
     }
+  },
+  "kioskMoney": "Im Beutel: {count} Taler",
+  "@kioskMoney": {
+    "description": "Kiosk-Woche: Geld im Beutel",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kioskOffer": "{item} für {price} Taler",
+  "@kioskOffer": {
+    "description": "Kiosk-Woche: Angebot des Tages",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "kioskMust": "Muss sein: {item} für {price} Taler",
+  "@kioskMust": {
+    "description": "Kiosk-Woche: etwas Nötiges",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "price": {
+        "type": "int"
+      }
+    }
+  },
+  "kioskMustLeft": "Diese Woche musst du noch {count} Taler für Nötiges bezahlen.",
+  "@kioskMustLeft": {
+    "description": "Kiosk-Woche: Hinweis auf Nötiges",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kioskBuy": "Kaufen",
+  "@kioskBuy": {
+    "description": "Kiosk-Woche: Knopf kaufen"
+  },
+  "kioskSkip": "Lieber nicht",
+  "@kioskSkip": {
+    "description": "Kiosk-Woche: Knopf auslassen"
+  },
+  "kioskPay": "Bezahlen",
+  "@kioskPay": {
+    "description": "Kiosk-Woche: Knopf bezahlen"
+  },
+  "kioskBroke": "Oh nein! Für {item} reicht das Geld nicht mehr.",
+  "@kioskBroke": {
+    "description": "Kiosk-Woche: Geld reicht nicht",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "kioskAgain": "Die Woche noch einmal",
+  "@kioskAgain": {
+    "description": "Kiosk-Woche: von vorn"
+  },
+  "kioskDone": "Geschafft! Am Ende der Woche sind noch {count} Taler übrig.",
+  "@kioskDone": {
+    "description": "Kiosk-Woche: geschafft",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kioskBought": "Gekauft: {items}.",
+  "@kioskBought": {
+    "description": "Kiosk-Woche: was gekauft wurde",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "logbookBalance": "Stand im Logbuch: {count} Taler",
+  "@logbookBalance": {
+    "description": "Kurts Logbuch: Stand",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "logbookEntry": "{text}: {amount} Taler",
+  "@logbookEntry": {
+    "description": "Kurts Logbuch: Kassenzettel",
+    "placeholders": {
+      "text": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "logbookIncome": "Einnahme",
+  "@logbookIncome": {
+    "description": "Kurts Logbuch: Knopf Einnahme"
+  },
+  "logbookExpense": "Ausgabe",
+  "@logbookExpense": {
+    "description": "Kurts Logbuch: Knopf Ausgabe"
+  },
+  "logbookWrong": "Schau noch einmal: Bekommt Kurt das Geld, oder gibt er es aus?",
+  "@logbookWrong": {
+    "description": "Kurts Logbuch: falsch eingetragen"
+  },
+  "logbookChart": "Wofür ging am meisten Geld drauf? Tippe auf den längsten Balken.",
+  "@logbookChart": {
+    "description": "Kurts Logbuch: Frage am Ende"
+  },
+  "logbookGroup": "{group}: {amount} Taler",
+  "@logbookGroup": {
+    "description": "Kurts Logbuch: Balken",
+    "placeholders": {
+      "group": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "logbookRight": "Genau! Für {group} ging am meisten Geld drauf.",
+  "@logbookRight": {
+    "description": "Kurts Logbuch: richtig",
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "logbookWrongGroup": "Noch nicht. Schau dir die Balken genau an.",
+  "@logbookWrongGroup": {
+    "description": "Kurts Logbuch: falsche Gruppe"
+  },
+  "logbookSlip": "Zettel {number} von {total}",
+  "@logbookSlip": {
+    "description": "Kurts Logbuch: Fortschritt",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   }
 }

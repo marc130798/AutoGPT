@@ -337,4 +337,61 @@ void main() {
     expect((shop.finished, shop.money, shop.stars), (true, 2, 2));
     expect(shop.bought, ['Seil']);
   });
+
+  test('Kiosk-Woche: Nötiges muss bezahlt werden, pleite heißt von vorn', () {
+    const game = GameInfo(
+      type: 'kiosk_week',
+      title: 'Kiosk',
+      budget: 5,
+      kioskDays: [
+        KioskDay(day: 'Mo', item: 'Eis', price: 3),
+        KioskDay(day: 'Di', item: 'Bus', price: 3, must: true),
+      ],
+    );
+    final k = KioskWeekGame(game)..start();
+    k.skip();
+    expect(k.day, 1);
+    k.skip();
+    expect(k.day, 1, reason: 'Nötiges lässt sich nicht auslassen');
+    k.restart();
+    k.buy();
+    expect(k.money, 2);
+    k.buy();
+    expect(k.broke, isTrue);
+    expect(k.mistakes, 1);
+    k.restart();
+    expect(k.money, 5);
+    k.skip();
+    k.buy();
+    expect(k.finished, isTrue);
+    expect(k.money, 2);
+    expect(k.stars, 3);
+  });
+
+  test('Logbuch: Einnahmen und Ausgaben, Stand, größte Gruppe', () {
+    const game = GameInfo(
+      type: 'logbook',
+      title: 'Logbuch',
+      logStart: 2,
+      logEntries: [
+        LogbookEntry(text: 'Taschengeld', amount: 5, income: true, group: ''),
+        LogbookEntry(text: 'Eis', amount: 2, income: false, group: 'Süßes'),
+        LogbookEntry(text: 'Heft', amount: 3, income: false, group: 'Schule'),
+        LogbookEntry(text: 'Bonbon', amount: 2, income: false, group: 'Süßes'),
+      ],
+    );
+    final l = LogbookGame(game);
+    expect(l.book(income: false), isFalse);
+    expect(l.book(income: true), isTrue);
+    expect(l.balance, 7);
+    for (var i = 0; i < 3; i++) {
+      l.book(income: false);
+    }
+    expect(l.balance, 0);
+    expect(l.spending, {'Süßes': 4, 'Schule': 3});
+    expect(l.guessBiggest('Schule'), isFalse);
+    expect(l.guessBiggest('Süßes'), isTrue);
+    expect(l.finished, isTrue);
+    expect(l.mistakes, 2);
+  });
 }

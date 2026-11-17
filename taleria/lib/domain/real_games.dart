@@ -615,3 +615,132 @@ class GlitterShopGame {
     wrongTricks.clear();
   }
 }
+
+/// Mias Kiosk-Woche: Mit dem Taschengeld einer Woche kommt das Kind jeden Tag
+/// am Kiosk vorbei. Wünsche darf es kaufen oder lassen, Nötiges (zum
+/// Beispiel die Busfahrt) muss bezahlt werden. Reicht das Geld dafür nicht
+/// mehr, beginnt die Woche von vorn (ein Fehler für die Sterne).
+class KioskWeekGame {
+  KioskWeekGame(this.game);
+
+  final GameInfo game;
+
+  int _day = 0;
+  int _money = 0;
+  int _mistakes = 0;
+  bool _broke = false;
+  final List<String> bought = [];
+
+  List<KioskDay> get days => game.kioskDays;
+  int get budget => game.budget ?? 0;
+  int get day => _day;
+  int get money => _money;
+  int get mistakes => _mistakes;
+  int get stars => starsForMistakes(_mistakes);
+  bool get finished => _day >= days.length;
+  KioskDay get current => days[min(_day, days.length - 1)];
+
+  /// Das Geld reicht nicht für etwas, das sein muss: die Woche beginnt neu.
+  bool get broke => _broke;
+
+  bool get canPay => _money >= current.price;
+
+  /// Was in der Woche noch bezahlt werden muss (ab heute).
+  int get mustLeft => [
+    for (final d in days.skip(_day))
+      if (d.must) d.price,
+  ].fold(0, (a, b) => a + b);
+
+  void start() {
+    _day = 0;
+    _money = budget;
+    _broke = false;
+    bought.clear();
+  }
+
+  /// Kaufen (bei einem Wunsch) oder bezahlen (bei etwas Nötigem).
+  void buy() {
+    if (finished || _broke) return;
+    if (!canPay) {
+      if (current.must) {
+        _broke = true;
+        _mistakes++;
+      }
+      return;
+    }
+    _money -= current.price;
+    bought.add(current.item);
+    _day++;
+  }
+
+  /// Einen Wunsch auslassen. Nötiges lässt sich nicht auslassen.
+  void skip() {
+    if (finished || _broke || current.must) return;
+    _day++;
+  }
+
+  /// Nach einer Pleite: die Woche noch einmal, mit vollem Taschengeld.
+  void restart() => start();
+}
+
+/// Kurts Logbuch: Kassenzettel kommen der Reihe nach; das Kind trägt jeden als
+/// Einnahme oder Ausgabe ein, der Stand läuft mit. Am Ende zeigt ein Balken je
+/// Gruppe, wofür das meiste Geld ausgegeben wurde, und das Kind tippt die
+/// größte Gruppe an. Falsch Eingetragenes zählt nur für die Sterne.
+class LogbookGame {
+  LogbookGame(this.game) : _balance = game.logStart;
+
+  final GameInfo game;
+
+  int _index = 0;
+  int _balance;
+  int _mistakes = 0;
+  bool _done = false;
+
+  List<LogbookEntry> get entries => game.logEntries;
+  int get index => _index;
+  int get balance => _balance;
+  int get mistakes => _mistakes;
+  int get stars => starsForMistakes(_mistakes);
+  bool get allBooked => _index >= entries.length;
+  bool get finished => _done;
+  LogbookEntry get current => entries[min(_index, entries.length - 1)];
+
+  /// Eingetragene Zettel.
+  List<LogbookEntry> get booked => entries.take(_index).toList();
+
+  /// Ausgaben je Gruppe, in der Reihenfolge, in der die Gruppen vorkommen.
+  Map<String, int> get spending {
+    final out = <String, int>{};
+    for (final e in entries) {
+      if (!e.income) out[e.group] = (out[e.group] ?? 0) + e.amount;
+    }
+    return out;
+  }
+
+  /// Die Gruppe mit den meisten Ausgaben.
+  String get biggest => spending.entries.reduce((a, b) => b.value > a.value ? b : a).key;
+
+  /// Zettel eintragen: richtig ist es, wenn Einnahme und Ausgabe stimmen.
+  bool book({required bool income}) {
+    if (allBooked) return false;
+    if (income != current.income) {
+      _mistakes++;
+      return false;
+    }
+    _balance += current.income ? current.amount : -current.amount;
+    _index++;
+    return true;
+  }
+
+  /// Am Ende: Wofür ging am meisten Geld drauf?
+  bool guessBiggest(String group) {
+    if (!allBooked || _done) return false;
+    if (group != biggest) {
+      _mistakes++;
+      return false;
+    }
+    _done = true;
+    return true;
+  }
+}

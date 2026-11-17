@@ -179,6 +179,8 @@ class Station {
 ///   * winter_store  Emmas Wintervorrat: jeden Herbsttag gleich essen oder für den Winter vergraben
 ///   * piggy_bank    Sparschwein füttern: Sparplan wählen, Woche für Woche füttern, Versuchungen
 ///   * glitter_shop  Glitzerladen: Verkaufstricks erkennen und nur kaufen, was auf der Liste steht
+///   * kiosk_week    Mias Kiosk-Woche: mit dem Taschengeld einer Woche Wünsche kaufen oder lassen, Nötiges bezahlen
+///   * logbook       Kurts Logbuch: Kassenzettel als Einnahme oder Ausgabe eintragen, größte Ausgabe finden
 const builtGames = {'sort', 'order', 'choice', 'coins', 'pick', 'number', ...realGames};
 const realGames = {
   'till',
@@ -189,6 +191,8 @@ const realGames = {
   'winter_store',
   'piggy_bank',
   'glitter_shop',
+  'kiosk_week',
+  'logbook',
 };
 
 /// Verkaufstricks im Glitzerladen: Inhaltsdatei → Datenbank (wie `shopTricks` in der App).
@@ -386,6 +390,32 @@ Map<String, dynamic> gameToDb(Map<String, dynamic> g) {
               'price': o['preis'],
               'needed': o['gebraucht'] == true,
               'reveal': o['aufloesung'],
+            },
+        ],
+      },
+      if (type == 'kiosk_week') ...{
+        'budget': g['geld'],
+        'kiosk_days': [
+          for (final t in ((g['tage'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'day': t['tag'],
+              'scene': lines(t['szene']),
+              'item': t['ding'],
+              'price': t['preis'],
+              'must': t['muss'] == true,
+            },
+        ],
+        'broke': ?line(g['zu_wenig']),
+      },
+      if (type == 'logbook') ...{
+        'log_start': g['start'],
+        'log_entries': [
+          for (final z in ((g['zettel'] as List?) ?? const []).cast<Map<String, dynamic>>())
+            {
+              'text': z['text'],
+              'amount': z['taler'],
+              'kind': z['art'] == 'ein' ? 'in' : 'out',
+              'group': z['wofuer'] ?? '',
             },
         ],
       },
@@ -1504,6 +1534,62 @@ List<String> validateGame(Map<String, dynamic> game, String where, {Set<String>?
       check(offers.any((o) => o['gebraucht'] == true), '$w: mindestens ein Ding steht auf Talas Liste');
       check(offers.any((o) => o['gebraucht'] != true), '$w: mindestens ein Ding ist nur Verlockung');
       if (budget is int) check(neededCost <= budget, '$w: die Liste kostet $neededCost Taler, mehr als $budget');
+    case 'kiosk_week':
+      final budget = game['geld'];
+      final days = (game['tage'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(budget is int && budget > 0 && budget <= 30, '$w: "geld" (1 bis 30 Taler für die Woche)');
+      check(days.length >= 5 && days.length <= 7, '$w: 5 bis 7 Tage');
+      var must = 0, all = 0;
+      for (final (i, t) in days.indexed) {
+        final tw = '$w, Tag ${i + 1}';
+        check(text(t['tag']), '$tw: "tag" fehlt (zum Beispiel Montag)');
+        check(text(t['ding']), '$tw: "ding" fehlt');
+        check(t['preis'] is int && (t['preis'] as int) > 0, '$tw: "preis" in Talern fehlt');
+        for (final (k, l) in ((t['szene'] as List?) ?? const []).indexed) {
+          speaker(l, '$tw, Szene ${k + 1}');
+        }
+        if (t['preis'] is int) {
+          all += t['preis'] as int;
+          if (t['muss'] == true) must += t['preis'] as int;
+        }
+      }
+      if (budget is int) {
+        // Planen muss sich lohnen: das Nötige passt, alles zusammen nicht.
+        check(must <= budget, '$w: das Nötige kostet $must Taler, mehr als $budget');
+        check(all > budget, '$w: alles zusammen passt in $budget Taler, es gibt nichts zu entscheiden');
+      }
+      check(days.any((t) => t['muss'] == true), '$w: mindestens ein Tag mit etwas Nötigem');
+      check(days.isEmpty || days.first['muss'] != true, '$w: der erste Tag ist ein Wunsch, kein Muss');
+    case 'logbook':
+      final start = game['start'];
+      final slips = (game['zettel'] as List?)?.cast<Map<String, dynamic>>() ?? const [];
+      check(start is int && start >= 0, '$w: "start" (Taler am Anfang) fehlt');
+      check(slips.length >= 5 && slips.length <= 10, '$w: 5 bis 10 Zettel');
+      var balance = start is int ? start : 0;
+      final groups = <String, int>{};
+      for (final (i, z) in slips.indexed) {
+        final zw = '$w, Zettel ${i + 1}';
+        check(text(z['text']), '$zw: "text" fehlt');
+        check(z['art'] == 'ein' || z['art'] == 'aus', '$zw: "art" muss ein oder aus sein');
+        check(z['taler'] is int && (z['taler'] as int) > 0, '$zw: "taler" fehlt');
+        if (z['taler'] is int) {
+          balance += z['art'] == 'ein' ? z['taler'] as int : -(z['taler'] as int);
+          check(balance >= 0, '$zw: der Stand im Logbuch wird negativ');
+        }
+        if (z['art'] == 'aus') {
+          check(text(z['wofuer']), '$zw: "wofuer" fehlt (Gruppe der Ausgabe)');
+          if (z['taler'] is int) {
+            final group = z['wofuer'] as String? ?? '';
+            groups[group] = (groups[group] ?? 0) + (z['taler'] as int);
+          }
+        }
+      }
+      check(slips.any((z) => z['art'] == 'ein') && slips.any((z) => z['art'] == 'aus'), '$w: Einnahmen und Ausgaben');
+      check(groups.length >= 2 && groups.length <= 4, '$w: 2 bis 4 Gruppen bei den Ausgaben');
+      if (groups.isNotEmpty) {
+        final most = groups.values.reduce((a, b) => a > b ? a : b);
+        check(groups.values.where((v) => v == most).length == 1, '$w: die größte Ausgabe-Gruppe muss eindeutig sein');
+      }
     default:
       problems.add('$w: unbekannte Spielart "$type"');
   }

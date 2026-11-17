@@ -3627,4 +3627,91 @@ class AppLocalizationsDe extends AppLocalizations {
   String islandGarmentUnlocked(String item) {
     return 'Neu in der Werft: $item! Zieh es gleich an.';
   }
+
+  @override
+  String kioskMoney(int count) {
+    return 'Im Beutel: $count Taler';
+  }
+
+  @override
+  String kioskOffer(String item, int price) {
+    return '$item für $price Taler';
+  }
+
+  @override
+  String kioskMust(String item, int price) {
+    return 'Muss sein: $item für $price Taler';
+  }
+
+  @override
+  String kioskMustLeft(int count) {
+    return 'Diese Woche musst du noch $count Taler für Nötiges bezahlen.';
+  }
+
+  @override
+  String get kioskBuy => 'Kaufen';
+
+  @override
+  String get kioskSkip => 'Lieber nicht';
+
+  @override
+  String get kioskPay => 'Bezahlen';
+
+  @override
+  String kioskBroke(String item) {
+    return 'Oh nein! Für $item reicht das Geld nicht mehr.';
+  }
+
+  @override
+  String get kioskAgain => 'Die Woche noch einmal';
+
+  @override
+  String kioskDone(int count) {
+    return 'Geschafft! Am Ende der Woche sind noch $count Taler übrig.';
+  }
+
+  @override
+  String kioskBought(String items) {
+    return 'Gekauft: $items.';
+  }
+
+  @override
+  String logbookBalance(int count) {
+    return 'Stand im Logbuch: $count Taler';
+  }
+
+  @override
+  String logbookEntry(String text, int amount) {
+    return '$text: $amount Taler';
+  }
+
+  @override
+  String get logbookIncome => 'Einnahme';
+
+  @override
+  String get logbookExpense => 'Ausgabe';
+
+  @override
+  String get logbookWrong => 'Schau noch einmal: Bekommt Kurt das Geld, oder gibt er es aus?';
+
+  @override
+  String get logbookChart => 'Wofür ging am meisten Geld drauf? Tippe auf den längsten Balken.';
+
+  @override
+  String logbookGroup(String group, int amount) {
+    return '$group: $amount Taler';
+  }
+
+  @override
+  String logbookRight(String group) {
+    return 'Genau! Für $group ging am meisten Geld drauf.';
+  }
+
+  @override
+  String get logbookWrongGroup => 'Noch nicht. Schau dir die Balken genau an.';
+
+  @override
+  String logbookSlip(int number, int total) {
+    return 'Zettel $number von $total';
+  }
 }

@@ -18,6 +18,8 @@ import 'station_stage.dart';
 import 'till_game_view.dart';
 import 'trade_chain_game_view.dart';
 import 'winter_store_game_view.dart';
+import 'kiosk_week_game_view.dart';
+import 'logbook_game_view.dart';
 
 /// Ablauf eines echten Mini-Spiels: Startbild „Mini-Spiel!“, das Spiel, am
 /// Ende Sterne und der Satz aus den Inhalten. In der Station führt [onDone]
@@ -82,6 +84,8 @@ class _RealGameFlowState extends State<RealGameFlow> {
     'winter_store' => WinterStoreGameView(game: widget.game, onFinished: _finished),
     'piggy_bank' => PiggyBankGameView(game: widget.game, onFinished: _finished),
     'glitter_shop' => GlitterShopGameView(game: widget.game, onFinished: _finished),
+    'kiosk_week' => KioskWeekGameView(game: widget.game, onFinished: _finished),
+    'logbook' => LogbookGameView(game: widget.game, onFinished: _finished),
     _ => TradeChainGameView(game: widget.game, onFinished: _finished),
   };
 }

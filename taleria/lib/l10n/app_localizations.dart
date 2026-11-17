@@ -5718,6 +5718,132 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Neu in der Werft: {item}! Zieh es gleich an.'**
   String islandGarmentUnlocked(String item);
+
+  /// Kiosk-Woche: Geld im Beutel
+  ///
+  /// In de, this message translates to:
+  /// **'Im Beutel: {count} Taler'**
+  String kioskMoney(int count);
+
+  /// Kiosk-Woche: Angebot des Tages
+  ///
+  /// In de, this message translates to:
+  /// **'{item} für {price} Taler'**
+  String kioskOffer(String item, int price);
+
+  /// Kiosk-Woche: etwas Nötiges
+  ///
+  /// In de, this message translates to:
+  /// **'Muss sein: {item} für {price} Taler'**
+  String kioskMust(String item, int price);
+
+  /// Kiosk-Woche: Hinweis auf Nötiges
+  ///
+  /// In de, this message translates to:
+  /// **'Diese Woche musst du noch {count} Taler für Nötiges bezahlen.'**
+  String kioskMustLeft(int count);
+
+  /// Kiosk-Woche: Knopf kaufen
+  ///
+  /// In de, this message translates to:
+  /// **'Kaufen'**
+  String get kioskBuy;
+
+  /// Kiosk-Woche: Knopf auslassen
+  ///
+  /// In de, this message translates to:
+  /// **'Lieber nicht'**
+  String get kioskSkip;
+
+  /// Kiosk-Woche: Knopf bezahlen
+  ///
+  /// In de, this message translates to:
+  /// **'Bezahlen'**
+  String get kioskPay;
+
+  /// Kiosk-Woche: Geld reicht nicht
+  ///
+  /// In de, this message translates to:
+  /// **'Oh nein! Für {item} reicht das Geld nicht mehr.'**
+  String kioskBroke(String item);
+
+  /// Kiosk-Woche: von vorn
+  ///
+  /// In de, this message translates to:
+  /// **'Die Woche noch einmal'**
+  String get kioskAgain;
+
+  /// Kiosk-Woche: geschafft
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft! Am Ende der Woche sind noch {count} Taler übrig.'**
+  String kioskDone(int count);
+
+  /// Kiosk-Woche: was gekauft wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Gekauft: {items}.'**
+  String kioskBought(String items);
+
+  /// Kurts Logbuch: Stand
+  ///
+  /// In de, this message translates to:
+  /// **'Stand im Logbuch: {count} Taler'**
+  String logbookBalance(int count);
+
+  /// Kurts Logbuch: Kassenzettel
+  ///
+  /// In de, this message translates to:
+  /// **'{text}: {amount} Taler'**
+  String logbookEntry(String text, int amount);
+
+  /// Kurts Logbuch: Knopf Einnahme
+  ///
+  /// In de, this message translates to:
+  /// **'Einnahme'**
+  String get logbookIncome;
+
+  /// Kurts Logbuch: Knopf Ausgabe
+  ///
+  /// In de, this message translates to:
+  /// **'Ausgabe'**
+  String get logbookExpense;
+
+  /// Kurts Logbuch: falsch eingetragen
+  ///
+  /// In de, this message translates to:
+  /// **'Schau noch einmal: Bekommt Kurt das Geld, oder gibt er es aus?'**
+  String get logbookWrong;
+
+  /// Kurts Logbuch: Frage am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'Wofür ging am meisten Geld drauf? Tippe auf den längsten Balken.'**
+  String get logbookChart;
+
+  /// Kurts Logbuch: Balken
+  ///
+  /// In de, this message translates to:
+  /// **'{group}: {amount} Taler'**
+  String logbookGroup(String group, int amount);
+
+  /// Kurts Logbuch: richtig
+  ///
+  /// In de, this message translates to:
+  /// **'Genau! Für {group} ging am meisten Geld drauf.'**
+  String logbookRight(String group);
+
+  /// Kurts Logbuch: falsche Gruppe
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht. Schau dir die Balken genau an.'**
+  String get logbookWrongGroup;
+
+  /// Kurts Logbuch: Fortschritt
+  ///
+  /// In de, this message translates to:
+  /// **'Zettel {number} von {total}'**
+  String logbookSlip(int number, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

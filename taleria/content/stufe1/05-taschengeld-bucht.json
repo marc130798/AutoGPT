@@ -957,7 +957,68 @@
           ],
           "erklaerung": "3 plus 2 plus 1 sind 6."
         }
-      ]
+      ],
+      "minispiel": {
+        "art": "logbook",
+        "titel": "Kurts Logbuch",
+        "startbild": "game.logbook",
+        "beschreibung": "Trag Talas Kassenzettel in Kurts Logbuch ein.",
+        "aufgabe": "Tala hat 5 Taler. Dann kommen ihre Kassenzettel. Ist das Geld zu ihr gekommen (Einnahme) oder hat sie es ausgegeben (Ausgabe)? Am Ende findest du heraus, wofür das meiste Geld draufging.",
+        "start": 5,
+        "zettel": [
+          {
+            "text": "Taschengeld von Papa",
+            "taler": 8,
+            "art": "ein"
+          },
+          {
+            "text": "Bonbons am Kiosk",
+            "taler": 2,
+            "art": "aus",
+            "wofuer": "Süßes"
+          },
+          {
+            "text": "Ein Comic",
+            "taler": 4,
+            "art": "aus",
+            "wofuer": "Spaß"
+          },
+          {
+            "text": "Ein Lutscher",
+            "taler": 1,
+            "art": "aus",
+            "wofuer": "Süßes"
+          },
+          {
+            "text": "Geld von Oma",
+            "taler": 5,
+            "art": "ein"
+          },
+          {
+            "text": "Ein Eis",
+            "taler": 3,
+            "art": "aus",
+            "wofuer": "Süßes"
+          },
+          {
+            "text": "Ein Heft für die Schule",
+            "taler": 2,
+            "art": "aus",
+            "wofuer": "Schule"
+          },
+          {
+            "text": "Kaugummi",
+            "taler": 2,
+            "art": "aus",
+            "wofuer": "Süßes"
+          }
+        ],
+        "geschafft": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Klack, klack! Jetzt weiß Tala genau, wohin ihr Geld geht. Und ab jetzt vielleicht ein Bonbon weniger."
+        }
+      }
     },
     {
       "nr": 4,
@@ -1157,7 +1218,109 @@
           ],
           "erklaerung": "8 minus 2 minus 2 sind 4."
         }
-      ]
+      ],
+      "minispiel": {
+        "art": "kiosk_week",
+        "titel": "Mias Kiosk-Woche",
+        "startbild": "game.kiosk_week",
+        "beschreibung": "Komm mit Talas Taschengeld durch die ganze Woche.",
+        "aufgabe": "Tala hat 10 Taler für die ganze Woche. Jeden Tag gibt es am Kiosk etwas. Kaufen oder lieber nicht? Aber Achtung: Die Busfahrt und das Schwimmbad müssen sein!",
+        "geld": 10,
+        "tage": [
+          {
+            "tag": "Montag",
+            "ding": "Bonbons",
+            "preis": 2,
+            "szene": [
+              {
+                "wer": "mia",
+                "name": "Mia",
+                "text": "Frische Bonbons, Tala! Nur 2 Taler."
+              }
+            ]
+          },
+          {
+            "tag": "Dienstag",
+            "ding": "die Busfahrt zum Schwimmtraining",
+            "preis": 2,
+            "muss": true,
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Heute fährt der Bus zum Schwimmtraining. Die Fahrt muss bezahlt werden."
+              }
+            ]
+          },
+          {
+            "tag": "Mittwoch",
+            "ding": "Glitzersticker",
+            "preis": 3,
+            "szene": [
+              {
+                "wer": "mia",
+                "name": "Mia",
+                "text": "Neue Glitzersticker sind da! Die sind heiß begehrt."
+              }
+            ]
+          },
+          {
+            "tag": "Donnerstag",
+            "ding": "ein Comic",
+            "preis": 4,
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Oh, ein neues Comic! Das will ich so gern lesen."
+              }
+            ]
+          },
+          {
+            "tag": "Freitag",
+            "ding": "ein Eis",
+            "preis": 2,
+            "szene": [
+              {
+                "wer": "mia",
+                "name": "Mia",
+                "text": "Heute ist es so warm. Wie wäre es mit einem Eis?"
+              }
+            ]
+          },
+          {
+            "tag": "Samstag",
+            "ding": "der Eintritt ins Schwimmbad",
+            "preis": 3,
+            "muss": true,
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Heute gehen alle zusammen ins Schwimmbad. Der Eintritt muss sein!"
+              }
+            ]
+          },
+          {
+            "tag": "Sonntag",
+            "ding": "ein Saft",
+            "preis": 1,
+            "szene": [
+              {
+                "wer": "mia",
+                "name": "Mia",
+                "text": "Zum Wochenende ein kühler Saft?"
+              }
+            ]
+          }
+        ],
+        "zu_wenig": {
+          "wer": "tala",
+          "text": "Oh nein, mein Beutel ist zu leer! Ich hätte vorher planen sollen."
+        },
+        "geschafft": {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Die ganze Woche geschafft, und das Nötige war bezahlt. Du planst wie Kurt!"
+        }
+      }
     },
     {
       "nr": 5,

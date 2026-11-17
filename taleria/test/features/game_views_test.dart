@@ -630,4 +630,67 @@ void main() {
     await tapKey(tester, 'game-finish');
     expect(find.byKey(const ValueKey('game-star-2')), findsOneWidget, reason: 'drei Sterne ohne Fehler');
   });
+
+  testWidgets('Mias Kiosk-Woche (Taschengeld-Bucht 4): pleite vor dem Schwimmbad, nochmal mit Plan', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('taschengeld-bucht', 4).content.miniGame!;
+    expect(game.type, 'kiosk_week');
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Im Beutel: 10 Taler'), findsOneWidget);
+
+    // Alles kaufen, was geht: Am Samstag reicht es nicht mehr fürs Schwimmbad.
+    await tapKey(tester, 'kiosk-buy');
+    await tapKey(tester, 'kiosk-pay');
+    await tapKey(tester, 'kiosk-buy');
+    expect(
+      tester.widget<FilledButton>(find.byKey(const ValueKey('kiosk-buy'))).onPressed,
+      isNull,
+      reason: 'Comic zu teuer',
+    );
+    await tapKey(tester, 'kiosk-skip');
+    await tapKey(tester, 'kiosk-buy');
+    await tapKey(tester, 'kiosk-pay');
+    expect(find.byKey(const ValueKey('kiosk-broke')), findsOneWidget);
+    await tapKey(tester, 'kiosk-again');
+
+    // Mit Plan: Sticker und Comic auslassen.
+    await tapKey(tester, 'kiosk-buy');
+    await tapKey(tester, 'kiosk-pay');
+    await tapKey(tester, 'kiosk-skip');
+    await tapKey(tester, 'kiosk-skip');
+    await tapKey(tester, 'kiosk-buy');
+    await tapKey(tester, 'kiosk-pay');
+    await tapKey(tester, 'kiosk-buy');
+    expect(find.text('Geschafft! Am Ende der Woche sind noch 0 Taler übrig.'), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-2')), findsOneWidget, reason: 'ein Fehler kostet keinen Stern');
+  });
+
+  testWidgets('Kurts Logbuch (Taschengeld-Bucht 3): Zettel eintragen, größte Ausgabe finden', (tester) async {
+    await tall(tester);
+    final game = FakeContent().station('taschengeld-bucht', 3).content.miniGame!;
+    expect(game.type, 'logbook');
+    await tester.pumpWidget(host(GameStepView(game: game, onDone: () {}, placeholder: const Text('-'))));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'real-game-play');
+    expect(find.text('Stand im Logbuch: 5 Taler'), findsOneWidget);
+
+    // Erster Zettel ist Taschengeld: als Ausgabe falsch, als Einnahme richtig.
+    await tapKey(tester, 'logbook-expense');
+    expect(find.byKey(const ValueKey('logbook-wrong')), findsOneWidget);
+    for (final e in game.logEntries) {
+      await tapKey(tester, e.income ? 'logbook-income' : 'logbook-expense');
+    }
+    expect(find.text('Stand im Logbuch: 4 Taler'), findsOneWidget);
+    expect(find.byKey(const ValueKey('logbook-chart')), findsOneWidget);
+    await tapKey(tester, 'logbook-bar-Spaß');
+    expect(find.byKey(const ValueKey('logbook-wrong-group')), findsOneWidget);
+    await tapKey(tester, 'logbook-bar-Süßes');
+    expect(find.byKey(const ValueKey('logbook-right')), findsOneWidget);
+    await tapKey(tester, 'game-finish');
+    expect(find.byKey(const ValueKey('game-star-1')), findsOneWidget, reason: 'zwei Fehler: zwei Sterne');
+    expect(find.byKey(const ValueKey('game-star-2')), findsNothing);
+  });
 }
