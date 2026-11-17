@@ -457,6 +457,42 @@ Text für Bild 166:
 
 > Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht von links oben, weiche runde Formen, freundlich und niedlich für Kinder. Ein fröhlicher hellgrauer Delfin mit heller Bauchseite und lächelndem Gesicht, von der Seite gesehen, im Sprung zu einem schönen Bogen gebogen, der Kopf zeigt nach rechts. Ganzer Delfin mit Rückenflosse und Schwanzflosse. Ganz im Bild mit Abstand zu allen Rändern, kein Wasser, keine Spritzer, kein Schatten, kein Boden. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf.
 
+## 4t. Taschengeld-Bucht (Insel 5)
+
+Erstellt am 17.11.2026 von Claude mit Gemini, nachdem die Texte der Insel geschrieben waren. Ganze Texte in `design/prompts_taschengeld_bucht.txt` (Aufruf: `python3 tool/gemini_paket.py design/prompts_taschengeld_bucht.txt <Nummern>`). Weg und Tauchplätze im Asset-Manifest sind an Bild 181 ausgemessen.
+
+| Nr. | Datei | Bild | Anhängen | Stand |
+| --- | --- | --- | --- | --- |
+| 180 | `map.island.taschengeld-bucht` | Die Taschengeld-Bucht auf der Karte | das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 181 | `island.taschengeld-bucht.background` | Die Taschengeld-Bucht von innen | das neue Kartenbild der Taschengeld-Bucht (Bild 180) | da (Claude mit Gemini, 17.11.2026) |
+| 182 | `character.mia` | Mia, die Möwe am Kiosk | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 183 | `character.kurt` | Kurt, der Krebs und Buchhalter | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 184 | `badge.taschengeld-bucht` | Orden „Kassenwart der Bucht“ | der Orden mit dem Anker (design/gemini/icon.badges.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 185 | `collectible.taschengeld-bucht.1` | Fund | das Fundstück (design/gemini/collectible.wreck_item.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 186 | `collectible.taschengeld-bucht.2` | Fund | das Fundstück (design/gemini/collectible.wreck_item.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 187 | `collectible.taschengeld-bucht.3` | Fund | das Fundstück (design/gemini/collectible.wreck_item.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 188 | `story.taschengeld-bucht.1.1` | Kiosk mit bunten Gläsern | Bild 182 (Mia), Tala | da (Claude mit Gemini, 17.11.2026) |
+| 189 | `story.taschengeld-bucht.1.2` | Kinder vergleichen Taschengeld | Bild 182 (Mia) | da (Claude mit Gemini, 17.11.2026) |
+| 190 | `story.taschengeld-bucht.1.3` | Tala denkt nach | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 191 | `story.taschengeld-bucht.2.1` | Truhenhaus mit zwei Fächern | Bild 183 (Kurt) | da (Claude mit Gemini, 17.11.2026) |
+| 192 | `story.taschengeld-bucht.2.2` | Taschengeld wird aufgeteilt | Bild 183 (Kurt), Tala | da (Claude mit Gemini, 17.11.2026) |
+| 193 | `story.taschengeld-bucht.2.3` | Talas Wunschschatz wächst | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 194 | `story.taschengeld-bucht.3.1` | Kurts Logbuch | Bild 183 (Kurt), Tala | da (Claude mit Gemini, 17.11.2026) |
+| 195 | `story.taschengeld-bucht.3.2` | Einnahmen minus Ausgaben | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 196 | `story.taschengeld-bucht.3.3` | Talas Ausgaben: Süßigkeiten | Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
+| 197 | `story.taschengeld-bucht.4.1` | Planungssteg mit Wochenplan | Bild 183 (Kurt), Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 198 | `story.taschengeld-bucht.4.2` | Zu viele Wünsche | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 199 | `story.taschengeld-bucht.4.3` | Talas fertiger Plan | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 200 | `story.taschengeld-bucht.5.1` | Talas leerer Beutel | Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 201 | `story.taschengeld-bucht.5.2` | Schwimmen am Strand | Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 202 | `story.taschengeld-bucht.5.3` | Leihen kostet mehr | Bild 183 (Kurt), Bild 182 (Mia) | fehlt (Google-Ausgabenlimit erreicht) |
+| 203 | `story.taschengeld-bucht.6.1` | Omas Brief mit Geld | Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 204 | `story.taschengeld-bucht.6.2` | Geschenk aufteilen | Bild 183 (Kurt), Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 205 | `story.taschengeld-bucht.6.3` | Tala malt ein Danke-Bild | Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 206 | `story.taschengeld-bucht.7.1` | Ruhiger Abend | Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 207 | `story.taschengeld-bucht.7.2` | Tala zeigt ihr Logbuch | Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 208 | `story.taschengeld-bucht.7.3` | Kurt übergibt das Kartenstück | Bild 183 (Kurt), Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
+
 ## 4r. Die Figur des Kindes: Löwe oder Löwin (Bild 167 bis 175)
 
 Am 16.11.2026 mit Marc entschieden: Die selbst gezeichnete Figur (Männchen) fliegt raus. Das Kind wählt stattdessen **einen jungen Löwen oder eine junge Löwin**, im gleichen 3D-Stil wie Talo und Tala. Keine Tierart, die sonst im Spiel vorkommt. Auf der neuen Startseite steht die Figur in der Mitte zwischen Talo und Tala (Entwurf: Startseite mit Deck, Holzschildern und Sprechblase).

@@ -1,0 +1,148 @@
+Bildtexte für Gemini: Taschengeld-Bucht (Insel 5), BILDER.md Abschnitt 4t
+
+Jeder Text ist fertig zum Kopieren. „Anhängen“ sagt, welches Bild als Vorlage mit in Gemini muss.
+
+Bild 180: Die Taschengeld-Bucht auf der Karte  →  map.island.taschengeld-bucht
+Anhängen: das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg)
+
+Gleicher Stil, gleicher Blickwinkel, gleiche Größe und gleiches Licht wie im angehängten Bild, aber eine andere Insel: Eine kleine runde Insel in Form einer Bucht, ohne Wasser drumherum. Rundherum heller Sandstrand, in der Mitte eine kleine ruhige Lagune. Auf der Insel: Holzstege, ein bunter Kiosk mit großen Gläsern voller Süßigkeiten, ein kleines Haus mit zwei großen Truhen davor, eine gemütliche Schreibstube mit rundem Fenster und einem Fernrohr auf dem Dach, ein langer Steg mit einer Planungstafel, ein großer glatter Felsen, eine kleine Grotte mit Muscheln am Eingang, eine Holzbank unter einem Sonnenschirm und eine kleine Anlegestelle. Quadratisches Bild. Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Wasser, ohne Boden.
+
+Bild 181: Die Taschengeld-Bucht von innen  →  island.taschengeld-bucht.background
+Anhängen: das neue Kartenbild der Taschengeld-Bucht (Bild 180)
+
+Die gleiche Insel wie im angehängten Bild, aber ganz nah und im Hochformat 9:16, sie füllt das ganze Bild. Blick schräg von oben, freundliches Vormittagslicht. Unten am Rand eine kleine Anlegestelle aus Holz am ruhigen Wasser, daneben ein heller Sandstrand. Von dort schlängelt sich ein heller Sandweg mit Holzstegen in großen Kurven nach oben durch die ganze Insel: vorbei an einem bunten Kiosk mit großen Süßigkeitengläsern, einem kleinen Haus mit zwei Truhen, einer Schreibstube mit rundem Fenster, einem langen Steg mit einer Tafel, einem großen glatten Felsen und einer kleinen Grotte mit Muscheln, bis zu einer Holzbank unter einem Sonnenschirm ganz oben. In der Mitte eine ruhige türkise Lagune, an den Seiten etwas türkises Wasser mit ein paar Felsen am Ufer. Der Weg ist gut sichtbar und frei, ohne Gebäude darauf. Stil: hochwertiger 3D-Animationsfilm-Look, wie ein gerendertes Standbild aus einem Kinofilm für Kinder. Weiche Formen, leuchtende, warme Farben, sonniges Licht von links oben. Keine Schrift, keine Logos, keine Waffen, keine Menschen, keine Tiere.
+
+Bild 182: Mia, die Möwe am Kiosk  →  character.mia
+Anhängen: Talo (design/gemini/character.talo.jpg)
+
+Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur: eine fröhliche, rundliche weiße Möwe mit grauen Flügeln und gelbem Schnabel, mit einer rot-weiß gestreiften Kioskschürze und einem kleinen Papierhütchen. Sie hält ein großes Glas mit bunten Bonbons im Flügel. Keine bekannte Filmfigur. Freundlicher Blick, lächelt. Ganzer Körper von vorn, steht auf ihren Füßen, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 183: Kurt, der Krebs und Buchhalter  →  character.kurt
+Anhängen: Talo (design/gemini/character.talo.jpg)
+
+Gleicher Stil wie im angehängten Bild (hochwertiger 3D-Animationsfilm-Look, weiche Formen, warme Farben, Licht von links oben), aber eine ganz andere Figur: ein freundlicher älterer roter Krebs mit großen Scheren, kleinen runden Brillengläsern auf den Augenstielen, einer grünen Schirmmütze wie ein Buchhalter und einer braunen Weste. In einer Schere hält er ein dickes Logbuch mit Ledereinband, in der anderen einen Federkiel. Keine bekannte Filmfigur. Freundlicher, genauer Blick, lächelt. Ganzer Körper von vorn, quadratisches Bild, die Figur vollständig in der Mitte mit Abstand zu allen Rändern. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 184: Orden „Kassenwart der Bucht“  →  badge.taschengeld-bucht
+Anhängen: der Orden mit dem Anker (design/gemini/icon.badges.jpg)
+
+Gleicher Stil, gleiches Licht und gleicher Bildaufbau wie im angehängten Bild: ein goldener Orden an einem kurzen blauen Stoffband. Das Band ist oben zu einer kleinen Schlaufe gelegt, genau wie im angehängten Bild, und hört dort auf. Auf dem Orden statt des Ankers: ein kleines aufgeschlagenes goldenes Buch mit einer Feder darüber. Orden und Band zusammen sind nur etwa zwei Drittel so hoch wie das Bild. Das ganze Band ist zu sehen, nichts ragt über den Bildrand hinaus, rundherum ist viel freier Platz. Leicht von oben gesehen. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 185: Fund  →  collectible.taschengeld-bucht.1
+Anhängen: das Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundstücke: ein kleiner, alter Lederbeutel mit Zugband, daneben ein zusammengerollter vergilbter Zettel, frisch vom Meeresgrund, mit etwas grünem Seetang und ein paar Wassertropfen. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 186: Fund  →  collectible.taschengeld-bucht.2
+Anhängen: das Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundstücke: ein altes hölzernes Rechenbrett mit bunten Holzperlen auf Stäben, frisch vom Meeresgrund, mit etwas grünem Seetang und ein paar Wassertropfen. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 187: Fund  →  collectible.taschengeld-bucht.3
+Anhängen: das Fundstück (design/gemini/collectible.wreck_item.jpg)
+
+Gleicher Stil und gleiches Licht wie im angehängten Bild, aber statt der Fundstücke: ein alter Brief mit rotem Wachssiegel, leicht gewellt vom Wasser, frisch vom Meeresgrund, mit etwas grünem Seetang und ein paar Wassertropfen. Leicht von oben gesehen, groß in der Bildmitte mit Abstand zu allen Rändern. Quadratisches Bild. Keine Schrift, keine Zahlen, keine Logos, keine Waffen. Hintergrund: komplett einfarbig reines Pink-Magenta (#FF00FF), ohne Verlauf, ohne Schatten, ohne Boden.
+
+Bild 188: Kiosk mit bunten Gläsern  →  story.taschengeld-bucht.1.1
+Anhängen: Bild 182 (Mia), Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Der bunte Kiosk der Taschengeld-Bucht am Holzsteg, Vormittag. Mia, die Möwe, steht hinter der Theke mit großen Gläsern voller bunter Bonbons. Tala steht davor und dreht ihren leeren Stoffbeutel um, sie schaut überrascht. Im Hintergrund das ruhige Wasser der Bucht. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 189: Kinder vergleichen Taschengeld  →  story.taschengeld-bucht.1.2
+Anhängen: Bild 182 (Mia)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Vor dem Kiosk stehen drei verschiedene kleine Inseltiere als Kinder (ein Hasenkind, ein Bärenkind, ein Otterkind), jedes hält einen unterschiedlich großen Stoffbeutel. Mia schaut freundlich über die Theke. Die Kinder schauen neugierig in die Beutel der anderen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 190: Tala denkt nach  →  story.taschengeld-bucht.1.3
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala sitzt auf dem Holzsteg vor dem Kiosk, hält ihren kleinen Geldbeutel in den Händen und denkt nach. Über ihr eine Gedankenblase mit einem kleinen Sparschwein und einem Herz. Ruhiges Wasser, Sonnenlicht. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 191: Truhenhaus mit zwei Fächern  →  story.taschengeld-bucht.2.1
+Anhängen: Bild 183 (Kurt)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Im gemütlichen Truhenhaus: eine große Schatztruhe aus Holz mit zwei Fächern, ein Fach mit offenen Münzen ohne Zeichen und ein Fach mit einem kleinen Bild von Rollschuhen auf dem Deckel. Kurt, der Krebs, zeigt mit einer Schere auf die beiden Fächer. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 192: Taschengeld wird aufgeteilt  →  story.taschengeld-bucht.2.2
+Anhängen: Bild 183 (Kurt), Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala sitzt am Tisch im Truhenhaus und schiebt mit einer Hand ein paar Münzen ohne Zeichen in das eine Fach der Truhe und ein paar Münzen in das andere. Kurt schaut durch seine runde Brille zufrieden zu. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 193: Talas Wunschschatz wächst  →  story.taschengeld-bucht.2.3
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala hält ein Eis in der einen Hand und strahlt. Neben ihr steht ihre kleine Schatztruhe, aus dem Fach mit dem Rollschuh-Bild glänzt ein kleiner Haufen Münzen ohne Zeichen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 194: Kurts Logbuch  →  story.taschengeld-bucht.3.1
+Anhängen: Bild 183 (Kurt), Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. In Kurts gemütlicher Rechenstube mit rundem Fenster: Kurt sitzt an einem Schreibpult und zeigt Tala ein großes aufgeschlagenes Logbuch. Auf der linken Seite sind kleine gemalte grüne Pfeile nach innen, auf der rechten Seite kleine rote Pfeile nach außen, keine Schrift und keine Zahlen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 195: Einnahmen minus Ausgaben  →  story.taschengeld-bucht.3.2
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala steht vor einer alten Holzwaage. Auf der einen Waagschale liegt ein Häufchen Münzen ohne Zeichen, auf der anderen ein Eis, ein Heft und eine Tüte Sticker. Tala hält den Zeigefinger ans Kinn und rechnet. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 196: Talas Ausgaben: Süßigkeiten  →  story.taschengeld-bucht.3.3
+Anhängen: Talo, Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Talo trägt seine dunkelblaue Kapitänsjacke mit goldenen Knöpfen und seine kleine Kapitänsmütze wie auf dem Vorlagenbild. In der Rechenstube: Auf dem Tisch liegt ein großer Berg Bonbonpapiere und leerer Süßigkeitentüten. Talo zeigt grinsend darauf, Tala hält verlegen die Hände vors Gesicht und lacht. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 197: Planungssteg mit Wochenplan  →  story.taschengeld-bucht.4.1
+Anhängen: Bild 183 (Kurt), Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Auf einem langen Holzsteg am Wasser steht eine große Tafel mit sieben Feldern nebeneinander, in jedem Feld nur ein kleines gemaltes Bild (Bus, Kino, Sticker, Eis), keine Schrift. Kurt zeigt mit einer Schere auf die Tafel, Tala schaut aufmerksam zu. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 198: Zu viele Wünsche  →  story.taschengeld-bucht.4.2
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala steht auf dem Steg und jongliert ungeschickt mit einer Kinokarte, einem Päckchen Sticker und einer Snacktüte. Ihr kleiner Geldbeutel ist fast leer, eine Münze ohne Zeichen fällt heraus. Sie schaut lustig überfordert. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 199: Talas fertiger Plan  →  story.taschengeld-bucht.4.3
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala hält stolz einen kleinen Zettel mit nur zwei gemalten Bildern (Kino und Sticker) hoch und lächelt. Hinter ihr glitzert das Wasser der Bucht. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 200: Talas leerer Beutel  →  story.taschengeld-bucht.5.1
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala sitzt traurig auf einem großen glatten Felsen am Wasser und hält ihren umgedrehten leeren Stoffbeutel. Ein kleiner Krebs schaut neugierig vom Felsen zu. Leichte Abendsonne. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 201: Schwimmen am Strand  →  story.taschengeld-bucht.5.2
+Anhängen: Talo, Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Talo trägt seine dunkelblaue Kapitänsjacke mit goldenen Knöpfen und seine kleine Kapitänsmütze wie auf dem Vorlagenbild. Talo und Tala planschen fröhlich im flachen türkisen Wasser am Sandstrand der Bucht, mit ein paar Freunden, einfachen Inseltieren. Alle lachen, Wasser spritzt. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 202: Leihen kostet mehr  →  story.taschengeld-bucht.5.3
+Anhängen: Bild 183 (Kurt), Bild 182 (Mia)
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Am Felsen: Mia hält einen kleinen Beutel mit Münzen hin, Kurt hebt freundlich warnend eine Schere und zeigt auf einen großen Beutel daneben, der doppelt so voll ist. Keine Zahlen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 203: Omas Brief mit Geld  →  story.taschengeld-bucht.6.1
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala steht strahlend an einem kleinen Briefkasten am Steg und öffnet einen Brief mit einer bunten Briefmarke ohne Zahlen. Aus dem Umschlag schauen ein paar Geldscheine ohne Zahlen und Zeichen und ein gemaltes Herz. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 204: Geschenk aufteilen  →  story.taschengeld-bucht.6.2
+Anhängen: Bild 183 (Kurt), Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. In einer kleinen Grotte mit Muscheln und warmem Licht: Tala teilt ein Häufchen Münzen ohne Zeichen in zwei gleich große Häufchen auf einem flachen Stein. Kurt nickt zufrieden. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 205: Tala malt ein Danke-Bild  →  story.taschengeld-bucht.6.3
+Anhängen: Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Tala sitzt an einem kleinen Tisch und malt mit Buntstiften ein Bild von einem Schiff mit Segeln und einem großen Herz. Neben ihr liegt ein Briefumschlag bereit. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 206: Ruhiger Abend  →  story.taschengeld-bucht.7.1
+Anhängen: Talo, Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Talo trägt seine dunkelblaue Kapitänsjacke mit goldenen Knöpfen und seine kleine Kapitänsmütze wie auf dem Vorlagenbild. Gemütlicher Abend in der Schiffskajüte: Talo sitzt entspannt mit einer Tasse Tee am Tisch, eine Lampe leuchtet warm. Tala kommt freundlich lächelnd mit einem kleinen Buch unter dem Arm dazu. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 207: Tala zeigt ihr Logbuch  →  story.taschengeld-bucht.7.2
+Anhängen: Talo, Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Talo trägt seine dunkelblaue Kapitänsjacke mit goldenen Knöpfen und seine kleine Kapitänsmütze wie auf dem Vorlagenbild. Am Tisch in der Kajüte: Tala hält ein aufgeschlagenes kleines Logbuch hoch, auf den Seiten nur kleine gemalte Bilder und Häkchen, keine Schrift. Talo schaut beeindruckt und lächelt. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
+
+Bild 208: Kurt übergibt das Kartenstück  →  story.taschengeld-bucht.7.3
+Anhängen: Bild 183 (Kurt), Talo, Tala
+
+Hochwertiger 3D-Animationsfilm-Look wie in den angehängten Bildern: gleiche Figuren, gleiche Farben, gleiches warmes Licht. Tala trägt ihre Kleidung wie auf dem Vorlagenbild: rote Schleife, gelbes Halstuch, blau-weiß gestreiftes Shirt, grüne Weste, blauer Rock. Talo trägt seine dunkelblaue Kapitänsjacke mit goldenen Knöpfen und seine kleine Kapitänsmütze wie auf dem Vorlagenbild. Auf einer Holzbank unter einem Sonnenschirm am Wasser: Kurt überreicht Talo und Tala feierlich ein altes Stück Schatzkarte aus Pergament, ohne Schrift. Talo und Tala strahlen. Querformat 4:3. Freundlich und kindgerecht, eine klare Bildaussage, nicht zu viele Kleinigkeiten. Nebenfiguren sind einfache Inseltiere, keine bekannten Filmfiguren. Keine Schrift, keine Buchstaben, keine Zahlen, keine Logos, keine Währungszeichen, keine Waffen. Ganze Szene mit Hintergrund.
