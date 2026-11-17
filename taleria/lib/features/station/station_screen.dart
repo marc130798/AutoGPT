@@ -17,6 +17,7 @@ import '../../services/sounds.dart';
 import '../../services/station_controller.dart';
 import '../child/games_screen.dart';
 import '../common/dive_descent.dart';
+import '../common/underwater_life.dart';
 import '../common/fog_reveal.dart';
 import '../common/game_sign.dart';
 import '../common/texts.dart';
@@ -258,6 +259,8 @@ class _StationScreenState extends State<StationScreen> {
                     : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
                 // Unter Wasser oben das Wrack mit den Fischen zeigen.
                 lift: controller.isDive ? 0.35 : 0,
+                // Fische, Schildkröte, Hai und Krabbe unter Wasser (Marcs Wunsch am 17.11.2026).
+                life: controller.isDive ? const UnderwaterLife() : null,
                 // Das Bild ist immer leicht verblasst, damit Texte und Figuren
                 // hervortreten (Marcs Wunsch am 11.10.2026).
                 faded: true,

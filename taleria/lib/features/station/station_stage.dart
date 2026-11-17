@@ -18,7 +18,18 @@ import 'figure_head.dart';
 /// Hintergrund einer Station: das Bild der Insel von innen, beim Tauchgang
 /// die Unterwasserwelt. Fehlt das Bild, ein Verlauf von Meer zu Sand.
 class StationBackdrop extends StatelessWidget {
-  const StationBackdrop({super.key, required this.assetKey, required this.child, this.lift = 0, this.faded = false});
+  const StationBackdrop({
+    super.key,
+    required this.assetKey,
+    required this.child,
+    this.lift = 0,
+    this.faded = false,
+    this.life,
+  });
+
+  /// Bewegtes Leben über dem Bild und hinter dem Inhalt, zum Beispiel Fische
+  /// beim Tauchgang (Marcs Wunsch am 17.11.2026).
+  final Widget? life;
 
   final String assetKey;
   final Widget child;
@@ -72,6 +83,7 @@ class StationBackdrop extends StatelessWidget {
                 ),
               ),
             ),
+            if (life != null) Positioned.fill(child: life!),
             Positioned.fill(child: child),
           ],
         );

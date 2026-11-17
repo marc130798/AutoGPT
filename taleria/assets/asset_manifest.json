@@ -2226,6 +2226,33 @@
         "shape": "rounded"
       }
     },
+    "critter.turtle": {
+      "type": "image",
+      "path": "assets/images/critter.turtle.png",
+      "placeholder": {
+        "label": "Schildkröte",
+        "color": "#5DAA6A",
+        "shape": "rounded"
+      }
+    },
+    "critter.shark": {
+      "type": "image",
+      "path": "assets/images/critter.shark.png",
+      "placeholder": {
+        "label": "Hai",
+        "color": "#8FA6B8",
+        "shape": "rounded"
+      }
+    },
+    "critter.crab": {
+      "type": "image",
+      "path": "assets/images/critter.crab.png",
+      "placeholder": {
+        "label": "Krabbe",
+        "color": "#E0623A",
+        "shape": "rounded"
+      }
+    },
     "critter.whale": {
       "type": "image",
       "path": "assets/images/critter.whale.png",

@@ -81,7 +81,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
           // Blasen, Lichtstrahlen und Fische hinter den Funden (Marcs Wunsch am 17.11.2026).
           child: Stack(
             children: [
-              const Positioned.fill(child: UnderwaterLife()),
+              const Positioned.fill(child: UnderwaterLife(layer: UnderwaterLayer.back)),
               Positioned.fill(
                 child: SafeArea(
                   child: FutureBuilder<List<CollectibleInfo>>(
@@ -146,6 +146,8 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   ),
                 ),
               ),
+              // Schildkröte, Hai und Krabbe schwimmen kurz vor den Karten vorbei.
+              const Positioned.fill(child: UnderwaterLife(layer: UnderwaterLayer.front)),
             ],
           ),
         ),

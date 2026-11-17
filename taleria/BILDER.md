@@ -441,6 +441,9 @@ Auf Marcs Wunsch am 29.10.2026: Auf der Karte schwimmen zwischen den Inseln ein 
 | 164 | `critter.fish` | Fisch im Sprung, von der Seite | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
 | 165 | `critter.whale` | Wal, Kopf und Rücken | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
 | 166 | `critter.dolphin` | Delfin im Sprung, von der Seite | Hafen-Kartenbild | da (Claude mit Gemini, 16.11.2026) |
+| 176a | `critter.turtle` | Meeresschildkröte schwimmt, von der Seite | Fisch | da (Claude mit Gemini, 17.11.2026) |
+| 176b | `critter.shark` | Freundlicher, rundlicher Hai ohne Zähne | Fisch | da (Claude mit Gemini, 17.11.2026) |
+| 176c | `critter.crab` | Krabbe von vorn, Scheren erhoben | Fisch | da (Claude mit Gemini, 17.11.2026) |
 
 Text für Bild 164:
 
