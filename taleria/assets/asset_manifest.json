@@ -2127,6 +2127,15 @@
         "shape": "rounded"
       }
     },
+    "intro.dressing": {
+      "type": "image",
+      "path": "assets/images/intro.dressing.jpg",
+      "placeholder": {
+        "label": "Ankleidezimmer",
+        "color": "#C79A63",
+        "shape": "rectangle"
+      }
+    },
     "home.ship": {
       "type": "image",
       "path": "assets/images/home.ship.jpg",

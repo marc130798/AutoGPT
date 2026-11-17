@@ -31,7 +31,9 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "audio" / "voice"
 INDEX = OUT / "stimmen.json"
 VOICES = {
-    "talo": "50ziM9y8Nnahpd5X0J82",
+    # Talo seit 17.11.2026: „Chris Beck“ aus der ElevenLabs-Bibliothek (Marcs Wahl,
+    # jünger und trotzdem männlich; belegt keinen Platz im Abo).
+    "talo": "SfAtBxtKeIJ5PJmhPaty",
     "tala": "GtGbvM5PvWwzWI8rtTKT",
     "taleron": "DrEioZtDeKuQuCiimPiq",
     # Inselbewohner (Marc hat am 16.11.2026 aus je 3 Proben gewählt, dauerhaft
@@ -50,6 +52,9 @@ VOICES = {
     "bootsbauer": "bIHbv24MWmeRgasZH58o",  # Will
     "moritz": "N2lVS1w4EtoT3dr4eOWO",  # Callum
 }
+# Frühere Stimmen: Aufnahmen ohne gespeicherte Stimme stammen von diesen.
+# Wechselt eine Figur die Stimme, nimmt das Werkzeug ihre Sätze neu auf.
+ALTE_STIMMEN = {"talo": "50ziM9y8Nnahpd5X0J82"}
 MODEL = "eleven_multilingual_v2"
 # Sprache braucht keine Musik-Qualität: 32 kbit/s halten die Web-App klein.
 FORMAT = "mp3_44100_32"
@@ -196,6 +201,7 @@ def main() -> None:
         and (
             index.get(f, {}).get("text") != t
             or index.get(f, {}).get("einstellungen") != SETTINGS
+            or index.get(f, {}).get("stimme", ALTE_STIMMEN.get(w, VOICES[w])) != VOICES[w]
             or not (OUT / f).exists()
         )
     ]
@@ -213,6 +219,7 @@ def main() -> None:
                 "plan": args.plan,
                 "modell": MODEL,
                 "einstellungen": SETTINGS,
+                "stimme": VOICES[who],
             }
             if spoken(text) != text:
                 index[result]["aussprache"] = spoken(text)

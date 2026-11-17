@@ -29,6 +29,31 @@ DE = ' Native German speaker with a clear standard German accent, for a German c
 
 # Figur → (Beschreibung für ElevenLabs, Probesatz auf Deutsch)
 FIGUREN = {
+    # Neue Stimme für Talo (Marc am 17.11.2026: die alte gefällt ihm nicht). Zwei Richtungen, je 3 Proben.
+    'talo': (
+        'A young adult male voice actor with a bright, light and youthful voice, voicing a brave fox captain in an '
+        'animated family film. Warm, clear, lively and confident, curious and kind, with a smile in the voice.' + DE,
+        'Ahoi! Ich bin Talo, der Kapitän. Willkommen an Bord! Komm mit, wir segeln zur nächsten Insel von Taléria. '
+        'Ich habe meinen Kompass dabei und meistens auch einen Plan.',
+    ),
+    'talo3': (
+        'A very young-sounding male voice with a light, high, boyish tone, like a cheerful cartoon hero. Energetic, '
+        'playful and bright, quick and curious, friendly, a little cheeky, clear articulation.' + DE,
+        'Ahoi! Ich bin Talo, der Kapitän. Willkommen an Bord! Komm mit, wir segeln zur nächsten Insel von Taléria. '
+        'Ich habe meinen Kompass dabei und meistens auch einen Plan.',
+    ),
+    'talo4': (
+        'A youthful, light male voice actor known for animated young heroes. Higher pitch, soft and warm, enthusiastic, '
+        'adventurous and kind, sounds young but clearly male, smiling while speaking.' + DE,
+        'Ahoi! Ich bin Talo, der Kapitän. Willkommen an Bord! Komm mit, wir segeln zur nächsten Insel von Taléria. '
+        'Ich habe meinen Kompass dabei und meistens auch einen Plan.',
+    ),
+    'talo2': (
+        'A cheerful young adult male narrator voice, voicing a friendly fox ship captain in an animated family film. '
+        'Warm, relaxed, adventurous, calm and reassuring, clear articulation, medium pitch.' + DE,
+        'Ahoi! Ich bin Talo, der Kapitän. Willkommen an Bord! Komm mit, wir segeln zur nächsten Insel von Taléria. '
+        'Ich habe meinen Kompass dabei und meistens auch einen Plan.',
+    ),
     'emma': (
         'A lively, warm young adult female squirrel, the careful storekeeper of an autumn island. Bright, quick-witted, '
         'cheerful and caring voice, a little bit bubbly.' + DE,

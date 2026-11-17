@@ -31,6 +31,9 @@ abstract final class AssetKeys {
   /// Startseite seit 17.11.2026: das Schiff im Schnitt (oben Deck, darunter Räume zum Antippen).
   static const homeShip = 'home.ship';
 
+  /// Ankleidezimmer im Intro (Figur und Farbe wählen, 17.11.2026).
+  static const introDressing = 'intro.dressing';
+
   /// Hintergrund der Werft (BILDER.md Bild 176). Bis er da ist: [homeBackground].
   static const shipyardBackground = 'shipyard.background';
 
@@ -157,6 +160,7 @@ abstract final class AssetKeys {
     lighthouse,
     homeBackground,
     homeShip,
+    introDressing,
     iconMap,
     iconTreasure,
     iconTasks,

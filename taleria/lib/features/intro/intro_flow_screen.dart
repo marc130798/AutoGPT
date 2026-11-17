@@ -69,22 +69,56 @@ class _IntroFlowScreenState extends State<IntroFlowScreen> {
           IntroStep.map => const _MapStep(),
         };
         final dark = step == IntroStep.film;
+        // Jeder Schritt spielt in einem Raum an Bord statt auf Weiß (Marcs Test am 17.11.2026).
+        final scene = switch (step) {
+          IntroStep.film => null,
+          IntroStep.story || IntroStep.done || IntroStep.map => AssetKeys.homeBackground,
+          IntroStep.avatar => AssetKeys.introDressing,
+          IntroStep.rankForm => AssetKeys.badgesBackground,
+          IntroStep.ship => AssetKeys.shipyardBackground,
+          IntroStep.tour => AssetKeys.homeShip,
+          IntroStep.wish => AssetKeys.treasureBackground,
+        };
         return Scaffold(
           backgroundColor: dark ? context.palette.seaDeep : null,
-          body: SafeArea(
-            child: Stack(
-              children: [
+          body: Stack(
+            children: [
+              if (scene != null) ...[
                 Positioned.fill(
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: KeyedSubtree(key: ValueKey(step), child: body),
+                    duration: const Duration(milliseconds: 400),
+                    child: SizedBox.expand(
+                      key: ValueKey(scene),
+                      child: TaleriaAsset(scene, fit: BoxFit.cover, fallback: const SizedBox.expand()),
+                    ),
                   ),
                 ),
-                // Auf dem Eltern-Gerät führt der Leuchtturm jederzeit zur PIN.
-                if (widget.state.onParentDevice)
-                  Positioned(top: 4, right: 4, child: LighthouseButton(state: widget.state)),
+                // Heller Schleier, damit Texte und Knöpfe gut lesbar bleiben.
+                Positioned.fill(child: ColoredBox(color: context.palette.paper.withValues(alpha: 0.6))),
               ],
-            ),
+              // Eingabefelder hell gefüllt, damit sie vor dem Raum gut zu sehen sind (Marcs Test am 17.11.2026).
+              Theme(
+                data: Theme.of(context).copyWith(
+                  inputDecorationTheme: Theme.of(context).inputDecorationTheme
+                      .copyWith(filled: true, fillColor: context.palette.paper),
+                ),
+                child: SafeArea(
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: KeyedSubtree(key: ValueKey(step), child: body),
+                        ),
+                      ),
+                      // Auf dem Eltern-Gerät führt der Leuchtturm jederzeit zur PIN.
+                      if (widget.state.onParentDevice)
+                        Positioned(top: 4, right: 4, child: LighthouseButton(state: widget.state)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -191,7 +225,7 @@ class _AvatarStep extends StatelessWidget {
                 onChoose: (f) => update(avatar.copyWith(figure: f)),
               ),
               const SizedBox(height: 16),
-              Text(l10n.figureHint, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
+              _IntroHint(l10n.figureHint),
               const SizedBox(height: 20),
               Text(l10n.clothesTitle, textAlign: TextAlign.center, style: theme.textTheme.titleLarge),
               const SizedBox(height: 10),
@@ -200,7 +234,7 @@ class _AvatarStep extends StatelessWidget {
                 onChoose: (c) => update(avatar.copyWith(clothes: c)),
               ),
               const SizedBox(height: 8),
-              Text(l10n.clothesHint, textAlign: TextAlign.center, style: theme.textTheme.bodyMedium),
+              _IntroHint(l10n.clothesHint),
             ],
           ),
         ),
@@ -239,7 +273,7 @@ class _RankFormStep extends StatelessWidget {
           onChoose: (form) => runWithFeedback(context, () => controller.chooseRankForm(form)),
         ),
         const SizedBox(height: 16),
-        Text(l10n.rankFormHint, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+        _IntroHint(l10n.rankFormHint),
       ],
     );
   }
@@ -548,6 +582,27 @@ class _BottomButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: FilledButton(onPressed: busy ? null : onPressed, child: busy ? const ButtonSpinner() : Text(label)),
+      ),
+    );
+  }
+}
+
+/// Kleiner Hinweis auf hellem Grund, damit er vor dem Raum gut lesbar ist.
+class _IntroHint extends StatelessWidget {
+  const _IntroHint(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: context.palette.paper.withValues(alpha: 0.92),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(text, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium),
       ),
     );
   }

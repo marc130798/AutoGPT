@@ -38,7 +38,9 @@ class FigureChoice extends StatelessWidget {
                   duration: const Duration(milliseconds: 200),
                   padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
                   decoration: BoxDecoration(
-                    color: avatar.figure == figure ? palette.gold.withValues(alpha: 0.22) : palette.paper,
+                    color: avatar.figure == figure
+                        ? Color.alphaBlend(palette.gold.withValues(alpha: 0.22), palette.paper)
+                        : palette.paper,
                     borderRadius: BorderRadius.circular(22),
                     border: Border.all(
                       color: avatar.figure == figure ? palette.gold : palette.ink.withValues(alpha: 0.15),
@@ -102,7 +104,9 @@ class ClothesStartChoice extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: avatar.clothes == c ? palette.gold.withValues(alpha: 0.25) : palette.paper,
+                  color: avatar.clothes == c
+                      ? Color.alphaBlend(palette.gold.withValues(alpha: 0.25), palette.paper)
+                      : palette.paper,
                   border: Border.all(
                     color: avatar.clothes == c ? palette.gold : palette.ink.withValues(alpha: 0.15),
                     width: avatar.clothes == c ? 4 : 1.5,
