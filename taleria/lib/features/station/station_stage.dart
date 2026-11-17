@@ -25,7 +25,12 @@ class StationBackdrop extends StatelessWidget {
     this.lift = 0,
     this.faded = false,
     this.life,
+    this.fallbackKey,
   });
+
+  /// Ersatzbild, solange es [assetKey] nicht gibt (zum Beispiel die
+  /// gemeinsame Unterwasserwelt statt der Unterwasserwelt einer Insel).
+  final String? fallbackKey;
 
   /// Bewegtes Leben über dem Bild und hinter dem Inhalt, zum Beispiel Fische
   /// beim Tauchgang (Marcs Wunsch am 17.11.2026).
@@ -43,6 +48,21 @@ class StationBackdrop extends StatelessWidget {
   /// oben auf der Bühne etwas aus der Bildmitte zu sehen ist, zum Beispiel das
   /// Wrack statt nur Sonnenstrahlen.
   final double lift;
+
+  Widget _fallback(TaleriaPalette palette) {
+    final gradient = DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [palette.sea, palette.sand],
+        ),
+      ),
+    );
+    final key = fallbackKey;
+    if (key == null) return gradient;
+    return TaleriaAsset(key, fit: BoxFit.cover, alignment: const Alignment(0, -0.3), fallback: gradient);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +82,7 @@ class StationBackdrop extends StatelessWidget {
                 assetKey,
                 fit: BoxFit.cover,
                 alignment: const Alignment(0, -0.3),
-                fallback: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [palette.sea, palette.sand],
-                    ),
-                  ),
-                ),
+                fallback: _fallback(palette),
               ),
             ),
             Positioned.fill(

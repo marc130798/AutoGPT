@@ -254,8 +254,10 @@ class _StationScreenState extends State<StationScreen> {
               StationBackdrop(
                 // Die Insel von innen, beim Tauchgang die Unterwasserwelt, beim
                 // Stopp auf See das offene Meer.
+                // Jede Insel hat ihre eigene Unterwasserwelt (17.11.2026), sonst die gemeinsame.
+                fallbackKey: controller.isDive ? AssetKeys.underwaterBackground : null,
                 assetKey: controller.isDive
-                    ? AssetKeys.underwaterBackground
+                    ? AssetKeys.islandUnderwater(widget.island.slug)
                     : (controller.isSeaStop ? AssetKeys.mapBackground : AssetKeys.islandBackground(widget.island.slug)),
                 // Unter Wasser oben das Wrack mit den Fischen zeigen.
                 lift: controller.isDive ? 0.35 : 0,

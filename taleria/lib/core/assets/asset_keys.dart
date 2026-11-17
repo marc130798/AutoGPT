@@ -163,6 +163,10 @@ abstract final class AssetKeys {
 
   static String islandBackground(String slug) => 'island.$slug.background';
 
+  /// Eigene Unterwasserwelt jeder Insel für die Tauchgänge (seit 17.11.2026);
+  /// fehlt sie, gilt [underwaterBackground].
+  static String islandUnderwater(String slug) => 'underwater.$slug';
+
   /// Die Insel, wie sie auf der Karte liegt (freigestellt, BILDER.md).
   static String mapIsland(String slug) => 'map.island.$slug';
   static String arrivalVideo(String slug) => 'video.arrival.$slug';

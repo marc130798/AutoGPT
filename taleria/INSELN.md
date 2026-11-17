@@ -68,6 +68,7 @@ Entschieden mit Marc am 11.10.2026: Stufe 1 ist für Kinder von 8 bis 12 Jahren 
 - **Ankunftsfilm** (Szene in 3 bis 5 Schritten, 20 bis 40 Sekunden)
 - **7 Stationen** (je Ort, Typ, Inhalt, Lernziel, Dauer, Seemeilen)
 - **Quizfragen** (Pools für Stations-Checks und Abschlussprüfung)
+- **Unterwasserwelt** der Insel für die Tauchgänge (eigenes Bild `underwater.<slug>`, passend zur Insel; die Tiere zeichnet die App, sie bleiben überall gleich)
 - **Auftrag fürs echte Leben** (Eltern bestätigen)
 - **Kombüsen-Fragen** (für den Elternbereich)
 - **Belohnung und Effekte**

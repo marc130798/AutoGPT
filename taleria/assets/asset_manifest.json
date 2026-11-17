@@ -2141,6 +2141,51 @@
         "shape": "rectangle"
       }
     },
+    "underwater.hafen": {
+      "type": "image",
+      "path": "assets/images/underwater.hafen.jpg",
+      "placeholder": {
+        "label": "Unterwasserwelt Hafen",
+        "color": "#14506E",
+        "shape": "rectangle"
+      }
+    },
+    "underwater.tauschinsel": {
+      "type": "image",
+      "path": "assets/images/underwater.tauschinsel.jpg",
+      "placeholder": {
+        "label": "Unterwasserwelt Tauschinsel",
+        "color": "#14506E",
+        "shape": "rectangle"
+      }
+    },
+    "underwater.wunschinsel": {
+      "type": "image",
+      "path": "assets/images/underwater.wunschinsel.jpg",
+      "placeholder": {
+        "label": "Unterwasserwelt Wunschinsel",
+        "color": "#14506E",
+        "shape": "rectangle"
+      }
+    },
+    "underwater.spar-insel": {
+      "type": "image",
+      "path": "assets/images/underwater.spar-insel.jpg",
+      "placeholder": {
+        "label": "Unterwasserwelt Spar-Insel",
+        "color": "#14506E",
+        "shape": "rectangle"
+      }
+    },
+    "underwater.taschengeld-bucht": {
+      "type": "image",
+      "path": "assets/images/underwater.taschengeld-bucht.jpg",
+      "placeholder": {
+        "label": "Unterwasserwelt Taschengeld-Bucht",
+        "color": "#14506E",
+        "shape": "rectangle"
+      }
+    },
     "underwater.background": {
       "type": "image",
       "path": "assets/images/underwater.background.jpg",

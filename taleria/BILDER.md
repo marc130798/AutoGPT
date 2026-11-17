@@ -493,6 +493,18 @@ Erstellt am 17.11.2026 von Claude mit Gemini, nachdem die Texte der Insel geschr
 | 207 | `story.taschengeld-bucht.7.2` | Tala zeigt ihr Logbuch | Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
 | 208 | `story.taschengeld-bucht.7.3` | Kurt übergibt das Kartenstück | Bild 183 (Kurt), Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
 
+## 4u. Eigene Unterwasserwelt jeder Insel (seit 17.11.2026)
+
+Marcs Wunsch am 17.11.2026: Jede Insel bekommt ihre eigene Unterwasserwelt für die Tauchgänge (`underwater.<slug>`, Hochformat 9:16). **Die Tiere bleiben überall gleich**: Fische, Schildkröte, Hai und Krabbe zeichnet die App darüber (`UnderwaterLife`), darum im Bild nur wenige kleine Fische im Hintergrund und keine großen Tiere. Vorlage ist immer die gemeinsame Unterwasserwelt (`design/gemini/underwater.background.jpg`); fehlt das Bild einer Insel, zeigt die App die gemeinsame. **Jede neue Insel braucht dieses Bild** (Text nach dem Muster in `design/prompts_unterwasser.txt`).
+
+| Nr. | Datei | Bild | Stand |
+| --- | --- | --- | --- |
+| 220 | `underwater.hafen` | altes Handelswrack, Anker, Stegpfähle | da (Claude mit Gemini, 17.11.2026) |
+| 221 | `underwater.tauschinsel` | versunkener Marktstand, Körbe, Krüge | da (Claude mit Gemini, 17.11.2026) |
+| 222 | `underwater.wunschinsel` | Glitzerkorallen, leuchtende Flaschen, Sternensegel | da (Claude mit Gemini, 17.11.2026) |
+| 223 | `underwater.spar-insel` | hohler Baumstamm mit Nüssen, Herbstblätter, Spardose | da (Claude mit Gemini, 17.11.2026) |
+| 224 | `underwater.taschengeld-bucht` | flache Lagune, Bootsunterseiten, Stegpfähle, Rechenbrett | da (Claude mit Gemini, 17.11.2026) |
+
 ## 4r. Die Figur des Kindes: Löwe oder Löwin (Bild 167 bis 175)
 
 Am 16.11.2026 mit Marc entschieden: Die selbst gezeichnete Figur (Männchen) fliegt raus. Das Kind wählt stattdessen **einen jungen Löwen oder eine junge Löwin**, im gleichen 3D-Stil wie Talo und Tala. Keine Tierart, die sonst im Spiel vorkommt. Auf der neuen Startseite steht die Figur in der Mitte zwischen Talo und Tala (Entwurf: Startseite mit Deck, Holzschildern und Sprechblase).
