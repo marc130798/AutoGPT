@@ -68,15 +68,15 @@ void main() {
     return (content: content, progress: progress, budget: budget, childId: mila.id);
   }
 
-  testWidgets('Logbücher zum Ausdrucken: alle vier Inseln, PDF öffnen', (tester) async {
+  testWidgets('Logbücher zum Ausdrucken: alle fünf Inseln, PDF öffnen', (tester) async {
     await openLighthouse(tester);
     await tapKey(tester, 'open-logbooks');
     expect(find.text('Logbücher zum Ausdrucken'), findsOneWidget);
-    for (final island in ['hafen', 'tauschinsel', 'wunschinsel', 'spar-insel']) {
+    for (final island in ['hafen', 'tauschinsel', 'wunschinsel', 'spar-insel', 'taschengeld-bucht']) {
       await scrollTo(tester, find.byKey(ValueKey('logbook-open-$island')));
     }
     // In den Tests läuft keine Web-Version: Dann gibt es einen Hinweis statt des PDFs.
-    await tapKey(tester, 'logbook-open-hafen');
+    await tapKey(tester, 'logbook-open-taschengeld-bucht');
     expect(find.text('Die Logbücher findest du in der Web-Version von Taleria.'), findsOneWidget);
   });
 

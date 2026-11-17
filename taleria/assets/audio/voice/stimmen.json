@@ -3578,6 +3578,1605 @@
     },
     "stimme": "SfAtBxtKeIJ5PJmhPaty"
   },
+  "voice.taschengeld-bucht.1.1.mp3": {
+    "wer": "mia",
+    "text": "Jede Familie macht es anders. Manche Kinder bekommen ihr Taschengeld jede Woche, manche einmal im Monat.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.2.mp3": {
+    "wer": "talo",
+    "text": "Und es kommt darauf an, was man davon bezahlen soll. Nur Süßes? Oder auch Hefte und Busfahrten?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.1.3.mp3": {
+    "wer": "mia",
+    "text": "Darum hilft Vergleichen wenig. Wer mehr bekommt, muss oft auch mehr selbst bezahlen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.4.mp3": {
+    "wer": "tala",
+    "text": "Also sollte ich lieber fragen: Was mache ich mit dem Geld, das ich habe?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.5.mp3": {
+    "wer": "mia",
+    "text": "Genau! Regelmäßiges Taschengeld ist wie ein Übungsfeld. Man lernt, mit einer festen Summe auszukommen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Ich vergleiche nicht mehr. Ich mache das Beste aus meinem Taschengeld!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.aufloesung.mp3": {
+    "wer": "mia",
+    "text": "Die Eltern! Es gibt Empfehlungen, zum Beispiel vom Jugendamt. Aber jede Familie entscheidet selbst, und auch, was Kinder davon bezahlen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "In manchen Familien jede Woche, in anderen einmal im Monat.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Dreh den Kalender um: Wann gibt es Taschengeld?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Vergleichen macht nur unzufrieden. Wichtig ist, was du mit deinem Geld machst.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Wisch den Vergleich weg: „Die anderen kriegen mehr!“",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.schaetzfrage.mp3": {
+    "wer": "mia",
+    "text": "Was glaubst du: Wer entscheidet, wie viel Taschengeld ein Kind bekommt?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.szene.1.mp3": {
+    "wer": "mia",
+    "text": "Willkommen an meinem Kiosk! Hier kaufen alle Kinder der Bucht ein.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.szene.2.mp3": {
+    "wer": "tala",
+    "text": "Mia, wie viel Taschengeld bekommen die anderen Kinder? Bestimmt alle mehr als ich!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.1.szene.3.mp3": {
+    "wer": "mia",
+    "text": "Ganz unterschiedlich. Das Fischerkind bekommt wenig, muss aber nichts selbst kaufen. Das Kind vom Leuchtturm bekommt mehr und bezahlt davon sogar sein Pausenbrot.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.1.szene.4.mp3": {
+    "wer": "tala",
+    "text": "Hm. Dann ist mehr Geld ja nicht automatisch besser.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.1.mp3": {
+    "wer": "kurt",
+    "text": "In deiner Schatztruhe gibt es zwei Teile: Geld, das frei zum Ausgeben ist, und Geld, das du für einen Wunschschatz zurückgelegt hast.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.2.2.mp3": {
+    "wer": "tala",
+    "text": "Und wenn ich will, kann ich auch etwas für jemand anderen beiseitelegen. Für Omas Geschenk zum Beispiel.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.3.mp3": {
+    "wer": "kurt",
+    "text": "Der Trick ist: gleich am Anfang aufteilen. Taschengeld kommt, ein Teil wird zurückgelegt, der Rest ist frei.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.2.4.mp3": {
+    "wer": "talo",
+    "text": "Dann weiß Tala genau, wie viel sie diese Woche ausgeben darf, ohne ihren Wunschschatz zu vergessen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.2.5.mp3": {
+    "wer": "tala",
+    "text": "Und mein Wunschschatz wächst, auch wenn ich mir zwischendurch ein Eis kaufe!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Erst aufteilen, dann ausgeben! In meiner Schatztruhe probiere ich das gleich aus.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.aufloesung.mp3": {
+    "wer": "kurt",
+    "text": "Zum Beispiel 3 Taler! Es gibt keine einzig richtige Zahl. Wichtig ist, dass du es vorher entscheidest, nicht erst, wenn nichts mehr übrig ist.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.2.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "3 Taler sind zurückgelegt. Der Rest ist frei zum Ausgeben.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Leg 3 Taler für Talas Wunschschatz zurück: Tippe 3-mal auf die Truhe.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "So hat jeder Taler gleich am Anfang seine Aufgabe.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Zieh die Münze auf die Truhe: erst aufteilen, dann ausgeben!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.schaetzfrage.mp3": {
+    "wer": "kurt",
+    "text": "Was glaubst du: Tala bekommt 10 Taler. Wie viele davon sollte sie für ihren Wunschschatz zurücklegen?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.2.szene.1.mp3": {
+    "wer": "kurt",
+    "text": "Willkommen im Truhenhaus! Hier bekommt jeder Taler eine Aufgabe.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.2.szene.2.mp3": {
+    "wer": "tala",
+    "text": "Eine Aufgabe? Meine Taler haben bisher immer nur eine: weg sein.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.2.szene.3.mp3": {
+    "wer": "kurt",
+    "text": "Klack, klack! Genau das ändern wir. Bevor du etwas ausgibst, entscheidest du, wofür das Geld da ist.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.1.mp3": {
+    "wer": "kurt",
+    "text": "Im Logbuch gibt es zwei Seiten. Links die Einnahmen: Geld, das du bekommst. Taschengeld zum Beispiel, oder ein Geschenk.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.2.mp3": {
+    "wer": "kurt",
+    "text": "Rechts die Ausgaben: Geld, das du bezahlst. Ein Eis, Sticker, ein Heft.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.3.mp3": {
+    "wer": "tala",
+    "text": "Und am Ende rechnet man: Einnahmen minus Ausgaben. Dann weiß ich, wie viel noch da ist!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.4.mp3": {
+    "wer": "talo",
+    "text": "Und man sieht, wofür man am meisten ausgibt. Bei Tala sind es … Süßigkeiten.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.3.5.mp3": {
+    "wer": "tala",
+    "text": "Ertappt! Aber jetzt weiß ich es wenigstens.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.abschluss.mp3": {
+    "wer": "kurt",
+    "text": "Wer aufschreibt, behält den Überblick. Fang heute an, mit deinem eigenen Logbuch!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.aufloesung.mp3": {
+    "wer": "kurt",
+    "text": "Bei Tala waren es 3! Ein Bonbon hier, ein Saft da. Einzeln klein, zusammen fehlt plötzlich viel.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Taschengeld bekommst du. Das ist eine Einnahme.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Zieh das Taschengeld auf die Seite der Einnahmen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Süßigkeiten! Das Logbuch deckt alles auf.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Tippe auf das Logbuch und lies, wofür Tala am meisten ausgibt.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.schaetzfrage.mp3": {
+    "wer": "kurt",
+    "text": "Was glaubst du: Wie viele kleine Einkäufe vergisst man in einer Woche, wenn man nichts aufschreibt?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.szene.1.mp3": {
+    "wer": "kurt",
+    "text": "Hier ist meine Rechenstube. Und das hier ist mein Logbuch. Darin steht jeder Taler, den ich je hatte.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.3.szene.2.mp3": {
+    "wer": "tala",
+    "text": "Jeder einzelne? Das ist ja ein dickes Buch!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.3.szene.3.mp3": {
+    "wer": "kurt",
+    "text": "Klack! Deshalb weiß ich immer, wo mein Geld ist. Du nicht. Noch nicht.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.4.1.mp3": {
+    "wer": "kurt",
+    "text": "Ein Budget ist ein Plan: Wie viel Geld habe ich, und wofür will ich es ausgeben?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.4.2.mp3": {
+    "wer": "kurt",
+    "text": "Zuerst schreibst du auf, was du hast: 8 Taler. Dann, was du willst, mit Preisen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.4.3.mp3": {
+    "wer": "tala",
+    "text": "Kino 6, Sticker 2, Snack 3. Das sind 11. Drei Taler zu viel!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.4.mp3": {
+    "wer": "talo",
+    "text": "Dann streichst du etwas. Kino und Sticker sind genau 8 Taler. Oder Snack und Sticker, dann bleiben 3 übrig.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.4.5.mp3": {
+    "wer": "tala",
+    "text": "Ich nehme Kino und Sticker. Den Snack mache ich mir zu Hause. Und ich weiß schon am Montag, dass es reicht!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Ein Budget ist wie eine Seekarte für mein Geld. Ich weiß vorher, wohin es geht!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.aufloesung.mp3": {
+    "wer": "kurt",
+    "text": "11 Taler! Tala hat aber nur 8. Also muss sie sich entscheiden. Genau dafür ist ein Budget da.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.4.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Kino, Sticker und ein Snack. Jetzt kommen die Preise dazu.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Tippe auf die Liste: Was will Tala diese Woche?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Kino und Sticker: genau 8 Taler. Plan geschafft!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Wisch den Snack von der Liste. So passt es in 8 Taler.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.schaetzfrage.mp3": {
+    "wer": "kurt",
+    "text": "Was glaubst du: Kino kostet 6 Taler, Sticker 2 Taler, ein Snack 3 Taler. Wie viel kostet alles zusammen?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.4.szene.1.mp3": {
+    "wer": "tala",
+    "text": "Diese Woche will ich ins Kino, Sticker kaufen und einen Snack am Kiosk. Ich habe 8 Taler.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.szene.2.mp3": {
+    "wer": "kurt",
+    "text": "Und reicht das für alles?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.4.szene.3.mp3": {
+    "wer": "tala",
+    "text": "Ähm … keine Ahnung. Ich kaufe einfach, bis es leer ist?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.4.szene.4.mp3": {
+    "wer": "kurt",
+    "text": "Klack, klack! Komm mit auf den Planungssteg. Wir machen ein Budget.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.5.1.mp3": {
+    "wer": "kurt",
+    "text": "Ein leerer Beutel ist ärgerlich. Aber er verrät dir etwas: Dein Plan hat nicht gereicht.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.5.2.mp3": {
+    "wer": "tala",
+    "text": "Und was mache ich jetzt mit dem Schwimmbad?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.3.mp3": {
+    "wer": "talo",
+    "text": "Du kannst warten, verzichten oder etwas Kostenloses machen. Am Strand schwimmen kostet zum Beispiel nichts!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.5.4.mp3": {
+    "wer": "kurt",
+    "text": "Leihen ist keine gute Lösung. Wer sich jetzt Geld leiht, muss es zurückgeben, und dann fehlt es nächste Woche wieder.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.5.5.mp3": {
+    "wer": "tala",
+    "text": "Und nächste Woche lege ich das Geld fürs Schwimmbad gleich am Montag beiseite!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Ein leerer Beutel ist kein Weltuntergang. Nächste Woche plane ich besser!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.aufloesung.mp3": {
+    "wer": "kurt",
+    "text": "Warten und besser planen! Das ist unbequem, aber ehrlich. Wer sich leiht, hat nächste Woche noch weniger.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.5.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Nichts! Aber ein leerer Beutel ist ein guter Lehrer.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Dreh Talas Beutel um. Was ist drin?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Schwimmen am Strand! Viele schöne Dinge kosten gar nichts.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Tippe auf die Wellen: Was kostet nichts und macht trotzdem Spaß?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.schaetzfrage.mp3": {
+    "wer": "kurt",
+    "text": "Was glaubst du: Was ist die beste Idee, wenn das Taschengeld vor dem Wochenende alle ist?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.5.szene.1.mp3": {
+    "wer": "tala",
+    "text": "Oh nein. Es ist Donnerstag und mein Beutel ist leer. Dabei will ich am Samstag mit zum Schwimmbad!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.5.szene.2.mp3": {
+    "wer": "mia",
+    "text": "Ich kann dir ja etwas leihen. Dann gibst du mir nächste Woche das Doppelte zurück.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "FGY2WhTYpPnrIDTdsKH5"
+  },
+  "voice.taschengeld-bucht.5.szene.3.mp3": {
+    "wer": "kurt",
+    "text": "Halt, halt! Bevor du irgendwas machst, setzen wir uns auf den Felsen und denken nach.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.6.1.mp3": {
+    "wer": "kurt",
+    "text": "Ein Geldgeschenk ist etwas Besonderes. Es kommt nicht jede Woche, also lohnt es sich, gut nachzudenken.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.6.2.mp3": {
+    "wer": "tala",
+    "text": "Ich könnte einen Teil für meine Rollschuhe zurücklegen und mir mit dem Rest etwas Schönes kaufen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.3.mp3": {
+    "wer": "kurt",
+    "text": "Genau. Aufteilen macht doppelt Freude: jetzt etwas Schönes, und später der Wunschschatz.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.6.4.mp3": {
+    "wer": "talo",
+    "text": "Und was gehört noch zu einem Geschenk dazu?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.6.5.mp3": {
+    "wer": "tala",
+    "text": "Danke sagen! Ich male Oma ein Bild von unserem Schiff.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.abschluss.mp3": {
+    "wer": "kurt",
+    "text": "Geschenktes Geld aufteilen und Danke sagen. Das machen nur die besten Kassenwarte!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.6.aufloesung.mp3": {
+    "wer": "kurt",
+    "text": "10 Taler! Die Hälfte von 20 sind 10. Dann bleiben 10 Taler zum Ausgeben, und der Wunschschatz macht einen großen Sprung.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.6.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "20 Taler und ein Gruß von Oma: Alles Liebe zum Geburtstag!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Öffne Omas Brief: Tippe auf die Briefmarke.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Oma freut sich über Talas Bild mehr als über alles andere.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Tippe auf das Herz und schick Oma einen Dank.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.schaetzfrage.mp3": {
+    "wer": "kurt",
+    "text": "Was glaubst du: Tala legt die Hälfte von Omas 20 Talern zurück. Wie viel ist das?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.6.szene.1.mp3": {
+    "wer": "tala",
+    "text": "Post für mich! Ein Brief von Oma, und darin … 20 Taler zum Geburtstag!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.szene.2.mp3": {
+    "wer": "tala",
+    "text": "Juhu! Ich gehe sofort zum Kiosk und kaufe …",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.6.szene.3.mp3": {
+    "wer": "kurt",
+    "text": "Moment! Auch geschenktes Geld bekommt eine Aufgabe. Komm mit in die Geschenke-Grotte.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.1.mp3": {
+    "wer": "kurt",
+    "text": "Such dir einen ruhigen Moment aus. Nicht, wenn alle in Eile sind oder schlechte Laune haben.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.2.mp3": {
+    "wer": "kurt",
+    "text": "Dann erklärst du, warum du mehr brauchst. Zeig dein Logbuch: So sehen deine Eltern, dass du gut planst.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.3.mp3": {
+    "wer": "tala",
+    "text": "Und ich kann anbieten, mehr selbst zu bezahlen. Meine Hefte zum Beispiel.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.7.4.mp3": {
+    "wer": "talo",
+    "text": "Und wenn die Antwort Nein ist?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.7.5.mp3": {
+    "wer": "kurt",
+    "text": "Dann akzeptierst du das freundlich und fragst, wann ihr noch einmal darüber sprechen könnt. Hier ist mein Kartenstück, ihr habt es euch verdient!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.abschluss.mp3": {
+    "wer": "kurt",
+    "text": "Hier ist das Kartenstück aus meinem Logbuch. Gleich kommt noch die Abschlussprüfung!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.aufloesung.mp3": {
+    "wer": "kurt",
+    "text": "Ruhig fragen und zeigen, dass du planen kannst! Mit dem Logbuch hast du dafür den besten Beweis.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.mitmachen.1.danach.mp3": {
+    "wer": "tala",
+    "text": "Nach dem Abendessen, wenn alle entspannt sind. Perfekt!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.7.mitmachen.1.mp3": {
+    "wer": "tala",
+    "text": "Tippe auf die Sonne: Ein ruhiger Moment ist der beste.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.7.mitmachen.2.danach.mp3": {
+    "wer": "tala",
+    "text": "Die Eltern staunen: Tala schreibt wirklich alles auf!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.7.mitmachen.2.mp3": {
+    "wer": "tala",
+    "text": "Zieh das Logbuch auf den Tisch und zeig es den Eltern.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.7.schaetzfrage.mp3": {
+    "wer": "kurt",
+    "text": "Was glaubst du: Was überzeugt Eltern am meisten?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.szene.1.mp3": {
+    "wer": "tala",
+    "text": "Kurt, ich möchte mehr Taschengeld. Wie frage ich meine Eltern am besten?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.7.szene.2.mp3": {
+    "wer": "kurt",
+    "text": "Gute Frage! Setz dich zu mir auf die Ratsbank. Hier übt man, wie man fair verhandelt.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.7.szene.3.mp3": {
+    "wer": "talo",
+    "text": "Ich spiele deine Eltern. Los geht es!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.8.abschluss.mp3": {
+    "wer": "kurt",
+    "text": "Bestanden! Ihr seid jetzt Kassenwarte der Bucht. Das Kartenstück gehört euch. Gute Fahrt!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.8.szene.1.mp3": {
+    "wer": "kurt",
+    "text": "Die letzte Prüfung in der Bucht! Ab 8 richtigen Antworten trage ich euch als Kassenwarte in mein Logbuch ein.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.8.szene.2.mp3": {
+    "wer": "tala",
+    "text": "Diesmal weiß ich genau, wo jeder Taler ist. Los geht es!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.ankunft.1.mp3": {
+    "wer": "tala",
+    "text": "Oh, ein Kiosk mit bunten Gläsern! Ich kaufe mir … Moment.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.ankunft.2.mp3": {
+    "wer": "tala",
+    "text": "Mein Beutel ist leer! Dabei gab es mein Taschengeld doch erst am Montag.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.ankunft.3.mp3": {
+    "wer": "kurt",
+    "text": "Klack, klack! Und heute ist erst Mittwoch. Wohin ist es denn gegangen?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.ankunft.4.mp3": {
+    "wer": "tala",
+    "text": "Keine Ahnung. Es war einfach … weg.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.ankunft.5.mp3": {
+    "wer": "kurt",
+    "text": "Dann wird es Zeit für Ordnung. Ich bin Kurt, der Buchhalter der Bucht. Mein Kartenstück liegt in meinem Logbuch.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "voice.taschengeld-bucht.ausblick.1.mp3": {
+    "wer": "talo",
+    "text": "Hinter dem Nebel höre ich Stimmen und Glocken. Da liegt ein großer Markt!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.taschengeld-bucht.ausblick.2.mp3": {
+    "wer": "tala",
+    "text": "Diesmal habe ich einen Plan. Und ein Logbuch!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.stopp1.abschluss.mp3": {
+    "wer": "otti",
+    "text": "Ein klares Ziel und jede Woche ein bisschen. Danke! Gute Fahrt zur Bucht.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "N8mipeQcK5GhXSiRPieg"
+  },
+  "voice.taschengeld-bucht.stopp1.szene.1.mp3": {
+    "wer": "otti",
+    "text": "Ahoi, Crew! Ich will ein neues Segel für mein Boot. Aber das kostet 30 Taler, und ich habe nur 6.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "N8mipeQcK5GhXSiRPieg"
+  },
+  "voice.taschengeld-bucht.stopp1.szene.2.mp3": {
+    "wer": "tala",
+    "text": "Auf der Spar-Insel haben wir gelernt, wie man so etwas schafft!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.stopp2.abschluss.mp3": {
+    "wer": "tala",
+    "text": "Puh, das war knifflig. Ab jetzt schreibe ich alles auf!",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.stopp2.szene.1.mp3": {
+    "wer": "tala",
+    "text": "Oje! Ich weiß nicht mehr, wie viel ich letzte Woche ausgegeben habe. Hilfst du mir beim Nachdenken?",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.taschengeld-bucht.stopp2.szene.2.mp3": {
+    "wer": "talo",
+    "text": "Wir rechnen zusammen. Dann merkst du, warum Aufschreiben hilft.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
   "voice.tauschinsel.1.1.mp3": {
     "wer": "bruno",
     "text": "Äpfel gebe ich gern her. Aber nur gegen Fisch!",

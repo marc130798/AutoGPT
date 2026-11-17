@@ -3125,6 +3125,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag_shell': 'Muschel-Flagge',
       'flag_coin': 'Taler-Flagge',
       'flag_bottle': 'Flaschenpost-Flagge',
+      'flag_book': 'Logbuch-Flagge',
       'sails_white': 'Weiße Segel',
       'sails_red': 'Rote Segel',
       'sails_blue': 'Blaue Segel',
@@ -3146,6 +3147,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'garment_vest': 'Händlerweste',
       'garment_hoodie': 'Sternen-Pulli',
       'garment_raincoat': 'Regenjacke',
+      'garment_beach': 'Strandhemd',
       'other': 'Teil',
     });
     return '$_temp0';

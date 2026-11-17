@@ -7,6 +7,7 @@ case $g in
   sailor) C="a cosy sailor sweater (knitted jumper) in a strong medium BLUE colour with white details (white sailor collar with stripes, white anchor on the chest) and plain BLUE trousers";;
   vest) C="a plain white shirt with short sleeves and over it an open BLUE trader's waistcoat (vest) with two small golden buttons and a pocket, and plain BLUE trousers";;
   hoodie) C="a cosy BLUE hooded sweatshirt (hoodie, hood down) with one big white star on the chest, and BLUE jogging trousers";;
+  beach) C="a light short-sleeved BLUE summer shirt (open collar, buttoned) with a white palm-leaf pattern, and plain BLUE knee-length shorts";;
   raincoat) C="a BLUE sailor's raincoat (oilskin jacket) with white toggle buttons and a white collar edge, and matching BLUE rain trousers, no hat";;
 esac
 if [ $fig = lion ]; then who="young lion"; pr="he"; else who="young lioness"; pr="she"; fi

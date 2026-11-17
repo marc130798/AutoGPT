@@ -156,6 +156,29 @@ class _ShipFlagPainter extends CustomPainter {
           Rect.fromCenter(center: c + Offset(h * 0.05, 0), width: h * 0.32, height: h * 0.14),
           Paint()..color = _white,
         );
+      case ShipFlag.book:
+        // Logbuch (Taschengeld-Bucht): aufgeschlagenes weißes Buch auf Grün.
+        canvas.drawRect(rect, Paint()..color = const Color(0xFF2E8B57));
+        final h = rect.height;
+        final c = rect.center + Offset(0, h * 0.04);
+        final page = Paint()..color = _white;
+        for (final side in [-1.0, 1.0]) {
+          final p = Path()
+            ..moveTo(c.dx, c.dy - h * 0.2)
+            ..quadraticBezierTo(c.dx + side * h * 0.18, c.dy - h * 0.3, c.dx + side * h * 0.38, c.dy - h * 0.24)
+            ..lineTo(c.dx + side * h * 0.38, c.dy + h * 0.2)
+            ..quadraticBezierTo(c.dx + side * h * 0.18, c.dy + h * 0.14, c.dx, c.dy + h * 0.24)
+            ..close();
+          canvas.drawPath(p, page);
+        }
+        final lineP = Paint()
+          ..color = const Color(0xFF2E8B57)
+          ..strokeWidth = h * 0.035;
+        canvas.drawLine(c + Offset(0, -h * 0.2), c + Offset(0, h * 0.24), lineP);
+        for (final dy in [-0.08, 0.02, 0.12]) {
+          canvas.drawLine(c + Offset(-h * 0.3, h * dy), c + Offset(-h * 0.08, h * dy), lineP);
+          canvas.drawLine(c + Offset(h * 0.08, h * dy), c + Offset(h * 0.3, h * dy), lineP);
+        }
       case ShipFlag.sun:
         canvas.drawRect(rect, Paint()..color = _orange);
         canvas.drawCircle(rect.center, rect.height * 0.24, Paint()..color = _gold);

@@ -51,6 +51,9 @@ VOICES = {
     "verkaeuferin": "cgSgspJ2msm6clMCkdW9",  # Jessica
     "bootsbauer": "bIHbv24MWmeRgasZH58o",  # Will
     "moritz": "N2lVS1w4EtoT3dr4eOWO",  # Callum
+    # Taschengeld-Bucht (17.11.2026, Claude hat gewählt, Marc kann tauschen): Standard-Stimmen.
+    "mia": "FGY2WhTYpPnrIDTdsKH5",  # Laura
+    "kurt": "JBFqnCBsd6RMkjVDRZzb",  # George
 }
 # Frühere Stimmen: Aufnahmen ohne gespeicherte Stimme stammen von diesen.
 # Wechselt eine Figur die Stimme, nimmt das Werkzeug ihre Sätze neu auf.
@@ -61,7 +64,7 @@ FORMAT = "mp3_44100_32"
 # Langsamer sprechen (Marc, 16.11.2026: „die sind alle zu schnell“, Probe B
 # gewählt). Ändert sich etwas hier, nimmt das Werkzeug alles neu auf.
 SETTINGS = {"speed": 0.87, "stability": 0.5, "similarity_boost": 0.75}
-ISLANDS = ["01-hafen", "02-tauschinsel", "03-wunschinsel", "04-spar-insel"]
+ISLANDS = ["01-hafen", "02-tauschinsel", "03-wunschinsel", "04-spar-insel", "05-taschengeld-bucht"]
 
 # Momente, deren Text sich seit der Liste geändert hat (jetzt wie in der App).
 OVERRIDES = {
@@ -196,6 +199,9 @@ def record(file: str, who: str, text: str) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--nur", default="")
+    # Teile auslassen, wenn die Zeichen im Monat knapp sind, zum Beispiel
+    # --ohne aufloesung,danach,schaetzfrage (Rest im nächsten Monat aufnehmen).
+    parser.add_argument("--ohne", default="")
     parser.add_argument("--liste", action="store_true")
     parser.add_argument("--plan", default="starter")
     args = parser.parse_args()
@@ -204,6 +210,7 @@ def main() -> None:
         (f, w, t)
         for f, w, t in lines()
         if args.nur in f
+        and not any(x and x in f for x in args.ohne.split(","))
         and (
             index.get(f, {}).get("text") != t
             or index.get(f, {}).get("einstellungen") != SETTINGS

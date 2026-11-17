@@ -2762,6 +2762,78 @@
         "shape": "rectangle"
       }
     },
+    "avatar.lion.beach": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.beach.png",
+      "placeholder": {
+        "label": "Löwe",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lion.beach.wave": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.beach.wave.png",
+      "placeholder": {
+        "label": "Löwe",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lion.beach.happy": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.beach.happy.png",
+      "placeholder": {
+        "label": "Löwe",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lion.beach.think": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.beach.think.png",
+      "placeholder": {
+        "label": "Löwe",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.beach": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.beach.png",
+      "placeholder": {
+        "label": "Löwin",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.beach.wave": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.beach.wave.png",
+      "placeholder": {
+        "label": "Löwin",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.beach.happy": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.beach.happy.png",
+      "placeholder": {
+        "label": "Löwin",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.beach.think": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.beach.think.png",
+      "placeholder": {
+        "label": "Löwin",
+        "color": "#E8B04A",
+        "shape": "rectangle"
+      }
+    },
     "avatar.lion.vest.wave": {
       "type": "image",
       "path": "assets/images/avatar.lion.vest.wave.png",

@@ -67,11 +67,13 @@ final shipyardItems = <LookItem>[
   LookItem(LookSlot.flag, ShipFlag.shell, 0, logbook: 'tauschinsel'),
   LookItem(LookSlot.flag, ShipFlag.bottle, 0, logbook: 'wunschinsel'),
   LookItem(LookSlot.flag, ShipFlag.coin, 0, logbook: 'spar-insel'),
+  LookItem(LookSlot.flag, ShipFlag.book, 0, logbook: 'taschengeld-bucht'),
   // Kleidungsstücke: je eins für jede geschaffte Insel.
   LookItem(LookSlot.garment, Garment.sailor, 0, island: 'hafen'),
   LookItem(LookSlot.garment, Garment.vest, 0, island: 'tauschinsel'),
   LookItem(LookSlot.garment, Garment.hoodie, 0, island: 'wunschinsel'),
   LookItem(LookSlot.garment, Garment.raincoat, 0, island: 'spar-insel'),
+  LookItem(LookSlot.garment, Garment.beach, 0, island: 'taschengeld-bucht'),
 ];
 
 /// Kleidungsstück, das die Insel [slug] freischaltet (für den Hinweis nach dem Insel-Abschluss).
@@ -83,7 +85,13 @@ LookItem? islandGarment(String slug) {
 }
 
 /// Schatzcodes aus den Logbüchern: Code → Insel. Nur Aussehen, nichts kaufbar.
-const logbookCodes = {'ANKER7': 'hafen', 'MUSCHEL3': 'tauschinsel', 'FLASCHE5': 'wunschinsel', 'TALER9': 'spar-insel'};
+const logbookCodes = {
+  'ANKER7': 'hafen',
+  'MUSCHEL3': 'tauschinsel',
+  'FLASCHE5': 'wunschinsel',
+  'TALER9': 'spar-insel',
+  'KURT5': 'taschengeld-bucht',
+};
 
 /// Insel zum eingetippten Code, egal ob groß, klein, mit Leerzeichen oder Strich; sonst `null`.
 String? logbookForCode(String input) => logbookCodes[input.toUpperCase().replaceAll(RegExp(r'[\s\-]'), '')];

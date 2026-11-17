@@ -29,7 +29,7 @@ enum Hat { none, captain, bandana, straw, tricorn, goldCaptain }
 enum Scarf { none, red, gold, purple }
 
 /// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
-enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin, bottle }
+enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin, bottle, book }
 
 /// Farbe der Segel des eigenen Schiffs (die App färbt die Segel ein).
 enum SailColor { white, red, blue, green, gold, purple }
@@ -44,7 +44,7 @@ enum ClothesColor { blue, pink, green, red, turquoise, yellow, purple }
 /// Kleidungsstück der Figur (Marcs Wunsch am 17.11.2026): Ringel-Shirt von
 /// Anfang an, die anderen gibt es nach geschafften Inseln. Alle sind im Bild
 /// blau-weiß und lassen sich in jeder [ClothesColor] tragen.
-enum Garment { stripes, sailor, vest, hoodie, raincoat }
+enum Garment { stripes, sailor, vest, hoodie, raincoat, beach }
 
 /// Seit 17.11.2026 (Marcs Wunsch) starten Löwe und Löwin gleich, ohne Farbe nach Geschlecht.
 

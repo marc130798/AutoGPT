@@ -21,4 +21,5 @@ const logbooks = [
   Logbook(island: 'tauschinsel', title: 'Tauschinsel'),
   Logbook(island: 'wunschinsel', title: 'Wunschinsel'),
   Logbook(island: 'spar-insel', title: 'Spar-Insel'),
+  Logbook(island: 'taschengeld-bucht', title: 'Taschengeld-Bucht'),
 ];

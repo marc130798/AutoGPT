@@ -377,8 +377,107 @@ def spar_insel():
     return s + "\n</body>\n</html>\n"
 
 
+def _wortsuche(words, size=9):
+    """Kleine Wörtersuche: Wörter waagerecht und senkrecht, Rest mit festen Buchstaben."""
+    grid = [["" for _ in range(size)] for _ in range(size)]
+    places = [(0, 0, 0), (2, 1, 0), (4, 0, 0), (6, 2, 0), (0, 8, 1), (8, 3, 0)]
+    for (r, c, down), w in zip(places, words):
+        for k, ch in enumerate(w):
+            rr, cc = (r + k, c) if down else (r, c + k)
+            grid[rr][cc] = ch
+    filler = "AEMORNSTLIKUBEGPA"
+    n = 0
+    for r in range(size):
+        for c in range(size):
+            if not grid[r][c]:
+                grid[r][c] = filler[n % len(filler)]
+                n += 3
+    rows = "".join("<tr>" + "".join(f"<td>{ch}</td>" for ch in row) + "</tr>" for row in grid)
+    return f'      <table class="grid" style="width:auto;margin:6px auto;text-align:center;font-weight:700;letter-spacing:2px">{rows}</table>\n'
+
+
+def taschengeld_bucht():
+    t = "Taschengeld-Bucht"
+    s = head(t) + cover(5, t, "Taschengeld einteilen, aufschreiben und planen")
+    s += page("Station 1", "Wie viel Taschengeld ist üblich?", t, 2,
+        task(1, "Was stimmt beim Taschengeld?", p("Kreuze alles an, was stimmt.")
+             + opts(["Jede Familie entscheidet selbst, wie viel es gibt.", "Wer mehr bekommt, muss oft auch mehr selbst bezahlen.", "Alle Kinder bekommen gleich viel.", "Vergleichen macht oft unzufrieden.", "Mit einer festen Summe kann man gut üben.", "Taschengeld muss man sofort ausgeben."], "checks two"))
+        + task(2, "Wer bezahlt was?", p("Frag deine Eltern und kreuze an, wer was bei euch bezahlt.")
+             + table(["", "Ich", "Meine Eltern"], [["Süßigkeiten", "", ""], ["Hefte und Stifte", "", ""], ["Kino mit Freunden", "", ""], ["Busfahrten", "", ""], ["Geschenke für Freunde", "", ""]]))
+        + task(3, "Wöchentlich oder monatlich?", p("Bekommst du dein Taschengeld jede Woche oder einmal im Monat? Was ist daran gut, was ist schwer?")
+             + '      <div class="writeline"></div><div class="writeline"></div>\n')
+        + talk("character.tala.think", "Wie viel Taschengeld hattest du als Kind?"))
+    s += page("Station 2", "Geld bekommt eine Aufgabe", t, 3,
+        task(1, "Talas 10 Taler", p("Tala legt <b>3 Taler</b> für ihren Wunschschatz zurück. Wie viel ist frei zum Ausgeben?")
+             + line("Frei zum Ausgeben: "))
+        + task(2, "Frei oder zurücklegen?", p("Schreib ein <b>F</b> (frei zum Ausgeben) oder ein <b>W</b> (für einen Wunschschatz zurücklegen) in den Kreis.")
+             + circles(["Ein Eis heute", "Rollschuhe für 40 Taler", "Sticker fürs Album", "Ein Zelt für die Ferien", "Saft für den Ausflug morgen", "Ein großes Lego-Schiff"]))
+        + task(3, "Meine Aufteilung", p("So teile ich mein eigenes Taschengeld auf:")
+             + table(["", "Betrag"], [["Mein Taschengeld", ""], ["Für meinen Wunschschatz", ""], ["Frei zum Ausgeben", ""]])
+             + line("Mein Wunschschatz ist: ")))
+    s += page("Station 3", "Einnahmen und Ausgaben", t, 4,
+        task(1, "Einnahme oder Ausgabe?", p("Schreib ein <b>E</b> für Einnahme oder ein <b>A</b> für Ausgabe in den Kreis.")
+             + circles(["Taschengeld von Mama", "Ein Eis am Kiosk", "Geld von Oma zum Geburtstag", "Eine Busfahrkarte", "Ein Heft für die Schule", "Geld fürs Rasenmähen"]))
+        + task(2, "Kurts Logbuch rechnen", p("Kurt beginnt mit <b>5 Talern</b>. Rechne den Stand nach jedem Zettel aus.")
+             + table(["Zettel", "+ / −", "Stand"], [["Am Anfang", "", "5"], ["Taschengeld", "+ 8", ""], ["Bonbons", "− 2", ""], ["Comic", "− 4", ""], ["Geld von Oma", "+ 5", ""], ["Eis", "− 3", ""]]))
+        + task(3, "Wofür geht mein Geld?", p("Male für jede Sache so viele Kästchen aus, wie du in einer Woche ausgibst.")
+             + table(["", "1", "2", "3", "4", "5", "6"], [["Süßes", "", "", "", "", "", ""], ["Spielzeug", "", "", "", "", "", ""], ["Schule", "", "", "", "", "", ""], ["Anderes", "", "", "", "", "", ""]])))
+    s += page("Station 4", "Mein Wochenplan", t, 5,
+        task(1, "Mit 8 Talern durch die Woche", p("Die Busfahrt (<b>2 Taler</b>) muss sein. Was passt noch in 8 Taler? Kreuze an und rechne.")
+             + opts(["Kinokarte: 6 Taler", "Sticker: 2 Taler", "Snack: 3 Taler", "Glitzerstift: 1 Taler"], "checks two")
+             + line("Das kostet zusammen: "))
+        + task(2, "Mein eigener Wochenplan", p("Plane deine nächste Woche. Was muss sein, was wünschst du dir?")
+             + table(["Tag", "Was?", "Muss sein?", "Taler"], [["Montag", "", "", ""], ["Dienstag", "", "", ""], ["Mittwoch", "", "", ""], ["Donnerstag", "", "", ""], ["Freitag", "", "", ""], ["Wochenende", "", "", ""]])
+             + line("Mein Taschengeld: ") + line("Alles zusammen kostet: ") + line("Passt es? ")))
+    s += page("Station 5", "Wenn das Geld alle ist", t, 6,
+        task(1, "Der Beutel ist leer", p("Es ist Mittwoch, und Talas Taschengeld ist schon weg. Was ist klug? Kreuze an.")
+             + opts(["Bis zum nächsten Taschengeld warten", "Sofort Geld leihen und doppelt zurückgeben", "Etwas machen, das nichts kostet", "Nächste Woche gleich am Montag planen"], "checks two"))
+        + task(2, "Leihen kostet mehr", p("Mia leiht Tala <b>5 Taler</b>. Nächste Woche will sie <b>10 Taler</b> zurück.")
+             + line("So viel muss Tala mehr zurückgeben: "))
+        + task(3, "Spaß ohne Geld", p("Schreib fünf Dinge auf, die Spaß machen und nichts kosten.")
+             + "".join('      <div class="writeline"></div>\n' for _ in range(5))))
+    s += page("Station 6", "Geld geschenkt bekommen", t, 7,
+        task(1, "Omas Geschenk", p("Oma schenkt dir <b>20 Taler</b>. Wie teilst du sie auf?")
+             + table(["Wofür?", "Taler"], [["Jetzt ausgeben", ""], ["Für meinen Wunschschatz", ""], ["Zusammen", "20"]]))
+        + task(2, "Rechnen wie Tala", p("Tala hatte <b>18 Taler</b> zurückgelegt und legt <b>12</b> dazu. Die Rollschuhe kosten <b>40 Taler</b>.")
+             + line("Jetzt hat sie: ") + line("Es fehlen noch: "))
+        + task(3, "Meine Danke-Karte", p("Male eine Danke-Karte für jemanden, der dir etwas geschenkt hat.") + draw(small=True)))
+    s += page("Station 7", "Taschengeld verhandeln", t, 8,
+        task(1, "Gut verhandeln", p("Was hilft, wenn du um mehr Taschengeld bittest? Kreuze an.")
+             + opts(["In einem ruhigen Moment fragen", "Mein Logbuch zeigen", "Quengeln, bis alle Ja sagen", "Anbieten, mehr selbst zu bezahlen", "Sagen, dass alle anderen mehr bekommen", "Freundlich bleiben, wenn die Antwort Nein ist"], "checks two"))
+        + task(2, "Meine guten Gründe", p("Warum könntest du mehr Taschengeld brauchen? Und was würdest du dafür selbst bezahlen?")
+             + line("Mein Grund: ") + line("Das bezahle ich dann selbst: "))
+        + task(3, "Übt das Gespräch", p("Spielt es zu Hause einmal durch. Diese Satzanfänge helfen:")
+             + opts(["„Ich habe aufgeschrieben, dass …“", "„Ich würde gern selbst … bezahlen.“", "„Können wir nächste Woche noch einmal darüber reden?“"], "checks"))
+        + talk("character.talo.think", "Was könnte ich ab jetzt selbst bezahlen?"))
+    s += page("Rätsel", "Kurts Rätselseite", t, 9,
+        task(1, "Wörtersuche", p("Finde die 6 Wörter: <b>TALER</b>, <b>BUDGET</b>, <b>KIOSK</b>, <b>SPAREN</b>, <b>LOGBUCH</b>, <b>PLAN</b>.")
+             + _wortsuche(["TALER", "BUDGET", "KIOSK", "SPAREN", "LOGBUCH", "PLAN"]))
+        + task(2, "Kurts Kopfrechnen", p("Rechne im Kopf.")
+             + table(["Aufgabe", "Ergebnis"], [["10 Taler − 3 − 4", ""], ["5 Wochen × 3 Taler", ""], ["Spiel für 15 Taler, 5 Taler pro Woche: wie viele Wochen?", ""]])))
+    s += page("Auftrag", "Logbuch-Woche", t, 10,
+        task(1, "Auftrag: Logbuch-Woche", p("Schreib eine Woche lang alles auf, was du bekommst und ausgibst. Schau es danach mit deinen Eltern an.")
+             + table(["Tag", "Bekommen", "Ausgegeben", "Wofür?"], [["Montag", "", "", ""], ["Dienstag", "", "", ""], ["Mittwoch", "", "", ""], ["Donnerstag", "", "", ""], ["Freitag", "", "", ""], ["Samstag", "", "", ""], ["Sonntag", "", "", ""]], "grid detective")
+             + line("Am meisten habe ich ausgegeben für: ")))
+    s += certificate(t, "Kassenwart der Bucht", "badge.taschengeld-bucht.png",
+        "wie man Taschengeld einteilt, aufschreibt und eine Woche plant",
+        "KURT5", "die <b>Logbuch-Flagge</b> für dein Schiff", 11)
+    s += parents(t, [
+        ("Seiten 2 und 3", ["Richtig: Familie entscheidet, wer mehr bekommt zahlt oft mehr selbst, Vergleichen macht unzufrieden, feste Summe zum Üben.",
+                     "Tala: 7 Taler frei. F: Eis, Sticker, Saft. W: Rollschuhe, Zelt, Lego-Schiff."]),
+        ("Seiten 4 und 5", ["E: Taschengeld, Geld von Oma, Rasenmähen. A: Eis, Busfahrkarte, Heft.",
+                     "Kurts Logbuch: 13, 11, 7, 12, 9 Taler.",
+                     "Wochenplan: Busfahrt und Kino (8 Taler) oder Busfahrt, Sticker, Snack und Glitzerstift (8 Taler)."]),
+        ("Seiten 6 bis 8", ["Klug: warten, etwas Kostenloses machen, nächste Woche gleich planen. Tala muss 5 Taler mehr zurückgeben.",
+                     "Tala hat jetzt 30 Taler, es fehlen noch 10.",
+                     "Hilfreich: ruhiger Moment, Logbuch zeigen, mehr selbst bezahlen, freundlich bleiben."]),
+        ("Seite 9", ["Kopfrechnen: 3 Taler, 15 Taler, 3 Wochen."]),
+    ], 12)
+    return s + "\n</body>\n</html>\n"
+
+
 if __name__ == "__main__":
-    for name, build in [("tauschinsel", tauschinsel), ("wunschinsel", wunschinsel), ("spar-insel", spar_insel)]:
+    for name, build in [("tauschinsel", tauschinsel), ("wunschinsel", wunschinsel), ("spar-insel", spar_insel), ("taschengeld-bucht", taschengeld_bucht)]:
         path = OUT / f"logbuch_{name}.html"
         path.write_text(build(), encoding="utf-8")
         print("geschrieben:", path.name)
