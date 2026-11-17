@@ -1041,20 +1041,19 @@ class _RoomState extends State<_Room> {
               ],
             ),
           )
-        : Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-            decoration: BoxDecoration(
-              color: const Color(0xF2FFF8E6),
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [BoxShadow(color: Color(0x33081C30), offset: Offset(0, 2))],
-            ),
+        // Kleine Holzschilder für die übrigen Räume (Marcs Wunsch am 17.11.2026
+        // statt der weißen Schilder); „Zur Karte“ bleibt das große.
+        : WoodPanel(
+            radius: 10,
+            padding: const EdgeInsets.fromLTRB(9, 0, 9, 1),
             child: Text(
               w.label,
               maxLines: 1,
               style: theme.textTheme.titleSmall?.copyWith(
                 fontFamily: displayFont,
                 fontWeight: FontWeight.w800,
-                color: palette.ink,
+                color: WoodColors.cream,
+                shadows: WoodColors.textShadows,
                 height: 1.25,
               ),
             ),
