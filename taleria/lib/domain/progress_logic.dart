@@ -38,18 +38,24 @@ enum StationState {
 /// Zustand jeder Insel auf der Karte, in der Reihenfolge der Route.
 /// [premium]: Das Eltern-Konto hat das Abo. Abgeschlossene Inseln bleiben
 /// abgeschlossen, auch ohne Abo (eingefroren).
-Map<String, IslandState> islandStates(List<MapIsland> islands, ChildProgress progress, {bool premium = true}) {
+/// [preview]: Vorschau-Kind (nur Testprojekt), jede Insel mit Inhalt ist offen.
+Map<String, IslandState> islandStates(
+  List<MapIsland> islands,
+  ChildProgress progress, {
+  bool premium = true,
+  bool preview = false,
+}) {
   final main = [...islands.where((i) => i.isMainRoute)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   final states = <String, IslandState>{};
   for (final island in islands) {
     // Wie island_unlocked() in der Datenbank: die Hauptroute-Insel mit der
     // nächstkleineren Reihenfolge muss abgeschlossen sein.
     final previous = main.where((m) => m.sortOrder < island.sortOrder).lastOrNull;
-    final unlocked = previous == null || progress.completedIslandIds.contains(previous.id);
+    final unlocked = preview || previous == null || progress.completedIslandIds.contains(previous.id);
     states[island.id] = switch (island) {
       _ when progress.completedIslandIds.contains(island.id) => IslandState.completed,
       _ when !island.hasContent => IslandState.fog,
-      _ when unlocked && island.isPremium && !premium => IslandState.premium,
+      _ when unlocked && island.isPremium && !premium && !preview => IslandState.premium,
       _ when unlocked => IslandState.open,
       _ => IslandState.locked,
     };
@@ -80,6 +86,7 @@ Map<String, StationState> stationStates(
   ChildProgress progress, {
   required bool onboardingCompleted,
   bool hasWind = true,
+  bool preview = false,
 }) {
   final sorted = [...stations]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   final states = <String, StationState>{};
@@ -88,7 +95,7 @@ Map<String, StationState> stationStates(
     final done = isStationDone(station, progress, onboardingCompleted: onboardingCompleted);
     states[station.id] = switch (station) {
       _ when done => StationState.done,
-      _ when !station.isRequired => StationState.open,
+      _ when !station.isRequired || preview => StationState.open,
       // Ankerplätze und Stopps auf See brauchen keinen Wind: Sie wiederholen,
       // was schon da war.
       _ when allEarlierDone => hasWind || station.isDive || station.isSeaStop ? StationState.open : StationState.noWind,
@@ -145,7 +152,12 @@ StationInfo? previousQuizStation(List<StationInfo> stations, StationInfo station
 /// Zustand der Stopps auf See vor einer Insel: der Reihe nach, sobald die
 /// Insel offen ist (die Insel davor geschafft, bei Abo-Inseln mit Abo).
 /// Stopps brauchen keinen Wind.
-Map<String, StationState> seaStopStates(List<StationInfo> stops, ChildProgress progress, IslandState island) {
+Map<String, StationState> seaStopStates(
+  List<StationInfo> stops,
+  ChildProgress progress,
+  IslandState island, {
+  bool preview = false,
+}) {
   final sorted = [...stops]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
   final reachable = island == IslandState.open || island == IslandState.completed;
   final states = <String, StationState>{};
@@ -154,7 +166,7 @@ Map<String, StationState> seaStopStates(List<StationInfo> stops, ChildProgress p
     final done = progress.doneStationIds.contains(stop.id);
     states[stop.id] = done
         ? StationState.done
-        : (reachable && allEarlierDone ? StationState.open : StationState.locked);
+        : (reachable && (allEarlierDone || preview) ? StationState.open : StationState.locked);
     if (!done) allEarlierDone = false;
   }
   return states;

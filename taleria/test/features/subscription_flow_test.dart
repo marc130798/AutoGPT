@@ -62,6 +62,26 @@ void main() {
     expect(find.byKey(const ValueKey('island-scene')), findsOneWidget);
   });
 
+  testWidgets('Vorschau-Kind: Spar-Insel ohne Abo und ohne die Inseln davor offen', (tester) async {
+    final backend = FakeBackend();
+    final parent = backend.addParent(pin: '2468');
+    final mila = backend.addChild(parent);
+    backend.children[0] = mila.copyWith(previewAll: true);
+    backend.codes['ABCD2345'] = (childId: mila.id, validUntil: DateTime(2026), used: false);
+    final content = FakeContent();
+    final progress = FakeProgress(content)..premium = false;
+
+    await tester.pumpWidget(buildTestApp(backend: backend, content: content, progress: progress));
+    await tester.pumpAndSettle();
+    await tapText(tester, 'Ich habe einen Code');
+    await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
+    await tapText(tester, 'An Bord gehen');
+    await tapText(tester, 'Zur Karte');
+    await tapKey(tester, 'island-spar-insel');
+    // Die Insel öffnet sich: zuerst die Ankunft wie beim ersten Besuch.
+    expect(find.text('Ankunftsfilm Spar-Insel'), findsOneWidget);
+  });
+
   Future<FakeBackend> openLighthouse(WidgetTester tester, {bool premium = false}) async {
     final backend = FakeBackend();
     final parent = backend.addParent(pin: '2468');
@@ -92,6 +112,29 @@ void main() {
 
     await tapKey(tester, 'test-premium');
     expect(backend.premiumParents, isEmpty);
+  });
+
+  testWidgets('Vorschau-Kind: Schalter nur in der Testumgebung, schaltet alles frei', (tester) async {
+    final backend = await openLighthouse(tester);
+    await tapText(tester, 'Mila');
+    await tapKey(tester, 'child-preview');
+    expect(backend.children.single.previewAll, isTrue);
+    await tapKey(tester, 'child-preview');
+    expect(backend.children.single.previewAll, isFalse);
+  });
+
+  testWidgets('Vorschau-Kind: ohne Test-Einstellung (wie in Live) kein Schalter', (tester) async {
+    final backend = FakeBackend()..testPurchases = false;
+    final parent = backend.addParent(pin: '2468');
+    backend.addChild(parent);
+    backend.signInAs('eltern@test.invalid');
+    final content = FakeContent();
+    await tester.pumpWidget(buildTestApp(backend: backend, content: content, progress: FakeProgress(content)));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const ValueKey('pin-gate-field')), '2468');
+    await tapText(tester, 'Öffnen');
+    await tapText(tester, 'Mila');
+    expect(find.byKey(const ValueKey('child-preview')), findsNothing);
   });
 
   testWidgets('Gratis: ein Kinder-Profil, für das zweite geht es zum Abo', (tester) async {

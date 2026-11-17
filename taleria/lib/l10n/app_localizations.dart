@@ -5676,6 +5676,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Glitzer-Verpackung'**
   String get shopTrickSparkle;
+
+  /// Leuchtturm, nur Testumgebung: Schalter für das Vorschau-Kind
+  ///
+  /// In de, this message translates to:
+  /// **'Alles offen (Vorschau)'**
+  String get lighthousePreviewSwitch;
+
+  /// Leuchtturm, nur Testumgebung: Erklärung zum Vorschau-Kind
+  ///
+  /// In de, this message translates to:
+  /// **'Nur zum Testen: Alle Inseln, Stationen und Spiele sind offen, ohne Reihenfolge, Wind und Abo. Jede Station läuft trotzdem wie beim ersten Mal. Diesen Schalter gibt es nur in der Testumgebung.'**
+  String get lighthousePreviewHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -61,6 +61,7 @@ class IslandController extends ChangeNotifier {
         progress,
         onboardingCompleted: child.onboardingCompleted,
         hasWind: _pace.hasWind,
+        preview: child.previewAll,
       );
       _arrivalPending = details.hasArrival && !await _settings.arrivalSeen(child.id, island.id);
     } on AppFailure catch (e) {

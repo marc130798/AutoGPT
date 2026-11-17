@@ -392,6 +392,11 @@ void main() {
       expect(routeBlock(islands, states), isNull);
     });
 
+    test('Vorschau-Kind: jede Insel mit Inhalt offen, auch ohne Abo; Nebel bleibt Nebel', () {
+      final states = islandStates(islands, const ChildProgress(), premium: false, preview: true);
+      expect(states, {'a': IslandState.open, 'b': IslandState.open, 'c': IslandState.fog});
+    });
+
     test('Abgeschlossene Premium-Inseln bleiben abgeschlossen, auch ohne Abo', () {
       final states = islandStates(islands, const ChildProgress(completedIslandIds: {'a', 'b'}), premium: false);
       expect(states['b'], IslandState.completed);

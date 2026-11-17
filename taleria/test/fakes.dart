@@ -256,6 +256,15 @@ class FakeFamilyRepository implements FamilyRepository {
   }
 
   @override
+  Future<void> setChildPreview(String childId, {required bool on}) async {
+    backend.check();
+    if (!backend.testPurchases) throw const AppFailure(FailureKind.notAllowed);
+    _requireOwnChild(childId);
+    final index = backend.children.indexWhere((c) => c.id == childId);
+    backend.children[index] = backend.children[index].copyWith(previewAll: on);
+  }
+
+  @override
   Future<void> deleteChild(String childId) async {
     backend.check();
     _requireOwnChild(childId);

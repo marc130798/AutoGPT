@@ -76,6 +76,13 @@ class LighthouseController extends ChangeNotifier {
     await loadStats();
   }
 
+  /// Nur in der Testumgebung: Vorschau-Kind mit allem offen.
+  Future<void> setChildPreview(String childId, {required bool on}) async {
+    await _family.setChildPreview(childId, on: on);
+    _children = await _family.fetchChildren();
+    notifyListeners();
+  }
+
   /// Kurze Übersicht pro Kind. Nur ein Hinweis: Fehler werden weggelassen.
   Future<void> loadStats() async {
     final progress = _progress;

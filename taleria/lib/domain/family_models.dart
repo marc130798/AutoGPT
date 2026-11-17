@@ -51,6 +51,7 @@ class ChildProfile {
     this.shipName,
     this.onboardingCompleted = false,
     this.rankForm,
+    this.previewAll = false,
   });
 
   final String id;
@@ -73,6 +74,10 @@ class ChildProfile {
   /// Form der Rang-Namen, `null`, solange das Kind noch nicht gewählt hat.
   final RankForm? rankForm;
 
+  /// Vorschau-Kind (nur Testprojekt): alle Inseln und Stationen offen, ohne
+  /// Reihenfolge, Wind und Abo. Der Server prüft dasselbe (child_preview).
+  final bool previewAll;
+
   ChildProfile copyWith({
     String? nickname,
     int? birthYear,
@@ -81,6 +86,7 @@ class ChildProfile {
     String? shipName,
     bool? onboardingCompleted,
     RankForm? rankForm,
+    bool? previewAll,
   }) => ChildProfile(
     id: id,
     nickname: nickname ?? this.nickname,
@@ -91,6 +97,7 @@ class ChildProfile {
     shipName: shipName ?? this.shipName,
     onboardingCompleted: onboardingCompleted ?? this.onboardingCompleted,
     rankForm: rankForm ?? this.rankForm,
+    previewAll: previewAll ?? this.previewAll,
   );
 }
 

@@ -84,8 +84,11 @@ class MapController extends ChangeNotifier {
   StationState stopState(StationInfo stop) => _stopStates[stop.id] ?? StationState.locked;
 
   /// Die Insel ist offen, aber auf dem Weg dorthin liegen noch Stopps auf See.
+  /// Vorschau-Kinder dürfen jede Insel direkt betreten.
   bool waitingAtSea(MapIsland island) =>
-      stateOf(island) == IslandState.open && stopsBefore(island).any((s) => stopState(s) != StationState.done);
+      !child.previewAll &&
+      stateOf(island) == IslandState.open &&
+      stopsBefore(island).any((s) => stopState(s) != StationState.done);
 
   /// Die Insel, zu der ein Stopp auf See gehört.
   MapIsland islandOf(StationInfo stop) => _islands.firstWhere((i) => i.id == stop.islandId);
@@ -108,7 +111,7 @@ class MapController extends ChangeNotifier {
       final progress = await _progress.fetchProgress(child.id);
       _islands = islands;
       // Ohne Statistik ist das Abo unbekannt: dann entscheidet der Server.
-      _states = islandStates(islands, progress, premium: _stats?.premium ?? true);
+      _states = islandStates(islands, progress, premium: _stats?.premium ?? true, preview: child.previewAll);
       final stops = await _content.fetchSeaStops([
         for (final i in islands)
           if (i.hasContent) i.id,
@@ -118,7 +121,10 @@ class MapController extends ChangeNotifier {
           island.id: [...stops.where((s) => s.islandId == island.id)]
             ..sort((a, b) => a.sortOrder.compareTo(b.sortOrder)),
       };
-      _stopStates = {for (final island in islands) ...seaStopStates(_stops[island.id]!, progress, stateOf(island))};
+      _stopStates = {
+        for (final island in islands)
+          ...seaStopStates(_stops[island.id]!, progress, stateOf(island), preview: child.previewAll),
+      };
     } on AppFailure catch (e) {
       _failure = e.kind;
     }
@@ -127,5 +133,5 @@ class MapController extends ChangeNotifier {
   }
 
   /// Insel gehört zum Abo, das gerade nicht aktiv ist (auch schon abgeschlossene).
-  bool premiumBlocked(MapIsland island) => island.isPremium && !(_stats?.premium ?? true);
+  bool premiumBlocked(MapIsland island) => island.isPremium && !(_stats?.premium ?? true) && !child.previewAll;
 }

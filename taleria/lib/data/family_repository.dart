@@ -45,6 +45,9 @@ abstract interface class FamilyRepository {
 
   /// Nur in der Testumgebung: Abo testweise ein- oder ausschalten.
   Future<void> setTestPremium({required bool active});
+
+  /// Nur im Testprojekt: Vorschau-Kind mit allem offen.
+  Future<void> setChildPreview(String childId, {required bool on});
 }
 
 class SupabaseFamilyRepository implements FamilyRepository {
@@ -55,7 +58,7 @@ class SupabaseFamilyRepository implements FamilyRepository {
   // Nie "*" abfragen: die PIN-Prüfsumme ist für die App gesperrt.
   static const _parentColumns = 'id, user_id, has_parent_pin';
   static const _childColumns =
-      'id, nickname, birth_year, level_setting, stage, avatar, ship_name, onboarding_completed_at, rank_form';
+      'id, nickname, birth_year, level_setting, stage, avatar, ship_name, onboarding_completed_at, rank_form, preview_all';
 
   @override
   Future<ParentAccount?> fetchParent() => guardBackend(() async {
@@ -170,6 +173,10 @@ class SupabaseFamilyRepository implements FamilyRepository {
   Future<void> setTestPremium({required bool active}) =>
       guardBackend(() => _client.rpc<void>('set_test_premium', params: {'p_active': active}));
 
+  @override
+  Future<void> setChildPreview(String childId, {required bool on}) =>
+      guardBackend(() => _client.rpc<void>('set_child_preview', params: {'p_child_id': childId, 'p_on': on}));
+
   static ChildProfile _childFromRow(Map<String, dynamic> row) {
     final avatar = row['avatar'] as Map<String, dynamic>?;
     return ChildProfile(
@@ -183,6 +190,7 @@ class SupabaseFamilyRepository implements FamilyRepository {
       shipName: row['ship_name'] as String?,
       onboardingCompleted: row['onboarding_completed_at'] != null,
       rankForm: RankForm.parse(row['rank_form']),
+      previewAll: row['preview_all'] as bool? ?? false,
     );
   }
 }

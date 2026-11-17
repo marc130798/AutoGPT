@@ -3583,4 +3583,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get shopTrickSparkle => 'Glitzer-Verpackung';
+
+  @override
+  String get lighthousePreviewSwitch => 'Alles offen (Vorschau)';
+
+  @override
+  String get lighthousePreviewHint =>
+      'Nur zum Testen: Alle Inseln, Stationen und Spiele sind offen, ohne Reihenfolge, Wind und Abo. Jede Station läuft trotzdem wie beim ersten Mal. Diesen Schalter gibt es nur in der Testumgebung.';
 }

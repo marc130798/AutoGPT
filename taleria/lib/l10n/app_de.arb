@@ -5014,5 +5014,13 @@
   "shopTrickSparkle": "Glitzer-Verpackung",
   "@shopTrickSparkle": {
     "description": "Verkaufstrick: schöne Verpackung, wenig drin"
+  },
+  "lighthousePreviewSwitch": "Alles offen (Vorschau)",
+  "@lighthousePreviewSwitch": {
+    "description": "Leuchtturm, nur Testumgebung: Schalter für das Vorschau-Kind"
+  },
+  "lighthousePreviewHint": "Nur zum Testen: Alle Inseln, Stationen und Spiele sind offen, ohne Reihenfolge, Wind und Abo. Jede Station läuft trotzdem wie beim ersten Mal. Diesen Schalter gibt es nur in der Testumgebung.",
+  "@lighthousePreviewHint": {
+    "description": "Leuchtturm, nur Testumgebung: Erklärung zum Vorschau-Kind"
   }
 }

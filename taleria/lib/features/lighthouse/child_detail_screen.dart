@@ -246,6 +246,19 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
                     onTap: () => _openBudget(child, BudgetSection.money),
                   ),
                 ),
+                // Nur im Testprojekt (Marcs Wunsch am 17.11.2026): alles ansehen, ohne zu spielen.
+                if (widget.controller.subscription.testPurchases)
+                  Card(
+                    child: SwitchListTile(
+                      key: const ValueKey('child-preview'),
+                      value: child.previewAll,
+                      secondary: const Icon(Icons.visibility_outlined),
+                      title: Text(l10n.lighthousePreviewSwitch),
+                      subtitle: Text(l10n.lighthousePreviewHint),
+                      onChanged: (on) =>
+                          runWithFeedback(context, () => widget.controller.setChildPreview(child.id, on: on)),
+                    ),
+                  ),
                 const SizedBox(height: 8),
                 ListTile(
                   leading: const Icon(Icons.edit_outlined),
