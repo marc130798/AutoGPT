@@ -62,8 +62,8 @@ void main() {
     await tester.pumpAndSettle();
     // Kleiderfarbe: Blau-Weiß oder Rosa-Weiß, weitere Farben später in der Werft.
     expect(find.text('Welche Farben magst du?'), findsOneWidget);
-    // Die Löwin trägt als Standard Rosa-Weiß; das Kind kann umwählen.
-    await tapKey(tester, 'clothes-blue');
+    // Alle Farben stehen neutral zur Wahl; Mila nimmt Rosa-Weiß.
+    expect(find.byKey(const ValueKey('clothes-purple')), findsOneWidget);
     await tapKey(tester, 'clothes-pink');
     await tapText(tester, 'So sehe ich aus!');
 

@@ -188,8 +188,7 @@ class _AvatarStep extends StatelessWidget {
               FigureChoice(
                 key: const ValueKey('avatar-preview'),
                 avatar: avatar,
-                // Mit der Figur wechselt auch die Standard-Farbe; danach darf das Kind umwählen.
-                onChoose: (f) => update(avatar.copyWith(figure: f, clothes: defaultClothes(f))),
+                onChoose: (f) => update(avatar.copyWith(figure: f)),
               ),
               const SizedBox(height: 16),
               Text(l10n.figureHint, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),

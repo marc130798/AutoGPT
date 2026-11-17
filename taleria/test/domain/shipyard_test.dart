@@ -93,8 +93,7 @@ void main() {
     expect(avatar.clothes, ClothesColor.green);
     expect(wearsLook(avatar, green), isTrue);
     expect(AvatarConfig.fromJson(avatar.toJson()).clothes, ClothesColor.green);
-    expect(AvatarConfig.fromJson({'figure': 'lion'}).clothes, ClothesColor.blue, reason: 'alte Profile: Löwe blau');
-    expect(AvatarConfig.fromJson({'figure': 'lioness'}).clothes, ClothesColor.pink, reason: 'Löwin rosa');
+    expect(AvatarConfig.fromJson({'figure': 'lioness'}).clothes, ClothesColor.blue, reason: 'gleicher Start für alle');
     expect(AvatarConfig.fromJson({'figure': 'lioness', 'clothes': 'blue'}).clothes, ClothesColor.blue);
 
     final sailor = islandGarment('hafen')!;

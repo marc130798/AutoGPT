@@ -46,9 +46,7 @@ enum ClothesColor { blue, pink, green, red, turquoise, yellow, purple }
 /// blau-weiß und lassen sich in jeder [ClothesColor] tragen.
 enum Garment { stripes, sailor, vest, hoodie, raincoat }
 
-/// Standard-Kleider (Marcs Wunsch am 17.11.2026): Löwe Blau-Weiß, Löwin Rosa-Weiß.
-ClothesColor defaultClothes(PlayerFigure figure) =>
-    figure == PlayerFigure.lioness ? ClothesColor.pink : ClothesColor.blue;
+/// Seit 17.11.2026 (Marcs Wunsch) starten Löwe und Löwin gleich, ohne Farbe nach Geschlecht.
 
 class AvatarConfig {
   const AvatarConfig({
@@ -86,12 +84,7 @@ class AvatarConfig {
       flag: pick(ShipFlag.values, 'flag', fallback.flag),
       sails: pick(SailColor.values, 'sails', fallback.sails),
       figurehead: pick(Figurehead.values, 'figurehead', fallback.figurehead),
-      // Ohne Angabe (Profile von vor dem 17.11.2026): der Standard der Figur.
-      clothes: pick(
-        ClothesColor.values,
-        'clothes',
-        defaultClothes(pick(PlayerFigure.values, 'figure', fallback.figure)),
-      ),
+      clothes: pick(ClothesColor.values, 'clothes', fallback.clothes),
       garment: pick(Garment.values, 'garment', fallback.garment),
       logbooks: {
         for (final l in (json['logbooks'] as List?) ?? const [])

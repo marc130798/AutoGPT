@@ -69,65 +69,49 @@ class FigureChoice extends StatelessWidget {
   }
 }
 
-/// Wahl der Kleiderfarbe im Intro: Blau-Weiß oder Rosa-Weiß (Marcs Wunsch am
-/// 17.11.2026). Ohne „Junge“ oder „Mädchen“, das Kind wählt einfach die Farbe.
-/// Weitere Farben gibt es in der Werft.
+/// Wahl der Kleiderfarbe im Intro: alle Farben auf einmal, neutral, ohne
+/// Einteilung nach Junge oder Mädchen (Marcs Wunsch am 17.11.2026). Später
+/// lässt sich die Farbe in der Werft jederzeit ändern.
 class ClothesStartChoice extends StatelessWidget {
   const ClothesStartChoice({super.key, required this.avatar, required this.onChoose});
 
   final AvatarConfig avatar;
   final ValueChanged<ClothesColor> onChoose;
 
-  static const choices = [ClothesColor.blue, ClothesColor.pink];
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     final palette = context.palette;
-    return Row(
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 10,
+      runSpacing: 10,
       children: [
-        for (final (i, c) in choices.indexed) ...[
-          if (i > 0) const SizedBox(width: 12),
-          Expanded(
-            child: Semantics(
-              button: true,
-              selected: avatar.clothes == c,
-              label: l10n.lookName('clothes_${c.name}'),
-              excludeSemantics: true,
-              child: InkWell(
-                key: ValueKey('clothes-${c.name}'),
-                borderRadius: BorderRadius.circular(18),
-                onTap: () => onChoose(c),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: avatar.clothes == c ? palette.gold.withValues(alpha: 0.22) : palette.paper,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: avatar.clothes == c ? palette.gold : palette.ink.withValues(alpha: 0.15),
-                      width: avatar.clothes == c ? 4 : 1.5,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      StripeSwatch(color: clothesSwatch(c)),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          l10n.lookName('clothes_${c.name}'),
-                          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
-                        ),
-                      ),
-                    ],
+        for (final c in ClothesColor.values)
+          Semantics(
+            button: true,
+            selected: avatar.clothes == c,
+            label: l10n.lookName('clothes_${c.name}'),
+            excludeSemantics: true,
+            child: InkWell(
+              key: ValueKey('clothes-${c.name}'),
+              customBorder: const CircleBorder(),
+              onTap: () => onChoose(c),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: avatar.clothes == c ? palette.gold.withValues(alpha: 0.25) : palette.paper,
+                  border: Border.all(
+                    color: avatar.clothes == c ? palette.gold : palette.ink.withValues(alpha: 0.15),
+                    width: avatar.clothes == c ? 4 : 1.5,
                   ),
                 ),
+                child: StripeSwatch(color: clothesSwatch(c), size: 44),
               ),
             ),
           ),
-        ],
       ],
     );
   }
