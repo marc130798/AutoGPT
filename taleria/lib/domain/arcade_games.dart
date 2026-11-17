@@ -109,11 +109,13 @@ class GullFlightGame {
   final double width;
   final Random _random;
 
+  /// Mia fliegt im linken Drittel, damit man die Hindernisse kommen sieht.
+  double get birdX => min(width * 0.28, 0.32);
+
   static const gravity = 2.1;
   static const flapSpeed = -0.78;
   static const maxFall = 1.1;
   static const sea = 0.9;
-  static const birdX = 0.32;
   static const birdRadius = 0.035;
   static const pickupRadius = 0.03;
   static const obstacleWidth = 0.075;

@@ -41,12 +41,12 @@ void main() {
   test('Taler kommen in die Tasche, das Sparglas macht sie sicher', () {
     final game = _game()..flap();
     game.pickups
-      ..add(GullPickup(x: GullFlightGame.birdX, y: game.y))
-      ..add(GullPickup(x: GullFlightGame.birdX, y: game.y));
+      ..add(GullPickup(x: game.birdX, y: game.y))
+      ..add(GullPickup(x: game.birdX, y: game.y));
     game.step(0.001);
     expect(game.pocket, 2);
     expect(game.events, contains(GullEvent.coin));
-    game.pickups.add(GullPickup(x: GullFlightGame.birdX, y: game.y, jar: true));
+    game.pickups.add(GullPickup(x: game.birdX, y: game.y, jar: true));
     game.step(0.001);
     expect(game.saved, 2);
     expect(game.pocket, 0);
@@ -83,9 +83,7 @@ void main() {
     final game = _game()..flap();
     // Ein einfacher Autopilot: flattern, wenn Mia unter die Mitte der nächsten Lücke sinkt.
     for (var i = 0; i < 1500 && !game.over; i++) {
-      final next = game.obstacles
-          .where((o) => o.x + GullFlightGame.obstacleWidth > GullFlightGame.birdX - 0.05)
-          .firstOrNull;
+      final next = game.obstacles.where((o) => o.x + GullFlightGame.obstacleWidth > game.birdX - 0.05).firstOrNull;
       final target = next?.centerAt(game.time) ?? 0.5;
       if (game.y > target + 0.03 && game.vy > -0.2) game.flap();
       game.step(0.02);

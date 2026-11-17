@@ -321,7 +321,7 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
               children: [
                 Positioned.fill(child: CustomPaint(painter: _GullPainter(game))),
                 Positioned(
-                  left: GullFlightGame.birdX * unit - birdSize / 2,
+                  left: game.birdX * unit - birdSize / 2,
                   top: game.y * unit - birdSize / 2,
                   width: birdSize,
                   height: birdSize,
@@ -372,7 +372,7 @@ class _GullFallback extends StatelessWidget {
   const _GullFallback();
 
   @override
-  Widget build(BuildContext context) => const Icon(Icons.flutter_dash, size: 48, color: Colors.white);
+  Widget build(BuildContext context) => const Icon(Icons.flight_rounded, size: 40, color: Colors.white);
 }
 
 class _Badge extends StatelessWidget {
