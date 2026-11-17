@@ -1,0 +1,86 @@
+<section class="page-hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Testfamilien gesucht</span>
+      <h1>Segelt mit uns los, vor allen anderen!</h1>
+      <p class="lead">Bevor Taleria startet, suchen wir Familien mit Kindern von 8 bis 12, die die App ausprobieren und uns ehrlich sagen, was gut ist und was noch hakt.</p>
+    </div>
+    <img class="art bob" src="bilder/character.tala.wave.png" alt="Tala winkt">
+  </div>
+</section>
+
+<div class="trust">
+  <ul class="wrap">
+    <li>Kostenlos in der Testphase</li>
+    <li>Alle fertigen Inseln</li>
+    <li>Im Browser, ohne App Store</li>
+    <li>Nur virtuelles Geld</li>
+    <li>Keine Werbung</li>
+  </ul>
+</div>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">Was ihr bekommt</span>
+      <h2 style="margin:10px 0 14px">Die ganze Reise, schon jetzt</h2>
+      <ul class="checks">
+        <li>Fünf fertige Inseln mit Bildergeschichten, Stimmen und Tauchgängen</li>
+        <li>16 Spiele, vom Wechselgeld-Rechnen bis zum Möwenflug</li>
+        <li>Logbücher zum Ausdrucken mit Urkunde und Schatzcode</li>
+        <li>Den Leuchtturm mit Wochenbericht, Lernstand, Aufträgen und Taschengeld</li>
+        <li>Als Dankeschön erfahrt ihr den Abo-Preis als Erste</li>
+      </ul>
+    </div>
+    <div class="duo">
+      <div class="phone"><img src="bilder/app.start.jpg" alt="Startseite der App" width="540" height="1169" loading="lazy"></div>
+      <div class="phone" style="margin-top:40px"><img src="bilder/app.insel.jpg" alt="Insel mit Stationen" width="540" height="1169" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">So läuft es ab</span>
+      <h2>In drei Schritten an Bord</h2>
+    </div>
+    <div class="steps">
+      <div class="card"><h3>Anmelden</h3><p>Ihr füllt das Formular unten aus. Wir melden uns innerhalb weniger Tage mit dem Link zur Testversion und einer kurzen Anleitung.</p></div>
+      <div class="card"><h3>Spielen</h3><p>Ihr legt im Leuchtturm ein Profil an, euer Kind meldet sich mit einem Code an und spielt ein paar Wochen in seinem Tempo.</p></div>
+      <div class="card"><h3>Erzählen</h3><p>Zwischendurch fragen wir kurz nach: Was hat Spaß gemacht? Wo hing es? Ein kurzer Fragebogen reicht.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="anmelden">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">Mitmachen</span>
+      <h2 style="margin:10px 0 14px">Jetzt als Testfamilie anmelden</h2>
+      <p class="lead" style="margin-bottom:16px">Wir brauchen nur wenige Angaben. Den Namen eures Kindes brauchen wir nicht.</p>
+      <p class="small">Lieber per E-Mail? Schreibt uns an <span class="ph">[E-Mail-Adresse]</span>.</p>
+    </div>
+    <form class="signup card" name="testfamilien" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="danke.html">
+      <input type="hidden" name="form-name" value="testfamilien">
+      <p class="sr"><label>Nicht ausfüllen: <input name="bot-field"></label></p>
+      <label>Euer Vorname<input name="vorname" autocomplete="given-name" required></label>
+      <label>E-Mail-Adresse<input type="email" name="email" autocomplete="email" required></label>
+      <label>Alter eures Kindes
+        <select name="alter" required>
+          <option value="">Bitte wählen</option>
+          <option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13 oder älter</option>
+        </select>
+      </label>
+      <label>Gerät, auf dem ihr spielen würdet
+        <select name="geraet" required>
+          <option value="">Bitte wählen</option>
+          <option>iPhone</option><option>iPad</option><option>Android-Handy</option><option>Android-Tablet</option><option>Computer</option>
+        </select>
+      </label>
+      <label>Möchtet ihr uns noch etwas sagen? (freiwillig)<textarea name="nachricht" rows="3"></textarea></label>
+      <label class="consent"><input type="checkbox" name="einwilligung" required> <span>Ich bin einverstanden, dass Taleria meine Angaben speichert, um mich zur Testphase zu kontaktieren. Ich kann das jederzeit widerrufen. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
+      <button class="btn btn-gold" type="submit">Anmelden</button>
+    </form>
+  </div>
+</section>

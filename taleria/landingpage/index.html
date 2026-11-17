@@ -1,738 +1,253 @@
-<title>Taleria</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Taleria ist ein Lernspiel für Kinder ab 8 Jahren: Mit Talo und Tala segeln sie von Insel zu Insel und lernen, wie Geld funktioniert.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
-<style>
-  /* Layout: eine Seereise von oben nach unten. Himmel und Deck oben, dann die
-     Route mit den Inseln (goldene Punktlinie wie auf der Karte in der App),
-     danach Station, Ränge, Leuchtturm für Eltern, Versprechen, Anheuern. */
-  :root {
-    --sky: #dff1fb;
-    --sea: #3e8fb0;
-    --sea-deep: #24476b;
-    --gold: #d4a62a;
-    --gold-soft: #f3d98a;
-    --coral: #e5675a;
-    --ink: #1c2b3a;
-    --ink-soft: #4a5d70;
-    --bg: #f4fafd;
-    --surface: #ffffff;
-    --surface-line: #cfe3ee;
-    --on-deep: #ffffff;
-    --fog: #b7c6d2;
-    --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
-    --body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
-    --step--1: 0.9rem;
-    --step-0: 1.05rem;
-    --step-1: 1.3rem;
-    --step-2: 1.7rem;
-    --step-3: clamp(2rem, 5vw, 2.8rem);
-    --step-4: clamp(2.4rem, 7vw, 4rem);
-    --radius: 18px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --sky: #10263b;
-      --sea: #5fb0d1;
-      --sea-deep: #0b1b2c;
-      --gold: #e6bb45;
-      --gold-soft: #6b5520;
-      --coral: #f08a7f;
-      --ink: #e8f1f7;
-      --ink-soft: #a9bccb;
-      --bg: #0d1e2f;
-      --surface: #152c42;
-      --surface-line: #24425e;
-      --on-deep: #ffffff;
-      --fog: #4c6378;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --sky: #10263b;
-    --sea: #5fb0d1;
-    --sea-deep: #0b1b2c;
-    --gold: #e6bb45;
-    --gold-soft: #6b5520;
-    --coral: #f08a7f;
-    --ink: #e8f1f7;
-    --ink-soft: #a9bccb;
-    --bg: #0d1e2f;
-    --surface: #152c42;
-    --surface-line: #24425e;
-    --on-deep: #ffffff;
-    --fog: #4c6378;
-    color-scheme: dark;
-  }
-
-  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: var(--step-0); line-height: 1.6; }
-  h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; }
-  h2 { font-size: var(--step-3); color: var(--ink); }
-  h3 { font-size: var(--step-1); }
-  p { margin: 0; }
-  a { color: inherit; }
-  img { display: block; max-width: 100%; height: auto; }
-  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 8px; }
-
-  .wrap {
-    max-width: 1080px; margin: 0 auto;
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-  section { padding-block: clamp(56px, 9vw, 104px); }
-  .eyebrow { font-weight: 800; font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--sea); }
-  .lead { font-size: var(--step-1); color: var(--ink-soft); max-width: 60ch; }
-  .head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 720px; }
-
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    font-family: var(--display); font-weight: 700; font-size: 1.15rem;
-    padding: 12px 26px 10px; border-radius: 999px; text-decoration: none;
-    border: 3px solid transparent; transition: transform .15s ease;
-  }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-gold { background: var(--gold); color: #2b1f05; border-color: #a77f15; box-shadow: 0 4px 0 #a77f15; }
-  .btn-ghost { background: rgba(255,255,255,.88); color: #24476b; border-color: #24476b; }
-
-  /* ---------- Hero: Blick vom Deck ---------- */
-  .hero {
-    position: relative; overflow: hidden; padding-block: 0;
-    background: url("bilder/home.background.jpg") center 62% / cover no-repeat, var(--sea);
-    color: #ffffff;
-  }
-  .hero::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(14,40,66,.18) 0%, rgba(14,40,66,.05) 40%, rgba(14,40,66,.55) 100%);
-    pointer-events: none;
-  }
-  .hero .wrap {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: end; gap: 24px;
-    padding-block: clamp(28px, 5vw, 48px) 0;
-  }
-  .hero-text { display: grid; gap: 18px; padding-bottom: clamp(40px, 7vw, 80px); align-self: center; }
-  .hero-logo { width: min(340px, 78%); filter: drop-shadow(0 6px 14px rgba(0,0,0,.25)); }
-  .hero h1 { font-size: var(--step-4); color: #ffffff; text-shadow: 0 2px 12px rgba(10,30,50,.45); }
-  .hero .sub {
-    font-size: var(--step-1); font-weight: 600; max-width: 34ch;
-    background: rgba(255,251,242,.94); color: #1c2b3a; padding: 14px 18px; border-radius: var(--radius);
-    border: 2px solid #e2c27a;
-  }
-  .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  .crew { display: flex; justify-content: center; align-items: flex-end; gap: 4px; }
-  .crew img { width: 46%; max-width: 230px; filter: drop-shadow(0 10px 12px rgba(0,0,0,.28)); }
-  .crew .tala { animation: bob 4.5s ease-in-out infinite; animation-delay: -1.8s; }
-  .crew .talo { animation: bob 4.5s ease-in-out infinite; }
-  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  .facts {
-    position: relative; z-index: 1; background: var(--sea-deep); color: var(--on-deep);
-  }
-  .facts ul {
-    list-style: none; margin: 0; padding-block: 18px;
-    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 28px;
-    font-weight: 700;
-  }
-  .facts li { display: flex; align-items: center; gap: 8px; }
-  .facts li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); flex: none; }
-
-  .badge {
-    justify-self: start; font-family: var(--display); font-weight: 800; font-size: 1.05rem; letter-spacing: .02em;
-    background: var(--gold); color: #2b1f05; padding: 6px 16px 4px; border-radius: 999px; border: 2px solid #a77f15;
-  }
-
-  /* ---------- Warum früh ---------- */
-  .why .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .why .card { background: var(--surface); border: 2px solid var(--surface-line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; }
-  .why .card h3 { font-size: 1.25rem; }
-  .why .card p { color: var(--ink-soft); }
-  .why .quote { margin-top: 28px; font-family: var(--display); font-size: var(--step-2); line-height: 1.25; max-width: 30ch; color: var(--sea-deep); }
-  :root[data-theme="dark"] .why .quote { color: var(--sea); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .why .quote { color: var(--sea); } }
-
-  /* ---------- So startet ihr ---------- */
-  .start-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
-  .start-steps li { counter-increment: s; background: var(--surface); border: 2px solid var(--surface-line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; }
-  .start-steps li::before {
-    content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
-    background: var(--gold); color: #2b1f05; font-family: var(--display); font-weight: 800; font-size: 1.2rem;
-  }
-  .start-steps b { font-family: var(--display); font-size: 1.2rem; line-height: 1.2; }
-  .start-steps span { color: var(--ink-soft); }
-
-  /* ---------- Fragen ---------- */
-  .faq { display: grid; gap: 10px; max-width: 820px; }
-  .faq details { background: var(--surface); border: 2px solid var(--surface-line); border-radius: 14px; padding: 14px 18px; }
-  .faq summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 1.15rem; list-style-position: inside; }
-  .faq details p { margin-top: 8px; color: var(--ink-soft); }
-
-  /* ---------- Die Reise: Route mit Inseln ---------- */
-  .voyage { background: linear-gradient(180deg, var(--sky), var(--bg)); }
-  .route { position: relative; display: grid; gap: 28px; }
-  .route::before {
-    content: ""; position: absolute; top: 40px; bottom: 40px; left: 50%; width: 0;
-    border-left: 5px dotted var(--gold); transform: translateX(-50%);
-  }
-  .isle {
-    position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 28px;
-  }
-  .isle:nth-child(even) .isle-art { order: 2; }
-  .isle-art img { width: min(100%, 380px); margin-inline: auto; filter: drop-shadow(0 12px 14px rgba(20,60,90,.22)); }
-  .isle-card {
-    background: var(--surface); border: 2px solid var(--surface-line); border-radius: var(--radius);
-    padding: 22px; display: grid; gap: 8px; position: relative; z-index: 1;
-  }
-  .isle-num { font-family: var(--display); font-weight: 800; color: var(--sea); font-size: var(--step--1); letter-spacing: .06em; text-transform: uppercase; }
-  .chip {
-    justify-self: start; font-size: .8rem; font-weight: 800; padding: 3px 12px; border-radius: 999px;
-    background: var(--gold-soft); color: var(--ink);
-  }
-  .isle ul { margin: 4px 0 0; padding-left: 1.1em; color: var(--ink-soft); }
-  .fog {
-    margin-top: 40px; position: relative; z-index: 1;
-    background: var(--surface); border: 2px dashed var(--fog); border-radius: var(--radius); padding: 22px;
-    display: grid; gap: 14px;
-  }
-  .fog ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .fog li {
-    font-weight: 700; font-size: var(--step--1); padding: 6px 12px; border-radius: 999px;
-    background: var(--bg); border: 1px solid var(--surface-line); color: var(--ink-soft);
-  }
-  .fog li b { color: var(--sea); margin-right: 4px; }
-  .fog li.next { border-color: var(--gold); color: var(--ink); }
-
-  /* ---------- Eine Station ---------- */
-  .station .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
-  .story { border-radius: var(--radius); border: 4px solid var(--gold); overflow: hidden; box-shadow: 0 14px 30px rgba(20,60,90,.18); }
-  .story-cap { margin-top: 12px; color: var(--ink-soft); font-size: var(--step--1); }
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: step; }
-  .steps li {
-    counter-increment: step; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: start;
-  }
-  .steps li::before {
-    content: counter(step); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
-    background: var(--sea-deep); color: var(--on-deep); font-family: var(--display); font-weight: 800; font-size: 1.2rem;
-  }
-  .steps b { display: block; font-family: var(--display); font-size: var(--step-1); line-height: 1.2; }
-  .steps span { color: var(--ink-soft); }
-  .note { margin-top: 22px; padding: 14px 18px; border-left: 5px solid var(--gold); background: var(--surface); border-radius: 0 12px 12px 0; }
-
-  /* ---------- Ränge ---------- */
-  .ranks { background: var(--sea-deep); color: var(--on-deep); }
-  .ranks h2, .ranks .lead { color: var(--on-deep); }
-  .ranks .eyebrow { color: var(--gold); }
-  .ladder { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
-  .ladder li { display: grid; gap: 6px; justify-items: center; text-align: center; }
-  .ladder img { width: min(100%, 120px); filter: drop-shadow(0 8px 10px rgba(0,0,0,.35)); }
-  .ladder b { font-family: var(--display); font-size: 1.15rem; line-height: 1.15; }
-  .ladder small { font-size: .85rem; opacity: .85; }
-  .ladder .xp { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gold); }
-  .ranks .aside { margin-top: 30px; opacity: .9; max-width: 64ch; }
-
-  /* ---------- Leuchtturm ---------- */
-  .lighthouse .grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: center; }
-  .lighthouse .tower { justify-self: center; width: 200px; filter: drop-shadow(0 12px 14px rgba(20,60,90,.25)); }
-  .features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .feature { background: var(--surface); border: 2px solid var(--surface-line); border-radius: var(--radius); padding: 18px; display: grid; gap: 6px; }
-  .feature h3 { font-size: 1.2rem; color: var(--sea-deep); }
-  :root[data-theme="dark"] .feature h3 { color: var(--sea); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .feature h3 { color: var(--sea); } }
-  .feature p { color: var(--ink-soft); font-size: .98rem; }
-  .pots { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-  .pots span { font-size: .8rem; font-weight: 800; padding: 2px 10px; border-radius: 999px; background: var(--bg); border: 1px solid var(--surface-line); }
-
-  /* ---------- Versprechen ---------- */
-  .promise { background: linear-gradient(180deg, var(--bg), var(--sky)); }
-  .promise ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .promise li { background: var(--surface); border-radius: var(--radius); padding: 18px; border: 2px solid var(--surface-line); }
-  .promise li b { display: block; font-family: var(--display); font-size: 1.15rem; margin-bottom: 4px; }
-  .promise li span { color: var(--ink-soft); font-size: .98rem; }
-  .price { margin-top: 28px; display: grid; gap: 6px; max-width: 64ch; }
-
-  /* ---------- Anheuern ---------- */
-  .join { padding-block: clamp(56px, 9vw, 96px) 0; background: var(--sea); color: #ffffff; overflow: hidden; }
-  .join .wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 24px; align-items: end; }
-  .join h2 { color: #ffffff; }
-  .join .text { display: grid; gap: 16px; padding-bottom: clamp(40px, 7vw, 80px); }
-  .join .text p { font-size: var(--step-1); max-width: 46ch; }
-  .contact {
-    background: rgba(255,251,242,.96); color: #1c2b3a; border-radius: var(--radius); padding: 16px 18px;
-    display: grid; gap: 8px; max-width: 460px; border: 2px solid #e2c27a;
-  }
-  .contact .todo { font-weight: 800; background: #fde7e4; color: #9a2d22; padding: 2px 8px; border-radius: 6px; }
-  .join .taleron { width: min(100%, 360px); justify-self: center; }
-
-  footer { background: var(--sea-deep); color: var(--on-deep); }
-  footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; font-size: var(--step--1); }
-  footer nav { display: flex; gap: 18px; }
-  footer .legal { opacity: .85; max-width: 60ch; }
-
-  @media (max-width: 820px) {
-    .hero .wrap, .station .grid, .lighthouse .grid, .join .wrap { grid-template-columns: minmax(0, 1fr); }
-    .hero-text { padding-bottom: 8px; }
-    .crew img { width: 40%; max-width: 170px; }
-    .route::before { left: 22px; }
-    .isle { grid-template-columns: minmax(0, 1fr); gap: 10px; padding-left: 44px; }
-    .isle:nth-child(even) .isle-art { order: 0; }
-    .ladder { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 26px; }
-    .features, .promise ul, .why .grid, .start-steps { grid-template-columns: minmax(0, 1fr); }
-    .lighthouse .tower { width: 140px; }
-    .join .text { padding-bottom: 0; }
-    .join .taleron { width: 70%; }
-  }
-  @media (max-width: 420px) {
-    .ladder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .facts ul { justify-content: flex-start; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .crew img { animation: none !important; }
-    .btn { transition: none; }
-  }
-
-  /* ---------- Schöner: Wellen, Bilder in Karten, dunkles Band ---------- */
-  .wave { display: block; width: 100%; height: clamp(36px, 6vw, 80px); fill: var(--sea-deep); }
-  .wave-top { margin-bottom: -1px; }
-  .wave-bottom { transform: scaleY(-1); margin-top: -1px; }
-
-  .why { background:
-      radial-gradient(900px 340px at 85% 0%, color-mix(in srgb, var(--sea) 16%, transparent), transparent 70%),
-      var(--bg); }
-  .why .card {
-    padding: 0; overflow: hidden; border: 0;
-    box-shadow: 0 10px 28px color-mix(in srgb, var(--sea-deep) 16%, transparent);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-  .why .card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px color-mix(in srgb, var(--sea-deep) 22%, transparent); }
-  .why .card h3, .why .card p { padding-inline: 22px; }
-  .why .card p { padding-bottom: 22px; }
-  .card-art {
-    height: 170px; display: grid; place-items: center; margin-bottom: 6px;
-    background: linear-gradient(160deg, color-mix(in srgb, var(--sea) 30%, var(--surface)), color-mix(in srgb, var(--gold) 22%, var(--surface)));
-  }
-  .card-art img { max-height: 140px; width: auto; filter: drop-shadow(0 10px 10px rgba(20,50,80,.28)); }
-
-  .quote-band { background: var(--sea-deep); color: var(--on-deep); padding-block: 0; overflow: hidden; }
-  .quote-band .wrap { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 28px; align-items: end; padding-top: 28px; }
-  .quote-band img { width: 170px; margin-bottom: -6px; filter: drop-shadow(0 8px 12px rgba(0,0,0,.35)); }
-  .quote-band figure { margin: 0; padding-bottom: 40px; display: grid; gap: 10px; }
-  .quote-band blockquote {
-    margin: 0; position: relative; font-family: var(--display); font-weight: 700; font-size: var(--step-3); line-height: 1.15;
-    background: #fffbf2; color: #1c2b3a; padding: 22px 26px; border-radius: 22px; border: 3px solid var(--gold); max-width: 26ch;
-  }
-  .quote-band blockquote::before {
-    content: ""; position: absolute; left: -16px; bottom: 26px; border: 10px solid transparent;
-    border-right: 14px solid var(--gold);
-  }
-  .quote-band figcaption { color: var(--gold); font-weight: 800; padding-left: 6px; }
-
-  .feature { grid-template-columns: 84px minmax(0, 1fr); column-gap: 16px; align-items: start; box-shadow: 0 8px 22px color-mix(in srgb, var(--sea-deep) 10%, transparent); border-color: transparent; }
-  .feature-art { grid-row: span 3; width: 84px; height: 84px; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(20,50,80,.25)); }
-  .feature .pots { grid-column: 2; }
-
-  .promise { background: var(--sea-deep); color: var(--on-deep); padding-block: 0; }
-  .promise > .wrap { padding-block: clamp(36px, 6vw, 64px); }
-  .promise .wave-top { fill: var(--sea-deep); background: var(--bg); }
-  .promise .wave-bottom { fill: var(--sea-deep); background: var(--bg); }
-  .promise h2, .promise .lead { color: var(--on-deep); }
-  .promise .lead { opacity: .9; }
-  .promise .eyebrow { color: var(--gold); }
-  .promise li {
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(2px);
-    display: grid; gap: 6px; align-content: start;
-  }
-  .promise li svg {
-    width: 46px; height: 46px; padding: 10px; border-radius: 50%; margin-bottom: 6px;
-    background: color-mix(in srgb, var(--gold) 22%, transparent); border: 2px solid var(--gold);
-    fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .promise li b { color: #ffffff; }
-  .promise li span { color: rgba(255,255,255,.78); }
-  .price {
-    grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: 20px; max-width: none;
-    background: #fffbf2; color: #1c2b3a; border-radius: 22px; padding: 18px 22px; border: 3px solid var(--gold);
-  }
-  .price img { width: 96px; filter: drop-shadow(0 8px 10px rgba(0,0,0,.25)); }
-  .price h3 { color: #24476b; margin-bottom: 4px; }
-
-  .start { background: linear-gradient(180deg, var(--bg), var(--sky)); }
-  .start-steps { position: relative; gap: 22px; }
-  .start-steps::before {
-    content: ""; position: absolute; left: 12%; right: 12%; top: 92px; border-top: 5px dotted var(--gold);
-  }
-  .start-steps li {
-    position: relative; border: 0; text-align: center; justify-items: center; padding-top: 18px;
-    box-shadow: 0 10px 26px color-mix(in srgb, var(--sea-deep) 14%, transparent);
-  }
-  .start-steps li::before { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 0 5px var(--bg); }
-  .step-art { height: 150px; display: grid; place-items: center; }
-  .step-art img { max-height: 140px; width: auto; filter: drop-shadow(0 10px 10px rgba(20,50,80,.25)); }
-  .ticket {
-    display: grid; gap: 2px; justify-items: center; padding: 14px 20px; border-radius: 14px;
-    background: #fffbf2; color: #1c2b3a; border: 3px dashed var(--gold); transform: rotate(-3deg);
-    box-shadow: 0 10px 18px rgba(20,50,80,.2);
-  }
-  .ticket code { font-family: var(--display); font-weight: 800; font-size: 1.8rem; letter-spacing: .12em; color: #24476b; }
-  .ticket small { font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #8a6a12; }
-
-  .faq details { border: 0; box-shadow: 0 6px 18px color-mix(in srgb, var(--sea-deep) 10%, transparent); }
-  .faq details[open] summary { color: var(--sea); }
-
-  .isle-card { border: 0; box-shadow: 0 10px 26px color-mix(in srgb, var(--sea-deep) 14%, transparent); }
-  .fog { background: color-mix(in srgb, var(--surface) 80%, transparent); }
-
-  .app .head { text-align: center; margin-inline: auto; }
-  .app .head .lead { margin-inline: auto; }
-  .phones { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); }
-  .phones li { text-align: center; }
-  .phone { max-width: 230px; margin: 0 auto; aspect-ratio: 390 / 844; border-radius: 30px; padding: 8px; background: #0e1b2a; border: 2px solid #2b3c50; box-shadow: 0 18px 36px color-mix(in srgb, var(--sea-deep) 25%, transparent); }
-  .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 23px; display: block; }
-  .phones b { display: block; font-family: var(--display); font-size: var(--step-1); margin-top: 14px; color: var(--ink); }
-  .phones span { display: block; font-size: var(--step--1); color: var(--ink-soft); }
-  .stores { margin: 28px auto 0; text-align: center; font-weight: 800; color: var(--ink-soft); }
-  @media (max-width: 820px) { .phones { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; } }
-
-  @media (max-width: 820px) {
-    .quote-band .wrap { grid-template-columns: 110px minmax(0, 1fr); gap: 16px; }
-    .quote-band img { width: 110px; }
-    .start-steps::before { display: none; }
-    .start-steps li { margin-top: 18px; }
-  }
-  @media (prefers-reduced-motion: reduce) { .why .card { transition: none; } }
-</style>
-
-<header class="hero" id="start">
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taleria – Geld verstehen, Abenteuer erleben</title>
+<meta name="description" content="Taleria ist eine Lern-App für Kinder von 8 bis 12 Jahren: Mit Talo und Tala segeln sie von Insel zu Insel und lernen spielerisch, wie Geld funktioniert. Ohne Werbung, ohne echtes Geld, Daten in der EU.">
+<meta property="og:title" content="Taleria – Geld verstehen, Abenteuer erleben">
+<meta property="og:description" content="Taleria ist eine Lern-App für Kinder von 8 bis 12 Jahren: Mit Talo und Tala segeln sie von Insel zu Insel und lernen spielerisch, wie Geld funktioniert. Ohne Werbung, ohne echtes Geld, Daten in der EU.">
+<meta property="og:image" content="bilder/app.start.jpg">
+<link rel="icon" href="bilder/brand.logo.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="sr" href="#inhalt">Zum Inhalt springen</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href="index.html"><img src="bilder/brand.logo.png" alt="Taleria, zur Startseite" width="768" height="324"></a>
+    <nav class="site-nav wide" aria-label="Hauptmenü">
+      <a href="index.html" aria-current="page">Start</a>
+      <a href="warum-jetzt.html">Warum jetzt?</a>
+      <a href="so-funktionierts.html">So funktioniert's</a>
+      <a href="inseln.html">Inseln</a>
+      <a href="eltern.html">Für Eltern</a>
+      <a href="preise.html">Preise</a>
+      <a href="fragen.html">Fragen</a>
+      <a class="cta" href="testfamilien.html">Testfamilie werden</a>
+    </nav>
+    <details class="menu">
+      <summary aria-label="Menü öffnen">Menü</summary>
+      <nav class="site-nav" aria-label="Hauptmenü">
+      <a href="index.html" aria-current="page">Start</a>
+      <a href="warum-jetzt.html">Warum jetzt?</a>
+      <a href="so-funktionierts.html">So funktioniert's</a>
+      <a href="inseln.html">Inseln</a>
+      <a href="eltern.html">Für Eltern</a>
+      <a href="preise.html">Preise</a>
+      <a href="fragen.html">Fragen</a>
+      <a class="cta" href="testfamilien.html">Testfamilie werden</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<main id="inhalt">
+<section class="hero">
   <div class="wrap">
     <div class="hero-text">
       <img class="hero-logo" src="bilder/brand.logo.png" alt="Taleria" width="768" height="324">
-      <span class="badge">Lern-App · Finanzbildung ab 8 Jahren</span>
-      <h1>Geld verstehen.<br>Abenteuer erleben.</h1>
-      <p class="sub">Eine App fürs Handy und Tablet für Kinder ab 8 Jahren: Mit Talo und Tala segelt dein Kind von Insel zu Insel und lernt, wie Geld funktioniert.</p>
+      <h1>Geld verstehen. Abenteuer erleben.</h1>
+      <p class="sub">Die Lern-App für Kinder von 8 bis 12 Jahren: Mit Talo und Tala segelt dein Kind von Insel zu Insel und lernt, wie Geld wirklich funktioniert.</p>
       <div class="actions">
-        <a class="btn btn-gold" href="#anheuern">Beta-Familie werden</a>
-        <a class="btn btn-ghost" href="#reise">Die Reise ansehen</a>
+        <a class="btn btn-gold" href="testfamilien.html">Kostenlos testen</a>
+        <a class="btn btn-ghost" href="so-funktionierts.html">So funktioniert's</a>
       </div>
     </div>
-    <div class="crew" aria-hidden="true">
-      <img class="talo" src="bilder/character.talo.wave.png" alt="" width="512" height="718">
-      <img class="tala" src="bilder/character.tala.wave.png" alt="" width="512" height="808">
-    </div>
+    <div class="phone"><img src="bilder/app.start.jpg" alt="Startseite der App: Talo, Tala und das Kind als Löwe auf dem Schiffsdeck, darunter Karte, Schatztruhe, Aufträge, Orden, Werft und Spiele" width="540" height="1169"></div>
   </div>
-</header>
-<div class="facts">
-  <div class="wrap">
-    <ul>
-      <li>Für Kinder ab 8 Jahren</li>
-      <li>App für Handy und Tablet</li>
-      <li>5 bis 10 Minuten pro Station</li>
-      <li>Nur virtuelles Geld</li>
-      <li>Ohne Werbung</li>
-      <li>Daten in der EU</li>
-    </ul>
-  </div>
+</section>
+
+<div class="trust">
+  <ul class="wrap">
+    <li>Für Kinder von 8 bis 12</li>
+    <li>Nur virtuelles Geld</li>
+    <li>Keine Werbung</li>
+    <li>Keine Käufe durch Kinder</li>
+    <li>Elternbereich mit PIN</li>
+    <li>Server in der EU</li>
+  </ul>
 </div>
 
-<main>
-  <section class="why" id="warum">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Warum schon so früh?</span>
-        <h2>Über Geld lernt man nicht von allein</h2>
-        <p class="lead">Kinder bekommen Taschengeld, sehen Preise im Laden und Werbung auf dem Handy. Wie Geld funktioniert, lernen die meisten aber erst spät, oft durch Fehler. Taleria fängt vorher an: spielerisch, in kleinen Schritten und mit Beispielen aus dem Alltag.</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="card-art"><img src="bilder/icon.map.png" alt="" width="384" height="300" loading="lazy"></div>
-          <h3>Verstehen statt auswendig lernen</h3>
-          <p>Warum gibt es Geld? Warum kostet ein Eis an der Strandpromenade mehr? Jede Station beantwortet eine Frage, die Kinder sich wirklich stellen.</p>
-        </article>
-        <article class="card">
-          <div class="card-art"><img src="bilder/pot.spend.png" alt="" width="384" height="300" loading="lazy"></div>
-          <h3>Üben mit eigenem Taschengeld</h3>
-          <p>In der App teilt dein Kind sein virtuelles Taschengeld selbst ein: ausgeben, sparen, verschenken. Fehler kosten nichts, aber man merkt sie.</p>
-        </article>
-        <article class="card">
-          <div class="card-art"><img src="bilder/icon.wish.png" alt="" width="384" height="300" loading="lazy"></div>
-          <h3>Gemeinsam darüber reden</h3>
-          <p>Zu jeder Insel gibt es Gesprächsideen und einen Auftrag fürs echte Leben, zum Beispiel beim nächsten Einkauf Preise schätzen.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="quote-band" aria-label="Unser Gedanke">
-    <div class="wrap">
-      <img src="bilder/character.tala.think.png" alt="" width="512" height="808" loading="lazy">
-      <figure>
-        <blockquote>Was Kinder mit 8 über Geld lernen, hilft ihnen mit 18.</blockquote>
-        <figcaption>Tala, Zahlmeisterin der Crew</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="app" id="app">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Die App</span>
-        <h2>Taleria passt in die Hosentasche</h2>
-        <p class="lead">Für iPhone, iPad und Android, im Hochformat und mit einer Hand bedienbar. Jede Station dauert nur ein paar Minuten, perfekt für zwischendurch.</p>
-      </div>
-      <ul class="phones">
-        <li><div class="phone"><img src="bilder/app.home.jpg" alt="Startseite der App mit Rang, Seemeilen und dem Knopf zur Karte" width="780" height="1688" loading="lazy"></div><b>Startseite</b><span>Rang, Seemeilen und Truhen</span></li>
-        <li><div class="phone"><img src="bilder/app.karte.jpg" alt="Seekarte mit dem Hafen und dem Schiff der Crew" width="780" height="1688" loading="lazy"></div><b>Seekarte</b><span>das Schiff segelt mit</span></li>
-        <li><div class="phone"><img src="bilder/app.geschichte.jpg" alt="Bildergeschichte mit Talo am Hafen" width="780" height="1688" loading="lazy"></div><b>Bildergeschichte</b><span>lernen in kurzen Szenen</span></li>
-        <li><div class="phone"><img src="bilder/app.ergebnis.jpg" alt="Station geschafft mit Sternen und Seemeilen" width="780" height="1688" loading="lazy"></div><b>Geschafft!</b><span>Sterne und Seemeilen</span></li>
-      </ul>
-      <p class="stores">Zum Testen läuft Taleria schon im Browser. Später gibt es die App im App Store und bei Google Play.</p>
-    </div>
-  </section>
-
-  <section class="voyage" id="reise">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Die Reise</span>
-        <h2>15 Inseln, ein Schatz</h2>
-        <p class="lead">Eine alte Schatzkarte ist zerrissen, und ihre Teile liegen auf den Inseln von Taleria. Jede Insel ist ein Thema. Wer alle Stationen einer Insel schafft, findet ein Kartenstück und segelt weiter.</p>
-      </div>
-
-      <div class="route">
-        <article class="isle">
-          <div class="isle-art"><img src="bilder/map.island.hafen.png" alt="Der Hafen von Taleria mit Leuchtturm, Marktständen und Steg" width="768" height="536" loading="lazy"></div>
-          <div class="isle-card">
-            <span class="isle-num">Insel 1</span>
-            <h3>Hafen von Taleria</h3>
-            <span class="chip">Jetzt dabei</span>
-            <ul>
-              <li>Was Geld ist und warum es Tauschen leichter macht</li>
-              <li>Woher Geld kommt und wie es früher aussah</li>
-              <li>Warum Dinge etwas kosten und wie man Preise liest</li>
-            </ul>
-          </div>
-        </article>
-        <article class="isle">
-          <div class="isle-art"><img src="bilder/map.island.tauschinsel.png" alt="Die Tauschinsel mit Aussichtsturm und Hütten" width="768" height="719" loading="lazy"></div>
-          <div class="isle-card">
-            <span class="isle-num">Insel 2</span>
-            <h3>Tauschinsel</h3>
-            <span class="chip">Jetzt dabei</span>
-            <ul>
-              <li>Wie Tauschen ohne Geld klappt und wann nicht</li>
-              <li>Warum etwas für jeden anders viel wert ist</li>
-              <li>Warum billig nicht immer günstig ist</li>
-            </ul>
-          </div>
-        </article>
-        <article class="isle">
-          <div class="isle-art"><img src="bilder/map.island.wunschinsel.png" alt="Die Wunschinsel mit bunten Läden" width="768" height="523" loading="lazy"></div>
-          <div class="isle-card">
-            <span class="isle-num">Insel 3</span>
-            <h3>Wunschinsel</h3>
-            <span class="chip">Jetzt dabei</span>
-            <ul>
-              <li>Was man wirklich braucht und was man sich nur wünscht</li>
-              <li>Wie die Warte-Regel bei Wünschen hilft</li>
-              <li>Wie man Nein sagt, wenn andere drängeln</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-
-      <div class="fog">
-        <h3>Noch im Nebel</h3>
-        <p>Die weiteren Inseln tauchen nach und nach auf. Bis zum Schluss geht es um alles, was Kinder in diesem Alter über Geld wissen sollten.</p>
-        <ol>
-          <li class="next"><b>4</b>Spar-Insel</li>
-          <li><b>5</b>Taschengeld-Bucht</li>
-          <li><b>6</b>Marktinsel</li>
-          <li><b>7</b>Werbe-Riff</li>
-          <li><b>8</b>Verdienst-Insel</li>
-          <li><b>9</b>Bank-Insel</li>
-          <li><b>10</b>Zins-Insel</li>
-          <li><b>11</b>Leih-Lagune</li>
-          <li><b>12</b>Sicherheits-Festung</li>
-          <li><b>13</b>Risiko-Klippen</li>
-          <li><b>14</b>Zukunftsinsel</li>
-          <li><b>15</b>Schatzinsel</li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="station" id="station">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Eine Station</span>
-        <h2>Zuhören, mitmachen, selbst ausprobieren</h2>
-        <p class="lead">Jede Station ist ein kleines Abenteuer mit einer klaren Lernidee. Erst wird geschätzt, dann erzählt, dann geübt.</p>
-      </div>
-      <div class="grid">
-        <div>
-          <div class="story"><img src="bilder/story.hafen.2.1.jpg" alt="Bildergeschichte am Hafen: Der Händler will Fisch, die Verkäuferin will Stiefel" width="800" height="597" loading="lazy"></div>
-          <p class="story-cap">Aus der Bildergeschichte „Was ist Geld?“: Der Händler hat Mehl und will Fisch. Die Verkäuferin hat Fisch und will Stiefel. Kann das gut gehen?</p>
-        </div>
-        <div>
-          <ol class="steps">
-            <li><div><b>Weißt du noch?</b><span>Zwei kurze Fragen zur letzten Station, damit nichts verloren geht.</span></div></li>
-            <li><div><b>Schätz mal!</b><span>Wie alt ist Geld? Das Kind tippt, die Auflösung kommt am Ende.</span></div></li>
-            <li><div><b>Bildergeschichte zum Mitmachen</b><span>Kurze Bilder mit Talo, Tala und den Inselbewohnern. Zwischendurch wird getippt, gewischt und gezogen.</span></div></li>
-            <li><div><b>Übung</b><span>Münzen legen, Körbe sortieren, Entscheidungen treffen. Fehler kosten nichts.</span></div></li>
-            <li><div><b>Kurzer Check</b><span>Ein paar Fragen, die jedes Mal neu gemischt werden.</span></div></li>
-            <li><div><b>Seemeilen und Bonus-Spiel</b><span>Für jede Station gibt es Seemeilen, manchmal ein echtes Mini-Spiel wie die Fischbrötchen-Kasse.</span></div></li>
-          </ol>
-          <p class="note">Nach jeder zweiten Station wirft das Schiff Anker: Beim Tauchgang wird wiederholt, und im Wrack wartet ein Fundstück für die Sammlung.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="ranks" id="raenge">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Seemeilen und Ränge</span>
-        <h2>Vom Schiffsjungen zur Kapitänin</h2>
-        <p class="lead">Mit jeder Station sammelt dein Kind Seemeilen und steigt im Rang auf. Ob die Ränge Schiffsjunge oder Schiffsmädchen heißen, wählt das Kind selbst.</p>
-      </div>
-      <ol class="ladder">
-        <li><img src="bilder/rank.schiffsjunge.png" alt="" width="384" height="384" loading="lazy"><b>Schiffsjunge</b><small>Schiffsmädchen</small><span class="xp">ab dem Start</span></li>
-        <li><img src="bilder/rank.matrose.png" alt="" width="384" height="384" loading="lazy"><b>Matrose</b><small>Matrosin</small><span class="xp">ab 1.500 Seemeilen</span></li>
-        <li><img src="bilder/rank.bootsmann.png" alt="" width="384" height="383" loading="lazy"><b>Bootsmann</b><small>Bootsfrau</small><span class="xp">ab 4.000 Seemeilen</span></li>
-        <li><img src="bilder/rank.steuermann.png" alt="" width="384" height="383" loading="lazy"><b>Steuermann</b><small>Steuerfrau</small><span class="xp">ab 8.000 Seemeilen</span></li>
-        <li><img src="bilder/rank.kapitaen.png" alt="" width="384" height="384" loading="lazy"><b>Kapitän</b><small>Kapitänin</small><span class="xp">mit der Goldenen Schatzkarte</span></li>
-      </ol>
-      <p class="aside">Am Ende der Reise wartet die Goldene Schatzkarte: der Finanzführerschein Stufe 1. Orden, Funde und Ränge werden immer verdient, nie gekauft.</p>
-    </div>
-  </section>
-
-  <section class="lighthouse" id="eltern">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Für Eltern</span>
-        <h2>Der Leuchtturm</h2>
-        <p class="lead">Im Elternbereich, geschützt mit deiner PIN, siehst du, was dein Kind lernt, und bringst das Thema Geld in euren Alltag.</p>
-      </div>
-      <div class="grid">
-        <img class="tower" src="bilder/parent.lighthouse.png" alt="Der Leuchtturm von Taleria" width="341" height="589" loading="lazy">
-        <div class="features">
-          <div class="feature">
-            <img class="feature-art" src="bilder/icon.tasks.png" alt="" width="384" height="300" loading="lazy">
-            <h3>Aufträge</h3>
-            <p>Du legst Aufgaben an, zum Beispiel „Zimmer aufräumen“. Dein Kind meldet sie erledigt, du bestätigst. Mit Belohnung oder einfach als Pflicht.</p>
-          </div>
-          <div class="feature">
-            <img class="feature-art" src="bilder/icon.treasure.png" alt="" width="384" height="436" loading="lazy">
-            <h3>Taschengeld und drei Truhen</h3>
-            <p>Virtuelles Taschengeld, das dein Kind selbst einteilt: zum Ausgeben, zum Sparen für einen Wunschschatz und zum Verschenken.</p>
-            <div class="pots"><span>Bordkasse</span><span>Schatztruhe</span><span>Glückstruhe</span></div>
-          </div>
-          <div class="feature">
-            <img class="feature-art" src="bilder/icon.badges.png" alt="" width="384" height="300" loading="lazy">
-            <h3>Lernstand pro Thema</h3>
-            <p>Du siehst, was sicher sitzt und wo es noch wackelt. Berechnet aus den Wiederholungen, nicht aus einem einzigen Test.</p>
-          </div>
-          <div class="feature">
-            <img class="feature-art" src="bilder/icon.ledger.png" alt="" width="384" height="300" loading="lazy">
-            <h3>Tempo und Fragen für zu Hause</h3>
-            <p>Standard sind zwei neue Stationen pro Woche, in den Ferien auch mehr. Dazu Gesprächsideen für den Esstisch zu jeder Insel.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="promise" id="versprechen">
-    <svg class="wave wave-top" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,48 C180,8 360,8 540,40 C720,72 900,76 1080,44 C1260,12 1350,20 1440,36 L1440,80 L0,80 Z"/></svg>
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Darauf kannst du dich verlassen</span>
-        <h2>Sicher an Bord</h2>
-        <p class="lead">Taleria ist für Kinder gebaut. Das heißt für uns: Ruhe, Klarheit und nichts, was Kinder unter Druck setzt.</p>
-      </div>
-      <ul>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.2a3 3 0 1 0 0 5.6M8 11h5M8 13h5"/></svg><b>Kein echtes Geld</b><span>Alle Beträge in der App sind virtuell. Keine Bankverbindung, keine Bezahlkarte.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l2 10h10l2-7H7"/><circle cx="10" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/><path d="M3 3l18 18"/></svg><b>Keine Käufe durch Kinder</b><span>Im Kinderbereich gibt es keine Preise, keine Kauf-Knöpfe und keine Links nach außen.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l6 4V6L7 10H4z"/><path d="M16 9.5a3.5 3.5 0 0 1 0 5M3 3l18 18"/></svg><b>Keine Werbung</b><span>Keine Werbung und keine Tracking-Dienste von anderen Firmen.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/></svg><b>Kein Druck</b><span>Keine Countdowns und keine Zufallsboxen. Falsche Antworten werden erklärt, nicht bestraft.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Wenige Daten</b><span>Ein Spitzname reicht. Kein Klarname, keine Adresse, kein Standort. Alles liegt auf Servern in der EU.</span></li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H10l-4 4v-4H5z"/><path d="M3 3l18 18"/></svg><b>Keine Chats</b><span>Dein Kind spielt für sich. Niemand Fremdes kann ihm schreiben.</span></li>
-      </ul>
-      <div class="price">
-        <img src="bilder/icon.treasure.png" alt="" width="384" height="436" loading="lazy">
-        <div>
-          <h3>Was kostet Taleria?</h3>
-          <p>Hafen und Tauschinsel sind kostenlos. Für alle weiteren Inseln gibt es später ein Familien-Abo, das du nur im Elternbereich abschließen kannst. Den Preis nennen wir vor dem Start.</p>
-        </div>
-      </div>
-    </div>
-    <svg class="wave wave-bottom" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,48 C180,8 360,8 540,40 C720,72 900,76 1080,44 C1260,12 1350,20 1440,36 L1440,80 L0,80 Z"/></svg>
-  </section>
-
-  <section class="start" id="so-gehts">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">So startet ihr</span>
-        <h2>In drei Schritten an Bord</h2>
-      </div>
-      <ol class="start-steps">
-        <li>
-          <div class="step-art"><img src="bilder/parent.lighthouse.png" alt="" width="341" height="589" loading="lazy"></div>
-          <b>Konto anlegen</b>
-          <span>Du richtest im Leuchtturm dein Eltern-Konto ein, legst eine PIN fest und erstellst ein Profil für dein Kind. Ein Spitzname reicht.</span>
-        </li>
-        <li>
-          <div class="step-art"><div class="ticket" aria-label="Beispiel für einen Anmelde-Code"><small>Anmelde-Code</small><code>ABCD 2345</code><small>15 Minuten gültig</small></div></div>
-          <b>Kind meldet sich an</b>
-          <span>Dein Kind gibt einen Code ein, den du im Leuchtturm erzeugst. Eine eigene E-Mail-Adresse braucht es nicht.</span>
-        </li>
-        <li>
-          <div class="step-art"><img src="bilder/ship.crew.png" alt="" width="512" height="461" loading="lazy"></div>
-          <b>Leinen los</b>
-          <span>Dein Kind baut sich einen Avatar, tauft sein Schiff und spielt zwei Stationen pro Woche. Das Tempo kannst du jederzeit ändern.</span>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="questions" id="fragen">
-    <div class="wrap">
-      <div class="head">
-        <span class="eyebrow">Fragen von Eltern</span>
-        <h2>Gut zu wissen</h2>
-      </div>
-      <div class="faq">
-        <details open><summary>Ab welchem Alter passt Taleria?</summary><p>Für Kinder ab 8 Jahren. Die Geschichten und Aufgaben sind so geschrieben, dass sie auch Älteren noch etwas beibringen. Kinder, die noch nicht mit Komma rechnen, spielen als Einsteiger mit ganzen Euro-Beträgen. Die Stufe stellst du im Leuchtturm ein.</p></details>
-        <details><summary>Wie lange spielt mein Kind?</summary><p>Eine Station dauert 5 bis 10 Minuten. Standard sind zwei neue Stationen pro Woche, dazwischen kann wiederholt werden. So bleibt es ein Abenteuer und wird keine Daueraufgabe.</p></details>
-        <details><summary>Geht es um echtes Geld?</summary><p>Nein. Alle Beträge in der App sind virtuell. Es gibt keine Bankverbindung und keine Bezahlkarte. Das echte Taschengeld bleibt bei euch zu Hause.</p></details>
-        <details><summary>Kann mein Kind etwas kaufen?</summary><p>Nein. Im Kinderbereich gibt es keine Preise, keine Kauf-Knöpfe und keine Links nach außen. Ein Abo können nur Eltern im Leuchtturm abschließen.</p></details>
-        <details><summary>Welche Daten speichert Taleria?</summary><p>Nur das Nötigste: Spitzname, Geburtsjahr, Avatar und den Spielstand. Kein Klarname, keine Adresse, kein Standort. Die Daten liegen auf Servern in der EU. Du kannst dein Konto jederzeit mit allen Daten löschen.</p></details>
-        <details><summary>Auf welchen Geräten läuft Taleria?</summary><p>Taleria entsteht als App für iPhone, iPad und Android. In der Testphase spielen Beta-Familien im Browser auf dem Handy oder Tablet.</p></details>
-        <details><summary>Ist Taleria eine Finanzberatung?</summary><p>Nein. Taleria erklärt, wie Geld funktioniert, und empfiehlt keine Banken, Produkte oder Anlagen.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="join" id="anheuern">
-    <div class="wrap">
-      <div class="text">
-        <span class="eyebrow" style="color: #fff3c4;">Beta</span>
-        <h2>Heuer bei uns an</h2>
-        <p>Wir suchen Familien mit Kindern ab 8 Jahren, die Taleria vor dem Start ausprobieren und uns sagen, was gut ist und was noch hakt.</p>
-        <div class="contact">
-          <strong>Schreib uns eine E-Mail:</strong>
-          <span><span class="todo">E-Mail-Adresse folgt</span></span>
-          <span>Erzähl uns kurz, wie alt dein Kind ist und auf welchem Gerät ihr spielen würdet.</span>
-        </div>
-      </div>
-      <img class="taleron" src="bilder/encounter.taleron.png" alt="Meister Taleron, das freundliche Seeungeheuer, taucht aus dem Meer auf" width="512" height="380" loading="lazy">
-    </div>
-  </section>
-</main>
-
-<footer>
+<section>
   <div class="wrap">
-    <p class="legal">Taleria ist ein Lernspiel und keine Finanzberatung. Alle Beträge sind virtuell.</p>
-    <nav aria-label="Rechtliches">
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
-    </nav>
+    <div class="head">
+      <span class="eyebrow">Warum jetzt?</span>
+      <h2>Geld lernt man heute nicht mehr nebenbei</h2>
+      <p class="lead">Früher sahen Kinder an der Kasse, wie Scheine und Münzen den Besitzer wechseln. Heute wird mit Karte und Handy bezahlt, online gekauft und später bezahlt. In der Schule kommt das Thema kaum vor.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="stat">
+        <span class="big">8 von 10</span>
+        <p>jungen Menschen zwischen 14 und 24 sagen, sie hätten in der Schule wenig oder so gut wie nichts über Wirtschaft und Finanzen gelernt.</p>
+        <p class="src">Quelle: <a href="https://bankenverband.de/finanzbildung/jugendstudie-2024-finanzbildung-mit-defiziten" rel="noopener">Bankenverband, Jugendstudie 2024</a></p>
+      </div>
+      <div class="stat">
+        <span class="big">51 %</span>
+        <p>der Einkäufe wurden 2023 noch bar bezahlt, 2021 waren es 58 %. Bezahlen mit dem Handy hat sich in derselben Zeit verdreifacht. Geld wird für Kinder unsichtbar.</p>
+        <p class="src">Quelle: <a href="https://www.bundesbank.de/de/presse/pressemitteilungen/zahlungsverhalten-in-deutschland-2023-934828" rel="noopener">Deutsche Bundesbank, Zahlungsverhalten 2023</a></p>
+      </div>
+      <div class="stat">
+        <span class="big">5,67 Mio.</span>
+        <p>Erwachsene in Deutschland sind überschuldet, wieder mehr als im Vorjahr. Besonders gefährdet sind junge Menschen unter 30, oft durch Konsum, Ratenkäufe und Onlinekäufe.</p>
+        <p class="src">Quelle: <a href="https://www.creditreform.de/fileadmin/user_upload/Creditreform_Bremen/Dokumente/SchuldnerAtlas/2025/Schuldneratlas_2025.pdf" rel="noopener">Creditreform, SchuldnerAtlas 2025</a></p>
+      </div>
+    </div>
+    <p style="margin-top:22px"><a class="btn btn-sea" href="warum-jetzt.html">Warum es gerade jetzt so wichtig ist</a></p>
   </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Echte Bilder aus der App</span>
+      <h2>So sieht Taleria aus</h2>
+      <p class="lead">Keine Entwürfe, keine geschönten Bilder: Das sind Bildschirme aus der aktuellen Testversion.</p>
+    </div>
+    <div class="phones">
+      <figure><div class="phone"><img src="bilder/app.start.jpg" alt="Startseite" width="540" height="1169" loading="lazy"></div><figcaption><strong>Das Schiff</strong>Rang, Seemeilen und alles auf einen Blick.</figcaption></figure>
+      <figure><div class="phone"><img src="bilder/app.karte2.jpg" alt="Seekarte mit Inseln und Stopps auf See" width="540" height="1169" loading="lazy"></div><figcaption><strong>Die Seekarte</strong>Von Insel zu Insel, mit Stopps auf See.</figcaption></figure>
+      <figure><div class="phone"><img src="bilder/app.insel.jpg" alt="Tauschinsel von innen mit Stationen" width="540" height="1169" loading="lazy"></div><figcaption><strong>Eine Insel</strong>Stationen auf dem Weg, Tauchplätze am Strand.</figcaption></figure>
+      <figure><div class="phone"><img src="bilder/app.quiz.jpg" alt="Frage „Weißt du noch?“ mit Talo und Tala" width="540" height="1169" loading="lazy"></div><figcaption><strong>Weißt du noch?</strong>Kurze Wiederholung, damit nichts verloren geht.</figcaption></figure>
+      <figure><div class="phone"><img src="bilder/app.truhe.jpg" alt="Schatztruhe mit freiem Geld und Wunschschatz" width="540" height="1169" loading="lazy"></div><figcaption><strong>Die Schatztruhe</strong>Virtuelles Taschengeld selbst einteilen.</figcaption></figure>
+      <figure><div class="phone"><img src="bilder/app.moewenflug.jpg" alt="Spiel Mias Möwenflug" width="540" height="1169" loading="lazy"></div><figcaption><strong>Richtige Spiele</strong>Mit 3 Leben, Rekord und Lernen nebenbei.</figcaption></figure>
+      <figure><div class="phone"><img src="bilder/app.wochenbericht.jpg" alt="Wochenbericht für Eltern" width="540" height="1169" loading="lazy"></div><figcaption><strong>Für Eltern</strong>Der Wochenbericht im Leuchtturm.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">So lernt dein Kind</span>
+      <h2 style="margin:10px 0 14px">Kleine Abenteuer statt trockener Lektionen</h2>
+      <p class="lead" style="margin-bottom:18px">Jede Station dauert 5 bis 10 Minuten und beantwortet eine Frage, die Kinder sich wirklich stellen: Warum gibt es Geld? Brauche ich das oder will ich es nur? Wie spare ich auf etwas Großes?</p>
+      <ul class="checks">
+        <li><strong>Schätzen, zuhören, mitmachen:</strong> Bildergeschichten mit Talo, Tala und den Inselbewohnern, alles vorgelesen.</li>
+        <li><strong>Üben ohne Strafe:</strong> Fehler werden erklärt, nicht bestraft.</li>
+        <li><strong>Wiederholen, wenn es passt:</strong> Fragen kommen nach Tagen und Wochen wieder, bis sie sitzen.</li>
+        <li><strong>Ins echte Leben:</strong> Aufträge, Taschengeld und Gesprächsideen für zu Hause.</li>
+      </ul>
+      <p style="margin-top:20px"><a href="so-funktionierts.html">Mehr über den Ablauf</a></p>
+    </div>
+    <div class="duo">
+      <div class="phone"><img src="bilder/app.insel.jpg" alt="Insel mit Stationen" width="540" height="1169" loading="lazy"></div>
+      <div class="phone" style="margin-top:40px"><img src="bilder/app.nussjagd.jpg" alt="Spiel Emmas Nussjagd" width="540" height="1169" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sky">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Die Reise</span>
+      <h2>15 Inseln, ein Schatz</h2>
+      <p class="lead">Eine zerrissene Schatzkarte, ihre Teile auf den Inseln von Taleria. Jede Insel ist ein Thema. Fünf sind schon fertig, die übrigen tauchen nach und nach aus dem Nebel auf.</p>
+    </div>
+    <div class="grid grid-4" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))">
+      <a class="card" href="inseln.html#hafen" style="text-decoration:none;color:inherit"><img src="bilder/map.island.hafen.png" alt="" loading="lazy"><h3>Hafen</h3><p class="small">Was ist Geld?</p></a>
+      <a class="card" href="inseln.html#tauschinsel" style="text-decoration:none;color:inherit"><img src="bilder/map.island.tauschinsel.png" alt="" loading="lazy"><h3>Tauschinsel</h3><p class="small">Tauschen und Wert</p></a>
+      <a class="card" href="inseln.html#wunschinsel" style="text-decoration:none;color:inherit"><img src="bilder/map.island.wunschinsel.png" alt="" loading="lazy"><h3>Wunschinsel</h3><p class="small">Brauchen oder Wollen</p></a>
+      <a class="card" href="inseln.html#spar-insel" style="text-decoration:none;color:inherit"><img src="bilder/map.island.spar-insel.png" alt="" loading="lazy"><h3>Spar-Insel</h3><p class="small">Sparen</p></a>
+      <a class="card" href="inseln.html#taschengeld-bucht" style="text-decoration:none;color:inherit"><img src="bilder/map.island.taschengeld-bucht.png" alt="" loading="lazy"><h3>Taschengeld-Bucht</h3><p class="small">Taschengeld einteilen</p></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Was schon drin ist</span>
+      <h2>Kein Versprechen, sondern fertig gebaut</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="stat"><span class="big" style="color:var(--sea)">5</span><p>Inseln komplett spielbar, mit Bildern und Stimmen</p></div>
+      <div class="stat"><span class="big" style="color:var(--sea)">50+</span><p>Stationen und Tauchgänge</p></div>
+      <div class="stat"><span class="big" style="color:var(--sea)">350+</span><p>Fragen, jedes Mal neu gemischt</p></div>
+      <div class="stat"><span class="big" style="color:var(--sea)">16</span><p>Spiele: 10 zum Nachdenken, 6 mit Geschick</p></div>
+    </div>
+    <p class="small" style="margin-top:14px;text-align:center">Dazu 5 Logbücher zum Ausdrucken, ein Elternbereich mit Wochenbericht und Lernstand. Stand: November 2026.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap split flip">
+    <div>
+      <span class="eyebrow">Für Eltern</span>
+      <h2 style="margin:10px 0 14px">Du siehst, was dein Kind lernt</h2>
+      <p class="lead" style="margin-bottom:18px">Im Leuchtturm, geschützt mit deiner PIN, siehst du jede Woche, was geschafft ist, welche Themen sitzen und wo es noch wackelt. Dazu Gesprächsideen für den Familientisch.</p>
+      <ul class="checks">
+        <li>Wochenbericht und Lernstand pro Thema</li>
+        <li>Aufträge erteilen und bestätigen</li>
+        <li>Virtuelles Taschengeld und Sparziele</li>
+        <li>Tempo selbst einstellen: 2 Stationen pro Woche oder mehr</li>
+      </ul>
+      <p style="margin-top:20px"><a class="btn btn-sea" href="eltern.html">Der Leuchtturm im Detail</a></p>
+    </div>
+    <div class="duo">
+      <div class="phone"><img src="bilder/app.wochenbericht.jpg" alt="Wochenbericht" width="540" height="1169" loading="lazy"></div>
+      <div class="phone" style="margin-top:40px"><img src="bilder/app.lernstand.jpg" alt="Lernstand pro Thema" width="540" height="1169" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Darauf kannst du dich verlassen</span>
+      <h2>Sicher an Bord</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card"><h3>Kein echtes Geld</h3><p>Alle Beträge sind virtuell. Keine Bankverbindung, keine Bezahlkarte.</p></div>
+      <div class="card"><h3>Keine Käufe durch Kinder</h3><p>Im Kinderbereich gibt es keine Preise, keine Kauf-Knöpfe und keine Links nach außen.</p></div>
+      <div class="card"><h3>Keine Werbung, kein Tracking</h3><p>Keine Werbung und keine Tracking-Dienste anderer Firmen.</p></div>
+      <div class="card"><h3>Kein Druck</h3><p>Keine Countdowns, keine Zufallsboxen. Falsche Antworten werden erklärt.</p></div>
+      <div class="card"><h3>Wenige Daten</h3><p>Ein Spitzname reicht. Kein Klarname, keine Adresse, kein Standort. Server in der EU.</p></div>
+      <div class="card"><h3>Keine Chats</h3><p>Dein Kind spielt für sich. Niemand Fremdes kann ihm schreiben.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div class="crew"><img class="bob" src="bilder/character.talo.wave.png" alt="Talo"><img class="bob" style="animation-delay:-2s" src="bilder/character.tala.wave.png" alt="Tala"></div>
+    <h2>Werdet Testfamilie</h2>
+    <p class="lead">Wir suchen Familien mit Kindern von 8 bis 12, die Taleria vor dem Start kostenlos ausprobieren und uns ehrlich sagen, was gut ist und was noch hakt.</p>
+    <div class="actions"><a class="btn btn-gold" href="testfamilien.html">Jetzt anmelden</a><a class="btn btn-ghost" href="fragen.html">Fragen ansehen</a></div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <img src="bilder/brand.logo.png" alt="Taleria" width="768" height="324" style="height:44px;width:auto;margin-bottom:10px">
+      <p>Die Lern-App rund ums Geld für Kinder von 8 bis 12 Jahren.</p>
+    </div>
+    <div>
+      <h3>Taleria</h3>
+      <ul>
+        <li><a href="so-funktionierts.html">So funktioniert's</a></li>
+        <li><a href="inseln.html">Die Inseln</a></li>
+        <li><a href="warum-jetzt.html">Warum jetzt?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Für Eltern</h3>
+      <ul>
+        <li><a href="eltern.html">Leuchtturm und Sicherheit</a></li>
+        <li><a href="preise.html">Preise</a></li>
+        <li><a href="fragen.html">Fragen</a></li>
+        <li><a href="testfamilien.html">Testfamilie werden</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Rechtliches</h3>
+      <ul>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal">Taleria ist ein Lernspiel und keine Finanzberatung. Alle Beträge in der App sind virtuell. Wir empfehlen keine Banken, Produkte oder Geldanlagen.</div>
 </footer>
+</body>
+</html>
