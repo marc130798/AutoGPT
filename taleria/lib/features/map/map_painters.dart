@@ -291,22 +291,22 @@ class IslandWaterPainter extends CustomPainter {
       Paint()
         ..shader = RadialGradient(
           colors: [
-            SceneColors.lagoon.withValues(alpha: 0.65),
-            SceneColors.lagoon.withValues(alpha: 0.4),
+            SceneColors.lagoon.withValues(alpha: 0.5),
+            SceneColors.lagoon.withValues(alpha: 0.22),
             SceneColors.lagoon.withValues(alpha: 0),
           ],
-          stops: const [0.6, 0.82, 1],
+          stops: const [0.5, 0.78, 1],
         ).createShader(Rect.fromCircle(center: Offset.zero, radius: lagoon)),
     );
     final stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3;
-    stroke.color = SceneColors.foam.withValues(alpha: 0.55);
-    canvas.drawCircle(Offset.zero, rx * (1.0 + 0.015 * osc(t, 24, phase)), stroke);
+    // Kein fester weißer Ring mehr (Marcs Test am 17.11.2026: die Insel wirkte
+    // wie ein eingefügtes Bild); nur die Brandung läuft sanft nach außen.
     final surf = cycle(t, 12, phase);
     stroke
       ..strokeWidth = 2
-      ..color = SceneColors.foam.withValues(alpha: 0.45 * (1 - surf));
+      ..color = SceneColors.foam.withValues(alpha: 0.3 * (1 - surf));
     canvas.drawCircle(Offset.zero, rx * (1.03 + 0.22 * surf), stroke);
     canvas.restore();
   }

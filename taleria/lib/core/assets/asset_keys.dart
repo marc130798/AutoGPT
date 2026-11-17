@@ -79,6 +79,7 @@ abstract final class AssetKeys {
   static const soundMapUnroll = 'sound.map_unroll';
   static const soundSplash = 'sound.splash';
   static const soundWhale = 'sound.whale';
+  static const soundDolphin = 'sound.dolphin';
   static const soundDive = 'sound.dive';
   static const soundPage = 'sound.page';
   static const soundUnlock = 'sound.unlock';
@@ -111,6 +112,7 @@ abstract final class AssetKeys {
     soundMapUnroll,
     soundSplash,
     soundWhale,
+    soundDolphin,
     soundDive,
     soundPage,
     soundUnlock,

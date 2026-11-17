@@ -157,13 +157,25 @@ class IslandScene extends StatelessWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
+                // Oben blendet das Bild weich ins Meer über, statt mit einer
+                // harten Kante zu enden (Marcs Test am 17.11.2026: „oben
+                // abgeschnitten und Wasser eingefügt“).
                 Positioned.fill(
-                  child: TaleriaAsset(
-                    key,
-                    width: size.width,
-                    height: size.height,
-                    fit: BoxFit.cover,
-                    fallback: CustomPaint(painter: _FallbackIslandPainter(route)),
+                  child: ShaderMask(
+                    blendMode: BlendMode.dstIn,
+                    shaderCallback: (rect) => const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0x00000000), Color(0xFF000000)],
+                      stops: [0, 0.12],
+                    ).createShader(rect),
+                    child: TaleriaAsset(
+                      key,
+                      width: size.width,
+                      height: size.height,
+                      fit: BoxFit.cover,
+                      fallback: CustomPaint(painter: _FallbackIslandPainter(route)),
+                    ),
                   ),
                 ),
                 ?_player(spots, size, next, motion),

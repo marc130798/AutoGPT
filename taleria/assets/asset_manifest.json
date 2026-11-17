@@ -3036,6 +3036,15 @@
         "shape": "rounded"
       }
     },
+    "sound.dolphin": {
+      "type": "audio",
+      "path": "assets/audio/sound.dolphin.mp3",
+      "placeholder": {
+        "label": "Ton: Delfin",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
     "sound.whale": {
       "type": "audio",
       "path": "assets/audio/sound.whale.mp3",

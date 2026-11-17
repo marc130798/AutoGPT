@@ -310,6 +310,9 @@ class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderSt
     return MenuMusic(
       child: Scaffold(
         extendBodyBehindAppBar: true,
+        // Meerfarbe statt Weiß, falls die Karte oben oder unten nachfedert
+        // (Marcs Test am 17.11.2026: weißer Rand oben).
+        backgroundColor: const Color(0xFF399EB8),
         appBar: TaleriaAppBar(title: l10n.mapTitle),
         body: ListenableBuilder(
           listenable: controller,
@@ -401,6 +404,8 @@ extension on _IslandMapScreenState {
           },
           child: SingleChildScrollView(
             controller: _scroll,
+            // Kein Nachfedern über den Rand hinaus.
+            physics: const ClampingScrollPhysics(),
             // Start unten beim Hafen.
             reverse: true,
             child: SizedBox(

@@ -95,6 +95,14 @@
     "plan": "ElevenLabs Starter",
     "modell": "eleven_text_to_sound_v2"
   },
+  "sound.dolphin": {
+    "text": "A small group of playful dolphins clicking and whistling happily above the water, with a light splash, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2.5,
+    "schleife": false,
+    "datum": "2026-11-17",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
   "sound.fog_rise": {
     "text": "Soft magical whoosh of fog rolling in over the sea, gentle shimmer, mysterious but friendly, for a children's game. No music, no voices, no speech.",
     "sekunden": 3,

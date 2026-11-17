@@ -44,6 +44,7 @@ KLAENGE = {
     'sound.badge_hang': (2, False, -15, "Small gold medal clinking softly onto a nail on a wooden wall, light metallic ting, for a children's game." + NO),
     'sound.map_unroll': (2, False, -15, "Old paper map unrolling quickly with a soft rustle, then a gentle magical shimmer, for a children's game." + NO),
     'sound.splash': (1.5, False, -16, "Small playful water splash, a fish jumping out of the sea, for a children's game." + NO),
+    'sound.dolphin': (2.5, False, -18, "A small group of playful dolphins clicking and whistling happily above the water, with a light splash, for a children's game." + NO),
     'sound.whale': (2.5, False, -16, "Friendly whale blowing water from its blowhole, a soft whoosh and spray, for a children's game." + NO),
     'sound.dive': (2.5, False, -16, "Diving into water: a soft splash followed by bubbling as the sound goes underwater, for a children's game." + NO),
     'sound.page': (1, False, -18, "Single soft paper page turn of a storybook, for a children's game." + NO),

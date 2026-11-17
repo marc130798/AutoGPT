@@ -256,6 +256,8 @@ class MapLayout {
           Rect.fromCenter(center: spot, width: seaStopWidth, height: seaStopHeight),
       ];
       final blocked = [...stops, ...avoid];
+      // Bis zu drei Tiere pro Meer zwischen zwei Inseln (Marcs Wunsch am 17.11.2026: mehr Tiere).
+      var placed = 0;
       final y = (band.top + band.bottom) / 2 - size.height / 2;
       final routeX = _routeX(index, y + size.height / 2);
       final left = Offset(8, y), right = Offset(max(8, width - size.width - 8), y);
@@ -268,7 +270,8 @@ class MapLayout {
         final box = candidate & size;
         if (!blocked.any(box.overlaps)) {
           spots.add(candidate);
-          break;
+          blocked.add(box);
+          if (++placed == 3) break;
         }
       }
     }

@@ -37,7 +37,16 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
   Timer? _auto;
 
   /// Wie oft das Tier von selbst springt (Sekunden).
-  static const autoEvery = {CritterKind.fish: 9, CritterKind.dolphin: 12, CritterKind.whale: 16};
+  static const autoEvery = {CritterKind.fish: 6, CritterKind.dolphin: 10, CritterKind.whale: 14};
+
+  /// Höchstens alle paar Sekunden ein Geräusch von selbst, damit es nicht zu laut wird.
+  static DateTime _lastSound = DateTime(2000);
+
+  static String soundFor(CritterKind kind) => switch (kind) {
+    CritterKind.fish => AssetKeys.soundSplash,
+    CritterKind.whale => AssetKeys.soundWhale,
+    CritterKind.dolphin => AssetKeys.soundDolphin,
+  };
 
   @override
   void didChangeDependencies() {
@@ -56,7 +65,20 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
   void _autoJump() {
     if (!mounted) return;
     if (!_jump.isAnimating) _jump.forward(from: 0);
+    // Springt das Tier gerade sichtbar auf dem Bildschirm, hört man es (Marcs Test am 17.11.2026).
+    if (_onScreen() && DateTime.now().difference(_SeaCritterState._lastSound).inSeconds >= 4) {
+      _SeaCritterState._lastSound = DateTime.now();
+      playEffect(context, _SeaCritterState.soundFor(widget.kind));
+    }
     _auto = Timer(Duration(seconds: autoEvery[widget.kind]!), _autoJump);
+  }
+
+  bool _onScreen() {
+    final box = context.findRenderObject();
+    if (box is! RenderBox || !box.attached || !box.hasSize) return false;
+    final center = box.localToGlobal(box.size.center(Offset.zero));
+    final screen = MediaQuery.sizeOf(context);
+    return center.dx >= 0 && center.dy >= 0 && center.dx <= screen.width && center.dy <= screen.height;
   }
 
   @override
@@ -67,7 +89,8 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
   }
 
   void _tap() {
-    playEffect(context, widget.kind == CritterKind.whale ? AssetKeys.soundWhale : AssetKeys.soundSplash);
+    _SeaCritterState._lastSound = DateTime.now();
+    playEffect(context, _SeaCritterState.soundFor(widget.kind));
     if (MediaQuery.disableAnimationsOf(context)) return;
     _jump.forward(from: 0);
   }
