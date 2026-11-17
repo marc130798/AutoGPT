@@ -931,6 +931,9 @@ const _shipAspect = 768 / 1745;
 const _skyPart = 369 / 1745;
 const _shipPart = 1376 / 1745;
 
+/// Wo im Bild `home.ship` das Wasser am Rumpf beginnt (Anteil der ganzen Höhe).
+const _waterLine = 1684 / 1745;
+
 /// Plätze auf der Reling, an denen Möwen landen (Anteile im Schiffsteil).
 const _perches = [Offset(0.13, 0.166), Offset(0.87, 0.166)];
 
@@ -978,6 +981,15 @@ class _ShipCutaway extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              // Bewegtes Wasser am Rumpf, reicht unter das Bild bis zu den Knöpfen
+              // (Marcs Wunsch am 17.11.2026).
+              Positioned(
+                left: 0,
+                right: 0,
+                top: h * _waterLine,
+                height: h * (1 - _waterLine) + 160,
+                child: const IgnorePointer(child: _MovingWater()),
               ),
               for (final entry in rooms.entries)
                 Positioned(
@@ -1248,4 +1260,116 @@ class _RoomState extends State<_Room> {
       ),
     );
   }
+}
+
+/// Wellen unter dem Schiff: drei Wellenlinien laufen gegeneinander, dazu
+/// Glitzer auf dem Wasser. Unten geht das Wasser in das Meer-Blau des
+/// Hintergrunds über. Ohne Bewegung (reduziert oder in Tests) steht es still.
+class _MovingWater extends StatefulWidget {
+  const _MovingWater();
+
+  @override
+  State<_MovingWater> createState() => _MovingWaterState();
+}
+
+class _MovingWaterState extends State<_MovingWater> with SingleTickerProviderStateMixin {
+  late final AnimationController _clock = AnimationController(vsync: this, duration: const Duration(seconds: 12));
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final motion = AppScope.of(context).sceneMotion && !MediaQuery.disableAnimationsOf(context);
+    if (motion && !_clock.isAnimating) {
+      _clock.repeat();
+    } else if (!motion) {
+      _clock.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    _clock.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(painter: _WaterPainter(_clock), size: Size.infinite);
+  }
+}
+
+class _WaterPainter extends CustomPainter {
+  _WaterPainter(this.clock) : super(repaint: clock);
+
+  final Animation<double> clock;
+
+  /// Unten dasselbe Blau wie [_SkyAndSea], damit kein Rand entsteht.
+  static const _deep = Color(0xFF16608F);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final t = clock.value * 2 * pi;
+
+    Path wave(double base, double amp, double length, double phase) {
+      final path = Path()..moveTo(0, h);
+      for (var x = 0.0; x <= w + 4; x += 4) {
+        path.lineTo(
+          x,
+          base + sin(x / length * 2 * pi + phase) * amp + sin(x / (length * 0.47) - phase * 2) * amp * 0.35,
+        );
+      }
+      return path
+        ..lineTo(w, h)
+        ..close();
+    }
+
+    // Drei Schichten: hell vorne am Rumpf, nach unten dunkler.
+    final layers = [
+      (base: 6.0, amp: 5.0, len: w / 2.2, phase: t, color: const Color(0xFF3E97C6)),
+      (base: 16.0, amp: 6.0, len: w / 1.6, phase: -t + 1, color: const Color(0xFF2A82B5)),
+      (base: 30.0, amp: 7.0, len: w / 1.2, phase: t + 2.4, color: const Color(0xFF1E6F9F)),
+    ];
+    for (final l in layers) {
+      final paint = Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [l.color, _deep],
+          stops: const [0, 1],
+        ).createShader(Rect.fromLTWH(0, l.base - l.amp, w, h - l.base + l.amp));
+      canvas.drawPath(wave(l.base, l.amp, l.len, l.phase), paint);
+    }
+
+    // Schaumkronen auf der vordersten Welle.
+    final foam = Paint()
+      ..color = Colors.white.withValues(alpha: 0.55)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.6
+      ..strokeCap = StrokeCap.round;
+    final crest = Path();
+    final l = layers.first;
+    for (var x = 0.0; x <= w + 4; x += 4) {
+      final y =
+          l.base + sin(x / l.len * 2 * pi + l.phase) * l.amp + sin(x / (l.len * 0.47) - l.phase * 2) * l.amp * 0.35;
+      x == 0 ? crest.moveTo(x, y) : crest.lineTo(x, y);
+    }
+    canvas.drawPath(crest, foam);
+
+    // Glitzer: kleine helle Striche, die auf- und abblenden.
+    final glint = Paint()
+      ..strokeWidth = 1.4
+      ..strokeCap = StrokeCap.round;
+    for (var i = 0; i < 14; i++) {
+      final x = (i * 0.173 + 0.04) % 1 * w + sin(t + i) * 6;
+      final y = 18 + (i * 37 % 90).toDouble();
+      final a = (0.5 + 0.5 * sin(t * 2 + i * 1.9)) * 0.45 * (1 - y / 140).clamp(0, 1);
+      glint.color = Colors.white.withValues(alpha: a);
+      canvas.drawLine(Offset(x - 5, y), Offset(x + 5, y), glint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_WaterPainter old) => false;
 }
