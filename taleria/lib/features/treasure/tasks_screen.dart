@@ -59,6 +59,7 @@ class _TasksScreenState extends State<TasksScreen> {
     final theme = Theme.of(context);
     final controller = _controller!;
     return MenuMusic(
+      enterSound: AssetKeys.soundPaper,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.tasksTitle),

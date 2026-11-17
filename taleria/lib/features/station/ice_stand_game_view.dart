@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../../core/theme/taleria_palette.dart';
@@ -37,7 +36,11 @@ class _IceStandGameViewState extends State<IceStandGameView> {
 
   void _open() {
     final result = _game.open();
-    if (result.earned == _game.bestEarned(_game.day)) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+    // Der Stand öffnet: Eis wird portioniert, beim besten Preis klingt es wie richtig.
+    playGameSound(
+      context,
+      result.earned == _game.bestEarned(_game.day) ? AssetKeys.soundCorrect : AssetKeys.soundIceScoop,
+    );
     setState(() {
       _showResult = true;
       _tries++;

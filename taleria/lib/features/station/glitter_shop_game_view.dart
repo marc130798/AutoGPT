@@ -33,6 +33,15 @@ class GlitterShopGameView extends StatefulWidget {
 class _GlitterShopGameViewState extends State<GlitterShopGameView> {
   late final GlitterShopGame _game = GlitterShopGame(widget.game);
 
+  @override
+  void initState() {
+    super.initState();
+    // Die Ladenglocke klingelt, wenn Tala in Elsas Laden kommt (Marcs Wunsch am 17.11.2026).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) playGameSound(context, AssetKeys.soundShopBell);
+    });
+  }
+
   void _guess(String trick) {
     final result = _game.guess(trick);
     if (result == ShopGuess.right) playGameSound(context, AssetKeys.soundCorrect);

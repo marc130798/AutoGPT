@@ -62,7 +62,8 @@ class _BackpackGameViewState extends State<BackpackGameView> {
 
   void _go() {
     final ok = _game.go();
-    if (ok) playGameSound(context, AssetKeys.soundCorrect);
+    // Rucksack zu und los (Marcs Wunsch am 17.11.2026); passt alles, klingt es wie richtig.
+    playGameSound(context, ok ? AssetKeys.soundCorrect : AssetKeys.soundZipper);
     setState(() {
       _notEnough = false;
       _tries++;

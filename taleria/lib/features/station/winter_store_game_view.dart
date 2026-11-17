@@ -28,7 +28,7 @@ class _WinterStoreGameViewState extends State<WinterStoreGameView> {
   final _waitKey = GlobalKey();
 
   void _store() {
-    playGameSound(context, AssetKeys.soundCoin);
+    playGameSound(context, AssetKeys.soundDig);
     flyThing(context, from: _waitKey, to: _storeKey, child: const _Nut(size: 36));
     setState(_game.store);
     _afterChoice();

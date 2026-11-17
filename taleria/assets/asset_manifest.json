@@ -3081,6 +3081,114 @@
         "shape": "rounded"
       }
     },
+    "sound.medals": {
+      "type": "audio",
+      "path": "assets/audio/sound.medals.mp3",
+      "placeholder": {
+        "label": "Ton: Orden klirren",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.paper": {
+      "type": "audio",
+      "path": "assets/audio/sound.paper.mp3",
+      "placeholder": {
+        "label": "Ton: Papier",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.bubbles": {
+      "type": "audio",
+      "path": "assets/audio/sound.bubbles.mp3",
+      "placeholder": {
+        "label": "Ton: Blubbern",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.dice": {
+      "type": "audio",
+      "path": "assets/audio/sound.dice.mp3",
+      "placeholder": {
+        "label": "Ton: Würfel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.register": {
+      "type": "audio",
+      "path": "assets/audio/sound.register.mp3",
+      "placeholder": {
+        "label": "Ton: Kasse",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.market_bell": {
+      "type": "audio",
+      "path": "assets/audio/sound.market_bell.mp3",
+      "placeholder": {
+        "label": "Ton: Marktglocke",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.ice_scoop": {
+      "type": "audio",
+      "path": "assets/audio/sound.ice_scoop.mp3",
+      "placeholder": {
+        "label": "Ton: Eiskugel",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.trade": {
+      "type": "audio",
+      "path": "assets/audio/sound.trade.mp3",
+      "placeholder": {
+        "label": "Ton: Tausch",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.zipper": {
+      "type": "audio",
+      "path": "assets/audio/sound.zipper.mp3",
+      "placeholder": {
+        "label": "Ton: Reißverschluss",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.piggy": {
+      "type": "audio",
+      "path": "assets/audio/sound.piggy.mp3",
+      "placeholder": {
+        "label": "Ton: Sparschwein",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.dig": {
+      "type": "audio",
+      "path": "assets/audio/sound.dig.mp3",
+      "placeholder": {
+        "label": "Ton: Graben",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
+    "sound.shop_bell": {
+      "type": "audio",
+      "path": "assets/audio/sound.shop_bell.mp3",
+      "placeholder": {
+        "label": "Ton: Ladenglocke",
+        "color": "#24476B",
+        "shape": "rounded"
+      }
+    },
     "sound.whale": {
       "type": "audio",
       "path": "assets/audio/sound.whale.mp3",

@@ -124,6 +124,7 @@ class _BadgesScreenState extends State<BadgesScreen> with SingleTickerProviderSt
     final theme = Theme.of(context);
     final ceremony = _ceremony;
     return MenuMusic(
+      enterSound: AssetKeys.soundMedals,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.badgesTitle),

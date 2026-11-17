@@ -32,7 +32,7 @@ class _PiggyBankGameViewState extends State<PiggyBankGameView> {
   final _feedKey = GlobalKey();
 
   void _feed() {
-    playGameSound(context, AssetKeys.soundCoin);
+    playGameSound(context, AssetKeys.soundPiggy);
     flyThing(
       context,
       from: _feedKey,

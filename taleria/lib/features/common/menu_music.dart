@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../services/sounds.dart';
+import 'play_effect.dart';
 
 /// Meldet, wann Seiten kommen und gehen (für die Musik im Hauptmenü).
 /// Nur ganze Seiten zählen: Ein Dialog über einer Menü-Seite (zum Beispiel
@@ -15,16 +16,31 @@ final menuRouteObserver = RouteObserver<PageRoute<dynamic>>();
 /// See) und bei Meister Taleron (Nebel). Kommt eine Seite ohne Musik darüber
 /// (Leuchtturm), pausiert sie; geht es zurück, läuft sie weiter.
 class MenuMusic extends StatefulWidget {
-  const MenuMusic({super.key, required this.child, this.music = AssetKeys.musicHome});
+  const MenuMusic({super.key, required this.child, this.music = AssetKeys.musicHome, this.enterSound});
 
   final Widget child;
   final String music;
+
+  /// Kurzer Ton beim Betreten der Seite, einmal (Marcs Wunsch am 17.11.2026:
+  /// die Truhe knarrt, die Orden klirren, Papier raschelt …).
+  final String? enterSound;
 
   @override
   State<MenuMusic> createState() => _MenuMusicState();
 }
 
 class _MenuMusicState extends State<MenuMusic> implements RouteAware {
+  @override
+  void initState() {
+    super.initState();
+    final sound = widget.enterSound;
+    if (sound != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) playEffect(context, sound);
+      });
+    }
+  }
+
   /// Die Seite, die die Musik zuletzt bestellt hat. Beim Zurückgehen meldet
   /// Flutter zuerst der Seite darunter, dass sie wieder vorn ist, und erst
   /// danach der Seite, die geht; die gehende Seite darf die Musik dann nicht

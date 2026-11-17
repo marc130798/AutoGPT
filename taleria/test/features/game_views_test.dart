@@ -230,10 +230,10 @@ void main() {
       expect(find.text('Stimmt genau, danke!'), findsOneWidget);
       if (find.byKey(const ValueKey('till-next')).evaluate().isNotEmpty) await tapKey(tester, 'till-next');
     }
-    // Töne: jede Münze klingt, richtiges Wechselgeld auch, am Ende die Fanfare.
+    // Töne: jede Münze klingt, richtiges Wechselgeld lässt die Kasse klingeln, am Ende die Fanfare.
     final sounds = AppScope.of(tester.element(find.byType(Scaffold))).sounds;
     expect(sounds.playedEffects.first, AssetKeys.soundCoin);
-    expect(sounds.playedEffects.where((e) => e == AssetKeys.soundCorrect), hasLength(6));
+    expect(sounds.playedEffects.where((e) => e == AssetKeys.soundRegister), hasLength(6));
     await tapKey(tester, 'game-finish');
     expect(sounds.playedEffects.last, AssetKeys.soundStationDone);
     expect(find.text('Geschafft!'), findsOneWidget);

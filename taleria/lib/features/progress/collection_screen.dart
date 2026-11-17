@@ -73,6 +73,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return MenuMusic(
+      enterSound: AssetKeys.soundBubbles,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.collectionTitle),

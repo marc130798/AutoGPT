@@ -39,7 +39,7 @@ class _MarketGameViewState extends State<MarketGameView> {
       _lastItem = offer.item;
     });
     if (_lastBuy == MarketBuy.bought) {
-      playGameSound(context, _game.finished ? AssetKeys.soundCorrect : AssetKeys.soundCoin);
+      playGameSound(context, _game.finished ? AssetKeys.soundCorrect : AssetKeys.soundMarketBell);
       // Das Gekaufte fliegt in die Einkaufsliste.
       final image = widget.game.images[offer.item];
       final from = _offerKeys['$_stand-$k'], to = _needKeys[offer.item];

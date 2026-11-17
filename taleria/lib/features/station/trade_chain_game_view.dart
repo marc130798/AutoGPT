@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/theme/taleria_palette.dart';
 import '../../domain/content_models.dart';
@@ -36,7 +35,7 @@ class _TradeChainGameViewState extends State<TradeChainGameView> {
     final gave = _game.holding;
     final result = _game.tap(trader);
     if (result == TradeResult.traded) {
-      AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+      playGameSound(context, AssetKeys.soundTrade);
       // Tauschen sieht man: Talas Ding fliegt zum Händler, seins zu Tala.
       final images = widget.game.images;
       final got = widget.game.traders[trader].has;

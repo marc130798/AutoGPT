@@ -76,6 +76,7 @@ class _GamesScreenState extends State<GamesScreen> {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return MenuMusic(
+      enterSound: AssetKeys.soundDice,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.gamesTitle),

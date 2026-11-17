@@ -224,6 +224,7 @@ class _TreasureScreenState extends State<TreasureScreen> {
     final l10n = AppLocalizations.of(context);
     final controller = _controller!;
     return MenuMusic(
+      enterSound: AssetKeys.soundChestOpen,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: l10n.treasureTitle),

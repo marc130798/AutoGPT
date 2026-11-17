@@ -37,7 +37,8 @@ class _TillGameViewState extends State<TillGameView> {
 
   void _give() {
     final check = _game.give();
-    if (check == TillCheck.right) AppScope.of(context).sounds.effect(AssetKeys.soundCorrect);
+    // Richtiges Wechselgeld: die Kasse klingelt (Marcs Wunsch am 17.11.2026).
+    if (check == TillCheck.right) playGameSound(context, AssetKeys.soundRegister);
     setState(() {});
   }
 

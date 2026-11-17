@@ -28,32 +28,47 @@ OUT = 'assets/audio'
 LOG = os.path.join(OUT, 'klaenge.json')
 NO = ' No music, no voices, no speech.'
 
-# Schlüssel → (Sekunden, Schleife, früher Ziel-Lautstärke (ungenutzt), Text)
+# Schlüssel → (Sekunden, Schleife, mittlere Lautstärke in dB, Text)
 KLAENGE = {
-    # Klangkulissen für die Orte (statt Stille in den Missionen)
-    'amb.hafen': (30, True, -20, "Calm cozy harbor ambience for a children's game: gentle waves lapping against a wooden pier, soft creaking of moored wooden boats, distant seagulls, a faint ship bell far away. Peaceful." + NO),
-    'amb.tauschinsel': (30, True, -21, "Friendly island village market ambience for a children's game: soft indistinct murmur of a small crowd in the distance, wooden carts, a goat bleating once far away, birds, light sea breeze. Cheerful and calm." + NO),
-    'amb.wunschinsel': (30, True, -21, "Dreamy magical island ambience for a children's game: soft warm wind, gentle chimes and sparkling twinkles now and then, distant waves, tropical birds. Calm and wondrous." + NO),
-    'amb.spar-insel': (30, True, -20, "Peaceful autumn forest ambience for a children's game: soft wind through trees, rustling colorful falling leaves, gentle songbirds, an occasional distant woodpecker. Calm and cozy." + NO),
-    'amb.underwater': (30, True, -20, "Calm underwater ambience for a children's game: deep soft muffled water, gentle bubbles rising now and then, slow whale-like hum far away. Peaceful, not scary." + NO),
-    'amb.open_sea': (30, True, -21, "Open sea ambience on a wooden sailing ship for a children's game: waves against the hull, sails flapping softly in the wind, ropes creaking. Calm adventure." + NO),
-    'amb.fog': (30, True, -22, "Mysterious but friendly foggy sea ambience for a children's game: soft deep wind, slow waves, a distant low foghorn once, gentle shimmering magical tone in the background. Calm, not scary." + NO),
-    'amb.shipyard': (30, True, -21, "Small harbor shipyard workshop ambience for a children's game: occasional soft hammering on wood, a saw now and then, creaking planks, water lapping, seagulls far away. Calm and cozy." + NO),
+    # Klangkulissen für die Orte. Seit 17.11.2026 (Marcs Test) ruhiger: weniger Rauschen,
+    # mehr typische Geräusche, und leiser (dritter Wert = mittlere Lautstärke in dB).
+    'amb.hafen': (30, True, -44, "Very soft and quiet harbor ambience for a children's game: gentle small waves lapping against a wooden pier, a wooden boat creaking now and then, seagulls calling in the distance from time to time. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.tauschinsel': (30, True, -44, "Very soft friendly island village market ambience for a children's game: quiet indistinct murmur of a few people far away, a wooden cart rolling by once, a goat bleating once far away, songbirds, small waves. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.wunschinsel': (30, True, -44, "Very soft dreamy magical island ambience for a children's game: gentle chimes and little sparkling twinkles now and then, tropical birds, small waves on a beach. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.spar-insel': (30, True, -44, "Very soft autumn forest ambience for a children's game: rustling colorful falling leaves, gentle songbirds, a squirrel scurrying now and then, an occasional distant woodpecker. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.underwater': (30, True, -44, "Very soft calm underwater ambience for a children's game: gentle bubbles rising now and then, soft muffled water, a friendly whale song far away. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.open_sea': (30, True, -44, "Very soft open sea ambience on a wooden sailing ship for a children's game: small waves against the hull, sails flapping softly now and then, ropes creaking, a seagull far away. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.fog': (30, True, -44, "Very soft mysterious but friendly foggy sea ambience for a children's game: slow quiet waves, a distant low foghorn once, a gentle shimmering magical tone. Very little wind noise, no rumbling, clear and calm." + NO),
+    'amb.shipyard': (30, True, -41, "Busy but cozy small harbor shipyard ambience for a children's game: clear hammering on wood, a hand saw sawing, a plane shaving wood, planks creaking, a chisel tapping, water lapping, seagulls far away. Clearly a workshop. Very little wind noise, no rumbling, clear and calm." + NO),
     # Kurze Töne für besondere Momente
-    'sound.chest_open': (2, False, -14, "Wooden treasure chest lid opening with a soft creak and a bright magical sparkle, for a children's game." + NO),
-    'sound.badge_hang': (2, False, -15, "Small gold medal clinking softly onto a nail on a wooden wall, light metallic ting, for a children's game." + NO),
-    'sound.map_unroll': (2, False, -15, "Old paper map unrolling quickly with a soft rustle, then a gentle magical shimmer, for a children's game." + NO),
-    'sound.splash': (1.5, False, -16, "Small playful water splash, a fish jumping out of the sea, for a children's game." + NO),
-    'sound.dolphin': (2.5, False, -18, "A small group of playful dolphins clicking and whistling happily above the water, with a light splash, for a children's game." + NO),
-    'sound.whale': (2.5, False, -16, "Friendly whale blowing water from its blowhole, a soft whoosh and spray, for a children's game." + NO),
-    'sound.dive': (2.5, False, -16, "Diving into water: a soft splash followed by bubbling as the sound goes underwater, for a children's game." + NO),
-    'sound.page': (1, False, -18, "Single soft paper page turn of a storybook, for a children's game." + NO),
-    'sound.unlock': (1.5, False, -15, "Small old padlock clicking open, followed by a short bright twinkle, for a children's game." + NO),
-    'sound.rank_up': (3, False, -14, "Short cheerful brass fanfare with a ship bell ding, celebrating a promotion, for a children's game. Short and happy." + NO),
-    'sound.ship_bell': (2, False, -16, "Two soft rings of a small brass ship bell, for a children's game." + NO),
-    'sound.fog_rise': (3, False, -17, "Soft magical whoosh of fog rolling in over the sea, gentle shimmer, mysterious but friendly, for a children's game." + NO),
-    'sound.bottle': (2, False, -16, "A small glass bottle with a cork plopping gently into the sea and bobbing, for a children's game." + NO),
-    'sound.tool': (1.5, False, -16, "Two quick soft hammer taps on wood and a small sparkle, something new built, for a children's game." + NO),
+    'sound.chest_open': (2.5, False, -24, "An old heavy wooden pirate treasure chest slowly creaking open, rusty iron hinges squeaking, a soft wooden thud as the lid falls back, for a children's game." + NO),
+    'sound.badge_hang': (2, False, -24, "Small gold medal clinking softly onto a nail on a wooden wall, light metallic ting, for a children's game." + NO),
+    'sound.map_unroll': (2, False, -24, "Old paper map unrolling quickly with a soft rustle, then a gentle magical shimmer, for a children's game." + NO),
+    'sound.splash': (1.5, False, -24, "Small playful water splash, a fish jumping out of the sea, for a children's game." + NO),
+    'sound.dolphin': (2.5, False, -24, "A small group of playful dolphins clicking and whistling happily above the water, with a light splash, for a children's game." + NO),
+    'sound.whale': (2.5, False, -24, "Friendly whale blowing water from its blowhole, a soft whoosh and spray, for a children's game." + NO),
+    'sound.dive': (2.5, False, -24, "Diving into water: a soft splash followed by bubbling as the sound goes underwater, for a children's game." + NO),
+    'sound.page': (1, False, -24, "Single soft paper page turn of a storybook, for a children's game." + NO),
+    'sound.unlock': (1.5, False, -24, "Small old padlock clicking open, followed by a short bright twinkle, for a children's game." + NO),
+    'sound.rank_up': (3, False, -24, "Short cheerful brass fanfare with a ship bell ding, celebrating a promotion, for a children's game. Short and happy." + NO),
+    'sound.ship_bell': (2, False, -24, "Two soft rings of a small brass ship bell, for a children's game." + NO),
+    'sound.fog_rise': (3, False, -24, "Soft magical whoosh of fog rolling in over the sea, gentle shimmer, mysterious but friendly, for a children's game." + NO),
+    'sound.bottle': (2, False, -24, "A small glass bottle with a cork plopping gently into the sea and bobbing, for a children's game." + NO),
+    'sound.tool': (1.5, False, -24, "Two quick soft hammer taps on wood and a small sparkle, something new built, for a children's game." + NO),
+    # Beim Betreten der Kabinen (Marcs Wunsch am 17.11.2026)
+    'sound.medals': (1.5, False, -26, "A few small gold medals clinking gently against each other on ribbons, light and bright, for a children's game." + NO),
+    'sound.paper': (1.5, False, -26, "Soft rustling of a few old paper notes being picked up from a wooden desk, for a children's game." + NO),
+    'sound.bubbles': (1.5, False, -26, "A short burst of soft underwater bubbles rising, playful blub blub, for a children's game." + NO),
+    'sound.dice': (1.5, False, -26, "A pair of wooden dice rattling in a cup and rolling onto a wooden table, for a children's game." + NO),
+    # Eigene Töne der Mini-Spiele (Marcs Wunsch am 17.11.2026)
+    'sound.register': (1.5, False, -24, "An old-fashioned shop cash register: a cheerful small bell ding and the cash drawer sliding open, for a children's game." + NO),
+    'sound.market_bell': (1.2, False, -24, "A small cheerful brass hand bell at a market stall ringing twice, for a children's game." + NO),
+    'sound.ice_scoop': (1.2, False, -24, "An ice cream scoop scraping a scoop of ice cream and plopping it onto a waffle cone, for a children's game." + NO),
+    'sound.trade': (1.2, False, -24, "A quick friendly whoosh as two things are swapped between hands, ending with a soft pop, for a children's game." + NO),
+    'sound.zipper': (1.2, False, -24, "A backpack zipper being zipped closed quickly, for a children's game." + NO),
+    'sound.piggy': (1.5, False, -24, "A coin dropping into a ceramic piggy bank with a clink and a short rattle inside, for a children's game." + NO),
+    'sound.dig': (1.5, False, -24, "A small animal quickly digging in dry autumn leaves and soft earth, burying a nut, for a children's game." + NO),
+    'sound.shop_bell': (1.5, False, -24, "A little shop door bell jingling brightly as the door opens, with a magical sparkle, for a children's game." + NO),
 }
 
 
@@ -87,11 +102,11 @@ def _mittel(datei):
 
 
 def verkleinern(key, roh, ziel):
-    """Leise und klein: Kulissen im Mittel -38 dB wie `music.home` (seit 16.11.2026 leiser, damit man die Stimmen hört), kurze Töne
-    -24 dB wie `sound.correct`, Spitzen begrenzt (auf dem iPhone lässt sich die
+    """Leise und klein auf die Lautstärke aus `KLAENGE` (Kulissen seit 17.11.2026 um -44 dB,
+    leiser als `music.home`; kurze Töne um -24 dB wie `sound.correct`), Spitzen begrenzt (auf dem iPhone lässt sich die
     Lautstärke im Browser nicht im Code senken, es zählt die Datei)."""
     schleife = KLAENGE[key][1]
-    gain = (-38.0 if schleife else -24.0) - _mittel(roh)
+    gain = KLAENGE[key][2] - _mittel(roh)
     args = ['ffmpeg', '-y', '-loglevel', 'error', '-i', roh,
             '-af', f'volume={gain:.1f}dB,alimiter=limit={0.5 if schleife else 0.6}:level=disabled']
     args += ['-b:a', '64k'] if schleife else ['-ac', '1', '-b:a', '96k']

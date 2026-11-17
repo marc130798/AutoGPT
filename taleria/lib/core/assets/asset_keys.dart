@@ -88,6 +88,18 @@ abstract final class AssetKeys {
   static const soundFogRise = 'sound.fog_rise';
   static const soundBottle = 'sound.bottle';
   static const soundTool = 'sound.tool';
+  static const soundMedals = 'sound.medals';
+  static const soundPaper = 'sound.paper';
+  static const soundBubbles = 'sound.bubbles';
+  static const soundDice = 'sound.dice';
+  static const soundRegister = 'sound.register';
+  static const soundMarketBell = 'sound.market_bell';
+  static const soundIceScoop = 'sound.ice_scoop';
+  static const soundTrade = 'sound.trade';
+  static const soundZipper = 'sound.zipper';
+  static const soundPiggy = 'sound.piggy';
+  static const soundDig = 'sound.dig';
+  static const soundShopBell = 'sound.shop_bell';
 
   /// Klangkulissen statt Stille in den Missionen (leise, in Schleife, wie die
   /// Musik im Hauptmenü und mit demselben Schalter im Leuchtturm).
@@ -121,6 +133,18 @@ abstract final class AssetKeys {
     soundFogRise,
     soundBottle,
     soundTool,
+    soundMedals,
+    soundPaper,
+    soundBubbles,
+    soundDice,
+    soundRegister,
+    soundMarketBell,
+    soundIceScoop,
+    soundTrade,
+    soundZipper,
+    soundPiggy,
+    soundDig,
+    soundShopBell,
   ];
 
   static const ambiences = [
