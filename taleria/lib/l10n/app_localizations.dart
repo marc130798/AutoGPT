@@ -5032,7 +5032,7 @@ abstract class AppLocalizations {
   /// Bereiche der Werft
   ///
   /// In de, this message translates to:
-  /// **'{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} sails{Segel} figurehead{Galionsfigur} clothes{Farben} garment{Kleiderkiste} other{Teile}}'**
+  /// **'{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} sails{Segel} figurehead{Galionsfigur} clothes{Farbe vom Ringel-Shirt} garment{Kleiderkiste} other{Teile}}'**
   String lookSlot(String slot);
 
   /// Name eines Teils in der Werft

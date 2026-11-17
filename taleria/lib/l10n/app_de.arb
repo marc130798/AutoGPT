@@ -4314,7 +4314,7 @@
       }
     }
   },
-  "lookSlot": "{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} sails{Segel} figurehead{Galionsfigur} clothes{Farben} garment{Kleiderkiste} other{Teile}}",
+  "lookSlot": "{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} sails{Segel} figurehead{Galionsfigur} clothes{Farbe vom Ringel-Shirt} garment{Kleiderkiste} other{Teile}}",
   "@lookSlot": {
     "description": "Bereiche der Werft",
     "placeholders": {

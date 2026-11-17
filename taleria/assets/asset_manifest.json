@@ -2343,30 +2343,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.sailor.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.sailor.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.sailor.wave": {
       "type": "image",
       "path": "assets/images/avatar.lion.sailor.wave.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.sailor.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.sailor.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2379,30 +2361,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.sailor.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.sailor.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.sailor.think": {
       "type": "image",
       "path": "assets/images/avatar.lion.sailor.think.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.sailor.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.sailor.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2415,30 +2379,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.vest.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.vest.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.vest.wave": {
       "type": "image",
       "path": "assets/images/avatar.lion.vest.wave.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.vest.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.vest.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2451,30 +2397,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.vest.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.vest.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.vest.think": {
       "type": "image",
       "path": "assets/images/avatar.lion.vest.think.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.vest.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.vest.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2487,30 +2415,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.hoodie.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.hoodie.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.hoodie.wave": {
       "type": "image",
       "path": "assets/images/avatar.lion.hoodie.wave.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.hoodie.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.hoodie.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2523,30 +2433,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.hoodie.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.hoodie.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.hoodie.think": {
       "type": "image",
       "path": "assets/images/avatar.lion.hoodie.think.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.hoodie.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.hoodie.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2559,30 +2451,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.raincoat.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.raincoat.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.raincoat.wave": {
       "type": "image",
       "path": "assets/images/avatar.lion.raincoat.wave.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.raincoat.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.raincoat.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2595,30 +2469,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lion.raincoat.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.raincoat.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lion.raincoat.think": {
       "type": "image",
       "path": "assets/images/avatar.lion.raincoat.think.png",
       "placeholder": {
         "label": "Löwe",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lion.raincoat.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lion.raincoat.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2631,30 +2487,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.sailor.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.sailor.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.sailor.wave": {
       "type": "image",
       "path": "assets/images/avatar.lioness.sailor.wave.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.sailor.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.sailor.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2667,30 +2505,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.sailor.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.sailor.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.sailor.think": {
       "type": "image",
       "path": "assets/images/avatar.lioness.sailor.think.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.sailor.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.sailor.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2703,30 +2523,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.vest.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.vest.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.vest.wave": {
       "type": "image",
       "path": "assets/images/avatar.lioness.vest.wave.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.vest.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.vest.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2739,30 +2541,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.vest.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.vest.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.vest.think": {
       "type": "image",
       "path": "assets/images/avatar.lioness.vest.think.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.vest.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.vest.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2775,30 +2559,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.hoodie.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.hoodie.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.hoodie.wave": {
       "type": "image",
       "path": "assets/images/avatar.lioness.hoodie.wave.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.hoodie.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.hoodie.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2811,30 +2577,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.hoodie.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.hoodie.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.hoodie.think": {
       "type": "image",
       "path": "assets/images/avatar.lioness.hoodie.think.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.hoodie.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.hoodie.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2847,30 +2595,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.raincoat.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.raincoat.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.raincoat.wave": {
       "type": "image",
       "path": "assets/images/avatar.lioness.raincoat.wave.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.raincoat.wave.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.raincoat.wave.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },
@@ -2883,30 +2613,12 @@
         "shape": "rectangle"
       }
     },
-    "avatar.lioness.raincoat.happy.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.raincoat.happy.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
-        "shape": "rectangle"
-      }
-    },
     "avatar.lioness.raincoat.think": {
       "type": "image",
       "path": "assets/images/avatar.lioness.raincoat.think.png",
       "placeholder": {
         "label": "Löwin",
         "color": "#E8B04A",
-        "shape": "rectangle"
-      }
-    },
-    "avatar.lioness.raincoat.think.cloth": {
-      "type": "image",
-      "path": "assets/images/avatar.lioness.raincoat.think.cloth.png",
-      "placeholder": {
-        "label": "Kleider-Maske",
-        "color": "#FFFFFF",
         "shape": "rectangle"
       }
     },

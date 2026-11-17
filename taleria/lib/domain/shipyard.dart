@@ -121,7 +121,8 @@ AvatarConfig wearLook(AvatarConfig avatar, LookItem item) => switch (item.value)
   final ShipFlag f => avatar.copyWith(flag: f),
   final SailColor c => avatar.copyWith(sails: c),
   final Figurehead g => avatar.copyWith(figurehead: g),
-  final ClothesColor c => avatar.copyWith(clothes: c),
+  // Farben gibt es nur für das Ringel-Shirt: Wer eine Farbe wählt, zieht es an.
+  final ClothesColor c => avatar.copyWith(clothes: c, garment: Garment.stripes),
   final Garment g => avatar.copyWith(garment: g),
   _ => avatar,
 };
@@ -134,7 +135,7 @@ bool wearsLook(AvatarConfig avatar, LookItem item) => switch (item.value) {
   final ShipFlag f => avatar.flag == f,
   final SailColor c => avatar.sails == c,
   final Figurehead g => avatar.figurehead == g,
-  final ClothesColor c => avatar.clothes == c,
+  final ClothesColor c => avatar.garment == Garment.stripes && avatar.clothes == c,
   final Garment g => avatar.garment == g,
   _ => false,
 };

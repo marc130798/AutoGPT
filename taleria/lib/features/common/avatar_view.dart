@@ -65,7 +65,9 @@ const clothesColors = {
 };
 
 /// Einfärbung der Kleider für [CharacterImage.clothTint], `null` bei Blau.
-Color? clothTint(AvatarConfig avatar) => clothesColors[avatar.clothes];
+/// Nur das Start-Outfit (Ringel-Shirt) hat eine Farbwahl; die Kleidungsstücke
+/// von den Inseln bleiben, wie sie sind (Marcs Wunsch am 17.11.2026).
+Color? clothTint(AvatarConfig avatar) => avatar.garment == Garment.stripes ? clothesColors[avatar.clothes] : null;
 
 /// Farbe für Vorschau-Punkte (auch Blau).
 Color clothesSwatch(ClothesColor c) => clothesColors[c] ?? const Color(0xFF2E5C9E);

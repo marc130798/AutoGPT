@@ -120,7 +120,9 @@ void main() {
     expect(find.text('Diesen Schatzcode hast du schon eingelöst.'), findsOneWidget);
   });
 
-  testWidgets('Kleiderkiste: Matrosenpulli nach dem Hafen, Regenjacke noch zu, Farben alle frei', (tester) async {
+  testWidgets('Kleiderkiste: Matrosenpulli nach dem Hafen, Regenjacke noch zu, Farben fürs Ringel-Shirt', (
+    tester,
+  ) async {
     final backend = FakeBackend();
     final parent = backend.addParent(pin: '2468');
     final mila = backend.addChild(parent);
@@ -143,7 +145,9 @@ void main() {
 
     await tapKey(tester, 'look-garment_sailor');
     expect(backend.childById(mila.id).avatar!.garment, Garment.sailor);
+    // Farben gibt es nur fürs Ringel-Shirt: Eine Farbe wählen zieht es wieder an.
     await tapKey(tester, 'look-clothes_purple');
     expect(backend.childById(mila.id).avatar!.clothes, ClothesColor.purple);
+    expect(backend.childById(mila.id).avatar!.garment, Garment.stripes);
   });
 }

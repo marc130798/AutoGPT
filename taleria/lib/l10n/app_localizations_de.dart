@@ -3086,7 +3086,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag': 'Flagge',
       'sails': 'Segel',
       'figurehead': 'Galionsfigur',
-      'clothes': 'Farben',
+      'clothes': 'Farbe vom Ringel-Shirt',
       'garment': 'Kleiderkiste',
       'other': 'Teile',
     });
