@@ -5,6 +5,9 @@ import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
 import '../common/film_view.dart';
 import '../../core/theme/taleria_palette.dart';
+import '../../domain/shipyard.dart';
+import '../../domain/avatar.dart';
+import '../common/avatar_view.dart';
 import '../../domain/content_models.dart';
 import '../../domain/money.dart';
 import '../../domain/family_models.dart';
@@ -519,6 +522,28 @@ class _ResultView extends StatelessWidget {
                     ],
                   ),
                 ),
+                // Jede Insel schenkt ein Kleidungsstück für die Werft (Marcs Wunsch am 17.11.2026).
+                if (islandGarment(controller.island.slug) case final garment?) ...[
+                  const SizedBox(height: 12),
+                  OpenFrame(
+                    key: const ValueKey('result-garment'),
+                    child: Row(
+                      children: [
+                        AvatarView(
+                          avatar: wearLook(controller.child.avatar ?? const AvatarConfig(), garment),
+                          size: 72,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            l10n.islandGarmentUnlocked(l10n.lookName(garment.id)),
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
                 if (details?.teaser case final teaser? when teaser.isNotEmpty) ...[
                   const SizedBox(height: 24),
                   _IslandTeaser(details: details!),

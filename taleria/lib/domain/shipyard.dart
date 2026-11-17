@@ -8,14 +8,14 @@ import 'avatar.dart';
 /// Seit 16.11.2026 ist die Figur des Kindes Löwe oder Löwin (frei wählbar,
 /// [PlayerFigure]); Jacken, Hüte und Halstücher gibt es nicht mehr. Dafür
 /// gibt es Segelfarben, Galionsfiguren und Flaggen fürs Schiff.
-enum LookSlot { outfit, hat, scarf, flag, sails, figurehead, clothes }
+enum LookSlot { outfit, hat, scarf, flag, sails, figurehead, clothes, garment }
 
 /// Plätze, die die Werft heute zeigt.
 /// Die Kleiderkiste (Farben für Shirt und Hose) steht oben (Marcs Wunsch am 17.11.2026).
-const shipyardSlots = [LookSlot.clothes, LookSlot.sails, LookSlot.figurehead, LookSlot.flag];
+const shipyardSlots = [LookSlot.garment, LookSlot.clothes, LookSlot.sails, LookSlot.figurehead, LookSlot.flag];
 
 class LookItem {
-  const LookItem(this.slot, this.value, this.minXp, {this.logbook});
+  const LookItem(this.slot, this.value, this.minXp, {this.logbook, this.island});
 
   final LookSlot slot;
   final Enum value;
@@ -26,44 +26,61 @@ class LookItem {
   /// Frei nur mit dem Schatzcode aus dem Logbuch dieser Insel (zum Beispiel `hafen`), nicht mit Seemeilen.
   final String? logbook;
 
-  String get id => '${slot.name}_${value.name}';
-  bool unlockedAt(int xp) => logbook == null && xp >= minXp;
+  /// Frei, sobald diese Insel geschafft ist (zum Beispiel `hafen`), nicht mit Seemeilen.
+  final String? island;
 
-  /// Frei: mit Seemeilen oder, bei Logbuch-Teilen, mit dem eingelösten Schatzcode.
-  bool isUnlocked(int xp, Set<String> logbooks) => logbook != null ? logbooks.contains(logbook) : xp >= minXp;
+  String get id => '${slot.name}_${value.name}';
+  bool unlockedAt(int xp) => logbook == null && island == null && xp >= minXp;
+
+  /// Frei: mit Seemeilen, bei Logbuch-Teilen mit dem eingelösten Schatzcode,
+  /// bei Insel-Teilen mit der geschafften Insel ([islands]: Slugs).
+  bool isUnlocked(int xp, Set<String> logbooks, [Set<String> islands = const {}]) => switch ((logbook, island)) {
+    (final String l, _) => logbooks.contains(l),
+    (_, final String i) => islands.contains(i),
+    _ => xp >= minXp,
+  };
 }
 
 /// Alle Teile der Werft in der Reihenfolge der Grenzen. Die Grenzen passen
 /// zu den Rängen: Matrose ab 1.500, Bootsmann ab 4.000, Steuermann ab 8.000.
-const shipyardItems = <LookItem>[
+final shipyardItems = <LookItem>[
   LookItem(LookSlot.sails, SailColor.white, 0),
   LookItem(LookSlot.figurehead, Figurehead.none, 0),
   LookItem(LookSlot.flag, ShipFlag.taleria, 0),
-  // Blau-Weiß und Rosa-Weiß wählt das Kind im Intro, beide sind immer frei.
-  LookItem(LookSlot.clothes, ClothesColor.blue, 0),
-  LookItem(LookSlot.clothes, ClothesColor.pink, 0),
+  // Alle Kleiderfarben sind von Anfang an frei (Marcs Wunsch am 17.11.2026);
+  // Blau-Weiß oder Rosa-Weiß wählt das Kind schon im Intro.
+  for (final c in ClothesColor.values) LookItem(LookSlot.clothes, c, 0),
+  LookItem(LookSlot.garment, Garment.stripes, 0),
   LookItem(LookSlot.sails, SailColor.red, 200),
-  LookItem(LookSlot.clothes, ClothesColor.green, 300),
   LookItem(LookSlot.flag, ShipFlag.stripes, 400),
   LookItem(LookSlot.sails, SailColor.blue, 700),
   LookItem(LookSlot.figurehead, Figurehead.dolphin, 1000),
-  LookItem(LookSlot.clothes, ClothesColor.red, 1200),
   LookItem(LookSlot.flag, ShipFlag.wave, 1500),
   LookItem(LookSlot.sails, SailColor.green, 2000),
-  LookItem(LookSlot.clothes, ClothesColor.turquoise, 2500),
   LookItem(LookSlot.sails, SailColor.gold, 3000),
-  LookItem(LookSlot.clothes, ClothesColor.yellow, 3500),
   LookItem(LookSlot.flag, ShipFlag.star, 4000),
   LookItem(LookSlot.sails, SailColor.purple, 5000),
   LookItem(LookSlot.figurehead, Figurehead.lion, 6000),
-  LookItem(LookSlot.clothes, ClothesColor.purple, 7000),
   LookItem(LookSlot.flag, ShipFlag.sun, 8000),
   // Aus dem Logbuch zum Ausdrucken (Schatzcode auf der Urkunde).
   LookItem(LookSlot.flag, ShipFlag.anchor, 0, logbook: 'hafen'),
   LookItem(LookSlot.flag, ShipFlag.shell, 0, logbook: 'tauschinsel'),
   LookItem(LookSlot.flag, ShipFlag.bottle, 0, logbook: 'wunschinsel'),
   LookItem(LookSlot.flag, ShipFlag.coin, 0, logbook: 'spar-insel'),
+  // Kleidungsstücke: je eins für jede geschaffte Insel.
+  LookItem(LookSlot.garment, Garment.sailor, 0, island: 'hafen'),
+  LookItem(LookSlot.garment, Garment.vest, 0, island: 'tauschinsel'),
+  LookItem(LookSlot.garment, Garment.hoodie, 0, island: 'wunschinsel'),
+  LookItem(LookSlot.garment, Garment.raincoat, 0, island: 'spar-insel'),
 ];
+
+/// Kleidungsstück, das die Insel [slug] freischaltet (für den Hinweis nach dem Insel-Abschluss).
+LookItem? islandGarment(String slug) {
+  for (final i in shipyardItems) {
+    if (i.island == slug) return i;
+  }
+  return null;
+}
 
 /// Schatzcodes aus den Logbüchern: Code → Insel. Nur Aussehen, nichts kaufbar.
 const logbookCodes = {'ANKER7': 'hafen', 'MUSCHEL3': 'tauschinsel', 'FLASCHE5': 'wunschinsel', 'TALER9': 'spar-insel'};
@@ -91,7 +108,7 @@ int unlockedShipyardCount(int xp) => shipyardItems.where((i) => i.minXp > 0 && i
 /// Das nächste Teil, das noch gesperrt ist, oder `null`, wenn alles frei ist.
 LookItem? nextShipyardItem(int xp) {
   for (final i in shipyardItems) {
-    if (i.logbook == null && !i.unlockedAt(xp)) return i;
+    if (i.logbook == null && i.island == null && !i.unlockedAt(xp)) return i;
   }
   return null;
 }
@@ -105,6 +122,7 @@ AvatarConfig wearLook(AvatarConfig avatar, LookItem item) => switch (item.value)
   final SailColor c => avatar.copyWith(sails: c),
   final Figurehead g => avatar.copyWith(figurehead: g),
   final ClothesColor c => avatar.copyWith(clothes: c),
+  final Garment g => avatar.copyWith(garment: g),
   _ => avatar,
 };
 
@@ -117,5 +135,6 @@ bool wearsLook(AvatarConfig avatar, LookItem item) => switch (item.value) {
   final SailColor c => avatar.sails == c,
   final Figurehead g => avatar.figurehead == g,
   final ClothesColor c => avatar.clothes == c,
+  final Garment g => avatar.garment == g,
   _ => false,
 };

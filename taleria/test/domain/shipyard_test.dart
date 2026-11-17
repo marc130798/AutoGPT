@@ -7,15 +7,15 @@ void main() {
     expect(unlockedShipyardCount(0), 0);
     expect(unlockedShipyardCount(199), 0);
     expect(unlockedShipyardCount(200), 1);
-    expect(unlockedShipyardCount(400), 3, reason: 'rote Segel, Grün-Weiß, Streifen-Flagge');
-    expect(unlockedShipyardCount(1200), 6);
+    expect(unlockedShipyardCount(400), 2);
+    expect(unlockedShipyardCount(1200), 4);
     expect(unlockedShipyardCount(100000), shipyardItems.where((i) => i.minXp > 0).length);
     expect(nextShipyardItem(1200)!.id, 'flag_wave');
     expect(nextShipyardItem(8000), isNull);
   });
 
   test('Grenzen steigen und jedes Teil gibt es nur einmal', () {
-    final byXp = shipyardItems.where((i) => i.logbook == null).toList();
+    final byXp = shipyardItems.where((i) => i.logbook == null && i.island == null).toList();
     for (var i = 1; i < byXp.length; i++) {
       expect(byXp[i].minXp, greaterThanOrEqualTo(byXp[i - 1].minXp));
     }
@@ -47,6 +47,7 @@ void main() {
       LookSlot.sails,
       LookSlot.figurehead,
       LookSlot.clothes,
+      LookSlot.garment,
     });
     final dressed = wearLook(const AvatarConfig(), shipyardItems.firstWhere((i) => i.id == 'sails_red'));
     expect(dressed.sails, SailColor.red);
@@ -83,11 +84,11 @@ void main() {
     expect(logbookForCode('TALER-9'), 'spar-insel');
   });
 
-  test('Kleiderkiste: Blau und Rosa von Anfang an, weitere Farben mit Seemeilen', () {
-    final clothes = lookOptions(LookSlot.clothes);
-    expect(clothes.map((i) => i.value), ClothesColor.values);
-    expect(clothes.where((i) => i.unlockedAt(0)).map((i) => i.value), [ClothesColor.blue, ClothesColor.pink]);
-    final green = clothes.firstWhere((i) => i.value == ClothesColor.green);
+  test('Farben von Anfang an frei, Kleidungsstücke nach geschafften Inseln', () {
+    final colors = lookOptions(LookSlot.clothes);
+    expect(colors.map((i) => i.value), ClothesColor.values);
+    expect(colors.every((i) => i.unlockedAt(0)), isTrue);
+    final green = colors.firstWhere((i) => i.value == ClothesColor.green);
     final avatar = wearLook(const AvatarConfig(), green);
     expect(avatar.clothes, ClothesColor.green);
     expect(wearsLook(avatar, green), isTrue);
@@ -95,8 +96,17 @@ void main() {
     expect(AvatarConfig.fromJson({'figure': 'lion'}).clothes, ClothesColor.blue, reason: 'alte Profile: Löwe blau');
     expect(AvatarConfig.fromJson({'figure': 'lioness'}).clothes, ClothesColor.pink, reason: 'Löwin rosa');
     expect(AvatarConfig.fromJson({'figure': 'lioness', 'clothes': 'blue'}).clothes, ClothesColor.blue);
+
+    final sailor = islandGarment('hafen')!;
+    expect(sailor.value, Garment.sailor);
+    expect(sailor.isUnlocked(100000, const {}), isFalse, reason: 'Seemeilen helfen nicht');
+    expect(sailor.isUnlocked(0, const {}, const {'hafen'}), isTrue);
+    expect(islandGarment('spar-insel')!.value, Garment.raincoat);
+    final dressed = wearLook(const AvatarConfig(), sailor);
+    expect(AvatarConfig.fromJson(dressed.toJson()).garment, Garment.sailor);
+    expect(AvatarConfig.fromJson({}).garment, Garment.stripes);
     // Die Liste bleibt nach Grenzen sortiert, sonst stimmt „das nächste Teil“ nicht.
-    final limits = [for (final i in shipyardItems.where((i) => i.logbook == null)) i.minXp];
+    final limits = [for (final i in shipyardItems.where((i) => i.logbook == null && i.island == null)) i.minXp];
     expect(limits, [...limits]..sort());
   });
 }

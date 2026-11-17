@@ -38,16 +38,64 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
   late AvatarConfig _avatar = widget.child.avatar ?? const AvatarConfig();
   bool _saving = false;
 
+  /// Geschaffte Inseln (Slugs) und die Namen aller Inseln, für die Kleidungsstücke.
+  Set<String> _islandsDone = const {};
+  Map<String, String> _islandTitles = const {};
+  bool _islandsLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_islandsLoaded) {
+      _islandsLoaded = true;
+      _loadIslands();
+    }
+  }
+
+  /// Ohne Verbindung bleiben die Kleidungsstücke einfach zu; die Werft geht trotzdem.
+  Future<void> _loadIslands() async {
+    final services = AppScope.of(context);
+    final content = services.content;
+    final progress = services.progress;
+    if (content == null || progress == null) return;
+    try {
+      final map = await content.fetchMap(widget.child.stage);
+      final done = (await progress.fetchProgress(widget.child.id)).completedIslandIds;
+      if (!mounted) return;
+      setState(() {
+        _islandTitles = {for (final i in map) i.slug: i.title};
+        _islandsDone = {
+          for (final i in map)
+            if (done.contains(i.id)) i.slug,
+        };
+      });
+    } on AppFailure {
+      // Nur Kleidungsstücke betroffen.
+    }
+  }
+
+  bool _unlocked(LookItem item) => item.isUnlocked(widget.xp, _avatar.logbooks, _islandsDone);
+
+  String _lockText(AppLocalizations l10n, LookItem item) {
+    if (item.logbook != null) return l10n.shipyardFromLogbook;
+    if (item.island != null) return l10n.shipyardFromIsland(_islandTitles[item.island] ?? item.island!);
+    return l10n.ranksFrom(item.minXp);
+  }
+
   Future<void> _choose(LookItem item) async {
     final l10n = AppLocalizations.of(context);
-    if (!item.isUnlocked(widget.xp, _avatar.logbooks)) {
+    if (!_unlocked(item)) {
       // Ein neuer Hinweis ersetzt den alten, statt sich hinten anzustellen.
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
           SnackBar(
             content: Text(
-              item.logbook != null ? l10n.shipyardLockedLogbook : l10n.shipyardLocked(l10n.ranksFrom(item.minXp)),
+              item.logbook != null
+                  ? l10n.shipyardLockedLogbook
+                  : item.island != null
+                  ? l10n.shipyardLockedIsland(_islandTitles[item.island] ?? item.island!)
+                  : l10n.shipyardLocked(l10n.ranksFrom(item.minXp)),
             ),
           ),
         );
@@ -236,7 +284,8 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
                               _LookOption(
                                 item: item,
                                 avatar: _avatar,
-                                unlocked: item.isUnlocked(widget.xp, _avatar.logbooks),
+                                unlocked: _unlocked(item),
+                                lockText: _lockText(l10n, item),
                                 selected: wearsLook(_avatar, item),
                                 onTap: () => _choose(item),
                               ),
@@ -291,8 +340,10 @@ class _LookOption extends StatelessWidget {
     required this.unlocked,
     required this.selected,
     required this.onTap,
+    required this.lockText,
   });
 
+  final String lockText;
   final LookItem item;
   final AvatarConfig avatar;
   final bool unlocked;
@@ -305,7 +356,8 @@ class _LookOption extends StatelessWidget {
     final palette = context.palette;
     final preview = switch (item.slot) {
       LookSlot.flag => ShipFlagView(flag: item.value as ShipFlag, size: 54),
-      LookSlot.clothes => AvatarView(avatar: wearLook(avatar, item), size: 60, portrait: true),
+      LookSlot.clothes => StripeSwatch(color: clothesSwatch(item.value as ClothesColor), size: 46),
+      LookSlot.garment => AvatarView(avatar: wearLook(avatar, item), size: 60),
       LookSlot.outfit => Container(
         width: 46,
         height: 46,
@@ -359,18 +411,20 @@ class _LookOption extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                l10n.lookName(item.id),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+              // Lange Einzelwörter („Matrosenpulli“) nicht mitten im Wort umbrechen, sondern kleiner schreiben.
+              Builder(
+                builder: (context) {
+                  final name = l10n.lookName(item.id);
+                  final text = Text(
+                    name,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                  );
+                  return name.contains(' ') ? text : FittedBox(fit: BoxFit.scaleDown, child: text);
+                },
               ),
-              if (!unlocked)
-                Text(
-                  item.logbook != null ? l10n.shipyardFromLogbook : l10n.ranksFrom(item.minXp),
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+              if (!unlocked) Text(lockText, textAlign: TextAlign.center, style: Theme.of(context).textTheme.labelSmall),
             ],
           ),
         ),

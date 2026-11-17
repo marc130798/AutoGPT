@@ -32,8 +32,15 @@ def maske(pfad: str) -> Image.Image:
     mn = np.minimum(np.minimum(r, g), b)
     sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
     # Blau: b ist der größte Anteil, deutlich vor Rot, genug Farbe.
-    blau = (b >= g) & (b > r + 0.08) & (sat > 0.14) & (alpha > 0.5)
-    staerke = np.clip((sat - 0.14) / 0.14, 0, 1) * blau
+    # Blau-Anteil relativ zur Helligkeit, damit auch dunkles, glänzendes Blau
+    # (Regenjacke) erkannt wird.
+    vorsprung = (b - np.maximum(r, g)) / np.maximum(b, 1e-3)
+    blau = (b >= g) & (vorsprung > 0.12) & ((sat > 0.14) | (mx < 0.45)) & (alpha > 0.5)
+    staerke = np.clip(np.maximum((sat - 0.14) / 0.14, (vorsprung - 0.12) / 0.12), 0, 1) * blau
+    # Glanzlichter auf blauem Stoff: hell und nur leicht bläulich. Weiße Streifen
+    # sind fast neutral und bleiben weiß.
+    glanz = (b >= g) & (vorsprung > 0.07) & (mx > 0.5) & (alpha > 0.5)
+    staerke = np.maximum(staerke, np.clip((vorsprung - 0.07) / 0.06, 0, 1) * glanz)
     # Weiche Kante, damit der Übergang zu den weißen Streifen nicht ausfranst.
     m = Image.fromarray((staerke * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.8))
     staerke = np.asarray(m).astype(np.float32) / 255.0 * alpha

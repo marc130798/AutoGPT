@@ -3086,7 +3086,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag': 'Flagge',
       'sails': 'Segel',
       'figurehead': 'Galionsfigur',
-      'clothes': 'Kleiderkiste',
+      'clothes': 'Farben',
+      'garment': 'Kleiderkiste',
       'other': 'Teile',
     });
     return '$_temp0';
@@ -3138,6 +3139,11 @@ class AppLocalizationsDe extends AppLocalizations {
       'clothes_turquoise': 'Türkis-Weiß',
       'clothes_yellow': 'Gelb-Weiß',
       'clothes_purple': 'Lila-Weiß',
+      'garment_stripes': 'Ringel-Shirt',
+      'garment_sailor': 'Matrosenpulli',
+      'garment_vest': 'Händlerweste',
+      'garment_hoodie': 'Sternen-Pulli',
+      'garment_raincoat': 'Regenjacke',
       'other': 'Teil',
     });
     return '$_temp0';
@@ -3604,4 +3610,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get clothesHint => 'Weitere Farben findest du später in der Werft.';
+
+  @override
+  String shipyardFromIsland(String island) {
+    return 'nach der Insel $island';
+  }
+
+  @override
+  String shipyardLockedIsland(String island) {
+    return 'Das gibt es, wenn du die Insel $island geschafft hast.';
+  }
+
+  @override
+  String islandGarmentUnlocked(String item) {
+    return 'Neu in der Werft: $item! Zieh es gleich an.';
+  }
 }

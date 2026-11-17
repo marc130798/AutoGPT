@@ -51,7 +51,8 @@ abstract final class AvatarPalette {
 }
 
 /// Bildschlüssel der Figur des Kindes, zum Beispiel `avatar.lioness`.
-String avatarKey(AvatarConfig avatar) => 'avatar.${avatar.figure.name}';
+String avatarKey(AvatarConfig avatar) =>
+    'avatar.${avatar.figure.name}${avatar.garment == Garment.stripes ? '' : '.${avatar.garment.name}'}';
 
 /// Farben für Shirt und Hose. Blau ist die Farbe im Bild, darum ohne Einfärben.
 const clothesColors = {

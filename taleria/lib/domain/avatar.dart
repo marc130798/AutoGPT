@@ -41,6 +41,11 @@ enum Figurehead { none, dolphin, lion }
 /// Blau und Rosa wählt das Kind im Intro, die anderen gibt es in der Werft.
 enum ClothesColor { blue, pink, green, red, turquoise, yellow, purple }
 
+/// Kleidungsstück der Figur (Marcs Wunsch am 17.11.2026): Ringel-Shirt von
+/// Anfang an, die anderen gibt es nach geschafften Inseln. Alle sind im Bild
+/// blau-weiß und lassen sich in jeder [ClothesColor] tragen.
+enum Garment { stripes, sailor, vest, hoodie, raincoat }
+
 /// Standard-Kleider (Marcs Wunsch am 17.11.2026): Löwe Blau-Weiß, Löwin Rosa-Weiß.
 ClothesColor defaultClothes(PlayerFigure figure) =>
     figure == PlayerFigure.lioness ? ClothesColor.pink : ClothesColor.blue;
@@ -59,6 +64,7 @@ class AvatarConfig {
     this.sails = SailColor.white,
     this.figurehead = Figurehead.none,
     this.clothes = ClothesColor.blue,
+    this.garment = Garment.stripes,
     this.logbooks = const {},
   });
 
@@ -86,6 +92,7 @@ class AvatarConfig {
         'clothes',
         defaultClothes(pick(PlayerFigure.values, 'figure', fallback.figure)),
       ),
+      garment: pick(Garment.values, 'garment', fallback.garment),
       logbooks: {
         for (final l in (json['logbooks'] as List?) ?? const [])
           if (l is String) l,
@@ -109,6 +116,7 @@ class AvatarConfig {
   final SailColor sails;
   final Figurehead figurehead;
   final ClothesColor clothes;
+  final Garment garment;
 
   /// Inseln, deren Schatzcode aus dem Logbuch das Kind eingelöst hat (zum Beispiel `hafen`).
   final Set<String> logbooks;
@@ -127,6 +135,7 @@ class AvatarConfig {
     'sails': sails.name,
     'figurehead': figurehead.name,
     'clothes': clothes.name,
+    'garment': garment.name,
     if (logbooks.isNotEmpty) 'logbooks': [...logbooks]..sort(),
   };
 
@@ -145,6 +154,7 @@ class AvatarConfig {
     SailColor? sails,
     Figurehead? figurehead,
     ClothesColor? clothes,
+    Garment? garment,
     Set<String>? logbooks,
   }) {
     return AvatarConfig(
@@ -159,6 +169,7 @@ class AvatarConfig {
       flag: flag ?? this.flag,
       sails: sails ?? this.sails,
       clothes: clothes ?? this.clothes,
+      garment: garment ?? this.garment,
       figurehead: figurehead ?? this.figurehead,
       logbooks: logbooks ?? this.logbooks,
     );

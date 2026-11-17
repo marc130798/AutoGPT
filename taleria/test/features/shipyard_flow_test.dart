@@ -42,9 +42,9 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
     await tapText(tester, 'An Bord gehen');
 
-    // Sechs Teile sind schon frei und leuchten, bis das Kind die Werft öffnet.
+    // Vier Teile sind schon frei und leuchten, bis das Kind die Werft öffnet.
     await scrollTo(tester, find.byKey(const ValueKey('home-shipyard')));
-    expect(find.text('6 neue Teile frei'), findsOneWidget);
+    expect(find.text('4 neue Teile frei'), findsOneWidget);
     await tapKey(tester, 'home-shipyard');
 
     expect(find.text('Werft'), findsWidgets);
@@ -70,7 +70,7 @@ void main() {
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
     await scrollTo(tester, find.byKey(const ValueKey('home-shipyard')));
-    expect(find.text('6 neue Teile frei'), findsNothing);
+    expect(find.text('4 neue Teile frei'), findsNothing);
     expect(find.byKey(const ValueKey('ship-flag-stripes')), findsWidgets);
   });
 
@@ -118,5 +118,32 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('shipyard-code-submit')));
     await tester.pumpAndSettle();
     expect(find.text('Diesen Schatzcode hast du schon eingelöst.'), findsOneWidget);
+  });
+
+  testWidgets('Kleiderkiste: Matrosenpulli nach dem Hafen, Regenjacke noch zu, Farben alle frei', (tester) async {
+    final backend = FakeBackend();
+    final parent = backend.addParent(pin: '2468');
+    final mila = backend.addChild(parent);
+    backend.codes['ABCD2345'] = (childId: mila.id, validUntil: DateTime(2026), used: false);
+    final content = FakeContent();
+    final progress = FakeProgress(content)..completedIslands.add('island-hafen');
+
+    await tester.pumpWidget(buildTestApp(backend: backend, content: content, progress: progress));
+    await tester.pumpAndSettle();
+    await tapText(tester, 'Ich habe einen Code');
+    await tester.enterText(find.byKey(const ValueKey('child-code-field')), 'ABCD2345');
+    await tapText(tester, 'An Bord gehen');
+    await tapKey(tester, 'home-shipyard');
+
+    await tapKey(tester, 'look-garment_raincoat');
+    expect(find.text('nach der Insel Spar-Insel'), findsOneWidget);
+    expect(find.text('nach der Insel Hafen'), findsNothing, reason: 'Hafen geschafft: Matrosenpulli frei');
+    expect(find.textContaining('wenn du die Insel Spar-Insel geschafft hast'), findsOneWidget);
+    expect(backend.childById(mila.id).avatar?.garment ?? Garment.stripes, Garment.stripes);
+
+    await tapKey(tester, 'look-garment_sailor');
+    expect(backend.childById(mila.id).avatar!.garment, Garment.sailor);
+    await tapKey(tester, 'look-clothes_purple');
+    expect(backend.childById(mila.id).avatar!.clothes, ClothesColor.purple);
   });
 }
