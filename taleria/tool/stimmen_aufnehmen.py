@@ -80,6 +80,12 @@ APP_LINES = {
     "rankFormQuestion": "tala",
     "shipBody": "tala",
     "wishBody": "tala",
+    # Erklärungen oben auf den Seiten der Kabinen (Marcs Test am 17.11.2026).
+    "tasksIntroTalo": "talo",
+    "tasksIntroTala": "tala",
+    "collectionIntro": "tala",
+    "badgesIntro": "talo",
+    "gamesIntro": "talo",
     "tourMapBody": "talo",
     "tourRankBody": "talo",
     "tourChestBody": "tala",

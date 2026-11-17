@@ -9,10 +9,22 @@ import '../../l10n/app_localizations.dart';
 /// kleiner „?“-Knopf klappt sie auf und wieder zu (Marcs Wunsch am
 /// 20.10.2026). Gemerkt wird das je Kind auf diesem Gerät.
 class PageIntro extends StatefulWidget {
-  const PageIntro({super.key, required this.childId, required this.page, required this.children, this.voice});
+  const PageIntro({
+    super.key,
+    required this.childId,
+    required this.page,
+    required this.children,
+    this.voice,
+    this.voices = const [],
+  });
 
   /// Sprachaufnahme, die beim ersten Besuch die Erklärung vorliest.
   final String? voice;
+
+  /// Mehrere Sprecher nacheinander (zum Beispiel Talo, dann Tala).
+  final List<String> voices;
+
+  List<String> get _allVoices => [?voice, ...voices];
 
   final String childId;
 
@@ -46,9 +58,14 @@ class _PageIntroState extends State<PageIntro> {
       });
       if (!seen) {
         settings.setPageIntroSeen(widget.childId, widget.page).ignore();
-        if (widget.voice case final voice?) AppScope.of(context).sounds.voice(voice);
+        _speak();
       }
     });
+  }
+
+  void _speak() {
+    final files = widget._allVoices;
+    if (files.isNotEmpty) AppScope.of(context).sounds.voices(files);
   }
 
   @override
@@ -76,7 +93,15 @@ class _PageIntroState extends State<PageIntro> {
                     shape: CircleBorder(side: BorderSide(color: palette.gold, width: 2)),
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
-                      onTap: () => setState(() => _open = !_open),
+                      // Beim Aufklappen liest die Figur die Erklärung wieder vor (Marcs Test am 17.11.2026).
+                      onTap: () {
+                        setState(() => _open = !_open);
+                        if (_open) {
+                          _speak();
+                        } else {
+                          AppScope.of(context).sounds.stopVoice();
+                        }
+                      },
                       child: SizedBox.square(
                         dimension: 44,
                         child: Icon(

@@ -163,6 +163,7 @@ class _BadgesScreenState extends State<BadgesScreen> with SingleTickerProviderSt
                             PageIntro(
                               childId: widget.childId,
                               page: 'badges',
+                              voices: const ['voice.app.badgesIntro.mp3'],
                               children: [
                                 SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.badgesIntro),
                               ],

@@ -1,4 +1,43 @@
 {
+  "voice.app.badgesIntro.mp3": {
+    "wer": "talo",
+    "text": "Für jede Insel, die du schaffst, bekommst du einen Orden. Hier hängen alle deine Orden. Die blassen findest du noch auf deiner Reise.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.app.collectionIntro.mp3": {
+    "wer": "tala",
+    "text": "Alles, was du beim Tauchen an den Ankerplätzen findest: Perlen und alte Schätze aus den Wracks.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.app.gamesIntro.mp3": {
+    "wer": "talo",
+    "text": "Hier kannst du alle Mini-Spiele nochmal spielen, die du auf deiner Reise geschafft hast. Nur zum Spaß, ohne Seemeilen.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
   "voice.app.introStoryTala1.mp3": {
     "wer": "tala",
     "text": "Und ich bin Tala, die Zahlmeisterin! Ich passe auf unsere Schatztruhe auf. Meistens jedenfalls.",
@@ -85,6 +124,32 @@
       "stability": 0.5,
       "similarity_boost": 0.75
     }
+  },
+  "voice.app.tasksIntroTala.mp3": {
+    "wer": "tala",
+    "text": "Deine Eltern schauen nach. Eine Belohnung kommt in deine Schatztruhe.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.app.tasksIntroTalo.mp3": {
+    "wer": "talo",
+    "text": "Hier stehen Aufgaben von deinen Eltern. Fertig? Dann tipp auf „Erledigt!“.",
+    "datum": "2026-11-17",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
   },
   "voice.app.tourBadgesBody.mp3": {
     "wer": "talo",

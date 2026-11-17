@@ -102,6 +102,7 @@ class _GamesScreenState extends State<GamesScreen> {
                     PageIntro(
                       childId: widget.child.id,
                       page: 'games',
+                      voices: const ['voice.app.gamesIntro.mp3'],
                       children: [SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.gamesIntro)],
                     ),
                     const SizedBox(height: 16),

@@ -92,6 +92,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       PageIntro(
                         childId: widget.childId,
                         page: 'tasks',
+                        voices: const ['voice.app.tasksIntroTalo.mp3', 'voice.app.tasksIntroTala.mp3'],
                         children: [
                           SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.wave, text: l10n.tasksIntroTalo),
                           const SizedBox(height: 12),

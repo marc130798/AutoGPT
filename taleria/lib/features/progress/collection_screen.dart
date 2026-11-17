@@ -99,6 +99,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     PageIntro(
                       childId: widget.childId,
                       page: 'collection',
+                      voices: const ['voice.app.collectionIntro.mp3'],
                       children: [
                         SpeechBubble(speaker: Speaker.tala, pose: CharacterPose.happy, text: l10n.collectionIntro),
                       ],
