@@ -4192,7 +4192,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Karte zu finden ist
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite das große Holzschild „Zur Karte“'**
+  /// **'Im Schiff oben links: im Kartenraum das Schild „Zur Karte“'**
   String get tourMapWhere;
 
   /// Rundgang: Titel der Station Rang
@@ -4216,7 +4216,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Schatztruhe ist
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite unter der Karte, links'**
+  /// **'Im Schiff oben rechts: die Schatzkammer'**
   String get tourChestWhere;
 
   /// Rundgang: Titel der Station Aufträge
@@ -4228,7 +4228,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Aufträge sind
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite unter der Karte, in der Mitte'**
+  /// **'Im Schiff in der Mitte links: die Kapitänskajüte'**
   String get tourTasksWhere;
 
   /// Rundgang: Tala erklärt die Aufträge
@@ -4246,7 +4246,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Orden sind
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite in der unteren Reihe, links'**
+  /// **'Im Schiff in der Mitte: der schmale Gang mit den Orden'**
   String get tourBadgesWhere;
 
   /// Rundgang: Talo erklärt die Orden
@@ -4264,7 +4264,7 @@ abstract class AppLocalizations {
   /// Rundgang: wo die Sammlung ist
   ///
   /// In de, this message translates to:
-  /// **'Auf der Startseite in der unteren Reihe, in der Mitte'**
+  /// **'Im Schiff unten links: der Taucherraum mit den Bullaugen'**
   String get tourCollectionWhere;
 
   /// Rundgang: Tala erklärt die Unterwasser-Sammlung

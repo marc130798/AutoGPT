@@ -37,7 +37,11 @@ void main() {
     final titles = <String>[];
     for (var i = 0; i < 7; i++) {
       final where = tester.widget<Text>(find.byKey(const ValueKey('tour-where'))).textSpan!.toPlainText();
-      expect(where, startsWith('Wo? Auf der Startseite'), reason: 'jede Station sagt, wo sie liegt');
+      expect(
+        where,
+        anyOf(startsWith('Wo? Auf der Startseite'), startsWith('Wo? Im Schiff')),
+        reason: 'jede Station sagt, wo sie liegt',
+      );
       titles.add(where);
       if (i < 6) await tapKey(tester, 'tour-next');
     }

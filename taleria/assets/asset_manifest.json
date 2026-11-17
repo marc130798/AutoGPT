@@ -2127,6 +2127,15 @@
         "shape": "rounded"
       }
     },
+    "home.ship": {
+      "type": "image",
+      "path": "assets/images/home.ship.jpg",
+      "placeholder": {
+        "label": "Schiff im Schnitt",
+        "color": "#B5835A",
+        "shape": "rectangle"
+      }
+    },
     "home.background": {
       "type": "image",
       "path": "assets/images/home.background.jpg",

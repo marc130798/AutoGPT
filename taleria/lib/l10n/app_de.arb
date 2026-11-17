@@ -3473,7 +3473,7 @@
   "@tourBack": {
     "description": "Rundgang: Knopf zur vorigen Station"
   },
-  "tourMapWhere": "Auf der Startseite das große Holzschild „Zur Karte“",
+  "tourMapWhere": "Im Schiff oben links: im Kartenraum das Schild „Zur Karte“",
   "@tourMapWhere": {
     "description": "Rundgang: wo die Karte zu finden ist"
   },
@@ -3489,7 +3489,7 @@
   "@tourRankBody": {
     "description": "Rundgang: Talo erklärt Rang, Seemeilen und Fahrtwind"
   },
-  "tourChestWhere": "Auf der Startseite unter der Karte, links",
+  "tourChestWhere": "Im Schiff oben rechts: die Schatzkammer",
   "@tourChestWhere": {
     "description": "Rundgang: wo die Schatztruhe ist"
   },
@@ -3497,7 +3497,7 @@
   "@tourTasksTitle": {
     "description": "Rundgang: Titel der Station Aufträge"
   },
-  "tourTasksWhere": "Auf der Startseite unter der Karte, in der Mitte",
+  "tourTasksWhere": "Im Schiff in der Mitte links: die Kapitänskajüte",
   "@tourTasksWhere": {
     "description": "Rundgang: wo die Aufträge sind"
   },
@@ -3509,7 +3509,7 @@
   "@tourBadgesTitle": {
     "description": "Rundgang: Titel der Station Orden"
   },
-  "tourBadgesWhere": "Auf der Startseite in der unteren Reihe, links",
+  "tourBadgesWhere": "Im Schiff in der Mitte: der schmale Gang mit den Orden",
   "@tourBadgesWhere": {
     "description": "Rundgang: wo die Orden sind"
   },
@@ -3521,7 +3521,7 @@
   "@tourCollectionTitle": {
     "description": "Rundgang: Titel der Station Sammlung"
   },
-  "tourCollectionWhere": "Auf der Startseite in der unteren Reihe, in der Mitte",
+  "tourCollectionWhere": "Im Schiff unten links: der Taucherraum mit den Bullaugen",
   "@tourCollectionWhere": {
     "description": "Rundgang: wo die Sammlung ist"
   },

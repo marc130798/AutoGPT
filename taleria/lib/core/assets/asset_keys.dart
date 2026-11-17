@@ -28,6 +28,9 @@ abstract final class AssetKeys {
   /// Startseite des Kindes: Hintergrund und Bilder der Kacheln (BILDER.md, Abschnitt 4).
   static const homeBackground = 'home.background';
 
+  /// Startseite seit 17.11.2026: das Schiff im Schnitt (oben Deck, darunter Räume zum Antippen).
+  static const homeShip = 'home.ship';
+
   /// Hintergrund der Werft (BILDER.md Bild 176). Bis er da ist: [homeBackground].
   static const shipyardBackground = 'shipyard.background';
 
@@ -153,6 +156,7 @@ abstract final class AssetKeys {
     ...mapClouds,
     lighthouse,
     homeBackground,
+    homeShip,
     iconMap,
     iconTreasure,
     iconTasks,

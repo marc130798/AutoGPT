@@ -2504,7 +2504,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourBack => 'Zurück';
 
   @override
-  String get tourMapWhere => 'Auf der Startseite das große Holzschild „Zur Karte“';
+  String get tourMapWhere => 'Im Schiff oben links: im Kartenraum das Schild „Zur Karte“';
 
   @override
   String get tourRankTitle => 'Rang, Seemeilen und Fahrtwind';
@@ -2517,13 +2517,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Für jede Station bekommst du Seemeilen. Mit vielen Seemeilen steigst du auf, Rang für Rang bis ganz nach oben. Spielst du jede Woche, bekommst du Fahrtwind. Tipp auf das Schild, dann siehst du alle Ränge.';
 
   @override
-  String get tourChestWhere => 'Auf der Startseite unter der Karte, links';
+  String get tourChestWhere => 'Im Schiff oben rechts: die Schatzkammer';
 
   @override
   String get tourTasksTitle => 'Aufträge';
 
   @override
-  String get tourTasksWhere => 'Auf der Startseite unter der Karte, in der Mitte';
+  String get tourTasksWhere => 'Im Schiff in der Mitte links: die Kapitänskajüte';
 
   @override
   String get tourTasksBody =>
@@ -2533,7 +2533,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourBadgesTitle => 'Orden';
 
   @override
-  String get tourBadgesWhere => 'Auf der Startseite in der unteren Reihe, links';
+  String get tourBadgesWhere => 'Im Schiff in der Mitte: der schmale Gang mit den Orden';
 
   @override
   String get tourBadgesBody =>
@@ -2543,7 +2543,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tourCollectionTitle => 'Taucherfunde';
 
   @override
-  String get tourCollectionWhere => 'Auf der Startseite in der unteren Reihe, in der Mitte';
+  String get tourCollectionWhere => 'Im Schiff unten links: der Taucherraum mit den Bullaugen';
 
   @override
   String get tourCollectionBody =>
