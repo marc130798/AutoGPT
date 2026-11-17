@@ -265,20 +265,24 @@ void main() {
     expect(find.text('Noch nicht geschafft: Spar-Insel, Station 5'), findsOneWidget);
 
     // Gesperrte Spiele lassen sich nicht öffnen. Die Liste ist lang, darum zurück nach oben.
-    await tester.dragUntilVisible(
+    await tester.scrollUntilVisible(
       find.byKey(const ValueKey('games-island-tauschinsel/station1')),
-      find.byType(Scrollable).first,
-      const Offset(0, 200),
+      -200,
+      scrollable: find.byType(Scrollable).first,
     );
-    await tapKey(tester, 'games-island-tauschinsel/station1');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('games-island-tauschinsel/station1')));
+    await tester.pumpAndSettle();
     expect(find.text('Mini-Spiele'), findsOneWidget);
 
-    await tester.dragUntilVisible(
+    await tester.scrollUntilVisible(
       find.byKey(const ValueKey('games-island-hafen/station4')),
-      find.byType(Scrollable).first,
-      const Offset(0, 200),
+      -200,
+      scrollable: find.byType(Scrollable).first,
     );
-    await tapKey(tester, 'games-island-hafen/station4');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('games-island-hafen/station4')));
+    await tester.pumpAndSettle();
     expect(find.text('Mini-Spiel!'), findsOneWidget);
     expect(find.text('Nur zum Spaß: Hier gibt es keine Seemeilen.'), findsOneWidget);
     await tapKey(tester, 'real-game-play');

@@ -471,6 +471,24 @@ Erstellt am 17.11.2026 von Claude mit Gemini, nachdem die Texte der Insel geschr
 | 185 | `game.gull.net` | Hängendes Fischernetz mit Seestern und Schwimmern (Hindernis oben) | – | da (Claude mit Gemini, 17.11.2026) |
 | 186 | `game.gull.jar` | Sparglas mit Talern (Glas danach von Claude entfärbt) | – | da (Claude mit Gemini, 17.11.2026) |
 | 187 | `game.gull.coin` | Goldener Taler mit T | – | da (Claude mit Gemini, 17.11.2026) |
+| 188 | `character.emma.run` | Emma läuft (Seitenansicht) für „Emmas Nussjagd“ | `character.emma` | da (Claude mit Gemini, 17.11.2026) |
+| 189 | `game.pearl.diver` | Tala mit Taucherbrille und Schnorchel für „Talas Perlentaucher“ | `character.tala` | da (Claude mit Gemini, 17.11.2026) |
+| 190 | `game.crane.background` | Hafenbecken von der Seite, Hochformat (Bootsbauers Kran) | – | da (Claude mit Gemini, 17.11.2026) |
+| 191 | `game.crane.hook` | Kranhaken am Seil | – | da (Claude mit Gemini, 17.11.2026) |
+| 192 | `game.crane.bag` | Geldsack (Zahl zeichnet die App) | – | da (Claude mit Gemini, 17.11.2026) |
+| 193 | `game.crane.boot` | Alter Stiefel mit Seetang | – | da (Claude mit Gemini, 17.11.2026) |
+| 194 | `game.delivery.boat` | Lieferboot von oben (Ottis Lieferboot) | – | da (Claude mit Gemini, 17.11.2026) |
+| 195 | `game.delivery.rock` | Stein im Wasser von oben | – | da (Claude mit Gemini, 17.11.2026) |
+| 196 | `game.bottles.bottle` | Leere Flaschenpost (Elsas Flaschenfänger; das Ding darin zeigt die App) | – | da (Claude mit Gemini, 17.11.2026) |
+| 197 | `game.bottles.net` | Kescher | – | da (Claude mit Gemini, 17.11.2026) |
+| 198 | `game.nuts.background` | Herbstwald mit Weg, Hochformat (Emmas Nussjagd) | – | da (Claude mit Gemini, 17.11.2026) |
+| 199 | `game.nuts.nut` | Haselnuss | – | da (Claude mit Gemini, 17.11.2026) |
+| 200 | `game.nuts.mushroom` | Fliegenpilz | – | da (Claude mit Gemini, 17.11.2026) |
+| 201 | `game.nuts.log` | Baumstamm | – | da (Claude mit Gemini, 17.11.2026) |
+| 202 | `game.nuts.hollow` | Baumstumpf mit Versteck | – | da (Claude mit Gemini, 17.11.2026) |
+| 203 | `game.pearl.shell.open` | Offene Muschel mit Perle | – | da (Claude mit Gemini, 17.11.2026) |
+| 204 | `game.pearl.shell.closed` | Geschlossene Muschel | – | da (Claude mit Gemini, 17.11.2026) |
+| 205 | `game.pearl.jelly` | Freundliche Qualle | – | da (Claude mit Gemini, 17.11.2026) |
 | 182 | `character.mia` | Mia, die Möwe am Kiosk | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
 | 183 | `character.kurt` | Kurt, der Krebs und Buchhalter | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
 | 184 | `badge.taschengeld-bucht` | Orden „Kassenwart der Bucht“ | der Orden mit dem Anker (design/gemini/icon.badges.jpg) | da (Claude mit Gemini, 17.11.2026) |

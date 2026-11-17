@@ -5988,6 +5988,216 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Denk-Spiele'**
   String get arcadeThinkSection;
+
+  /// Richtiges Spiel im Hafen: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Bootsbauers Kran'**
+  String get arcadeCraneTitle;
+
+  /// Richtiges Spiel im Hafen: Ort
+  ///
+  /// In de, this message translates to:
+  /// **'am Kran des Bootsbauers'**
+  String get arcadeCranePlace;
+
+  /// Bootsbauers Kran: Spielregel
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe, dann fällt der Haken ins Wasser. Angle Geldsäcke, bis genau die Bestellung in der Kiste ist. Zu viel oder ein alter Stiefel kostet ein Herz!'**
+  String get arcadeCraneHow;
+
+  /// Bootsbauers Kran: so viele Taler sollen in die Kiste
+  ///
+  /// In de, this message translates to:
+  /// **'Bestellung: {amount}'**
+  String arcadeCraneOrder(int amount);
+
+  /// Bootsbauers Kran: so viele Taler sind schon drin
+  ///
+  /// In de, this message translates to:
+  /// **'In der Kiste: {amount}'**
+  String arcadeCraneBox(int amount);
+
+  /// Bootsbauers Kran: Satz am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'Klasse! {count} Bestellungen hast du genau richtig gepackt.'**
+  String arcadeCraneEnd(int count);
+
+  /// Bootsbauers Kran: Satz am Ende ohne Lieferung
+  ///
+  /// In de, this message translates to:
+  /// **'Fast! Zähl im Kopf mit: Wie viel fehlt noch bis zur Bestellung?'**
+  String get arcadeCraneEndNone;
+
+  /// Richtiges Spiel auf der Tauschinsel: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Ottis Lieferboot'**
+  String get arcadeDeliveryTitle;
+
+  /// Richtiges Spiel auf der Tauschinsel: Ort
+  ///
+  /// In de, this message translates to:
+  /// **'am Steg'**
+  String get arcadeDeliveryPlace;
+
+  /// Ottis Lieferboot: Spielregel
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe auf eine Bahn, dann fährt das Boot hin. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!'**
+  String get arcadeDeliveryHow;
+
+  /// Ottis Lieferboot: Kunde will …
+  ///
+  /// In de, this message translates to:
+  /// **'will'**
+  String get arcadeDeliveryWants;
+
+  /// Ottis Lieferboot: Satz am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Waren hast du richtig geliefert. Beim Tauschen zählt, was der andere wirklich braucht!'**
+  String arcadeDeliveryEnd(int count);
+
+  /// Ottis Lieferboot: falsche Waren
+  ///
+  /// In de, this message translates to:
+  /// **'{count}-mal war es die falsche Ware.'**
+  String arcadeDeliveryWrong(int count);
+
+  /// Richtiges Spiel auf der Wunschinsel: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Elsas Flaschenfänger'**
+  String get arcadeBottlesTitle;
+
+  /// Richtiges Spiel auf der Wunschinsel: Ort
+  ///
+  /// In de, this message translates to:
+  /// **'am Strand'**
+  String get arcadeBottlesPlace;
+
+  /// Elsas Flaschenfänger: Spielregel
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe auf eine Bahn, dann fährt der Kescher hin. Fang die Flaschen mit Dingen, die man braucht. Wünsche lässt du vorbeischwimmen!'**
+  String get arcadeBottlesHow;
+
+  /// Elsas Flaschenfänger: Hinweis oben
+  ///
+  /// In de, this message translates to:
+  /// **'Fang, was man braucht'**
+  String get arcadeBottlesHint;
+
+  /// Elsas Flaschenfänger: Satz am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'Du hast {needs} Dinge gefangen, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!'**
+  String arcadeBottlesEnd(int needs);
+
+  /// Elsas Flaschenfänger: Wünsche losgelassen
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Wünsche hast du vorbeischwimmen lassen.'**
+  String arcadeBottlesWishes(int count);
+
+  /// Richtiges Spiel auf der Spar-Insel: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Emmas Nussjagd'**
+  String get arcadeNutsTitle;
+
+  /// Richtiges Spiel auf der Spar-Insel: Ort
+  ///
+  /// In de, this message translates to:
+  /// **'am Nussberg'**
+  String get arcadeNutsPlace;
+
+  /// Emmas Nussjagd: Spielregel
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe zum Springen, in der Luft geht es noch einmal. Sammle Nüsse und bring sie ins Versteck im Baumstumpf. Pilze und Baumstämme kosten ein Herz!'**
+  String get arcadeNutsHow;
+
+  /// Emmas Nussjagd: Nüsse, die Emma trägt
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Nüsse dabei'**
+  String arcadeNutsCarried(int count);
+
+  /// Emmas Nussjagd: Nüsse im Versteck
+  ///
+  /// In de, this message translates to:
+  /// **'{count} im Versteck'**
+  String arcadeNutsStored(int count);
+
+  /// Emmas Nussjagd: Satz am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Nüsse sind im Versteck. Damit komme ich gut durch den Winter!'**
+  String arcadeNutsEnd(int count);
+
+  /// Emmas Nussjagd: Satz am Ende ohne Vorrat
+  ///
+  /// In de, this message translates to:
+  /// **'Oh je, im Versteck ist nichts. Bring die Nüsse ins Versteck, dort sind sie sicher!'**
+  String get arcadeNutsEndNone;
+
+  /// Emmas Nussjagd: verlorene Nüsse
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Nüsse sind unterwegs heruntergefallen.'**
+  String arcadeNutsDropped(int count);
+
+  /// Richtiges Spiel nach dem ersten Tauchgang: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Talas Perlentaucher'**
+  String get arcadePearlTitle;
+
+  /// Talas Perlentaucher: wo es sich öffnet
+  ///
+  /// In de, this message translates to:
+  /// **'nach dem ersten Tauchgang'**
+  String get arcadePearlPlace;
+
+  /// Talas Perlentaucher: Spielregel
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe und zieh, dann schwimme ich hinterher. Offene Muscheln geben eine Perle. Pass auf die Quallen auf!'**
+  String get arcadePearlHow;
+
+  /// Talas Perlentaucher: Zähler
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Perlen'**
+  String arcadePearlCount(int count);
+
+  /// Talas Perlentaucher: Satz am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Perlen! Die offenen Muscheln zu erwischen, ist gar nicht so leicht.'**
+  String arcadePearlEnd(int count);
+
+  /// Spiele-Seite: Spiel öffnet sich nach einem Tauchgang
+  ///
+  /// In de, this message translates to:
+  /// **'Öffnet sich nach dem ersten Tauchgang auf {island}'**
+  String arcadeLockedDive(String island);
+
+  /// Richtiges Spiel: Punktezähler
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Punkte'**
+  String arcadePoints(int count);
+
+  /// Richtige Spiele: Name eines Dings
+  ///
+  /// In de, this message translates to:
+  /// **'{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}'**
+  String arcadeItem(String item);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

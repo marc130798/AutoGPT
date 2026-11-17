@@ -226,6 +226,168 @@
         "shape": "circle"
       }
     },
+    "character.emma.run": {
+      "type": "image",
+      "path": "assets/images/character.emma.run.png",
+      "placeholder": {
+        "label": "Emma läuft",
+        "color": "#C46A2C",
+        "shape": "circle"
+      }
+    },
+    "game.pearl.diver": {
+      "type": "image",
+      "path": "assets/images/game.pearl.diver.png",
+      "placeholder": {
+        "label": "Tala taucht",
+        "color": "#F2A7B5",
+        "shape": "circle"
+      }
+    },
+    "game.crane.background": {
+      "type": "image",
+      "path": "assets/images/game.crane.background.jpg",
+      "placeholder": {
+        "label": "Bild: Hafenbecken",
+        "color": "#3E8FB0",
+        "shape": "rectangle"
+      }
+    },
+    "game.crane.hook": {
+      "type": "image",
+      "path": "assets/images/game.crane.hook.png",
+      "placeholder": {
+        "label": "Haken",
+        "color": "#5E6670",
+        "shape": "rectangle"
+      }
+    },
+    "game.crane.bag": {
+      "type": "image",
+      "path": "assets/images/game.crane.bag.png",
+      "placeholder": {
+        "label": "Geldsack",
+        "color": "#A0784A",
+        "shape": "circle"
+      }
+    },
+    "game.crane.boot": {
+      "type": "image",
+      "path": "assets/images/game.crane.boot.png",
+      "placeholder": {
+        "label": "Stiefel",
+        "color": "#4A5D3A",
+        "shape": "rectangle"
+      }
+    },
+    "game.delivery.boat": {
+      "type": "image",
+      "path": "assets/images/game.delivery.boat.png",
+      "placeholder": {
+        "label": "Lieferboot",
+        "color": "#8A5A2B",
+        "shape": "rectangle"
+      }
+    },
+    "game.delivery.rock": {
+      "type": "image",
+      "path": "assets/images/game.delivery.rock.png",
+      "placeholder": {
+        "label": "Stein",
+        "color": "#7D8A8F",
+        "shape": "circle"
+      }
+    },
+    "game.bottles.bottle": {
+      "type": "image",
+      "path": "assets/images/game.bottles.bottle.png",
+      "placeholder": {
+        "label": "Flaschenpost",
+        "color": "#A9D8B8",
+        "shape": "rectangle"
+      }
+    },
+    "game.bottles.net": {
+      "type": "image",
+      "path": "assets/images/game.bottles.net.png",
+      "placeholder": {
+        "label": "Kescher",
+        "color": "#C08A4A",
+        "shape": "circle"
+      }
+    },
+    "game.nuts.background": {
+      "type": "image",
+      "path": "assets/images/game.nuts.background.jpg",
+      "placeholder": {
+        "label": "Bild: Herbstwald",
+        "color": "#C46A2C",
+        "shape": "rectangle"
+      }
+    },
+    "game.nuts.nut": {
+      "type": "image",
+      "path": "assets/images/game.nuts.nut.png",
+      "placeholder": {
+        "label": "Nuss",
+        "color": "#A0522D",
+        "shape": "circle"
+      }
+    },
+    "game.nuts.mushroom": {
+      "type": "image",
+      "path": "assets/images/game.nuts.mushroom.png",
+      "placeholder": {
+        "label": "Pilz",
+        "color": "#D9443B",
+        "shape": "circle"
+      }
+    },
+    "game.nuts.log": {
+      "type": "image",
+      "path": "assets/images/game.nuts.log.png",
+      "placeholder": {
+        "label": "Baumstamm",
+        "color": "#7A5230",
+        "shape": "rectangle"
+      }
+    },
+    "game.nuts.hollow": {
+      "type": "image",
+      "path": "assets/images/game.nuts.hollow.png",
+      "placeholder": {
+        "label": "Versteck",
+        "color": "#7A5230",
+        "shape": "rectangle"
+      }
+    },
+    "game.pearl.shell.open": {
+      "type": "image",
+      "path": "assets/images/game.pearl.shell.open.png",
+      "placeholder": {
+        "label": "Muschel offen",
+        "color": "#F4E3D7",
+        "shape": "circle"
+      }
+    },
+    "game.pearl.shell.closed": {
+      "type": "image",
+      "path": "assets/images/game.pearl.shell.closed.png",
+      "placeholder": {
+        "label": "Muschel zu",
+        "color": "#F2B8C6",
+        "shape": "circle"
+      }
+    },
+    "game.pearl.jelly": {
+      "type": "image",
+      "path": "assets/images/game.pearl.jelly.png",
+      "placeholder": {
+        "label": "Qualle",
+        "color": "#B48CE0",
+        "shape": "circle"
+      }
+    },
     "character.kurt": {
       "type": "image",
       "path": "assets/images/character.kurt.png",

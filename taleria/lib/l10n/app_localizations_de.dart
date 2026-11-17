@@ -3812,4 +3812,160 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get arcadeThinkSection => 'Denk-Spiele';
+
+  @override
+  String get arcadeCraneTitle => 'Bootsbauers Kran';
+
+  @override
+  String get arcadeCranePlace => 'am Kran des Bootsbauers';
+
+  @override
+  String get arcadeCraneHow =>
+      'Tippe, dann fällt der Haken ins Wasser. Angle Geldsäcke, bis genau die Bestellung in der Kiste ist. Zu viel oder ein alter Stiefel kostet ein Herz!';
+
+  @override
+  String arcadeCraneOrder(int amount) {
+    return 'Bestellung: $amount';
+  }
+
+  @override
+  String arcadeCraneBox(int amount) {
+    return 'In der Kiste: $amount';
+  }
+
+  @override
+  String arcadeCraneEnd(int count) {
+    return 'Klasse! $count Bestellungen hast du genau richtig gepackt.';
+  }
+
+  @override
+  String get arcadeCraneEndNone => 'Fast! Zähl im Kopf mit: Wie viel fehlt noch bis zur Bestellung?';
+
+  @override
+  String get arcadeDeliveryTitle => 'Ottis Lieferboot';
+
+  @override
+  String get arcadeDeliveryPlace => 'am Steg';
+
+  @override
+  String get arcadeDeliveryHow =>
+      'Tippe auf eine Bahn, dann fährt das Boot hin. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!';
+
+  @override
+  String get arcadeDeliveryWants => 'will';
+
+  @override
+  String arcadeDeliveryEnd(int count) {
+    return '$count Waren hast du richtig geliefert. Beim Tauschen zählt, was der andere wirklich braucht!';
+  }
+
+  @override
+  String arcadeDeliveryWrong(int count) {
+    return '$count-mal war es die falsche Ware.';
+  }
+
+  @override
+  String get arcadeBottlesTitle => 'Elsas Flaschenfänger';
+
+  @override
+  String get arcadeBottlesPlace => 'am Strand';
+
+  @override
+  String get arcadeBottlesHow =>
+      'Tippe auf eine Bahn, dann fährt der Kescher hin. Fang die Flaschen mit Dingen, die man braucht. Wünsche lässt du vorbeischwimmen!';
+
+  @override
+  String get arcadeBottlesHint => 'Fang, was man braucht';
+
+  @override
+  String arcadeBottlesEnd(int needs) {
+    return 'Du hast $needs Dinge gefangen, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!';
+  }
+
+  @override
+  String arcadeBottlesWishes(int count) {
+    return '$count Wünsche hast du vorbeischwimmen lassen.';
+  }
+
+  @override
+  String get arcadeNutsTitle => 'Emmas Nussjagd';
+
+  @override
+  String get arcadeNutsPlace => 'am Nussberg';
+
+  @override
+  String get arcadeNutsHow =>
+      'Tippe zum Springen, in der Luft geht es noch einmal. Sammle Nüsse und bring sie ins Versteck im Baumstumpf. Pilze und Baumstämme kosten ein Herz!';
+
+  @override
+  String arcadeNutsCarried(int count) {
+    return '$count Nüsse dabei';
+  }
+
+  @override
+  String arcadeNutsStored(int count) {
+    return '$count im Versteck';
+  }
+
+  @override
+  String arcadeNutsEnd(int count) {
+    return '$count Nüsse sind im Versteck. Damit komme ich gut durch den Winter!';
+  }
+
+  @override
+  String get arcadeNutsEndNone => 'Oh je, im Versteck ist nichts. Bring die Nüsse ins Versteck, dort sind sie sicher!';
+
+  @override
+  String arcadeNutsDropped(int count) {
+    return '$count Nüsse sind unterwegs heruntergefallen.';
+  }
+
+  @override
+  String get arcadePearlTitle => 'Talas Perlentaucher';
+
+  @override
+  String get arcadePearlPlace => 'nach dem ersten Tauchgang';
+
+  @override
+  String get arcadePearlHow =>
+      'Tippe und zieh, dann schwimme ich hinterher. Offene Muscheln geben eine Perle. Pass auf die Quallen auf!';
+
+  @override
+  String arcadePearlCount(int count) {
+    return '$count Perlen';
+  }
+
+  @override
+  String arcadePearlEnd(int count) {
+    return '$count Perlen! Die offenen Muscheln zu erwischen, ist gar nicht so leicht.';
+  }
+
+  @override
+  String arcadeLockedDive(String island) {
+    return 'Öffnet sich nach dem ersten Tauchgang auf $island';
+  }
+
+  @override
+  String arcadePoints(int count) {
+    return '$count Punkte';
+  }
+
+  @override
+  String arcadeItem(String item) {
+    String _temp0 = intl.Intl.selectLogic(item, {
+      'wasserflasche': 'Wasser',
+      'regenjacke': 'Regenjacke',
+      'broetchen': 'Brötchen',
+      'aepfel': 'Äpfel',
+      'sonnenhut': 'Sonnenhut',
+      'bonbons': 'Bonbons',
+      'glitzerbrille': 'Glitzerbrille',
+      'fernglas': 'Fernglas',
+      'fisch': 'Fisch',
+      'seil': 'Seil',
+      'eimer': 'Eimer',
+      'other': 'Ding',
+    });
+    return '$_temp0';
+  }
 }

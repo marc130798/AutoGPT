@@ -5373,5 +5373,225 @@
   "arcadeThinkSection": "Denk-Spiele",
   "@arcadeThinkSection": {
     "description": "Spiele-Seite: Überschrift für die Mini-Spiele zum Nachdenken"
+  },
+  "arcadeCraneTitle": "Bootsbauers Kran",
+  "@arcadeCraneTitle": {
+    "description": "Richtiges Spiel im Hafen: Titel"
+  },
+  "arcadeCranePlace": "am Kran des Bootsbauers",
+  "@arcadeCranePlace": {
+    "description": "Richtiges Spiel im Hafen: Ort"
+  },
+  "arcadeCraneHow": "Tippe, dann fällt der Haken ins Wasser. Angle Geldsäcke, bis genau die Bestellung in der Kiste ist. Zu viel oder ein alter Stiefel kostet ein Herz!",
+  "@arcadeCraneHow": {
+    "description": "Bootsbauers Kran: Spielregel"
+  },
+  "arcadeCraneOrder": "Bestellung: {amount}",
+  "@arcadeCraneOrder": {
+    "description": "Bootsbauers Kran: so viele Taler sollen in die Kiste",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeCraneBox": "In der Kiste: {amount}",
+  "@arcadeCraneBox": {
+    "description": "Bootsbauers Kran: so viele Taler sind schon drin",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeCraneEnd": "Klasse! {count} Bestellungen hast du genau richtig gepackt.",
+  "@arcadeCraneEnd": {
+    "description": "Bootsbauers Kran: Satz am Ende",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeCraneEndNone": "Fast! Zähl im Kopf mit: Wie viel fehlt noch bis zur Bestellung?",
+  "@arcadeCraneEndNone": {
+    "description": "Bootsbauers Kran: Satz am Ende ohne Lieferung"
+  },
+  "arcadeDeliveryTitle": "Ottis Lieferboot",
+  "@arcadeDeliveryTitle": {
+    "description": "Richtiges Spiel auf der Tauschinsel: Titel"
+  },
+  "arcadeDeliveryPlace": "am Steg",
+  "@arcadeDeliveryPlace": {
+    "description": "Richtiges Spiel auf der Tauschinsel: Ort"
+  },
+  "arcadeDeliveryHow": "Tippe auf eine Bahn, dann fährt das Boot hin. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!",
+  "@arcadeDeliveryHow": {
+    "description": "Ottis Lieferboot: Spielregel"
+  },
+  "arcadeDeliveryWants": "will",
+  "@arcadeDeliveryWants": {
+    "description": "Ottis Lieferboot: Kunde will …"
+  },
+  "arcadeDeliveryEnd": "{count} Waren hast du richtig geliefert. Beim Tauschen zählt, was der andere wirklich braucht!",
+  "@arcadeDeliveryEnd": {
+    "description": "Ottis Lieferboot: Satz am Ende",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeDeliveryWrong": "{count}-mal war es die falsche Ware.",
+  "@arcadeDeliveryWrong": {
+    "description": "Ottis Lieferboot: falsche Waren",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeBottlesTitle": "Elsas Flaschenfänger",
+  "@arcadeBottlesTitle": {
+    "description": "Richtiges Spiel auf der Wunschinsel: Titel"
+  },
+  "arcadeBottlesPlace": "am Strand",
+  "@arcadeBottlesPlace": {
+    "description": "Richtiges Spiel auf der Wunschinsel: Ort"
+  },
+  "arcadeBottlesHow": "Tippe auf eine Bahn, dann fährt der Kescher hin. Fang die Flaschen mit Dingen, die man braucht. Wünsche lässt du vorbeischwimmen!",
+  "@arcadeBottlesHow": {
+    "description": "Elsas Flaschenfänger: Spielregel"
+  },
+  "arcadeBottlesHint": "Fang, was man braucht",
+  "@arcadeBottlesHint": {
+    "description": "Elsas Flaschenfänger: Hinweis oben"
+  },
+  "arcadeBottlesEnd": "Du hast {needs} Dinge gefangen, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!",
+  "@arcadeBottlesEnd": {
+    "description": "Elsas Flaschenfänger: Satz am Ende",
+    "placeholders": {
+      "needs": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeBottlesWishes": "{count} Wünsche hast du vorbeischwimmen lassen.",
+  "@arcadeBottlesWishes": {
+    "description": "Elsas Flaschenfänger: Wünsche losgelassen",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeNutsTitle": "Emmas Nussjagd",
+  "@arcadeNutsTitle": {
+    "description": "Richtiges Spiel auf der Spar-Insel: Titel"
+  },
+  "arcadeNutsPlace": "am Nussberg",
+  "@arcadeNutsPlace": {
+    "description": "Richtiges Spiel auf der Spar-Insel: Ort"
+  },
+  "arcadeNutsHow": "Tippe zum Springen, in der Luft geht es noch einmal. Sammle Nüsse und bring sie ins Versteck im Baumstumpf. Pilze und Baumstämme kosten ein Herz!",
+  "@arcadeNutsHow": {
+    "description": "Emmas Nussjagd: Spielregel"
+  },
+  "arcadeNutsCarried": "{count} Nüsse dabei",
+  "@arcadeNutsCarried": {
+    "description": "Emmas Nussjagd: Nüsse, die Emma trägt",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeNutsStored": "{count} im Versteck",
+  "@arcadeNutsStored": {
+    "description": "Emmas Nussjagd: Nüsse im Versteck",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeNutsEnd": "{count} Nüsse sind im Versteck. Damit komme ich gut durch den Winter!",
+  "@arcadeNutsEnd": {
+    "description": "Emmas Nussjagd: Satz am Ende",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeNutsEndNone": "Oh je, im Versteck ist nichts. Bring die Nüsse ins Versteck, dort sind sie sicher!",
+  "@arcadeNutsEndNone": {
+    "description": "Emmas Nussjagd: Satz am Ende ohne Vorrat"
+  },
+  "arcadeNutsDropped": "{count} Nüsse sind unterwegs heruntergefallen.",
+  "@arcadeNutsDropped": {
+    "description": "Emmas Nussjagd: verlorene Nüsse",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadePearlTitle": "Talas Perlentaucher",
+  "@arcadePearlTitle": {
+    "description": "Richtiges Spiel nach dem ersten Tauchgang: Titel"
+  },
+  "arcadePearlPlace": "nach dem ersten Tauchgang",
+  "@arcadePearlPlace": {
+    "description": "Talas Perlentaucher: wo es sich öffnet"
+  },
+  "arcadePearlHow": "Tippe und zieh, dann schwimme ich hinterher. Offene Muscheln geben eine Perle. Pass auf die Quallen auf!",
+  "@arcadePearlHow": {
+    "description": "Talas Perlentaucher: Spielregel"
+  },
+  "arcadePearlCount": "{count} Perlen",
+  "@arcadePearlCount": {
+    "description": "Talas Perlentaucher: Zähler",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadePearlEnd": "{count} Perlen! Die offenen Muscheln zu erwischen, ist gar nicht so leicht.",
+  "@arcadePearlEnd": {
+    "description": "Talas Perlentaucher: Satz am Ende",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeLockedDive": "Öffnet sich nach dem ersten Tauchgang auf {island}",
+  "@arcadeLockedDive": {
+    "description": "Spiele-Seite: Spiel öffnet sich nach einem Tauchgang",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      }
+    }
+  },
+  "arcadePoints": "{count} Punkte",
+  "@arcadePoints": {
+    "description": "Richtiges Spiel: Punktezähler",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeItem": "{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}",
+  "@arcadeItem": {
+    "description": "Richtige Spiele: Name eines Dings",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
   }
 }

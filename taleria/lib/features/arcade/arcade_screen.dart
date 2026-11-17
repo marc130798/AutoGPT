@@ -5,8 +5,6 @@ import 'package:flutter/scheduler.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
-import '../../core/assets/character_image.dart';
-import '../../core/assets/taleria_asset.dart';
 import '../../domain/arcade_games.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -17,15 +15,84 @@ import '../intro/speech_bubble.dart';
 import '../progress/celebration.dart';
 import '../station/real_game_flow.dart' show GameStars;
 import '../station/station_stage.dart' show GlassFrame;
+import 'arcade_layers.dart';
 
 /// Name eines richtigen Spiels.
 String arcadeTitle(AppLocalizations l10n, ArcadeGame game) => switch (game.kind) {
   ArcadeKind.gullFlight => l10n.arcadeGullTitle,
+  ArcadeKind.crane => l10n.arcadeCraneTitle,
+  ArcadeKind.delivery => l10n.arcadeDeliveryTitle,
+  ArcadeKind.bottles => l10n.arcadeBottlesTitle,
+  ArcadeKind.nutRun => l10n.arcadeNutsTitle,
+  ArcadeKind.pearlDive => l10n.arcadePearlTitle,
 };
 
 /// Wo das Spiel auf der Insel liegt („am langen Steg“).
 String arcadePlace(AppLocalizations l10n, ArcadeGame game) => switch (game.kind) {
   ArcadeKind.gullFlight => l10n.arcadeGullPlace,
+  ArcadeKind.crane => l10n.arcadeCranePlace,
+  ArcadeKind.delivery => l10n.arcadeDeliveryPlace,
+  ArcadeKind.bottles => l10n.arcadeBottlesPlace,
+  ArcadeKind.nutRun => l10n.arcadeNutsPlace,
+  ArcadeKind.pearlDive => l10n.arcadePearlPlace,
+};
+
+/// Bild in der Liste der Spiele.
+String arcadeCover(ArcadeKind kind) => switch (kind) {
+  ArcadeKind.gullFlight => 'character.mia.fly',
+  ArcadeKind.crane => 'game.crane.bag',
+  ArcadeKind.delivery => 'game.delivery.boat',
+  ArcadeKind.bottles => 'game.bottles.bottle',
+  ArcadeKind.nutRun => 'character.emma.run',
+  ArcadeKind.pearlDive => 'game.pearl.diver',
+};
+
+/// Wer das Spiel erklärt und am Ende etwas sagt.
+String arcadeSpeaker(ArcadeKind kind) => switch (kind) {
+  ArcadeKind.gullFlight => 'mia',
+  ArcadeKind.crane => 'bootsbauer',
+  ArcadeKind.delivery => 'otti',
+  ArcadeKind.bottles => 'elsa',
+  ArcadeKind.nutRun => 'emma',
+  ArcadeKind.pearlDive => 'tala',
+};
+
+/// Die Spielregel auf dem Startbild.
+String arcadeHow(AppLocalizations l10n, ArcadeKind kind) => switch (kind) {
+  ArcadeKind.gullFlight => l10n.arcadeGullHow,
+  ArcadeKind.crane => l10n.arcadeCraneHow,
+  ArcadeKind.delivery => l10n.arcadeDeliveryHow,
+  ArcadeKind.bottles => l10n.arcadeBottlesHow,
+  ArcadeKind.nutRun => l10n.arcadeNutsHow,
+  ArcadeKind.pearlDive => l10n.arcadePearlHow,
+};
+
+/// Der Satz der Figur am Ende (mit dem Lernen nebenbei) und eine Zeile darunter.
+(String, String?) arcadeEndLines(AppLocalizations l10n, ArcadeRound round) => switch (round) {
+  GullFlightGame g => (
+    g.saved > 0 ? l10n.arcadeGullEndSaved(g.saved) : l10n.arcadeGullEndNone,
+    g.dropped > 0 ? l10n.arcadeGullDropped(g.dropped) : null,
+  ),
+  CraneGame g => (g.delivered > 0 ? l10n.arcadeCraneEnd(g.delivered) : l10n.arcadeCraneEndNone, null),
+  DeliveryGame g => (
+    l10n.arcadeDeliveryEnd(g.points),
+    g.wrongGoods > 0 ? l10n.arcadeDeliveryWrong(g.wrongGoods) : null,
+  ),
+  BottleGame g => (l10n.arcadeBottlesEnd(g.points), g.wishesLetGo > 0 ? l10n.arcadeBottlesWishes(g.wishesLetGo) : null),
+  NutRunGame g => (
+    g.stored > 0 ? l10n.arcadeNutsEnd(g.stored) : l10n.arcadeNutsEndNone,
+    g.dropped > 0 ? l10n.arcadeNutsDropped(g.dropped) : null,
+  ),
+  PearlDiveGame g => (l10n.arcadePearlEnd(g.pearls), null),
+  _ => ('', null),
+};
+
+/// Klangkulisse während des Spiels.
+String arcadeMusic(ArcadeKind kind) => switch (kind) {
+  ArcadeKind.pearlDive => AssetKeys.ambienceUnderwater,
+  ArcadeKind.nutRun => AssetKeys.islandAmbience('spar-insel'),
+  ArcadeKind.crane => AssetKeys.islandAmbience('hafen'),
+  _ => AssetKeys.ambienceOpenSea,
 };
 
 /// Ein richtiges Spiel: Startbild mit Regel und Rekord, dann das Spiel, am
@@ -46,7 +113,7 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
   _Phase _phase = _Phase.intro;
   int _best = 0;
   int _round = 0;
-  GullFlightGame? _last;
+  ArcadeRound? _last;
   bool _newBest = false;
 
   @override
@@ -64,7 +131,7 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
     _round++;
   });
 
-  void _finished(GullFlightGame game) {
+  void _finished(ArcadeRound game) {
     final score = game.score;
     _newBest = score > _best;
     if (_newBest) {
@@ -82,15 +149,16 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return MenuMusic(
-      music: AssetKeys.ambienceOpenSea,
+      music: arcadeMusic(widget.game.kind),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: TaleriaAppBar(title: arcadeTitle(l10n, widget.game)),
         body: Stack(
           children: [
             Positioned.fill(
-              child: GullFlightView(
+              child: ArcadeField(
                 key: ValueKey('arcade-round-$_round'),
+                kind: widget.game.kind,
                 running: _phase == _Phase.playing,
                 onOver: _finished,
               ),
@@ -109,7 +177,9 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
     return _Overlay(
       key: const ValueKey('arcade-intro'),
       children: [
-        SpeechBubble.line(DialogLine(speaker: 'mia', text: l10n.arcadeGullHow)),
+        SpeechBubble.line(
+          DialogLine(speaker: arcadeSpeaker(widget.game.kind), text: arcadeHow(l10n, widget.game.kind)),
+        ),
         const SizedBox(height: 12),
         if (_best > 0)
           Text(
@@ -129,10 +199,11 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
     );
   }
 
-  Widget _end(BuildContext context, GullFlightGame game) {
+  Widget _end(BuildContext context, ArcadeRound game) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final stars = widget.game.starsFor(game.score);
+    final (line, extra) = arcadeEndLines(l10n, game);
     return Stack(
       children: [
         const Positioned.fill(child: IgnorePointer(child: ConfettiBurst())),
@@ -156,16 +227,8 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
               style: theme.textTheme.titleMedium?.copyWith(color: _newBest ? const Color(0xFFB8860B) : null),
             ),
             const SizedBox(height: 12),
-            SpeechBubble.line(
-              DialogLine(
-                speaker: 'mia',
-                text: game.saved > 0 ? l10n.arcadeGullEndSaved(game.saved) : l10n.arcadeGullEndNone,
-              ),
-            ),
-            if (game.dropped > 0) ...[
-              const SizedBox(height: 6),
-              Text(l10n.arcadeGullDropped(game.dropped), textAlign: TextAlign.center),
-            ],
+            SpeechBubble.line(DialogLine(speaker: arcadeSpeaker(widget.game.kind), text: line)),
+            if (extra != null) ...[const SizedBox(height: 6), Text(extra, textAlign: TextAlign.center)],
             const SizedBox(height: 14),
             Row(
               children: [
@@ -221,36 +284,32 @@ class _Overlay extends StatelessWidget {
   }
 }
 
-/// Das Spielfeld von „Mias Möwenflug“: Himmel über der Bucht, Masten und
-/// Netze, Taler und Sparglas, oben Herzen und Zähler. Antippen = flattern.
-class GullFlightView extends StatefulWidget {
-  const GullFlightView({super.key, required this.running, required this.onOver});
+/// Das Spielfeld eines richtigen Spiels: Ebenen aus `arcade_layers.dart`,
+/// oben Herzen, Zähler und Stufe. Antippen und Ziehen steuern.
+class ArcadeField extends StatefulWidget {
+  const ArcadeField({super.key, required this.kind, required this.running, required this.onOver});
+
+  final ArcadeKind kind;
 
   /// `false`: Das Bild steht still im Hintergrund (vor dem Start, am Ende).
   final bool running;
-  final ValueChanged<GullFlightGame> onOver;
+  final ValueChanged<ArcadeRound> onOver;
 
   @override
-  State<GullFlightView> createState() => GullFlightViewState();
+  State<ArcadeField> createState() => ArcadeFieldState();
 }
 
-class GullFlightViewState extends State<GullFlightView> with SingleTickerProviderStateMixin {
+class ArcadeFieldState extends State<ArcadeField> with SingleTickerProviderStateMixin {
   late final Ticker _ticker = createTicker(_tick);
-  GullFlightGame? _game;
+  ArcadeRound? _round;
   Duration _last = Duration.zero;
   double _fasterUntil = -1;
   double _shakeUntil = -1;
   bool _reported = false;
 
-  /// Das laufende Spiel (für Tests).
+  /// Die laufende Runde (für Tests).
   @visibleForTesting
-  GullFlightGame? get game => _game;
-
-  @override
-  void didUpdateWidget(GullFlightView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.running && !_ticker.isActive && !(_game?.over ?? false)) _ticker.start();
-  }
+  ArcadeRound? get round => _round;
 
   @override
   void initState() {
@@ -258,32 +317,44 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
     if (widget.running) _ticker.start();
   }
 
+  @override
+  void didUpdateWidget(ArcadeField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.running && !_ticker.isActive && !(_round?.over ?? false)) _ticker.start();
+  }
+
+  /// Töne je Spiel: Taler, gute Lieferung, gespart, Fehler.
+  String _sound(ArcadeEvent e) => switch ((widget.kind, e)) {
+    (ArcadeKind.pearlDive, ArcadeEvent.coin) => AssetKeys.soundPearl,
+    (ArcadeKind.bottles, ArcadeEvent.coin) => AssetKeys.soundBottle,
+    (ArcadeKind.crane, ArcadeEvent.good) => AssetKeys.soundRegister,
+    (ArcadeKind.delivery, ArcadeEvent.good) => AssetKeys.soundTrade,
+    (ArcadeKind.nutRun, ArcadeEvent.saved) => AssetKeys.soundDig,
+    (_, ArcadeEvent.coin) => AssetKeys.soundCoin,
+    (_, ArcadeEvent.good) => AssetKeys.soundCorrect,
+    (_, ArcadeEvent.saved) => AssetKeys.soundPiggy,
+    (_, ArcadeEvent.faster) => AssetKeys.soundShipBell,
+    (_, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundSplash,
+    (_, ArcadeEvent.wrong) => '',
+  };
+
   void _tick(Duration now) {
-    final game = _game;
-    if (game == null) return;
+    final round = _round;
+    if (round == null) return;
     final dt = (now - _last).inMicroseconds / 1e6;
     _last = now;
-    game.step(dt);
-    for (final e in game.events) {
-      switch (e) {
-        case GullEvent.coin:
-          playEffect(context, AssetKeys.soundCoin);
-        case GullEvent.saved:
-          playEffect(context, AssetKeys.soundPiggy);
-        case GullEvent.hit:
-        case GullEvent.over:
-          playEffect(context, AssetKeys.soundSplash);
-          _shakeUntil = game.time + 0.35;
-        case GullEvent.faster:
-          playEffect(context, AssetKeys.soundShipBell);
-          _fasterUntil = game.time + 1.4;
-      }
+    round.step(dt);
+    for (final e in round.events) {
+      final sound = _sound(e);
+      if (sound.isNotEmpty) playEffect(context, sound);
+      if (e == ArcadeEvent.hit || e == ArcadeEvent.over) _shakeUntil = round.time + 0.35;
+      if (e == ArcadeEvent.faster) _fasterUntil = round.time + 1.4;
     }
-    if (game.over && !_reported) {
+    if (round.over && !_reported) {
       _reported = true;
       _ticker.stop();
       Future.delayed(const Duration(milliseconds: 700), () {
-        if (mounted) widget.onOver(game);
+        if (mounted) widget.onOver(round);
       });
     }
     setState(() {});
@@ -295,10 +366,11 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
     super.dispose();
   }
 
-  void _flap() {
-    AppScope.of(context).sounds.unlock();
-    if (!widget.running) return;
-    _game?.flap();
+  void _pointer(Offset local, Size size, {required bool down}) {
+    if (down) AppScope.of(context).sounds.unlock();
+    final round = _round;
+    if (!widget.running || round == null) return;
+    arcadePointer(round, local, size, down: down);
   }
 
   @override
@@ -308,171 +380,53 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
       builder: (context, constraints) {
         final size = constraints.biggest;
         final unit = size.height;
-        final game = _game ??= GullFlightGame(width: size.width / unit);
-        final shake = game.time < _shakeUntil ? sin(game.time * 60) * 5 : 0.0;
-        final birdSize = unit * 0.1;
-        final art = AppScope.of(context).manifest.lookup('game.gull.crate').path != null;
-        final blink = game.safe && (game.time * 8).floor().isEven;
+        final round = _round ??= newArcadeRound(widget.kind, size.width / unit);
+        final shake = round.time < _shakeUntil ? sin(round.time * 60) * 5 : 0.0;
         return Listener(
           key: const ValueKey('arcade-field'),
           behavior: HitTestBehavior.opaque,
-          onPointerDown: (_) => _flap(),
-          child: Transform.translate(
-            offset: Offset(shake, 0),
-            child: Stack(
-              children: [
-                if (art)
-                  const Positioned.fill(
-                    child: TaleriaAsset(
-                      'game.gull.background',
-                      fit: BoxFit.cover,
-                      alignment: Alignment.bottomCenter,
-                      fallback: SizedBox.shrink(),
-                    ),
+          onPointerDown: (e) => _pointer(e.localPosition, size, down: true),
+          onPointerMove: (e) => _pointer(e.localPosition, size, down: false),
+          child: ClipRect(
+            child: Transform.translate(
+              offset: Offset(shake, 0),
+              child: Stack(
+                children: [
+                  ...arcadeLayers(round, size),
+                  Positioned(
+                    left: 12,
+                    right: 12,
+                    top: MediaQuery.paddingOf(context).top + kToolbarHeight + 6,
+                    child: _Hud(round: round),
                   ),
-                Positioned.fill(
-                  child: CustomPaint(painter: _GullPainter(game, art: art)),
-                ),
-                if (art) ...[
-                  for (final o in game.obstacles) ..._obstacleArt(o, game, unit),
-                  for (final p in game.pickups)
-                    if (!p.taken) _pickupArt(p, game, unit),
-                ],
-                Positioned(
-                  left: game.birdX * unit - birdSize * 0.6,
-                  top: game.y * unit - birdSize / 2,
-                  width: birdSize * 1.2,
-                  height: birdSize,
-                  child: Opacity(
-                    opacity: blink ? 0.35 : 1,
-                    child: Transform.rotate(
-                      angle: (game.vy * 0.45).clamp(-0.45, 0.6),
-                      // Das Bild schaut nach links, Mia fliegt nach rechts.
-                      child: Transform.flip(
-                        flipX: true,
-                        child: const TaleriaAsset(
-                          'character.mia.fly',
-                          fit: BoxFit.contain,
-                          fallback: CharacterImage('character.mia', fallback: _GullFallback()),
+                  if (widget.running && !round.started)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: unit * 0.58,
+                      child: IgnorePointer(
+                        child: Center(
+                          child: _Badge(text: l10n.arcadeTapToStart, key: const ValueKey('arcade-tap')),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  left: 12,
-                  right: 12,
-                  top: MediaQuery.paddingOf(context).top + kToolbarHeight + 6,
-                  child: _Hud(game: game),
-                ),
-                if (widget.running && !game.started)
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: unit * 0.58,
-                    child: IgnorePointer(
-                      child: Center(
-                        child: _Badge(text: l10n.arcadeTapToStart, key: const ValueKey('arcade-tap')),
+                  if (round.time < _fasterUntil)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: unit * 0.3,
+                      child: IgnorePointer(
+                        child: Center(child: _Badge(text: l10n.arcadeFaster)),
                       ),
                     ),
-                  ),
-                if (game.time < _fasterUntil)
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: unit * 0.3,
-                    child: IgnorePointer(
-                      child: Center(child: _Badge(text: l10n.arcadeFaster)),
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         );
       },
     );
   }
-}
-
-/// Hindernis mit Bildern: unten ein Turm aus Kisten bis ins Wasser, oben ein
-/// Fischernetz an einem Seil. Die Trefferfläche bleibt die aus den Regeln.
-List<Widget> _obstacleArt(GullObstacle o, GullFlightGame game, double unit) {
-  final w = GullFlightGame.obstacleWidth * unit;
-  final left = o.x * unit;
-  final center = o.centerAt(game.time) * unit;
-  final top = center - o.gapHalf * unit;
-  final bottom = center + o.gapHalf * unit;
-  final seaTop = GullFlightGame.sea * unit;
-  final crate = w * 1.12;
-  final crates = ((seaTop - bottom) / crate).ceil() + 1;
-  final netW = w * 1.5;
-  final netH = netW * 1.5;
-  return [
-    Positioned(
-      left: left + w / 2 - crate / 2,
-      top: bottom,
-      width: crate,
-      height: max(0, seaTop - bottom + crate * 0.3),
-      child: ClipRect(
-        child: OverflowBox(
-          alignment: Alignment.topCenter,
-          maxHeight: crate * crates,
-          child: Column(
-            children: [
-              for (var i = 0; i < crates; i++)
-                SizedBox.square(
-                  dimension: crate,
-                  child: const TaleriaAsset('game.gull.crate', fit: BoxFit.fill, fallback: SizedBox.shrink()),
-                ),
-            ],
-          ),
-        ),
-      ),
-    ),
-    // Seil von oben bis zum Netz.
-    Positioned(
-      left: left + w / 2 - 2,
-      top: 0,
-      width: 4,
-      height: max(0, top - netH * 0.85),
-      child: const ColoredBox(color: Color(0xFFC9A66B)),
-    ),
-    Positioned(
-      left: left + w / 2 - netW / 2,
-      top: top - netH,
-      width: netW,
-      height: netH,
-      child: const TaleriaAsset('game.gull.net', fit: BoxFit.fill, fallback: SizedBox.shrink()),
-    ),
-  ];
-}
-
-/// Taler oder Sparglas als Bild, leicht schwebend.
-Widget _pickupArt(GullPickup p, GullFlightGame game, double unit) {
-  final size = p.jar ? 0.1 * unit : GullFlightGame.pickupRadius * 2.4 * unit;
-  final bob = sin(game.time * 4 + p.x * 9) * 0.006 * unit;
-  final pulse = p.jar ? 1 + sin(game.time * 6) * 0.05 : 1.0;
-  return Positioned(
-    left: p.x * unit - size / 2,
-    top: p.y * unit - size / 2 + bob,
-    width: size,
-    height: size,
-    child: Transform.scale(
-      scale: pulse,
-      child: TaleriaAsset(
-        p.jar ? 'game.gull.jar' : 'game.gull.coin',
-        fit: BoxFit.contain,
-        fallback: const SizedBox.shrink(),
-      ),
-    ),
-  );
-}
-
-class _GullFallback extends StatelessWidget {
-  const _GullFallback();
-
-  @override
-  Widget build(BuildContext context) => const Icon(Icons.flight_rounded, size: 40, color: Colors.white);
 }
 
 class _Badge extends StatelessWidget {
@@ -498,11 +452,11 @@ class _Badge extends StatelessWidget {
   );
 }
 
-/// Oben: Herzen, Taler in der Tasche, Taler im Sparglas, Stufe.
+/// Oben: Herzen, die Zähler des Spiels, Stufe.
 class _Hud extends StatelessWidget {
-  const _Hud({required this.game});
+  const _Hud({required this.round});
 
-  final GullFlightGame game;
+  final ArcadeRound round;
 
   @override
   Widget build(BuildContext context) {
@@ -524,251 +478,34 @@ class _Hud extends StatelessWidget {
       children: [
         chip(
           key: const ValueKey('arcade-lives'),
-          label: l10n.arcadeLives(game.lives),
+          label: l10n.arcadeLives(round.lives),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              for (var i = 0; i < GullFlightGame.hearts; i++)
+              for (var i = 0; i < ArcadeRound.hearts; i++)
                 Icon(
-                  i < game.lives ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  i < round.lives ? Icons.favorite_rounded : Icons.favorite_border_rounded,
                   color: const Color(0xFFE5675A),
                   size: 24,
                 ),
             ],
           ),
         ),
-        chip(
-          key: const ValueKey('arcade-pocket'),
-          label: l10n.arcadePocket(game.pocket),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.monetization_on_rounded, color: Color(0xFFE0A526), size: 22),
-              const SizedBox(width: 4),
-              Text('${game.pocket}', style: style),
-            ],
+        for (final item in arcadeHud(l10n, round))
+          chip(
+            key: ValueKey(item.key),
+            label: item.label,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                item.icon,
+                const SizedBox(width: 4),
+                Flexible(child: Text(item.text, style: style)),
+              ],
+            ),
           ),
-        ),
-        chip(
-          key: const ValueKey('arcade-saved'),
-          label: l10n.arcadeSaved(game.saved),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.savings_rounded, color: Color(0xFF3E8FB0), size: 22),
-              const SizedBox(width: 4),
-              Text('${game.saved}', style: style),
-            ],
-          ),
-        ),
-        chip(Text(l10n.arcadeLevel(game.level), style: style)),
+        chip(Text(l10n.arcadeLevel(round.level), style: style)),
       ],
     );
   }
-}
-
-/// Malt Himmel, Bucht, Meer, Masten, Netze, Taler und Sparglas.
-class _GullPainter extends CustomPainter {
-  _GullPainter(this.game, {this.art = false});
-
-  final GullFlightGame game;
-
-  /// Mit Bildern (Gemini): Der Maler zeichnet nur das Wasser vorn, der Rest
-  /// sind Bilder darüber.
-  final bool art;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final u = size.height;
-    final t = game.time;
-    final travel = game.started ? t * 0.04 : 0.0;
-    if (art) {
-      _sea(canvas, size, u, t);
-      return;
-    }
-
-    // Himmel mit Sonne.
-    canvas.drawRect(
-      Offset.zero & size,
-      Paint()
-        ..shader = const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF7CC8EC), Color(0xFFDFF3FC)],
-        ).createShader(Offset.zero & size),
-    );
-    canvas.drawCircle(Offset(size.width * 0.82, u * 0.16), u * 0.06, Paint()..color = const Color(0xFFFFE9A8));
-
-    // Wolken, die langsam vorbeiziehen.
-    final cloud = Paint()..color = Colors.white.withValues(alpha: 0.85);
-    for (var i = 0; i < 4; i++) {
-      final x = ((i * 0.37 - travel * (0.6 + i * 0.1)) % 1.4 - 0.2) * size.width * 1.2;
-      final y = u * (0.12 + i * 0.09);
-      for (final (dx, dy, r) in [(0.0, 0.0, 0.04), (0.04, -0.015, 0.05), (0.09, 0.0, 0.035)]) {
-        canvas.drawCircle(Offset(x + dx * u, y + dy * u), r * u, cloud);
-      }
-    }
-
-    // Ferne Ufer der Bucht.
-    final hills = Path()..moveTo(0, u * 0.86);
-    for (var x = 0.0; x <= size.width + 20; x += 20) {
-      final p = x / u + travel * 1.5;
-      hills.lineTo(x, u * (0.82 - 0.03 * sin(p * 4) - 0.02 * sin(p * 9 + 1)));
-    }
-    hills
-      ..lineTo(size.width, u * 0.9)
-      ..lineTo(0, u * 0.9)
-      ..close();
-    canvas.drawPath(hills, Paint()..color = const Color(0xFF8FC59A));
-
-    _sea(canvas, size, u, t);
-
-    for (final o in game.obstacles) {
-      _obstacle(canvas, o, u, size);
-    }
-    for (final p in game.pickups) {
-      if (p.taken) continue;
-      final c = Offset(p.x * u, p.y * u + sin(t * 4 + p.x * 9) * 0.006 * u);
-      p.jar ? _jar(canvas, c, u) : _coin(canvas, c, u);
-    }
-  }
-
-  void _sea(Canvas canvas, Size size, double u, double t) {
-    final seaTop = GullFlightGame.sea * u;
-    canvas.drawRect(
-      Rect.fromLTRB(0, seaTop, size.width, size.height),
-      Paint()
-        ..shader = const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF39B3C9), Color(0xFF1E7FA0)],
-        ).createShader(Rect.fromLTRB(0, seaTop, size.width, size.height)),
-    );
-    final foam = Paint()
-      ..color = Colors.white.withValues(alpha: 0.7)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.5;
-    final wave = Path()..moveTo(0, seaTop);
-    for (var x = 0.0; x <= size.width + 10; x += 10) {
-      wave.lineTo(x, seaTop + sin(x / 18 + t * 3) * 2.5);
-    }
-    canvas.drawPath(wave, foam);
-  }
-
-  void _obstacle(Canvas canvas, GullObstacle o, double u, Size size) {
-    final left = o.x * u;
-    final w = GullFlightGame.obstacleWidth * u;
-    final center = o.centerAt(game.time) * u;
-    final top = center - o.gapHalf * u;
-    final bottom = center + o.gapHalf * u;
-    final seaTop = GullFlightGame.sea * u;
-
-    // Unten ein Mast mit Rahen und kleinem Wimpel.
-    final wood = Paint()..color = const Color(0xFF8A5A2B);
-    final dark = Paint()..color = const Color(0xFF5E3B1A);
-    final mast = Rect.fromLTRB(left + w * 0.3, bottom, left + w * 0.7, seaTop + 4);
-    canvas.drawRRect(RRect.fromRectAndRadius(mast, const Radius.circular(4)), wood);
-    canvas.drawRect(Rect.fromLTWH(left + w * 0.3, bottom, w * 0.1, mast.height), dark);
-    for (var y = bottom + 0.06 * u; y < seaTop - 0.04 * u; y += 0.14 * u) {
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(left - w * 0.1, y, w * 1.2, 0.012 * u), const Radius.circular(3)),
-        dark,
-      );
-    }
-    canvas.drawPath(
-      Path()
-        ..moveTo(left + w * 0.5, bottom - 0.002 * u)
-        ..lineTo(left + w * 0.5, bottom - 0.05 * u)
-        ..lineTo(left + w * 1.05, bottom - 0.03 * u)
-        ..close(),
-      Paint()..color = const Color(0xFFE5675A),
-    );
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(left + w * 0.2, bottom - 0.01 * u, w * 0.6, 0.018 * u),
-        const Radius.circular(3),
-      ),
-      dark,
-    );
-
-    // Oben ein hängendes Fischernetz an zwei Seilen, unten Schwimmer.
-    final rope = Paint()
-      ..color = const Color(0xFFC9A66B)
-      ..strokeWidth = 2;
-    canvas.drawLine(Offset(left + w * 0.15, 0), Offset(left + w * 0.15, top), rope);
-    canvas.drawLine(Offset(left + w * 0.85, 0), Offset(left + w * 0.85, top), rope);
-    final netTop = max(0.0, top - 0.22 * u);
-    final net = Rect.fromLTRB(left, netTop, left + w, top);
-    canvas.drawRRect(RRect.fromRectAndRadius(net, const Radius.circular(6)), Paint()..color = const Color(0x664A6B5A));
-    final mesh = Paint()
-      ..color = const Color(0xFF2F4A3C)
-      ..strokeWidth = 1.4
-      ..style = PaintingStyle.stroke;
-    canvas.save();
-    canvas.clipRRect(RRect.fromRectAndRadius(net, const Radius.circular(6)));
-    for (var d = -net.height; d < net.width + net.height; d += 9) {
-      canvas.drawLine(Offset(net.left + d, net.top), Offset(net.left + d + net.height, net.bottom), mesh);
-      canvas.drawLine(Offset(net.left + d, net.bottom), Offset(net.left + d + net.height, net.top), mesh);
-    }
-    canvas.restore();
-    canvas.drawRRect(RRect.fromRectAndRadius(net, const Radius.circular(6)), mesh..strokeWidth = 2);
-    final float = Paint()..color = const Color(0xFFF08A24);
-    for (final fx in [0.2, 0.5, 0.8]) {
-      canvas.drawCircle(Offset(left + w * fx, top), 0.012 * u, float);
-    }
-  }
-
-  void _coin(Canvas canvas, Offset c, double u) {
-    final r = GullFlightGame.pickupRadius * u;
-    canvas.drawCircle(c, r, Paint()..color = const Color(0xFFB8860B));
-    canvas.drawCircle(c, r * 0.82, Paint()..color = const Color(0xFFF3C94B));
-    canvas.drawCircle(
-      c,
-      r * 0.6,
-      Paint()
-        ..color = const Color(0xFFB8860B)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.5,
-    );
-    canvas.drawCircle(c + Offset(-r * 0.35, -r * 0.35), r * 0.18, Paint()..color = Colors.white.withValues(alpha: 0.8));
-  }
-
-  void _jar(Canvas canvas, Offset c, double u) {
-    final h = 0.075 * u, w = 0.06 * u;
-    final pulse = 1 + sin(game.time * 6) * 0.05;
-    canvas.save();
-    canvas.translate(c.dx, c.dy);
-    canvas.scale(pulse);
-    canvas.drawCircle(Offset.zero, h * 0.75, Paint()..color = const Color(0x55FFF3B0));
-    final body = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: Offset(0, h * 0.08), width: w, height: h * 0.8),
-      Radius.circular(w * 0.3),
-    );
-    canvas.drawRRect(body, Paint()..color = const Color(0xAAD8F1FA));
-    canvas.drawRRect(
-      body,
-      Paint()
-        ..color = const Color(0xFF3E8FB0)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2,
-    );
-    for (var i = 0; i < 3; i++) {
-      canvas.drawCircle(
-        Offset(-w * 0.18 + i * w * 0.18, h * 0.3 - i % 2 * h * 0.08),
-        w * 0.13,
-        Paint()..color = const Color(0xFFF3C94B),
-      );
-    }
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromCenter(center: Offset(0, -h * 0.36), width: w * 0.8, height: h * 0.14),
-        const Radius.circular(3),
-      ),
-      Paint()..color = const Color(0xFFE5675A),
-    );
-    canvas.restore();
-  }
-
-  @override
-  bool shouldRepaint(_GullPainter old) => true;
 }

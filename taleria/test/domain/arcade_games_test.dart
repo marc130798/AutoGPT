@@ -45,12 +45,12 @@ void main() {
       ..add(GullPickup(x: game.birdX, y: game.y));
     game.step(0.001);
     expect(game.pocket, 2);
-    expect(game.events, contains(GullEvent.coin));
+    expect(game.events, contains(ArcadeEvent.coin));
     game.pickups.add(GullPickup(x: game.birdX, y: game.y, jar: true));
     game.step(0.001);
     expect(game.saved, 2);
     expect(game.pocket, 0);
-    expect(game.events, contains(GullEvent.saved));
+    expect(game.events, contains(ArcadeEvent.saved));
     expect(game.score, 2);
   });
 
@@ -93,7 +93,7 @@ void main() {
   });
 
   test('Sterne nach Punkten, der erste fürs Mitspielen', () {
-    final game = arcadeGames.first;
+    final game = arcadeGames.firstWhere((g) => g.id == 'moewenflug');
     expect(game.starsFor(0), 1);
     expect(game.starsFor(game.starScores.$1), 2);
     expect(game.starsFor(game.starScores.$2), 3);
@@ -101,10 +101,180 @@ void main() {
 
   test('jedes Spiel liegt auf einer bekannten Insel und auf dem Bild', () {
     for (final game in arcadeGames) {
-      expect(game.spot.dx, inInclusiveRange(0, 1));
-      expect(game.spot.dy, inInclusiveRange(0, 1));
+      if (game.spot case final spot?) {
+        expect(spot.dx, inInclusiveRange(0, 1));
+        expect(spot.dy, inInclusiveRange(0, 1));
+      }
       expect(arcadeGamesOn(game.island), contains(game));
     }
     expect(arcadeGames.map((g) => g.id).toSet().length, arcadeGames.length);
+  });
+
+  group('Bootsbauers Kran', () {
+    CraneGame crane() => CraneGame(width: 0.46, random: Random(3));
+
+    test('genau die Bestellung: Punkte und neue Bestellung', () {
+      final g = crane()..drop();
+      g
+        ..target = 3
+        ..sum = 1
+        ..held = CraneItem(x: 0, value: 2, phase: 0)
+        ..state = 2
+        ..hookY = CraneGame.top + 0.001;
+      g.step(0.01);
+      expect(g.points, 3);
+      expect(g.delivered, 1);
+      expect(g.sum, 0);
+      expect(g.events, contains(ArcadeEvent.good));
+      expect(g.lives, 3);
+    });
+
+    test('zu viel in der Kiste oder ein Stiefel kostet ein Herz', () {
+      final g = crane()..drop();
+      g
+        ..target = 3
+        ..sum = 2
+        ..held = CraneItem(x: 0, value: 5, phase: 0)
+        ..state = 2
+        ..hookY = CraneGame.top + 0.001;
+      g.step(0.01);
+      expect(g.lives, 2);
+      expect(g.sum, 0);
+      g.safeUntil = 0;
+      g
+        ..held = CraneItem(x: 0, value: 0, phase: 0)
+        ..state = 2
+        ..hookY = CraneGame.top + 0.001;
+      g.step(0.01);
+      expect(g.lives, 1);
+    });
+
+    test('der Haken fängt, was unter ihm schwimmt', () {
+      final g = crane()..drop();
+      g.items
+        ..clear()
+        ..add(CraneItem(x: g.trolley, value: 2, phase: 0));
+      for (var i = 0; i < 100 && g.held == null; i++) {
+        g.step(0.02);
+      }
+      expect(g.held?.value, 2);
+    });
+  });
+
+  group('Ottis Lieferboot', () {
+    test('richtige Ware zählt, falsche Ware und Steine kosten ein Herz', () {
+      final g = DeliveryGame(width: 0.46, random: Random(1))..moveTo(1);
+      g.onCatch(LaneThing(lane: 1, y: 0, kind: g.current.wants));
+      expect(g.points, 1);
+      g.onCatch(LaneThing(lane: 1, y: 0, kind: 'rock'));
+      expect(g.lives, 2);
+      g.safeUntil = 0;
+      final other = DeliveryGame.goods.firstWhere((x) => x != g.current.wants);
+      g.onCatch(LaneThing(lane: 1, y: 0, kind: other));
+      expect(g.lives, 1);
+      expect(g.wrongGoods, 1);
+    });
+
+    test('nach 3 Lieferungen kommt der nächste Kunde', () {
+      final g = DeliveryGame(width: 0.46, random: Random(1))..moveTo(1);
+      final first = g.current;
+      for (var i = 0; i < DeliveryGame.perCustomer; i++) {
+        g.onCatch(LaneThing(lane: 1, y: 0, kind: g.current.wants));
+      }
+      expect(g.current, isNot(first));
+      expect(g.events, contains(ArcadeEvent.good));
+    });
+
+    test('was in der Bahn des Boots unten ankommt, ist gefangen', () {
+      final g = DeliveryGame(width: 0.46, random: Random(1))..moveTo(2);
+      g.things.add(LaneThing(lane: 2, y: LaneGame.catchY - 0.01, kind: g.current.wants));
+      g.step(0.02);
+      expect(g.points, greaterThanOrEqualTo(1));
+    });
+  });
+
+  group('Elsas Flaschenfänger', () {
+    test('Brauchen zählt, ein gefangener Wunsch kostet ein Herz', () {
+      final g = BottleGame(width: 0.46, random: Random(1))..moveTo(0);
+      g.onCatch(LaneThing(lane: 0, y: 0, kind: BottleGame.needs.first));
+      expect(g.points, 1);
+      g.onCatch(LaneThing(lane: 0, y: 0, kind: BottleGame.wishes.first));
+      expect(g.lives, 2);
+      g.onMiss(LaneThing(lane: 1, y: 1, kind: BottleGame.wishes.first));
+      expect(g.wishesLetGo, 1);
+    });
+  });
+
+  group('Emmas Nussjagd', () {
+    test('springen, Nüsse sammeln, im Versteck sicher', () {
+      final g = NutRunGame(width: 0.46, random: Random(1))..jump();
+      expect(g.onGround, isFalse);
+      g.things
+        ..clear()
+        ..add(NutThing(x: g.emmaX, y: g.y - 0.04, type: NutThingType.nut));
+      g.step(0.001);
+      expect(g.carried, 1);
+      g.things.add(NutThing(x: g.emmaX, y: NutRunGame.ground, type: NutThingType.hollow));
+      g.step(0.001);
+      expect(g.stored, 1);
+      expect(g.carried, 0);
+    });
+
+    test('ein Pilz kostet ein Herz und die Hälfte der Nüsse', () {
+      final g = NutRunGame(width: 0.46, random: Random(1));
+      g
+        ..started = true
+        ..carried = 4;
+      g.things.add(NutThing(x: g.emmaX, y: NutRunGame.ground, type: NutThingType.mushroom));
+      g.step(0.001);
+      expect(g.lives, 2);
+      expect(g.carried, 2);
+      expect(g.dropped, 2);
+    });
+
+    test('ohne Springen ist die Runde irgendwann vorbei', () {
+      final g = NutRunGame(width: 0.46, random: Random(1))..jump();
+      for (var i = 0; i < 4000 && !g.over; i++) {
+        g.step(0.02);
+      }
+      expect(g.over, isTrue);
+    });
+  });
+
+  group('Talas Perlentaucher', () {
+    test('offene Muschel gibt eine Perle, geschlossene nicht, Qualle kostet ein Herz', () {
+      final g = PearlDiveGame(width: 0.46, random: Random(1))..swimTo(0.2, 0.5);
+      // Phase so, dass die Muschel jetzt offen ist.
+      g.shells.add(PearlShell(x: g.x, y: g.y, phase: pi / 2));
+      g.step(0.001);
+      expect(g.pearls, 1);
+      g.shells
+        ..clear()
+        ..add(PearlShell(x: g.x, y: g.y, phase: -pi / 2 - g.time * 1.4));
+      g.step(0.001);
+      expect(g.pearls, 1);
+      g.jellies.add(Jelly(x: g.x, baseY: g.y, phase: 0, amp: 0));
+      g.step(0.001);
+      expect(g.lives, 2);
+    });
+
+    test('Tala schwimmt zum Finger', () {
+      final g = PearlDiveGame(width: 0.46, random: Random(1))..swimTo(0.4, 0.7);
+      for (var i = 0; i < 100; i++) {
+        g.step(0.02);
+        g.jellies.clear();
+      }
+      expect(g.x, closeTo(0.4, 0.01));
+      expect(g.y, closeTo(0.7, 0.01));
+    });
+  });
+
+  test('jede Spielart hat eine Runde, die läuft', () {
+    for (final kind in ArcadeKind.values) {
+      final round = newArcadeRound(kind, 0.46);
+      expect(round.started, isFalse);
+      round.step(0.1);
+      expect(round.lives, ArcadeRound.hearts);
+    }
   });
 }

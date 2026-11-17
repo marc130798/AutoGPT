@@ -98,15 +98,20 @@ class GamesScreen extends StatefulWidget {
 }
 
 class _GamesScreenState extends State<GamesScreen> {
-  Future<List<GameEntry>>? _entries;
-  Future<List<ArcadeEntry>>? _arcade;
+  /// Beides zusammen laden, damit die Liste nicht nachträglich springt.
+  Future<(List<GameEntry>, List<ArcadeEntry>)>? _entries;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _entries ??= loadGameEntries(AppScope.of(context), widget.child);
-    // Fehler hier sollen die Liste der Mini-Spiele nicht verdecken.
-    _arcade ??= loadArcadeEntries(AppScope.of(context), widget.child).catchError((Object _) => <ArcadeEntry>[]);
+    _entries ??= _load(AppScope.of(context));
+  }
+
+  Future<(List<GameEntry>, List<ArcadeEntry>)> _load(AppServices services) async {
+    // Fehler bei den richtigen Spielen sollen die Mini-Spiele nicht verdecken.
+    final arcade = loadArcadeEntries(services, widget.child).catchError((Object _) => <ArcadeEntry>[]);
+    final games = await loadGameEntries(services, widget.child);
+    return (games, await arcade);
   }
 
   @override
@@ -121,7 +126,7 @@ class _GamesScreenState extends State<GamesScreen> {
         body: SceneBackground(
           assetKey: AssetKeys.mapBackground,
           child: SafeArea(
-            child: FutureBuilder<List<GameEntry>>(
+            child: FutureBuilder<(List<GameEntry>, List<ArcadeEntry>)>(
               future: _entries,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -133,8 +138,9 @@ class _GamesScreenState extends State<GamesScreen> {
                     ),
                   );
                 }
-                final entries = snapshot.data;
-                if (entries == null) return const Center(child: CircularProgressIndicator());
+                final data = snapshot.data;
+                if (data == null) return const Center(child: CircularProgressIndicator());
+                final (entries, arcade) = data;
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
@@ -145,22 +151,12 @@ class _GamesScreenState extends State<GamesScreen> {
                       children: [SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.gamesIntro)],
                     ),
                     const SizedBox(height: 16),
-                    FutureBuilder<List<ArcadeEntry>>(
-                      future: _arcade,
-                      builder: (context, snapshot) {
-                        final arcade = snapshot.data ?? const <ArcadeEntry>[];
-                        if (arcade.isEmpty) return const SizedBox.shrink();
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            PaperHeading(l10n.arcadeSection),
-                            for (final entry in arcade) _ArcadeTile(entry: entry, childId: widget.child.id),
-                            const SizedBox(height: 8),
-                            PaperHeading(l10n.arcadeThinkSection),
-                          ],
-                        );
-                      },
-                    ),
+                    if (arcade.isNotEmpty) ...[
+                      PaperHeading(l10n.arcadeSection),
+                      for (final entry in arcade) _ArcadeTile(entry: entry, childId: widget.child.id),
+                      const SizedBox(height: 8),
+                      PaperHeading(l10n.arcadeThinkSection),
+                    ],
                     if (entries.isEmpty) PaperCard(child: Text(l10n.gamesEmpty, style: theme.textTheme.bodyLarge)),
                     for (final entry in entries)
                       PaperCard(
@@ -236,6 +232,8 @@ class _ArcadeTileState extends State<_ArcadeTile> {
     final entry = widget.entry;
     final where = entry.unlocked
         ? l10n.arcadeWhere(entry.island.title, arcadePlace(l10n, entry.game))
+        : entry.game.afterDive
+        ? l10n.arcadeLockedDive(entry.island.title)
         : l10n.arcadeLocked(entry.island.title, entry.game.afterStation);
     return PaperCard(
       key: ValueKey('arcade-${entry.game.id}'),
@@ -245,7 +243,7 @@ class _ArcadeTileState extends State<_ArcadeTile> {
         child: ListTile(
           minTileHeight: 88,
           enabled: entry.unlocked,
-          leading: _GameCover(image: null, unlocked: entry.unlocked),
+          leading: _GameCover(image: arcadeCover(entry.game.kind), unlocked: entry.unlocked, contain: true),
           title: Text(arcadeTitle(l10n, entry.game), style: theme.textTheme.titleMedium),
           subtitle: Text(entry.unlocked && _best > 0 ? '$where\n${l10n.arcadeBest(_best)}' : where),
           trailing: Icon(entry.unlocked ? Icons.play_circle_fill_rounded : Icons.lock_outline),
@@ -268,10 +266,13 @@ class _ArcadeTileState extends State<_ArcadeTile> {
 /// Startbild eines Spiels in der Liste, mit kleinem Spiel-Zeichen in der Ecke.
 /// Gesperrte Spiele sind grau und blass. Ohne Startbild nur das Spiel-Zeichen.
 class _GameCover extends StatelessWidget {
-  const _GameCover({super.key, required this.image, required this.unlocked});
+  const _GameCover({super.key, required this.image, required this.unlocked, this.contain = false});
 
   final String? image;
   final bool unlocked;
+
+  /// Freigestellte Figur statt Startbild: ganz zeigen, auf hellem Grund.
+  final bool contain;
 
   static const double _size = 72;
 
@@ -296,10 +297,13 @@ class _GameCover extends StatelessWidget {
                 Positioned.fill(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: TaleriaAsset(
-                      image,
-                      fit: BoxFit.cover,
-                      fallback: const Center(child: GameSign(size: 56)),
+                    child: ColoredBox(
+                      color: contain ? const Color(0xFFDFF1FB) : const Color(0x00000000),
+                      child: TaleriaAsset(
+                        image,
+                        fit: contain ? BoxFit.contain : BoxFit.cover,
+                        fallback: const Center(child: GameSign(size: 56)),
+                      ),
                     ),
                   ),
                 ),

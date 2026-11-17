@@ -189,18 +189,19 @@ class IslandScene extends StatelessWidget {
                 ),
                 ?_player(spots, size, next, motion),
                 for (final (game, unlocked) in arcade)
-                  Positioned(
-                    left: game.spot.dx * size.width - 28,
-                    top: game.spot.dy * size.height - 28,
-                    width: 56,
-                    height: 56,
-                    child: ArcadeSpot(
-                      key: ValueKey('arcade-spot-${game.id}'),
-                      unlocked: unlocked,
-                      motion: motion,
-                      onTap: () => onArcade?.call(game, unlocked),
+                  if (game.spot case final spot?)
+                    Positioned(
+                      left: spot.dx * size.width - 28,
+                      top: spot.dy * size.height - 28,
+                      width: 56,
+                      height: 56,
+                      child: ArcadeSpot(
+                        key: ValueKey('arcade-spot-${game.id}'),
+                        unlocked: unlocked,
+                        motion: motion,
+                        onTap: () => onArcade?.call(game, unlocked),
+                      ),
                     ),
-                  ),
                 for (final (i, station) in stations.indexed)
                   Positioned(
                     left: spots[i].dx * size.width - marker / 2,

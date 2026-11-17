@@ -32,7 +32,9 @@ void main() {
     tester.view.devicePixelRatio = 2;
     addTearDown(tester.view.reset);
     final settings = FakeLocalSettings();
-    await tester.pumpWidget(host(ArcadeScreen(game: arcadeGames.first, childId: 'kind'), settings));
+    await tester.pumpWidget(
+      host(ArcadeScreen(game: arcadeGames.firstWhere((g) => g.id == 'moewenflug'), childId: 'kind'), settings),
+    );
     await tester.pump();
     expect(find.byKey(const ValueKey('arcade-intro')), findsOneWidget);
     expect(find.byKey(const ValueKey('arcade-best')), findsNothing, reason: 'noch kein Rekord');
@@ -58,14 +60,16 @@ void main() {
 
   testWidgets('Möwenflug: ein neuer Rekord wird gemerkt', (tester) async {
     final settings = FakeLocalSettings()..arcadeScores['kind/moewenflug'] = 0;
-    await tester.pumpWidget(host(ArcadeScreen(game: arcadeGames.first, childId: 'kind'), settings));
+    await tester.pumpWidget(
+      host(ArcadeScreen(game: arcadeGames.firstWhere((g) => g.id == 'moewenflug'), childId: 'kind'), settings),
+    );
     await tester.pump();
     await tester.tap(find.byKey(const ValueKey('arcade-play')));
     await tester.pump();
-    final state = tester.state<GullFlightViewState>(find.byType(GullFlightView));
+    final state = tester.state<ArcadeFieldState>(find.byType(ArcadeField));
     await tester.tapAt(const Offset(200, 300));
     await tester.pump(const Duration(milliseconds: 16));
-    state.game!
+    (state.round! as GullFlightGame)
       ..saved = 30
       ..pocket = 0;
     for (var i = 0; i < 400 && find.byKey(const ValueKey('arcade-end')).evaluate().isEmpty; i++) {
@@ -74,4 +78,29 @@ void main() {
     expect(find.byKey(const ValueKey('arcade-new-best')), findsOneWidget);
     expect(settings.arcadeScores['kind/moewenflug'], 30);
   });
+
+  for (final game in arcadeGames) {
+    testWidgets('${game.id}: spielen, Runde vorbei, Satz der Figur', (tester) async {
+      tester.view.physicalSize = const Size(390, 844) * 2;
+      tester.view.devicePixelRatio = 2;
+      addTearDown(tester.view.reset);
+      final settings = FakeLocalSettings();
+      await tester.pumpWidget(host(ArcadeScreen(game: game, childId: 'kind'), settings));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('arcade-play')));
+      await tester.pump();
+      final state = tester.state<ArcadeFieldState>(find.byType(ArcadeField));
+      for (var i = 0; i < 60; i++) {
+        await tester.tapAt(Offset(60.0 + (i % 3) * 130, 500));
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+      expect(state.round!.started, isTrue);
+      state.round!.lives = 0;
+      for (var i = 0; i < 40 && find.byKey(const ValueKey('arcade-end')).evaluate().isEmpty; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+      expect(find.byKey(const ValueKey('arcade-end')), findsOneWidget);
+      expect(find.byKey(const ValueKey('arcade-score')), findsOneWidget);
+    });
+  }
 }
