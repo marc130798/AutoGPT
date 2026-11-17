@@ -172,6 +172,60 @@
         "shape": "circle"
       }
     },
+    "character.mia.fly": {
+      "type": "image",
+      "path": "assets/images/character.mia.fly.png",
+      "placeholder": {
+        "label": "Mia fliegt",
+        "color": "#E8E2D6",
+        "shape": "circle"
+      }
+    },
+    "game.gull.background": {
+      "type": "image",
+      "path": "assets/images/game.gull.background.jpg",
+      "placeholder": {
+        "label": "Bild: Himmel über der Bucht",
+        "color": "#3E8FB0",
+        "shape": "rectangle"
+      }
+    },
+    "game.gull.crate": {
+      "type": "image",
+      "path": "assets/images/game.gull.crate.png",
+      "placeholder": {
+        "label": "Kiste",
+        "color": "#8A5A2B",
+        "shape": "rectangle"
+      }
+    },
+    "game.gull.net": {
+      "type": "image",
+      "path": "assets/images/game.gull.net.png",
+      "placeholder": {
+        "label": "Fischernetz",
+        "color": "#4A6B5A",
+        "shape": "rectangle"
+      }
+    },
+    "game.gull.jar": {
+      "type": "image",
+      "path": "assets/images/game.gull.jar.png",
+      "placeholder": {
+        "label": "Sparglas",
+        "color": "#D8F1FA",
+        "shape": "circle"
+      }
+    },
+    "game.gull.coin": {
+      "type": "image",
+      "path": "assets/images/game.gull.coin.png",
+      "placeholder": {
+        "label": "Taler",
+        "color": "#F3C94B",
+        "shape": "circle"
+      }
+    },
     "character.kurt": {
       "type": "image",
       "path": "assets/images/character.kurt.png",

@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/character_image.dart';
+import '../../core/assets/taleria_asset.dart';
 import '../../domain/arcade_games.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -309,7 +310,8 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
         final unit = size.height;
         final game = _game ??= GullFlightGame(width: size.width / unit);
         final shake = game.time < _shakeUntil ? sin(game.time * 60) * 5 : 0.0;
-        final birdSize = unit * 0.11;
+        final birdSize = unit * 0.1;
+        final art = AppScope.of(context).manifest.lookup('game.gull.crate').path != null;
         final blink = game.safe && (game.time * 8).floor().isEven;
         return Listener(
           key: const ValueKey('arcade-field'),
@@ -319,17 +321,41 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
             offset: Offset(shake, 0),
             child: Stack(
               children: [
-                Positioned.fill(child: CustomPaint(painter: _GullPainter(game))),
+                if (art)
+                  const Positioned.fill(
+                    child: TaleriaAsset(
+                      'game.gull.background',
+                      fit: BoxFit.cover,
+                      alignment: Alignment.bottomCenter,
+                      fallback: SizedBox.shrink(),
+                    ),
+                  ),
+                Positioned.fill(
+                  child: CustomPaint(painter: _GullPainter(game, art: art)),
+                ),
+                if (art) ...[
+                  for (final o in game.obstacles) ..._obstacleArt(o, game, unit),
+                  for (final p in game.pickups)
+                    if (!p.taken) _pickupArt(p, game, unit),
+                ],
                 Positioned(
-                  left: game.birdX * unit - birdSize / 2,
+                  left: game.birdX * unit - birdSize * 0.6,
                   top: game.y * unit - birdSize / 2,
-                  width: birdSize,
+                  width: birdSize * 1.2,
                   height: birdSize,
                   child: Opacity(
                     opacity: blink ? 0.35 : 1,
                     child: Transform.rotate(
                       angle: (game.vy * 0.45).clamp(-0.45, 0.6),
-                      child: const CharacterImage('character.mia', width: 80, height: 80, fallback: _GullFallback()),
+                      // Das Bild schaut nach links, Mia fliegt nach rechts.
+                      child: Transform.flip(
+                        flipX: true,
+                        child: const TaleriaAsset(
+                          'character.mia.fly',
+                          fit: BoxFit.contain,
+                          fallback: CharacterImage('character.mia', fallback: _GullFallback()),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -366,6 +392,80 @@ class GullFlightViewState extends State<GullFlightView> with SingleTickerProvide
       },
     );
   }
+}
+
+/// Hindernis mit Bildern: unten ein Turm aus Kisten bis ins Wasser, oben ein
+/// Fischernetz an einem Seil. Die Trefferfläche bleibt die aus den Regeln.
+List<Widget> _obstacleArt(GullObstacle o, GullFlightGame game, double unit) {
+  final w = GullFlightGame.obstacleWidth * unit;
+  final left = o.x * unit;
+  final center = o.centerAt(game.time) * unit;
+  final top = center - o.gapHalf * unit;
+  final bottom = center + o.gapHalf * unit;
+  final seaTop = GullFlightGame.sea * unit;
+  final crate = w * 1.12;
+  final crates = ((seaTop - bottom) / crate).ceil() + 1;
+  final netW = w * 1.5;
+  final netH = netW * 1.5;
+  return [
+    Positioned(
+      left: left + w / 2 - crate / 2,
+      top: bottom,
+      width: crate,
+      height: max(0, seaTop - bottom + crate * 0.3),
+      child: ClipRect(
+        child: OverflowBox(
+          alignment: Alignment.topCenter,
+          maxHeight: crate * crates,
+          child: Column(
+            children: [
+              for (var i = 0; i < crates; i++)
+                SizedBox.square(
+                  dimension: crate,
+                  child: const TaleriaAsset('game.gull.crate', fit: BoxFit.fill, fallback: SizedBox.shrink()),
+                ),
+            ],
+          ),
+        ),
+      ),
+    ),
+    // Seil von oben bis zum Netz.
+    Positioned(
+      left: left + w / 2 - 2,
+      top: 0,
+      width: 4,
+      height: max(0, top - netH * 0.85),
+      child: const ColoredBox(color: Color(0xFFC9A66B)),
+    ),
+    Positioned(
+      left: left + w / 2 - netW / 2,
+      top: top - netH,
+      width: netW,
+      height: netH,
+      child: const TaleriaAsset('game.gull.net', fit: BoxFit.fill, fallback: SizedBox.shrink()),
+    ),
+  ];
+}
+
+/// Taler oder Sparglas als Bild, leicht schwebend.
+Widget _pickupArt(GullPickup p, GullFlightGame game, double unit) {
+  final size = p.jar ? 0.1 * unit : GullFlightGame.pickupRadius * 2.4 * unit;
+  final bob = sin(game.time * 4 + p.x * 9) * 0.006 * unit;
+  final pulse = p.jar ? 1 + sin(game.time * 6) * 0.05 : 1.0;
+  return Positioned(
+    left: p.x * unit - size / 2,
+    top: p.y * unit - size / 2 + bob,
+    width: size,
+    height: size,
+    child: Transform.scale(
+      scale: pulse,
+      child: TaleriaAsset(
+        p.jar ? 'game.gull.jar' : 'game.gull.coin',
+        fit: BoxFit.contain,
+        fallback: const SizedBox.shrink(),
+      ),
+    ),
+  );
 }
 
 class _GullFallback extends StatelessWidget {
@@ -469,15 +569,23 @@ class _Hud extends StatelessWidget {
 
 /// Malt Himmel, Bucht, Meer, Masten, Netze, Taler und Sparglas.
 class _GullPainter extends CustomPainter {
-  _GullPainter(this.game);
+  _GullPainter(this.game, {this.art = false});
 
   final GullFlightGame game;
+
+  /// Mit Bildern (Gemini): Der Maler zeichnet nur das Wasser vorn, der Rest
+  /// sind Bilder darüber.
+  final bool art;
 
   @override
   void paint(Canvas canvas, Size size) {
     final u = size.height;
     final t = game.time;
     final travel = game.started ? t * 0.04 : 0.0;
+    if (art) {
+      _sea(canvas, size, u, t);
+      return;
+    }
 
     // Himmel mit Sonne.
     canvas.drawRect(
@@ -513,7 +621,19 @@ class _GullPainter extends CustomPainter {
       ..close();
     canvas.drawPath(hills, Paint()..color = const Color(0xFF8FC59A));
 
-    // Meer mit Wellen.
+    _sea(canvas, size, u, t);
+
+    for (final o in game.obstacles) {
+      _obstacle(canvas, o, u, size);
+    }
+    for (final p in game.pickups) {
+      if (p.taken) continue;
+      final c = Offset(p.x * u, p.y * u + sin(t * 4 + p.x * 9) * 0.006 * u);
+      p.jar ? _jar(canvas, c, u) : _coin(canvas, c, u);
+    }
+  }
+
+  void _sea(Canvas canvas, Size size, double u, double t) {
     final seaTop = GullFlightGame.sea * u;
     canvas.drawRect(
       Rect.fromLTRB(0, seaTop, size.width, size.height),
@@ -533,15 +653,6 @@ class _GullPainter extends CustomPainter {
       wave.lineTo(x, seaTop + sin(x / 18 + t * 3) * 2.5);
     }
     canvas.drawPath(wave, foam);
-
-    for (final o in game.obstacles) {
-      _obstacle(canvas, o, u, size);
-    }
-    for (final p in game.pickups) {
-      if (p.taken) continue;
-      final c = Offset(p.x * u, p.y * u + sin(t * 4 + p.x * 9) * 0.006 * u);
-      p.jar ? _jar(canvas, c, u) : _coin(canvas, c, u);
-    }
   }
 
   void _obstacle(Canvas canvas, GullObstacle o, double u, Size size) {
