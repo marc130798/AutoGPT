@@ -3716,4 +3716,100 @@ class AppLocalizationsDe extends AppLocalizations {
   String logbookSlip(int number, int total) {
     return 'Zettel $number von $total';
   }
+
+  @override
+  String get arcadeGullTitle => 'Mias Möwenflug';
+
+  @override
+  String get arcadeGullHow =>
+      'Tippe, damit Mia hochflattert. Sammle Taler und flieg durch die Lücken. Bring deine Taler ins Sparglas, dort sind sie sicher!';
+
+  @override
+  String get arcadeTapToStart => 'Tippen zum Losfliegen';
+
+  @override
+  String get arcadePlay => 'Spielen';
+
+  @override
+  String get arcadeAgain => 'Nochmal';
+
+  @override
+  String get arcadeDone => 'Fertig';
+
+  @override
+  String arcadeBest(int score) {
+    return 'Dein Rekord: $score';
+  }
+
+  @override
+  String get arcadeNewBest => 'Neuer Rekord!';
+
+  @override
+  String arcadeScore(int score) {
+    return '$score Punkte';
+  }
+
+  @override
+  String arcadePocket(int count) {
+    return '$count in der Tasche';
+  }
+
+  @override
+  String arcadeSaved(int count) {
+    return '$count im Sparglas';
+  }
+
+  @override
+  String arcadeLives(int count) {
+    return '$count Herzen';
+  }
+
+  @override
+  String arcadeLevel(int level) {
+    return 'Stufe $level';
+  }
+
+  @override
+  String get arcadeFaster => 'Schneller!';
+
+  @override
+  String get arcadeOver => 'Runde vorbei';
+
+  @override
+  String arcadeGullEndSaved(int saved) {
+    return 'Super! $saved Taler hast du ins Sparglas gebracht. Die waren sicher, auch als wir angestoßen sind!';
+  }
+
+  @override
+  String get arcadeGullEndNone =>
+      'Oh, ins Sparglas ist nichts gekommen. Taler in der Tasche fallen beim Anstoßen ins Meer. Flieg nächstes Mal durchs Sparglas!';
+
+  @override
+  String arcadeGullDropped(int count) {
+    return '$count Taler sind ins Meer gefallen.';
+  }
+
+  @override
+  String get arcadeSection => 'Richtige Spiele';
+
+  @override
+  String arcadeWhere(String island, String place) {
+    return '$island, $place';
+  }
+
+  @override
+  String arcadeLocked(String island, int number) {
+    return 'Öffnet sich nach Station $number auf $island';
+  }
+
+  @override
+  String arcadeIslandLocked(int number) {
+    return 'Dieses Spiel öffnet sich nach Station $number.';
+  }
+
+  @override
+  String get arcadeGullPlace => 'am langen Steg';
+
+  @override
+  String get arcadeThinkSection => 'Denk-Spiele';
 }

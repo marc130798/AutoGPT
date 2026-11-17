@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../domain/arcade_games.dart';
+
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
@@ -115,7 +117,14 @@ class IslandScene extends StatelessWidget {
     required this.stateOf,
     required this.onOpen,
     this.avatar,
+    this.arcade = const [],
+    this.onArcade,
   });
+
+  /// Richtige Spiele an ihren Orten auf dem Bild, mit „offen“ (Marcs Wunsch
+  /// am 17.11.2026: Spiele dort, wo es den Ort auf der Insel schon gibt).
+  final List<(ArcadeGame, bool)> arcade;
+  final void Function(ArcadeGame game, bool unlocked)? onArcade;
 
   /// Spielfigur des Kindes (Löwe oder Löwin). Sie steht an der Station, die
   /// gerade dran ist, und läuft zur nächsten, wenn eine geschafft ist (Marcs
@@ -179,6 +188,19 @@ class IslandScene extends StatelessWidget {
                   ),
                 ),
                 ?_player(spots, size, next, motion),
+                for (final (game, unlocked) in arcade)
+                  Positioned(
+                    left: game.spot.dx * size.width - 28,
+                    top: game.spot.dy * size.height - 28,
+                    width: 56,
+                    height: 56,
+                    child: ArcadeSpot(
+                      key: ValueKey('arcade-spot-${game.id}'),
+                      unlocked: unlocked,
+                      motion: motion,
+                      onTap: () => onArcade?.call(game, unlocked),
+                    ),
+                  ),
                 for (final (i, station) in stations.indexed)
                   Positioned(
                     left: spots[i].dx * size.width - marker / 2,
@@ -201,6 +223,76 @@ class IslandScene extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Spiel-Ort auf der Insel: goldenes Spiel-Zeichen, offen leicht pulsierend,
+/// gesperrt grau mit Schloss.
+class ArcadeSpot extends StatefulWidget {
+  const ArcadeSpot({super.key, required this.unlocked, required this.motion, required this.onTap});
+
+  final bool unlocked;
+  final bool motion;
+  final VoidCallback onTap;
+
+  @override
+  State<ArcadeSpot> createState() => _ArcadeSpotState();
+}
+
+class _ArcadeSpotState extends State<ArcadeSpot> with SingleTickerProviderStateMixin {
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.motion && widget.unlocked) _pulse.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final sign = const GameSign(size: 46);
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: widget.onTap,
+        child: Center(
+          child: widget.unlocked
+              ? ScaleTransition(scale: Tween(begin: 0.94, end: 1.08).animate(_pulse), child: sign)
+              : Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Opacity(
+                      opacity: 0.55,
+                      child: ColorFiltered(
+                        colorFilter: const ColorFilter.matrix([
+                          0.2126, 0.7152, 0.0722, 0, 0, //
+                          0.2126, 0.7152, 0.0722, 0, 0,
+                          0.2126, 0.7152, 0.0722, 0, 0,
+                          0, 0, 0, 1, 0,
+                        ]),
+                        child: sign,
+                      ),
+                    ),
+                    const Positioned(
+                      right: -4,
+                      bottom: -4,
+                      child: Icon(Icons.lock, size: 20, color: Color(0xFF4A5D70)),
+                    ),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }

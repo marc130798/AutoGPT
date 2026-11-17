@@ -20,6 +20,8 @@ import 'island_scene.dart';
 import '../common/taleria_app_bar.dart';
 import '../common/menu_music.dart';
 import '../../domain/avatar.dart';
+import '../../domain/arcade_games.dart';
+import '../arcade/arcade_screen.dart';
 
 /// Eine Insel: Ankunft beim ersten Besuch, danach die Stationen der Reihe nach.
 class IslandScreen extends StatefulWidget {
@@ -263,6 +265,23 @@ class _StationList extends StatelessWidget {
             stateOf: controller.stateOf,
             onOpen: onOpen,
             avatar: controller.child.avatar ?? const AvatarConfig(),
+            arcade: [
+              for (final game in arcadeGamesOn(details.slug))
+                (game, arcadeUnlocked(game, required, (s) => controller.stateOf(s) == StationState.done)),
+            ],
+            onArcade: (game, unlocked) {
+              if (!unlocked) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(content: Text(l10n.arcadeIslandLocked(game.afterStation))));
+                return;
+              }
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => ArcadeScreen(game: game, childId: controller.child.id),
+                ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),

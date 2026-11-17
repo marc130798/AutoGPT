@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
 import '../../core/assets/taleria_asset.dart';
+import '../../domain/arcade_games.dart';
 import '../../domain/content_models.dart';
+import '../arcade/arcade_screen.dart';
 import '../../domain/family_models.dart';
 import '../../l10n/app_localizations.dart';
 import '../common/game_sign.dart';
@@ -50,6 +52,39 @@ Future<List<GameEntry>> loadGameEntries(AppServices services, ChildProfile child
   return entries;
 }
 
+/// Ein richtiges Spiel auf der Seite „Spiele“.
+class ArcadeEntry {
+  const ArcadeEntry({required this.game, required this.island, required this.unlocked});
+
+  final ArcadeGame game;
+  final MapIsland island;
+  final bool unlocked;
+}
+
+/// Lädt die richtigen Spiele der Inseln, die das Kind sehen darf.
+Future<List<ArcadeEntry>> loadArcadeEntries(AppServices services, ChildProfile child) async {
+  final content = services.content!;
+  final islands = [...await content.fetchMap(child.stage)]..sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+  final done = (await services.progress!.fetchProgress(child.id)).doneStationIds;
+  final entries = <ArcadeEntry>[];
+  for (final island in islands.where((i) => i.hasContent)) {
+    final games = arcadeGamesOn(island.slug);
+    if (games.isEmpty) continue;
+    final List<StationInfo> stations;
+    try {
+      stations = await content.fetchStations(island.id);
+    } on AppFailure {
+      continue;
+    }
+    for (final game in games) {
+      entries.add(
+        ArcadeEntry(game: game, island: island, unlocked: arcadeUnlocked(game, stations, (s) => done.contains(s.id))),
+      );
+    }
+  }
+  return entries;
+}
+
 /// Seite „Spiele“ (von der Startseite): alle echten Mini-Spiele. Geschaffte
 /// kann das Kind nochmal spielen, nur zum Spaß, ohne Seemeilen und ohne
 /// Server. Die anderen zeigen, auf welcher Insel sie warten.
@@ -64,11 +99,14 @@ class GamesScreen extends StatefulWidget {
 
 class _GamesScreenState extends State<GamesScreen> {
   Future<List<GameEntry>>? _entries;
+  Future<List<ArcadeEntry>>? _arcade;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _entries ??= loadGameEntries(AppScope.of(context), widget.child);
+    // Fehler hier sollen die Liste der Mini-Spiele nicht verdecken.
+    _arcade ??= loadArcadeEntries(AppScope.of(context), widget.child).catchError((Object _) => <ArcadeEntry>[]);
   }
 
   @override
@@ -107,6 +145,22 @@ class _GamesScreenState extends State<GamesScreen> {
                       children: [SpeechBubble(speaker: Speaker.talo, pose: CharacterPose.happy, text: l10n.gamesIntro)],
                     ),
                     const SizedBox(height: 16),
+                    FutureBuilder<List<ArcadeEntry>>(
+                      future: _arcade,
+                      builder: (context, snapshot) {
+                        final arcade = snapshot.data ?? const <ArcadeEntry>[];
+                        if (arcade.isEmpty) return const SizedBox.shrink();
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            PaperHeading(l10n.arcadeSection),
+                            for (final entry in arcade) _ArcadeTile(entry: entry, childId: widget.child.id),
+                            const SizedBox(height: 8),
+                            PaperHeading(l10n.arcadeThinkSection),
+                          ],
+                        );
+                      },
+                    ),
                     if (entries.isEmpty) PaperCard(child: Text(l10n.gamesEmpty, style: theme.textTheme.bodyLarge)),
                     for (final entry in entries)
                       PaperCard(
@@ -145,6 +199,66 @@ class _GamesScreenState extends State<GamesScreen> {
               },
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Zeile für ein richtiges Spiel: Spiel-Zeichen, Name, Ort, Rekord.
+class _ArcadeTile extends StatefulWidget {
+  const _ArcadeTile({required this.entry, required this.childId});
+
+  final ArcadeEntry entry;
+  final String childId;
+
+  @override
+  State<_ArcadeTile> createState() => _ArcadeTileState();
+}
+
+class _ArcadeTileState extends State<_ArcadeTile> {
+  int _best = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadBest();
+  }
+
+  void _loadBest() => AppScope.of(context).settings.arcadeBest(widget.childId, widget.entry.game.id).then((best) {
+    if (mounted) setState(() => _best = best);
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final entry = widget.entry;
+    final where = entry.unlocked
+        ? l10n.arcadeWhere(entry.island.title, arcadePlace(l10n, entry.game))
+        : l10n.arcadeLocked(entry.island.title, entry.game.afterStation);
+    return PaperCard(
+      key: ValueKey('arcade-${entry.game.id}'),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Material(
+        type: MaterialType.transparency,
+        child: ListTile(
+          minTileHeight: 88,
+          enabled: entry.unlocked,
+          leading: _GameCover(image: null, unlocked: entry.unlocked),
+          title: Text(arcadeTitle(l10n, entry.game), style: theme.textTheme.titleMedium),
+          subtitle: Text(entry.unlocked && _best > 0 ? '$where\n${l10n.arcadeBest(_best)}' : where),
+          trailing: Icon(entry.unlocked ? Icons.play_circle_fill_rounded : Icons.lock_outline),
+          onTap: entry.unlocked
+              ? () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => ArcadeScreen(game: entry.game, childId: widget.childId),
+                    ),
+                  );
+                  if (mounted) _loadBest();
+                }
+              : null,
         ),
       ),
     );

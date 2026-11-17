@@ -358,6 +358,15 @@ class FakeFamilyRepository implements FamilyRepository {
 }
 
 class FakeLocalSettings implements LocalSettings {
+  final arcadeScores = <String, int>{};
+
+  @override
+  Future<int> arcadeBest(String childId, String gameId) async => arcadeScores['$childId/$gameId'] ?? 0;
+
+  @override
+  Future<void> setArcadeBest(String childId, String gameId, int score) async =>
+      arcadeScores['$childId/$gameId'] = score;
+
   final Map<String, String> values = {};
   final Map<String, Set<String>> quizSelections = {};
   final Set<String> arrivals = {};

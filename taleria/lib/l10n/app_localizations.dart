@@ -5844,6 +5844,150 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Zettel {number} von {total}'**
   String logbookSlip(int number, int total);
+
+  /// Richtiges Spiel in der Taschengeld-Bucht: Titel
+  ///
+  /// In de, this message translates to:
+  /// **'Mias Möwenflug'**
+  String get arcadeGullTitle;
+
+  /// Mias Möwenflug: Spielregel auf dem Startbild
+  ///
+  /// In de, this message translates to:
+  /// **'Tippe, damit Mia hochflattert. Sammle Taler und flieg durch die Lücken. Bring deine Taler ins Sparglas, dort sind sie sicher!'**
+  String get arcadeGullHow;
+
+  /// Richtiges Spiel: bevor es losgeht (kein Countdown)
+  ///
+  /// In de, this message translates to:
+  /// **'Tippen zum Losfliegen'**
+  String get arcadeTapToStart;
+
+  /// Richtiges Spiel: Startknopf
+  ///
+  /// In de, this message translates to:
+  /// **'Spielen'**
+  String get arcadePlay;
+
+  /// Richtiges Spiel: neue Runde
+  ///
+  /// In de, this message translates to:
+  /// **'Nochmal'**
+  String get arcadeAgain;
+
+  /// Richtiges Spiel: zurück
+  ///
+  /// In de, this message translates to:
+  /// **'Fertig'**
+  String get arcadeDone;
+
+  /// Richtiges Spiel: bisher bester Punktestand
+  ///
+  /// In de, this message translates to:
+  /// **'Dein Rekord: {score}'**
+  String arcadeBest(int score);
+
+  /// Richtiges Spiel: Rekord geknackt
+  ///
+  /// In de, this message translates to:
+  /// **'Neuer Rekord!'**
+  String get arcadeNewBest;
+
+  /// Richtiges Spiel: Punkte am Ende
+  ///
+  /// In de, this message translates to:
+  /// **'{score} Punkte'**
+  String arcadeScore(int score);
+
+  /// Mias Möwenflug: Taler, die noch nicht gespart sind
+  ///
+  /// In de, this message translates to:
+  /// **'{count} in der Tasche'**
+  String arcadePocket(int count);
+
+  /// Mias Möwenflug: gesparte Taler
+  ///
+  /// In de, this message translates to:
+  /// **'{count} im Sparglas'**
+  String arcadeSaved(int count);
+
+  /// Richtiges Spiel: Leben (Vorlesen)
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Herzen'**
+  String arcadeLives(int count);
+
+  /// Richtiges Spiel: Schwierigkeit
+  ///
+  /// In de, this message translates to:
+  /// **'Stufe {level}'**
+  String arcadeLevel(int level);
+
+  /// Richtiges Spiel: neue Stufe
+  ///
+  /// In de, this message translates to:
+  /// **'Schneller!'**
+  String get arcadeFaster;
+
+  /// Richtiges Spiel: alle Herzen weg (ohne Strafe)
+  ///
+  /// In de, this message translates to:
+  /// **'Runde vorbei'**
+  String get arcadeOver;
+
+  /// Mias Möwenflug: Mia am Ende, wenn gespart wurde
+  ///
+  /// In de, this message translates to:
+  /// **'Super! {saved} Taler hast du ins Sparglas gebracht. Die waren sicher, auch als wir angestoßen sind!'**
+  String arcadeGullEndSaved(int saved);
+
+  /// Mias Möwenflug: Mia am Ende ohne Erspartes
+  ///
+  /// In de, this message translates to:
+  /// **'Oh, ins Sparglas ist nichts gekommen. Taler in der Tasche fallen beim Anstoßen ins Meer. Flieg nächstes Mal durchs Sparglas!'**
+  String get arcadeGullEndNone;
+
+  /// Mias Möwenflug: verlorene Taler aus der Tasche
+  ///
+  /// In de, this message translates to:
+  /// **'{count} Taler sind ins Meer gefallen.'**
+  String arcadeGullDropped(int count);
+
+  /// Spiele-Seite: Überschrift für Geschicklichkeits-Spiele
+  ///
+  /// In de, this message translates to:
+  /// **'Richtige Spiele'**
+  String get arcadeSection;
+
+  /// Spiele-Seite: wo das Spiel liegt
+  ///
+  /// In de, this message translates to:
+  /// **'{island}, {place}'**
+  String arcadeWhere(String island, String place);
+
+  /// Spiele-Seite: noch gesperrt
+  ///
+  /// In de, this message translates to:
+  /// **'Öffnet sich nach Station {number} auf {island}'**
+  String arcadeLocked(String island, int number);
+
+  /// Insel: Spiel-Ort noch gesperrt
+  ///
+  /// In de, this message translates to:
+  /// **'Dieses Spiel öffnet sich nach Station {number}.'**
+  String arcadeIslandLocked(int number);
+
+  /// Mias Möwenflug: Ort auf der Insel
+  ///
+  /// In de, this message translates to:
+  /// **'am langen Steg'**
+  String get arcadeGullPlace;
+
+  /// Spiele-Seite: Überschrift für die Mini-Spiele zum Nachdenken
+  ///
+  /// In de, this message translates to:
+  /// **'Denk-Spiele'**
+  String get arcadeThinkSection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

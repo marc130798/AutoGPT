@@ -5216,5 +5216,162 @@
         "type": "int"
       }
     }
+  },
+  "arcadeGullTitle": "Mias Möwenflug",
+  "@arcadeGullTitle": {
+    "description": "Richtiges Spiel in der Taschengeld-Bucht: Titel"
+  },
+  "arcadeGullHow": "Tippe, damit Mia hochflattert. Sammle Taler und flieg durch die Lücken. Bring deine Taler ins Sparglas, dort sind sie sicher!",
+  "@arcadeGullHow": {
+    "description": "Mias Möwenflug: Spielregel auf dem Startbild"
+  },
+  "arcadeTapToStart": "Tippen zum Losfliegen",
+  "@arcadeTapToStart": {
+    "description": "Richtiges Spiel: bevor es losgeht (kein Countdown)"
+  },
+  "arcadePlay": "Spielen",
+  "@arcadePlay": {
+    "description": "Richtiges Spiel: Startknopf"
+  },
+  "arcadeAgain": "Nochmal",
+  "@arcadeAgain": {
+    "description": "Richtiges Spiel: neue Runde"
+  },
+  "arcadeDone": "Fertig",
+  "@arcadeDone": {
+    "description": "Richtiges Spiel: zurück"
+  },
+  "arcadeBest": "Dein Rekord: {score}",
+  "@arcadeBest": {
+    "description": "Richtiges Spiel: bisher bester Punktestand",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeNewBest": "Neuer Rekord!",
+  "@arcadeNewBest": {
+    "description": "Richtiges Spiel: Rekord geknackt"
+  },
+  "arcadeScore": "{score} Punkte",
+  "@arcadeScore": {
+    "description": "Richtiges Spiel: Punkte am Ende",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadePocket": "{count} in der Tasche",
+  "@arcadePocket": {
+    "description": "Mias Möwenflug: Taler, die noch nicht gespart sind",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeSaved": "{count} im Sparglas",
+  "@arcadeSaved": {
+    "description": "Mias Möwenflug: gesparte Taler",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeLives": "{count} Herzen",
+  "@arcadeLives": {
+    "description": "Richtiges Spiel: Leben (Vorlesen)",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeLevel": "Stufe {level}",
+  "@arcadeLevel": {
+    "description": "Richtiges Spiel: Schwierigkeit",
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeFaster": "Schneller!",
+  "@arcadeFaster": {
+    "description": "Richtiges Spiel: neue Stufe"
+  },
+  "arcadeOver": "Runde vorbei",
+  "@arcadeOver": {
+    "description": "Richtiges Spiel: alle Herzen weg (ohne Strafe)"
+  },
+  "arcadeGullEndSaved": "Super! {saved} Taler hast du ins Sparglas gebracht. Die waren sicher, auch als wir angestoßen sind!",
+  "@arcadeGullEndSaved": {
+    "description": "Mias Möwenflug: Mia am Ende, wenn gespart wurde",
+    "placeholders": {
+      "saved": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeGullEndNone": "Oh, ins Sparglas ist nichts gekommen. Taler in der Tasche fallen beim Anstoßen ins Meer. Flieg nächstes Mal durchs Sparglas!",
+  "@arcadeGullEndNone": {
+    "description": "Mias Möwenflug: Mia am Ende ohne Erspartes"
+  },
+  "arcadeGullDropped": "{count} Taler sind ins Meer gefallen.",
+  "@arcadeGullDropped": {
+    "description": "Mias Möwenflug: verlorene Taler aus der Tasche",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeSection": "Richtige Spiele",
+  "@arcadeSection": {
+    "description": "Spiele-Seite: Überschrift für Geschicklichkeits-Spiele"
+  },
+  "arcadeWhere": "{island}, {place}",
+  "@arcadeWhere": {
+    "description": "Spiele-Seite: wo das Spiel liegt",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "arcadeLocked": "Öffnet sich nach Station {number} auf {island}",
+  "@arcadeLocked": {
+    "description": "Spiele-Seite: noch gesperrt",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      },
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeIslandLocked": "Dieses Spiel öffnet sich nach Station {number}.",
+  "@arcadeIslandLocked": {
+    "description": "Insel: Spiel-Ort noch gesperrt",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "arcadeGullPlace": "am langen Steg",
+  "@arcadeGullPlace": {
+    "description": "Mias Möwenflug: Ort auf der Insel"
+  },
+  "arcadeThinkSection": "Denk-Spiele",
+  "@arcadeThinkSection": {
+    "description": "Spiele-Seite: Überschrift für die Mini-Spiele zum Nachdenken"
   }
 }

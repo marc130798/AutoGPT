@@ -72,6 +72,11 @@ abstract interface class LocalSettings {
   Future<bool> pageIntroSeen(String childId, String page);
 
   Future<void> setPageIntroSeen(String childId, String page);
+
+  /// Rekord des Kindes in einem richtigen Spiel (0 = noch nie gespielt).
+  Future<int> arcadeBest(String childId, String gameId);
+
+  Future<void> setArcadeBest(String childId, String gameId, int score);
 }
 
 class SharedPreferencesSettings implements LocalSettings {
@@ -240,5 +245,17 @@ class SharedPreferencesSettings implements LocalSettings {
     } else {
       await prefs.setString(_key(parentUserId), childId);
     }
+  }
+
+  @override
+  Future<int> arcadeBest(String childId, String gameId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('arcade.$childId.$gameId') ?? 0;
+  }
+
+  @override
+  Future<void> setArcadeBest(String childId, String gameId, int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('arcade.$childId.$gameId', score);
   }
 }
