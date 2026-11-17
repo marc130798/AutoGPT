@@ -463,8 +463,8 @@ Erstellt am 17.11.2026 von Claude mit Gemini, nachdem die Texte der Insel geschr
 
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
-| 180 | `map.island.taschengeld-bucht` | Die Taschengeld-Bucht auf der Karte (neu als Hufeisen-Bucht, Marcs Wunsch am 17.11.2026; die runde Fassung ist vorerst drin) | das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg) | da (Claude mit Gemini, 17.11.2026) |
-| 181 | `island.taschengeld-bucht.background` | Die Taschengeld-Bucht von innen (neu als Bucht, danach Weg und Tauchplätze neu ausmessen) | das neue Kartenbild der Taschengeld-Bucht (Bild 180) | da (Claude mit Gemini, 17.11.2026) |
+| 180 | `map.island.taschengeld-bucht` | Die Taschengeld-Bucht auf der Karte (als Hufeisen-Bucht, Marcs Wunsch am 17.11.2026) | das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg) | da (Claude mit Gemini, 17.11.2026) |
+| 181 | `island.taschengeld-bucht.background` | Die Taschengeld-Bucht von innen (als Bucht, Weg als umgedrehtes U ausgemessen) | das neue Kartenbild der Taschengeld-Bucht (Bild 180) | da (Claude mit Gemini, 17.11.2026) |
 | 182 | `character.mia` | Mia, die Möwe am Kiosk | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
 | 183 | `character.kurt` | Kurt, der Krebs und Buchhalter | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
 | 184 | `badge.taschengeld-bucht` | Orden „Kassenwart der Bucht“ | der Orden mit dem Anker (design/gemini/icon.badges.jpg) | da (Claude mit Gemini, 17.11.2026) |
@@ -480,18 +480,18 @@ Erstellt am 17.11.2026 von Claude mit Gemini, nachdem die Texte der Insel geschr
 | 194 | `story.taschengeld-bucht.3.1` | Kurts Logbuch | Bild 183 (Kurt), Tala | da (Claude mit Gemini, 17.11.2026) |
 | 195 | `story.taschengeld-bucht.3.2` | Einnahmen minus Ausgaben | Tala | da (Claude mit Gemini, 17.11.2026) |
 | 196 | `story.taschengeld-bucht.3.3` | Talas Ausgaben: Süßigkeiten | Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
-| 197 | `story.taschengeld-bucht.4.1` | Planungssteg mit Wochenplan | Bild 183 (Kurt), Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 197 | `story.taschengeld-bucht.4.1` | Planungssteg mit Wochenplan | Bild 183 (Kurt), Tala | da (Claude mit Gemini, 17.11.2026) |
 | 198 | `story.taschengeld-bucht.4.2` | Zu viele Wünsche | Tala | da (Claude mit Gemini, 17.11.2026) |
 | 199 | `story.taschengeld-bucht.4.3` | Talas fertiger Plan | Tala | da (Claude mit Gemini, 17.11.2026) |
-| 200 | `story.taschengeld-bucht.5.1` | Talas leerer Beutel | Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 201 | `story.taschengeld-bucht.5.2` | Schwimmen am Strand | Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 202 | `story.taschengeld-bucht.5.3` | Leihen kostet mehr | Bild 183 (Kurt), Bild 182 (Mia) | fehlt (Google-Ausgabenlimit erreicht) |
-| 203 | `story.taschengeld-bucht.6.1` | Omas Brief mit Geld | Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 204 | `story.taschengeld-bucht.6.2` | Geschenk aufteilen | Bild 183 (Kurt), Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 205 | `story.taschengeld-bucht.6.3` | Tala malt ein Danke-Bild | Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 206 | `story.taschengeld-bucht.7.1` | Ruhiger Abend | Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 207 | `story.taschengeld-bucht.7.2` | Tala zeigt ihr Logbuch | Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
-| 208 | `story.taschengeld-bucht.7.3` | Kurt übergibt das Kartenstück | Bild 183 (Kurt), Talo, Tala | fehlt (Google-Ausgabenlimit erreicht) |
+| 200 | `story.taschengeld-bucht.5.1` | Talas leerer Beutel | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 201 | `story.taschengeld-bucht.5.2` | Schwimmen am Strand | Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
+| 202 | `story.taschengeld-bucht.5.3` | Leihen kostet mehr | Bild 183 (Kurt), Bild 182 (Mia) | da (Claude mit Gemini, 17.11.2026) |
+| 203 | `story.taschengeld-bucht.6.1` | Omas Brief mit Geld | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 204 | `story.taschengeld-bucht.6.2` | Geschenk aufteilen | Bild 183 (Kurt), Tala | da (Claude mit Gemini, 17.11.2026) |
+| 205 | `story.taschengeld-bucht.6.3` | Tala malt ein Danke-Bild | Tala | da (Claude mit Gemini, 17.11.2026) |
+| 206 | `story.taschengeld-bucht.7.1` | Ruhiger Abend | Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
+| 207 | `story.taschengeld-bucht.7.2` | Tala zeigt ihr Logbuch | Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
+| 208 | `story.taschengeld-bucht.7.3` | Kurt übergibt das Kartenstück | Bild 183 (Kurt), Talo, Tala | da (Claude mit Gemini, 17.11.2026) |
 
 ## 4r. Die Figur des Kindes: Löwe oder Löwin (Bild 167 bis 175)
 
