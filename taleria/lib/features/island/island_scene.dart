@@ -233,7 +233,13 @@ extension on IslandScene {
             ),
             Positioned.fill(
               child: Breathing(
-                child: CharacterImage(avatarKey(avatar), width: s.width, height: s.height, fallback: const SizedBox()),
+                child: CharacterImage(
+                  avatarKey(avatar),
+                  width: s.width,
+                  height: s.height,
+                  fallback: const SizedBox(),
+                  clothTint: clothTint(avatar),
+                ),
               ),
             ),
           ],

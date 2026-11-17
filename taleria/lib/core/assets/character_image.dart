@@ -16,6 +16,7 @@ class CharacterImage extends StatelessWidget {
     this.fit = BoxFit.contain,
     this.alignment = Alignment.center,
     this.fallback,
+    this.clothTint,
   });
 
   /// Schlüssel der Figur, zum Beispiel [AssetKeys.talo].
@@ -29,6 +30,10 @@ class CharacterImage extends StatelessWidget {
   /// Eigener Ersatz, wenn auch das Grundbild fehlt (sonst der Platzhalter).
   final Widget? fallback;
 
+  /// Farbe für Shirt und Hose (nur Löwe und Löwin): Die Maske `<bild>.cloth`
+  /// wird damit eingefärbt und über das Bild gelegt. `null` = wie im Bild (blau).
+  final Color? clothTint;
+
   @override
   Widget build(BuildContext context) {
     final base = TaleriaAsset(
@@ -40,14 +45,37 @@ class CharacterImage extends StatelessWidget {
       fallback: fallback,
     );
     final pose = this.pose;
-    if (pose == null) return base;
-    return TaleriaAsset(
-      AssetKeys.pose(character, pose),
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      fallback: base,
+    final image = pose == null
+        ? base
+        : TaleriaAsset(
+            AssetKeys.pose(character, pose),
+            width: width,
+            height: height,
+            fit: fit,
+            alignment: alignment,
+            fallback: base,
+          );
+    final tint = clothTint;
+    if (tint == null) return image;
+    final key = pose == null ? character : AssetKeys.pose(character, pose);
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        image,
+        Positioned.fill(
+          child: ColorFiltered(
+            colorFilter: ColorFilter.mode(tint, BlendMode.modulate),
+            child: TaleriaAsset(
+              '$key.cloth',
+              width: width,
+              height: height,
+              fit: fit,
+              alignment: alignment,
+              fallback: const SizedBox.shrink(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

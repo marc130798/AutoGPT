@@ -677,6 +677,7 @@ class _HomeBodyState extends State<_HomeBody> {
         ),
         LivelyFigure(
           character: avatarKey(child.avatar ?? const AvatarConfig()),
+          clothTint: clothTint(child.avatar ?? const AvatarConfig()),
           phase: 0.25,
           width: 104,
           height: 140,

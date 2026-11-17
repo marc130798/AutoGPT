@@ -53,6 +53,22 @@ abstract final class AvatarPalette {
 /// Bildschlüssel der Figur des Kindes, zum Beispiel `avatar.lioness`.
 String avatarKey(AvatarConfig avatar) => 'avatar.${avatar.figure.name}';
 
+/// Farben für Shirt und Hose. Blau ist die Farbe im Bild, darum ohne Einfärben.
+const clothesColors = {
+  ClothesColor.pink: Color(0xFFF28AB3),
+  ClothesColor.green: Color(0xFF4CB06E),
+  ClothesColor.red: Color(0xFFD84A40),
+  ClothesColor.turquoise: Color(0xFF2FB5B8),
+  ClothesColor.yellow: Color(0xFFF0BE3A),
+  ClothesColor.purple: Color(0xFF9A6BC9),
+};
+
+/// Einfärbung der Kleider für [CharacterImage.clothTint], `null` bei Blau.
+Color? clothTint(AvatarConfig avatar) => clothesColors[avatar.clothes];
+
+/// Farbe für Vorschau-Punkte (auch Blau).
+Color clothesSwatch(ClothesColor c) => clothesColors[c] ?? const Color(0xFF2E5C9E);
+
 /// Die Figur des Kindes: Löwe oder Löwin als Bild (BILDER.md 4r), auf Wunsch
 /// in einer Pose. Mit [portrait] nur Kopf und Schultern (für runde Rahmen).
 /// Fehlt das Bild, zeichnet die App die frühere einfache Figur.
@@ -84,6 +100,7 @@ class AvatarView extends StatelessWidget {
         child: CharacterImage(
           avatarKey(avatar),
           pose: pose,
+          clothTint: clothTint(avatar),
           width: size,
           height: size,
           fit: portrait ? BoxFit.fitWidth : BoxFit.contain,

@@ -8,10 +8,11 @@ import 'avatar.dart';
 /// Seit 16.11.2026 ist die Figur des Kindes Löwe oder Löwin (frei wählbar,
 /// [PlayerFigure]); Jacken, Hüte und Halstücher gibt es nicht mehr. Dafür
 /// gibt es Segelfarben, Galionsfiguren und Flaggen fürs Schiff.
-enum LookSlot { outfit, hat, scarf, flag, sails, figurehead }
+enum LookSlot { outfit, hat, scarf, flag, sails, figurehead, clothes }
 
 /// Plätze, die die Werft heute zeigt.
-const shipyardSlots = [LookSlot.sails, LookSlot.figurehead, LookSlot.flag];
+/// Die Kleiderkiste (Farben für Shirt und Hose) steht oben (Marcs Wunsch am 17.11.2026).
+const shipyardSlots = [LookSlot.clothes, LookSlot.sails, LookSlot.figurehead, LookSlot.flag];
 
 class LookItem {
   const LookItem(this.slot, this.value, this.minXp, {this.logbook});
@@ -38,16 +39,24 @@ const shipyardItems = <LookItem>[
   LookItem(LookSlot.sails, SailColor.white, 0),
   LookItem(LookSlot.figurehead, Figurehead.none, 0),
   LookItem(LookSlot.flag, ShipFlag.taleria, 0),
+  // Blau-Weiß und Rosa-Weiß wählt das Kind im Intro, beide sind immer frei.
+  LookItem(LookSlot.clothes, ClothesColor.blue, 0),
+  LookItem(LookSlot.clothes, ClothesColor.pink, 0),
   LookItem(LookSlot.sails, SailColor.red, 200),
+  LookItem(LookSlot.clothes, ClothesColor.green, 300),
   LookItem(LookSlot.flag, ShipFlag.stripes, 400),
   LookItem(LookSlot.sails, SailColor.blue, 700),
   LookItem(LookSlot.figurehead, Figurehead.dolphin, 1000),
+  LookItem(LookSlot.clothes, ClothesColor.red, 1200),
   LookItem(LookSlot.flag, ShipFlag.wave, 1500),
   LookItem(LookSlot.sails, SailColor.green, 2000),
+  LookItem(LookSlot.clothes, ClothesColor.turquoise, 2500),
   LookItem(LookSlot.sails, SailColor.gold, 3000),
+  LookItem(LookSlot.clothes, ClothesColor.yellow, 3500),
   LookItem(LookSlot.flag, ShipFlag.star, 4000),
   LookItem(LookSlot.sails, SailColor.purple, 5000),
   LookItem(LookSlot.figurehead, Figurehead.lion, 6000),
+  LookItem(LookSlot.clothes, ClothesColor.purple, 7000),
   LookItem(LookSlot.flag, ShipFlag.sun, 8000),
   // Aus dem Logbuch zum Ausdrucken (Schatzcode auf der Urkunde).
   LookItem(LookSlot.flag, ShipFlag.anchor, 0, logbook: 'hafen'),
@@ -95,6 +104,7 @@ AvatarConfig wearLook(AvatarConfig avatar, LookItem item) => switch (item.value)
   final ShipFlag f => avatar.copyWith(flag: f),
   final SailColor c => avatar.copyWith(sails: c),
   final Figurehead g => avatar.copyWith(figurehead: g),
+  final ClothesColor c => avatar.copyWith(clothes: c),
   _ => avatar,
 };
 
@@ -106,5 +116,6 @@ bool wearsLook(AvatarConfig avatar, LookItem item) => switch (item.value) {
   final ShipFlag f => avatar.flag == f,
   final SailColor c => avatar.sails == c,
   final Figurehead g => avatar.figurehead == g,
+  final ClothesColor c => avatar.clothes == c,
   _ => false,
 };

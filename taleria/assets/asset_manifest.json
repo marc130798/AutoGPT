@@ -2262,6 +2262,78 @@
         "shape": "rounded"
       }
     },
+    "avatar.lion.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lion.wave.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.wave.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lion.happy.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.happy.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lion.think.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lion.think.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.wave.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.wave.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.happy.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.happy.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
+    "avatar.lioness.think.cloth": {
+      "type": "image",
+      "path": "assets/images/avatar.lioness.think.cloth.png",
+      "placeholder": {
+        "label": "Kleider-Maske",
+        "color": "#FFFFFF",
+        "shape": "rectangle"
+      }
+    },
     "avatar.lion": {
       "type": "image",
       "path": "assets/images/avatar.lion.png",

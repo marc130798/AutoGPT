@@ -22,6 +22,7 @@ class LivelyFigure extends StatefulWidget {
     this.phase = 0,
     this.bubbleToLeft = false,
     this.voices = const [],
+    this.clothTint,
   });
 
   /// Sprachaufnahmen zu [lines], gleiche Reihenfolge (leer = still).
@@ -29,6 +30,9 @@ class LivelyFigure extends StatefulWidget {
 
   final String character;
   final CharacterPose pose;
+
+  /// Kleiderfarbe der Figur des Kindes (siehe [CharacterImage.clothTint]).
+  final Color? clothTint;
 
   /// Die Sprechblase wächst nach links (für eine Figur am rechten Rand),
   /// sonst nach rechts, damit sie nicht aus dem Bild ragt.
@@ -128,6 +132,7 @@ class _LivelyFigureState extends State<LivelyFigure> with TickerProviderStateMix
                 width: widget.width,
                 height: widget.height,
                 alignment: Alignment.bottomCenter,
+                clothTint: widget.clothTint,
               ),
             ),
             if (_saying != null)

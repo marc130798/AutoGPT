@@ -37,6 +37,14 @@ enum SailColor { white, red, blue, green, gold, purple }
 /// Galionsfigur vorne am Bug.
 enum Figurehead { none, dolphin, lion }
 
+/// Farbe von Shirt und Hose der Figur (die weißen Streifen bleiben weiß).
+/// Blau und Rosa wählt das Kind im Intro, die anderen gibt es in der Werft.
+enum ClothesColor { blue, pink, green, red, turquoise, yellow, purple }
+
+/// Standard-Kleider (Marcs Wunsch am 17.11.2026): Löwe Blau-Weiß, Löwin Rosa-Weiß.
+ClothesColor defaultClothes(PlayerFigure figure) =>
+    figure == PlayerFigure.lioness ? ClothesColor.pink : ClothesColor.blue;
+
 class AvatarConfig {
   const AvatarConfig({
     this.figure = PlayerFigure.lion,
@@ -50,6 +58,7 @@ class AvatarConfig {
     this.flag = ShipFlag.taleria,
     this.sails = SailColor.white,
     this.figurehead = Figurehead.none,
+    this.clothes = ClothesColor.blue,
     this.logbooks = const {},
   });
 
@@ -71,6 +80,12 @@ class AvatarConfig {
       flag: pick(ShipFlag.values, 'flag', fallback.flag),
       sails: pick(SailColor.values, 'sails', fallback.sails),
       figurehead: pick(Figurehead.values, 'figurehead', fallback.figurehead),
+      // Ohne Angabe (Profile von vor dem 17.11.2026): der Standard der Figur.
+      clothes: pick(
+        ClothesColor.values,
+        'clothes',
+        defaultClothes(pick(PlayerFigure.values, 'figure', fallback.figure)),
+      ),
       logbooks: {
         for (final l in (json['logbooks'] as List?) ?? const [])
           if (l is String) l,
@@ -93,6 +108,7 @@ class AvatarConfig {
   final ShipFlag flag;
   final SailColor sails;
   final Figurehead figurehead;
+  final ClothesColor clothes;
 
   /// Inseln, deren Schatzcode aus dem Logbuch das Kind eingelöst hat (zum Beispiel `hafen`).
   final Set<String> logbooks;
@@ -110,6 +126,7 @@ class AvatarConfig {
     'flag': flag.name,
     'sails': sails.name,
     'figurehead': figurehead.name,
+    'clothes': clothes.name,
     if (logbooks.isNotEmpty) 'logbooks': [...logbooks]..sort(),
   };
 
@@ -127,6 +144,7 @@ class AvatarConfig {
     ShipFlag? flag,
     SailColor? sails,
     Figurehead? figurehead,
+    ClothesColor? clothes,
     Set<String>? logbooks,
   }) {
     return AvatarConfig(
@@ -140,6 +158,7 @@ class AvatarConfig {
       scarf: scarf ?? this.scarf,
       flag: flag ?? this.flag,
       sails: sails ?? this.sails,
+      clothes: clothes ?? this.clothes,
       figurehead: figurehead ?? this.figurehead,
       logbooks: logbooks ?? this.logbooks,
     );

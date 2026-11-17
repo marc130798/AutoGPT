@@ -3086,6 +3086,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag': 'Flagge',
       'sails': 'Segel',
       'figurehead': 'Galionsfigur',
+      'clothes': 'Kleiderkiste',
       'other': 'Teile',
     });
     return '$_temp0';
@@ -3130,6 +3131,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'figurehead_none': 'Ohne',
       'figurehead_dolphin': 'Delfin',
       'figurehead_lion': 'Goldener Löwe',
+      'clothes_blue': 'Blau-Weiß',
+      'clothes_pink': 'Rosa-Weiß',
+      'clothes_green': 'Grün-Weiß',
+      'clothes_red': 'Rot-Weiß',
+      'clothes_turquoise': 'Türkis-Weiß',
+      'clothes_yellow': 'Gelb-Weiß',
+      'clothes_purple': 'Lila-Weiß',
       'other': 'Teil',
     });
     return '$_temp0';
@@ -3590,4 +3598,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get lighthousePreviewHint =>
       'Nur zum Testen: Alle Inseln, Stationen und Spiele sind offen, ohne Reihenfolge, Wind und Abo. Jede Station läuft trotzdem wie beim ersten Mal. Diesen Schalter gibt es nur in der Testumgebung.';
+
+  @override
+  String get clothesTitle => 'Welche Farben magst du?';
+
+  @override
+  String get clothesHint => 'Weitere Farben findest du später in der Werft.';
 }

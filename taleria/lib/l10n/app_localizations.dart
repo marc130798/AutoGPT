@@ -5032,13 +5032,13 @@ abstract class AppLocalizations {
   /// Bereiche der Werft
   ///
   /// In de, this message translates to:
-  /// **'{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} sails{Segel} figurehead{Galionsfigur} other{Teile}}'**
+  /// **'{slot, select, outfit{Jacke} hat{Kopfbedeckung} scarf{Halstuch} flag{Flagge} sails{Segel} figurehead{Galionsfigur} clothes{Kleiderkiste} other{Teile}}'**
   String lookSlot(String slot);
 
   /// Name eines Teils in der Werft
   ///
   /// In de, this message translates to:
-  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} sails_white{Weiße Segel} sails_red{Rote Segel} sails_blue{Blaue Segel} sails_green{Grüne Segel} sails_gold{Goldene Segel} sails_purple{Lila Segel} figurehead_none{Ohne} figurehead_dolphin{Delfin} figurehead_lion{Goldener Löwe} other{Teil}}'**
+  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} sails_white{Weiße Segel} sails_red{Rote Segel} sails_blue{Blaue Segel} sails_green{Grüne Segel} sails_gold{Goldene Segel} sails_purple{Lila Segel} figurehead_none{Ohne} figurehead_dolphin{Delfin} figurehead_lion{Goldener Löwe} clothes_blue{Blau-Weiß} clothes_pink{Rosa-Weiß} clothes_green{Grün-Weiß} clothes_red{Rot-Weiß} clothes_turquoise{Türkis-Weiß} clothes_yellow{Gelb-Weiß} clothes_purple{Lila-Weiß} other{Teil}}'**
   String lookName(String id);
 
   /// Kachel auf der Startseite zur Werft
@@ -5688,6 +5688,18 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Nur zum Testen: Alle Inseln, Stationen und Spiele sind offen, ohne Reihenfolge, Wind und Abo. Jede Station läuft trotzdem wie beim ersten Mal. Diesen Schalter gibt es nur in der Testumgebung.'**
   String get lighthousePreviewHint;
+
+  /// Intro: Kleiderfarbe wählen (Überschrift)
+  ///
+  /// In de, this message translates to:
+  /// **'Welche Farben magst du?'**
+  String get clothesTitle;
+
+  /// Intro: Hinweis unter der Kleiderfarbe
+  ///
+  /// In de, this message translates to:
+  /// **'Weitere Farben findest du später in der Werft.'**
+  String get clothesHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

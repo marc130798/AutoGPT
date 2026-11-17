@@ -22,6 +22,13 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  Future<void> tapKey(WidgetTester tester, String key) async {
+    await Scrollable.ensureVisible(tester.element(find.byKey(ValueKey(key))), alignment: 0.5);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(ValueKey(key)));
+    await tester.pumpAndSettle();
+  }
+
   /// Startet die App auf einem Kinder-Gerät, dessen Kind das Intro noch vor sich hat.
   Future<FakeBackend> startNewChild(WidgetTester tester) async {
     final backend = FakeBackend();
@@ -53,6 +60,11 @@ void main() {
     expect(find.text('Wie siehst du aus?'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('figure-lioness')));
     await tester.pumpAndSettle();
+    // Kleiderfarbe: Blau-Weiß oder Rosa-Weiß, weitere Farben später in der Werft.
+    expect(find.text('Welche Farben magst du?'), findsOneWidget);
+    // Die Löwin trägt als Standard Rosa-Weiß; das Kind kann umwählen.
+    await tapKey(tester, 'clothes-blue');
+    await tapKey(tester, 'clothes-pink');
     await tapText(tester, 'So sehe ich aus!');
 
     // Rang-Namen: Mila wählt Schiffsmädchen
@@ -87,6 +99,7 @@ void main() {
   testWidgets('Intro komplett: Avatar, Schiff, Wunschschatz, Seemeilen, Karte', (tester) async {
     final backend = await startNewChild(tester);
     await playUntilWish(tester);
+    expect(backend.children.single.avatar!.clothes, ClothesColor.pink, reason: 'Rosa-Weiß im Intro gewählt');
 
     // Wunschschatz: erst ungültig, dann richtig
     await tapText(tester, 'In die Schatztruhe legen');

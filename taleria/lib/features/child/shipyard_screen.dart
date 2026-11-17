@@ -305,6 +305,7 @@ class _LookOption extends StatelessWidget {
     final palette = context.palette;
     final preview = switch (item.slot) {
       LookSlot.flag => ShipFlagView(flag: item.value as ShipFlag, size: 54),
+      LookSlot.clothes => AvatarView(avatar: wearLook(avatar, item), size: 60, portrait: true),
       LookSlot.outfit => Container(
         width: 46,
         height: 46,
