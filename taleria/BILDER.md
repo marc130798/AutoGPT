@@ -464,7 +464,7 @@ Erstellt am 17.11.2026 von Claude mit Gemini, nachdem die Texte der Insel geschr
 | Nr. | Datei | Bild | Anhängen | Stand |
 | --- | --- | --- | --- | --- |
 | 180 | `map.island.taschengeld-bucht` | Die Taschengeld-Bucht auf der Karte (als Hufeisen-Bucht, Marcs Wunsch am 17.11.2026) | das Kartenbild des Hafens (design/gemini/map.island.hafen.jpg) | da (Claude mit Gemini, 17.11.2026) |
-| 181 | `island.taschengeld-bucht.background` | Die Taschengeld-Bucht von innen (als Bucht, Weg als umgedrehtes U ausgemessen) | das neue Kartenbild der Taschengeld-Bucht (Bild 180) | da (Claude mit Gemini, 17.11.2026) |
+| 181 | `island.taschengeld-bucht.background` | Die Taschengeld-Bucht von innen (genau wie das Kartenbild, nur nah und hochkant, Marcs Wunsch am 17.11.2026; Weg am Ufer der Bucht ausgemessen) | das neue Kartenbild der Taschengeld-Bucht (Bild 180) | da (Claude mit Gemini, 17.11.2026) |
 | 182 | `character.mia` | Mia, die Möwe am Kiosk | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
 | 183 | `character.kurt` | Kurt, der Krebs und Buchhalter | Talo (design/gemini/character.talo.jpg) | da (Claude mit Gemini, 17.11.2026) |
 | 184 | `badge.taschengeld-bucht` | Orden „Kassenwart der Bucht“ | der Orden mit dem Anker (design/gemini/icon.badges.jpg) | da (Claude mit Gemini, 17.11.2026) |
