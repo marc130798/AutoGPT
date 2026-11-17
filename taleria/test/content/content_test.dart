@@ -20,12 +20,12 @@ void main() {
   test('Jede Insel mit Inhalt hat einen Orden', () {
     expect(
       [for (final i in islands.where((i) => !i.fog)) i.badge],
-      ['Erster Landgang', 'Meistertauscher', 'Klarer Kompass', 'Vorratsmeister'],
+      ['Erster Landgang', 'Meistertauscher', 'Klarer Kompass', 'Vorratsmeister', 'Kassenwart der Bucht'],
     );
   });
 
-  test('Inseln 1 bis 4: Ankerplätze nach Station 2, 4 und 6, je mit Wrack und Fund', () {
-    for (final island in islands.take(4)) {
+  test('Inseln 1 bis 5: Ankerplätze nach Station 2, 4 und 6, je mit Wrack und Fund', () {
+    for (final island in islands.take(5)) {
       expect([for (final d in island.dives) d.after], [2, 4, 6], reason: island.slug);
       expect(island.dives.map((d) => d.find).toSet(), hasLength(3), reason: '${island.slug}: drei verschiedene Funde');
     }
@@ -55,12 +55,13 @@ void main() {
     expect(taleron.questionCount, 3);
   });
 
-  test('Stopps auf See: je zwei vor Tauschinsel, Wunschinsel und Spar-Insel, keine vor dem Hafen', () {
+  test('Stopps auf See: je zwei vor Tauschinsel bis Taschengeld-Bucht, keine vor dem Hafen', () {
     final bySlug = {for (final i in islands) i.slug: i};
     expect(bySlug['hafen']!.seaStops, isEmpty);
     expect(bySlug['tauschinsel']!.seaStops.map((s) => s.kind), ['haendlerschiff', 'fischerboot']);
     expect(bySlug['wunschinsel']!.seaStops.map((s) => s.kind), ['haendlerschiff', 'tala_vergisst']);
     expect(bySlug['spar-insel']!.seaStops.map((s) => s.kind), ['fischerboot', 'tala_vergisst']);
+    expect(bySlug['taschengeld-bucht']!.seaStops.map((s) => s.kind), ['fischerboot', 'tala_vergisst']);
     // Keine Frage eines Stopps steht wortgleich auch woanders.
     final stationTexts = {
       for (final i in islands)
@@ -76,14 +77,14 @@ void main() {
     }
   });
 
-  test('15 Inseln, 1 bis 4 komplett, 5 bis 15 im Nebel', () {
+  test('15 Inseln, 1 bis 5 komplett, 6 bis 15 im Nebel', () {
     expect(islands, hasLength(15));
     expect([for (final i in islands) i.order], List.generate(15, (i) => i + 1));
-    for (final island in islands.take(4)) {
+    for (final island in islands.take(5)) {
       expect(island.fog, isFalse, reason: island.slug);
       expect(island.stations, hasLength(8), reason: '${island.slug}: 7 Stationen und Prüfung');
     }
-    for (final island in islands.skip(4)) {
+    for (final island in islands.skip(5)) {
       expect(island.fog, isTrue, reason: island.slug);
     }
   });

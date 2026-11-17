@@ -4984,7 +4984,7 @@ abstract class AppLocalizations {
   /// Tier einer Inselfigur mit eigenem Namen (FIGUREN.md), damit Kinder Name und Tier zusammenbringen. Leer für Figuren ohne eigenen Namen.
   ///
   /// In de, this message translates to:
-  /// **'{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} emma{das Eichhörnchen} gustav{die Grille} other{}}'**
+  /// **'{figure, select, bruno{der Bär} greta{die Ziege} otti{der Otter} olga{die Schildkröte} elsa{die Elster} moritz{das Murmeltier} emma{das Eichhörnchen} gustav{die Grille} mia{die Möwe} kurt{der Krebs} other{}}'**
   String figureAnimal(String figure);
 
   /// Name einer Inselfigur mit Tier, zum Beispiel „Bruno, der Bär“

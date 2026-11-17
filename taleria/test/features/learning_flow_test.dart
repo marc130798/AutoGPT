@@ -127,16 +127,16 @@ void main() {
     }
   }
 
-  testWidgets('Karte: Hafen offen, Tauschinsel gesperrt, Taschengeld-Bucht im Nebel', (tester) async {
+  testWidgets('Karte: Hafen offen, Tauschinsel gesperrt, Marktinsel im Nebel', (tester) async {
     await startOnMap(tester);
     expect(find.text('Hafen von Taleria'), findsOneWidget);
 
     await tapKey(tester, 'island-tauschinsel');
     expect(find.text('Diese Insel ist noch verschlossen. Schließ zuerst die Insel davor ab.'), findsOneWidget);
 
-    await tapKey(tester, 'island-taschengeld-bucht');
+    await tapKey(tester, 'island-marktinsel');
     expect(find.text('Diese Insel taucht bald auf.'), findsOneWidget);
-    expect(find.text('Taschengeld-Bucht?'), findsOneWidget);
+    expect(find.text('Marktinsel?'), findsOneWidget);
   });
 
   testWidgets('Hafen: Station 2 durchspielen, danach öffnet sich Station 3', (tester) async {

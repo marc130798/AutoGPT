@@ -2209,12 +2209,604 @@ on conflict (id) do update set text = excluded.text, status = excluded.status;
 -- Status der Insel erst jetzt, wenn alles auf der Insel da ist.
 update public.islands set status = 'draft' where id = md5('taleria:stage1/spar-insel')::uuid and status <> 'draft';
 
--- 5. Taschengeld-Bucht (Nebel), Status: entwurf
+-- 5. Taschengeld-Bucht, Status: entwurf
 insert into public.islands (id, slug, stage, island_group, sort_order, map_x, map_y, route_type, title, content)
-values (md5('taleria:stage1/taschengeld-bucht')::uuid, 'taschengeld-bucht', 1, 2, 5, 0.28, 0.7, 'main', 'Taschengeld-Bucht', '{"goal":"Taschengeld einteilen","access":"premium"}'::jsonb)
+values (md5('taleria:stage1/taschengeld-bucht')::uuid, 'taschengeld-bucht', 1, 2, 5, 0.28, 0.7, 'main', 'Taschengeld-Bucht', '{"goal":"Das Kind teilt Taschengeld auf, schreibt Einnahmen und Ausgaben auf, plant eine Woche, geht mit leerem Geldbeutel und Geldgeschenken klug um und kann fair über Taschengeld sprechen.","learn":["Wie du dein Taschengeld gut einteilst","Wie ein Logbuch zeigt, wohin dein Geld geht","Wie du eine Woche planst und fair verhandelst"],"access":"premium","arrival":{"video_key":"video.arrival.taschengeld-bucht","scene":[{"speaker":"tala","text":"Oh, ein Kiosk mit bunten Gläsern! Ich kaufe mir … Moment."},{"speaker":"tala","text":"Mein Beutel ist leer! Dabei gab es mein Taschengeld doch erst am Montag."},{"speaker":"kurt","text":"Klack, klack! Und heute ist erst Mittwoch. Wohin ist es denn gegangen?","name":"Kurt"},{"speaker":"tala","text":"Keine Ahnung. Es war einfach … weg."},{"speaker":"kurt","text":"Dann wird es Zeit für Ordnung. Ich bin Kurt, der Buchhalter der Bucht. Mein Kartenstück liegt in meinem Logbuch.","name":"Kurt"}]},"badge":"Kassenwart der Bucht","real_life_task":{"title":"Logbuch-Woche","text":"Schreib eine Woche lang alle Einnahmen und Ausgaben in ein Heft und schau es danach mit deinen Eltern an."},"teaser":{"scene":[{"speaker":"talo","text":"Hinter dem Nebel höre ich Stimmen und Glocken. Da liegt ein großer Markt!"},{"speaker":"tala","text":"Diesmal habe ich einen Plan. Und ein Logbuch!"}],"next_slug":"marktinsel","next_title":"Marktinsel"}}'::jsonb)
 on conflict (id) do update set
   slug = excluded.slug, island_group = excluded.island_group, sort_order = excluded.sort_order,
   map_x = excluded.map_x, map_y = excluded.map_y, title = excluded.title, content = excluded.content;
+
+-- Stopp auf See 1: Otti spart für ein Segel
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 1, 'sea_stop', true, 30, '{"title":"Otti spart für ein Segel","kind":"sea_stop","stop":{"type":"fischerboot","figure":"otti","index":1,"ship":"ship.fischer"},"scene":[{"speaker":"otti","text":"Ahoi, Crew! Ich will ein neues Segel für mein Boot. Aber das kostet 30 Taler, und ich habe nur 6.","name":"Otti"},{"speaker":"tala","text":"Auf der Spar-Insel haben wir gelernt, wie man so etwas schafft!"}],"summary":{"speaker":"otti","text":"Ein klares Ziel und jede Woche ein bisschen. Danke! Gute Fahrt zur Bucht.","name":"Otti"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea1/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, 'Otti will ein Segel für 30 Taler. Sie hat schon 6. Wie viel fehlt?', '["24 Taler","36 Taler","6 Taler"]'::jsonb, 0, '30 minus 6 sind 24.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea1/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, 'Otti legt jede Woche 4 Taler zurück. Wie viele Taler sind das nach 6 Wochen?', '["24 Taler","10 Taler","64 Taler"]'::jsonb, 0, '6 Wochen mal 4 Taler sind 24 Taler.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea1/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, 'Was macht Ottis Sparziel klar?', '["Was sie will, wie viel es kostet und bis wann","Dass sie es niemandem erzählt","Dass sie möglichst schnell irgendwas kauft"]'::jsonb, 0, 'Was, wie viel, bis wann: So wird aus einem Wunsch ein Ziel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea1/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, 'Otti sagt: Ich spare nur, wenn zufällig etwas übrig bleibt. Was hilft ihr mehr?', '["Gleich am Anfang einen festen Teil zurücklegen","Erst alles ausgeben und dann schauen","Gar nicht mehr zählen"]'::jsonb, 0, 'Wer zuerst zurücklegt, spart sicherer als mit dem Rest.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea1/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, 'Wo ist Geld sicherer als in einer Dose unter dem Bett?', '["Auf einem Konto bei der Bank","In der Hosentasche","Unter einem Stein am Strand"]'::jsonb, 0, 'Auf dem Konto ist Geld gut geschützt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea1/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1')::uuid, 'Emma vergräbt im Herbst Nüsse für den Winter. Was zeigt das?', '["Wer heute etwas zurücklegt, hat später genug.","Nüsse schmecken im Winter besser.","Man soll alles sofort essen."]'::jsonb, 0, 'Etwas für später zurücklegen nennt man sparen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+
+-- Stopp auf See 2: Tala hat etwas vergessen
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 2, 'sea_stop', true, 30, '{"title":"Tala hat etwas vergessen","kind":"sea_stop","stop":{"type":"tala_vergisst","figure":"tala","index":2},"scene":[{"speaker":"tala","text":"Oje! Ich weiß nicht mehr, wie viel ich letzte Woche ausgegeben habe. Hilfst du mir beim Nachdenken?"},{"speaker":"talo","text":"Wir rechnen zusammen. Dann merkst du, warum Aufschreiben hilft."}],"summary":{"speaker":"tala","text":"Puh, das war knifflig. Ab jetzt schreibe ich alles auf!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea2/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, 'Tala hatte 10 Taler. Sie hat 3 Taler für Saft und 4 Taler für Sticker ausgegeben. Wie viel hat sie noch?', '["3 Taler","7 Taler","17 Taler"]'::jsonb, 0, '10 minus 3 minus 4 sind 3.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea2/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, 'Tala kauft jeden Tag ein Bonbon für 1 Taler. Wie viel ist das in einer Woche?', '["7 Taler","1 Taler","14 Taler"]'::jsonb, 0, 'Eine Woche hat 7 Tage, also 7 Taler.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea2/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, 'Warum vergisst man kleine Ausgaben so leicht?', '["Weil sie einzeln wenig sind, zusammen aber viel","Weil kleine Ausgaben nichts kosten","Weil nur große Ausgaben zählen"]'::jsonb, 0, 'Viele kleine Beträge ergeben zusammen eine große Summe.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea2/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, 'Was hilft Tala, sich an ihre Ausgaben zu erinnern?', '["Alles gleich aufschreiben","Gar nicht mehr einkaufen","Talo fragen, was sie gekauft hat"]'::jsonb, 0, 'Was aufgeschrieben ist, kann man nicht vergessen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea2/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, 'Tala will Rollschuhe für 40 Taler und hat 28. Wie viel fehlt noch?', '["12 Taler","22 Taler","68 Taler"]'::jsonb, 0, '40 minus 28 sind 12.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/sea2/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2')::uuid, 'Was ist besser für Talas Wunschschatz?', '["Jede Woche einen festen Betrag zurücklegen","Nur sparen, wenn sie gerade Lust hat","Alles sofort ausgeben"]'::jsonb, 0, 'Ein fester Betrag pro Woche bringt sie sicher ans Ziel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, status = excluded.status, beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station1')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 10, 'game', true, 100, '{"title":"Wie viel Taschengeld ist üblich?","number":1,"place":"Kiosk","goal":"Taschengeld ist Sache der Familie, Vergleichen hilft wenig","minutes":"6 bis 9 Min.","scene":[{"speaker":"mia","text":"Willkommen an meinem Kiosk! Hier kaufen alle Kinder der Bucht ein.","name":"Mia"},{"speaker":"tala","text":"Mia, wie viel Taschengeld bekommen die anderen Kinder? Bestimmt alle mehr als ich!"},{"speaker":"mia","text":"Ganz unterschiedlich. Das Fischerkind bekommt wenig, muss aber nichts selbst kaufen. Das Kind vom Leuchtturm bekommt mehr und bezahlt davon sogar sein Pausenbrot.","name":"Mia"},{"speaker":"tala","text":"Hm. Dann ist mehr Geld ja nicht automatisch besser."}],"lesson":[{"speaker":"mia","text":"Jede Familie macht es anders. Manche Kinder bekommen ihr Taschengeld jede Woche, manche einmal im Monat.","name":"Mia","image":"story.taschengeld-bucht.1.1"},{"speaker":"talo","text":"Und es kommt darauf an, was man davon bezahlen soll. Nur Süßes? Oder auch Hefte und Busfahrten?"},{"speaker":"mia","text":"Darum hilft Vergleichen wenig. Wer mehr bekommt, muss oft auch mehr selbst bezahlen.","name":"Mia","image":"story.taschengeld-bucht.1.2"},{"speaker":"tala","text":"Also sollte ich lieber fragen: Was mache ich mit dem Geld, das ich habe?","image":"story.taschengeld-bucht.1.3"},{"speaker":"mia","text":"Genau! Regelmäßiges Taschengeld ist wie ein Übungsfeld. Man lernt, mit einer festen Summe auszukommen.","name":"Mia"}],"game":{"type":"choice","title":"Am Kiosk","description":"Hilf den Kindern am Kiosk, klug über Taschengeld zu denken.","task":"Was ist die beste Antwort? Tippe auf deine Wahl.","rounds":[{"scene":[{"speaker":"tala","text":"Mein Freund bekommt viel mehr Taschengeld als ich. Das ist unfair!"}],"question":"Was sagst du Tala?","options":[{"text":"Vielleicht muss er davon mehr selbst bezahlen.","good":true,"reply":"Genau. Man sieht nur den Betrag, nicht, was alles davon bezahlt wird."},{"text":"Dann musst du so lange quengeln, bis du mehr bekommst.","good":false,"reply":"Quengeln macht nur Streit. Ein ruhiges Gespräch hilft mehr."},{"text":"Dann bist du eben ärmer als er.","good":false,"reply":"Der Betrag allein sagt nicht viel. Jede Familie regelt es anders."}]},{"scene":[{"speaker":"mia","text":"Ein Kind sagt: Ich bekomme jede Woche Taschengeld. Ein anderes: Ich bekomme es einmal im Monat.","name":"Mia"}],"question":"Was stimmt?","options":[{"text":"Beides ist in Ordnung. Wer es monatlich bekommt, muss länger planen.","good":true,"reply":"Richtig. Mit Monatsgeld muss man das Geld über mehr Tage verteilen."},{"text":"Nur jede Woche ist richtig.","good":false,"reply":"Beides gibt es. Jede Familie wählt, was passt."},{"text":"Monatsgeld ist immer mehr Geld.","good":false,"reply":"Nicht unbedingt. Es kommt nur seltener."}]},{"scene":[{"speaker":"talo","text":"Tala bekommt jede Woche gleich viel Taschengeld. Wozu ist das gut?"}],"question":"Was lernt Tala dabei?","options":[{"text":"Mit einer festen Summe auszukommen und zu planen","good":true,"reply":"Genau. Eine feste Summe ist ideal zum Üben."},{"text":"Dass Geld immer von selbst mehr wird","good":false,"reply":"Das Taschengeld bleibt gleich. Mehr wird es nur durch Sparen."},{"text":"Dass sie nie sparen muss","good":false,"reply":"Auch mit Taschengeld kann man sparen, zum Beispiel für einen Wunschschatz."}]}],"done":{"speaker":"mia","text":"Ihr denkt ja schon wie richtige Kaufleute! Nicht wie viel zählt, sondern was man daraus macht.","name":"Mia"}},"estimate":{"speaker":"mia","question":"Was glaubst du: Wer entscheidet, wie viel Taschengeld ein Kind bekommt?","kind":"choice","options":["Die Schule","Die Eltern in jeder Familie","Ein Gesetz für alle Kinder gleich"],"answer":1,"reveal":{"speaker":"mia","text":"Die Eltern! Es gibt Empfehlungen, zum Beispiel vom Jugendamt. Aber jede Familie entscheidet selbst, und auch, was Kinder davon bezahlen."}},"taps":[{"after":1,"kind":"flip","text":"Dreh den Kalender um: Wann gibt es Taschengeld?","symbol":"kalender","back":"In manchen Familien jede Woche, in anderen einmal im Monat."},{"after":2,"kind":"swipe","text":"Wisch den Vergleich weg: „Die anderen kriegen mehr!“","symbol":"daumen","done":"Vergleichen macht nur unzufrieden. Wichtig ist, was du mit deinem Geld machst."}],"summary":{"speaker":"tala","text":"Ich vergleiche nicht mehr. Ich mache das Beste aus meinem Taschengeld!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Wer entscheidet, wie viel Taschengeld ein Kind bekommt?', '["Die Eltern in jeder Familie","Die Lehrerin","Der Kioskbesitzer"]'::jsonb, 0, 'Es gibt Empfehlungen, aber jede Familie entscheidet selbst.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Warum hilft es wenig, sein Taschengeld mit anderen zu vergleichen?', '["Weil jede Familie andere Regeln hat, was Kinder selbst bezahlen","Weil andere immer flunkern","Weil Taschengeld geheim bleiben muss"]'::jsonb, 0, 'Manche Kinder bezahlen mehr selbst, andere weniger.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Ein Kind bekommt mehr Taschengeld, muss davon aber sein Pausenbrot bezahlen. Was zeigt das?', '["Mehr Geld kann auch mehr Aufgaben bedeuten.","Es hat trotzdem mehr übrig als alle anderen.","Pausenbrot ist kostenlos."]'::jsonb, 0, 'Wer mehr selbst bezahlt, bekommt oft auch mehr Taschengeld.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Warum ist regelmäßiges Taschengeld gut zum Üben?', '["Man lernt, mit einer festen Summe auszukommen.","Weil es jede Woche mehr wird","Weil man dann nie sparen muss"]'::jsonb, 0, 'Eine feste Summe ist ideal zum Planen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Wer sein Taschengeld einmal im Monat bekommt, muss …', '["… das Geld über viele Tage einteilen.","… es am ersten Tag ausgeben.","… nichts planen."]'::jsonb, 0, 'Ein Monat ist lang. Wer gleich alles ausgibt, hat lange nichts.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Tala ist neidisch auf das Taschengeld ihres Freundes. Was hilft ihr am meisten?', '["Überlegen, was sie mit ihrem eigenen Geld Gutes machen kann","Ihrem Freund das Geld wegnehmen","Jeden Tag quengeln"]'::jsonb, 0, 'Wer auf sein eigenes Geld schaut, wird zufriedener.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station1/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station1')::uuid, 'Wo gibt es Empfehlungen, wie viel Taschengeld zu welchem Alter passt?', '["Zum Beispiel beim Jugendamt","Auf der Rückseite von Müslipackungen","Nirgends"]'::jsonb, 0, 'Solche Empfehlungen sind nur ein Anhaltspunkt. Die Familie entscheidet.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station2')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 20, 'game', true, 100, '{"title":"Geld bekommt eine Aufgabe","number":2,"place":"Truhenhaus","goal":"Geld bekommt eine Aufgabe, bevor es ausgegeben wird","minutes":"6 bis 9 Min.","scene":[{"speaker":"kurt","text":"Willkommen im Truhenhaus! Hier bekommt jeder Taler eine Aufgabe.","name":"Kurt"},{"speaker":"tala","text":"Eine Aufgabe? Meine Taler haben bisher immer nur eine: weg sein."},{"speaker":"kurt","text":"Klack, klack! Genau das ändern wir. Bevor du etwas ausgibst, entscheidest du, wofür das Geld da ist.","name":"Kurt"}],"lesson":[{"speaker":"kurt","text":"In deiner Schatztruhe gibt es zwei Teile: Geld, das frei zum Ausgeben ist, und Geld, das du für einen Wunschschatz zurückgelegt hast.","name":"Kurt","image":"story.taschengeld-bucht.2.1"},{"speaker":"tala","text":"Und wenn ich will, kann ich auch etwas für jemand anderen beiseitelegen. Für Omas Geschenk zum Beispiel."},{"speaker":"kurt","text":"Der Trick ist: gleich am Anfang aufteilen. Taschengeld kommt, ein Teil wird zurückgelegt, der Rest ist frei.","name":"Kurt","image":"story.taschengeld-bucht.2.2"},{"speaker":"talo","text":"Dann weiß Tala genau, wie viel sie diese Woche ausgeben darf, ohne ihren Wunschschatz zu vergessen."},{"speaker":"tala","text":"Und mein Wunschschatz wächst, auch wenn ich mir zwischendurch ein Eis kaufe!","image":"story.taschengeld-bucht.2.3"}],"game":{"type":"sort","title":"Wohin mit dem Geld?","description":"Gib jedem Taler eine Aufgabe.","task":"Tippe auf eine Karte und dann auf den passenden Teil der Schatztruhe.","items":[{"text":"Ein Eis am Kiosk heute","basket":0},{"text":"Neue Sticker fürs Album","basket":0},{"text":"Saft für den Ausflug morgen","basket":0},{"text":"Die Rollschuhe, die Tala sich seit Monaten wünscht","basket":1},{"text":"Ein großes Lego-Schiff für 50 Taler","basket":1},{"text":"Ein Zelt für die Sommerferien","basket":1},{"text":"Ein Geschenk für Omas Geburtstag nächsten Monat","basket":null,"hint":"Das passt in beide Teile: Du kannst es jetzt kaufen oder ein paar Wochen dafür zurücklegen."}],"baskets":["Frei zum Ausgeben","Für einen Wunschschatz zurücklegen"],"done":{"speaker":"kurt","text":"Jeder Taler hat jetzt seine Aufgabe. So sieht Ordnung aus!","name":"Kurt"}},"estimate":{"speaker":"kurt","question":"Was glaubst du: Tala bekommt 10 Taler. Wie viele davon sollte sie für ihren Wunschschatz zurücklegen?","kind":"wheel","min":0,"max":10,"step":1,"start":5,"unit":"Taler","unit_one":"Taler","answer":3,"reveal":{"speaker":"kurt","text":"Zum Beispiel 3 Taler! Es gibt keine einzig richtige Zahl. Wichtig ist, dass du es vorher entscheidest, nicht erst, wenn nichts mehr übrig ist."}},"taps":[{"after":1,"kind":"tap","text":"Leg 3 Taler für Talas Wunschschatz zurück: Tippe 3-mal auf die Truhe.","symbol":"truhe","count":3,"done":"3 Taler sind zurückgelegt. Der Rest ist frei zum Ausgeben."},{"after":2,"kind":"drag","text":"Zieh die Münze auf die Truhe: erst aufteilen, dann ausgeben!","symbol":"muenze","done":"So hat jeder Taler gleich am Anfang seine Aufgabe."}],"summary":{"speaker":"tala","text":"Erst aufteilen, dann ausgeben! In meiner Schatztruhe probiere ich das gleich aus."},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Wann teilt man Taschengeld am besten auf?', '["Gleich wenn man es bekommt","Erst wenn fast nichts mehr übrig ist","Nie, man gibt einfach aus"]'::jsonb, 0, 'Wer gleich aufteilt, vergisst den Wunschschatz nicht.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Wofür ist das freie Geld in der Schatztruhe da?', '["Für Dinge, die ich bald ausgeben will","Nur für Notfälle in vielen Jahren","Es darf nie ausgegeben werden"]'::jsonb, 0, 'Das freie Geld ist zum Ausgeben gedacht.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Wofür legt man Geld zurück?', '["Für einen Wunschschatz, der mehr kostet als eine Woche Taschengeld","Für das Eis von heute","Damit man es schnell wieder ausgibt"]'::jsonb, 0, 'Zurückgelegtes Geld wächst bis zum Ziel.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Tala bekommt 10 Taler. Sie legt 4 zurück. Wie viel ist frei zum Ausgeben?', '["6 Taler","4 Taler","14 Taler"]'::jsonb, 0, '10 minus 4 sind 6.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Tala bekommt 10 Taler: 5 frei, 3 für den Wunschschatz, den Rest für Omas Geschenk. Wie viel ist für Oma?', '["2 Taler","3 Taler","5 Taler"]'::jsonb, 0, '10 minus 5 minus 3 sind 2.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Was bedeutet: Jeder Taler bekommt eine Aufgabe?', '["Man entscheidet vorher, wofür das Geld da ist.","Jeder Taler muss arbeiten gehen.","Man darf nur einen Taler ausgeben."]'::jsonb, 0, 'Ein Plan für jeden Taler verhindert, dass Geld einfach verschwindet.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station2/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station2')::uuid, 'Tala hat 3 Taler für ihren Wunschschatz zurückgelegt und kauft sich mit dem freien Geld ein Eis. Was passiert mit ihrem Wunschschatz?', '["Er wächst trotzdem weiter.","Er ist jetzt weg.","Er wird kleiner."]'::jsonb, 0, 'Zurückgelegtes Geld bleibt für den Wunschschatz.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station3')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 30, 'game', true, 100, '{"title":"Einnahmen und Ausgaben aufschreiben","number":3,"place":"Kurts Rechenstube","goal":"Wer aufschreibt, behält den Überblick","minutes":"6 bis 9 Min.","scene":[{"speaker":"kurt","text":"Hier ist meine Rechenstube. Und das hier ist mein Logbuch. Darin steht jeder Taler, den ich je hatte.","name":"Kurt"},{"speaker":"tala","text":"Jeder einzelne? Das ist ja ein dickes Buch!"},{"speaker":"kurt","text":"Klack! Deshalb weiß ich immer, wo mein Geld ist. Du nicht. Noch nicht.","name":"Kurt"}],"lesson":[{"speaker":"kurt","text":"Im Logbuch gibt es zwei Seiten. Links die Einnahmen: Geld, das du bekommst. Taschengeld zum Beispiel, oder ein Geschenk.","name":"Kurt","image":"story.taschengeld-bucht.3.1"},{"speaker":"kurt","text":"Rechts die Ausgaben: Geld, das du bezahlst. Ein Eis, Sticker, ein Heft.","name":"Kurt"},{"speaker":"tala","text":"Und am Ende rechnet man: Einnahmen minus Ausgaben. Dann weiß ich, wie viel noch da ist!","image":"story.taschengeld-bucht.3.2"},{"speaker":"talo","text":"Und man sieht, wofür man am meisten ausgibt. Bei Tala sind es … Süßigkeiten.","image":"story.taschengeld-bucht.3.3"},{"speaker":"tala","text":"Ertappt! Aber jetzt weiß ich es wenigstens."}],"game":{"type":"sort","title":"Kurts Kassenzettel","description":"Sortiere die Zettel in Kurts Logbuch.","task":"Ist das eine Einnahme oder eine Ausgabe? Tippe auf einen Zettel und dann auf die richtige Seite.","items":[{"text":"Taschengeld von Mama","basket":0},{"text":"Geburtstagsgeld von Oma","basket":0},{"text":"Belohnung fürs Rasenmähen beim Nachbarn","basket":0},{"text":"Ein Eis am Kiosk","basket":1},{"text":"Eine Busfahrkarte","basket":1},{"text":"Ein neues Heft für die Schule","basket":1},{"text":"Geld zurück, weil Tala eine kaputte Taschenlampe umgetauscht hat","basket":0}],"baskets":["Einnahme","Ausgabe"],"done":{"speaker":"kurt","text":"Links rein, rechts raus. Jetzt weißt du, wie ein Logbuch funktioniert!","name":"Kurt"}},"estimate":{"speaker":"kurt","question":"Was glaubst du: Wie viele kleine Einkäufe vergisst man in einer Woche, wenn man nichts aufschreibt?","kind":"slider","min":0,"max":10,"step":1,"start":1,"unit":"Einkäufe","unit_one":"Einkauf","answer":3,"reveal":{"speaker":"kurt","text":"Bei Tala waren es 3! Ein Bonbon hier, ein Saft da. Einzeln klein, zusammen fehlt plötzlich viel."}},"taps":[{"after":1,"kind":"drag","text":"Zieh das Taschengeld auf die Seite der Einnahmen.","symbol":"muenze","done":"Taschengeld bekommst du. Das ist eine Einnahme."},{"after":3,"kind":"tap","text":"Tippe auf das Logbuch und lies, wofür Tala am meisten ausgibt.","symbol":"buch","done":"Süßigkeiten! Das Logbuch deckt alles auf."}],"summary":{"speaker":"kurt","text":"Wer aufschreibt, behält den Überblick. Fang heute an, mit deinem eigenen Logbuch!","name":"Kurt"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Was sind Einnahmen?', '["Geld, das man bekommt","Geld, das man ausgibt","Geld, das man verliert"]'::jsonb, 0, 'Taschengeld und Geschenke sind Einnahmen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Was sind Ausgaben?', '["Geld, das man bezahlt","Geld, das man geschenkt bekommt","Geld, das man spart"]'::jsonb, 0, 'Alles, was man kauft, sind Ausgaben.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Tala bekommt 8 Taler und gibt 5 Taler aus. Wie viel bleibt übrig?', '["3 Taler","13 Taler","5 Taler"]'::jsonb, 0, 'Einnahmen minus Ausgaben: 8 minus 5 sind 3.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Warum schreibt man Ausgaben auf?', '["Damit man sieht, wohin das Geld geht","Damit das Geld mehr wird","Weil es sonst verboten ist"]'::jsonb, 0, 'Das Logbuch zeigt, wofür man am meisten ausgibt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Kurt schreibt einen Monat lang alles auf. Was sieht er danach?', '["Wofür er am meisten ausgibt","Dass Geld von selbst wächst","Nichts Besonderes"]'::jsonb, 0, 'Aufschreiben deckt versteckte Ausgaben auf.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Was ist eine Einnahme?', '["Geld fürs Rasenmähen beim Nachbarn","Eine Kinokarte","Ein Eis"]'::jsonb, 0, 'Geld, das du bekommst, ist eine Einnahme.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station3/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station3')::uuid, 'Tala hat 3 Taler für Saft, 2 Taler für Sticker und 1 Taler für ein Bonbon ausgegeben. Wie viel war das zusammen?', '["6 Taler","5 Taler","3 Taler"]'::jsonb, 0, '3 plus 2 plus 1 sind 6.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station4')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 40, 'game', true, 100, '{"title":"Mein Wochenplan","number":4,"place":"Planungssteg","goal":"Ein Budget ist ein Plan für das eigene Geld","minutes":"6 bis 9 Min.","scene":[{"speaker":"tala","text":"Diese Woche will ich ins Kino, Sticker kaufen und einen Snack am Kiosk. Ich habe 8 Taler."},{"speaker":"kurt","text":"Und reicht das für alles?","name":"Kurt"},{"speaker":"tala","text":"Ähm … keine Ahnung. Ich kaufe einfach, bis es leer ist?"},{"speaker":"kurt","text":"Klack, klack! Komm mit auf den Planungssteg. Wir machen ein Budget.","name":"Kurt"}],"lesson":[{"speaker":"kurt","text":"Ein Budget ist ein Plan: Wie viel Geld habe ich, und wofür will ich es ausgeben?","name":"Kurt","image":"story.taschengeld-bucht.4.1"},{"speaker":"kurt","text":"Zuerst schreibst du auf, was du hast: 8 Taler. Dann, was du willst, mit Preisen.","name":"Kurt"},{"speaker":"tala","text":"Kino 6, Sticker 2, Snack 3. Das sind 11. Drei Taler zu viel!","image":"story.taschengeld-bucht.4.2"},{"speaker":"talo","text":"Dann streichst du etwas. Kino und Sticker sind genau 8 Taler. Oder Snack und Sticker, dann bleiben 3 übrig."},{"speaker":"tala","text":"Ich nehme Kino und Sticker. Den Snack mache ich mir zu Hause. Und ich weiß schon am Montag, dass es reicht!","image":"story.taschengeld-bucht.4.3"}],"game":{"type":"pick","title":"Talas Wochenbudget","description":"Plane Talas Woche mit 8 Talern.","task":"Tala hat 8 Taler für die Woche. Die Busfahrt zum Schwimmen muss sein. Tippe an, was Tala kaufen soll, ohne über 8 Taler zu kommen.","items":[{"text":"Busfahrt zum Schwimmen","price":2,"required":true,"hint":"Die Busfahrt muss sein, sonst kommt Tala nicht zum Schwimmtraining."},{"text":"Sticker fürs Album","price":2,"required":false,"hint":"Sticker sind schön, aber nicht nötig. Passt es noch ins Budget?"},{"text":"Snack am Kiosk","price":3,"required":false,"hint":"Ein Snack ist ein Wunsch. Er passt, wenn noch Geld übrig ist."},{"text":"Kinokarte","price":6,"required":false,"hint":"Das Kino ist teuer. Mit der Busfahrt bleibt dann kaum etwas übrig."},{"text":"Glitzerstift","price":1,"required":false,"hint":"Klein, aber auch kleine Ausgaben zählen mit."}],"target":8,"exact":false,"done":{"speaker":"kurt","text":"Die Busfahrt ist drin und das Budget stimmt. So plant ein Kassenwart!","name":"Kurt"}},"estimate":{"speaker":"kurt","question":"Was glaubst du: Kino kostet 6 Taler, Sticker 2 Taler, ein Snack 3 Taler. Wie viel kostet alles zusammen?","kind":"wheel","min":0,"max":20,"step":1,"start":8,"unit":"Taler","unit_one":"Taler","answer":11,"reveal":{"speaker":"kurt","text":"11 Taler! Tala hat aber nur 8. Also muss sie sich entscheiden. Genau dafür ist ein Budget da."}},"taps":[{"after":1,"kind":"tap","text":"Tippe auf die Liste: Was will Tala diese Woche?","symbol":"liste","done":"Kino, Sticker und ein Snack. Jetzt kommen die Preise dazu."},{"after":2,"kind":"swipe","text":"Wisch den Snack von der Liste. So passt es in 8 Taler.","symbol":"brot","done":"Kino und Sticker: genau 8 Taler. Plan geschafft!"}],"summary":{"speaker":"tala","text":"Ein Budget ist wie eine Seekarte für mein Geld. Ich weiß vorher, wohin es geht!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Was ist ein Budget?', '["Ein Plan, wie viel Geld man wofür ausgibt","Eine Art Vogel","Ein Konto bei der Bank"]'::jsonb, 0, 'Mit einem Budget bestimmt man vorher, wohin das Geld geht.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Du hast 8 Taler. Kino kostet 6, ein Snack 3. Was passt?', '["Nur eins von beiden","Beides geht genau","Beides und noch Sticker"]'::jsonb, 0, '6 plus 3 sind 9, das ist mehr als 8.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Du willst ein Spiel für 15 Taler und bekommst 5 pro Woche. Wie lange dauert es, wenn du alles sparst?', '["3 Wochen","5 Wochen","15 Wochen"]'::jsonb, 0, '15 geteilt durch 5 sind 3.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Was macht man zuerst, wenn man ein Budget plant?', '["Aufschreiben, wie viel Geld man hat","Losgehen und kaufen","Das Geld verstecken"]'::jsonb, 0, 'Erst wissen, was da ist, dann planen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Tala will Dinge für 11 Taler, hat aber nur 8. Was ist klug?', '["Etwas weglassen oder auf später verschieben","Trotzdem alles kaufen","Sich das Geld von Talo nehmen"]'::jsonb, 0, 'Ein Budget heißt: auswählen, was am wichtigsten ist.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Was gehört zuerst ins Budget?', '["Was man wirklich braucht, wie die Busfahrt zur Schule","Die teuerste Sache","Das, was Freunde gerade haben"]'::jsonb, 0, 'Erst das Nötige, dann die Wünsche.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station4/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station4')::uuid, 'Tala hat 8 Taler. Busfahrt 2 Taler, Sticker 2 Taler. Wie viel bleibt übrig?', '["4 Taler","6 Taler","2 Taler"]'::jsonb, 0, '8 minus 2 minus 2 sind 4.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station5')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 50, 'game', true, 100, '{"title":"Wenn das Geld alle ist","number":5,"place":"Leerer-Beutel-Felsen","goal":"Aus einer schlechten Woche lernt man für die nächste","minutes":"6 bis 9 Min.","scene":[{"speaker":"tala","text":"Oh nein. Es ist Donnerstag und mein Beutel ist leer. Dabei will ich am Samstag mit zum Schwimmbad!"},{"speaker":"mia","text":"Ich kann dir ja etwas leihen. Dann gibst du mir nächste Woche das Doppelte zurück.","name":"Mia"},{"speaker":"kurt","text":"Halt, halt! Bevor du irgendwas machst, setzen wir uns auf den Felsen und denken nach.","name":"Kurt"}],"lesson":[{"speaker":"kurt","text":"Ein leerer Beutel ist ärgerlich. Aber er verrät dir etwas: Dein Plan hat nicht gereicht.","name":"Kurt","image":"story.taschengeld-bucht.5.1"},{"speaker":"tala","text":"Und was mache ich jetzt mit dem Schwimmbad?"},{"speaker":"talo","text":"Du kannst warten, verzichten oder etwas Kostenloses machen. Am Strand schwimmen kostet zum Beispiel nichts!","image":"story.taschengeld-bucht.5.2"},{"speaker":"kurt","text":"Leihen ist keine gute Lösung. Wer sich jetzt Geld leiht, muss es zurückgeben, und dann fehlt es nächste Woche wieder.","name":"Kurt","image":"story.taschengeld-bucht.5.3"},{"speaker":"tala","text":"Und nächste Woche lege ich das Geld fürs Schwimmbad gleich am Montag beiseite!"}],"game":{"type":"choice","title":"Der leere Beutel","description":"Hilf Tala, mit einem leeren Beutel klug umzugehen.","task":"Was ist die beste Entscheidung? Tippe auf deine Wahl.","rounds":[{"scene":[{"speaker":"mia","text":"Tala, ich leihe dir 5 Taler. Nächste Woche gibst du mir 10 zurück!","name":"Mia"}],"question":"Was soll Tala tun?","options":[{"text":"Nein danke sagen und lieber warten","good":true,"reply":"Klug! Sonst hätte Tala nächste Woche 10 Taler weniger, für nur 5 Taler heute."},{"text":"Schnell zusagen, Hauptsache Geld","good":false,"reply":"Dann muss Tala doppelt so viel zurückgeben. Nächste Woche ist der Beutel wieder leer."}]},{"scene":[{"speaker":"tala","text":"Am Samstag gehen alle ins Schwimmbad. Ich habe aber kein Geld mehr."}],"question":"Was kann Tala machen?","options":[{"text":"Den Freunden vorschlagen, am Strand zu schwimmen","good":true,"reply":"Super Idee! Das kostet nichts und macht genauso viel Spaß."},{"text":"Den anderen erzählen, sie sei krank","good":false,"reply":"Flunkern hilft nicht. Ehrlich sagen, dass das Geld alle ist, ist völlig in Ordnung."},{"text":"Zu Hause bleiben, ohne etwas zu sagen","good":false,"reply":"Das muss nicht sein. Es gibt Dinge, die nichts kosten."}]},{"scene":[{"speaker":"kurt","text":"Neue Woche, neues Taschengeld. Was machst du jetzt anders, Tala?","name":"Kurt"}],"question":"Was ist der beste Plan?","options":[{"text":"Am Montag gleich das Geld fürs Schwimmbad zur Seite legen","good":true,"reply":"Genau! Wer zuerst plant, hat am Wochenende noch Geld."},{"text":"Wieder alles am Montag ausgeben","good":false,"reply":"Dann wiederholt sich die leere Woche. Ein Plan hilft."},{"text":"Gar kein Taschengeld mehr annehmen","good":false,"reply":"Taschengeld ist zum Üben da. Mit einem Plan klappt es."}]}],"done":{"speaker":"kurt","text":"Aus einer leeren Woche hast du mehr gelernt als aus zehn vollen. Klack, klack!","name":"Kurt"}},"estimate":{"speaker":"kurt","question":"Was glaubst du: Was ist die beste Idee, wenn das Taschengeld vor dem Wochenende alle ist?","kind":"choice","options":["Sofort Geld leihen","Bis zum nächsten Taschengeld warten und beim nächsten Mal anders planen","Talos Geld heimlich nehmen"],"answer":1,"reveal":{"speaker":"kurt","text":"Warten und besser planen! Das ist unbequem, aber ehrlich. Wer sich leiht, hat nächste Woche noch weniger."}},"taps":[{"after":1,"kind":"flip","text":"Dreh Talas Beutel um. Was ist drin?","symbol":"beutel","back":"Nichts! Aber ein leerer Beutel ist ein guter Lehrer."},{"after":2,"kind":"tap","text":"Tippe auf die Wellen: Was kostet nichts und macht trotzdem Spaß?","symbol":"wellen","done":"Schwimmen am Strand! Viele schöne Dinge kosten gar nichts."}],"summary":{"speaker":"tala","text":"Ein leerer Beutel ist kein Weltuntergang. Nächste Woche plane ich besser!"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Tala hat am Mittwoch alles ausgegeben. Was ist klug?', '["Bis zum nächsten Taschengeld warten und nächstes Mal besser planen","Sofort Geld leihen","Talos Geld nehmen"]'::jsonb, 0, 'Warten ist unbequem, aber ehrlich und lehrreich.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Was kannst du aus so einer Woche lernen?', '["Das Geld besser über die Woche zu verteilen","Dass Planen nichts bringt","Dass man immer leihen sollte"]'::jsonb, 0, 'Fehler sind Lerngelegenheiten.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Warum ist Leihen keine gute Lösung, wenn das Taschengeld alle ist?', '["Man muss es zurückgeben, dann fehlt es nächste Woche.","Weil Leihen immer verboten ist","Weil geliehenes Geld nicht echt ist"]'::jsonb, 0, 'Geliehenes Geld fehlt später, oft sogar mehr.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Mia will 10 Taler zurück, wenn sie 5 Taler leiht. Wie viel muss Tala mehr zurückgeben, als sie bekommt?', '["5 Taler","10 Taler","15 Taler"]'::jsonb, 0, '10 minus 5 sind 5 Taler mehr.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Was kostet nichts und macht trotzdem Spaß?', '["Am Strand schwimmen mit Freunden","Ein Kinobesuch","Ein Eis am Kiosk"]'::jsonb, 0, 'Viele schöne Dinge kosten gar nichts.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Was macht Tala nächste Woche anders?', '["Sie legt das Geld fürs Wochenende gleich am Montag zur Seite.","Sie gibt am Montag noch mehr aus.","Sie hört auf, Taschengeld zu nehmen."]'::jsonb, 0, 'Wer gleich plant, hat am Ende der Woche noch Geld.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station5/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station5')::uuid, 'Das Taschengeld ist alle. Was ist ehrlich?', '["Den Freunden sagen, dass das Geld gerade alle ist","So tun, als sei man krank","Heimlich Geld aus der Familienkasse nehmen"]'::jsonb, 0, 'Ehrlich sein ist völlig in Ordnung. Das passiert allen mal.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station6')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 60, 'game', true, 100, '{"title":"Geld geschenkt bekommen","number":6,"place":"Geschenke-Grotte","goal":"Auch geschenktes Geld kann man aufteilen","minutes":"6 bis 9 Min.","scene":[{"speaker":"tala","text":"Post für mich! Ein Brief von Oma, und darin … 20 Taler zum Geburtstag!"},{"speaker":"tala","text":"Juhu! Ich gehe sofort zum Kiosk und kaufe …"},{"speaker":"kurt","text":"Moment! Auch geschenktes Geld bekommt eine Aufgabe. Komm mit in die Geschenke-Grotte.","name":"Kurt"}],"lesson":[{"speaker":"kurt","text":"Ein Geldgeschenk ist etwas Besonderes. Es kommt nicht jede Woche, also lohnt es sich, gut nachzudenken.","name":"Kurt","image":"story.taschengeld-bucht.6.1"},{"speaker":"tala","text":"Ich könnte einen Teil für meine Rollschuhe zurücklegen und mir mit dem Rest etwas Schönes kaufen."},{"speaker":"kurt","text":"Genau. Aufteilen macht doppelt Freude: jetzt etwas Schönes, und später der Wunschschatz.","name":"Kurt","image":"story.taschengeld-bucht.6.2"},{"speaker":"talo","text":"Und was gehört noch zu einem Geschenk dazu?"},{"speaker":"tala","text":"Danke sagen! Ich male Oma ein Bild von unserem Schiff.","image":"story.taschengeld-bucht.6.3"}],"game":{"type":"number","title":"Omas Geschenk aufteilen","description":"Rechne aus, wie Tala ihr Geschenk aufteilt.","task":"Tippe deine Antwort als Zahl ein.","rounds":[{"question":"Oma schenkt Tala 20 Taler. Tala legt 12 Taler für die Rollschuhe zurück. Wie viel ist frei zum Ausgeben?","amount":8,"unit":"Taler","hint":"Rechne 20 minus 12.","explanation":"20 minus 12 sind 8 Taler zum Ausgeben."},{"question":"Die Rollschuhe kosten 40 Taler. Tala hatte schon 18 Taler zurückgelegt und legt jetzt 12 dazu. Wie viel hat sie jetzt?","amount":30,"unit":"Taler","hint":"Rechne 18 plus 12.","explanation":"18 plus 12 sind 30 Taler. Nur noch 10 Taler bis zu den Rollschuhen!"},{"question":"Mit den 8 freien Talern kauft Tala ein Buch für 5 Taler. Wie viel bleibt übrig?","amount":3,"unit":"Taler","hint":"Rechne 8 minus 5.","explanation":"8 minus 5 sind 3 Taler. Die bleiben für die Woche."}],"done":{"speaker":"tala","text":"Ein Buch für jetzt, und die Rollschuhe sind fast da. Danke, Oma!"}},"estimate":{"speaker":"kurt","question":"Was glaubst du: Tala legt die Hälfte von Omas 20 Talern zurück. Wie viel ist das?","kind":"wheel","min":0,"max":20,"step":1,"start":5,"unit":"Taler","unit_one":"Taler","answer":10,"reveal":{"speaker":"kurt","text":"10 Taler! Die Hälfte von 20 sind 10. Dann bleiben 10 Taler zum Ausgeben, und der Wunschschatz macht einen großen Sprung."}},"taps":[{"after":1,"kind":"tap","text":"Öffne Omas Brief: Tippe auf die Briefmarke.","symbol":"stempel","done":"20 Taler und ein Gruß von Oma: Alles Liebe zum Geburtstag!"},{"after":3,"kind":"tap","text":"Tippe auf das Herz und schick Oma einen Dank.","symbol":"herz","done":"Oma freut sich über Talas Bild mehr als über alles andere."}],"summary":{"speaker":"kurt","text":"Geschenktes Geld aufteilen und Danke sagen. Das machen nur die besten Kassenwarte!","name":"Kurt"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Oma schenkt dir 20 Taler. Was ist eine gute Idee?', '["Einen Teil zurücklegen und einen Teil ausgeben","Alles sofort ausgeben, ohne nachzudenken","Das Geld irgendwo verlegen"]'::jsonb, 0, 'Aufteilen macht doppelt Freude.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Was gehört zu einem Geldgeschenk dazu?', '["Sich bedanken","Gleich mehr fordern","Es niemandem erzählen"]'::jsonb, 0, 'Ein Danke freut den, der schenkt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Du bekommst 20 Taler und legst die Hälfte zurück. Wie viel ist das?', '["10 Taler","5 Taler","15 Taler"]'::jsonb, 0, 'Die Hälfte von 20 sind 10.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Warum lohnt es sich, bei einem Geldgeschenk gut nachzudenken?', '["Weil es nicht jede Woche kommt","Weil geschenktes Geld weniger wert ist","Weil man es zurückgeben muss"]'::jsonb, 0, 'Ein Geschenk ist eine besondere Chance für den Wunschschatz.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Tala hat 18 Taler zurückgelegt und legt 12 dazu. Wie viel hat sie jetzt?', '["30 Taler","20 Taler","6 Taler"]'::jsonb, 0, '18 plus 12 sind 30.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Wie kannst du dich für ein Geldgeschenk bedanken?', '["Mit einem Bild, einem Brief oder einem Anruf","Gar nicht, Geld ist ja nur Geld","Indem du sagst, dass es zu wenig war"]'::jsonb, 0, 'Ein Danke zeigt, dass du dich freust.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station6/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station6')::uuid, 'Ist geschenktes Geld anders als Taschengeld?', '["Nein, auch Geschenke kann man klug aufteilen.","Ja, Geschenke muss man sofort ausgeben.","Ja, Geschenke darf man nie sparen."]'::jsonb, 0, 'Jeder Taler kann eine Aufgabe bekommen, egal woher er kommt.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station7')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 70, 'game', true, 100, '{"title":"Taschengeld verhandeln","number":7,"place":"Ratsbank","goal":"Mit guten Gründen fair verhandeln","minutes":"6 bis 9 Min.","scene":[{"speaker":"tala","text":"Kurt, ich möchte mehr Taschengeld. Wie frage ich meine Eltern am besten?"},{"speaker":"kurt","text":"Gute Frage! Setz dich zu mir auf die Ratsbank. Hier übt man, wie man fair verhandelt.","name":"Kurt"},{"speaker":"talo","text":"Ich spiele deine Eltern. Los geht es!"}],"lesson":[{"speaker":"kurt","text":"Such dir einen ruhigen Moment aus. Nicht, wenn alle in Eile sind oder schlechte Laune haben.","name":"Kurt","image":"story.taschengeld-bucht.7.1"},{"speaker":"kurt","text":"Dann erklärst du, warum du mehr brauchst. Zeig dein Logbuch: So sehen deine Eltern, dass du gut planst.","name":"Kurt","image":"story.taschengeld-bucht.7.2"},{"speaker":"tala","text":"Und ich kann anbieten, mehr selbst zu bezahlen. Meine Hefte zum Beispiel."},{"speaker":"talo","text":"Und wenn die Antwort Nein ist?"},{"speaker":"kurt","text":"Dann akzeptierst du das freundlich und fragst, wann ihr noch einmal darüber sprechen könnt. Hier ist mein Kartenstück, ihr habt es euch verdient!","name":"Kurt","image":"story.taschengeld-bucht.7.3"}],"game":{"type":"choice","title":"Auf der Ratsbank","description":"Übe ein faires Gespräch über Taschengeld.","task":"Was sagt Tala am besten? Tippe auf deine Wahl.","rounds":[{"scene":[{"speaker":"talo","text":"Ich bin jetzt Papa. Ich komme gerade gestresst von der Arbeit nach Hause."}],"question":"Wann fragt Tala am besten?","options":[{"text":"Später, wenn Papa sich ausgeruht hat","good":true,"reply":"Genau. In einem ruhigen Moment hört man besser zu."},{"text":"Sofort an der Tür","good":false,"reply":"Wer gestresst ist, sagt schneller Nein. Lieber warten."}]},{"scene":[{"speaker":"talo","text":"Warum möchtest du denn mehr Taschengeld, Tala?"}],"question":"Was antwortet Tala?","options":[{"text":"Ich schreibe alles auf. Hier, mein Logbuch. Das Geld reicht nicht für die Busfahrten.","good":true,"reply":"Stark! Mit Logbuch und einem echten Grund überzeugt Tala."},{"text":"Weil alle anderen mehr bekommen!","good":false,"reply":"Vergleichen überzeugt selten. Jede Familie macht es anders."},{"text":"Einfach so. Ich will mehr!","good":false,"reply":"Ohne Grund ist es schwer, Ja zu sagen."}]},{"scene":[{"speaker":"talo","text":"Hm. Was würdest du denn dafür übernehmen?"}],"question":"Was bietet Tala an?","options":[{"text":"Ich bezahle meine Hefte und die Busfahrten selbst.","good":true,"reply":"Fair! Mehr Geld kann mehr Verantwortung bedeuten."},{"text":"Dann helfe ich nie wieder im Haushalt.","good":false,"reply":"Das ist kein faires Angebot. Mithelfen gehört zur Familie."},{"text":"Gar nichts. Ich will einfach mehr Geld.","good":false,"reply":"Ein Angebot zeigt, dass du es ernst meinst."}]},{"scene":[{"speaker":"talo","text":"Ich überlege es mir. Diese Woche bleibt es aber noch, wie es ist."}],"question":"Wie reagiert Tala?","options":[{"text":"Okay! Können wir nächste Woche noch einmal darüber reden?","good":true,"reply":"Prima. Freundlich bleiben und dranbleiben, so verhandeln Profis."},{"text":"Die Tür knallen","good":false,"reply":"Damit wird es beim nächsten Mal nur schwerer."}]}],"done":{"speaker":"kurt","text":"So verhandelt ein Kassenwart: ruhig, ehrlich, mit Beweisen. Klack, klack!","name":"Kurt"}},"estimate":{"speaker":"kurt","question":"Was glaubst du: Was überzeugt Eltern am meisten?","kind":"choice","options":["Quengeln, bis sie Ja sagen","Ruhig fragen und zeigen, dass man gut mit Geld umgeht","Sagen, dass alle anderen mehr bekommen"],"answer":1,"reveal":{"speaker":"kurt","text":"Ruhig fragen und zeigen, dass du planen kannst! Mit dem Logbuch hast du dafür den besten Beweis."}},"taps":[{"after":1,"kind":"tap","text":"Tippe auf die Sonne: Ein ruhiger Moment ist der beste.","symbol":"sonne","done":"Nach dem Abendessen, wenn alle entspannt sind. Perfekt!"},{"after":2,"kind":"drag","text":"Zieh das Logbuch auf den Tisch und zeig es den Eltern.","symbol":"buch","done":"Die Eltern staunen: Tala schreibt wirklich alles auf!"}],"summary":{"speaker":"kurt","text":"Hier ist das Kartenstück aus meinem Logbuch. Gleich kommt noch die Abschlussprüfung!","name":"Kurt"},"quiz":{"show":3}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Wie bittest du deine Eltern am besten um mehr Taschengeld?', '["Ruhig fragen und erklären, wofür du es brauchst","Quengeln, bis sie Ja sagen","Schimpfen und vergleichen"]'::jsonb, 0, 'Gute Gründe überzeugen mehr als Druck.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Was macht deine Bitte überzeugender?', '["Zeigen, dass du gut mit Geld umgehst, zum Beispiel mit deinem Logbuch","Laut werden","Die Tür knallen"]'::jsonb, 0, 'Wer zeigt, dass er planen kann, bekommt eher mehr Verantwortung.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Was ist eine faire Gegenleistung für mehr Taschengeld?', '["Mehr Dinge selbst bezahlen, zum Beispiel Hefte","Weniger im Haushalt helfen","Nichts"]'::jsonb, 0, 'Mehr Geld kann mehr Verantwortung bedeuten.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Wann fragst du am besten?', '["In einem ruhigen Moment","Wenn alle in Eile sind","Mitten in einem Streit"]'::jsonb, 0, 'In Ruhe hört man besser zu.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Die Eltern sagen erst einmal Nein. Was ist klug?', '["Freundlich bleiben und fragen, wann ihr noch einmal sprecht","Beleidigt sein und schmollen","Heimlich Geld nehmen"]'::jsonb, 0, 'Wer freundlich dranbleibt, hat beim nächsten Mal bessere Chancen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Warum ist „Alle anderen bekommen mehr“ ein schwacher Grund?', '["Weil jede Familie andere Regeln hat","Weil es immer gelogen ist","Weil Eltern andere Kinder nicht kennen"]'::jsonb, 0, 'Vergleiche überzeugen selten. Eigene Gründe schon.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station7/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station7')::uuid, 'Tala zahlt ab jetzt ihre Hefte selbst und bekommt dafür mehr Taschengeld. Was hat sie gelernt?', '["Mehr Geld bringt auch mehr Verantwortung.","Mehr Geld heißt, man muss nie mehr planen.","Hefte sind jetzt kostenlos."]'::jsonb, 0, 'Mit mehr Geld muss man auch mehr selbst einteilen.', null, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/station8')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 80, 'exam', true, 150, '{"title":"Abschlussprüfung","number":8,"place":"Kurts Rechenstube","goal":"Alles aus der Taschengeld-Bucht wiederholen, dazu zwei Fragen von früheren Inseln","minutes":"8 bis 10 Min.","scene":[{"speaker":"kurt","text":"Die letzte Prüfung in der Bucht! Ab 8 richtigen Antworten trage ich euch als Kassenwarte in mein Logbuch ein.","name":"Kurt"},{"speaker":"tala","text":"Diesmal weiß ich genau, wo jeder Taler ist. Los geht es!"}],"summary":{"speaker":"kurt","text":"Bestanden! Ihr seid jetzt Kassenwarte der Bucht. Das Kartenstück gehört euch. Gute Fahrt!","name":"Kurt"},"exam":{"show":8,"review":2,"pass":8}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, type = excluded.type, xp_reward = excluded.xp_reward,
+  content = excluded.content, status = excluded.status;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Wer entscheidet, wie viel Taschengeld ein Kind bekommt?', '["Die Eltern","Die Schule","Der Bürgermeister"]'::jsonb, 0, 'Es gibt Empfehlungen, aber jede Familie entscheidet selbst.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Warum hilft es wenig, sich mit dem Taschengeld anderer zu vergleichen?', '["Jede Familie hat andere Regeln.","Weil andere immer flunkern","Weil Taschengeld geheim ist"]'::jsonb, 0, 'In manchen Familien bezahlen Kinder mehr selbst, in anderen weniger.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Warum ist regelmäßiges Taschengeld gut zum Üben?', '["Man lernt, mit einer festen Summe auszukommen.","Weil es immer mehr wird","Weil man dann nie sparen muss"]'::jsonb, 0, 'Eine feste Summe ist ideal zum Planen.', 1, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Wofür ist das freie Geld in deiner Schatztruhe da?', '["Für Dinge, die ich bald ausgeben will","Nur für Notfälle in zehn Jahren","Für nichts, es bleibt liegen"]'::jsonb, 0, 'Das freie Geld ist zum Ausgeben gedacht.', 2, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Wofür legst du Geld in der Schatztruhe zurück?', '["Für einen Wunschschatz","Für das Eis von heute","Um es morgen wieder auszugeben"]'::jsonb, 0, 'Zurückgelegtes Geld ist für ein Ziel da.', 2, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Du bekommst 10 Taler: 5 frei zum Ausgeben, 3 für deinen Wunschschatz, den Rest für ein Geschenk. Wie viel ist für das Geschenk?', '["2 Taler","3 Taler","5 Taler"]'::jsonb, 0, '10 minus 5 minus 3 sind 2.', 2, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was sind Einnahmen?', '["Geld, das man bekommt","Geld, das man ausgibt","Ein Spiel"]'::jsonb, 0, 'Taschengeld und Geschenke sind Einnahmen.', 3, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q8')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was sind Ausgaben?', '["Geld, das man ausgibt","Geld, das man bekommt","Der Ausgang am Schiff"]'::jsonb, 0, 'Alles, was man bezahlt, sind Ausgaben.', 3, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q9')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Warum schreibt man Ausgaben auf?', '["Damit man sieht, wohin das Geld geht","Damit das Geld mehr wird","Weil Kinder das müssen"]'::jsonb, 0, 'Das Logbuch zeigt, wofür man am meisten ausgibt.', 3, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q10')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was ist ein Budget?', '["Ein Plan, wie viel Geld man wofür ausgibt","Ein Vogel","Eine Bank"]'::jsonb, 0, 'Mit einem Budget bestimmt man vorher, wohin das Geld geht.', 4, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q11')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Du hast 8 Taler. Kino kostet 6, ein Snack 3. Was passt?', '["Nur eins von beiden oder ein günstigerer Snack","Beides geht schon","Gar nicht planen"]'::jsonb, 0, '6 plus 3 sind 9, das ist mehr als 8.', 4, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q12')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Du willst ein Spiel für 15 Taler und bekommst 5 pro Woche. Wie lange dauert es, wenn du alles sparst?', '["3 Wochen","5 Wochen","15 Wochen"]'::jsonb, 0, '15 geteilt durch 5 sind 3.', 4, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q13')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Tala hat am Mittwoch alles ausgegeben. Was ist klug?', '["Bis zum nächsten Taschengeld warten und nächstes Mal besser planen","Sofort Geld leihen","Talos Geld nehmen"]'::jsonb, 0, 'Warten ist unbequem, aber ehrlich und lehrreich.', 5, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q14')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was kannst du aus so einer Woche lernen?', '["Das Geld besser über die Woche zu verteilen","Dass Planen nichts bringt","Dass man immer leihen sollte"]'::jsonb, 0, 'Fehler sind Lerngelegenheiten.', 5, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q15')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Oma schenkt dir 20 Taler. Was ist eine gute Idee?', '["Einen Teil zurücklegen und einen Teil ausgeben","Alles sofort ausgeben, ohne nachzudenken","Das Geld verlegen"]'::jsonb, 0, 'Aufteilen macht doppelt Freude.', 6, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q16')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was gehört zu einem Geldgeschenk dazu?', '["Sich bedanken","Gleich mehr fordern","Es niemandem erzählen"]'::jsonb, 0, 'Ein Danke freut den, der schenkt.', 6, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q17')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Wie bittest du deine Eltern am besten um mehr Taschengeld?', '["Ruhig fragen und erklären, wofür du es brauchst","Quengeln, bis sie Ja sagen","Schimpfen und vergleichen"]'::jsonb, 0, 'Gute Gründe überzeugen mehr als Druck.', 7, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q18')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was macht deine Bitte überzeugender?', '["Zeigen, dass du gut mit Geld umgehst, zum Beispiel mit deinem Logbuch","Laut werden","Die Tür knallen"]'::jsonb, 0, 'Wer zeigt, dass er planen kann, bekommt eher mehr Verantwortung.', 7, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q19')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Was ist eine faire Gegenleistung für mehr Taschengeld?', '["Mehr Dinge selbst bezahlen, zum Beispiel Snacks","Weniger mithelfen","Nichts"]'::jsonb, 0, 'Mehr Geld kann mehr Verantwortung bedeuten.', 7, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+insert into public.quiz_questions (id, station_id, question, answers, correct_index, explanation, covers_station, status, beginner)
+values (md5('taleria:stage1/taschengeld-bucht/station8/q20')::uuid, md5('taleria:stage1/taschengeld-bucht/station8')::uuid, 'Kurt schreibt einen Monat lang alles auf. Was sieht er danach?', '["Wofür er am meisten ausgibt","Dass Geld von selbst wächst","Nichts Besonderes"]'::jsonb, 0, 'Aufschreiben deckt versteckte Ausgaben auf.', 3, 'draft', null)
+on conflict (id) do update set
+  question = excluded.question, answers = excluded.answers, correct_index = excluded.correct_index,
+  explanation = excluded.explanation, covers_station = excluded.covers_station, status = excluded.status,
+  beginner = excluded.beginner;
+
+-- Ankerplatz 1: Die Heuer des Schiffsjungen
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/dive1')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 25, 'review_stop', true, 50, '{"title":"Die Heuer des Schiffsjungen","kind":"dive","number":1,"dive":{"game":"fish_swarm","questions":4,"wreck":{"scene":[{"speaker":"tala","text":"Ein alter Lederbeutel mit einem Zettel! Ein Schiffsjunge hat geschrieben: Meine Heuer sind 12 Taler im Monat."},{"speaker":"talo","text":"Hier steht weiter: Ich will mir ein Taschenmesser für 6 Taler kaufen und den Rest für die Reise nach Hause zurücklegen."}],"question":"Wie teilt der Schiffsjunge seine 12 Taler am besten auf?","answers":["6 Taler fürs Messer, 6 Taler für die Reise zurücklegen","Alle 12 Taler für zwei Messer","Gar nichts kaufen und nie wieder etwas ausgeben"],"correct_index":0,"explanation":"So bekommt jedes Geld eine Aufgabe: ein Teil zum Ausgeben, ein Teil für ein Ziel."}}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
+  status = excluded.status;
+insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
+values (md5('taleria:stage1/taschengeld-bucht/dive1/find')::uuid, 'taschengeld-bucht-fund-1', 'wreck_item', 'Lohnbeutel eines Schiffsjungen', 'collectible.taschengeld-bucht.1', md5('taleria:stage1/taschengeld-bucht/dive1')::uuid, 51, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
+  status = excluded.status;
+
+-- Ankerplatz 2: Das Logbuch mit der Lücke
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/dive2')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 45, 'review_stop', true, 50, '{"title":"Das Logbuch mit der Lücke","kind":"dive","number":2,"dive":{"game":"shell_count","questions":4,"wreck":{"scene":[{"speaker":"kurt","text":"Mein altes Logbuch! Ich bin damals mit 20 Talern losgesegelt.","name":"Kurt"},{"speaker":"kurt","text":"Ausgaben: 5 Taler Seil, 8 Taler Proviant. Im Beutel waren am Ende nur noch 4 Taler. Da fehlt doch etwas!","name":"Kurt"}],"question":"Wie viele Taler hat Kurt ausgegeben, ohne es aufzuschreiben?","answers":["3 Taler","7 Taler","13 Taler"],"correct_index":0,"explanation":"20 minus 5 minus 8 sind 7. Im Beutel waren aber nur 4. Also fehlen 3 Taler im Logbuch."}}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
+  status = excluded.status;
+insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
+values (md5('taleria:stage1/taschengeld-bucht/dive2/find')::uuid, 'taschengeld-bucht-fund-2', 'wreck_item', 'Kurts altes Rechenbrett', 'collectible.taschengeld-bucht.2', md5('taleria:stage1/taschengeld-bucht/dive2')::uuid, 52, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
+  status = excluded.status;
+
+-- Ankerplatz 3: Der Brief an den Kapitän
+insert into public.stations (id, island_id, sort_order, type, is_required, xp_reward, content, status)
+values (md5('taleria:stage1/taschengeld-bucht/dive3')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 65, 'review_stop', true, 50, '{"title":"Der Brief an den Kapitän","kind":"dive","number":3,"dive":{"game":"pearls","questions":4,"wreck":{"scene":[{"speaker":"talo","text":"Ein Brief an einen Kapitän! Ein Schiffsjunge bittet darin um mehr Heuer."},{"speaker":"tala","text":"Er hat drei Gründe aufgeschrieben. Welcher überzeugt den Kapitän am meisten?"}],"question":"Welcher Grund überzeugt am meisten?","answers":["Ich schreibe alles auf und will meine Seife jetzt selbst bezahlen.","Die anderen Schiffsjungen bekommen auch mehr.","Ich will einfach mehr haben."],"correct_index":0,"explanation":"Wer zeigt, dass er gut plant, und mehr Verantwortung übernimmt, überzeugt am besten."}}}'::jsonb, 'draft')
+on conflict (id) do update set
+  sort_order = excluded.sort_order, xp_reward = excluded.xp_reward, content = excluded.content,
+  status = excluded.status;
+insert into public.collectibles (id, slug, kind, title, asset_key, station_id, sort_order, status)
+values (md5('taleria:stage1/taschengeld-bucht/dive3/find')::uuid, 'taschengeld-bucht-fund-3', 'wreck_item', 'Versiegelter Brief', 'collectible.taschengeld-bucht.3', md5('taleria:stage1/taschengeld-bucht/dive3')::uuid, 53, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, station_id = excluded.station_id,
+  sort_order = excluded.sort_order,
+  status = excluded.status;
+
+delete from public.quiz_questions q using public.stations s
+where q.station_id = s.id and s.island_id = md5('taleria:stage1/taschengeld-bucht')::uuid
+  and q.id not in (md5('taleria:stage1/taschengeld-bucht/sea1/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/sea1/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/sea2/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station1/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station2/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station3/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station4/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station5/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station6/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station7/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q1')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q2')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q3')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q4')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q5')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q6')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q7')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q8')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q9')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q10')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q11')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q12')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q13')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q14')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q15')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q16')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q17')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q18')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q19')::uuid, md5('taleria:stage1/taschengeld-bucht/station8/q20')::uuid);
+
+insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)
+values (md5('taleria:stage1/taschengeld-bucht/badge')::uuid, 'taschengeld-bucht', 'island', md5('taleria:stage1/taschengeld-bucht')::uuid, 'Kassenwart der Bucht', 'badge.taschengeld-bucht', 5, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order,
+  status = excluded.status;
+
+insert into public.conversation_prompts (id, island_id, text, status)
+values (md5('taleria:stage1/taschengeld-bucht/prompt1')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 'Wie viel Taschengeld hattest du als Kind, und was hast du davon gekauft?', 'draft')
+on conflict (id) do update set text = excluded.text, status = excluded.status;
+insert into public.conversation_prompts (id, island_id, text, status)
+values (md5('taleria:stage1/taschengeld-bucht/prompt2')::uuid, md5('taleria:stage1/taschengeld-bucht')::uuid, 'Was könnte ich ab jetzt selbst von meinem Taschengeld bezahlen?', 'draft')
+on conflict (id) do update set text = excluded.text, status = excluded.status;
 
 -- Status der Insel erst jetzt, wenn alles auf der Insel da ist.
 update public.islands set status = 'draft' where id = md5('taleria:stage1/taschengeld-bucht')::uuid and status <> 'draft';

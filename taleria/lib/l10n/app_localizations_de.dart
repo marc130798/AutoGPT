@@ -3039,6 +3039,8 @@ class AppLocalizationsDe extends AppLocalizations {
       'moritz': 'das Murmeltier',
       'emma': 'das Eichhörnchen',
       'gustav': 'die Grille',
+      'mia': 'die Möwe',
+      'kurt': 'der Krebs',
       'other': '',
     });
     return '$_temp0';

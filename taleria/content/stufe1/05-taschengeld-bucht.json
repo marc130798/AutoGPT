@@ -8,7 +8,2080 @@
     "x": 0.28,
     "y": 0.7
   },
-  "lernziel": "Taschengeld einteilen",
-  "nebel": true,
-  "stationen": []
+  "lernziel": "Das Kind teilt Taschengeld auf, schreibt Einnahmen und Ausgaben auf, plant eine Woche, geht mit leerem Geldbeutel und Geldgeschenken klug um und kann fair über Taschengeld sprechen.",
+  "lernziel_kind": [
+    "Wie du dein Taschengeld gut einteilst",
+    "Wie ein Logbuch zeigt, wohin dein Geld geht",
+    "Wie du eine Woche planst und fair verhandelst"
+  ],
+  "ankunft": {
+    "film": "video.arrival.taschengeld-bucht",
+    "szene": [
+      {
+        "wer": "tala",
+        "text": "Oh, ein Kiosk mit bunten Gläsern! Ich kaufe mir … Moment."
+      },
+      {
+        "wer": "tala",
+        "text": "Mein Beutel ist leer! Dabei gab es mein Taschengeld doch erst am Montag."
+      },
+      {
+        "wer": "kurt",
+        "name": "Kurt",
+        "text": "Klack, klack! Und heute ist erst Mittwoch. Wohin ist es denn gegangen?"
+      },
+      {
+        "wer": "tala",
+        "text": "Keine Ahnung. Es war einfach … weg."
+      },
+      {
+        "wer": "kurt",
+        "name": "Kurt",
+        "text": "Dann wird es Zeit für Ordnung. Ich bin Kurt, der Buchhalter der Bucht. Mein Kartenstück liegt in meinem Logbuch."
+      }
+    ]
+  },
+  "orden": "Kassenwart der Bucht",
+  "auftrag": {
+    "titel": "Logbuch-Woche",
+    "text": "Schreib eine Woche lang alle Einnahmen und Ausgaben in ein Heft und schau es danach mit deinen Eltern an."
+  },
+  "kombuesen_fragen": [
+    "Wie viel Taschengeld hattest du als Kind, und was hast du davon gekauft?",
+    "Was könnte ich ab jetzt selbst von meinem Taschengeld bezahlen?"
+  ],
+  "ausblick": [
+    {
+      "wer": "talo",
+      "text": "Hinter dem Nebel höre ich Stimmen und Glocken. Da liegt ein großer Markt!"
+    },
+    {
+      "wer": "tala",
+      "text": "Diesmal habe ich einen Plan. Und ein Logbuch!"
+    }
+  ],
+  "stopps_auf_see": [
+    {
+      "art": "fischerboot",
+      "figur": "otti",
+      "schiff": "ship.fischer",
+      "titel": "Otti spart für ein Segel",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "otti",
+          "name": "Otti",
+          "text": "Ahoi, Crew! Ich will ein neues Segel für mein Boot. Aber das kostet 30 Taler, und ich habe nur 6."
+        },
+        {
+          "wer": "tala",
+          "text": "Auf der Spar-Insel haben wir gelernt, wie man so etwas schafft!"
+        }
+      ],
+      "abschluss": {
+        "wer": "otti",
+        "name": "Otti",
+        "text": "Ein klares Ziel und jede Woche ein bisschen. Danke! Gute Fahrt zur Bucht."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Otti will ein Segel für 30 Taler. Sie hat schon 6. Wie viel fehlt?",
+          "richtig": "24 Taler",
+          "falsch": [
+            "36 Taler",
+            "6 Taler"
+          ],
+          "erklaerung": "30 minus 6 sind 24."
+        },
+        {
+          "frage": "Otti legt jede Woche 4 Taler zurück. Wie viele Taler sind das nach 6 Wochen?",
+          "richtig": "24 Taler",
+          "falsch": [
+            "10 Taler",
+            "64 Taler"
+          ],
+          "erklaerung": "6 Wochen mal 4 Taler sind 24 Taler."
+        },
+        {
+          "frage": "Was macht Ottis Sparziel klar?",
+          "richtig": "Was sie will, wie viel es kostet und bis wann",
+          "falsch": [
+            "Dass sie es niemandem erzählt",
+            "Dass sie möglichst schnell irgendwas kauft"
+          ],
+          "erklaerung": "Was, wie viel, bis wann: So wird aus einem Wunsch ein Ziel."
+        },
+        {
+          "frage": "Otti sagt: Ich spare nur, wenn zufällig etwas übrig bleibt. Was hilft ihr mehr?",
+          "richtig": "Gleich am Anfang einen festen Teil zurücklegen",
+          "falsch": [
+            "Erst alles ausgeben und dann schauen",
+            "Gar nicht mehr zählen"
+          ],
+          "erklaerung": "Wer zuerst zurücklegt, spart sicherer als mit dem Rest."
+        },
+        {
+          "frage": "Wo ist Geld sicherer als in einer Dose unter dem Bett?",
+          "richtig": "Auf einem Konto bei der Bank",
+          "falsch": [
+            "In der Hosentasche",
+            "Unter einem Stein am Strand"
+          ],
+          "erklaerung": "Auf dem Konto ist Geld gut geschützt."
+        },
+        {
+          "frage": "Emma vergräbt im Herbst Nüsse für den Winter. Was zeigt das?",
+          "richtig": "Wer heute etwas zurücklegt, hat später genug.",
+          "falsch": [
+            "Nüsse schmecken im Winter besser.",
+            "Man soll alles sofort essen."
+          ],
+          "erklaerung": "Etwas für später zurücklegen nennt man sparen."
+        }
+      ]
+    },
+    {
+      "art": "tala_vergisst",
+      "figur": "tala",
+      "titel": "Tala hat etwas vergessen",
+      "seemeilen": 30,
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Oje! Ich weiß nicht mehr, wie viel ich letzte Woche ausgegeben habe. Hilfst du mir beim Nachdenken?"
+        },
+        {
+          "wer": "talo",
+          "text": "Wir rechnen zusammen. Dann merkst du, warum Aufschreiben hilft."
+        }
+      ],
+      "abschluss": {
+        "wer": "tala",
+        "text": "Puh, das war knifflig. Ab jetzt schreibe ich alles auf!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Tala hatte 10 Taler. Sie hat 3 Taler für Saft und 4 Taler für Sticker ausgegeben. Wie viel hat sie noch?",
+          "richtig": "3 Taler",
+          "falsch": [
+            "7 Taler",
+            "17 Taler"
+          ],
+          "erklaerung": "10 minus 3 minus 4 sind 3."
+        },
+        {
+          "frage": "Tala kauft jeden Tag ein Bonbon für 1 Taler. Wie viel ist das in einer Woche?",
+          "richtig": "7 Taler",
+          "falsch": [
+            "1 Taler",
+            "14 Taler"
+          ],
+          "erklaerung": "Eine Woche hat 7 Tage, also 7 Taler."
+        },
+        {
+          "frage": "Warum vergisst man kleine Ausgaben so leicht?",
+          "richtig": "Weil sie einzeln wenig sind, zusammen aber viel",
+          "falsch": [
+            "Weil kleine Ausgaben nichts kosten",
+            "Weil nur große Ausgaben zählen"
+          ],
+          "erklaerung": "Viele kleine Beträge ergeben zusammen eine große Summe."
+        },
+        {
+          "frage": "Was hilft Tala, sich an ihre Ausgaben zu erinnern?",
+          "richtig": "Alles gleich aufschreiben",
+          "falsch": [
+            "Gar nicht mehr einkaufen",
+            "Talo fragen, was sie gekauft hat"
+          ],
+          "erklaerung": "Was aufgeschrieben ist, kann man nicht vergessen."
+        },
+        {
+          "frage": "Tala will Rollschuhe für 40 Taler und hat 28. Wie viel fehlt noch?",
+          "richtig": "12 Taler",
+          "falsch": [
+            "22 Taler",
+            "68 Taler"
+          ],
+          "erklaerung": "40 minus 28 sind 12."
+        },
+        {
+          "frage": "Was ist besser für Talas Wunschschatz?",
+          "richtig": "Jede Woche einen festen Betrag zurücklegen",
+          "falsch": [
+            "Nur sparen, wenn sie gerade Lust hat",
+            "Alles sofort ausgeben"
+          ],
+          "erklaerung": "Ein fester Betrag pro Woche bringt sie sicher ans Ziel."
+        }
+      ]
+    }
+  ],
+  "tauchgaenge": [
+    {
+      "nach": 2,
+      "titel": "Die Heuer des Schiffsjungen",
+      "spiel": "fischschwarm",
+      "fragen": 4,
+      "fund": "Lohnbeutel eines Schiffsjungen",
+      "fund_bild": "collectible.taschengeld-bucht.1",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "tala",
+            "text": "Ein alter Lederbeutel mit einem Zettel! Ein Schiffsjunge hat geschrieben: Meine Heuer sind 12 Taler im Monat."
+          },
+          {
+            "wer": "talo",
+            "text": "Hier steht weiter: Ich will mir ein Taschenmesser für 6 Taler kaufen und den Rest für die Reise nach Hause zurücklegen."
+          }
+        ],
+        "frage": "Wie teilt der Schiffsjunge seine 12 Taler am besten auf?",
+        "richtig": "6 Taler fürs Messer, 6 Taler für die Reise zurücklegen",
+        "falsch": [
+          "Alle 12 Taler für zwei Messer",
+          "Gar nichts kaufen und nie wieder etwas ausgeben"
+        ],
+        "erklaerung": "So bekommt jedes Geld eine Aufgabe: ein Teil zum Ausgeben, ein Teil für ein Ziel."
+      }
+    },
+    {
+      "nach": 4,
+      "titel": "Das Logbuch mit der Lücke",
+      "spiel": "muscheln",
+      "fragen": 4,
+      "fund": "Kurts altes Rechenbrett",
+      "fund_bild": "collectible.taschengeld-bucht.2",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "kurt",
+            "name": "Kurt",
+            "text": "Mein altes Logbuch! Ich bin damals mit 20 Talern losgesegelt."
+          },
+          {
+            "wer": "kurt",
+            "name": "Kurt",
+            "text": "Ausgaben: 5 Taler Seil, 8 Taler Proviant. Im Beutel waren am Ende nur noch 4 Taler. Da fehlt doch etwas!"
+          }
+        ],
+        "frage": "Wie viele Taler hat Kurt ausgegeben, ohne es aufzuschreiben?",
+        "richtig": "3 Taler",
+        "falsch": [
+          "7 Taler",
+          "13 Taler"
+        ],
+        "erklaerung": "20 minus 5 minus 8 sind 7. Im Beutel waren aber nur 4. Also fehlen 3 Taler im Logbuch."
+      }
+    },
+    {
+      "nach": 6,
+      "titel": "Der Brief an den Kapitän",
+      "spiel": "perlentauchen",
+      "fragen": 4,
+      "fund": "Versiegelter Brief",
+      "fund_bild": "collectible.taschengeld-bucht.3",
+      "wrack": {
+        "szene": [
+          {
+            "wer": "talo",
+            "text": "Ein Brief an einen Kapitän! Ein Schiffsjunge bittet darin um mehr Heuer."
+          },
+          {
+            "wer": "tala",
+            "text": "Er hat drei Gründe aufgeschrieben. Welcher überzeugt den Kapitän am meisten?"
+          }
+        ],
+        "frage": "Welcher Grund überzeugt am meisten?",
+        "richtig": "Ich schreibe alles auf und will meine Seife jetzt selbst bezahlen.",
+        "falsch": [
+          "Die anderen Schiffsjungen bekommen auch mehr.",
+          "Ich will einfach mehr haben."
+        ],
+        "erklaerung": "Wer zeigt, dass er gut plant, und mehr Verantwortung übernimmt, überzeugt am besten."
+      }
+    }
+  ],
+  "stationen": [
+    {
+      "nr": 1,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Wie viel Taschengeld ist üblich?",
+      "ort": "Kiosk",
+      "lernziel": "Taschengeld ist Sache der Familie, Vergleichen hilft wenig",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Willkommen an meinem Kiosk! Hier kaufen alle Kinder der Bucht ein."
+        },
+        {
+          "wer": "tala",
+          "text": "Mia, wie viel Taschengeld bekommen die anderen Kinder? Bestimmt alle mehr als ich!"
+        },
+        {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Ganz unterschiedlich. Das Fischerkind bekommt wenig, muss aber nichts selbst kaufen. Das Kind vom Leuchtturm bekommt mehr und bezahlt davon sogar sein Pausenbrot."
+        },
+        {
+          "wer": "tala",
+          "text": "Hm. Dann ist mehr Geld ja nicht automatisch besser."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "mia",
+        "frage": "Was glaubst du: Wer entscheidet, wie viel Taschengeld ein Kind bekommt?",
+        "art": "auswahl",
+        "optionen": [
+          "Die Schule",
+          "Die Eltern in jeder Familie",
+          "Ein Gesetz für alle Kinder gleich"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Die Eltern! Es gibt Empfehlungen, zum Beispiel vom Jugendamt. Aber jede Familie entscheidet selbst, und auch, was Kinder davon bezahlen."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Jede Familie macht es anders. Manche Kinder bekommen ihr Taschengeld jede Woche, manche einmal im Monat.",
+          "bild": "story.taschengeld-bucht.1.1"
+        },
+        {
+          "wer": "talo",
+          "text": "Und es kommt darauf an, was man davon bezahlen soll. Nur Süßes? Oder auch Hefte und Busfahrten?"
+        },
+        {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Darum hilft Vergleichen wenig. Wer mehr bekommt, muss oft auch mehr selbst bezahlen.",
+          "bild": "story.taschengeld-bucht.1.2"
+        },
+        {
+          "wer": "tala",
+          "text": "Also sollte ich lieber fragen: Was mache ich mit dem Geld, das ich habe?",
+          "bild": "story.taschengeld-bucht.1.3"
+        },
+        {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Genau! Regelmäßiges Taschengeld ist wie ein Übungsfeld. Man lernt, mit einer festen Summe auszukommen."
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "umdrehen",
+          "text": "Dreh den Kalender um: Wann gibt es Taschengeld?",
+          "zeichen": "kalender",
+          "rueckseite": "In manchen Familien jede Woche, in anderen einmal im Monat."
+        },
+        {
+          "nach_bild": 2,
+          "art": "wischen",
+          "text": "Wisch den Vergleich weg: „Die anderen kriegen mehr!“",
+          "zeichen": "daumen",
+          "danach": "Vergleichen macht nur unzufrieden. Wichtig ist, was du mit deinem Geld machst."
+        }
+      ],
+      "spiel": {
+        "art": "choice",
+        "titel": "Am Kiosk",
+        "beschreibung": "Hilf den Kindern am Kiosk, klug über Taschengeld zu denken.",
+        "aufgabe": "Was ist die beste Antwort? Tippe auf deine Wahl.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Mein Freund bekommt viel mehr Taschengeld als ich. Das ist unfair!"
+              }
+            ],
+            "frage": "Was sagst du Tala?",
+            "optionen": [
+              {
+                "text": "Vielleicht muss er davon mehr selbst bezahlen.",
+                "gut": true,
+                "antwort": "Genau. Man sieht nur den Betrag, nicht, was alles davon bezahlt wird."
+              },
+              {
+                "text": "Dann musst du so lange quengeln, bis du mehr bekommst.",
+                "gut": false,
+                "antwort": "Quengeln macht nur Streit. Ein ruhiges Gespräch hilft mehr."
+              },
+              {
+                "text": "Dann bist du eben ärmer als er.",
+                "gut": false,
+                "antwort": "Der Betrag allein sagt nicht viel. Jede Familie regelt es anders."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "mia",
+                "name": "Mia",
+                "text": "Ein Kind sagt: Ich bekomme jede Woche Taschengeld. Ein anderes: Ich bekomme es einmal im Monat."
+              }
+            ],
+            "frage": "Was stimmt?",
+            "optionen": [
+              {
+                "text": "Beides ist in Ordnung. Wer es monatlich bekommt, muss länger planen.",
+                "gut": true,
+                "antwort": "Richtig. Mit Monatsgeld muss man das Geld über mehr Tage verteilen."
+              },
+              {
+                "text": "Nur jede Woche ist richtig.",
+                "gut": false,
+                "antwort": "Beides gibt es. Jede Familie wählt, was passt."
+              },
+              {
+                "text": "Monatsgeld ist immer mehr Geld.",
+                "gut": false,
+                "antwort": "Nicht unbedingt. Es kommt nur seltener."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Tala bekommt jede Woche gleich viel Taschengeld. Wozu ist das gut?"
+              }
+            ],
+            "frage": "Was lernt Tala dabei?",
+            "optionen": [
+              {
+                "text": "Mit einer festen Summe auszukommen und zu planen",
+                "gut": true,
+                "antwort": "Genau. Eine feste Summe ist ideal zum Üben."
+              },
+              {
+                "text": "Dass Geld immer von selbst mehr wird",
+                "gut": false,
+                "antwort": "Das Taschengeld bleibt gleich. Mehr wird es nur durch Sparen."
+              },
+              {
+                "text": "Dass sie nie sparen muss",
+                "gut": false,
+                "antwort": "Auch mit Taschengeld kann man sparen, zum Beispiel für einen Wunschschatz."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Ihr denkt ja schon wie richtige Kaufleute! Nicht wie viel zählt, sondern was man daraus macht."
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Ich vergleiche nicht mehr. Ich mache das Beste aus meinem Taschengeld!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wer entscheidet, wie viel Taschengeld ein Kind bekommt?",
+          "richtig": "Die Eltern in jeder Familie",
+          "falsch": [
+            "Die Lehrerin",
+            "Der Kioskbesitzer"
+          ],
+          "erklaerung": "Es gibt Empfehlungen, aber jede Familie entscheidet selbst."
+        },
+        {
+          "frage": "Warum hilft es wenig, sein Taschengeld mit anderen zu vergleichen?",
+          "richtig": "Weil jede Familie andere Regeln hat, was Kinder selbst bezahlen",
+          "falsch": [
+            "Weil andere immer flunkern",
+            "Weil Taschengeld geheim bleiben muss"
+          ],
+          "erklaerung": "Manche Kinder bezahlen mehr selbst, andere weniger."
+        },
+        {
+          "frage": "Ein Kind bekommt mehr Taschengeld, muss davon aber sein Pausenbrot bezahlen. Was zeigt das?",
+          "richtig": "Mehr Geld kann auch mehr Aufgaben bedeuten.",
+          "falsch": [
+            "Es hat trotzdem mehr übrig als alle anderen.",
+            "Pausenbrot ist kostenlos."
+          ],
+          "erklaerung": "Wer mehr selbst bezahlt, bekommt oft auch mehr Taschengeld."
+        },
+        {
+          "frage": "Warum ist regelmäßiges Taschengeld gut zum Üben?",
+          "richtig": "Man lernt, mit einer festen Summe auszukommen.",
+          "falsch": [
+            "Weil es jede Woche mehr wird",
+            "Weil man dann nie sparen muss"
+          ],
+          "erklaerung": "Eine feste Summe ist ideal zum Planen."
+        },
+        {
+          "frage": "Wer sein Taschengeld einmal im Monat bekommt, muss …",
+          "richtig": "… das Geld über viele Tage einteilen.",
+          "falsch": [
+            "… es am ersten Tag ausgeben.",
+            "… nichts planen."
+          ],
+          "erklaerung": "Ein Monat ist lang. Wer gleich alles ausgibt, hat lange nichts."
+        },
+        {
+          "frage": "Tala ist neidisch auf das Taschengeld ihres Freundes. Was hilft ihr am meisten?",
+          "richtig": "Überlegen, was sie mit ihrem eigenen Geld Gutes machen kann",
+          "falsch": [
+            "Ihrem Freund das Geld wegnehmen",
+            "Jeden Tag quengeln"
+          ],
+          "erklaerung": "Wer auf sein eigenes Geld schaut, wird zufriedener."
+        },
+        {
+          "frage": "Wo gibt es Empfehlungen, wie viel Taschengeld zu welchem Alter passt?",
+          "richtig": "Zum Beispiel beim Jugendamt",
+          "falsch": [
+            "Auf der Rückseite von Müslipackungen",
+            "Nirgends"
+          ],
+          "erklaerung": "Solche Empfehlungen sind nur ein Anhaltspunkt. Die Familie entscheidet."
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Geld bekommt eine Aufgabe",
+      "ort": "Truhenhaus",
+      "lernziel": "Geld bekommt eine Aufgabe, bevor es ausgegeben wird",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Willkommen im Truhenhaus! Hier bekommt jeder Taler eine Aufgabe."
+        },
+        {
+          "wer": "tala",
+          "text": "Eine Aufgabe? Meine Taler haben bisher immer nur eine: weg sein."
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Klack, klack! Genau das ändern wir. Bevor du etwas ausgibst, entscheidest du, wofür das Geld da ist."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "kurt",
+        "frage": "Was glaubst du: Tala bekommt 10 Taler. Wie viele davon sollte sie für ihren Wunschschatz zurücklegen?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 10,
+        "schritt": 1,
+        "start": 5,
+        "einheit": "Taler",
+        "einheit_eins": "Taler",
+        "loesung": 3,
+        "aufloesung": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Zum Beispiel 3 Taler! Es gibt keine einzig richtige Zahl. Wichtig ist, dass du es vorher entscheidest, nicht erst, wenn nichts mehr übrig ist."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "In deiner Schatztruhe gibt es zwei Teile: Geld, das frei zum Ausgeben ist, und Geld, das du für einen Wunschschatz zurückgelegt hast.",
+          "bild": "story.taschengeld-bucht.2.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Und wenn ich will, kann ich auch etwas für jemand anderen beiseitelegen. Für Omas Geschenk zum Beispiel."
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Der Trick ist: gleich am Anfang aufteilen. Taschengeld kommt, ein Teil wird zurückgelegt, der Rest ist frei.",
+          "bild": "story.taschengeld-bucht.2.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Dann weiß Tala genau, wie viel sie diese Woche ausgeben darf, ohne ihren Wunschschatz zu vergessen."
+        },
+        {
+          "wer": "tala",
+          "text": "Und mein Wunschschatz wächst, auch wenn ich mir zwischendurch ein Eis kaufe!",
+          "bild": "story.taschengeld-bucht.2.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "anzahl": 3,
+          "text": "Leg 3 Taler für Talas Wunschschatz zurück: Tippe 3-mal auf die Truhe.",
+          "zeichen": "truhe",
+          "danach": "3 Taler sind zurückgelegt. Der Rest ist frei zum Ausgeben."
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Zieh die Münze auf die Truhe: erst aufteilen, dann ausgeben!",
+          "zeichen": "muenze",
+          "danach": "So hat jeder Taler gleich am Anfang seine Aufgabe."
+        }
+      ],
+      "spiel": {
+        "art": "sort",
+        "titel": "Wohin mit dem Geld?",
+        "beschreibung": "Gib jedem Taler eine Aufgabe.",
+        "aufgabe": "Tippe auf eine Karte und dann auf den passenden Teil der Schatztruhe.",
+        "koerbe": [
+          "Frei zum Ausgeben",
+          "Für einen Wunschschatz zurücklegen"
+        ],
+        "dinge": [
+          {
+            "text": "Ein Eis am Kiosk heute",
+            "korb": 0
+          },
+          {
+            "text": "Neue Sticker fürs Album",
+            "korb": 0
+          },
+          {
+            "text": "Saft für den Ausflug morgen",
+            "korb": 0
+          },
+          {
+            "text": "Die Rollschuhe, die Tala sich seit Monaten wünscht",
+            "korb": 1
+          },
+          {
+            "text": "Ein großes Lego-Schiff für 50 Taler",
+            "korb": 1
+          },
+          {
+            "text": "Ein Zelt für die Sommerferien",
+            "korb": 1
+          },
+          {
+            "text": "Ein Geschenk für Omas Geburtstag nächsten Monat",
+            "korb": null,
+            "hinweis": "Das passt in beide Teile: Du kannst es jetzt kaufen oder ein paar Wochen dafür zurücklegen."
+          }
+        ],
+        "geschafft": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Jeder Taler hat jetzt seine Aufgabe. So sieht Ordnung aus!"
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Erst aufteilen, dann ausgeben! In meiner Schatztruhe probiere ich das gleich aus."
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wann teilt man Taschengeld am besten auf?",
+          "richtig": "Gleich wenn man es bekommt",
+          "falsch": [
+            "Erst wenn fast nichts mehr übrig ist",
+            "Nie, man gibt einfach aus"
+          ],
+          "erklaerung": "Wer gleich aufteilt, vergisst den Wunschschatz nicht."
+        },
+        {
+          "frage": "Wofür ist das freie Geld in der Schatztruhe da?",
+          "richtig": "Für Dinge, die ich bald ausgeben will",
+          "falsch": [
+            "Nur für Notfälle in vielen Jahren",
+            "Es darf nie ausgegeben werden"
+          ],
+          "erklaerung": "Das freie Geld ist zum Ausgeben gedacht."
+        },
+        {
+          "frage": "Wofür legt man Geld zurück?",
+          "richtig": "Für einen Wunschschatz, der mehr kostet als eine Woche Taschengeld",
+          "falsch": [
+            "Für das Eis von heute",
+            "Damit man es schnell wieder ausgibt"
+          ],
+          "erklaerung": "Zurückgelegtes Geld wächst bis zum Ziel."
+        },
+        {
+          "frage": "Tala bekommt 10 Taler. Sie legt 4 zurück. Wie viel ist frei zum Ausgeben?",
+          "richtig": "6 Taler",
+          "falsch": [
+            "4 Taler",
+            "14 Taler"
+          ],
+          "erklaerung": "10 minus 4 sind 6."
+        },
+        {
+          "frage": "Tala bekommt 10 Taler: 5 frei, 3 für den Wunschschatz, den Rest für Omas Geschenk. Wie viel ist für Oma?",
+          "richtig": "2 Taler",
+          "falsch": [
+            "3 Taler",
+            "5 Taler"
+          ],
+          "erklaerung": "10 minus 5 minus 3 sind 2."
+        },
+        {
+          "frage": "Was bedeutet: Jeder Taler bekommt eine Aufgabe?",
+          "richtig": "Man entscheidet vorher, wofür das Geld da ist.",
+          "falsch": [
+            "Jeder Taler muss arbeiten gehen.",
+            "Man darf nur einen Taler ausgeben."
+          ],
+          "erklaerung": "Ein Plan für jeden Taler verhindert, dass Geld einfach verschwindet."
+        },
+        {
+          "frage": "Tala hat 3 Taler für ihren Wunschschatz zurückgelegt und kauft sich mit dem freien Geld ein Eis. Was passiert mit ihrem Wunschschatz?",
+          "richtig": "Er wächst trotzdem weiter.",
+          "falsch": [
+            "Er ist jetzt weg.",
+            "Er wird kleiner."
+          ],
+          "erklaerung": "Zurückgelegtes Geld bleibt für den Wunschschatz."
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Einnahmen und Ausgaben aufschreiben",
+      "ort": "Kurts Rechenstube",
+      "lernziel": "Wer aufschreibt, behält den Überblick",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Hier ist meine Rechenstube. Und das hier ist mein Logbuch. Darin steht jeder Taler, den ich je hatte."
+        },
+        {
+          "wer": "tala",
+          "text": "Jeder einzelne? Das ist ja ein dickes Buch!"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Klack! Deshalb weiß ich immer, wo mein Geld ist. Du nicht. Noch nicht."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "kurt",
+        "frage": "Was glaubst du: Wie viele kleine Einkäufe vergisst man in einer Woche, wenn man nichts aufschreibt?",
+        "art": "regler",
+        "von": 0,
+        "bis": 10,
+        "schritt": 1,
+        "start": 1,
+        "einheit": "Einkäufe",
+        "einheit_eins": "Einkauf",
+        "loesung": 3,
+        "aufloesung": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Bei Tala waren es 3! Ein Bonbon hier, ein Saft da. Einzeln klein, zusammen fehlt plötzlich viel."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Im Logbuch gibt es zwei Seiten. Links die Einnahmen: Geld, das du bekommst. Taschengeld zum Beispiel, oder ein Geschenk.",
+          "bild": "story.taschengeld-bucht.3.1"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Rechts die Ausgaben: Geld, das du bezahlst. Ein Eis, Sticker, ein Heft."
+        },
+        {
+          "wer": "tala",
+          "text": "Und am Ende rechnet man: Einnahmen minus Ausgaben. Dann weiß ich, wie viel noch da ist!",
+          "bild": "story.taschengeld-bucht.3.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Und man sieht, wofür man am meisten ausgibt. Bei Tala sind es … Süßigkeiten.",
+          "bild": "story.taschengeld-bucht.3.3"
+        },
+        {
+          "wer": "tala",
+          "text": "Ertappt! Aber jetzt weiß ich es wenigstens."
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "ziehen",
+          "text": "Zieh das Taschengeld auf die Seite der Einnahmen.",
+          "zeichen": "muenze",
+          "danach": "Taschengeld bekommst du. Das ist eine Einnahme."
+        },
+        {
+          "nach_bild": 3,
+          "art": "tippen",
+          "text": "Tippe auf das Logbuch und lies, wofür Tala am meisten ausgibt.",
+          "zeichen": "buch",
+          "danach": "Süßigkeiten! Das Logbuch deckt alles auf."
+        }
+      ],
+      "spiel": {
+        "art": "sort",
+        "titel": "Kurts Kassenzettel",
+        "beschreibung": "Sortiere die Zettel in Kurts Logbuch.",
+        "aufgabe": "Ist das eine Einnahme oder eine Ausgabe? Tippe auf einen Zettel und dann auf die richtige Seite.",
+        "koerbe": [
+          "Einnahme",
+          "Ausgabe"
+        ],
+        "dinge": [
+          {
+            "text": "Taschengeld von Mama",
+            "korb": 0
+          },
+          {
+            "text": "Geburtstagsgeld von Oma",
+            "korb": 0
+          },
+          {
+            "text": "Belohnung fürs Rasenmähen beim Nachbarn",
+            "korb": 0
+          },
+          {
+            "text": "Ein Eis am Kiosk",
+            "korb": 1
+          },
+          {
+            "text": "Eine Busfahrkarte",
+            "korb": 1
+          },
+          {
+            "text": "Ein neues Heft für die Schule",
+            "korb": 1
+          },
+          {
+            "text": "Geld zurück, weil Tala eine kaputte Taschenlampe umgetauscht hat",
+            "korb": 0
+          }
+        ],
+        "geschafft": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Links rein, rechts raus. Jetzt weißt du, wie ein Logbuch funktioniert!"
+        }
+      },
+      "abschluss": {
+        "wer": "kurt",
+        "name": "Kurt",
+        "text": "Wer aufschreibt, behält den Überblick. Fang heute an, mit deinem eigenen Logbuch!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was sind Einnahmen?",
+          "richtig": "Geld, das man bekommt",
+          "falsch": [
+            "Geld, das man ausgibt",
+            "Geld, das man verliert"
+          ],
+          "erklaerung": "Taschengeld und Geschenke sind Einnahmen."
+        },
+        {
+          "frage": "Was sind Ausgaben?",
+          "richtig": "Geld, das man bezahlt",
+          "falsch": [
+            "Geld, das man geschenkt bekommt",
+            "Geld, das man spart"
+          ],
+          "erklaerung": "Alles, was man kauft, sind Ausgaben."
+        },
+        {
+          "frage": "Tala bekommt 8 Taler und gibt 5 Taler aus. Wie viel bleibt übrig?",
+          "richtig": "3 Taler",
+          "falsch": [
+            "13 Taler",
+            "5 Taler"
+          ],
+          "erklaerung": "Einnahmen minus Ausgaben: 8 minus 5 sind 3."
+        },
+        {
+          "frage": "Warum schreibt man Ausgaben auf?",
+          "richtig": "Damit man sieht, wohin das Geld geht",
+          "falsch": [
+            "Damit das Geld mehr wird",
+            "Weil es sonst verboten ist"
+          ],
+          "erklaerung": "Das Logbuch zeigt, wofür man am meisten ausgibt."
+        },
+        {
+          "frage": "Kurt schreibt einen Monat lang alles auf. Was sieht er danach?",
+          "richtig": "Wofür er am meisten ausgibt",
+          "falsch": [
+            "Dass Geld von selbst wächst",
+            "Nichts Besonderes"
+          ],
+          "erklaerung": "Aufschreiben deckt versteckte Ausgaben auf."
+        },
+        {
+          "frage": "Was ist eine Einnahme?",
+          "richtig": "Geld fürs Rasenmähen beim Nachbarn",
+          "falsch": [
+            "Eine Kinokarte",
+            "Ein Eis"
+          ],
+          "erklaerung": "Geld, das du bekommst, ist eine Einnahme."
+        },
+        {
+          "frage": "Tala hat 3 Taler für Saft, 2 Taler für Sticker und 1 Taler für ein Bonbon ausgegeben. Wie viel war das zusammen?",
+          "richtig": "6 Taler",
+          "falsch": [
+            "5 Taler",
+            "3 Taler"
+          ],
+          "erklaerung": "3 plus 2 plus 1 sind 6."
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Mein Wochenplan",
+      "ort": "Planungssteg",
+      "lernziel": "Ein Budget ist ein Plan für das eigene Geld",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Diese Woche will ich ins Kino, Sticker kaufen und einen Snack am Kiosk. Ich habe 8 Taler."
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Und reicht das für alles?"
+        },
+        {
+          "wer": "tala",
+          "text": "Ähm … keine Ahnung. Ich kaufe einfach, bis es leer ist?"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Klack, klack! Komm mit auf den Planungssteg. Wir machen ein Budget."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "kurt",
+        "frage": "Was glaubst du: Kino kostet 6 Taler, Sticker 2 Taler, ein Snack 3 Taler. Wie viel kostet alles zusammen?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 20,
+        "schritt": 1,
+        "start": 8,
+        "einheit": "Taler",
+        "einheit_eins": "Taler",
+        "loesung": 11,
+        "aufloesung": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "11 Taler! Tala hat aber nur 8. Also muss sie sich entscheiden. Genau dafür ist ein Budget da."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Ein Budget ist ein Plan: Wie viel Geld habe ich, und wofür will ich es ausgeben?",
+          "bild": "story.taschengeld-bucht.4.1"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Zuerst schreibst du auf, was du hast: 8 Taler. Dann, was du willst, mit Preisen."
+        },
+        {
+          "wer": "tala",
+          "text": "Kino 6, Sticker 2, Snack 3. Das sind 11. Drei Taler zu viel!",
+          "bild": "story.taschengeld-bucht.4.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Dann streichst du etwas. Kino und Sticker sind genau 8 Taler. Oder Snack und Sticker, dann bleiben 3 übrig."
+        },
+        {
+          "wer": "tala",
+          "text": "Ich nehme Kino und Sticker. Den Snack mache ich mir zu Hause. Und ich weiß schon am Montag, dass es reicht!",
+          "bild": "story.taschengeld-bucht.4.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Tippe auf die Liste: Was will Tala diese Woche?",
+          "zeichen": "liste",
+          "danach": "Kino, Sticker und ein Snack. Jetzt kommen die Preise dazu."
+        },
+        {
+          "nach_bild": 2,
+          "art": "wischen",
+          "text": "Wisch den Snack von der Liste. So passt es in 8 Taler.",
+          "zeichen": "brot",
+          "danach": "Kino und Sticker: genau 8 Taler. Plan geschafft!"
+        }
+      ],
+      "spiel": {
+        "art": "pick",
+        "titel": "Talas Wochenbudget",
+        "beschreibung": "Plane Talas Woche mit 8 Talern.",
+        "aufgabe": "Tala hat 8 Taler für die Woche. Die Busfahrt zum Schwimmen muss sein. Tippe an, was Tala kaufen soll, ohne über 8 Taler zu kommen.",
+        "modus": "hoechstens",
+        "betrag": 8,
+        "dinge": [
+          {
+            "text": "Busfahrt zum Schwimmen",
+            "preis": 2,
+            "richtig": true,
+            "hinweis": "Die Busfahrt muss sein, sonst kommt Tala nicht zum Schwimmtraining."
+          },
+          {
+            "text": "Sticker fürs Album",
+            "preis": 2,
+            "hinweis": "Sticker sind schön, aber nicht nötig. Passt es noch ins Budget?"
+          },
+          {
+            "text": "Snack am Kiosk",
+            "preis": 3,
+            "hinweis": "Ein Snack ist ein Wunsch. Er passt, wenn noch Geld übrig ist."
+          },
+          {
+            "text": "Kinokarte",
+            "preis": 6,
+            "hinweis": "Das Kino ist teuer. Mit der Busfahrt bleibt dann kaum etwas übrig."
+          },
+          {
+            "text": "Glitzerstift",
+            "preis": 1,
+            "hinweis": "Klein, aber auch kleine Ausgaben zählen mit."
+          }
+        ],
+        "geschafft": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Die Busfahrt ist drin und das Budget stimmt. So plant ein Kassenwart!"
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Ein Budget ist wie eine Seekarte für mein Geld. Ich weiß vorher, wohin es geht!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Was ist ein Budget?",
+          "richtig": "Ein Plan, wie viel Geld man wofür ausgibt",
+          "falsch": [
+            "Eine Art Vogel",
+            "Ein Konto bei der Bank"
+          ],
+          "erklaerung": "Mit einem Budget bestimmt man vorher, wohin das Geld geht."
+        },
+        {
+          "frage": "Du hast 8 Taler. Kino kostet 6, ein Snack 3. Was passt?",
+          "richtig": "Nur eins von beiden",
+          "falsch": [
+            "Beides geht genau",
+            "Beides und noch Sticker"
+          ],
+          "erklaerung": "6 plus 3 sind 9, das ist mehr als 8."
+        },
+        {
+          "frage": "Du willst ein Spiel für 15 Taler und bekommst 5 pro Woche. Wie lange dauert es, wenn du alles sparst?",
+          "richtig": "3 Wochen",
+          "falsch": [
+            "5 Wochen",
+            "15 Wochen"
+          ],
+          "erklaerung": "15 geteilt durch 5 sind 3."
+        },
+        {
+          "frage": "Was macht man zuerst, wenn man ein Budget plant?",
+          "richtig": "Aufschreiben, wie viel Geld man hat",
+          "falsch": [
+            "Losgehen und kaufen",
+            "Das Geld verstecken"
+          ],
+          "erklaerung": "Erst wissen, was da ist, dann planen."
+        },
+        {
+          "frage": "Tala will Dinge für 11 Taler, hat aber nur 8. Was ist klug?",
+          "richtig": "Etwas weglassen oder auf später verschieben",
+          "falsch": [
+            "Trotzdem alles kaufen",
+            "Sich das Geld von Talo nehmen"
+          ],
+          "erklaerung": "Ein Budget heißt: auswählen, was am wichtigsten ist."
+        },
+        {
+          "frage": "Was gehört zuerst ins Budget?",
+          "richtig": "Was man wirklich braucht, wie die Busfahrt zur Schule",
+          "falsch": [
+            "Die teuerste Sache",
+            "Das, was Freunde gerade haben"
+          ],
+          "erklaerung": "Erst das Nötige, dann die Wünsche."
+        },
+        {
+          "frage": "Tala hat 8 Taler. Busfahrt 2 Taler, Sticker 2 Taler. Wie viel bleibt übrig?",
+          "richtig": "4 Taler",
+          "falsch": [
+            "6 Taler",
+            "2 Taler"
+          ],
+          "erklaerung": "8 minus 2 minus 2 sind 4."
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Wenn das Geld alle ist",
+      "ort": "Leerer-Beutel-Felsen",
+      "lernziel": "Aus einer schlechten Woche lernt man für die nächste",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Oh nein. Es ist Donnerstag und mein Beutel ist leer. Dabei will ich am Samstag mit zum Schwimmbad!"
+        },
+        {
+          "wer": "mia",
+          "name": "Mia",
+          "text": "Ich kann dir ja etwas leihen. Dann gibst du mir nächste Woche das Doppelte zurück."
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Halt, halt! Bevor du irgendwas machst, setzen wir uns auf den Felsen und denken nach."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "kurt",
+        "frage": "Was glaubst du: Was ist die beste Idee, wenn das Taschengeld vor dem Wochenende alle ist?",
+        "art": "auswahl",
+        "optionen": [
+          "Sofort Geld leihen",
+          "Bis zum nächsten Taschengeld warten und beim nächsten Mal anders planen",
+          "Talos Geld heimlich nehmen"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Warten und besser planen! Das ist unbequem, aber ehrlich. Wer sich leiht, hat nächste Woche noch weniger."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Ein leerer Beutel ist ärgerlich. Aber er verrät dir etwas: Dein Plan hat nicht gereicht.",
+          "bild": "story.taschengeld-bucht.5.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Und was mache ich jetzt mit dem Schwimmbad?"
+        },
+        {
+          "wer": "talo",
+          "text": "Du kannst warten, verzichten oder etwas Kostenloses machen. Am Strand schwimmen kostet zum Beispiel nichts!",
+          "bild": "story.taschengeld-bucht.5.2"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Leihen ist keine gute Lösung. Wer sich jetzt Geld leiht, muss es zurückgeben, und dann fehlt es nächste Woche wieder.",
+          "bild": "story.taschengeld-bucht.5.3"
+        },
+        {
+          "wer": "tala",
+          "text": "Und nächste Woche lege ich das Geld fürs Schwimmbad gleich am Montag beiseite!"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "umdrehen",
+          "text": "Dreh Talas Beutel um. Was ist drin?",
+          "zeichen": "beutel",
+          "rueckseite": "Nichts! Aber ein leerer Beutel ist ein guter Lehrer."
+        },
+        {
+          "nach_bild": 2,
+          "art": "tippen",
+          "text": "Tippe auf die Wellen: Was kostet nichts und macht trotzdem Spaß?",
+          "zeichen": "wellen",
+          "danach": "Schwimmen am Strand! Viele schöne Dinge kosten gar nichts."
+        }
+      ],
+      "spiel": {
+        "art": "choice",
+        "titel": "Der leere Beutel",
+        "beschreibung": "Hilf Tala, mit einem leeren Beutel klug umzugehen.",
+        "aufgabe": "Was ist die beste Entscheidung? Tippe auf deine Wahl.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "mia",
+                "name": "Mia",
+                "text": "Tala, ich leihe dir 5 Taler. Nächste Woche gibst du mir 10 zurück!"
+              }
+            ],
+            "frage": "Was soll Tala tun?",
+            "optionen": [
+              {
+                "text": "Nein danke sagen und lieber warten",
+                "gut": true,
+                "antwort": "Klug! Sonst hätte Tala nächste Woche 10 Taler weniger, für nur 5 Taler heute."
+              },
+              {
+                "text": "Schnell zusagen, Hauptsache Geld",
+                "gut": false,
+                "antwort": "Dann muss Tala doppelt so viel zurückgeben. Nächste Woche ist der Beutel wieder leer."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "tala",
+                "text": "Am Samstag gehen alle ins Schwimmbad. Ich habe aber kein Geld mehr."
+              }
+            ],
+            "frage": "Was kann Tala machen?",
+            "optionen": [
+              {
+                "text": "Den Freunden vorschlagen, am Strand zu schwimmen",
+                "gut": true,
+                "antwort": "Super Idee! Das kostet nichts und macht genauso viel Spaß."
+              },
+              {
+                "text": "Den anderen erzählen, sie sei krank",
+                "gut": false,
+                "antwort": "Flunkern hilft nicht. Ehrlich sagen, dass das Geld alle ist, ist völlig in Ordnung."
+              },
+              {
+                "text": "Zu Hause bleiben, ohne etwas zu sagen",
+                "gut": false,
+                "antwort": "Das muss nicht sein. Es gibt Dinge, die nichts kosten."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "kurt",
+                "name": "Kurt",
+                "text": "Neue Woche, neues Taschengeld. Was machst du jetzt anders, Tala?"
+              }
+            ],
+            "frage": "Was ist der beste Plan?",
+            "optionen": [
+              {
+                "text": "Am Montag gleich das Geld fürs Schwimmbad zur Seite legen",
+                "gut": true,
+                "antwort": "Genau! Wer zuerst plant, hat am Wochenende noch Geld."
+              },
+              {
+                "text": "Wieder alles am Montag ausgeben",
+                "gut": false,
+                "antwort": "Dann wiederholt sich die leere Woche. Ein Plan hilft."
+              },
+              {
+                "text": "Gar kein Taschengeld mehr annehmen",
+                "gut": false,
+                "antwort": "Taschengeld ist zum Üben da. Mit einem Plan klappt es."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Aus einer leeren Woche hast du mehr gelernt als aus zehn vollen. Klack, klack!"
+        }
+      },
+      "abschluss": {
+        "wer": "tala",
+        "text": "Ein leerer Beutel ist kein Weltuntergang. Nächste Woche plane ich besser!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Tala hat am Mittwoch alles ausgegeben. Was ist klug?",
+          "richtig": "Bis zum nächsten Taschengeld warten und nächstes Mal besser planen",
+          "falsch": [
+            "Sofort Geld leihen",
+            "Talos Geld nehmen"
+          ],
+          "erklaerung": "Warten ist unbequem, aber ehrlich und lehrreich."
+        },
+        {
+          "frage": "Was kannst du aus so einer Woche lernen?",
+          "richtig": "Das Geld besser über die Woche zu verteilen",
+          "falsch": [
+            "Dass Planen nichts bringt",
+            "Dass man immer leihen sollte"
+          ],
+          "erklaerung": "Fehler sind Lerngelegenheiten."
+        },
+        {
+          "frage": "Warum ist Leihen keine gute Lösung, wenn das Taschengeld alle ist?",
+          "richtig": "Man muss es zurückgeben, dann fehlt es nächste Woche.",
+          "falsch": [
+            "Weil Leihen immer verboten ist",
+            "Weil geliehenes Geld nicht echt ist"
+          ],
+          "erklaerung": "Geliehenes Geld fehlt später, oft sogar mehr."
+        },
+        {
+          "frage": "Mia will 10 Taler zurück, wenn sie 5 Taler leiht. Wie viel muss Tala mehr zurückgeben, als sie bekommt?",
+          "richtig": "5 Taler",
+          "falsch": [
+            "10 Taler",
+            "15 Taler"
+          ],
+          "erklaerung": "10 minus 5 sind 5 Taler mehr."
+        },
+        {
+          "frage": "Was kostet nichts und macht trotzdem Spaß?",
+          "richtig": "Am Strand schwimmen mit Freunden",
+          "falsch": [
+            "Ein Kinobesuch",
+            "Ein Eis am Kiosk"
+          ],
+          "erklaerung": "Viele schöne Dinge kosten gar nichts."
+        },
+        {
+          "frage": "Was macht Tala nächste Woche anders?",
+          "richtig": "Sie legt das Geld fürs Wochenende gleich am Montag zur Seite.",
+          "falsch": [
+            "Sie gibt am Montag noch mehr aus.",
+            "Sie hört auf, Taschengeld zu nehmen."
+          ],
+          "erklaerung": "Wer gleich plant, hat am Ende der Woche noch Geld."
+        },
+        {
+          "frage": "Das Taschengeld ist alle. Was ist ehrlich?",
+          "richtig": "Den Freunden sagen, dass das Geld gerade alle ist",
+          "falsch": [
+            "So tun, als sei man krank",
+            "Heimlich Geld aus der Familienkasse nehmen"
+          ],
+          "erklaerung": "Ehrlich sein ist völlig in Ordnung. Das passiert allen mal."
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Geld geschenkt bekommen",
+      "ort": "Geschenke-Grotte",
+      "lernziel": "Auch geschenktes Geld kann man aufteilen",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Post für mich! Ein Brief von Oma, und darin … 20 Taler zum Geburtstag!"
+        },
+        {
+          "wer": "tala",
+          "text": "Juhu! Ich gehe sofort zum Kiosk und kaufe …"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Moment! Auch geschenktes Geld bekommt eine Aufgabe. Komm mit in die Geschenke-Grotte."
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "kurt",
+        "frage": "Was glaubst du: Tala legt die Hälfte von Omas 20 Talern zurück. Wie viel ist das?",
+        "art": "zahl",
+        "von": 0,
+        "bis": 20,
+        "schritt": 1,
+        "start": 5,
+        "einheit": "Taler",
+        "einheit_eins": "Taler",
+        "loesung": 10,
+        "aufloesung": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "10 Taler! Die Hälfte von 20 sind 10. Dann bleiben 10 Taler zum Ausgeben, und der Wunschschatz macht einen großen Sprung."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Ein Geldgeschenk ist etwas Besonderes. Es kommt nicht jede Woche, also lohnt es sich, gut nachzudenken.",
+          "bild": "story.taschengeld-bucht.6.1"
+        },
+        {
+          "wer": "tala",
+          "text": "Ich könnte einen Teil für meine Rollschuhe zurücklegen und mir mit dem Rest etwas Schönes kaufen."
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Genau. Aufteilen macht doppelt Freude: jetzt etwas Schönes, und später der Wunschschatz.",
+          "bild": "story.taschengeld-bucht.6.2"
+        },
+        {
+          "wer": "talo",
+          "text": "Und was gehört noch zu einem Geschenk dazu?"
+        },
+        {
+          "wer": "tala",
+          "text": "Danke sagen! Ich male Oma ein Bild von unserem Schiff.",
+          "bild": "story.taschengeld-bucht.6.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Öffne Omas Brief: Tippe auf die Briefmarke.",
+          "zeichen": "stempel",
+          "danach": "20 Taler und ein Gruß von Oma: Alles Liebe zum Geburtstag!"
+        },
+        {
+          "nach_bild": 3,
+          "art": "tippen",
+          "text": "Tippe auf das Herz und schick Oma einen Dank.",
+          "zeichen": "herz",
+          "danach": "Oma freut sich über Talas Bild mehr als über alles andere."
+        }
+      ],
+      "spiel": {
+        "art": "number",
+        "titel": "Omas Geschenk aufteilen",
+        "beschreibung": "Rechne aus, wie Tala ihr Geschenk aufteilt.",
+        "aufgabe": "Tippe deine Antwort als Zahl ein.",
+        "runden": [
+          {
+            "frage": "Oma schenkt Tala 20 Taler. Tala legt 12 Taler für die Rollschuhe zurück. Wie viel ist frei zum Ausgeben?",
+            "antwort": 8,
+            "einheit": "Taler",
+            "tipp": "Rechne 20 minus 12.",
+            "erklaerung": "20 minus 12 sind 8 Taler zum Ausgeben."
+          },
+          {
+            "frage": "Die Rollschuhe kosten 40 Taler. Tala hatte schon 18 Taler zurückgelegt und legt jetzt 12 dazu. Wie viel hat sie jetzt?",
+            "antwort": 30,
+            "einheit": "Taler",
+            "tipp": "Rechne 18 plus 12.",
+            "erklaerung": "18 plus 12 sind 30 Taler. Nur noch 10 Taler bis zu den Rollschuhen!"
+          },
+          {
+            "frage": "Mit den 8 freien Talern kauft Tala ein Buch für 5 Taler. Wie viel bleibt übrig?",
+            "antwort": 3,
+            "einheit": "Taler",
+            "tipp": "Rechne 8 minus 5.",
+            "erklaerung": "8 minus 5 sind 3 Taler. Die bleiben für die Woche."
+          }
+        ],
+        "geschafft": {
+          "wer": "tala",
+          "text": "Ein Buch für jetzt, und die Rollschuhe sind fast da. Danke, Oma!"
+        }
+      },
+      "abschluss": {
+        "wer": "kurt",
+        "name": "Kurt",
+        "text": "Geschenktes Geld aufteilen und Danke sagen. Das machen nur die besten Kassenwarte!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Oma schenkt dir 20 Taler. Was ist eine gute Idee?",
+          "richtig": "Einen Teil zurücklegen und einen Teil ausgeben",
+          "falsch": [
+            "Alles sofort ausgeben, ohne nachzudenken",
+            "Das Geld irgendwo verlegen"
+          ],
+          "erklaerung": "Aufteilen macht doppelt Freude."
+        },
+        {
+          "frage": "Was gehört zu einem Geldgeschenk dazu?",
+          "richtig": "Sich bedanken",
+          "falsch": [
+            "Gleich mehr fordern",
+            "Es niemandem erzählen"
+          ],
+          "erklaerung": "Ein Danke freut den, der schenkt."
+        },
+        {
+          "frage": "Du bekommst 20 Taler und legst die Hälfte zurück. Wie viel ist das?",
+          "richtig": "10 Taler",
+          "falsch": [
+            "5 Taler",
+            "15 Taler"
+          ],
+          "erklaerung": "Die Hälfte von 20 sind 10."
+        },
+        {
+          "frage": "Warum lohnt es sich, bei einem Geldgeschenk gut nachzudenken?",
+          "richtig": "Weil es nicht jede Woche kommt",
+          "falsch": [
+            "Weil geschenktes Geld weniger wert ist",
+            "Weil man es zurückgeben muss"
+          ],
+          "erklaerung": "Ein Geschenk ist eine besondere Chance für den Wunschschatz."
+        },
+        {
+          "frage": "Tala hat 18 Taler zurückgelegt und legt 12 dazu. Wie viel hat sie jetzt?",
+          "richtig": "30 Taler",
+          "falsch": [
+            "20 Taler",
+            "6 Taler"
+          ],
+          "erklaerung": "18 plus 12 sind 30."
+        },
+        {
+          "frage": "Wie kannst du dich für ein Geldgeschenk bedanken?",
+          "richtig": "Mit einem Bild, einem Brief oder einem Anruf",
+          "falsch": [
+            "Gar nicht, Geld ist ja nur Geld",
+            "Indem du sagst, dass es zu wenig war"
+          ],
+          "erklaerung": "Ein Danke zeigt, dass du dich freust."
+        },
+        {
+          "frage": "Ist geschenktes Geld anders als Taschengeld?",
+          "richtig": "Nein, auch Geschenke kann man klug aufteilen.",
+          "falsch": [
+            "Ja, Geschenke muss man sofort ausgeben.",
+            "Ja, Geschenke darf man nie sparen."
+          ],
+          "erklaerung": "Jeder Taler kann eine Aufgabe bekommen, egal woher er kommt."
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "typ": "game",
+      "seemeilen": 100,
+      "titel": "Taschengeld verhandeln",
+      "ort": "Ratsbank",
+      "lernziel": "Mit guten Gründen fair verhandeln",
+      "dauer": "6 bis 9 Min.",
+      "szene": [
+        {
+          "wer": "tala",
+          "text": "Kurt, ich möchte mehr Taschengeld. Wie frage ich meine Eltern am besten?"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Gute Frage! Setz dich zu mir auf die Ratsbank. Hier übt man, wie man fair verhandelt."
+        },
+        {
+          "wer": "talo",
+          "text": "Ich spiele deine Eltern. Los geht es!"
+        }
+      ],
+      "schaetzfrage": {
+        "wer": "kurt",
+        "frage": "Was glaubst du: Was überzeugt Eltern am meisten?",
+        "art": "auswahl",
+        "optionen": [
+          "Quengeln, bis sie Ja sagen",
+          "Ruhig fragen und zeigen, dass man gut mit Geld umgeht",
+          "Sagen, dass alle anderen mehr bekommen"
+        ],
+        "loesung": 1,
+        "aufloesung": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Ruhig fragen und zeigen, dass du planen kannst! Mit dem Logbuch hast du dafür den besten Beweis."
+        }
+      },
+      "erklaerung": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Such dir einen ruhigen Moment aus. Nicht, wenn alle in Eile sind oder schlechte Laune haben.",
+          "bild": "story.taschengeld-bucht.7.1"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Dann erklärst du, warum du mehr brauchst. Zeig dein Logbuch: So sehen deine Eltern, dass du gut planst.",
+          "bild": "story.taschengeld-bucht.7.2"
+        },
+        {
+          "wer": "tala",
+          "text": "Und ich kann anbieten, mehr selbst zu bezahlen. Meine Hefte zum Beispiel."
+        },
+        {
+          "wer": "talo",
+          "text": "Und wenn die Antwort Nein ist?"
+        },
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Dann akzeptierst du das freundlich und fragst, wann ihr noch einmal darüber sprechen könnt. Hier ist mein Kartenstück, ihr habt es euch verdient!",
+          "bild": "story.taschengeld-bucht.7.3"
+        }
+      ],
+      "antippen": [
+        {
+          "nach_bild": 1,
+          "art": "tippen",
+          "text": "Tippe auf die Sonne: Ein ruhiger Moment ist der beste.",
+          "zeichen": "sonne",
+          "danach": "Nach dem Abendessen, wenn alle entspannt sind. Perfekt!"
+        },
+        {
+          "nach_bild": 2,
+          "art": "ziehen",
+          "text": "Zieh das Logbuch auf den Tisch und zeig es den Eltern.",
+          "zeichen": "buch",
+          "danach": "Die Eltern staunen: Tala schreibt wirklich alles auf!"
+        }
+      ],
+      "spiel": {
+        "art": "choice",
+        "titel": "Auf der Ratsbank",
+        "beschreibung": "Übe ein faires Gespräch über Taschengeld.",
+        "aufgabe": "Was sagt Tala am besten? Tippe auf deine Wahl.",
+        "runden": [
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Ich bin jetzt Papa. Ich komme gerade gestresst von der Arbeit nach Hause."
+              }
+            ],
+            "frage": "Wann fragt Tala am besten?",
+            "optionen": [
+              {
+                "text": "Später, wenn Papa sich ausgeruht hat",
+                "gut": true,
+                "antwort": "Genau. In einem ruhigen Moment hört man besser zu."
+              },
+              {
+                "text": "Sofort an der Tür",
+                "gut": false,
+                "antwort": "Wer gestresst ist, sagt schneller Nein. Lieber warten."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Warum möchtest du denn mehr Taschengeld, Tala?"
+              }
+            ],
+            "frage": "Was antwortet Tala?",
+            "optionen": [
+              {
+                "text": "Ich schreibe alles auf. Hier, mein Logbuch. Das Geld reicht nicht für die Busfahrten.",
+                "gut": true,
+                "antwort": "Stark! Mit Logbuch und einem echten Grund überzeugt Tala."
+              },
+              {
+                "text": "Weil alle anderen mehr bekommen!",
+                "gut": false,
+                "antwort": "Vergleichen überzeugt selten. Jede Familie macht es anders."
+              },
+              {
+                "text": "Einfach so. Ich will mehr!",
+                "gut": false,
+                "antwort": "Ohne Grund ist es schwer, Ja zu sagen."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Hm. Was würdest du denn dafür übernehmen?"
+              }
+            ],
+            "frage": "Was bietet Tala an?",
+            "optionen": [
+              {
+                "text": "Ich bezahle meine Hefte und die Busfahrten selbst.",
+                "gut": true,
+                "antwort": "Fair! Mehr Geld kann mehr Verantwortung bedeuten."
+              },
+              {
+                "text": "Dann helfe ich nie wieder im Haushalt.",
+                "gut": false,
+                "antwort": "Das ist kein faires Angebot. Mithelfen gehört zur Familie."
+              },
+              {
+                "text": "Gar nichts. Ich will einfach mehr Geld.",
+                "gut": false,
+                "antwort": "Ein Angebot zeigt, dass du es ernst meinst."
+              }
+            ]
+          },
+          {
+            "szene": [
+              {
+                "wer": "talo",
+                "text": "Ich überlege es mir. Diese Woche bleibt es aber noch, wie es ist."
+              }
+            ],
+            "frage": "Wie reagiert Tala?",
+            "optionen": [
+              {
+                "text": "Okay! Können wir nächste Woche noch einmal darüber reden?",
+                "gut": true,
+                "antwort": "Prima. Freundlich bleiben und dranbleiben, so verhandeln Profis."
+              },
+              {
+                "text": "Die Tür knallen",
+                "gut": false,
+                "antwort": "Damit wird es beim nächsten Mal nur schwerer."
+              }
+            ]
+          }
+        ],
+        "geschafft": {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "So verhandelt ein Kassenwart: ruhig, ehrlich, mit Beweisen. Klack, klack!"
+        }
+      },
+      "abschluss": {
+        "wer": "kurt",
+        "name": "Kurt",
+        "text": "Hier ist das Kartenstück aus meinem Logbuch. Gleich kommt noch die Abschlussprüfung!"
+      },
+      "quiz_anzahl": 3,
+      "fragen": [
+        {
+          "frage": "Wie bittest du deine Eltern am besten um mehr Taschengeld?",
+          "richtig": "Ruhig fragen und erklären, wofür du es brauchst",
+          "falsch": [
+            "Quengeln, bis sie Ja sagen",
+            "Schimpfen und vergleichen"
+          ],
+          "erklaerung": "Gute Gründe überzeugen mehr als Druck."
+        },
+        {
+          "frage": "Was macht deine Bitte überzeugender?",
+          "richtig": "Zeigen, dass du gut mit Geld umgehst, zum Beispiel mit deinem Logbuch",
+          "falsch": [
+            "Laut werden",
+            "Die Tür knallen"
+          ],
+          "erklaerung": "Wer zeigt, dass er planen kann, bekommt eher mehr Verantwortung."
+        },
+        {
+          "frage": "Was ist eine faire Gegenleistung für mehr Taschengeld?",
+          "richtig": "Mehr Dinge selbst bezahlen, zum Beispiel Hefte",
+          "falsch": [
+            "Weniger im Haushalt helfen",
+            "Nichts"
+          ],
+          "erklaerung": "Mehr Geld kann mehr Verantwortung bedeuten."
+        },
+        {
+          "frage": "Wann fragst du am besten?",
+          "richtig": "In einem ruhigen Moment",
+          "falsch": [
+            "Wenn alle in Eile sind",
+            "Mitten in einem Streit"
+          ],
+          "erklaerung": "In Ruhe hört man besser zu."
+        },
+        {
+          "frage": "Die Eltern sagen erst einmal Nein. Was ist klug?",
+          "richtig": "Freundlich bleiben und fragen, wann ihr noch einmal sprecht",
+          "falsch": [
+            "Beleidigt sein und schmollen",
+            "Heimlich Geld nehmen"
+          ],
+          "erklaerung": "Wer freundlich dranbleibt, hat beim nächsten Mal bessere Chancen."
+        },
+        {
+          "frage": "Warum ist „Alle anderen bekommen mehr“ ein schwacher Grund?",
+          "richtig": "Weil jede Familie andere Regeln hat",
+          "falsch": [
+            "Weil es immer gelogen ist",
+            "Weil Eltern andere Kinder nicht kennen"
+          ],
+          "erklaerung": "Vergleiche überzeugen selten. Eigene Gründe schon."
+        },
+        {
+          "frage": "Tala zahlt ab jetzt ihre Hefte selbst und bekommt dafür mehr Taschengeld. Was hat sie gelernt?",
+          "richtig": "Mehr Geld bringt auch mehr Verantwortung.",
+          "falsch": [
+            "Mehr Geld heißt, man muss nie mehr planen.",
+            "Hefte sind jetzt kostenlos."
+          ],
+          "erklaerung": "Mit mehr Geld muss man auch mehr selbst einteilen."
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "typ": "exam",
+      "seemeilen": 150,
+      "titel": "Abschlussprüfung",
+      "ort": "Kurts Rechenstube",
+      "lernziel": "Alles aus der Taschengeld-Bucht wiederholen, dazu zwei Fragen von früheren Inseln",
+      "dauer": "8 bis 10 Min.",
+      "szene": [
+        {
+          "wer": "kurt",
+          "name": "Kurt",
+          "text": "Die letzte Prüfung in der Bucht! Ab 8 richtigen Antworten trage ich euch als Kassenwarte in mein Logbuch ein."
+        },
+        {
+          "wer": "tala",
+          "text": "Diesmal weiß ich genau, wo jeder Taler ist. Los geht es!"
+        }
+      ],
+      "abschluss": {
+        "wer": "kurt",
+        "name": "Kurt",
+        "text": "Bestanden! Ihr seid jetzt Kassenwarte der Bucht. Das Kartenstück gehört euch. Gute Fahrt!"
+      },
+      "pruefung": {
+        "anzahl": 8,
+        "rueckblick": 2,
+        "bestehen": 8
+      },
+      "fragen": [
+        {
+          "frage": "Wer entscheidet, wie viel Taschengeld ein Kind bekommt?",
+          "richtig": "Die Eltern",
+          "falsch": [
+            "Die Schule",
+            "Der Bürgermeister"
+          ],
+          "erklaerung": "Es gibt Empfehlungen, aber jede Familie entscheidet selbst.",
+          "station": 1
+        },
+        {
+          "frage": "Warum hilft es wenig, sich mit dem Taschengeld anderer zu vergleichen?",
+          "richtig": "Jede Familie hat andere Regeln.",
+          "falsch": [
+            "Weil andere immer flunkern",
+            "Weil Taschengeld geheim ist"
+          ],
+          "erklaerung": "In manchen Familien bezahlen Kinder mehr selbst, in anderen weniger.",
+          "station": 1
+        },
+        {
+          "frage": "Warum ist regelmäßiges Taschengeld gut zum Üben?",
+          "richtig": "Man lernt, mit einer festen Summe auszukommen.",
+          "falsch": [
+            "Weil es immer mehr wird",
+            "Weil man dann nie sparen muss"
+          ],
+          "erklaerung": "Eine feste Summe ist ideal zum Planen.",
+          "station": 1
+        },
+        {
+          "frage": "Wofür ist das freie Geld in deiner Schatztruhe da?",
+          "richtig": "Für Dinge, die ich bald ausgeben will",
+          "falsch": [
+            "Nur für Notfälle in zehn Jahren",
+            "Für nichts, es bleibt liegen"
+          ],
+          "erklaerung": "Das freie Geld ist zum Ausgeben gedacht.",
+          "station": 2
+        },
+        {
+          "frage": "Wofür legst du Geld in der Schatztruhe zurück?",
+          "richtig": "Für einen Wunschschatz",
+          "falsch": [
+            "Für das Eis von heute",
+            "Um es morgen wieder auszugeben"
+          ],
+          "erklaerung": "Zurückgelegtes Geld ist für ein Ziel da.",
+          "station": 2
+        },
+        {
+          "frage": "Du bekommst 10 Taler: 5 frei zum Ausgeben, 3 für deinen Wunschschatz, den Rest für ein Geschenk. Wie viel ist für das Geschenk?",
+          "richtig": "2 Taler",
+          "falsch": [
+            "3 Taler",
+            "5 Taler"
+          ],
+          "erklaerung": "10 minus 5 minus 3 sind 2.",
+          "station": 2
+        },
+        {
+          "frage": "Was sind Einnahmen?",
+          "richtig": "Geld, das man bekommt",
+          "falsch": [
+            "Geld, das man ausgibt",
+            "Ein Spiel"
+          ],
+          "erklaerung": "Taschengeld und Geschenke sind Einnahmen.",
+          "station": 3
+        },
+        {
+          "frage": "Was sind Ausgaben?",
+          "richtig": "Geld, das man ausgibt",
+          "falsch": [
+            "Geld, das man bekommt",
+            "Der Ausgang am Schiff"
+          ],
+          "erklaerung": "Alles, was man bezahlt, sind Ausgaben.",
+          "station": 3
+        },
+        {
+          "frage": "Warum schreibt man Ausgaben auf?",
+          "richtig": "Damit man sieht, wohin das Geld geht",
+          "falsch": [
+            "Damit das Geld mehr wird",
+            "Weil Kinder das müssen"
+          ],
+          "erklaerung": "Das Logbuch zeigt, wofür man am meisten ausgibt.",
+          "station": 3
+        },
+        {
+          "frage": "Was ist ein Budget?",
+          "richtig": "Ein Plan, wie viel Geld man wofür ausgibt",
+          "falsch": [
+            "Ein Vogel",
+            "Eine Bank"
+          ],
+          "erklaerung": "Mit einem Budget bestimmt man vorher, wohin das Geld geht.",
+          "station": 4
+        },
+        {
+          "frage": "Du hast 8 Taler. Kino kostet 6, ein Snack 3. Was passt?",
+          "richtig": "Nur eins von beiden oder ein günstigerer Snack",
+          "falsch": [
+            "Beides geht schon",
+            "Gar nicht planen"
+          ],
+          "erklaerung": "6 plus 3 sind 9, das ist mehr als 8.",
+          "station": 4
+        },
+        {
+          "frage": "Du willst ein Spiel für 15 Taler und bekommst 5 pro Woche. Wie lange dauert es, wenn du alles sparst?",
+          "richtig": "3 Wochen",
+          "falsch": [
+            "5 Wochen",
+            "15 Wochen"
+          ],
+          "erklaerung": "15 geteilt durch 5 sind 3.",
+          "station": 4
+        },
+        {
+          "frage": "Tala hat am Mittwoch alles ausgegeben. Was ist klug?",
+          "richtig": "Bis zum nächsten Taschengeld warten und nächstes Mal besser planen",
+          "falsch": [
+            "Sofort Geld leihen",
+            "Talos Geld nehmen"
+          ],
+          "erklaerung": "Warten ist unbequem, aber ehrlich und lehrreich.",
+          "station": 5
+        },
+        {
+          "frage": "Was kannst du aus so einer Woche lernen?",
+          "richtig": "Das Geld besser über die Woche zu verteilen",
+          "falsch": [
+            "Dass Planen nichts bringt",
+            "Dass man immer leihen sollte"
+          ],
+          "erklaerung": "Fehler sind Lerngelegenheiten.",
+          "station": 5
+        },
+        {
+          "frage": "Oma schenkt dir 20 Taler. Was ist eine gute Idee?",
+          "richtig": "Einen Teil zurücklegen und einen Teil ausgeben",
+          "falsch": [
+            "Alles sofort ausgeben, ohne nachzudenken",
+            "Das Geld verlegen"
+          ],
+          "erklaerung": "Aufteilen macht doppelt Freude.",
+          "station": 6
+        },
+        {
+          "frage": "Was gehört zu einem Geldgeschenk dazu?",
+          "richtig": "Sich bedanken",
+          "falsch": [
+            "Gleich mehr fordern",
+            "Es niemandem erzählen"
+          ],
+          "erklaerung": "Ein Danke freut den, der schenkt.",
+          "station": 6
+        },
+        {
+          "frage": "Wie bittest du deine Eltern am besten um mehr Taschengeld?",
+          "richtig": "Ruhig fragen und erklären, wofür du es brauchst",
+          "falsch": [
+            "Quengeln, bis sie Ja sagen",
+            "Schimpfen und vergleichen"
+          ],
+          "erklaerung": "Gute Gründe überzeugen mehr als Druck.",
+          "station": 7
+        },
+        {
+          "frage": "Was macht deine Bitte überzeugender?",
+          "richtig": "Zeigen, dass du gut mit Geld umgehst, zum Beispiel mit deinem Logbuch",
+          "falsch": [
+            "Laut werden",
+            "Die Tür knallen"
+          ],
+          "erklaerung": "Wer zeigt, dass er planen kann, bekommt eher mehr Verantwortung.",
+          "station": 7
+        },
+        {
+          "frage": "Was ist eine faire Gegenleistung für mehr Taschengeld?",
+          "richtig": "Mehr Dinge selbst bezahlen, zum Beispiel Snacks",
+          "falsch": [
+            "Weniger mithelfen",
+            "Nichts"
+          ],
+          "erklaerung": "Mehr Geld kann mehr Verantwortung bedeuten.",
+          "station": 7
+        },
+        {
+          "frage": "Kurt schreibt einen Monat lang alles auf. Was sieht er danach?",
+          "richtig": "Wofür er am meisten ausgibt",
+          "falsch": [
+            "Dass Geld von selbst wächst",
+            "Nichts Besonderes"
+          ],
+          "erklaerung": "Aufschreiben deckt versteckte Ausgaben auf.",
+          "station": 3
+        }
+      ]
+    }
+  ]
 }

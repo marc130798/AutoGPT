@@ -440,7 +440,7 @@ Taleron zeigt sich zum ersten Mal ganz: Er taucht neben dem Schiff auf, stellt s
 4. Tala zuckt mit den Schultern. Talo seufzt.
 5. Kurt öffnet sein dickes Logbuch: „Dann wird es Zeit für Ordnung.“
 
-> **Hinweis (29.10.2026):** Die App hat seit Marcs Entscheidung nur noch **eine Schatztruhe** mit freiem Geld und Geld, das für Wunschschätze zurückgelegt ist. Bordkasse und Glückstruhe gibt es dort nicht mehr. Bevor diese Insel gebaut wird, Station 2 („Die drei Truhen“), die Fragen G4 bis G6 und den Auftrag „Erster Lohn“ an die eine Schatztruhe anpassen (zum Beispiel: Geld einteilen in frei und zurückgelegt, Verschenken als eigene Idee). Das gilt auch für die Glückstruhe in der Station „Glücksbrunnen“ und Frage U10 weiter unten.
+> **Gebaut am 17.11.2026 (Entwurf, `content/stufe1/05-taschengeld-bucht.json`):** Station 2 heißt jetzt „Geld bekommt eine Aufgabe“ (frei zum Ausgeben oder für einen Wunschschatz zurücklegen, wie in der einen Schatztruhe der App), G4 bis G6 sind daran angepasst. Station 1 nennt keine Beträge (Marcs Wahl), nur dass es Empfehlungen gibt, zum Beispiel vom Jugendamt. Orte mit Alltagswörtern („Kurts Rechenstube“). Figuren: Mia (Möwe, Kiosk), Kurt (Krebs, Buchhalter). Stopps auf See vor der Insel: Ottis Fischerboot und „Tala hat etwas vergessen“ (Fragen zur Spar-Insel). Die Tabelle unten ist der ursprüngliche Plan.
 
 **Stationen**
 
