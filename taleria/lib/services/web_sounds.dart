@@ -41,6 +41,10 @@ class WebSounds extends Sounds {
   static const effectVolume = 0.8;
 
   final _elements = <String, web.HTMLAudioElement>{};
+  final _urls = <String, String>{};
+
+  /// Stille Datei zum Freischalten der Töne beim ersten Antippen.
+  static const silenceFile = 'assets/audio/stille.mp3';
 
   /// Wie oft jeder Ton wirklich gespielt wurde (damit das stumme Anspielen
   /// einen echten Ton nicht anhält).
@@ -57,9 +61,11 @@ class WebSounds extends Sounds {
     final entry = manifest.lookup(key);
     final path = entry.path;
     if (path == null || entry.type != AssetType.audio) return null;
+    final url = ui_web.assetManager.getAssetUrl(path);
     final audio = web.HTMLAudioElement()
-      ..src = ui_web.assetManager.getAssetUrl(path)
+      ..src = url
       ..preload = 'auto';
+    _urls[key] = audio.src;
     return _elements[key] = audio;
   }
 
@@ -78,13 +84,21 @@ class WebSounds extends Sounds {
   @override
   void startMusic(String key) {
     final audio = _element(key);
-    if (audio == null) return;
+    // Die Klangkulisse davor anhalten (Marcs Test am 17.11.2026: nach der
+    // Werft hämmerte und sägte es auf der Startseite weiter).
+    final before = _musicKey;
+    if (before != null && before != key) _elements[before]?.pause();
+    if (audio == null) {
+      _musicKey = null;
+      return;
+    }
     _musicKey = key;
     audio
       ..loop = true
-      ..volume = musicDucked ? duckedVolume : musicVolume
+      ..volume = musicVolume
       ..currentTime = 0;
-    _play(audio, music: true);
+    // Spricht gerade jemand, wartet die Kulisse, bis er fertig ist.
+    if (!musicDucked) _play(audio, music: true);
   }
 
   @override
@@ -98,7 +112,7 @@ class WebSounds extends Sounds {
   void resumeMusic() {
     final key = _musicKey;
     final audio = key == null ? null : _elements[key];
-    if (audio != null) _play(audio, music: true);
+    if (audio != null && !musicDucked) _play(audio, music: true);
   }
 
   @override
@@ -109,6 +123,8 @@ class WebSounds extends Sounds {
     final audio = _element(key);
     if (audio == null) return;
     _played[key] = (_played[key] ?? 0) + 1;
+    final real = _urls[key];
+    if (real != null && audio.src != real) audio.src = real;
     audio
       ..muted = false
       ..volume = effectVolume
@@ -124,14 +140,19 @@ class WebSounds extends Sounds {
     ..addEventListener('error', ((web.Event _) => voiceFinished()).toJS);
   bool _voicePrimed = false;
 
-  /// Musik-Lautstärke, solange eine Stimme spricht.
-  static const duckedVolume = musicVolume * 0.35;
-
+  /// Solange eine Figur spricht oder ein Film läuft, ist die Kulisse ganz
+  /// aus (Marcs Wunsch am 17.11.2026; leiser stellen geht auf dem iPhone im
+  /// Browser nicht). Danach läuft sie an derselben Stelle weiter.
   @override
   void duckMusic(bool on) {
     final key = _musicKey;
     final audio = key == null ? null : _elements[key];
-    audio?.volume = on ? duckedVolume : musicVolume;
+    if (audio == null) return;
+    if (on) {
+      audio.pause();
+    } else if (playingMusic == key) {
+      _play(audio, music: true);
+    }
   }
 
   @override
@@ -153,7 +174,7 @@ class WebSounds extends Sounds {
       _voicePrimed = true;
       if (_voice.src.isEmpty) {
         _voice
-          ..src = ui_web.assetManager.getAssetUrl('${Sounds.voiceFolder}/voice.talo.tap.1.mp3')
+          ..src = ui_web.assetManager.getAssetUrl(silenceFile)
           ..muted = true;
         _voice.play().toDart.then(
           (_) {
@@ -169,30 +190,42 @@ class WebSounds extends Sounds {
         );
       }
     }
-    // Jeder Ton einmal stumm anspielen. Klappt es nicht (auf dem Handy zählt
-    // erst das Loslassen als Antippen), beim nächsten Mal wieder versuchen.
+    // Jedes Audio-Element einmal mit einer stillen Datei anspielen, danach
+    // bekommt es wieder seinen Ton. So bleibt es still, auch wenn das iPhone
+    // „stumm“ nicht beachtet (Marcs Test am 17.11.2026: Werft-Geräusche auf
+    // der Startseite). Klappt es nicht (auf dem Handy zählt erst das
+    // Loslassen als Antippen), beim nächsten Mal wieder versuchen.
+    final silence = ui_web.assetManager.getAssetUrl(silenceFile);
     for (final key in effects) {
       if (_primed.contains(key) || _priming.contains(key)) continue;
       final audio = _element(key);
       if (audio == null) continue;
       _priming.add(key);
       final playedBefore = _played[key] ?? 0;
-      audio.muted = true;
+      final real = audio.src;
+      audio
+        ..muted = true
+        ..src = silence;
       audio.play().toDart.then(
         (_) {
           _priming.remove(key);
           _primed.add(key);
-          // Nur anhalten, wenn der Ton nicht inzwischen wirklich gespielt wird.
+          // Wurde der Ton inzwischen wirklich gespielt, hat er seine Datei schon.
           if ((_played[key] ?? 0) == playedBefore) {
             audio
               ..pause()
-              ..currentTime = 0;
+              ..src = real
+              ..muted = false
+              ..load();
           }
-          audio.muted = false;
         },
         onError: (Object _) {
           _priming.remove(key);
-          audio.muted = false;
+          if ((_played[key] ?? 0) == playedBefore) {
+            audio
+              ..src = real
+              ..muted = false;
+          }
         },
       );
     }

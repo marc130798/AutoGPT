@@ -70,7 +70,7 @@ def mix(length, *parts):
     return out
 
 
-def finish(samples, peak_db=-8.0):
+def finish(samples, peak_db=-13.0):
     """Leise auslaufen lassen und auf eine angenehme Lautstärke bringen."""
     fade = int(RATE * 0.05)
     samples[-fade:] *= np.linspace(1, 0, fade)
@@ -78,12 +78,12 @@ def finish(samples, peak_db=-8.0):
 
 
 def correct():
-    return finish(mix(0.9, (0, bell(1046.5, 0.8, level=0.8)), (0.11, bell(1568.0, 0.78))), peak_db=-9)
+    return finish(mix(0.9, (0, bell(1046.5, 0.8, level=0.8)), (0.11, bell(1568.0, 0.78))), peak_db=-14)
 
 
 def pearl():
     sparkle = [(0.32 + i * 0.06, bell(f, 0.45, decay=7, level=0.35)) for i, f in enumerate([2637.0, 3136.0, 3520.0])]
-    return finish(mix(1.0, (0, bubble(320, 900)), (0.13, bubble(420, 1150, level=0.8)), *sparkle), peak_db=-10)
+    return finish(mix(1.0, (0, bubble(320, 900)), (0.13, bubble(420, 1150, level=0.8)), *sparkle), peak_db=-15)
 
 
 def station_done():
@@ -106,7 +106,7 @@ def coin():
     def clink(level):
         return mix(0.22, (0, bell(2793.8, 0.22, decay=22, level=level)), (0, bell(4186.0, 0.18, decay=30, level=level * 0.5)))
 
-    return finish(mix(0.32, (0, clink(1.0)), (0.045, clink(0.45))), peak_db=-15)
+    return finish(mix(0.32, (0, clink(1.0)), (0.045, clink(0.45))), peak_db=-20)
 
 
 def save(name, samples):

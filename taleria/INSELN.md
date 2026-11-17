@@ -453,7 +453,7 @@ Taleron zeigt sich zum ersten Mal ganz: Er taucht neben dem Schiff auf, stellt s
 | 4 | Planungssteg | Mein Wochenplan | Planungs-Spiel | Mit 8 Talern durch die Woche: Kino, Snack, Sammelkarten. Das Kind plant, was geht und was nicht. | Ein Budget ist ein Plan für das eigene Geld |
 | 5 | Leerer-Beutel-Felsen | Wenn das Geld alle ist | Video + Entscheidungs-Spiel | Tala ist pleite. Möglichkeiten: warten, verzichten, beim nächsten Mal anders planen. Sofort leihen ist keine gute Lösung. | Aus einer schlechten Woche lernt man für die nächste |
 | 6 | Geschenke-Grotte | Geld geschenkt bekommen | Aufteil-Spiel | Oma schenkt 20 Euro zum Geburtstag. Das Kind teilt das Geschenk klug auf und schreibt eine Danke-Nachricht. | Auch geschenktes Geld kann man aufteilen |
-| 7 | Ratsbank | Taschengeld verhandeln | Rollenspiel | Das Kind übt ein Gespräch mit den Eltern: ruhig fragen, das Logbuch zeigen, anbieten, mehr selbst zu bezahlen. Kurt übergibt das Kartenstück. | Mit guten Gründen fair verhandeln |
+| 7 | Plauderbank (bis 17.11.2026 „Ratsbank“, Kinder kannten das Wort nicht) | Taschengeld verhandeln | Rollenspiel | Das Kind übt ein Gespräch mit den Eltern: ruhig fragen, das Logbuch zeigen, anbieten, mehr selbst zu bezahlen. Kurt übergibt das Kartenstück. | Mit guten Gründen fair verhandeln |
 
 **Tauchgänge**
 - **1** (nach Station 2): Fischschwarm sortieren (welche Ausgabe in welche Truhe). Wrack: Die Heuer eines Schiffsjungen von früher aufteilen.

@@ -16,7 +16,32 @@ import '../common/play_effect.dart';
 /// eine Fontäne, der Delfin macht einen Bogen. Es gibt nichts zu gewinnen.
 /// Seit 16.11.2026 (Marcs Wunsch) springen sie auch von selbst, jedes Tier in
 /// seinem eigenen Takt, still; nur beim Antippen gibt es einen Ton.
+/// Seit 17.11.2026 abends (Marcs Test) taucht der Wal auf, bläst und taucht
+/// wieder ab, und es gibt weniger Wale.
 enum CritterKind { fish, whale, dolphin }
+
+/// Welches Tier an Platz [index] schwimmt: meist Fische und Delfine, ein Wal
+/// höchstens an jedem fünften Platz und dort nur jedes dritte Mal.
+CritterKind critterKindAt(int seed, int index) {
+  final r = Random(seed + index).nextDouble();
+  if ((index + seed) % 5 == 0 && r < 0.34) return CritterKind.whale;
+  return r < 0.6 ? CritterKind.fish : CritterKind.dolphin;
+}
+
+/// Wie weit der Wal gerade aufgetaucht ist (0 = ganz unten, 1 = oben), aus
+/// der Zeit seines Auftritts [j]: auftauchen, eine Weile bleiben, abtauchen.
+double whaleRise(double? j) {
+  if (j == null) return 0;
+  if (j < 0.2) return Curves.easeOut.transform(j / 0.2);
+  if (j > 0.8) return Curves.easeIn.transform((1 - j) / 0.2);
+  return 1;
+}
+
+/// Die Fontäne des Wals (0 bis 1 und zurück), mitten im Auftritt.
+double whaleSpout(double? j) {
+  if (j == null || j < 0.3 || j > 0.7) return 0;
+  return sin((j - 0.3) / 0.4 * pi);
+}
 
 class SeaCritter extends StatefulWidget {
   const SeaCritter({super.key, required this.kind, required this.clock});
@@ -33,12 +58,17 @@ class SeaCritter extends StatefulWidget {
 }
 
 class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateMixin {
-  late final AnimationController _jump = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
+  late final AnimationController _jump = AnimationController(
+    vsync: this,
+    // Der Wal bleibt länger oben: auftauchen, blasen, abtauchen.
+    duration: Duration(milliseconds: widget.kind == CritterKind.whale ? 4200 : 1400),
+  );
+  Timer? _soundLater;
   Timer? _auto;
   final _random = Random();
 
   /// Wie oft das Tier von selbst springt (Sekunden).
-  static const autoEvery = {CritterKind.fish: 6, CritterKind.dolphin: 10, CritterKind.whale: 14};
+  static const autoEvery = {CritterKind.fish: 6, CritterKind.dolphin: 10, CritterKind.whale: 16};
 
   /// Höchstens alle paar Sekunden ein Geräusch von selbst, damit es nicht zu laut wird.
   static DateTime _lastSound = DateTime(2000);
@@ -65,23 +95,39 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
 
   void _autoJump() {
     if (!mounted) return;
-    if (!_jump.isAnimating) _jump.forward(from: 0);
+    // Liegt eine andere Seite über der Karte (Station, Tauchgang), schwimmt hier
+    // niemand und es ist still (Marcs Test: Delfine beim Tauchen).
+    final visible = _onScreen();
+    if (visible && !_jump.isAnimating) _jump.forward(from: 0);
     // Springt das Tier gerade sichtbar auf dem Bildschirm, hört man es (Marcs Test am 17.11.2026).
     // Wal und Delfin haben Vorrang: Die Fische springen öfter und nahmen ihnen sonst immer
     // den Platz weg (Marcs Test am 17.11.2026 abends: „Wal macht nur Geräusche beim Antippen“).
     final since = DateTime.now().difference(_SeaCritterState._lastSound).inMilliseconds;
     final loud = widget.kind != CritterKind.fish;
     final allowed = loud ? since >= 1500 : since >= 6000 && _random.nextBool();
-    if (_onScreen() && allowed) {
+    if (visible && allowed) {
       _SeaCritterState._lastSound = DateTime.now();
-      playEffect(context, _SeaCritterState.soundFor(widget.kind));
+      _sound();
     }
     // Nicht im festen Takt: mal früher, mal später.
     final base = autoEvery[widget.kind]! * 1000;
     _auto = Timer(Duration(milliseconds: (base * (0.6 + _random.nextDouble() * 0.9)).round()), _autoJump);
   }
 
+  /// Ton zum Auftritt; beim Wal erst, wenn er oben ist und bläst.
+  void _sound() {
+    if (widget.kind != CritterKind.whale) {
+      playEffect(context, _SeaCritterState.soundFor(widget.kind));
+      return;
+    }
+    _soundLater?.cancel();
+    _soundLater = Timer(Duration(milliseconds: (_jump.duration!.inMilliseconds * 0.3).round()), () {
+      if (mounted && _onScreen()) playEffect(context, AssetKeys.soundWhale);
+    });
+  }
+
   bool _onScreen() {
+    if (!(ModalRoute.of(context)?.isCurrent ?? true) || !TickerMode.valuesOf(context).enabled) return false;
     final box = context.findRenderObject();
     if (box is! RenderBox || !box.attached || !box.hasSize) return false;
     final center = box.localToGlobal(box.size.center(Offset.zero));
@@ -92,15 +138,24 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
   @override
   void dispose() {
     _auto?.cancel();
+    _soundLater?.cancel();
     _jump.dispose();
     super.dispose();
   }
 
   void _tap() {
     _SeaCritterState._lastSound = DateTime.now();
-    playEffect(context, _SeaCritterState.soundFor(widget.kind));
-    if (MediaQuery.disableAnimationsOf(context)) return;
+    if (MediaQuery.disableAnimationsOf(context)) {
+      playEffect(context, _SeaCritterState.soundFor(widget.kind));
+      return;
+    }
+    // Ist der Wal schon oben, bläst er gleich; sonst taucht er erst auf.
+    if (widget.kind == CritterKind.whale && _jump.isAnimating && whaleRise(_jump.value) == 1) {
+      playEffect(context, AssetKeys.soundWhale);
+      return;
+    }
     _jump.forward(from: 0);
+    _sound();
   }
 
   @override
@@ -154,8 +209,8 @@ extension on _SeaCritterState {
             -cos(j * pi) * 0.8,
             image,
           ),
-          // Der Wal schaut mit Kopf und Rücken aus dem Wasser; unter der Wasserlinie ist er weg.
-          CritterKind.whale => Positioned(
+          // Der Wal taucht mit Kopf und Rücken auf und wieder ab; unter der Wasserlinie ist er weg.
+          CritterKind.whale when active => Positioned(
             left: size.width * 0.14,
             top: 0,
             width: size.width * 0.72,
@@ -164,7 +219,7 @@ extension on _SeaCritterState {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Transform.translate(
-                  offset: Offset(0, 8 + osc(t, 7) * 1.5 - (active ? sin(j * pi) * 3 : 0)),
+                  offset: Offset(0, 8 + osc(t, 7) * 1.5 + (1 - whaleRise(j)) * 48 - whaleSpout(j) * 3),
                   child: SizedBox(width: size.width * 0.72, height: 46, child: image),
                 ),
               ),
@@ -272,9 +327,11 @@ class _CritterPainter extends CustomPainter {
     _splash(canvas, Offset(size.width * 0.85, water), j, 0.75, 1);
   }
 
-  /// Wal: sein Rücken schaut heraus, beim Antippen bläst er eine Fontäne.
+  /// Wal: taucht auf, bläst eine Fontäne und taucht wieder ab.
   void _whale(Canvas canvas, Size size, double water, double t, double? j) {
-    final bob = osc(t, 7) * 1.5 - (j == null ? 0 : sin(j * pi) * 3);
+    final rise = whaleRise(j);
+    if (rise == 0) return;
+    final bob = osc(t, 7) * 1.5 - whaleSpout(j) * 3 + (1 - rise) * 22;
     final back = Path()
       ..moveTo(size.width * 0.18, water)
       ..quadraticBezierTo(size.width * 0.45, water - 22 + bob, size.width * 0.82, water)
@@ -291,13 +348,14 @@ class _CritterPainter extends CustomPainter {
           ..color = Colors.white.withValues(alpha: 0.35),
       );
     }
-    if (j == null) return;
+    final blow = whaleSpout(j);
+    if (blow == 0) return;
     final spout = Offset(size.width * 0.42, water - 18 + bob);
     final drop = Paint()..color = const Color(0xFFDDF2FF);
     for (var k = 0; k < 9; k++) {
       final spread = (k - 4) / 4;
-      final lift = sin(j * pi) * (38 + 8 * (1 - spread.abs()));
-      canvas.drawCircle(spout + Offset(spread * 16 * j, -lift), 3.2 - spread.abs(), drop);
+      final lift = blow * (38 + 8 * (1 - spread.abs()));
+      canvas.drawCircle(spout + Offset(spread * 16 * blow, -lift), 3.2 - spread.abs(), drop);
     }
   }
 

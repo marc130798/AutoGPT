@@ -86,7 +86,7 @@ class AudioSounds extends Sounds {
   void stopVoiceAudio() => _try(_voice.stop);
 
   @override
-  void duckMusic(bool on) => _try(() => _music.setVolume(on ? musicVolume * 0.35 : musicVolume));
+  void duckMusic(bool on) => _try(() => _music.setVolume(on ? 0 : musicVolume));
 
   @override
   void unlock() {

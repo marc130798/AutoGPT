@@ -48,7 +48,7 @@
     "modell": "eleven_text_to_sound_v2"
   },
   "amb.underwater": {
-    "text": "Very soft calm underwater ambience for a children's game: gentle bubbles rising now and then, soft muffled water, a friendly whale song far away. Very little wind noise, no rumbling, clear and calm. No music, no voices, no speech.",
+    "text": "Very soft calm underwater ambience for a children's game: gentle bubbles rising now and then, soft muffled water, a few soft water drips and gentle sand swirling, nothing else (no animal calls, no whales, no dolphins). Very little wind noise, no rumbling, clear and calm. No music, no voices, no speech.",
     "sekunden": 30,
     "schleife": true,
     "datum": "2026-11-17",

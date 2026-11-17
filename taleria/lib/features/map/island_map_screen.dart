@@ -728,11 +728,7 @@ class _MapScene extends StatelessWidget {
           Positioned(
             left: spot.dx,
             top: spot.dy,
-            child: SeaCritter(
-              key: ValueKey('critter-$i'),
-              kind: CritterKind.values[Random(critterSeed + i).nextInt(CritterKind.values.length)],
-              clock: clock,
-            ),
+            child: SeaCritter(key: ValueKey('critter-$i'), kind: critterKindAt(critterSeed, i), clock: clock),
           ),
         if (controller.encounter != null && shipId != null && !traveling)
           if (layout.encounterSpot(

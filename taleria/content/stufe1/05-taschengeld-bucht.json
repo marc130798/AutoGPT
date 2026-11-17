@@ -1757,7 +1757,7 @@
       "typ": "game",
       "seemeilen": 100,
       "titel": "Taschengeld verhandeln",
-      "ort": "Ratsbank",
+      "ort": "Plauderbank",
       "lernziel": "Mit guten Gründen fair verhandeln",
       "dauer": "6 bis 9 Min.",
       "szene": [
@@ -1768,7 +1768,7 @@
         {
           "wer": "kurt",
           "name": "Kurt",
-          "text": "Gute Frage! Setz dich zu mir auf die Ratsbank. Hier übt man, wie man fair verhandelt."
+          "text": "Gute Frage! Setz dich zu mir auf die Plauderbank. Hier übt man, wie man fair verhandelt."
         },
         {
           "wer": "talo",
@@ -1837,7 +1837,7 @@
       ],
       "spiel": {
         "art": "choice",
-        "titel": "Auf der Ratsbank",
+        "titel": "Auf der Plauderbank",
         "beschreibung": "Übe ein faires Gespräch über Taschengeld.",
         "aufgabe": "Was sagt Tala am besten? Tippe auf deine Wahl.",
         "runden": [
