@@ -246,7 +246,7 @@ class MapLayout {
   /// Inseln: in der Mitte des Meeres, am Rand weg vom Weg. Nie auf einer Insel,
   /// einem Stopp oder auf dem, was in [avoid] liegt; passt nichts, fällt der
   /// Platz weg.
-  List<Offset> critterSpots(Size size, {List<Rect> avoid = const []}) {
+  List<Offset> critterSpots(Size size, {List<Rect> avoid = const [], Random? random}) {
     final spots = <Offset>[];
     for (var index = 1; index < route.length; index++) {
       final band = _seaBand(index);
@@ -263,15 +263,29 @@ class MapLayout {
       final left = Offset(8, y), right = Offset(max(8, width - size.width - 8), y);
       // Zuerst die Seite weiter weg vom Weg, abwechselnd oben und unten im Meer.
       final sides = routeX > width / 2 ? [left, right] : [right, left];
-      for (final candidate in [
+      final fixed = [
         ...sides,
         for (final side in sides) Offset(side.dx, index.isEven ? band.top : band.bottom - size.height),
-      ]) {
+      ];
+      // Mit Zufall: erst zufällige Plätze im Meer (nicht auf dem Weg), dann die festen als Rückfall.
+      final candidates = random == null
+          ? fixed
+          : [
+              for (var i = 0; i < 14; i++)
+                Offset(
+                  8 + random.nextDouble() * max(0.0, width - size.width - 16),
+                  band.top + random.nextDouble() * max(0.0, band.bottom - band.top - size.height),
+                ),
+              ...fixed,
+            ];
+      for (final candidate in candidates) {
         final box = candidate & size;
+        final onRoute = (box.center.dx - _routeX(index, box.center.dy)).abs() < size.width * 0.7;
+        if (random != null && onRoute && !fixed.contains(candidate)) continue;
         if (!blocked.any(box.overlaps)) {
           spots.add(candidate);
           blocked.add(box);
-          if (++placed == 3) break;
+          if (++placed == (random == null ? 3 : 2 + random.nextInt(2))) break;
         }
       }
     }

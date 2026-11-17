@@ -28,7 +28,6 @@ import '../common/scene_background.dart';
 import '../home/preview_home_screen.dart' show IntroVideoScreen;
 import '../intro/speech_bubble.dart';
 import '../map/island_map_screen.dart';
-import '../map/map_painters.dart';
 import '../progress/badges_screen.dart';
 import '../progress/collection_screen.dart';
 import '../progress/rank_ladder_screen.dart';
@@ -114,8 +113,8 @@ class _RankFormCardState extends State<_RankFormCard> {
   }
 }
 
-/// Bewegung auf dem Deck: ab und zu ein Möwenschwarm oben am Himmel und
-/// Lichtpunkte, die auf dem Meer glitzern. Steht still bei „Bewegung
+/// Bewegung auf dem Deck: ab und zu ein Möwenschwarm oben am Himmel
+/// (Glitzerpunkte seit 17.11.2026 weg, Marcs Wunsch). Steht still bei „Bewegung
 /// reduzieren“ und in Tests (`sceneMotion`).
 class _DeckLife extends StatefulWidget {
   const _DeckLife();
@@ -161,42 +160,10 @@ class _DeckLifeState extends State<_DeckLife> with SingleTickerProviderStateMixi
             height: constraints.maxHeight * 0.4,
             child: SeagullFlock(clock: _clock),
           ),
-          Positioned.fill(
-            child: CustomPaint(painter: _GlitterPainter(clock: _clock)),
-          ),
         ],
       ),
     );
   }
-}
-
-/// Lichtpunkte, die langsam auf- und abglimmen (wie Sonne auf dem Wasser).
-class _GlitterPainter extends CustomPainter {
-  _GlitterPainter({required this.clock}) : super(repaint: clock);
-
-  final Animation<double> clock;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final t = sceneSeconds(clock);
-    final rnd = Random(7);
-    for (var i = 0; i < 14; i++) {
-      final x = rnd.nextDouble() * size.width;
-      // Im oberen Teil, wo das Meer hinter dem Deck zu sehen ist.
-      final y = size.height * (0.12 + rnd.nextDouble() * 0.3);
-      final glow = max(0.0, osc(t, 10 + rnd.nextInt(8), rnd.nextDouble() * 6));
-      if (glow < 0.05) continue;
-      final r = 2.0 + 3.0 * glow;
-      final paint = Paint()..color = Colors.white.withValues(alpha: 0.75 * glow);
-      canvas.drawCircle(Offset(x, y), r * 0.45, paint);
-      canvas
-        ..drawLine(Offset(x - r * 1.6, y), Offset(x + r * 1.6, y), paint..strokeWidth = 1.4)
-        ..drawLine(Offset(x, y - r * 1.6), Offset(x, y + r * 1.6), paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(_GlitterPainter old) => false;
 }
 
 /// Holzschild mit dem Namen des Kindes, darunter sein Schiff. Die Begrüßung
@@ -1262,8 +1229,8 @@ class _RoomState extends State<_Room> {
   }
 }
 
-/// Wellen unter dem Schiff: drei Wellenlinien laufen gegeneinander, dazu
-/// Glitzer auf dem Wasser. Unten geht das Wasser in das Meer-Blau des
+/// Wellen unter dem Schiff: drei Wellenlinien laufen gegeneinander, vorn
+/// mit Schaumkrone. Unten geht das Wasser in das Meer-Blau des
 /// Hintergrunds über. Ohne Bewegung (reduziert oder in Tests) steht es still.
 class _MovingWater extends StatefulWidget {
   const _MovingWater();
@@ -1356,18 +1323,6 @@ class _WaterPainter extends CustomPainter {
       x == 0 ? crest.moveTo(x, y) : crest.lineTo(x, y);
     }
     canvas.drawPath(crest, foam);
-
-    // Glitzer: kleine helle Striche, die auf- und abblenden.
-    final glint = Paint()
-      ..strokeWidth = 1.4
-      ..strokeCap = StrokeCap.round;
-    for (var i = 0; i < 14; i++) {
-      final x = (i * 0.173 + 0.04) % 1 * w + sin(t + i) * 6;
-      final y = 18 + (i * 37 % 90).toDouble();
-      final a = (0.5 + 0.5 * sin(t * 2 + i * 1.9)) * 0.45 * (1 - y / 140).clamp(0, 1);
-      glint.color = Colors.white.withValues(alpha: a);
-      canvas.drawLine(Offset(x - 5, y), Offset(x + 5, y), glint);
-    }
   }
 
   @override

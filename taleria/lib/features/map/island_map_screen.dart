@@ -47,6 +47,8 @@ class IslandMapScreen extends StatefulWidget {
 }
 
 class _IslandMapScreenState extends State<IslandMapScreen> with TickerProviderStateMixin {
+  /// Bei jedem Öffnen der Karte liegen die Tiere woanders (Marcs Wunsch am 17.11.2026).
+  final int _critterSeed = Random().nextInt(1 << 30);
   MapController? _controller;
 
   /// Uhr für Wellen, Wolken, Flaggen (eine Minute, wiederholt sich).
@@ -414,6 +416,7 @@ extension on _IslandMapScreenState {
               child: AnimatedBuilder(
                 animation: Listenable.merge([_travel, _unlock]),
                 builder: (context, _) => _MapScene(
+                  critterSeed: _critterSeed,
                   controller: controller,
                   layout: layout,
                   clock: _clock,
@@ -515,6 +518,7 @@ class _BlockedBanner extends StatelessWidget {
 /// Alles auf der Karte: Meer, Route, Inseln, Schiff und Begegnung.
 class _MapScene extends StatelessWidget {
   const _MapScene({
+    required this.critterSeed,
     required this.controller,
     required this.layout,
     required this.clock,
@@ -532,6 +536,8 @@ class _MapScene extends StatelessWidget {
   /// Platz für Meister Taleron mit Namen (Bild 72, Name in bis zu zwei Zeilen).
   static const _encounterSize = Size(140, 124);
 
+  /// Zufall für Plätze und Art der Tiere, fest für dieses Öffnen der Karte.
+  final int critterSeed;
   final MapController controller;
   final MapLayout layout;
   final Animation<double> clock;
@@ -711,6 +717,7 @@ class _MapScene extends StatelessWidget {
             in layout
                 .critterSpots(
                   SeaCritter.size,
+                  random: Random(critterSeed),
                   avoid: [
                     if (shipPosition != null) layout.shipRect(shipPosition, shipScale),
                     if (controller.encounter != null && shipId != null)
@@ -723,7 +730,7 @@ class _MapScene extends StatelessWidget {
             top: spot.dy,
             child: SeaCritter(
               key: ValueKey('critter-$i'),
-              kind: CritterKind.values[i % CritterKind.values.length],
+              kind: CritterKind.values[Random(critterSeed + i).nextInt(CritterKind.values.length)],
               clock: clock,
             ),
           ),

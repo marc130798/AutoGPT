@@ -35,6 +35,7 @@ class SeaCritter extends StatefulWidget {
 class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateMixin {
   late final AnimationController _jump = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
   Timer? _auto;
+  final _random = Random();
 
   /// Wie oft das Tier von selbst springt (Sekunden).
   static const autoEvery = {CritterKind.fish: 6, CritterKind.dolphin: 10, CritterKind.whale: 14};
@@ -54,8 +55,8 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
     final motion = AppScope.of(context).sceneMotion && !MediaQuery.disableAnimationsOf(context);
     if (motion && _auto == null) {
       // Jedes Tier mit eigenem Versatz, damit nicht alle gleichzeitig springen.
-      final offset = Random(identityHashCode(this)).nextInt(autoEvery[widget.kind]!);
-      _auto = Timer(Duration(seconds: 2 + offset), _autoJump);
+      final offset = _random.nextInt(autoEvery[widget.kind]! * 1000);
+      _auto = Timer(Duration(milliseconds: 1500 + offset), _autoJump);
     } else if (!motion) {
       _auto?.cancel();
       _auto = null;
@@ -66,11 +67,18 @@ class _SeaCritterState extends State<SeaCritter> with SingleTickerProviderStateM
     if (!mounted) return;
     if (!_jump.isAnimating) _jump.forward(from: 0);
     // Springt das Tier gerade sichtbar auf dem Bildschirm, hört man es (Marcs Test am 17.11.2026).
-    if (_onScreen() && DateTime.now().difference(_SeaCritterState._lastSound).inSeconds >= 4) {
+    // Wal und Delfin haben Vorrang: Die Fische springen öfter und nahmen ihnen sonst immer
+    // den Platz weg (Marcs Test am 17.11.2026 abends: „Wal macht nur Geräusche beim Antippen“).
+    final since = DateTime.now().difference(_SeaCritterState._lastSound).inMilliseconds;
+    final loud = widget.kind != CritterKind.fish;
+    final allowed = loud ? since >= 1500 : since >= 6000 && _random.nextBool();
+    if (_onScreen() && allowed) {
       _SeaCritterState._lastSound = DateTime.now();
       playEffect(context, _SeaCritterState.soundFor(widget.kind));
     }
-    _auto = Timer(Duration(seconds: autoEvery[widget.kind]!), _autoJump);
+    // Nicht im festen Takt: mal früher, mal später.
+    final base = autoEvery[widget.kind]! * 1000;
+    _auto = Timer(Duration(milliseconds: (base * (0.6 + _random.nextDouble() * 0.9)).round()), _autoJump);
   }
 
   bool _onScreen() {
