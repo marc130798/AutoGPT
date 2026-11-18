@@ -73,6 +73,24 @@ Stand: 18.11.2026
 
 ---
 
+## 3b. Marke beim DPMA (Plan, Stand 18.11.2026)
+
+- **Was anmelden:** zuerst die **Wortmarke „Taleria“** (schützt den Namen in jeder Schrift und Form). Das Logo als Wort-/Bildmarke ist eine zweite, eigene Anmeldung (noch einmal 290 €), am besten später.
+- **Klassen (in der Grundgebühr sind 3 enthalten):**
+  - **9**: herunterladbare Apps und Lernsoftware
+  - **41**: Bildung, Unterricht, Lernspiele und Unterhaltung online
+  - **42**: Software als Dienst im Internet (Web-Version), Entwicklung von Software
+  - später möglich, je 100 €: **28** (Spiele, Spielzeug, Merchandise), **16** (gedruckte Logbücher, Bücher)
+- **Kosten:** 290 € online beim DPMA (bis 3 Klassen), jede weitere Klasse 100 €. Zahlen innerhalb von 3 Monaten.
+- **Vorher prüfen:** `register.dpma.de` und `tmdn.org/tmview` nach „Taleria“ und ähnlichen Namen durchsuchen. Im Zweifel Fachperson (Markenanwalt, IHK) fragen.
+- **Logo-Dateien:** `marke/taleria_logo_weiss.jpg` (für die Anmeldung) und `marke/taleria_logo_transparent.png`. Das Logo ist mit Gemini erstellt; Nutzungsbedingungen vor der Anmeldung prüfen.
+
+| Marke | Art | Klassen | angemeldet am | Aktenzeichen | Stand |
+| --- | --- | --- | --- | --- | --- |
+| Taleria | Wortmarke | 9, 41, 42 | | | offen |
+
+---
+
 ## 4. Wo liegt was im Projekt
 
 | Was | Wo |
