@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Taleria Erklärvideo</title>
+<style>
+@font-face { font-family: "Nunito"; src: url("fonts/Nunito-700.ttf"); font-weight: 700; }
+@font-face { font-family: "Nunito"; src: url("fonts/Nunito-800.ttf"); font-weight: 800; }
+@font-face { font-family: "Baloo 2"; src: url("fonts/Baloo2-800.ttf"); font-weight: 800; }
+:root {
+  --sea: #2f86a8; --sea-deep: #1f4166; --night: #10202f; --gold: #d4a62a; --gold-soft: #f6e3a6;
+  --coral: #e5675a; --cream: #fff8ea; --ink: #1c2b3a; --sky: #dff1fb; --green: #3e9b5a;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { background: #000; overflow: hidden; }
+#stage { position: relative; overflow: hidden; font-family: "Nunito", sans-serif; color: #fff; }
+.layer { position: absolute; inset: 0; }
+#sea { background: linear-gradient(180deg, #5bb6d3 0%, #2f86a8 55%, #1f4166 100%); }
+#tile { background: url("img/map.background.jpg") 0 0 / 760px auto repeat; opacity: .55; mix-blend-mode: soft-light; }
+#gloom { background: radial-gradient(ellipse at 50% 45%, rgba(40,56,72,.7), rgba(12,24,36,.95)); }
+.cloud { position: absolute; background: url("img/map.cloud.1.png") center / contain no-repeat; }
+.scene { position: absolute; inset: 0; opacity: 0; }
+.text { position: absolute; display: grid; gap: calc(var(--u) * 22px); }
+.land .text { left: 7%; top: 50%; width: 46%; transform: translateY(-50%); }
+.port .text { left: 7%; right: 7%; top: 9%; }
+.text.center { left: 8% !important; right: 8%; width: auto !important; text-align: center; justify-items: center; }
+.land .text.center { top: 50%; transform: translateY(-50%); }
+.port .text.center { top: 50%; transform: translateY(-50%); }
+h1, .big { font-family: "Baloo 2", sans-serif; font-weight: 800; line-height: 1.05; }
+h1 { font-size: calc(var(--u) * 96px); text-shadow: 0 4px 24px rgba(0,0,0,.35); }
+.port h1 { font-size: calc(var(--u) * 104px); }
+.lead { font-size: calc(var(--u) * 52px); text-shadow: 0 2px 14px rgba(0,0,0,.55); font-weight: 700; line-height: 1.25; color: #e7f4fb; }
+.big { font-size: calc(var(--u) * 230px); color: var(--gold); text-shadow: 0 6px 30px rgba(0,0,0,.35); letter-spacing: -.02em; }
+.big.coral { color: #ff8a7a; }
+.src { font-size: calc(var(--u) * 32px); color: #dbe8f1; text-shadow: 0 2px 10px rgba(0,0,0,.6); font-weight: 700; border-top: 2px solid rgba(255,255,255,.25); padding-top: calc(var(--u) * 12px); }
+.text > .chip { justify-self: start; }
+.text.center > .chip { justify-self: center; }
+.chip { display: inline-block; background: var(--gold); color: #2b1f05; font-family: "Baloo 2"; font-weight: 800; font-size: calc(var(--u) * 34px); padding: calc(var(--u) * 6px) calc(var(--u) * 22px); border-radius: 999px; }
+.vis { position: absolute; }
+.land .vis { left: 54%; right: 4%; top: 6%; bottom: 6%; }
+.port .vis { left: 4%; right: 4%; top: 44%; bottom: 5%; }
+.vis.full { left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; }
+.abs { position: absolute; }
+.phone { position: absolute; background: #10202f; border-radius: calc(var(--u) * 46px); padding: calc(var(--u) * 12px); box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+.phone img { display: block; width: 100%; border-radius: calc(var(--u) * 36px); }
+.label { position: absolute; text-align: center; font-family: "Baloo 2"; font-weight: 800; font-size: calc(var(--u) * 40px); color: #fff; text-shadow: 0 3px 12px rgba(0,0,0,.4); }
+.card { position: absolute; background: var(--cream); color: var(--ink); border-radius: calc(var(--u) * 28px); border: calc(var(--u) * 4px) solid var(--gold); box-shadow: 0 18px 50px rgba(0,0,0,.3); padding: calc(var(--u) * 26px) calc(var(--u) * 30px); display: grid; gap: calc(var(--u) * 12px); }
+.card h3 { font-family: "Baloo 2"; font-size: calc(var(--u) * 46px); line-height: 1.1; color: var(--sea-deep); }
+.card p { font-size: calc(var(--u) * 32px); font-weight: 700; color: #4a5d70; }
+.tick { display: inline-grid; place-items: center; width: calc(var(--u) * 56px); height: calc(var(--u) * 56px); border-radius: 50%; background: var(--green); color: #fff; font-weight: 800; font-size: calc(var(--u) * 34px); }
+img.fit { position: absolute; object-fit: contain; }
+.dot { position: absolute; width: calc(var(--u) * 14px); height: calc(var(--u) * 14px); border-radius: 50%; background: #fff; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="sea"></div>
+  <div class="layer" id="tile"></div>
+  <div class="layer" id="gloom"></div>
+  <div class="layer" id="clouds"></div>
+
+  <!-- 1 Hook -->
+  <div class="scene" id="s1">
+    <div class="text center"><h1 data-a="up" data-d="0.2">Wer hat dir eigentlich beigebracht, mit Geld umzugehen?</h1></div>
+  </div>
+
+  <!-- 2-4 Fakten -->
+  <div class="scene" id="s2">
+    <div class="text center">
+      <div class="big" data-count="80" data-suffix=" %" data-d="0.1">0 %</div>
+      <p class="lead" data-a="up" data-d="0.6">der jungen Menschen haben in der Schule kaum etwas über Geld gelernt.</p>
+      <p class="src" data-a="up" data-d="1.0">Quelle: Bankenverband, Jugendstudie 2024</p>
+    </div>
+  </div>
+  <div class="scene" id="s3">
+    <div class="text center">
+      <div class="big" data-a="pop" data-d="0.1"><span style="opacity:.55">58 %</span> → <span data-count="51" data-from="58" data-suffix=" %">58 %</span></div>
+      <p class="lead" data-a="up" data-d="0.6">Bargeld verschwindet. Kinder sehen kaum noch, wie Geld den Besitzer wechselt.</p>
+      <p class="src" data-a="up" data-d="1.0">Quelle: Deutsche Bundesbank, Zahlungsverhalten 2023</p>
+    </div>
+  </div>
+  <div class="scene" id="s4">
+    <div class="text center">
+      <div class="big coral" data-count="5.67" data-decimals="2" data-suffix=" Mio." data-d="0.1">0 Mio.</div>
+      <p class="lead" data-a="up" data-d="0.8">Erwachsene sind überschuldet. Besonders gefährdet: junge Menschen.</p>
+      <p class="src" data-a="up" data-d="1.2">Quelle: Creditreform, SchuldnerAtlas 2025</p>
+    </div>
+  </div>
+
+  <!-- 5 Wendepunkt -->
+  <div class="scene" id="s5">
+    <img class="fit" id="ship5" src="img/ship.crew.png" alt="">
+    <div class="text center" id="t5"><h1 data-a="up" data-d="0.9">Was wäre, wenn Kinder Geld spielerisch lernen könnten?</h1></div>
+  </div>
+
+  <!-- 6 Inselkarte -->
+  <div class="scene" id="s6">
+    <div class="text"><span class="chip" data-a="up" data-d="0.1">Die Inselkarte</span><h1 data-a="up" data-d="0.3">Von Insel zu Insel</h1><p class="lead" data-a="up" data-d="0.7">Jede Insel ist ein Thema rund ums Geld.</p></div>
+    <div class="vis" id="map6"></div>
+  </div>
+
+  <!-- 7 Lernen -->
+  <div class="scene" id="s7">
+    <div class="text"><span class="chip" data-a="up" data-d="0.1">Lernen</span><h1 data-a="up" data-d="0.3">5 bis 10 Minuten pro Station</h1><p class="lead" data-a="up" data-d="0.7">Bildergeschichten, Quiz und Spiele.</p></div>
+    <div class="vis" id="vis7">
+      <div class="phone" id="p7a"><img src="img/story.hafen.2.1.jpg" alt="" style="aspect-ratio:540/1169;object-fit:cover"></div>
+      <div class="phone" id="p7b"><img src="img/app.quiz.jpg" alt=""></div>
+      <div class="phone" id="p7c"><img src="img/app.moewenflug.jpg" alt=""></div>
+      <div class="label" id="l7a">Geschichten</div><div class="label" id="l7b">Quiz</div><div class="label" id="l7c">Spiele</div>
+    </div>
+  </div>
+
+  <!-- 8 Taschengeld -->
+  <div class="scene" id="s8">
+    <div class="text"><span class="chip" data-a="up" data-d="0.1">Taschengeld und Aufträge</span><h1 data-a="up" data-d="0.3">Verdienen und sparen</h1><p class="lead" data-a="up" data-d="0.7">Eltern vergeben Aufträge. Alles Geld ist virtuell.</p></div>
+    <div class="vis" id="vis8">
+      <div class="phone" id="p8"><img src="img/app.truhe.jpg" alt=""></div>
+      <div class="card" id="task8"><h3>Spülmaschine ausräumen</h3><p>Belohnung: 1,00 €</p><span class="tick" id="tick8">✓</span></div>
+      <img class="fit" id="chest8" src="img/icon.treasure.png" alt="">
+    </div>
+  </div>
+
+  <!-- 9 Sicherheit -->
+  <div class="scene" id="s9">
+    <div class="text"><span class="chip" data-a="up" data-d="0.1">Sicherheit</span><h1 data-a="up" data-d="0.3">Kinder können nichts kaufen</h1><p class="lead" data-a="up" data-d="0.7">Eltern haben ihren eigenen Bereich mit PIN.</p></div>
+    <div class="vis" id="vis9">
+      <div class="card" id="kid9"><h3>Kinderbereich</h3><p>Keine Preise · keine Kauf-Knöpfe · keine Links nach außen</p></div>
+      <div class="card" id="par9"><h3>Leuchtturm für Eltern</h3><p>Mit PIN geschützt · Aufträge · Lernstand</p></div>
+      <img class="fit" id="lh9" src="img/parent.lighthouse.png" alt="">
+      <img class="fit" id="talo9" src="img/character.talo.wave.png" alt="">
+    </div>
+  </div>
+
+  <!-- 10 Abschluss -->
+  <div class="scene" id="s10">
+    <img class="fit" id="talo10" src="img/character.talo.wave.png" alt="">
+    <img class="fit" id="tala10" src="img/character.tala.wave.png" alt="">
+    <div class="text center" id="t10">
+      <img id="logo10" src="img/brand.logo.png" alt="Taleria" data-a="pop" data-d="0.1">
+      <h1 data-a="up" data-d="0.9">Geld verstehen. Abenteuer erleben.</h1>
+      <span class="chip" data-a="up" data-d="1.6">Für Kinder von 8 bis 12 Jahren</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const VO = window.VO || { durs: [3.5, 5.5, 5.7, 7.8, 3.2, 8.1, 6.3, 6.3, 5.2, 7.3] };
+const params = new URLSearchParams(location.search);
+const W = +(params.get('w') || 1920), H = +(params.get('h') || 1080);
+const stage = document.getElementById('stage');
+stage.style.width = W + 'px'; stage.style.height = H + 'px';
+stage.classList.add(H > W ? 'port' : 'land');
+stage.style.setProperty('--u', Math.min(W, H) / 1080);
+const PORT = H > W, U = Math.min(W, H) / 1080;
+
+// Zeitplan: kurze Pause vor jeder Szene, nach Fakten etwas länger zum Lesen.
+const LEAD = 0.5, TAIL = [1.2, 1.8, 1.8, 2.0, 1.0, 1.2, 1.2, 1.2, 1.2, 3.5];
+const starts = []; let t0 = 0.3;
+VO.durs.forEach((d, i) => { starts.push(t0); t0 += LEAD + d + TAIL[i]; });
+const TOTAL = t0;
+window.TIMING = { starts: starts.map(s => s + LEAD), total: TOTAL };
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => 1 - Math.pow(1 - clamp(x), 3);
+const easeIO = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const $ = id => document.getElementById(id);
+function place(el, x, y, w, h) { Object.assign(el.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h === undefined ? '' : h + 'px' }); }
+function visBox(id) { const el = $(id); return { x: 0, y: 0, w: el.clientWidth, h: el.clientHeight }; }
+
+// Wolken für den Nebel
+const clouds = [];
+for (let i = 0; i < 9; i++) {
+  const c = document.createElement('div'); c.className = 'cloud';
+  const w = (0.5 + (i % 3) * 0.25) * Math.max(W, H);
+  c.style.width = w + 'px'; c.style.height = w * 0.45 + 'px';
+  $('clouds').appendChild(c);
+  clouds.push({ el: c, x: ((i * 0.37) % 1) * W - w * 0.3, y: ((i * 0.53) % 1) * H - w * 0.2, w, side: i % 2 ? 1 : -1, speed: 8 + i * 3 });
+}
+
+// Inselkarte (Szene 6)
+const islandsKeys = ['hafen', 'tauschinsel', 'wunschinsel', 'spar-insel', 'taschengeld-bucht'];
+const map6 = $('map6'); const isl = [];
+islandsKeys.forEach(k => { const im = document.createElement('img'); im.src = `img/map.island.${k}.png`; im.className = 'fit'; map6.appendChild(im); isl.push(im); });
+const ship6 = document.createElement('img'); ship6.src = 'img/ship.crew.png'; ship6.className = 'fit'; map6.appendChild(ship6);
+const lock6 = document.createElement('div'); lock6.className = 'abs'; lock6.innerHTML = '<svg viewBox="0 0 60 70" width="100%" height="100%"><rect x="6" y="30" width="48" height="36" rx="8" fill="#d4a62a" stroke="#7a5a10" stroke-width="4"/><path id="shackle" d="M16 30 V20 a14 14 0 0 1 28 0 V30" fill="none" stroke="#7a5a10" stroke-width="7"/><circle cx="30" cy="47" r="5" fill="#5c3a18"/></svg>'; map6.appendChild(lock6);
+const dots6 = []; for (let i = 0; i < 26; i++) { const d = document.createElement('div'); d.className = 'dot'; map6.appendChild(d); dots6.push(d); }
+
+// Münzen (Szene 8)
+const coins8 = []; for (let i = 0; i < 5; i++) { const c = document.createElement('img'); c.src = 'img/game.gull.coin.png'; c.className = 'fit'; $('vis8').appendChild(c); coins8.push(c); }
+
+function animateGeneric(scene, lt) {
+  scene.querySelectorAll('[data-a]').forEach(el => {
+    const p = ease((lt - (+el.dataset.d || 0)) / 0.7);
+    if (el.dataset.a === 'up') { el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 40 * U}px)`; }
+    if (el.dataset.a === 'pop') { el.style.opacity = p; el.style.transform = `scale(${0.7 + 0.3 * ease((lt - (+el.dataset.d || 0)) / 0.5)})`; }
+  });
+  scene.querySelectorAll('[data-count]').forEach(el => {
+    const to = +el.dataset.count, from = +(el.dataset.from || 0), dec = +(el.dataset.decimals || 0);
+    const p = easeIO((lt - (+el.dataset.d || 0)) / 1.6);
+    const v = from + (to - from) * p;
+    el.textContent = v.toFixed(dec).replace('.', ',') + (el.dataset.suffix || '');
+    if (el.dataset.d !== undefined) { const q = ease((lt - (+el.dataset.d)) / 0.5); el.style.opacity = q; el.style.transform = `scale(${0.8 + 0.2 * q})`; }
+  });
+}
+
+function render(t) {
+  // Hintergrund: Nebel bis zum Wendepunkt, dann klares Meer
+  const turn = starts[4] + LEAD;
+  const clear = easeIO((t - turn + 0.2) / 2.2);
+  $('gloom').style.opacity = 1 - clear;
+  $('tile').style.backgroundPosition = `${-t * 18}px ${t * 6}px`;
+  $('sea').style.filter = `saturate(${0.35 + 0.65 * clear}) brightness(${0.75 + 0.25 * clear})`;
+  clouds.forEach((c, i) => {
+    const drift = t * c.speed;
+    const away = clear * (W * 0.9) * c.side;
+    c.el.style.transform = `translate(${c.x + drift * c.side * 0.3 + away}px, ${c.y + Math.sin(t * 0.3 + i) * 12}px)`;
+    c.el.style.opacity = (0.32 + 0.12 * (i % 3) / 2) * (1 - clear);
+  });
+
+  // Szenen ein- und ausblenden
+  const scenes = [...document.querySelectorAll('.scene')];
+  scenes.forEach((sc, i) => {
+    const s = starts[i], e = i + 1 < starts.length ? starts[i + 1] : TOTAL + 1;
+    const op = clamp((t - s) / 0.5) * (i === scenes.length - 1 ? 1 : clamp((e - t) / 0.5));
+    sc.style.opacity = op;
+    sc.style.visibility = op > 0 ? 'visible' : 'hidden';
+    if (op > 0) animateGeneric(sc, t - s - LEAD * 0.5);
+  });
+
+  const L = i => t - starts[i];
+
+  // 5: Schiff segelt aus dem Nebel herein
+  {
+    const lt = L(4), sw = PORT ? W * 0.9 : W * 0.42;
+    const p = easeIO(lt / 3);
+    const x = -sw + p * ((W - sw) / 2 + sw), y = PORT ? H * 0.55 : H * 0.42;
+    place($('ship5'), x, y + Math.sin(t * 2) * 6 * U, sw, sw * 0.75);
+    $('ship5').style.transform = `rotate(${Math.sin(t * 1.6) * 2}deg)`;
+    $('t5').style.top = PORT ? '27%' : '24%';
+  }
+
+  // 6: Karte mit Route, Schiff fährt, Schloss springt auf
+  {
+    const b = visBox('map6'), lt = L(5);
+    const pts = PORT
+      ? [[.18, .78], [.62, .62], [.25, .40], [.68, .22], [.30, .04]]
+      : [[.12, .74], [.55, .66], [.25, .40], [.70, .30], [.42, .04]];
+    const iw = PORT ? b.w * 0.34 : b.w * 0.36;
+    pts.forEach(([px, py], i) => {
+      const appear = ease((lt - 0.2 - i * 0.25) / 0.6);
+      place(isl[i], b.x + px * b.w, b.y + py * b.h, iw, iw * 0.76);
+      isl[i].style.opacity = appear * (i <= 2 ? 1 : 0.55);
+      isl[i].style.filter = i > 2 ? 'grayscale(.6)' : 'none';
+      isl[i].style.transform = `scale(${0.85 + 0.15 * appear})`;
+    });
+    const C = i => [b.x + pts[i][0] * b.w + iw / 2, b.y + pts[i][1] * b.h + iw * 0.38];
+    dots6.forEach((d, k) => {
+      const seg = Math.floor(k / 6.5), f = (k % 6.5) / 6.5;
+      if (seg >= pts.length - 1) { d.style.opacity = 0; return; }
+      const [ax, ay] = C(seg), [bx, by] = C(seg + 1);
+      d.style.left = ax + (bx - ax) * f + 'px'; d.style.top = ay + (by - ay) * f + 'px';
+      d.style.opacity = ease((lt - 0.8 - k * 0.04) / 0.4) * (seg < 2 ? 1 : 0.4);
+      d.style.background = seg < 1 || (seg < 2 && lt > 4) ? '#f3c94b' : '#fff';
+    });
+    const sail = easeIO((lt - 1.6) / 2.4), sail2 = easeIO((lt - 4.6) / 2.0);
+    const [ax, ay] = C(0), [bx, by] = C(1), [cx, cy] = C(2);
+    const sx = sail2 > 0 ? bx + (cx - bx) * sail2 : ax + (bx - ax) * sail, sy = sail2 > 0 ? by + (cy - by) * sail2 : ay + (by - ay) * sail;
+    const shw = iw * 0.55;
+    place(ship6, sx - shw / 2, sy - shw * 0.65 + Math.sin(t * 2) * 4, shw, shw * 0.75);
+    ship6.style.opacity = ease((lt - 1.2) / 0.5);
+    // Schloss auf Insel 3 springt auf
+    const lw = iw * 0.2, open = ease((lt - 6.4) / 0.5);
+    place(lock6, cx - lw / 2, cy - lw * 1.2, lw, lw * 1.15);
+    lock6.style.opacity = ease((lt - 0.9) / 0.4) * (1 - ease((lt - 7.1) / 0.5));
+    lock6.style.transform = `scale(${1 + 0.25 * Math.sin(open * Math.PI)})`;
+    lock6.querySelector('#shackle').setAttribute('transform', `translate(${open * 14} ${-open * 8}) rotate(${open * 20} 44 30)`);
+  }
+
+  // 7: drei Handys kommen nacheinander
+  {
+    const b = visBox('vis7'), lt = L(6);
+    const pw = PORT ? b.w * 0.3 : b.w * 0.3, ph = pw * 1169 / 540 + 24 * U;
+    ['a', 'b', 'c'].forEach((k, i) => {
+      const p = ease((lt - 0.5 - i * 0.45) / 0.8);
+      const x = b.x + b.w * (0.03 + i * 0.335), y = b.y + (b.h - ph) / 2 + (i === 1 ? -30 * U : 30 * U);
+      place($('p7' + k), x, y + (1 - p) * 120 * U, pw);
+      $('p7' + k).style.opacity = p;
+      $('p7' + k).style.transform = `rotate(${(i - 1) * 4}deg)`;
+      place($('l7' + k), x - 20 * U, y + ph + 22 * U, pw + 40 * U);
+      $('l7' + k).style.opacity = ease((lt - 0.9 - i * 0.45) / 0.6);
+    });
+  }
+
+  // 8: Auftrag wird abgehakt, Münzen fliegen in die Truhe
+  {
+    const b = visBox('vis8'), lt = L(7);
+    const pw = b.w * (PORT ? 0.36 : 0.38);
+    place($('p8'), b.x + b.w * 0.58, b.y + b.h * 0.02, pw);
+    $('p8').style.opacity = ease((lt - 0.3) / 0.6);
+    $('p8').style.transform = `translateY(${(1 - ease((lt - 0.3) / 0.6)) * 80 * U}px) rotate(3deg)`;
+    const cw = b.w * 0.52;
+    place($('task8'), b.x + b.w * 0.02, b.y + b.h * 0.12, cw);
+    $('task8').style.opacity = ease((lt - 0.8) / 0.6);
+    $('task8').style.transform = `translateX(${(1 - ease((lt - 0.8) / 0.6)) * -80 * U}px)`;
+    const tk = ease((lt - 2.0) / 0.4);
+    $('tick8').style.transform = `scale(${tk * (1 + 0.3 * Math.sin(tk * Math.PI))})`;
+    const chw = b.w * 0.26, chx = b.x + b.w * 0.14, chy = b.y + b.h * 0.62;
+    place($('chest8'), chx, chy, chw, chw);
+    $('chest8').style.opacity = ease((lt - 1.0) / 0.5);
+    coins8.forEach((c, i) => {
+      const p = easeIO((lt - 2.4 - i * 0.22) / 0.9);
+      const sx = b.x + b.w * 0.3, sy = b.y + b.h * 0.3, ex = chx + chw * 0.3, ey = chy + chw * 0.2;
+      const cs = 70 * U;
+      place(c, sx + (ex - sx) * p, sy + (ey - sy) * p - Math.sin(p * Math.PI) * 120 * U, cs, cs);
+      c.style.opacity = p > 0 && p < 1 ? 1 : 0;
+    });
+    const bounce = coins8.some((c, i) => { const p = (lt - 2.4 - i * 0.22) / 0.9; return p > 0.95 && p < 1.15; });
+    $('chest8').style.transform = `scale(${bounce ? 1.08 : 1})`;
+  }
+
+  // 9: zwei getrennte Bereiche
+  {
+    const b = visBox('vis9'), lt = L(8);
+    const cw = PORT ? b.w * 0.62 : b.w * 0.6;
+    place($('kid9'), b.x + b.w * 0.02, b.y + b.h * 0.08, cw);
+    place($('par9'), b.x + b.w * 0.02, b.y + b.h * (PORT ? 0.5 : 0.52), cw);
+    [['kid9', 0.4], ['par9', 1.1]].forEach(([id, d]) => { const p = ease((lt - d) / 0.6); $(id).style.opacity = p; $(id).style.transform = `translateX(${(1 - p) * -60 * U}px)`; });
+    const lw = b.w * 0.3;
+    place($('lh9'), b.x + b.w * 0.68, b.y + b.h * 0.42, lw, lw * 1.4);
+    $('lh9').style.opacity = ease((lt - 1.3) / 0.6);
+    place($('talo9'), b.x + b.w * 0.68, b.y + b.h * 0.0, lw, lw * 1.2);
+    $('talo9').style.opacity = ease((lt - 0.6) / 0.6);
+  }
+
+  // 10: Abschluss
+  {
+    const lt = L(9), cw = PORT ? W * 0.36 : W * 0.18;
+    const p = ease((lt - 0.6) / 0.8);
+    place($('talo10'), PORT ? W * 0.04 : W * 0.06, H - cw * 1.3 - H * 0.04 + (1 - p) * 200 * U + Math.sin(t * 2.2) * 6 * U, cw, cw * 1.3);
+    place($('tala10'), W - cw - (PORT ? W * 0.04 : W * 0.06), H - cw * 1.3 - H * 0.04 + (1 - p) * 200 * U + Math.sin(t * 2.2 + 1.5) * 6 * U, cw, cw * 1.3);
+    $('talo10').style.opacity = $('tala10').style.opacity = p;
+    $('logo10').style.width = (PORT ? W * 0.72 : W * 0.34) + 'px';
+    $('t10').style.top = PORT ? '36%' : '42%';
+  }
+}
+window.render = render;
+render(+(params.get('t') || 0));
+</script>
+</body>
+</html>
