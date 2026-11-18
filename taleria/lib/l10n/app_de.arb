@@ -2377,6 +2377,41 @@
       }
     }
   },
+  "trialGoal": "{pass} richtige beim ersten Versuch bringen das Siegel",
+  "@trialGoal": {
+    "description": "Meister Talerons Prüfung: Ziel unter den Punkten",
+    "placeholders": {
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "trialPassedTitle": "Prüfung bestanden!",
+  "@trialPassedTitle": {
+    "description": "Meister Talerons Prüfung: Ergebnis, bestanden"
+  },
+  "trialNotPassedTitle": "Fast geschafft!",
+  "@trialNotPassedTitle": {
+    "description": "Meister Talerons Prüfung: Ergebnis, noch nicht bestanden"
+  },
+  "trialNeed": "Für das Siegel brauchst du {pass}. Meister Taleron wartet auf der Karte, du kannst es jederzeit nochmal versuchen.",
+  "@trialNeed": {
+    "description": "Meister Talerons Prüfung: noch nicht bestanden",
+    "placeholders": {
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "trialNewBadge": "Neuer Orden: {title}",
+  "@trialNewBadge": {
+    "description": "Meister Talerons Prüfung: Siegel verdient",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "encounterNoXpToday": "Seemeilen für Begegnungen gibt es einmal am Tag. Für heute hast du sie schon.",
   "@encounterNoXpToday": {
     "description": "Hinweis ohne Seemeilen"

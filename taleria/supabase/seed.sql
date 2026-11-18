@@ -2929,4 +2929,18 @@ on conflict (id) do update set
   question_count = excluded.question_count, xp_reward = excluded.xp_reward,
   after_island_id = excluded.after_island_id, content = excluded.content, status = excluded.status;
 
+-- Begegnung: Meister Talerons Prüfung, Status: entwurf
+insert into public.encounters (id, slug, type, title, asset_key, question_count, xp_reward, after_island_id, content, status)
+values (md5('taleria:encounter/taleron-siegel-a')::uuid, 'taleron-siegel-a', 'taleron_trial', 'Meister Talerons Prüfung', 'encounter.taleron', 12, 150, md5('taleria:stage1/spar-insel')::uuid, '{"first_scene":[{"speaker":"tala","text":"Talo! Das Wasser wird ganz still. Und dort, der große Schatten …"},{"speaker":"taleron","text":"Hoho! Habt keine Angst. Heute zeige ich mich euch ganz."},{"speaker":"talo","text":"Meister Taleron! So groß haben wir dich noch nie gesehen."},{"speaker":"taleron","text":"Ich muss euch etwas gestehen. Die Schatzkarte, deren Stücke ihr sucht, habe ich selbst zerrissen."},{"speaker":"tala","text":"Du? Aber warum denn?"},{"speaker":"taleron","text":"Damit nur eine kluge Crew den Schatz findet. Eine Crew, die nicht nur sucht, sondern auch lernt."},{"speaker":"taleron","text":"Vier Inseln habt ihr geschafft. Jetzt will ich sehen, ob ihr das Gelernte behalten habt. Zwölf Fragen aus allen vier Inseln."},{"speaker":"taleron","text":"Schafft ihr neun, bekommt ihr mein Siegel. Und wie immer gilt: Bei mir geht niemand unter."}],"scene":[{"speaker":"taleron","text":"Da seid ihr wieder! Zwölf Fragen aus Hafen, Tauschinsel, Wunschinsel und Spar-Insel. Neun richtige, dann gehört mein Siegel euch."}],"right":{"speaker":"taleron","text":"Hoho, richtig! Das sitzt."},"wrong":{"speaker":"taleron","text":"Nicht ganz. Hör gut zu, dann klappt es gleich."},"success":{"speaker":"taleron","text":"Ihr habt das Gelernte behalten. Nehmt mein Siegel, ihr habt es euch verdient!"},"not_passed":{"speaker":"taleron","text":"Fast! Für mein Siegel fehlt noch ein kleines Stück. Ruht euch aus und kommt wieder. Ich warte hier auf euch."},"trial":{"islands":["hafen","tauschinsel","wunschinsel","spar-insel"],"pass":9,"badge":"taleron-siegel-a"}}'::jsonb, 'draft')
+on conflict (id) do update set
+  type = excluded.type, title = excluded.title, asset_key = excluded.asset_key,
+  question_count = excluded.question_count, xp_reward = excluded.xp_reward,
+  after_island_id = excluded.after_island_id, content = excluded.content, status = excluded.status;
+
+insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)
+values (md5('taleria:badge/taleron-siegel-a')::uuid, 'taleron-siegel-a', 'taleron', null, 'Taleron-Siegel A', 'badge.taleron.a', 100, 'draft')
+on conflict (id) do update set
+  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order,
+  status = excluded.status;
+
 commit;

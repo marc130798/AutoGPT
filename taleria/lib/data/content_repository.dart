@@ -56,6 +56,17 @@ abstract interface class ProgressRepository {
   /// Eltern: Lernstand pro Thema aus dem Wiederholungsplan.
   Future<List<TopicLearning>> fetchLearningStatus(String childId);
 
+  /// Meister Talerons Prüfung, die gerade wartet (nach einer Inselgruppe, bis
+  /// das Siegel verdient ist), sonst `null`.
+  Future<EncounterOffer?> taleronTrial(String childId);
+
+  /// Prüfung abgeben; [answers]: die erste Antwort je Frage.
+  Future<EncounterResult> submitTaleronTrial({
+    required String childId,
+    required String encounterId,
+    required List<({String questionId, int answerIndex})> answers,
+  });
+
   /// [answers]: die erste Antwort je Frage.
   Future<EncounterResult> submitEncounter({
     required String childId,
@@ -318,6 +329,25 @@ class SupabaseProgressRepository implements ProgressRepository {
         else
           CollectibleInfo.fromJson(r),
     ];
+  });
+
+  @override
+  Future<EncounterOffer?> taleronTrial(String childId) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>?>('taleron_trial', params: {'p_child_id': childId});
+    return result == null ? null : EncounterOffer.fromJson(result);
+  });
+
+  @override
+  Future<EncounterResult> submitTaleronTrial({
+    required String childId,
+    required String encounterId,
+    required List<({String questionId, int answerIndex})> answers,
+  }) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>>(
+      'submit_taleron_trial',
+      params: {'p_child_id': childId, 'p_encounter_id': encounterId, 'p_answers': _answers(answers)},
+    );
+    return EncounterResult.fromJson(result);
   });
 
   @override

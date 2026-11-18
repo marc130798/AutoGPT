@@ -447,6 +447,45 @@ class FakeProgress implements ProgressRepository {
     );
   }
 
+  /// Meister Talerons Prüfung, die gerade wartet (Tests setzen sie selbst).
+  EncounterOffer? trialOffer;
+
+  /// Abgegebene Prüfungen.
+  int trialRuns = 0;
+
+  @override
+  Future<EncounterOffer?> taleronTrial(String childId) async {
+    _check();
+    return trialOffer;
+  }
+
+  @override
+  Future<EncounterResult> submitTaleronTrial({
+    required String childId,
+    required String encounterId,
+    required List<({String questionId, int answerIndex})> answers,
+  }) async {
+    _check();
+    final offer = trialOffer!;
+    final all = content.allQuestions;
+    final correct = answers
+        .where((a) => all.firstWhere((q) => q.id == a.questionId).correctIndex == a.answerIndex)
+        .length;
+    trialRuns++;
+    final passed = correct >= offer.trial!.pass;
+    final xp = passed ? offer.encounter.xpReward : 0;
+    extraXp += xp;
+    if (passed) trialOffer = null;
+    return EncounterResult(
+      correct: correct,
+      total: answers.length,
+      xpAwarded: xp,
+      streakWeeks: streakWeeks,
+      passed: passed,
+      badge: passed ? offer.trial!.badge : null,
+    );
+  }
+
   @override
   Future<EncounterResult> submitEncounter({
     required String childId,

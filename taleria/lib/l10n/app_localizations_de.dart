@@ -1725,6 +1725,27 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String trialGoal(int pass) {
+    return '$pass richtige beim ersten Versuch bringen das Siegel';
+  }
+
+  @override
+  String get trialPassedTitle => 'Prüfung bestanden!';
+
+  @override
+  String get trialNotPassedTitle => 'Fast geschafft!';
+
+  @override
+  String trialNeed(int pass) {
+    return 'Für das Siegel brauchst du $pass. Meister Taleron wartet auf der Karte, du kannst es jederzeit nochmal versuchen.';
+  }
+
+  @override
+  String trialNewBadge(String title) {
+    return 'Neuer Orden: $title';
+  }
+
+  @override
   String get encounterNoXpToday => 'Seemeilen für Begegnungen gibt es einmal am Tag. Für heute hast du sie schon.';
 
   @override

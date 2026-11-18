@@ -162,3 +162,80 @@ select test_helpers.expect_true(
    from (select public.next_encounter('c5000000-0000-0000-0000-000000000001') e) x),
   'Seed: erste Begegnung mit Meister Taleron');
 select test_helpers.logout();
+
+-- Meister Talerons Prüfung (Siegel A) nach der Spar-Insel (18.11.2026).
+select test_helpers.logout();
+insert into public.children (id, parent_id, nickname, birth_year)
+select 'c5000000-0000-0000-0000-000000000002', p.id, 'Siegel', 2015 from public.parents p;
+insert into auth.users (id, is_anonymous) values ('d5000000-0000-0000-0000-000000000002', true);
+insert into public.child_devices (user_id, child_id)
+values ('d5000000-0000-0000-0000-000000000002', 'c5000000-0000-0000-0000-000000000002');
+-- Inseln 1 bis 3 fertig: noch keine Prüfung.
+insert into public.station_progress (child_id, station_id, status, completed_at)
+select 'c5000000-0000-0000-0000-000000000002', s.id, 'done', now()
+from public.stations s join public.islands i on i.id = s.island_id
+where i.slug in ('hafen', 'tauschinsel', 'wunschinsel', 'spar-insel');
+insert into public.island_completions (child_id, island_id)
+select 'c5000000-0000-0000-0000-000000000002', i.id from public.islands i
+where i.slug in ('hafen', 'tauschinsel', 'wunschinsel');
+
+select test_helpers.login('d5000000-0000-0000-0000-000000000002', 'aal1', true);
+select test_helpers.expect_true(public.taleron_trial('c5000000-0000-0000-0000-000000000002') is null,
+  'Prüfung: vor dem Abschluss der Spar-Insel wartet sie nicht');
+select test_helpers.logout();
+insert into public.island_completions (child_id, island_id)
+select 'c5000000-0000-0000-0000-000000000002', i.id from public.islands i where i.slug = 'spar-insel';
+
+select test_helpers.login('d5000000-0000-0000-0000-000000000002', 'aal1', true);
+create temp table trial_offer as
+select public.taleron_trial('c5000000-0000-0000-0000-000000000002') as o;
+select test_helpers.expect_equal((select jsonb_array_length(o -> 'question_ids') from trial_offer), 12,
+  'Prüfung: 12 Fragen');
+select test_helpers.expect_true(
+  (select bool_and(n = 3) from (
+     select count(*) n from trial_offer, jsonb_array_elements_text(o -> 'question_ids') q
+     join public.quiz_questions qq on qq.id = q::uuid
+     join public.stations s on s.id = qq.station_id
+     join public.islands i on i.id = s.island_id
+     group by i.slug) x)
+  and (select count(distinct q) from trial_offer, jsonb_array_elements_text(o -> 'question_ids') q) = 12,
+  'Prüfung: je 3 verschiedene Fragen aus Hafen, Tauschinsel, Wunschinsel und Spar-Insel');
+select test_helpers.expect_equal((select (o #>> '{trial,pass}')::int from trial_offer), 9, 'Prüfung: bestanden ab 9');
+select test_helpers.expect_true(
+  (select o #>> '{trial,badge,slug}' = 'taleron-siegel-a' from trial_offer), 'Prüfung: Siegel A als Orden');
+
+-- 8 richtig: nicht bestanden, kein Orden, Prüfung bleibt.
+create temp table trial_fail as
+select public.submit_taleron_trial('c5000000-0000-0000-0000-000000000002', (o #>> '{encounter,id}')::uuid,
+  (select jsonb_agg(jsonb_build_object('question_id', q.id,
+     'answer_index', case when x.n <= 8 then q.correct_index else (q.correct_index + 1) % 3 end))
+   from trial_offer, jsonb_array_elements_text(o -> 'question_ids') with ordinality x(id, n)
+   join public.quiz_questions q on q.id = x.id::uuid)) as r
+from trial_offer;
+select test_helpers.expect_true((select not (r ->> 'passed')::boolean and r -> 'badge' = 'null'::jsonb
+  and (r ->> 'xp_awarded')::int = 0 from trial_fail), 'Prüfung: 8 von 12 reichen nicht, kein Orden');
+select test_helpers.expect_true(public.taleron_trial('c5000000-0000-0000-0000-000000000002') is not null,
+  'Prüfung: Taleron wartet weiter');
+
+-- Alle richtig: Siegel und 150 Seemeilen, danach keine Prüfung mehr.
+create temp table trial_pass as
+select public.submit_taleron_trial('c5000000-0000-0000-0000-000000000002', (o #>> '{encounter,id}')::uuid,
+  (select jsonb_agg(jsonb_build_object('question_id', q.id, 'answer_index', q.correct_index))
+   from trial_offer, jsonb_array_elements_text(o -> 'question_ids') x(id)
+   join public.quiz_questions q on q.id = x.id::uuid)) as r
+from trial_offer;
+select test_helpers.expect_true((select (r ->> 'passed')::boolean and r #>> '{badge,slug}' = 'taleron-siegel-a'
+  and (r ->> 'xp_awarded')::int = 150 from trial_pass), 'Prüfung: bestanden, Siegel A und 150 Seemeilen');
+select test_helpers.expect_true(public.taleron_trial('c5000000-0000-0000-0000-000000000002') is null,
+  'Prüfung: mit Siegel wartet sie nicht mehr');
+select test_helpers.expect_error(
+  $$select public.submit_taleron_trial('c5000000-0000-0000-0000-000000000002',
+    (select (o #>> '{encounter,id}')::uuid from trial_offer),
+    (select jsonb_agg(jsonb_build_object('question_id', q.id, 'answer_index', 0))
+     from (select q.id from public.quiz_questions q join public.stations s on s.id = q.station_id
+           join public.islands i on i.id = s.island_id where i.slug = 'taschengeld-bucht' limit 12) q))$$,
+  'gehört nicht zur Prüfung', 'Prüfung: nur Fragen der vier Inseln');
+select test_helpers.expect_true(
+  coalesce(public.next_encounter('c5000000-0000-0000-0000-000000000002', true) #>> '{encounter,type}', '') <> 'taleron_trial',
+  'Prüfung: Kontrollfahrten liefern nie die Prüfung');
+select test_helpers.logout();

@@ -1677,7 +1677,31 @@ List<String> validateTap(Map<String, dynamic> t, String w, {required int slides,
 // -----------------------------------------------------------------------------
 
 /// Arten von Begegnungen wie in der Datenbank (encounters.type).
-const encounterTypes = {'taleron', 'haendlerschiff', 'fischerboot', 'angeberschiff', 'tala_vergisst'};
+const encounterTypes = {'taleron', 'haendlerschiff', 'fischerboot', 'angeberschiff', 'tala_vergisst', 'taleron_trial'};
+
+/// Meister Talerons Prüfung (`art: taleron_trial`): Inseln, Bestehensgrenze und Orden.
+class EncounterTrial {
+  EncounterTrial({
+    required this.islands,
+    required this.pass,
+    required this.badgeSlug,
+    required this.badgeTitle,
+    required this.badgeAsset,
+    required this.notPassed,
+  });
+
+  /// Slugs der Inseln, aus denen die Fragen kommen.
+  final List<String> islands;
+
+  /// So viele richtige Antworten (erster Versuch) braucht der Orden.
+  final int pass;
+  final String badgeSlug;
+  final String badgeTitle;
+  final String badgeAsset;
+
+  /// Was Taleron sagt, wenn es noch nicht gereicht hat.
+  final Line notPassed;
+}
 
 class Encounter {
   Encounter({
@@ -1694,10 +1718,14 @@ class Encounter {
     required this.wrong,
     required this.success,
     this.status = 'entwurf',
+    this.trial,
   });
 
   final String slug;
   final String type;
+
+  /// Nur bei Meister Talerons Prüfung.
+  final EncounterTrial? trial;
   final String title;
   final String assetKey;
   final int questionCount;
@@ -1716,7 +1744,7 @@ class Encounter {
 
   String get dbStatus => contentStatuses[status] ?? 'draft';
 
-  List<Line> get allLines => [...firstScene, ...scene, right, wrong, success];
+  List<Line> get allLines => [...firstScene, ...scene, right, wrong, success, ?trial?.notPassed];
 
   /// Inhalt für encounters.content.
   Map<String, dynamic> toDbContent() => {
@@ -1725,6 +1753,10 @@ class Encounter {
     'right': right.toDb(),
     'wrong': wrong.toDb(),
     'success': success.toDb(),
+    if (trial != null) ...{
+      'not_passed': trial!.notPassed.toDb(),
+      'trial': {'islands': trial!.islands, 'pass': trial!.pass, 'badge': trial!.badgeSlug},
+    },
   };
 }
 
@@ -1769,6 +1801,21 @@ List<Encounter> parseEncounters(String file, String source) {
           wrong: line(e['falsch'], '$where, "falsch"'),
           success: line(e['geschafft'], '$where, "geschafft"'),
           status: e['status'] as String? ?? 'entwurf',
+          trial: e['pruefung'] == null
+              ? null
+              : () {
+                  final p = e['pruefung'] as Map<String, dynamic>;
+                  final w = '$where, Prüfung';
+                  final orden = (p['orden'] as Map<String, dynamic>?) ?? (throw ContentException('$w: "orden" fehlt'));
+                  return EncounterTrial(
+                    islands: [for (final s in (p['inseln'] as List?) ?? const []) s as String],
+                    pass: p['bestehen'] as int? ?? 0,
+                    badgeSlug: text(orden, 'slug', '$w, Orden'),
+                    badgeTitle: text(orden, 'titel', '$w, Orden'),
+                    badgeAsset: text(orden, 'bild', '$w, Orden'),
+                    notPassed: line(p['nicht_bestanden'], '$w, "nicht_bestanden"'),
+                  );
+                }(),
         );
       }(),
   ];
@@ -1794,7 +1841,26 @@ List<String> validateEncounters(
     check(encounterTypes.contains(e.type), '$w: unbekannte Art "${e.type}"');
     check(e.title.length <= 60, '$w: Titel ist länger als 60 Zeichen');
     check(knownAssetKeys.contains(e.assetKey), '$w: Bild ${e.assetKey} fehlt im Asset-Manifest');
-    check(e.questionCount >= 3 && e.questionCount <= 5, '$w: 3 bis 5 Fragen');
+    final trial = e.trial;
+    if (e.type == 'taleron_trial') {
+      check(trial != null, '$w: Prüfung braucht "pruefung" (inseln, bestehen, orden, nicht_bestanden)');
+      check(e.questionCount >= 6 && e.questionCount <= 12, '$w: 6 bis 12 Fragen');
+      check(e.afterIsland != null, '$w: Prüfung braucht "ab_insel"');
+      if (trial != null) {
+        check(trial.islands.isNotEmpty, '$w: Prüfung braucht Inseln');
+        for (final s in trial.islands) {
+          check(slugs.contains(s), '$w: unbekannte Insel "$s" in der Prüfung');
+        }
+        check(trial.pass >= 1 && trial.pass <= e.questionCount, '$w: "bestehen" muss 1 bis ${e.questionCount} sein');
+        check(RegExp(r'^[a-z0-9]+(-[a-z0-9]+)*$').hasMatch(trial.badgeSlug), '$w: Slug des Ordens ist ungültig');
+        check(!slugs.contains(trial.badgeSlug), '$w: Slug des Ordens ist schon der Orden einer Insel');
+        check(trial.badgeTitle.length <= 60, '$w: Titel des Ordens ist länger als 60 Zeichen');
+        check(knownAssetKeys.contains(trial.badgeAsset), '$w: Bild ${trial.badgeAsset} fehlt im Asset-Manifest');
+      }
+    } else {
+      check(trial == null, '$w: "pruefung" nur bei Art taleron_trial');
+      check(e.questionCount >= 3 && e.questionCount <= 5, '$w: 3 bis 5 Fragen');
+    }
     check(e.xp >= 0 && e.xp <= 200, '$w: Seemeilen 0 bis 200');
     check(e.afterIsland == null || slugs.contains(e.afterIsland), '$w: unbekannte Insel "${e.afterIsland}"');
     check(e.firstScene.isNotEmpty && e.scene.isNotEmpty, '$w: erste Begegnung und Szene nötig');
@@ -2034,6 +2100,21 @@ String buildSeedSql(
       ..writeln('  question_count = excluded.question_count, xp_reward = excluded.xp_reward,')
       ..writeln('  after_island_id = excluded.after_island_id, content = excluded.content, status = excluded.status;')
       ..writeln();
+    final trial = e.trial;
+    if (trial != null) {
+      // Siegel nach den Inselorden (sort_order ab 100), Status wie die Prüfung.
+      final order = 100 + encounters.where((x) => x.trial != null).toList().indexOf(e);
+      b
+        ..writeln('insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)')
+        ..writeln(
+          "values (${_id('badge/${trial.badgeSlug}')}, ${_lit(trial.badgeSlug)}, 'taleron', null, "
+          "${_lit(trial.badgeTitle)}, ${_lit(trial.badgeAsset)}, $order, ${_lit(e.dbStatus)})",
+        )
+        ..writeln('on conflict (id) do update set')
+        ..writeln('  title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order,')
+        ..writeln('  status = excluded.status;')
+        ..writeln();
+    }
   }
 
   b.writeln('commit;');

@@ -23,6 +23,46 @@
       "richtig": { "wer": "taleron", "text": "Hoho, richtig! Das hast du gut behalten." },
       "falsch": { "wer": "taleron", "text": "Nicht ganz. Hör gut zu, dann klappt es beim nächsten Versuch." },
       "geschafft": { "wer": "taleron", "text": "Drei Rätsel, drei Lösungen. Der Weg ist frei, junge Crew. Gute Fahrt!" }
+    },
+    {
+      "slug": "taleron-siegel-a",
+      "art": "taleron_trial",
+      "titel": "Meister Talerons Prüfung",
+      "bild": "encounter.taleron",
+      "fragen": 12,
+      "seemeilen": 150,
+      "ab_insel": "spar-insel",
+      "pruefung": {
+        "inseln": [
+          "hafen",
+          "tauschinsel",
+          "wunschinsel",
+          "spar-insel"
+        ],
+        "bestehen": 9,
+        "orden": {
+          "slug": "taleron-siegel-a",
+          "titel": "Taleron-Siegel A",
+          "bild": "badge.taleron.a"
+        },
+        "nicht_bestanden": { "wer": "taleron", "text": "Fast! Für mein Siegel fehlt noch ein kleines Stück. Ruht euch aus und kommt wieder. Ich warte hier auf euch." }
+      },
+      "erste_begegnung": [
+        { "wer": "tala", "text": "Talo! Das Wasser wird ganz still. Und dort, der große Schatten …" },
+        { "wer": "taleron", "text": "Hoho! Habt keine Angst. Heute zeige ich mich euch ganz." },
+        { "wer": "talo", "text": "Meister Taleron! So groß haben wir dich noch nie gesehen." },
+        { "wer": "taleron", "text": "Ich muss euch etwas gestehen. Die Schatzkarte, deren Stücke ihr sucht, habe ich selbst zerrissen." },
+        { "wer": "tala", "text": "Du? Aber warum denn?" },
+        { "wer": "taleron", "text": "Damit nur eine kluge Crew den Schatz findet. Eine Crew, die nicht nur sucht, sondern auch lernt." },
+        { "wer": "taleron", "text": "Vier Inseln habt ihr geschafft. Jetzt will ich sehen, ob ihr das Gelernte behalten habt. Zwölf Fragen aus allen vier Inseln." },
+        { "wer": "taleron", "text": "Schafft ihr neun, bekommt ihr mein Siegel. Und wie immer gilt: Bei mir geht niemand unter." }
+      ],
+      "szene": [
+        { "wer": "taleron", "text": "Da seid ihr wieder! Zwölf Fragen aus Hafen, Tauschinsel, Wunschinsel und Spar-Insel. Neun richtige, dann gehört mein Siegel euch." }
+      ],
+      "richtig": { "wer": "taleron", "text": "Hoho, richtig! Das sitzt." },
+      "falsch": { "wer": "taleron", "text": "Nicht ganz. Hör gut zu, dann klappt es gleich." },
+      "geschafft": { "wer": "taleron", "text": "Ihr habt das Gelernte behalten. Nehmt mein Siegel, ihr habt es euch verdient!" }
     }
   ]
 }

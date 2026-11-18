@@ -3037,6 +3037,36 @@ abstract class AppLocalizations {
   /// **'Beim ersten Versuch richtig: {correct} von {total}'**
   String encounterFirstTry(int correct, int total);
 
+  /// Meister Talerons Prüfung: Ziel unter den Punkten
+  ///
+  /// In de, this message translates to:
+  /// **'{pass} richtige beim ersten Versuch bringen das Siegel'**
+  String trialGoal(int pass);
+
+  /// Meister Talerons Prüfung: Ergebnis, bestanden
+  ///
+  /// In de, this message translates to:
+  /// **'Prüfung bestanden!'**
+  String get trialPassedTitle;
+
+  /// Meister Talerons Prüfung: Ergebnis, noch nicht bestanden
+  ///
+  /// In de, this message translates to:
+  /// **'Fast geschafft!'**
+  String get trialNotPassedTitle;
+
+  /// Meister Talerons Prüfung: noch nicht bestanden
+  ///
+  /// In de, this message translates to:
+  /// **'Für das Siegel brauchst du {pass}. Meister Taleron wartet auf der Karte, du kannst es jederzeit nochmal versuchen.'**
+  String trialNeed(int pass);
+
+  /// Meister Talerons Prüfung: Siegel verdient
+  ///
+  /// In de, this message translates to:
+  /// **'Neuer Orden: {title}'**
+  String trialNewBadge(String title);
+
   /// Hinweis ohne Seemeilen
   ///
   /// In de, this message translates to:

@@ -35,7 +35,8 @@ class MapController extends ChangeNotifier {
   /// Wind und fällige Wiederholungen; `null`, wenn sie nicht geladen werden konnten.
   ChildStats? get stats => _stats;
 
-  /// Begegnung auf See, die gerade wartet (Wiederholungen sind fällig), sonst `null`.
+  /// Begegnung auf See, die gerade wartet (Meister Talerons Prüfung oder fällige
+  /// Wiederholungen), sonst `null`.
   EncounterOffer? get encounter => _offer;
 
   /// Keine offene Insel mehr: die nächste liegt im Nebel oder gehört zum Abo.
@@ -104,7 +105,10 @@ class MapController extends ChangeNotifier {
     notifyListeners();
     try {
       _stats = await _progress.fetchStats(child.id);
-      _offer = _stats!.reviewsDue > 0 ? await _progress.nextEncounter(child.id) : null;
+      // Meister Talerons Prüfung geht vor: Sie wartet, bis das Siegel verdient ist.
+      _offer =
+          await _progress.taleronTrial(child.id) ??
+          (_stats!.reviewsDue > 0 ? await _progress.nextEncounter(child.id) : null);
     } on AppFailure {
       // Ohne Statistik geht die Karte trotzdem; nur Wind, Abo und Begegnung fehlen.
       _stats = null;

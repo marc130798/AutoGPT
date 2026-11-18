@@ -236,6 +236,7 @@ class Encounter {
     this.right,
     this.wrong,
     this.success,
+    this.notPassed,
   });
 
   factory Encounter.fromJson(Map<String, dynamic> json) {
@@ -257,13 +258,15 @@ class Encounter {
       right: line(content['right']),
       wrong: line(content['wrong']),
       success: line(content['success']),
+      notPassed: line(content['not_passed']),
     );
   }
 
   final String id;
   final String slug;
 
-  /// taleron, haendlerschiff, fischerboot, angeberschiff, tala_vergisst
+  /// taleron, haendlerschiff, fischerboot, angeberschiff, tala_vergisst,
+  /// taleron_trial (Meister Talerons Prüfung).
   final String type;
   final String title;
   final String assetKey;
@@ -274,6 +277,34 @@ class Encounter {
   final DialogLine? right;
   final DialogLine? wrong;
   final DialogLine? success;
+
+  /// Bei Meister Talerons Prüfung: wenn es für das Siegel noch nicht gereicht hat.
+  final DialogLine? notPassed;
+
+  bool get isTrial => type == 'taleron_trial';
+}
+
+/// Ein Orden, wie ihn der Server mit einem Ergebnis meldet (ohne Datum).
+class BadgeRef {
+  const BadgeRef({required this.slug, required this.title, required this.assetKey});
+
+  factory BadgeRef.fromJson(Map<String, dynamic> json) =>
+      BadgeRef(slug: json['slug'] as String, title: json['title'] as String, assetKey: json['asset_key'] as String);
+
+  final String slug;
+  final String title;
+  final String assetKey;
+}
+
+/// Meister Talerons Prüfung: so viele richtige braucht das Siegel.
+class TrialInfo {
+  const TrialInfo({required this.pass, required this.badge});
+
+  factory TrialInfo.fromJson(Map<String, dynamic> json) =>
+      TrialInfo(pass: json['pass'] as int, badge: BadgeRef.fromJson(json['badge'] as Map<String, dynamic>));
+
+  final int pass;
+  final BadgeRef badge;
 }
 
 /// Eine Begegnung, die gerade auf der Karte wartet (next_encounter()).
@@ -283,6 +314,7 @@ class EncounterOffer {
     required this.questionIds,
     required this.firstMeeting,
     required this.dueCount,
+    this.trial,
   });
 
   factory EncounterOffer.fromJson(Map<String, dynamic> json) => EncounterOffer(
@@ -290,12 +322,16 @@ class EncounterOffer {
     questionIds: [for (final id in json['question_ids'] as List) id as String],
     firstMeeting: json['first_meeting'] as bool? ?? false,
     dueCount: json['due_count'] as int? ?? 0,
+    trial: json['trial'] is Map<String, dynamic> ? TrialInfo.fromJson(json['trial'] as Map<String, dynamic>) : null,
   );
 
   final Encounter encounter;
   final List<String> questionIds;
   final bool firstMeeting;
   final int dueCount;
+
+  /// Nur bei Meister Talerons Prüfung (taleron_trial()).
+  final TrialInfo? trial;
 
   /// Szene zu Beginn: beim ersten Mal die Vorstellung, danach die kurze Begrüßung.
   List<DialogLine> get openingScene =>
@@ -310,6 +346,8 @@ class EncounterResult {
     required this.xpAwarded,
     this.rankUp,
     this.streakWeeks = 0,
+    this.passed,
+    this.badge,
   });
 
   factory EncounterResult.fromJson(Map<String, dynamic> json) => EncounterResult(
@@ -318,6 +356,8 @@ class EncounterResult {
     xpAwarded: json['xp_awarded'] as int? ?? 0,
     rankUp: Rank.parse(json['rank_up']),
     streakWeeks: json['streak_weeks'] as int? ?? 0,
+    passed: json['passed'] as bool?,
+    badge: json['badge'] is Map<String, dynamic> ? BadgeRef.fromJson(json['badge'] as Map<String, dynamic>) : null,
   );
 
   final int correct;
@@ -325,4 +365,10 @@ class EncounterResult {
   final int xpAwarded;
   final Rank? rankUp;
   final int streakWeeks;
+
+  /// Nur bei Meister Talerons Prüfung: genug richtig für das Siegel.
+  final bool? passed;
+
+  /// Das Siegel, wenn es mit dieser Prüfung neu verliehen wurde.
+  final BadgeRef? badge;
 }

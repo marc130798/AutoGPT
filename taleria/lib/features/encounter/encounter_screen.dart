@@ -93,7 +93,8 @@ class _EncounterScreenState extends State<EncounterScreen> {
     if (step == _lastStep) return;
     _lastStep = step;
     if (step == EncounterStep.intro) {
-      if (_scenePrefix == null) {
+      // Die Prüfung hat eigene Sätze: ohne Aufnahme lieber still als die alte Begrüßung.
+      if (_scenePrefix == null && !widget.offer.encounter.isTrial) {
         _sounds.voice(widget.offer.firstMeeting ? 'voice.taleron.first.mp3' : 'voice.taleron.hello.mp3');
       }
     } else if (step == EncounterStep.result) {
@@ -233,6 +234,15 @@ class _RiddleView extends StatelessWidget {
                         current: run.index,
                       ),
                     ),
+                    if (controller.offer.trial case final trial? when run.index == 0) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        l10n.trialGoal(trial.pass),
+                        key: const ValueKey('trial-goal'),
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ],
                     const SizedBox(height: 12),
                     Text(
                       q.question.question,
@@ -324,7 +334,14 @@ class _ResultView extends StatelessWidget {
     final theme = Theme.of(context);
     final palette = context.palette;
     final result = controller.result!;
-    final success = controller.encounter.success;
+    final isTrial = controller.encounter.isTrial;
+    final passed = result.passed ?? true;
+    final success = passed ? controller.encounter.success : controller.encounter.notPassed;
+    final title = !isTrial
+        ? l10n.encounterDoneTitle
+        : passed
+        ? l10n.trialPassedTitle
+        : l10n.trialNotPassedTitle;
 
     return Column(
       children: [
@@ -332,7 +349,7 @@ class _ResultView extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              Text(l10n.encounterDoneTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
+              Text(title, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
               const SizedBox(height: 16),
               if (success != null) SpeechBubble.line(success),
               const SizedBox(height: 16),
@@ -341,6 +358,26 @@ class _ResultView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleMedium,
               ),
+              if (isTrial && !passed) ...[
+                const SizedBox(height: 8),
+                Text(
+                  l10n.trialNeed(controller.offer.trial?.pass ?? result.total),
+                  key: const ValueKey('trial-need'),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyLarge,
+                ),
+              ],
+              if (result.badge case final badge?) ...[
+                const SizedBox(height: 24),
+                Center(child: RewardPop(assetKey: badge.assetKey)),
+                const SizedBox(height: 12),
+                Text(
+                  l10n.trialNewBadge(badge.title),
+                  key: const ValueKey('trial-badge'),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ],
               const SizedBox(height: 8),
               if (result.xpAwarded > 0)
                 Text(
@@ -348,7 +385,7 @@ class _ResultView extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleLarge?.copyWith(color: palette.gold, fontWeight: FontWeight.w800),
                 )
-              else
+              else if (!isTrial)
                 Text(l10n.encounterNoXpToday, textAlign: TextAlign.center),
               if (result.rankUp != null) ...[
                 const SizedBox(height: 24),

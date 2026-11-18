@@ -148,7 +148,9 @@ class EncounterController extends ChangeNotifier {
   Future<void> submit() async {
     _go(EncounterStep.submitting);
     try {
-      _result = await _progress.submitEncounter(childId: childId, encounterId: encounter.id, answers: _run!.submission);
+      _result = offer.trial != null
+          ? await _progress.submitTaleronTrial(childId: childId, encounterId: encounter.id, answers: _run!.submission)
+          : await _progress.submitEncounter(childId: childId, encounterId: encounter.id, answers: _run!.submission);
       _go(EncounterStep.result);
     } on AppFailure catch (e) {
       _failure = e.kind;
