@@ -178,6 +178,18 @@ void main() {
       expect(g.wrongGoods, 1);
     });
 
+    test('falsche Ware kostet auch in der Schutzzeit nach einem Stein ein Herz', () {
+      final g = DeliveryGame(width: 0.46, random: Random(1))..moveTo(1);
+      g.onCatch(LaneThing(lane: 1, y: 0, kind: 'rock'));
+      expect(g.lives, 2);
+      expect(g.safe, isTrue);
+      g.onCatch(LaneThing(lane: 1, y: 0, kind: 'rock'));
+      expect(g.lives, 2, reason: 'zweiter Stein gleich danach zählt nicht');
+      final other = DeliveryGame.goods.firstWhere((x) => x != g.current.wants);
+      g.onCatch(LaneThing(lane: 1, y: 0, kind: other));
+      expect(g.lives, 1);
+    });
+
     test('nach 3 Lieferungen kommt der nächste Kunde', () {
       final g = DeliveryGame(width: 0.46, random: Random(1))..moveTo(1);
       final first = g.current;

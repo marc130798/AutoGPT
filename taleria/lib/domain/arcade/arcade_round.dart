@@ -85,8 +85,10 @@ abstract class ArcadeRound {
   void update(double dt);
 
   /// Ein Herz weg (nicht, solange noch geschützt). `true`, wenn es zählte.
-  bool hurt() {
-    if (safe || over) return false;
+  /// Mit `always` zählt es auch in der Schutzzeit (eigene falsche Entscheidung
+  /// statt Zusammenstoß, zum Beispiel falsche Ware im Lieferboot).
+  bool hurt({bool always = false}) {
+    if ((safe && !always) || over) return false;
     lives--;
     safeUntil = time + safeTime;
     events.add(lives <= 0 ? ArcadeEvent.over : ArcadeEvent.hit);

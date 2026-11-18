@@ -109,7 +109,8 @@ class DeliveryCustomer {
 
 /// Regeln von „Ottis Lieferboot“ (Tauschinsel): Waren treiben den Fluss
 /// hinunter. Fang, was der Kunde gerade will (3 Stück, dann kommt der
-/// nächste). Eine falsche Ware oder ein Stein kostet ein Herz. Lernen
+/// nächste). Eine falsche Ware kostet immer ein Herz, ein Stein ein Herz
+/// (außer kurz nach einem Treffer). Lernen
 /// nebenbei: Wer braucht was? Beim Tauschen zählt, was der andere will.
 class DeliveryGame extends LaneGame {
   DeliveryGame({required super.width, super.random});
@@ -154,7 +155,8 @@ class DeliveryGame extends LaneGame {
     } else {
       wrongGoods++;
       events.add(ArcadeEvent.wrong);
-      hurt();
+      // Falsche Ware kostet immer ein Herz, auch kurz nach einem Stein (Marcs Test am 18.11.2026).
+      hurt(always: true);
     }
   }
 }
