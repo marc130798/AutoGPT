@@ -112,6 +112,8 @@ h1 { color: var(--sea-deep) !important; text-shadow: none !important; }
 #cap { position: absolute; left: 50%; transform: translateX(-50%); max-width: 86%; text-align: center; background: rgba(16,32,47,.82); color: #fff; font-weight: 800; border-radius: calc(var(--u)*22px); padding: calc(var(--u)*12px) calc(var(--u)*30px); line-height: 1.3; box-shadow: 0 10px 30px rgba(0,0,0,.18); z-index: 50; white-space: nowrap; }
 #cap .cw { display: inline-block; margin: 0 .1em; }
 #cap .cw.now { color: #f6c94b; }
+#map6 { border-radius: calc(var(--u)*44px); overflow: hidden; background: url("img/map.background.jpg") 50% 0 / 115% auto repeat-y; box-shadow: 0 30px 80px rgba(20,50,80,.25), inset 0 0 0 calc(var(--u)*6px) rgba(255,255,255,.85); }
+#map6 .shine { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.25), rgba(255,255,255,0) 60%); pointer-events: none; }
 </style>
 </head>
 <body>
@@ -296,7 +298,8 @@ for (let i = 0; i < 9; i++) {
 const islandsKeys = ['hafen', 'tauschinsel', 'wunschinsel', 'spar-insel', 'taschengeld-bucht'];
 const map6 = $('map6'); const isl = [];
 islandsKeys.forEach(k => { const im = document.createElement('img'); im.src = `img/map.island.${k}.png`; im.className = 'fit'; map6.appendChild(im); isl.push(im); });
-const ship6 = document.createElement('img'); ship6.src = 'img/ship.crew.png'; ship6.className = 'fit'; map6.appendChild(ship6);
+const shine6 = document.createElement('div'); shine6.className = 'shine';
+const ship6 = document.createElement('img'); ship6.src = 'img/ship.crew.png'; ship6.className = 'fit'; map6.appendChild(ship6); map6.appendChild(shine6);
 const lock6 = document.createElement('div'); lock6.className = 'abs'; lock6.innerHTML = '<svg viewBox="0 0 60 70" width="100%" height="100%"><rect x="6" y="30" width="48" height="36" rx="8" fill="#d4a62a" stroke="#7a5a10" stroke-width="4"/><path id="shackle" d="M16 30 V20 a14 14 0 0 1 28 0 V30" fill="none" stroke="#7a5a10" stroke-width="7"/><circle cx="30" cy="47" r="5" fill="#5c3a18"/></svg>'; map6.appendChild(lock6);
 const dots6 = []; for (let i = 0; i < 26; i++) { const d = document.createElement('div'); d.className = 'dot'; map6.appendChild(d); dots6.push(d); }
 
@@ -503,10 +506,11 @@ function render(t) {
   // 6: Karte mit Route, Schiff fährt, Schloss springt auf
   {
     const b = visBox('map6'), lt = L(5);
+    $('map6').style.backgroundPosition = `50% ${t * 12 * U}px`;
     const pts = PORT
       ? [[.18, .78], [.62, .62], [.25, .40], [.68, .22], [.30, .04]]
-      : [[.12, .74], [.55, .66], [.25, .40], [.70, .30], [.42, .04]];
-    const iw = PORT ? b.w * 0.34 : b.w * 0.36;
+      : [[.08, .72], [.52, .64], [.2, .4], [.6, .27], [.36, .03]];
+    const iw = PORT ? b.w * 0.32 : b.w * 0.34;
     pts.forEach(([px, py], i) => {
       const appear = ease((lt - 0.2 - i * 0.25) / 0.6);
       place(isl[i], b.x + px * b.w, b.y + py * b.h, iw, iw * 0.76);
