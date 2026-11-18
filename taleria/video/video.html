@@ -50,6 +50,15 @@ h1 { font-size: calc(var(--u) * 96px); text-shadow: 0 4px 24px rgba(0,0,0,.35); 
 .tick { display: inline-grid; place-items: center; width: calc(var(--u) * 56px); height: calc(var(--u) * 56px); border-radius: 50%; background: var(--green); color: #fff; font-weight: 800; font-size: calc(var(--u) * 34px); }
 img.fit { position: absolute; object-fit: contain; }
 .dot { position: absolute; width: calc(var(--u) * 14px); height: calc(var(--u) * 14px); border-radius: 50%; background: #fff; }
+.phone.big { padding: calc(var(--u) * 14px); border-radius: calc(var(--u) * 54px); background: linear-gradient(160deg,#22384c,#0c1824); box-shadow: 0 30px 80px rgba(0,0,0,.45), inset 0 0 0 calc(var(--u)*3px) rgba(255,255,255,.12); }
+.phone .screen { position: relative; overflow: hidden; border-radius: calc(var(--u) * 40px); background: #0c1824; }
+.phone .screen img { border-radius: 0; }
+.notch { position: absolute; z-index: 2; left: 50%; top: calc(var(--u) * 24px); width: 26%; height: calc(var(--u) * 22px); transform: translateX(-50%); background: #0c1824; border-radius: 999px; }
+.finger { position: absolute; width: calc(var(--u) * 90px); height: calc(var(--u) * 90px); border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.85) 0 35%, rgba(255,255,255,.35) 36% 60%, rgba(255,255,255,0) 61%); box-shadow: 0 0 30px rgba(255,255,255,.5); }
+.tag { position: absolute; font-family: "Baloo 2"; font-weight: 800; font-size: calc(var(--u) * 46px); background: var(--cream); color: var(--sea-deep); padding: calc(var(--u) * 10px) calc(var(--u) * 30px); border-radius: 999px; border: calc(var(--u)*4px) solid var(--gold); box-shadow: 0 14px 34px rgba(0,0,0,.3); white-space: nowrap; }
+.glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(246,227,166,.55), rgba(246,227,166,0) 65%); }
+.word { display: inline-block; }
+.bubble { position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,.55); background: rgba(255,255,255,.12); }
 </style>
 </head>
 <body>
@@ -99,14 +108,16 @@ img.fit { position: absolute; object-fit: contain; }
     <div class="vis" id="map6"></div>
   </div>
 
-  <!-- 7 Lernen -->
+  <!-- 7 Lernen: Handy wird durchgescrollt -->
   <div class="scene" id="s7">
-    <div class="text"><span class="chip" data-a="up" data-d="0.1">Lernen</span><h1 data-a="up" data-d="0.3">5 bis 10 Minuten pro Station</h1><p class="lead" data-a="up" data-d="0.7">Bildergeschichten, Quiz und Spiele.</p></div>
+    <div class="text"><span class="chip" data-a="up" data-d="0.1">Lernen</span><h1 data-a="words" data-d="0.2">5 bis 10 Minuten pro Station</h1><p class="lead" data-a="up" data-d="0.6">Bildergeschichten, Quiz und Spiele.</p></div>
     <div class="vis" id="vis7">
-      <div class="phone" id="p7a"><img src="img/story.hafen.2.1.jpg" alt="" style="aspect-ratio:540/1169;object-fit:cover"></div>
-      <div class="phone" id="p7b"><img src="img/app.quiz.jpg" alt=""></div>
-      <div class="phone" id="p7c"><img src="img/app.moewenflug.jpg" alt=""></div>
-      <div class="label" id="l7a">Geschichten</div><div class="label" id="l7b">Quiz</div><div class="label" id="l7c">Spiele</div>
+      <div class="glow" id="glow7"></div>
+      <div class="phone big" id="p7"><div class="notch"></div><div class="screen" id="scr7"><div id="strip7">
+        <img src="img/app.geschichte.jpg" alt=""><img src="img/app.quiz.jpg" alt=""><img src="img/app.moewenflug.jpg" alt=""><img src="img/app.kran.jpg" alt=""><img src="img/app.truhe.jpg" alt="">
+      </div></div></div>
+      <div class="finger" id="finger7"></div>
+      <div class="tag" id="tag7a">📖 Geschichten</div><div class="tag" id="tag7b">❓ Quiz</div><div class="tag" id="tag7c">🎮 Spiele</div>
     </div>
   </div>
 
@@ -154,7 +165,8 @@ stage.style.setProperty('--u', Math.min(W, H) / 1080);
 const PORT = H > W, U = Math.min(W, H) / 1080;
 
 // Zeitplan: kurze Pause vor jeder Szene, nach Fakten etwas länger zum Lesen.
-const LEAD = 0.5, TAIL = [1.2, 1.8, 1.8, 2.0, 1.0, 1.2, 1.2, 1.2, 1.2, 3.5];
+const LEAD = 0.3, TAIL = [0.5, 1.1, 1.1, 1.3, 0.4, 0.5, 0.9, 0.5, 0.6, 2.6];
+const K = 1.3; // Animationen schneller
 const starts = []; let t0 = 0.3;
 VO.durs.forEach((d, i) => { starts.push(t0); t0 += LEAD + d + TAIL[i]; });
 const TOTAL = t0;
@@ -167,6 +179,11 @@ const $ = id => document.getElementById(id);
 function place(el, x, y, w, h) { Object.assign(el.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h === undefined ? '' : h + 'px' }); }
 function visBox(id) { const el = $(id); return { x: 0, y: 0, w: el.clientWidth, h: el.clientHeight }; }
 
+// Überschriften Wort für Wort
+document.querySelectorAll('h1').forEach(h => { if (!h.dataset.a || h.dataset.a === 'up') h.dataset.a = 'words'; h.innerHTML = h.textContent.split(' ').map(w => `<span class="word">${w}</span>`).join(' '); });
+// Luftblasen im klaren Meer
+const bubbles = [];
+for (let i = 0; i < 16; i++) { const b = document.createElement('div'); b.className = 'bubble'; const r = (10 + (i * 7) % 26) * U; b.style.width = b.style.height = r + 'px'; $('clouds').after(b); bubbles.push({ el: b, x: ((i * 0.61) % 1) * W, sp: 30 + (i * 13) % 50, ph: i * 1.7 }); }
 // Wolken für den Nebel
 const clouds = [];
 for (let i = 0; i < 9; i++) {
@@ -192,6 +209,7 @@ function animateGeneric(scene, lt) {
   scene.querySelectorAll('[data-a]').forEach(el => {
     const p = ease((lt - (+el.dataset.d || 0)) / 0.7);
     if (el.dataset.a === 'up') { el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 40 * U}px)`; }
+    if (el.dataset.a === 'words') { el.style.opacity = 1; [...el.children].forEach((w, k) => { const q = ease((lt - (+el.dataset.d || 0) - k * 0.07) / 0.45); w.style.opacity = q; w.style.transform = `translateY(${(1 - q) * 34 * U}px) scale(${0.9 + 0.1 * q})`; }); }
     if (el.dataset.a === 'pop') { el.style.opacity = p; el.style.transform = `scale(${0.7 + 0.3 * ease((lt - (+el.dataset.d || 0)) / 0.5)})`; }
   });
   scene.querySelectorAll('[data-count]').forEach(el => {
@@ -217,22 +235,24 @@ function render(t) {
     c.el.style.opacity = (0.32 + 0.12 * (i % 3) / 2) * (1 - clear);
   });
 
+  bubbles.forEach(b => { const y = H - ((t * b.sp * U + b.ph * 200) % (H + 100)); b.el.style.transform = `translate(${b.x + Math.sin(t + b.ph) * 20}px, ${y}px)`; b.el.style.opacity = clear * 0.8; });
+
   // Szenen ein- und ausblenden
   const scenes = [...document.querySelectorAll('.scene')];
   scenes.forEach((sc, i) => {
     const s = starts[i], e = i + 1 < starts.length ? starts[i + 1] : TOTAL + 1;
-    const op = clamp((t - s) / 0.5) * (i === scenes.length - 1 ? 1 : clamp((e - t) / 0.5));
+    const op = clamp((t - s) / 0.3) * (i === scenes.length - 1 ? 1 : clamp((e - t) / 0.3));
     sc.style.opacity = op;
     sc.style.visibility = op > 0 ? 'visible' : 'hidden';
-    if (op > 0) animateGeneric(sc, t - s - LEAD * 0.5);
+    if (op > 0) animateGeneric(sc, (t - s - LEAD * 0.5) * K);
   });
 
-  const L = i => t - starts[i];
+  const L = i => (t - starts[i]) * K;
 
   // 5: Schiff segelt aus dem Nebel herein
   {
     const lt = L(4), sw = PORT ? W * 0.9 : W * 0.42;
-    const p = easeIO(lt / 3);
+    const p = easeIO(lt / 2.4);
     const x = -sw + p * ((W - sw) / 2 + sw), y = PORT ? H * 0.55 : H * 0.42;
     place($('ship5'), x, y + Math.sin(t * 2) * 6 * U, sw, sw * 0.75);
     $('ship5').style.transform = `rotate(${Math.sin(t * 1.6) * 2}deg)`;
@@ -276,19 +296,41 @@ function render(t) {
     lock6.querySelector('#shackle').setAttribute('transform', `translate(${open * 14} ${-open * 8}) rotate(${open * 20} 44 30)`);
   }
 
-  // 7: drei Handys kommen nacheinander
+  // 7: Handy wird mit dem Finger durchgescrollt
   {
     const b = visBox('vis7'), lt = L(6);
-    const pw = PORT ? b.w * 0.3 : b.w * 0.3, ph = pw * 1169 / 540 + 24 * U;
-    ['a', 'b', 'c'].forEach((k, i) => {
-      const p = ease((lt - 0.5 - i * 0.45) / 0.8);
-      const x = b.x + b.w * (0.03 + i * 0.335), y = b.y + (b.h - ph) / 2 + (i === 1 ? -30 * U : 30 * U);
-      place($('p7' + k), x, y + (1 - p) * 120 * U, pw);
-      $('p7' + k).style.opacity = p;
-      $('p7' + k).style.transform = `rotate(${(i - 1) * 4}deg)`;
-      place($('l7' + k), x - 20 * U, y + ph + 22 * U, pw + 40 * U);
-      $('l7' + k).style.opacity = ease((lt - 0.9 - i * 0.45) / 0.6);
+    const ph = b.h * (PORT ? 0.98 : 0.96), pad = 14 * U, sw = (ph - 2 * pad) * 540 / 1169, pw = sw + 2 * pad;
+    const px = PORT ? b.x + b.w * 0.58 - pw / 2 : b.x + b.w * 0.27 - pw / 2, py = b.y + (b.h - ph) / 2;
+    const inP = ease(lt / 0.6);
+    place($('p7'), px, py + (1 - inP) * 160 * U, pw);
+    $('p7').style.opacity = inP;
+    $('p7').style.transform = `rotate(${-2 + Math.sin(t * 0.8) * 0.6}deg)`;
+    const sh = sw * 1169 / 540;
+    place($('scr7'), 0, 0, sw, sh); $('scr7').style.position = 'relative';
+    $('strip7').querySelectorAll('img').forEach(im => { im.style.width = sw + 'px'; im.style.height = sh + 'px'; im.style.objectFit = 'cover'; });
+    // Wischen: alle 1,9 s eine Seite weiter
+    const gap = 1.6, first = 1.5;
+    let pos = 0; const swipes = [];
+    for (let k = 0; k < 4; k++) { const s0 = first + k * gap; swipes.push(s0); pos += easeIO((lt - s0) / 0.55); }
+    $('strip7').style.transform = `translateY(${-pos * sh}px)`;
+    // Finger: tippt unten auf, zieht nach oben, hebt ab
+    let fx = px + pw * 0.62, fy = py + ph * 0.72, fo = 0;
+    swipes.forEach(s0 => { const q = (lt - s0 + 0.25) / 0.9; if (q > 0 && q < 1) { fo = Math.sin(q * Math.PI); fy = py + ph * (0.75 - 0.4 * easeIO((q - 0.25) / 0.6)); } });
+    const fs = 90 * U;
+    place($('finger7'), fx - fs / 2, fy - fs / 2, fs, fs); $('finger7').style.opacity = fo * 0.95;
+    // Schilder zum gerade sichtbaren Bild
+    const tags = ['tag7a', 'tag7b', 'tag7c'];
+    const cur = Math.round(pos);
+    tags.forEach((id, k) => {
+      const on = (k === 0 && cur === 0) || (k === 1 && cur === 1) || (k === 2 && (cur === 2 || cur === 3));
+      const el = $(id); el.dataset.v = (+el.dataset.v || 0);
+      const target = on && lt > 0.5 ? 1 : 0;
+      const tx = PORT ? b.x + b.w * 0.02 : px + pw + 26 * U, ty = PORT ? b.y + b.h * 0.3 : py + ph * 0.42;
+      el.style.left = tx + 'px'; el.style.top = ty + 'px';
+      el.style.opacity = target; el.style.transform = `scale(${target ? 1 : 0.8})`;
+      el.style.transition = 'none';
     });
+    const gw = pw * 2.2; place($('glow7'), px + pw / 2 - gw / 2, py + ph / 2 - gw / 2, gw, gw);
   }
 
   // 8: Auftrag wird abgehakt, Münzen fliegen in die Truhe
