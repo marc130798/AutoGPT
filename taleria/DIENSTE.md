@@ -25,6 +25,7 @@ Stand: 18.11.2026
 | E-Mail-Postfach | eigene Adresse, zum Beispiel `hallo@taleria.de` | | ca. 1 bis 3 € pro Monat (siehe Abschnitt 3) | **offen** |
 | ElevenLabs | Stimmen, Sprecherin im Video, Geräusche | Starter-Abo | Starter-Abo (Preis im Konto prüfen) | 38.453 Zeichen pro Monat, am 18.11.2026 noch 2.269 frei, neue Zeichen am 16.12.2026 |
 | Google Gemini | Bilder im 3D-Look | Marcs Google-Konto (Guthaben) | etwa 5 Cent pro Bild | aktiv; Claude fragt vor jedem Bild |
+| Meta (Facebook, Instagram) | Werbung für Eltern, Meta-Pixel auf der Webseite (nur nach Einwilligung) | Werbekonto im Meta Business Manager | nach Werbebudget | Pixel-ID noch eintragen in `landingpage/consent.js` (`TALERIA_PIXEL_ID`) |
 | RevenueCat | Abo-Kauf in den Store-Apps | | | **noch nicht angelegt** (Schritt 9b) |
 | Apple App Store | iPhone-App | Apple-Entwicklerkonto | 99 $ pro Jahr | **noch nicht angelegt** (braucht einen Mac oder einen Dienst zum Bauen) |
 | Google Play | Android-App | Google-Play-Entwicklerkonto | einmalig 25 $ | **noch nicht angelegt** |

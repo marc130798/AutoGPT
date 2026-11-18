@@ -41,7 +41,7 @@ Eine Lern-App, mit der Kinder spielerisch den Umgang mit Geld lernen.
 
 - Keine echten Zahlungen, keine Bankverbindung, keine Bezahlkarte. Alle Beträge in der App sind virtuell.
 - Keine Anlageberatung, keine Kaufempfehlungen, keine Links zu Finanzanbietern.
-- Keine Werbung, keine Tracking-Dienste von Drittanbietern.
+- Keine Werbung, keine Tracking-Dienste von Drittanbietern in der App. Ausnahme nur auf der Webseite (Marcs Entscheidung am 18.11.2026): Meta-Pixel für die Werbung, nur nach Einwilligung im Cookie-Banner (`landingpage/consent.js`). Kinder werden nie verfolgt.
 - Keine Käufe durch das Kind. Bezahlen nur im Elternbereich.
 
 ---

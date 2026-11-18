@@ -97,6 +97,7 @@ FOOTER = '''<footer class="site-footer">
       <ul>
         <li><a href="impressum.html">Impressum</a></li>
         <li><a href="datenschutz.html">Datenschutz</a></li>
+        <li><a href="#" data-consent-open>Cookie-Einstellungen</a></li>
       </ul>
     </div>
   </div>
@@ -124,6 +125,7 @@ def seite(datei, titel, beschreibung, inhalt):
 {inhalt.strip()}
 </main>
 {FOOTER}
+<script src="consent.js" defer></script>
 </body>
 </html>
 '''
@@ -137,6 +139,8 @@ def rechtliches(datei):
     html = html.replace('</head>', '<link rel="stylesheet" href="site.css">\n<link rel="stylesheet" href="rechtliches.css">\n</head>', 1)
     html = re.sub(r'(<a class="sr"[^\n]*\n)?<header.*?</header>', header(datei), html, count=1, flags=re.S)
     html = re.sub(r'<footer.*?</footer>', FOOTER, html, count=1, flags=re.S)
+    if 'consent.js' not in html:
+        html = html.replace('</body>', '<script src="consent.js" defer></script>\n</body>', 1)
     open(pfad, 'w', encoding='utf-8').write(html)
 
 
