@@ -101,6 +101,25 @@ abstract final class AssetKeys {
   static const soundDig = 'sound.dig';
   static const soundShopBell = 'sound.shop_bell';
 
+  /// Töne der richtigen Spiele (seit 18.11.2026).
+  static const soundArcadeFlap = 'sound.arcade.flap';
+  static const soundArcadeSquawk = 'sound.arcade.squawk';
+  static const soundArcadeGlass = 'sound.arcade.glass';
+  static const soundArcadeChain = 'sound.arcade.chain';
+  static const soundArcadeBoot = 'sound.arcade.boot';
+  static const soundArcadeOar = 'sound.arcade.oar';
+  static const soundArcadeThump = 'sound.arcade.thump';
+  static const soundArcadeClonk = 'sound.arcade.clonk';
+  static const soundArcadeSwoosh = 'sound.arcade.swoosh';
+  static const soundArcadeSparkleDown = 'sound.arcade.sparkle_down';
+  static const soundArcadeHop = 'sound.arcade.hop';
+  static const soundArcadeNut = 'sound.arcade.nut';
+  static const soundArcadeBonk = 'sound.arcade.bonk';
+  static const soundArcadeShell = 'sound.arcade.shell';
+  static const soundArcadeJelly = 'sound.arcade.jelly';
+  static const soundArcadeHorn = 'sound.arcade.horn';
+  static const soundArcadeRecord = 'sound.arcade.record';
+
   /// Klangkulissen statt Stille in den Missionen (leise, in Schleife, wie die
   /// Musik im Hauptmenü und mit demselben Schalter im Leuchtturm).
   static const ambienceUnderwater = 'amb.underwater';
@@ -145,6 +164,23 @@ abstract final class AssetKeys {
     soundPiggy,
     soundDig,
     soundShopBell,
+    soundArcadeFlap,
+    soundArcadeSquawk,
+    soundArcadeGlass,
+    soundArcadeChain,
+    soundArcadeBoot,
+    soundArcadeOar,
+    soundArcadeThump,
+    soundArcadeClonk,
+    soundArcadeSwoosh,
+    soundArcadeSparkleDown,
+    soundArcadeHop,
+    soundArcadeNut,
+    soundArcadeBonk,
+    soundArcadeShell,
+    soundArcadeJelly,
+    soundArcadeHorn,
+    soundArcadeRecord,
   ];
 
   static const ambiences = [

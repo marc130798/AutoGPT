@@ -46,14 +46,18 @@ abstract class LaneGame extends ArcadeRound {
   void move(int direction) {
     if (over) return;
     started = true;
+    final before = lane;
     lane = (lane + direction).clamp(0, lanes - 1);
+    if (lane != before) emit(ArcadeEvent.action);
   }
 
   /// Direkt in eine Bahn (Tippen auf die Bahn).
   void moveTo(int target) {
     if (over) return;
     started = true;
+    final before = lane;
     lane = target.clamp(0, lanes - 1);
+    if (lane != before) emit(ArcadeEvent.action);
   }
 
   String nextKind();

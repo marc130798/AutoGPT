@@ -3914,6 +3914,159 @@
         "shape": "rounded"
       }
     },
+    "sound.arcade.flap": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.flap.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel flap",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.squawk": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.squawk.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel squawk",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.glass": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.glass.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel glass",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.chain": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.chain.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel chain",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.boot": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.boot.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel boot",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.oar": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.oar.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel oar",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.thump": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.thump.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel thump",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.clonk": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.clonk.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel clonk",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.swoosh": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.swoosh.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel swoosh",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.sparkle_down": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.sparkle_down.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel sparkle_down",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.hop": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.hop.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel hop",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.nut": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.nut.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel nut",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.bonk": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.bonk.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel bonk",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.shell": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.shell.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel shell",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.jelly": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.jelly.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel jelly",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.horn": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.horn.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel horn",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
+    "sound.arcade.record": {
+      "type": "audio",
+      "path": "assets/audio/sound.arcade.record.mp3",
+      "placeholder": {
+        "label": "Ton: Spiel record",
+        "color": "#24476B",
+        "shape": "circle"
+      }
+    },
     "sound.tool": {
       "type": "audio",
       "path": "assets/audio/sound.tool.mp3",

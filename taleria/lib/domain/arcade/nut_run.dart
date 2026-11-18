@@ -81,9 +81,11 @@ class NutRunGame extends ArcadeRound {
     if (onGround) {
       vy = jumpSpeed;
       _jumps = 1;
+      emit(ArcadeEvent.action);
     } else if (_jumps < 2) {
       vy = doubleJumpSpeed;
       _jumps = 2;
+      emit(ArcadeEvent.action);
     }
   }
 

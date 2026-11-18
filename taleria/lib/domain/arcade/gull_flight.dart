@@ -78,6 +78,7 @@ class GullFlightGame extends ArcadeRound {
     if (over) return;
     started = true;
     vy = flapSpeed;
+    emit(ArcadeEvent.action);
   }
 
   @override
@@ -152,6 +153,7 @@ class GullFlightGame extends ArcadeRound {
 
   void _hits() {
     if (y >= sea - birdRadius) {
+      if (!safe) events.add(ArcadeEvent.splash);
       _hurt();
       y = sea - birdRadius - 0.01;
       vy = flapSpeed * 1.1;

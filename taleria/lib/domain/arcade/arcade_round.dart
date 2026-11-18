@@ -1,7 +1,30 @@
 import 'dart:math';
 
 /// Was in einem Schritt passiert ist (für Töne und Effekte).
-enum ArcadeEvent { coin, good, saved, wrong, hit, faster, over }
+enum ArcadeEvent {
+  coin,
+  good,
+  saved,
+  wrong,
+  hit,
+  faster,
+  over,
+
+  /// Die Runde beginnt (erstes Antippen).
+  start,
+
+  /// Eine Aktion des Kindes: flattern, Haken fallen lassen, Bahn wechseln, springen.
+  action,
+
+  /// Etwas fällt ins Wasser (Haken, Möwe).
+  splash,
+
+  /// Unnützes gefangen (alter Stiefel).
+  junk,
+
+  /// Eine Muschel in der Nähe klappt auf oder zu.
+  shell,
+}
 
 /// Gemeinsamer Ablauf aller richtigen Spiele: 3 Herzen, nach einem Treffer
 /// kurz geschützt, es startet erst beim ersten Antippen (kein Countdown).
@@ -23,6 +46,11 @@ abstract class ArcadeRound {
   int lives = hearts;
   double safeUntil = 0;
   final events = <ArcadeEvent>[];
+  final _queued = <ArcadeEvent>[];
+  bool _announced = false;
+
+  /// Ereignis außerhalb eines Schritts (beim Antippen); erscheint im nächsten Schritt.
+  void emit(ArcadeEvent e) => _queued.add(e);
 
   bool get over => lives <= 0;
   bool get safe => time < safeUntil;
@@ -31,8 +59,15 @@ abstract class ArcadeRound {
 
   /// Einen Zeitschritt weiter (Sekunden, höchstens 0,05 auf einmal).
   void step(double dt) {
-    events.clear();
+    events
+      ..clear()
+      ..addAll(_queued);
+    _queued.clear();
     if (over) return;
+    if (started && !_announced) {
+      _announced = true;
+      events.insert(0, ArcadeEvent.start);
+    }
     dt = min(dt, 0.05);
     time += dt;
     if (!started) {

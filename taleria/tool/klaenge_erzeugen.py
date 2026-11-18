@@ -69,6 +69,25 @@ KLAENGE = {
     'sound.piggy': (1.5, False, -29, "A coin dropping into a ceramic piggy bank with a clink and a short rattle inside, for a children's game." + NO),
     'sound.dig': (1.5, False, -29, "A small animal quickly digging in dry autumn leaves and soft earth, burying a nut, for a children's game." + NO),
     'sound.shop_bell': (1.5, False, -29, "A little shop door bell jingling brightly as the door opens, with a magical sparkle, for a children's game." + NO),
+    # Töne der richtigen Spiele (Marcs Wunsch am 18.11.2026). Häufige Töne (Flügelschlag,
+    # Sprung, Bahnwechsel, Kescher) besonders leise.
+    'sound.arcade.flap': (0.5, False, -37, "One single soft whoosh of a seagull flapping its wings once, very short, for a children's game." + NO),
+    'sound.arcade.squawk': (0.8, False, -31, "One short funny surprised seagull squawk, like a little 'aak!', for a children's game." + NO),
+    'sound.arcade.glass': (0.8, False, -30, "A few gold coins dropping into a glass jar with a bright clink, for a children's game." + NO),
+    'sound.arcade.chain': (1.0, False, -32, "A short metal chain rattling quickly as a crane hook is lowered, for a children's game." + NO),
+    'sound.arcade.boot': (1.0, False, -30, "A funny squeaky wet rubber boot being pulled out of water, squelch and squeak, for a children's game." + NO),
+    'sound.arcade.oar': (0.5, False, -36, "One soft paddle stroke of a wooden oar in calm water, very short, for a children's game." + NO),
+    'sound.arcade.thump': (0.5, False, -31, "A soft dull thump of a small basket of goods landing in a wooden boat, for a children's game." + NO),
+    'sound.arcade.clonk': (0.7, False, -31, "A short hollow wooden clonk of a small rowing boat bumping gently into a rock, for a children's game." + NO),
+    'sound.arcade.swoosh': (0.5, False, -37, "One quick soft swish of a fishing net swung through the air, very short, for a children's game." + NO),
+    'sound.arcade.sparkle_down': (0.9, False, -32, "A gentle magical sparkle sound going downwards, soft and friendly, like a tiny 'oh-oh', for a children's game." + NO),
+    'sound.arcade.hop': (0.5, False, -36, "A tiny soft cartoon hop sound, a light springy boing, very short, for a children's game." + NO),
+    'sound.arcade.nut': (0.5, False, -32, "One small crisp crack of a hazelnut being picked up, very short, for a children's game." + NO),
+    'sound.arcade.bonk': (0.6, False, -31, "A soft cartoon bonk of bumping into a mushroom, cushioned and funny, not painful, for a children's game." + NO),
+    'sound.arcade.shell': (0.5, False, -35, "A small seashell clam snapping gently shut underwater, soft muffled click, for a children's game." + NO),
+    'sound.arcade.jelly': (0.8, False, -31, "A friendly wobbly bzzt of a cartoon jellyfish, soft electric jiggle, not scary, for a children's game." + NO),
+    'sound.arcade.horn': (1.2, False, -31, "A short cheerful ship horn toot, like 'let's go', for a children's game." + NO),
+    'sound.arcade.record': (2.2, False, -28, "A short bright happy fanfare with a little drum roll and sparkle, celebrating a new high score, for a children's game." + NO),
 }
 
 

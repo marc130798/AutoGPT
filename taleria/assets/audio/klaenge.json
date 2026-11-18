@@ -63,6 +63,142 @@
     "plan": "ElevenLabs Starter",
     "modell": "eleven_text_to_sound_v2"
   },
+  "sound.arcade.bonk": {
+    "text": "A soft cartoon bonk of bumping into a mushroom, cushioned and funny, not painful, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.6,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.boot": {
+    "text": "A funny squeaky wet rubber boot being pulled out of water, squelch and squeak, for a children's game. No music, no voices, no speech.",
+    "sekunden": 1.0,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.chain": {
+    "text": "A short metal chain rattling quickly as a crane hook is lowered, for a children's game. No music, no voices, no speech.",
+    "sekunden": 1.0,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.clonk": {
+    "text": "A short hollow wooden clonk of a small rowing boat bumping gently into a rock, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.7,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.flap": {
+    "text": "One single soft whoosh of a seagull flapping its wings once, very short, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.glass": {
+    "text": "A few gold coins dropping into a glass jar with a bright clink, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.8,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.hop": {
+    "text": "A tiny soft cartoon hop sound, a light springy boing, very short, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.horn": {
+    "text": "A short cheerful ship horn toot, like 'let's go', for a children's game. No music, no voices, no speech.",
+    "sekunden": 1.2,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.jelly": {
+    "text": "A friendly wobbly bzzt of a cartoon jellyfish, soft electric jiggle, not scary, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.8,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.nut": {
+    "text": "One small crisp crack of a hazelnut being picked up, very short, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.oar": {
+    "text": "One soft paddle stroke of a wooden oar in calm water, very short, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.record": {
+    "text": "A short bright happy fanfare with a little drum roll and sparkle, celebrating a new high score, for a children's game. No music, no voices, no speech.",
+    "sekunden": 2.2,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.shell": {
+    "text": "A small seashell clam snapping gently shut underwater, soft muffled click, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.sparkle_down": {
+    "text": "A gentle magical sparkle sound going downwards, soft and friendly, like a tiny 'oh-oh', for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.9,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.squawk": {
+    "text": "One short funny surprised seagull squawk, like a little 'aak!', for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.8,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.swoosh": {
+    "text": "One quick soft swish of a fishing net swung through the air, very short, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
+  "sound.arcade.thump": {
+    "text": "A soft dull thump of a small basket of goods landing in a wooden boat, for a children's game. No music, no voices, no speech.",
+    "sekunden": 0.5,
+    "schleife": false,
+    "datum": "2026-11-18",
+    "plan": "ElevenLabs Starter",
+    "modell": "eleven_text_to_sound_v2"
+  },
   "sound.badge_hang": {
     "text": "Small gold medal clinking softly onto a nail on a wooden wall, light metallic ting, for a children's game. No music, no voices, no speech.",
     "sekunden": 2,

@@ -138,7 +138,7 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
       _best = score;
       AppScope.of(context).settings.setArcadeBest(widget.childId, widget.game.id, score);
     }
-    playEffect(context, _newBest ? AssetKeys.soundStationDone : AssetKeys.soundCorrect);
+    playEffect(context, _newBest ? AssetKeys.soundArcadeRecord : AssetKeys.soundCorrect);
     setState(() {
       _last = game;
       _phase = _Phase.end;
@@ -325,17 +325,42 @@ class ArcadeFieldState extends State<ArcadeField> with SingleTickerProviderState
 
   /// Töne je Spiel: Taler, gute Lieferung, gespart, Fehler.
   String _sound(ArcadeEvent e) => switch ((widget.kind, e)) {
-    (ArcadeKind.pearlDive, ArcadeEvent.coin) => AssetKeys.soundPearl,
-    (ArcadeKind.bottles, ArcadeEvent.coin) => AssetKeys.soundBottle,
+    (_, ArcadeEvent.start) => AssetKeys.soundArcadeHorn,
+    // Mias Möwenflug
+    (ArcadeKind.gullFlight, ArcadeEvent.action) => AssetKeys.soundArcadeFlap,
+    (ArcadeKind.gullFlight, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundArcadeSquawk,
+    (ArcadeKind.gullFlight, ArcadeEvent.saved) => AssetKeys.soundArcadeGlass,
+    // Bootsbauers Kran
+    (ArcadeKind.crane, ArcadeEvent.action) => AssetKeys.soundArcadeChain,
+    (ArcadeKind.crane, ArcadeEvent.junk) => AssetKeys.soundArcadeBoot,
     (ArcadeKind.crane, ArcadeEvent.good) => AssetKeys.soundRegister,
+    (ArcadeKind.crane, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundArcadeBonk,
+    // Ottis Lieferboot
+    (ArcadeKind.delivery, ArcadeEvent.action) => AssetKeys.soundArcadeOar,
+    (ArcadeKind.delivery, ArcadeEvent.coin) => AssetKeys.soundArcadeThump,
     (ArcadeKind.delivery, ArcadeEvent.good) => AssetKeys.soundTrade,
+    (ArcadeKind.delivery, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundArcadeClonk,
+    // Elsas Flaschenfänger: Der Wunsch im Netz klingt sanft, ein eigener Treffer-Ton wäre doppelt.
+    (ArcadeKind.bottles, ArcadeEvent.action) => AssetKeys.soundArcadeSwoosh,
+    (ArcadeKind.bottles, ArcadeEvent.coin) => AssetKeys.soundBottle,
+    (ArcadeKind.bottles, ArcadeEvent.wrong) => AssetKeys.soundArcadeSparkleDown,
+    (ArcadeKind.bottles, ArcadeEvent.hit || ArcadeEvent.over) => '',
+    // Emmas Nussjagd
+    (ArcadeKind.nutRun, ArcadeEvent.action) => AssetKeys.soundArcadeHop,
+    (ArcadeKind.nutRun, ArcadeEvent.coin) => AssetKeys.soundArcadeNut,
     (ArcadeKind.nutRun, ArcadeEvent.saved) => AssetKeys.soundDig,
+    (ArcadeKind.nutRun, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundArcadeBonk,
+    // Talas Perlentaucher
+    (ArcadeKind.pearlDive, ArcadeEvent.coin) => AssetKeys.soundPearl,
+    (ArcadeKind.pearlDive, ArcadeEvent.shell) => AssetKeys.soundArcadeShell,
+    (ArcadeKind.pearlDive, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundArcadeJelly,
+    // Für alle
+    (_, ArcadeEvent.splash) => AssetKeys.soundSplash,
     (_, ArcadeEvent.coin) => AssetKeys.soundCoin,
     (_, ArcadeEvent.good) => AssetKeys.soundCorrect,
     (_, ArcadeEvent.saved) => AssetKeys.soundPiggy,
     (_, ArcadeEvent.faster) => AssetKeys.soundShipBell,
-    (_, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundSplash,
-    (_, ArcadeEvent.wrong) => '',
+    (_, ArcadeEvent.wrong || ArcadeEvent.action || ArcadeEvent.junk || ArcadeEvent.shell) => '',
   };
 
   void _tick(Duration now) {

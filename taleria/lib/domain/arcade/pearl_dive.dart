@@ -117,7 +117,20 @@ class PearlDiveGame extends ArcadeRound {
     _touch();
   }
 
+  /// Muscheln in Talas Nähe, die gerade offen sind (für das Klappen).
+  final _openNear = <PearlShell>{};
+
   void _touch() {
+    for (final s in shells) {
+      final near = (s.x - x).abs() < 0.14 && (s.y - y).abs() < 0.2;
+      final open = s.openAt(time);
+      if (near && !s.taken && open != _openNear.contains(s)) {
+        // Nur das Zuklappen klingt, damit es nicht dauernd klickt.
+        if (!open) events.add(ArcadeEvent.shell);
+        open ? _openNear.add(s) : _openNear.remove(s);
+      }
+    }
+    _openNear.removeWhere((s) => !shells.contains(s));
     for (final s in shells) {
       if (s.taken) continue;
       final dx = s.x - x, dy = s.y - y;

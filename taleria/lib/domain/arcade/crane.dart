@@ -61,7 +61,10 @@ class CraneGame extends ArcadeRound {
   void drop() {
     if (over) return;
     started = true;
-    if (state == 0) state = 1;
+    if (state == 0) {
+      state = 1;
+      emit(ArcadeEvent.action);
+    }
   }
 
   @override
@@ -78,6 +81,7 @@ class CraneGame extends ArcadeRound {
       hookY += hookSpeed * dt;
       if (hookY >= water) {
         hookY = water;
+        events.add(ArcadeEvent.splash);
         final near = items.where((i) => (i.x - trolley).abs() < grabRange).toList()
           ..sort((a, b) => (a.x - trolley).abs().compareTo((b.x - trolley).abs()));
         if (near.isNotEmpty) {
@@ -123,7 +127,7 @@ class CraneGame extends ArcadeRound {
     held = null;
     if (item == null) return;
     if (item.boot) {
-      events.add(ArcadeEvent.wrong);
+      events.add(ArcadeEvent.junk);
       hurt();
       return;
     }

@@ -277,4 +277,50 @@ void main() {
       expect(round.lives, ArcadeRound.hearts);
     }
   });
+
+  group('Töne der Spiele', () {
+    test('erstes Antippen meldet den Start, jede Aktion einen Ton', () {
+      final g = GullFlightGame(width: 0.46, random: Random(1))..flap();
+      g.step(0.01);
+      expect(g.events, containsAllInOrder([ArcadeEvent.start, ArcadeEvent.action]));
+      g.flap();
+      g.step(0.01);
+      expect(g.events, isNot(contains(ArcadeEvent.start)), reason: 'der Start klingt nur einmal');
+      expect(g.events, contains(ArcadeEvent.action));
+    });
+
+    test('Kran: Haken fällt ins Wasser, ein Stiefel klingt eigen', () {
+      final g = CraneGame(width: 0.46, random: Random(3))..drop();
+      final all = <ArcadeEvent>[];
+      for (var i = 0; i < 60; i++) {
+        g.step(0.02);
+        all.addAll(g.events);
+      }
+      expect(all, contains(ArcadeEvent.splash));
+      g
+        ..held = CraneItem(x: 0, value: 0, phase: 0)
+        ..state = 2
+        ..hookY = CraneGame.top + 0.001;
+      g.step(0.01);
+      expect(g.events, contains(ArcadeEvent.junk));
+    });
+
+    test('Bahnwechsel klingt nur, wenn sich die Bahn ändert', () {
+      final g = DeliveryGame(width: 0.46, random: Random(1))..moveTo(1);
+      g.step(0.01);
+      expect(g.events, isNot(contains(ArcadeEvent.action)));
+      g.moveTo(2);
+      g.step(0.01);
+      expect(g.events, contains(ArcadeEvent.action));
+    });
+
+    test('Emma: Sprung und Doppelsprung klingen, dreifach nicht', () {
+      final g = NutRunGame(width: 0.46, random: Random(1))
+        ..jump()
+        ..jump()
+        ..jump();
+      g.step(0.001);
+      expect(g.events.where((e) => e == ArcadeEvent.action), hasLength(2));
+    });
+  });
 }
