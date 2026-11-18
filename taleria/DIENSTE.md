@@ -121,6 +121,8 @@ Stand: 18.11.2026
 
 ## 6. Offene Punkte (To-do-Liste, Stand 18.11.2026)
 
+**Planungsblatt (seit 18.11.2026):** Die laufende Planung und das Logbuch des Erledigten stehen im Blatt „Taleria Fahrplan“: https://claude.ai/artifact/RrEMMQgsJHo18xKDh6UEWf (Reiter „Fahrplan“ und „Logbuch“). Claude trägt dort neue Aufgaben ein und hakt Erledigtes ab; die Liste hier ist die Sicherung im Code.
+
 Hier steht alles, was noch zu tun ist, damit nichts vergessen wird. Claude hakt ab und ergänzt bei jeder Sitzung.
 
 **Marc erledigt:**
