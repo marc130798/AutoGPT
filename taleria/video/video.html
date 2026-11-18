@@ -74,6 +74,41 @@ img.fit { position: absolute; object-fit: contain; }
 .step { position: absolute; display: flex; gap: calc(var(--u)*14px); }
 .step i { display: block; width: calc(var(--u)*46px); height: calc(var(--u)*10px); border-radius: 99px; background: rgba(255,255,255,.25); }
 .step i.on { background: var(--gold); }
+
+/* Look D: hell wie die Homepage */
+#sea { background: #f4fafd !important; filter: none !important; }
+#tile, #clouds, #gloom, #storm, #flash { display: none !important; }
+#vignette { background: none !important; }
+.blob { position: absolute; border-radius: 50%; }
+#stage { color: var(--ink); }
+h1 { color: var(--sea-deep) !important; text-shadow: none !important; }
+.lead { color: var(--ink-soft) !important; text-shadow: none !important; }
+.src { color: var(--ink-soft) !important; text-shadow: none !important; border-top-color: var(--line) !important; }
+.big { text-shadow: none !important; }
+.big.coral { color: var(--coral) !important; }
+.label { color: var(--sea-deep) !important; text-shadow: none !important; }
+.glass { background: #fff !important; border: calc(var(--u)*3px) solid var(--line) !important; box-shadow: 0 24px 70px rgba(20,50,80,.12) !important; backdrop-filter: none !important; padding: calc(var(--u)*40px) calc(var(--u)*56px) calc(var(--u)*34px) !important; gap: calc(var(--u)*16px) !important; }
+.ficon { background: var(--cream) !important; border-color: var(--gold) !important; width: calc(var(--u)*96px) !important; height: calc(var(--u)*96px) !important; }
+.ficon svg { stroke: var(--gold) !important; }
+.step i { background: var(--line) !important; } .step i.on { background: var(--gold) !important; }
+.bubble { border-color: rgba(47,134,168,.35) !important; background: rgba(47,134,168,.08) !important; }
+.chip { box-shadow: 0 6px 16px rgba(212,166,42,.25); }
+.port .big { font-size: calc(var(--u) * 140px); }
+.land .big { font-size: calc(var(--u) * 170px); }
+.viz { position: relative; width: 100%; }
+.kid { position: absolute; }
+.kid svg { width: 100%; height: 100%; }
+.qmark { position: absolute; font-family: "Baloo 2"; font-weight: 800; color: var(--coral); }
+.bar { position: absolute; bottom: 0; border-radius: calc(var(--u)*16px) calc(var(--u)*16px) 0 0; }
+.barlab { position: absolute; text-align: center; font-family: "Baloo 2"; font-weight: 800; color: var(--sea-deep); }
+.barval { position: absolute; text-align: center; font-family: "Baloo 2"; font-weight: 800; }
+.thought { position: absolute; font-family: "Baloo 2"; font-weight: 800; color: var(--sea); }
+.young { display: flex; align-items: center; gap: calc(var(--u)*22px); background: #fff3f1; border: calc(var(--u)*3px) solid #f5c2bb; border-radius: calc(var(--u)*24px); padding: calc(var(--u)*14px) calc(var(--u)*26px); font-size: calc(var(--u)*30px); color: var(--ink); text-align: left; justify-self: center; }
+.young b { color: var(--coral); } .young span { color: var(--ink-soft); font-weight: 700; }
+.ykids { display: flex; gap: calc(var(--u)*6px); }
+.ykids svg { width: calc(var(--u)*30px); height: calc(var(--u)*40px); }
+.axis { position: absolute; font-weight: 800; color: var(--ink-soft); }
+#viz4 svg { left: 0; top: 0; }
 </style>
 </head>
 <body>
@@ -89,7 +124,7 @@ img.fit { position: absolute; object-fit: contain; }
 
   <!-- 1 Hook -->
   <div class="scene" id="s1">
-    <img class="fit" id="tala1" src="img/character.tala.think.png" alt="">
+    <img class="fit" id="tala1" src="img/character.tala.think.png" alt=""><div class="thought" id="q1a">?</div><div class="thought" id="q1b">?</div><div class="thought" id="q1c">€</div>
     <div class="text center" id="t1"><h1 data-a="up" data-d="0.2">Wer hat dir eigentlich beigebracht, mit Geld umzugehen?</h1></div>
   </div>
 
@@ -99,6 +134,7 @@ img.fit { position: absolute; object-fit: contain; }
     <div class="text center glass" data-a="pop" data-d="0">
       <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e3a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l10-4 10 4-10 4z"/><path d="M6 9v5c0 1.5 3 3 6 3s6-1.5 6-3V9"/><path d="M22 7v6"/></svg></div>
       <div class="big" data-count="80" data-suffix=" %" data-d="0.1">0 %</div>
+      <div class="viz" id="viz2"></div>
       <p class="lead" data-a="up" data-d="0.6">der jungen Menschen haben in der Schule kaum etwas über Geld gelernt.</p>
       <p class="src" data-a="up" data-d="1.0">Quelle: Bankenverband, Jugendstudie 2024</p>
     </div>
@@ -107,18 +143,20 @@ img.fit { position: absolute; object-fit: contain; }
     <div class="step" data-step="1"><i></i><i></i><i></i></div>
     <div class="text center glass" data-a="pop" data-d="0">
       <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e3a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v4M18 10v4"/></svg></div>
-      <div class="big" data-a="pop" data-d="0.1"><span style="opacity:.55">58 %</span> → <span data-count="51" data-from="58" data-suffix=" %">58 %</span></div>
-      <p class="lead" data-a="up" data-d="0.6">Bargeld verschwindet. Kinder sehen kaum noch, wie Geld den Besitzer wechselt.</p>
+      <div class="viz" id="viz3"></div>
+      <p class="lead" data-a="up" data-d="0.6">Barzahlungen in Deutschland: Bargeld verschwindet. Kinder sehen kaum noch, wie Geld den Besitzer wechselt.</p>
       <p class="src" data-a="up" data-d="1.0">Quelle: Deutsche Bundesbank, Zahlungsverhalten 2023</p>
     </div>
   </div>
   <div class="scene" id="s4">
     <div class="step" data-step="2"><i></i><i></i><i></i></div>
     <div class="text center glass" data-a="pop" data-d="0">
-      <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l6 6 4-4 8 9"/><path d="M15 16h6v-6"/></svg></div>
+      <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 9l4 5 4-3 5 6"/></svg></div>
       <div class="big coral" data-count="5.67" data-decimals="2" data-suffix=" Mio." data-d="0.1">0 Mio.</div>
-      <p class="lead" data-a="up" data-d="0.8">Erwachsene sind überschuldet. Besonders gefährdet: junge Menschen.</p>
-      <p class="src" data-a="up" data-d="1.2">Quelle: Creditreform, SchuldnerAtlas 2025</p>
+      <div class="viz" id="viz4"></div>
+      <p class="lead" data-a="up" data-d="0.8">Erwachsene in Deutschland sind überschuldet. Nach Jahren des Rückgangs steigt die Zahl wieder.</p>
+      <div class="young" id="young4" data-a="up" data-d="2.6"><div class="ykids" id="ykids4"></div><div><b>Unter 30 Jahren:</b> 763.000 überschuldet<br><span>+19.000 in einem Jahr (+2,6 %)</span></div></div>
+      <p class="src" data-a="up" data-d="1.2">Quelle: Creditreform, SchuldnerAtlas 2025, Tabellenband</p>
     </div>
   </div>
 
@@ -228,12 +266,41 @@ const ship6 = document.createElement('img'); ship6.src = 'img/ship.crew.png'; sh
 const lock6 = document.createElement('div'); lock6.className = 'abs'; lock6.innerHTML = '<svg viewBox="0 0 60 70" width="100%" height="100%"><rect x="6" y="30" width="48" height="36" rx="8" fill="#d4a62a" stroke="#7a5a10" stroke-width="4"/><path id="shackle" d="M16 30 V20 a14 14 0 0 1 28 0 V30" fill="none" stroke="#7a5a10" stroke-width="7"/><circle cx="30" cy="47" r="5" fill="#5c3a18"/></svg>'; map6.appendChild(lock6);
 const dots6 = []; for (let i = 0; i < 26; i++) { const d = document.createElement('div'); d.className = 'dot'; map6.appendChild(d); dots6.push(d); }
 
+// Farbflecken wie auf der Homepage
+const blobs = [['#dff1fb', .62, .1, .15, 0], ['#f6e3a6', .5, .85, .82, 2], ['#ffd9d3', .36, .9, .1, 4], ['#dff1fb', .42, .15, .9, 1]].map(([c, sz, x, y, ph]) => { const b = document.createElement('div'); b.className = 'blob'; const d = Math.max(W, H) * sz; b.style.width = b.style.height = d + 'px'; b.style.background = `radial-gradient(circle, ${c}, rgba(255,255,255,0) 68%)`; $('sea').appendChild(b); return { el: b, d, x, y, ph }; });
 // Sturm: Regen und Wellen
 const rain = []; for (let i = 0; i < 90; i++) { const r = document.createElement('div'); r.className = 'rain'; const len = (40 + (i * 37) % 60) * U; r.style.height = len + 'px'; $('storm').appendChild(r); rain.push({ el: r, x: ((i * 0.618) % 1) * (W + 300) - 150, sp: (900 + (i * 53) % 500) * U, ph: (i * 0.37) % 1, len }); }
-const waveCols = ['rgba(255,255,255,.22)', 'rgba(120,200,232,.35)', 'rgba(31,95,140,.45)'];
-const waves = waveCols.map((c, i) => { const d = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); d.setAttribute('viewBox', '0 0 400 60'); d.setAttribute('preserveAspectRatio', 'none'); d.innerHTML = `<path fill="${c}" d="M0 30 Q25 ${10 + i * 6} 50 30 T100 30 T150 30 T200 30 T250 30 T300 30 T350 30 T400 30 V60 H0Z"/>`; d.style.height = (H * (0.12 + i * 0.045)) + 'px'; d.style.bottom = (-i * H * 0.02) + 'px'; $('waves').appendChild(d); return d; });
+const waveCols = ['rgba(223,241,251,.9)', 'rgba(150,205,228,.55)', 'rgba(47,134,168,.35)'];
+const waves = waveCols.map((c, i) => { const d = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); d.setAttribute('viewBox', '0 0 400 60'); d.setAttribute('preserveAspectRatio', 'none'); d.innerHTML = `<path fill="${c}" d="M0 30 Q25 ${10 + i * 6} 50 30 T100 30 T150 30 T200 30 T250 30 T300 30 T350 30 T400 30 V60 H0Z"/>`; d.style.height = (H * (0.07 + i * 0.03)) + 'px'; d.style.bottom = (-i * H * 0.02) + 'px'; $('waves').appendChild(d); return d; });
 // Bargeld-Münzen (Szene 3), die verblassen
-const coins3 = []; for (let i = 0; i < 7; i++) { const c = document.createElement('img'); c.src = 'img/game.gull.coin.png'; c.className = 'fit'; $('s3').prepend(c); coins3.push(c); }
+const coins3 = []; for (let i = 0; i < 0; i++) { const c = document.createElement('img'); c.src = 'img/game.gull.coin.png'; c.className = 'fit'; $('s3').prepend(c); coins3.push(c); }
+// Szene 2: zehn Kinder
+const kidSvg = c => `<svg viewBox="0 0 40 52"><circle cx="20" cy="13" r="10" fill="${c}"/><path d="M4 50 Q4 28 20 28 Q36 28 36 50 Z" fill="${c}"/></svg>`;
+const kids2 = []; for (let i = 0; i < 10; i++) { const k = document.createElement('div'); k.className = 'kid'; k.innerHTML = kidSvg('#2f86a8'); const q = document.createElement('div'); q.className = 'qmark'; q.textContent = '?'; $('viz2').append(k, q); kids2.push({ k, q }); }
+// Szene 3: zwei Säulen und Handy
+const bars3 = [['2021', 58, '#d4a62a'], ['2023', 51, '#2f86a8']].map(([y, v, c]) => { const b = document.createElement('div'); b.className = 'bar'; b.style.background = c; const l = document.createElement('div'); l.className = 'barlab'; l.textContent = y; const val = document.createElement('div'); val.className = 'barval'; val.style.color = c; $('viz3').append(b, l, val); return { b, l, val, v }; });
+const coin3 = document.createElement('img'); coin3.src = 'img/game.gull.coin.png'; coin3.className = 'fit'; $('viz3').appendChild(coin3);
+const phone3 = document.createElement('div'); phone3.className = 'abs'; phone3.innerHTML = '<svg viewBox="0 0 40 64" width="100%" height="100%"><rect x="3" y="2" width="34" height="60" rx="7" fill="#1f4166"/><rect x="7" y="9" width="26" height="44" rx="3" fill="#dff1fb"/><path d="M14 31 a8 8 0 0 1 12 0 M11 27 a12 12 0 0 1 18 0 M17 35 a4 4 0 0 1 6 0" fill="none" stroke="#2f86a8" stroke-width="2.4" stroke-linecap="round"/></svg>'; $('viz3').appendChild(phone3);
+// Szene 4: Linie fällt sechs Jahre, dann steigt sie
+const NS = 'http://www.w3.org/2000/svg';
+const svg4 = document.createElementNS(NS, 'svg'); svg4.setAttribute('preserveAspectRatio', 'none'); svg4.style.position = 'absolute'; svg4.style.overflow = 'visible'; $('viz4').appendChild(svg4);
+// Echte Zahlen: überschuldete Erwachsene in Millionen (Creditreform, Tabellenband 2025, Tab. 54)
+const data4 = [[2019, 6.922], [2020, 6.853], [2021, 6.158], [2022, 5.884], [2023, 5.651], [2024, 5.557], [2025, 5.668]];
+svg4.innerHTML = '<defs><linearGradient id="area4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f86a8" stop-opacity=".22"/><stop offset="1" stop-color="#2f86a8" stop-opacity="0"/></linearGradient><radialGradient id="glow4g"><stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset=".35" stop-color="#f6c94b" stop-opacity=".9"/><stop offset="1" stop-color="#f6c94b" stop-opacity="0"/></radialGradient></defs>';
+const area4 = document.createElementNS(NS, 'polygon'); area4.setAttribute('fill', 'url(#area4g)'); svg4.appendChild(area4);
+const now4 = document.createElementNS(NS, 'path'); now4.setAttribute('fill', 'none'); now4.setAttribute('stroke', '#e5675a'); now4.setAttribute('stroke-dasharray', '6 8'); svg4.appendChild(now4);
+const ring4 = document.createElementNS(NS, 'circle'); ring4.setAttribute('fill', 'none'); ring4.setAttribute('stroke', '#e5675a'); svg4.appendChild(ring4);
+const glow4 = document.createElementNS(NS, 'circle'); glow4.setAttribute('fill', 'url(#glow4g)');
+const nowtag4 = document.createElement('div'); nowtag4.className = 'barval'; nowtag4.style.color = '#fff'; nowtag4.style.background = 'var(--coral)'; nowtag4.style.borderRadius = '999px'; nowtag4.textContent = 'Heute'; $('viz4').appendChild(nowtag4);
+const grid4 = document.createElementNS(NS, 'path'); grid4.setAttribute('fill', 'none'); grid4.setAttribute('stroke', '#cfe3ee'); svg4.appendChild(grid4);
+const line4 = document.createElementNS(NS, 'polyline'); line4.setAttribute('fill', 'none'); line4.setAttribute('stroke-linecap', 'round'); line4.setAttribute('stroke-linejoin', 'round'); svg4.appendChild(line4);
+const up4 = document.createElementNS(NS, 'polyline'); up4.setAttribute('fill', 'none'); up4.setAttribute('stroke-linecap', 'round'); svg4.appendChild(up4);
+const dots4 = data4.map(() => { const c = document.createElementNS(NS, 'circle'); svg4.appendChild(c); return c; });
+svg4.appendChild(glow4);
+const ax4 = data4.map(([y]) => { const d = document.createElement('div'); d.className = 'axis'; d.textContent = y; $('viz4').appendChild(d); return d; });
+const v4a = document.createElement('div'); v4a.className = 'barval'; v4a.style.color = '#6f8798'; v4a.textContent = '6,92 Mio.'; $('viz4').appendChild(v4a);
+const tag4 = document.createElement('div'); tag4.className = 'barval'; tag4.style.color = 'var(--coral)'; tag4.textContent = '↑ steigt wieder'; $('viz4').appendChild(tag4);
+$('ykids4').innerHTML = [0,1,2].map(() => kidSvg('#e5675a')).join('');
 // Münzen (Szene 8)
 const coins8 = []; for (let i = 0; i < 5; i++) { const c = document.createElement('img'); c.src = 'img/game.gull.coin.png'; c.className = 'fit'; $('vis8').appendChild(c); coins8.push(c); }
 
@@ -270,6 +337,7 @@ function render(t) {
   bubbles.forEach(b => { const y = H - ((t * b.sp * U + b.ph * 200) % (H + 100)); b.el.style.transform = `translate(${b.x + Math.sin(t + b.ph) * 20}px, ${y}px)`; b.el.style.opacity = 0.7; });
 
   const storm = 0;
+  blobs.forEach(b => { b.el.style.transform = `translate(${b.x * W - b.d / 2 + Math.sin(t * 0.25 + b.ph) * 60 * U}px, ${b.y * H - b.d / 2 + Math.cos(t * 0.2 + b.ph) * 50 * U}px)`; });
   rain.forEach(r => { const y = ((t * r.sp / H + r.ph) % 1) * (H + r.len * 2) - r.len; r.el.style.transform = `translate(${r.x - y * 0.18}px, ${y}px) rotate(10deg)`; r.el.style.opacity = storm * 0.8; });
   waves.forEach((w, i) => { w.style.transform = `translateX(${-((t * (30 + i * 22) * U) % (W)) }px) translateY(${Math.sin(t * 1.3 + i) * 8 * U}px)`; w.style.opacity = 1; });
   const flashes = [starts[1] + 0.15, starts[3] + 0.2, starts[2] + 2.8];
@@ -296,6 +364,81 @@ function render(t) {
     place($('tala1'), PORT ? W / 2 - cw / 2 : W * 0.72, (PORT ? H * 0.58 : H * 0.42) + (1 - p) * 120 * U + Math.sin(t * 2) * 6 * U, cw, cw * 1.3);
     $('tala1').style.opacity = p;
     $('t1').style.cssText += PORT ? ';top:28%' : ';left:6% !important;right:auto;width:62% !important';
+  }
+  // 1: Fragezeichen steigen über Tala
+  {
+    const lt = L(0), r1 = $('tala1').getBoundingClientRect();
+    [['q1a', -0.05, 0], ['q1b', 0.55, 0.5], ['q1c', 0.85, 1.0]].forEach(([id, fx, d]) => {
+      const p = ease((lt - 1.0 - d) / 0.6), el = $(id), fs = (PORT ? 90 : 70) * U;
+      el.style.fontSize = fs + 'px';
+      el.style.left = (r1.left + r1.width * fx) + 'px';
+      el.style.top = (r1.top - fs * 0.6 - p * 30 * U + Math.sin(t * 2 + d * 3) * 8 * U) + 'px';
+      el.style.opacity = p; el.style.transform = `scale(${0.6 + 0.4 * p}) rotate(${Math.sin(t * 1.5 + d) * 10}deg)`;
+      el.style.color = id === 'q1c' ? 'var(--gold)' : 'var(--sea)';
+    });
+  }
+  // 2: zehn Kinder, acht bekommen ein Fragezeichen
+  {
+    const lt = L(1), box = $('viz2'), w = box.clientWidth, kw = Math.min(w / 11.5, 70 * U), kh = kw * 1.3;
+    box.style.height = (kh + 40 * U) + 'px';
+    const gap = (w - kw * 10) / 9;
+    kids2.forEach(({ k, q }, i) => {
+      const x = i * (kw + gap), pop = ease((lt - 0.2 - i * 0.07) / 0.4), lost = i < 8 ? ease((lt - 1.2 - i * 0.12) / 0.4) : 0;
+      place(k, x, 34 * U + (1 - pop) * 30 * U, kw, kh); k.style.opacity = pop;
+      k.innerHTML = kidSvg(lost > 0.5 ? '#b9c7d2' : (i >= 8 && lt > 2.4 ? '#3e9b5a' : '#2f86a8'));
+      const qs = kw * 0.75; place(q, x + kw * 0.3, 34 * U - qs * 0.7 - lost * 8 * U, qs, qs);
+      q.style.fontSize = qs + 'px'; q.style.lineHeight = '1'; q.style.opacity = lost; q.style.transform = `scale(${0.5 + 0.5 * lost}) rotate(${Math.sin(t * 3 + i) * 8}deg)`;
+    });
+  }
+  // 3: Säulen sinken, die Münze wird zum Handy
+  {
+    const lt = L(2), box = $('viz3'), w = box.clientWidth, h = (PORT ? 420 : 300) * U;
+    box.style.height = h + 'px';
+    const bw = w * 0.2, base = h - 50 * U, maxH = base - 70 * U;
+    bars3.forEach((b, i) => {
+      const x = w * (0.12 + i * 0.28), grow = easeIO((lt - 0.3 - i * 0.9) / 1.0), bh = maxH * (b.v / 58) * grow;
+      place(b.b, x, base - bh, bw, bh); b.b.style.bottom = 'auto';
+      place(b.l, x - 20 * U, base + 8 * U, bw + 40 * U); b.l.style.fontSize = 34 * U + 'px';
+      place(b.val, x - 30 * U, base - bh - 64 * U, bw + 60 * U); b.val.style.fontSize = 54 * U + 'px';
+      b.val.textContent = Math.round(b.v * grow) + ' %'; b.val.style.opacity = grow > 0.05 ? 1 : 0;
+    });
+    const cs = 110 * U, cx = w * 0.78, cy = base - maxH * 0.6;
+    const morph = ease((lt - 2.6) / 0.6);
+    place(coin3, cx - cs / 2, cy - cs / 2 + Math.sin(t * 3) * 6 * U, cs, cs);
+    coin3.style.opacity = ease((lt - 0.4) / 0.5) * (1 - morph); coin3.style.transform = `scale(${1 - 0.6 * morph}) rotate(${morph * 180}deg)`;
+    const ps = 150 * U; place(phone3, cx - ps * 0.32, cy - ps / 2, ps * 0.64, ps);
+    phone3.style.opacity = morph; phone3.style.transform = `scale(${0.6 + 0.4 * morph + 0.05 * Math.sin(t * 6) * morph})`;
+  }
+  // 4: echte Linie 2019 bis 2025, zuletzt rot nach oben
+  {
+    const lt = L(3), box = $('viz4'), w = box.clientWidth, h = (PORT ? 300 : 220) * U;
+    box.style.height = h + 'px';
+    svg4.setAttribute('width', w); svg4.setAttribute('height', h); svg4.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg4.style.width = w + 'px'; svg4.style.height = h + 'px';
+    const padL = w * 0.1, padR = w * (PORT ? 0.22 : 0.26), top = h * 0.12, bot = h - 46 * U;
+    const P = i => [padL + i / 6 * (w - padL - padR), top + (7.0 - data4[i][1]) / (7.0 - 5.4) * (bot - top)];
+    grid4.setAttribute('d', `M${padL} ${bot} H${w - padR * 0.6}`); grid4.setAttribute('stroke-width', 3 * U);
+    const prog = easeIO((lt - 0.5) / 2.4) * 5, up = easeIO((lt - 3.0) / 0.8);
+    const pts = []; for (let i = 0; i <= 5; i++) { if (i <= prog) pts.push(P(i)); else { const a = P(i - 1), b = P(i), f = prog - (i - 1); if (f > 0) pts.push([a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f]); break; } }
+    line4.setAttribute('points', pts.map(p => p.join(',')).join(' ')); line4.setAttribute('stroke', '#8fb2c6'); line4.setAttribute('stroke-width', 9 * U);
+    const a = P(5), b = P(6), e = [a[0] + (b[0] - a[0]) * up, a[1] + (b[1] - a[1]) * up];
+    up4.setAttribute('points', up > 0 ? `${a[0]},${a[1]} ${e[0]},${e[1]}` : ''); up4.setAttribute('stroke', '#e5675a'); up4.setAttribute('stroke-width', 11 * U);
+    // Fläche unter der Linie und leuchtende Spitze
+    const all = up > 0 ? [...pts, e] : pts;
+    area4.setAttribute('points', all.length > 1 ? [...all.map(p => p.join(',')), `${all.at(-1)[0]},${bot}`, `${all[0][0]},${bot}`].join(' ') : '');
+    const head = all.at(-1) || P(0), drawing = (prog > 0 && prog < 5) || (up > 0 && up < 1);
+    glow4.setAttribute('cx', head[0]); glow4.setAttribute('cy', head[1]); glow4.setAttribute('r', 34 * U * (1 + 0.2 * Math.sin(t * 10)));
+    glow4.setAttribute('opacity', drawing ? 1 : 0);
+    // Hier sind wir heute
+    const hereP = ease((lt - 3.9) / 0.5), [hx, hy] = P(6);
+    now4.setAttribute('d', `M${hx} ${top - 10 * U} V${bot}`); now4.setAttribute('stroke-width', 3 * U); now4.setAttribute('opacity', hereP * 0.7);
+    const pulse = ((t * 0.9) % 1);
+    ring4.setAttribute('cx', hx); ring4.setAttribute('cy', hy); ring4.setAttribute('r', (16 + 30 * pulse) * U); ring4.setAttribute('stroke-width', 4 * U); ring4.setAttribute('opacity', hereP * (1 - pulse));
+    place(nowtag4, hx - 70 * U, top - 64 * U, 140 * U); nowtag4.style.fontSize = 28 * U + 'px'; nowtag4.style.padding = `${4 * U}px 0`; nowtag4.style.opacity = hereP; nowtag4.style.transform = `scale(${0.7 + 0.3 * hereP})`;
+    dots4.forEach((c, i) => { const [x, y] = i === 6 ? e : P(i); const on = i === 6 ? up > 0.05 : i <= prog; c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', (i === 6 ? 14 * (1 + 0.15 * Math.sin(t * 6)) : 8) * U); c.setAttribute('fill', i === 6 ? '#e5675a' : '#2f86a8'); c.setAttribute('opacity', on ? 1 : 0); });
+    ax4.forEach((d, i) => { const [x] = P(i); place(d, x - 50 * U, bot + 8 * U, 100 * U); d.style.textAlign = 'center'; d.style.fontSize = (PORT ? 24 : 22) * U + 'px'; d.style.opacity = ease((lt - 0.3) / 0.5) * (i === 0 || i === 6 || !PORT ? 1 : 0.6); });
+    const [x0, y0] = P(0); place(v4a, x0 - 20 * U, y0 - 52 * U, 200 * U); v4a.style.textAlign = 'left'; v4a.style.fontSize = 30 * U + 'px'; v4a.style.opacity = ease((lt - 0.6) / 0.5);
+    place(tag4, e[0] + 24 * U, e[1] - 22 * U, 300 * U); tag4.style.textAlign = 'left'; tag4.style.fontSize = 36 * U + 'px'; tag4.style.opacity = ease((lt - 3.6) / 0.5);
   }
   // 3: Münzen verblassen nach und nach
   {

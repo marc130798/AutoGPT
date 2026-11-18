@@ -20,3 +20,11 @@ beschleunigt (keine neue Aufnahme), kürzere Pausen, Animationen 1,3-mal schnell
 für Wort, Luftblasen im Meer. Szene 7 zeigt ein großes Handy, das ein Finger durchscrollt
 (Geschichte, Quiz, Möwenflug, Kran, Schatztruhe); dafür braucht `img/` zusätzlich die
 App-Bilder `app.geschichte`, `app.kran` aus `landingpage/bilder`.
+
+Dritte Fassung (18.11.2026): heller Look wie die Homepage (Farbflecken, weiße Karten, Wellen unten).
+Problem-Szenen mit Grafiken: 10 Kinder, 8 mit Fragezeichen (80 %); Säulen Barzahlungen 2021 58 % und
+2023 51 %, Münze wird Handy; Linie der überschuldeten Erwachsenen 2019 bis 2025 mit echten Werten aus
+dem SchuldnerAtlas 2025, Tabellenband, Tab. 54 (6,922 / 6,853 / 6,158 / 5,884 / 5,651 / 5,557 / 5,668 Mio.),
+leuchtende Spitze, „Heute“-Marke, dazu unter 30 Jahren 763.000 (+19.000, +2,6 %). Achtung: Bei den
+unter 30-Jährigen ist die Zahl seit 2013 stark gesunken (1,79 Mio.) und erst 2025 leicht gestiegen;
+„immer mehr“ darf man darum nicht sagen.
