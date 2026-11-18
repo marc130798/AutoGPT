@@ -149,8 +149,9 @@ def lines() -> list[tuple[str, str, str]]:
         base = f"voice.begegnung.{enc['slug']}."
         add(f"{base}erste.", enc.get("erste_begegnung"))
         add(f"{base}szene.", enc.get("szene"))
-        for part in ("richtig", "falsch", "geschafft"):
-            line = enc.get(part)
+        trial_fail = (enc.get("pruefung") or {}).get("nicht_bestanden")
+        for part in ("richtig", "falsch", "geschafft", "nicht_bestanden"):
+            line = enc.get(part) if part != "nicht_bestanden" else trial_fail
             if isinstance(line, dict) and line.get("wer") in VOICES:
                 out.append((f"{base}{part}.mp3", line["wer"], line["text"]))
 

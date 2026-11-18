@@ -43,7 +43,7 @@
         "orden": {
           "slug": "taleron-siegel-a",
           "titel": "Taleron-Siegel A",
-          "bild": "badge.taleron.a"
+          "bild": "badge.taleron_seal_a"
         },
         "nicht_bestanden": { "wer": "taleron", "text": "Fast! Für mein Siegel fehlt noch ein kleines Stück. Ruht euch aus und kommt wieder. Ich warte hier auf euch." }
       },

@@ -2501,15 +2501,6 @@
         "shape": "circle"
       }
     },
-    "badge.taleron.a": {
-      "type": "image",
-      "path": "assets/images/badge.taleron.a.png",
-      "placeholder": {
-        "label": "Taleron-Siegel A",
-        "color": "#2E8B8B",
-        "shape": "circle"
-      }
-    },
     "badge.tauschinsel": {
       "type": "image",
       "path": "assets/images/badge.tauschinsel.png",

@@ -2938,7 +2938,7 @@ on conflict (id) do update set
   after_island_id = excluded.after_island_id, content = excluded.content, status = excluded.status;
 
 insert into public.badges (id, slug, kind, island_id, title, asset_key, sort_order, status)
-values (md5('taleria:badge/taleron-siegel-a')::uuid, 'taleron-siegel-a', 'taleron', null, 'Taleron-Siegel A', 'badge.taleron.a', 100, 'draft')
+values (md5('taleria:badge/taleron-siegel-a')::uuid, 'taleron-siegel-a', 'taleron', null, 'Taleron-Siegel A', 'badge.taleron_seal_a', 100, 'draft')
 on conflict (id) do update set
   title = excluded.title, asset_key = excluded.asset_key, sort_order = excluded.sort_order,
   status = excluded.status;

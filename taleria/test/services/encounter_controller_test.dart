@@ -104,7 +104,7 @@ void main() {
         dueCount: 0,
         trial: const TrialInfo(
           pass: 3,
-          badge: BadgeRef(slug: 'taleron-siegel-a', title: 'Taleron-Siegel A', assetKey: 'badge.taleron.a'),
+          badge: BadgeRef(slug: 'taleron-siegel-a', title: 'Taleron-Siegel A', assetKey: 'badge.taleron_seal_a'),
         ),
       );
     }

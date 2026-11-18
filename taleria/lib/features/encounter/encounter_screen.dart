@@ -98,7 +98,8 @@ class _EncounterScreenState extends State<EncounterScreen> {
         _sounds.voice(widget.offer.firstMeeting ? 'voice.taleron.first.mp3' : 'voice.taleron.hello.mp3');
       }
     } else if (step == EncounterStep.result) {
-      _sounds.voice(_line('geschafft', 'voice.taleron.bye.mp3'));
+      final passed = _controller!.result?.passed ?? true;
+      _sounds.voice(_line(passed ? 'geschafft' : 'nicht_bestanden', 'voice.taleron.bye.mp3'));
     }
   }
 
