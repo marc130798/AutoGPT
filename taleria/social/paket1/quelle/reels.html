@@ -1,0 +1,68 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><link rel="stylesheet" href="folien.css">
+<style>
+body{background:#000;margin:0}
+#v{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--cream)}
+.l{position:absolute;inset:0;opacity:0}
+.c{position:absolute;left:0;right:0;text-align:center}
+.phone{position:absolute;left:190px;top:470px;width:700px;height:1300px;background:#10202f;border-radius:70px;padding:22px;box-shadow:0 40px 80px rgba(10,30,50,.4)}
+.phone .scr{width:100%;height:100%;border-radius:52px;overflow:hidden;position:relative;background:#fff}
+.phone img{width:100%;position:absolute;left:0;top:0}
+.cap{position:absolute;left:70px;right:70px;top:150px;text-align:center}
+.stamp{display:inline-block;font-family:"Baloo 2";font-weight:800;font-size:110px;color:#fff;padding:10px 60px;border-radius:40px;border:8px solid #fff;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+</style></head><body><div id="v"></div>
+<script>
+const A='../../../assets/images/',L='../../../landingpage/bilder/';
+const q=new URLSearchParams(location.search).get('reel')||'wollen';
+const ease=x=>1-Math.pow(1-Math.min(Math.max(x,0),1),3);
+const pop=x=>{x=Math.min(Math.max(x,0),1);const s=1.70158;return 1+(s+1)*Math.pow(x-1,3)+s*Math.pow(x-1,2)};
+const foot=`<div class="foot" style="bottom:70px"><img src="${L}brand.logo.png" style="height:80px"><span style="font-size:36px">@taleria</span></div>`;
+let R={};window.SFX=[];
+if(q==='wollen'){
+ const items=[['regenjacke','Eine Regenjacke für den Schulweg',1,'Wenn es regnet, braucht man sie.'],
+  ['glitzerbrille','Eine Glitzer-Sonnenbrille, obwohl schon eine da ist',0,'Schön, aber nicht nötig. Ein Wunsch!'],
+  ['zahnbuerste','Eine neue Zahnbürste',1,'Für jeden Tag. Brauchen!'],
+  ['sammelkarten','Das zehnte Päckchen Sammelkarten',0,'Macht Spaß, ist aber ein Wunsch.']];
+ const T0=2.6,D=3.6;R.total=T0+items.length*D+3.2;
+ document.getElementById('v').innerHTML=`<img class="bgimg" src="${A}story.wunschinsel.1.1.jpg" style="opacity:.22">
+ <div class="l" id="t"><div class="c" style="top:560px"><span class="eyebrow" style="font-size:44px">Mach mit!</span><h1 style="font-size:150px;margin-top:20px">Brauchen<br><span class="hl">oder</span><br>Wollen?</h1><p style="font-weight:800;font-size:56px;margin-top:40px">Schaffst du alle 4?</p></div></div>
+ ${items.map((it,i)=>`<div class="l" id="i${i}"><div class="c" style="top:180px"><span class="eyebrow" style="font-size:40px">${i+1} von 4</span></div>
+  <div class="c" style="top:300px"><h2 style="font-size:84px;padding:0 80px">${it[1]}</h2></div>
+  <img id="im${i}" src="${A}item.${it[0]}.png" style="position:absolute;left:240px;top:720px;width:600px;height:600px;object-fit:contain">
+  <div class="c" id="cd${i}" style="top:1380px;font-family:'Baloo 2';font-weight:800;font-size:120px;color:var(--sea)"></div>
+  <div class="c" id="st${i}" style="top:1360px;opacity:0"><span class="stamp" style="background:${it[2]?'var(--green)':'var(--coral)'}">${it[2]?'Brauchen ✓':'Wollen ★'}</span><p style="font-weight:800;font-size:50px;margin-top:34px">${it[3]}</p></div></div>`).join('')}
+ <div class="l" id="e"><div class="c" style="top:300px;padding:0 90px"><h2 style="font-size:96px">Wollen ist nicht verboten.</h2><p style="font-size:56px;font-weight:700;margin-top:30px">Die Frage ist nur: jetzt, später oder gar nicht?</p></div>
+ <img src="${A}character.elsa.png" style="position:absolute;left:290px;top:820px;height:620px">
+ <div class="c" style="top:1500px"><span class="pill gold" style="font-size:46px">Auf der Wunschinsel in Taleria üben</span><br><span class="pill" style="font-size:44px;margin-top:20px">Bald kostenlos testen · Link in Bio</span></div></div>${foot}`;
+ SFX.push({t:0.2,s:'sound.ship_bell',v:.5});
+ items.forEach((it,i)=>{const s=T0+i*D;SFX.push({t:s,s:'sound.arcade.swoosh',v:.6},{t:s+2.4,s:it[2]?'sound.correct':'sound.bottle',v:.8});});
+ SFX.push({t:T0+items.length*D,s:'sound.island_done',v:.55});
+ window.render=t=>{const $=id=>document.getElementById(id);
+  const tt=$('t');tt.style.opacity=t<T0-0.3?1:Math.max(0,1-(t-(T0-0.3))/0.3);tt.style.transform=`scale(${0.9+0.1*pop(t/0.6)})`;
+  items.forEach((it,i)=>{const s=T0+i*D,l=$('i'+i),x=t-s;l.style.opacity=(x>=0&&x<D)?Math.min(1,x/0.25,(D-x)/0.25):0;
+   $('im'+i).style.transform=`scale(${pop(x/0.5)}) rotate(${Math.sin(x*2)*4}deg)`;
+   const cd=$('cd'+i);cd.textContent=x<2.4&&x>0.5?['3','2','1'][Math.min(2,Math.floor((x-0.5)/0.63))]:'';
+   const st=$('st'+i);st.style.opacity=x>=2.4?1:0;st.style.transform=`scale(${x>=2.4?pop((x-2.4)/0.35):0})`;});
+  const e=$('e'),xe=t-(T0+items.length*D);e.style.opacity=xe>0?Math.min(1,xe/0.3):0;};
+}
+if(q==='leuchtturm'){
+ const shots=[['app.wochenbericht','Wochenbericht','Was hat mein Kind diese Woche gelernt?',0.0],
+  ['app.lernstand','Lernstand','Was sitzt schon, was wackelt noch?',0.32],
+  ['app.truhe','Schatztruhe','Taschengeld und Sparen, alles nur virtuell.',0.0]];
+ const T0=3,D=4.4;R.total=T0+shots.length*D+3.4;
+ document.getElementById('v').innerHTML=`<img class="bgimg" src="${A}map.background.jpg" style="opacity:.35">
+ <div class="l" id="t"><img src="${A}parent.lighthouse.png" style="position:absolute;left:290px;top:640px;height:820px"><div class="c" style="top:220px;padding:0 70px"><span class="eyebrow" style="font-size:44px">Für Eltern</span><h1 style="font-size:116px;margin-top:20px">Was du im Leuchtturm siehst</h1></div></div>
+ ${shots.map((s,i)=>`<div class="l" id="p${i}"><div class="cap"><span class="sign" style="font-size:72px">${s[1]}</span><p style="font-weight:800;font-size:54px;margin-top:30px">${s[2]}</p></div>
+ <div class="phone" id="ph${i}"><div class="scr"><img id="sc${i}" src="${L}${s[0]}.jpg"></div></div></div>`).join('')}
+ <div class="l" id="e"><div class="c" style="top:330px;padding:0 90px"><h2 style="font-size:100px">Du bleibst im Bild.<br><span class="hl">Ohne Druck.</span></h2><p style="font-size:54px;font-weight:700;margin-top:34px">Keine Werbung, keine echten Zahlungen, Elternbereich mit PIN.</p></div>
+ <img src="${A}character.talo.happy.png" style="position:absolute;left:300px;top:930px;height:560px"><div class="c" style="top:1560px"><span class="pill gold" style="font-size:46px">Bald kostenlos testen · Link in Bio</span></div></div>${foot}`;
+ SFX.push({t:0.2,s:'sound.ship_bell',v:.5});shots.forEach((s,i)=>SFX.push({t:T0+i*D,s:'sound.arcade.swoosh',v:.6}));SFX.push({t:T0+shots.length*D,s:'sound.correct',v:.7});
+ window.render=t=>{const $=id=>document.getElementById(id);const tt=$('t');tt.style.opacity=t<T0-0.3?Math.min(1,t/0.3+0.5):Math.max(0,1-(t-(T0-0.3))/0.3);
+  tt.style.transform=`translateY(${(1-ease(t/0.8))*80}px)`;
+  shots.forEach((s,i)=>{const x=t-(T0+i*D),l=$('p'+i);l.style.opacity=(x>=0&&x<D)?Math.min(1,x/0.25,(D-x)/0.25):0;
+   $('ph'+i).style.transform=`translateY(${(1-ease(x/0.6))*500}px) rotate(${(1-ease(x/0.6))*6}deg)`;
+   const img=$('sc'+i);const h=img.naturalHeight*656/img.naturalWidth;const max=Math.max(0,h-1256);
+   img.style.top=-Math.min(max,max*s[3]+ (s[3]>0?0:0) + max*ease((x-1.2)/2.6)*(s[3]>0?0.6:0.35))+'px';});
+  const e=$('e'),xe=t-(T0+shots.length*D);e.style.opacity=xe>0?Math.min(1,xe/0.3):0;};
+}
+window.REEL=R;
+</script></body></html>
