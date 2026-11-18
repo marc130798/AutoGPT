@@ -37,6 +37,7 @@ class TaleriaAsset extends StatefulWidget {
 
 class _TaleriaAssetState extends State<TaleriaAsset> {
   Future<bool>? _available;
+  bool? _known;
   AssetEntry? _entry;
   AssetBundle? _bundle;
 
@@ -58,7 +59,8 @@ class _TaleriaAssetState extends State<TaleriaAsset> {
     if (entry.key != _entry?.key || entry.path != _entry?.path) {
       _entry = entry;
       _bundle = services.assets.bundle;
-      _available = services.assets.isAvailable(entry);
+      _known = services.assets.knownAvailable(entry);
+      _available = _known == null ? services.assets.isAvailable(entry) : null;
     }
   }
 
@@ -66,24 +68,25 @@ class _TaleriaAssetState extends State<TaleriaAsset> {
   Widget build(BuildContext context) {
     final entry = _entry!;
     final placeholder = widget.fallback ?? AssetPlaceholder(entry: entry, width: widget.width, height: widget.height);
-    return FutureBuilder<bool>(
-      future: _available,
-      builder: (context, snapshot) {
-        if (snapshot.data != true) return placeholder;
-        return switch (entry.type) {
-          AssetType.image => Image.asset(
-            entry.path!,
-            bundle: _bundle,
-            width: widget.width,
-            height: widget.height,
-            fit: widget.fit,
-            repeat: widget.repeat,
-            alignment: widget.alignment,
-            errorBuilder: (_, _, _) => placeholder,
-          ),
-          _ => placeholder,
-        };
-      },
-    );
+    Widget shown(bool available) => !available
+        ? placeholder
+        : switch (entry.type) {
+            AssetType.image => Image.asset(
+              entry.path!,
+              bundle: _bundle,
+              width: widget.width,
+              height: widget.height,
+              fit: widget.fit,
+              repeat: widget.repeat,
+              alignment: widget.alignment,
+              // Wechselt das Bild, bleibt das alte stehen, bis das neue da ist (kein Flackern).
+              gaplessPlayback: true,
+              errorBuilder: (_, _, _) => placeholder,
+            ),
+            _ => placeholder,
+          };
+    // Schon bekannt: sofort zeigen, ohne ein Bild lang zu warten (wichtig in Spielen).
+    if (_known case final known?) return shown(known);
+    return FutureBuilder<bool>(future: _available, builder: (context, snapshot) => shown(snapshot.data == true));
   }
 }

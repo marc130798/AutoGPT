@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 
 import '../../core/app_scope.dart';
 import '../../core/assets/asset_keys.dart';
+import '../../core/assets/asset_manifest.dart';
 import '../../domain/arcade_games.dart';
 import '../../domain/content_models.dart';
 import '../../l10n/app_localizations.dart';
@@ -87,6 +88,17 @@ String arcadeHow(AppLocalizations l10n, ArcadeKind kind) => switch (kind) {
   _ => ('', null),
 };
 
+/// Bilder eines Spiels (Anfänge der Schlüssel). Sie werden schon auf dem
+/// Startbild geladen, damit nichts ruckelt, wenn ein Ding zum ersten Mal auftaucht.
+List<String> arcadeImagePrefixes(ArcadeKind kind) => switch (kind) {
+  ArcadeKind.gullFlight => ['game.gull.', 'character.mia.fly'],
+  ArcadeKind.crane => ['game.crane.'],
+  ArcadeKind.delivery => ['game.delivery.', 'item.', AssetKeys.mapBackground],
+  ArcadeKind.bottles => ['game.bottles.', 'item.', AssetKeys.mapBackground],
+  ArcadeKind.nutRun => ['game.nuts.', 'character.emma.run'],
+  ArcadeKind.pearlDive => ['game.pearl.', AssetKeys.underwaterBackground],
+};
+
 /// Klangkulisse während des Spiels.
 String arcadeMusic(ArcadeKind kind) => switch (kind) {
   ArcadeKind.pearlDive => AssetKeys.ambienceUnderwater,
@@ -116,6 +128,8 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
   ArcadeRound? _last;
   bool _newBest = false;
 
+  bool _warmedUp = false;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -123,6 +137,26 @@ class _ArcadeScreenState extends State<ArcadeScreen> {
       AppScope.of(context).settings.arcadeBest(widget.childId, widget.game.id).then((best) {
         if (mounted) setState(() => _best = best);
       });
+    }
+    if (!_warmedUp) {
+      _warmedUp = true;
+      _warmUp();
+    }
+  }
+
+  /// Lädt alle Bilder des Spiels vorab (prüfen und entpacken), während das
+  /// Kind die Regel liest. Fehler stören nicht: dann lädt das Bild später.
+  Future<void> _warmUp() async {
+    final services = AppScope.of(context);
+    final prefixes = arcadeImagePrefixes(widget.game.kind);
+    for (final entry in services.manifest.entries) {
+      if (entry.type != AssetType.image || entry.path == null) continue;
+      if (!prefixes.any(entry.key.startsWith)) continue;
+      if (!await services.assets.isAvailable(entry) || !mounted) continue;
+      try {
+        await precacheImage(AssetImage(entry.path!, bundle: services.assets.bundle), context);
+      } catch (_) {}
+      if (!mounted) return;
     }
   }
 

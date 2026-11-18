@@ -39,4 +39,12 @@ class AssetRepository {
     }
     return _availability[path] = available;
   }
+
+  /// Schon geprüft? Dann sofort `true` oder `false`, sonst `null`. So muss ein
+  /// bekanntes Bild nicht erst ein leeres Bild lang auf die Prüfung warten.
+  bool? knownAvailable(AssetEntry entry) {
+    final path = entry.path;
+    if (path == null || !supportedTypes.contains(entry.type)) return false;
+    return _availability[path];
+  }
 }
