@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Taleria Showreel</title>
+<style>
+@font-face { font-family: "Nunito"; src: url("fonts/Nunito-800.ttf"); font-weight: 800; }
+@font-face { font-family: "Nunito"; src: url("fonts/Nunito-700.ttf"); font-weight: 700; }
+@font-face { font-family: "Baloo 2"; src: url("fonts/Baloo2-800.ttf"); font-weight: 800; }
+:root { --sea: #2f86a8; --deep: #1f4166; --night: #0f2238; --gold: #d4a62a; --gold2: #f6c94b; --coral: #e5675a; --cream: #fff8ea; --sky: #dff1fb; --green: #3e9b5a; --ink: #1c2b3a; }
+* { box-sizing: border-box; margin: 0; }
+html, body { background: #000; overflow: hidden; }
+#stage { position: relative; overflow: hidden; font-family: "Nunito", sans-serif; background: var(--night); }
+.sc { position: absolute; inset: 0; overflow: hidden; display: none; }
+.abs { position: absolute; }
+img.fit { position: absolute; object-fit: contain; }
+.disp { font-family: "Baloo 2", sans-serif; font-weight: 800; line-height: .95; letter-spacing: -.01em; }
+.chip { position: absolute; font-family: "Baloo 2"; font-weight: 800; background: var(--gold); color: #2b1f05; border-radius: 999px; white-space: nowrap; }
+.phone { position: absolute; background: linear-gradient(160deg,#22384c,#0c1824); border-radius: 12%/5.5%; padding: 2.4%; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.phone .scr { position: relative; overflow: hidden; border-radius: 10%/4.6%; width: 100%; height: 100%; background: #0c1824; }
+.phone .scr img { position: absolute; left: 0; width: 100%; }
+.slab { position: absolute; transform-origin: 0 50%; }
+.spark { position: absolute; border-radius: 50%; background: radial-gradient(circle, #fff, #f6c94b 40%, rgba(246,201,75,0) 70%); }
+.bub { position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,.7); background: rgba(255,255,255,.12); }
+.card { position: absolute; background: #fff; border-radius: 22px; box-shadow: 0 24px 60px rgba(0,0,0,.35); overflow: hidden; }
+.card img { width: 100%; display: block; }
+.card { height: auto; }
+#wipe { position: absolute; inset: -20%; pointer-events: none; z-index: 40; }
+#wipe div { position: absolute; top: 0; bottom: 0; width: 60%; transform: skewX(-14deg); }
+#grain { position: absolute; inset: 0; z-index: 50; pointer-events: none; opacity: .06; mix-blend-mode: overlay; }
+#flash { position: absolute; inset: 0; z-index: 45; background: #fff; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+const P = new URLSearchParams(location.search);
+const W = +(P.get('w') || 1920), H = +(P.get('h') || 1080), PORT = H > W, U = Math.min(W, H) / 1080;
+const stage = document.getElementById('stage'); stage.style.width = W + 'px'; stage.style.height = H + 'px';
+const TOTAL = 15, BEAT = 0.5;
+window.REEL = { total: TOTAL };
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eo = x => 1 - Math.pow(1 - clamp(x), 3);            // ease out
+const eio = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const back = x => { x = clamp(x); const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }; // overshoot
+const el = (tag, cls, parent, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; (parent || stage).appendChild(e); return e; };
+const img = (src, parent, cls = 'fit') => { const e = el('img', cls, parent); e.src = 'img/' + src; return e; };
+const box = (e, x, y, w, h) => { e.style.left = x + 'px'; e.style.top = y + 'px'; e.style.width = w + 'px'; if (h !== undefined) e.style.height = h + 'px'; };
+const T = (e, s) => e.style.transform = s;
+const O = (e, o) => e.style.opacity = o;
+const rnd = (i, k = 1) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+
+// Szenen und Schnitte (auf den Beat, 120 BPM)
+const CUTS = [0, 1.5, 3.0, 5.0, 7.0, 8.75, 10.25, 11.75, 13.25, 15];
+const SC = CUTS.slice(0, -1).map(() => el('div', 'sc'));
+const lt = (i, t) => t - CUTS[i];
+
+// ---------- 0 Intro: Logo schlägt ein ----------
+const s0 = SC[0];
+s0.style.background = 'radial-gradient(ellipse at 50% 55%, #1f4166, #0f2238 70%)';
+const iris = el('div', 'abs', s0); iris.style.borderRadius = '50%'; iris.style.background = 'radial-gradient(circle, #f6e3a6, #d4a62a)';
+const ring = el('div', 'abs', s0); ring.style.borderRadius = '50%'; ring.style.border = `${8 * U}px solid #f6c94b`;
+const logo0 = img('brand.logo.png', s0);
+const sparks0 = Array.from({ length: 16 }, () => el('div', 'spark', s0));
+const kicker0 = el('div', 'abs disp', s0, 'Die Lern-App rund ums Geld'); kicker0.style.color = '#f6e3a6'; kicker0.style.textAlign = 'center';
+
+// ---------- 1 Kinetische Schrift ----------
+const s1 = SC[1]; s1.style.background = 'var(--cream)';
+const words = [['Geld', '#1f4166', '#f6c94b'], ['verstehen.', '#fff', '#2f86a8'], ['Abenteuer', '#1f4166', '#f6c94b'], ['erleben.', '#fff', '#e5675a']];
+const slabs1 = words.map(w => { const s = el('div', 'slab', s1); s.style.background = w[2]; return s; });
+const w1 = words.map(w => { const d = el('div', 'abs disp', s1, w[0]); d.style.color = w[1]; d.style.whiteSpace = 'nowrap'; return d; });
+
+// ---------- 2 Inselkarte ----------
+const s2 = SC[2]; s2.style.background = 'url(img/map.background.jpg) 50% 0 / 120% auto repeat-y';
+const isl2 = ['hafen', 'tauschinsel', 'wunschinsel', 'spar-insel', 'taschengeld-bucht'].map(k => img(`map.island.${k}.png`, s2));
+const dots2 = Array.from({ length: 34 }, () => { const d = el('div', 'abs', s2); d.style.borderRadius = '50%'; d.style.background = '#f6c94b'; d.style.boxShadow = '0 0 8px rgba(246,201,75,.8)'; return d; });
+const ship2 = img('ship.crew.png', s2);
+const shade2 = el('div', 'abs', s2); shade2.style.inset = 0; shade2.style.background = PORT ? 'linear-gradient(180deg, rgba(15,34,56,.75), rgba(15,34,56,0) 35%)' : 'linear-gradient(90deg, rgba(15,34,56,.8), rgba(15,34,56,0) 45%)';
+const chip2 = el('div', 'chip', s2, 'Inselkarte');
+const t2 = el('div', 'abs disp', s2, 'Von Insel<br>zu Insel'); t2.style.color = '#fff';
+
+// ---------- 3 Lernen: Handy in 3D ----------
+const s3 = SC[3]; s3.style.background = 'linear-gradient(135deg, #dff1fb, #fff8ea)';
+const persp3 = el('div', 'abs', s3); persp3.style.perspective = 1600 * U + 'px'; persp3.style.inset = 0;
+const ph3 = el('div', 'phone', persp3); const scr3 = el('div', 'scr', ph3);
+const shots3 = ['app.geschichte.jpg', 'app.quiz.jpg', 'app.ergebnis.jpg'].map(s => img(s, scr3, ''));
+const ok3 = el('div', 'abs disp', s3, '✓ Richtig!'); ok3.style.background = 'var(--green)'; ok3.style.color = '#fff'; ok3.style.borderRadius = '999px';
+const conf3 = Array.from({ length: 40 }, (_, i) => { const c = el('div', 'abs', s3); c.style.background = ['#f6c94b', '#e5675a', '#2f86a8', '#3e9b5a'][i % 4]; c.style.borderRadius = '2px'; return c; });
+const chip3 = el('div', 'chip', s3, 'Lernen');
+const t3 = el('div', 'abs disp', s3, 'Bildergeschichte,<br>Quiz, Spiel.'); t3.style.color = 'var(--deep)';
+const sub3 = el('div', 'abs', s3, '5 bis 10 Minuten pro Station'); sub3.style.color = '#4a5d70'; sub3.style.fontWeight = 800;
+
+// ---------- 4 Mini-Spiele: schräge Galerie ----------
+const s4 = SC[4]; s4.style.background = 'linear-gradient(135deg, #1f4166, #2f86a8)';
+const gal4 = el('div', 'abs', s4);
+const games4 = ['app.moewenflug.jpg', 'app.kran.jpg', 'app.nussjagd.jpg', 'app.flaschen.jpg', 'app.moewenflug.jpg', 'app.kran.jpg', 'app.nussjagd.jpg', 'app.flaschen.jpg'].map(s => { const p = el('div', 'phone', gal4); const sc = el('div', 'scr', p); img(s, sc, ''); return p; });
+const big4 = el('div', 'abs disp', s4, 'MINI-SPIELE'); big4.style.color = '#fff'; big4.style.textShadow = '0 10px 40px rgba(0,0,0,.35)'; big4.style.whiteSpace = 'nowrap';
+const sub4 = el('div', 'abs disp', s4, '3 Leben · Rekorde · Sterne'); sub4.style.color = '#f6c94b'; sub4.style.whiteSpace = 'nowrap';
+const mia4 = img('character.mia.fly.png', s4), coins4 = Array.from({ length: 6 }, () => img('game.gull.coin.png', s4));
+
+// ---------- 5 Tauchgang ----------
+const s5 = SC[5]; s5.style.background = 'url(img/underwater.background.jpg) 50% 30% / cover';
+const wave5 = el('div', 'abs', s5); wave5.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="wp" fill="#2f86a8"/></svg>`;
+const diver5 = img('game.pearl.diver.png', s5), jelly5 = img('game.pearl.jelly.png', s5);
+const shells5 = Array.from({ length: 3 }, () => img('game.pearl.shell.open.png', s5));
+const pearls5 = Array.from({ length: 3 }, () => img('collectible.pearl.png', s5));
+const bubs5 = Array.from({ length: 26 }, () => el('div', 'bub', s5));
+const chip5 = el('div', 'chip', s5, 'Tauchgänge');
+const t5 = el('div', 'abs disp', s5, 'Abtauchen.<br>Wiederholen.<br>Sammeln.'); t5.style.color = '#fff'; t5.style.textShadow = '0 6px 30px rgba(0,30,60,.6)';
+const cnt5 = el('div', 'abs disp', s5); cnt5.style.color = '#fff';
+
+// ---------- 6 Schatztruhe ----------
+const s6 = SC[6]; s6.style.background = 'radial-gradient(ellipse at 50% 60%, #f6e3a6, #d4a62a 55%, #8a5a2b)';
+const rays6 = el('div', 'abs', s6); rays6.style.background = 'repeating-conic-gradient(from 0deg, rgba(255,255,255,.18) 0 10deg, rgba(255,255,255,0) 10deg 20deg)'; rays6.style.borderRadius = '50%';
+const chest6 = img('icon.treasure.png', s6);
+const coins6 = Array.from({ length: 9 }, () => img('game.gull.coin.png', s6));
+const amt6 = el('div', 'abs disp', s6, '0,00 €'); amt6.style.color = '#fff'; amt6.style.textShadow = '0 6px 24px rgba(90,50,10,.5)';
+const ph6 = el('div', 'phone', s6); img('app.truhe.jpg', el('div', 'scr', ph6), '');
+const chip6 = el('div', 'chip', s6, 'Schatztruhe'); chip6.style.background = '#fff';
+const t6 = el('div', 'abs disp', s6, 'Taschengeld,<br>Aufträge,<br>Wunschschätze.'); t6.style.color = '#4a2a0a';
+
+// ---------- 7 Leuchtturm ----------
+const s7 = SC[7]; s7.style.background = 'linear-gradient(180deg, #0f2238, #1f4166)';
+const beam7 = el('div', 'abs', s7); beam7.style.background = 'conic-gradient(from -12deg, rgba(246,227,166,.55), rgba(246,227,166,0) 24deg, rgba(246,227,166,0) 336deg, rgba(246,227,166,.55))'; beam7.style.borderRadius = '50%';
+const stars7 = Array.from({ length: 40 }, () => { const s = el('div', 'abs', s7); s.style.background = '#fff'; s.style.borderRadius = '50%'; return s; });
+const lh7 = img('parent.lighthouse.png', s7);
+const cards7 = ['app.wochenbericht.jpg', 'app.lernstand.jpg'].map(s => { const c = el('div', 'card', s7); img(s, c, ''); return c; });
+const chip7 = el('div', 'chip', s7, 'Für Eltern');
+const t7 = el('div', 'abs disp', s7, 'Der Leuchtturm'); t7.style.color = '#fff';
+const pills7 = ['PIN-geschützt', 'Keine Käufe durch Kinder', 'Daten in der EU'].map(s => { const p = el('div', 'chip', s7, '✓ ' + s); p.style.background = 'rgba(255,255,255,.12)'; p.style.color = '#fff'; p.style.border = `${2 * U}px solid rgba(255,255,255,.35)`; return p; });
+
+// ---------- 8 Abschluss ----------
+const s8 = SC[8]; s8.style.background = 'radial-gradient(ellipse at 50% 40%, #fff8ea, #dff1fb)';
+const badges8 = ['badge.hafen.png', 'badge.tauschinsel.png', 'badge.wunschinsel.png', 'badge.spar-insel.png', 'badge.taschengeld-bucht.png'].map(s => img(s, s8));
+const talo8 = img('character.talo.wave.png', s8), tala8 = img('character.tala.wave.png', s8);
+const logo8 = img('brand.logo.png', s8); logo8.style.zIndex = 2;
+const tag8 = el('div', 'abs disp', s8, 'Geld verstehen. Abenteuer erleben.'); tag8.style.zIndex = 2; tag8.style.color = 'var(--deep)'; tag8.style.textAlign = 'center';
+const cta8 = el('div', 'abs disp', s8, 'Jetzt kostenfrei testen'); cta8.style.background = 'linear-gradient(180deg,#ef7b6e,#e5675a)'; cta8.style.color = '#fff'; cta8.style.borderRadius = '999px'; cta8.style.textAlign = 'center'; cta8.style.boxShadow = '0 14px 34px rgba(229,103,90,.45)';
+const age8 = el('div', 'chip', s8, 'Für Kinder von 8 bis 12');
+
+// Übergang, Blitz, Körnung
+const wipe = el('div', '', stage); wipe.id = 'wipe';
+const wA = el('div', '', wipe), wB = el('div', '', wipe);
+const flash = el('div', '', stage); flash.id = 'flash';
+const grain = el('canvas', '', stage); grain.id = 'grain'; grain.width = 256; grain.height = 256; grain.style.width = '100%'; grain.style.height = '100%';
+const gctx = grain.getContext('2d');
+const WIPE_COL = [['#f6c94b', '#1f4166'], ['#2f86a8', '#f6c94b'], ['#1f4166', '#e5675a'], ['#f6c94b', '#2f86a8'], ['#2f86a8', '#fff8ea'], ['#e5675a', '#f6c94b'], ['#1f4166', '#f6c94b'], ['#f6c94b', '#e5675a']];
+
+function phoneAt(p, x, y, h) { const w = h * 0.47; box(p, x, y, w, h); return w; }
+
+function render(t) {
+  SC.forEach((s, i) => s.style.display = (t >= CUTS[i] - 0.02 && t < CUTS[i + 1] + 0.02) ? 'block' : 'none');
+  const shake = (amp) => `translate(${Math.sin(t * 90) * amp * U}px, ${Math.cos(t * 77) * amp * U}px)`;
+
+  // 0 Intro
+  { const l = lt(0, t), D = Math.hypot(W, H);
+    const ir = eio(l / 0.45) * D * 0.18 * (1 - eo((l - 0.45) / 0.3)); box(iris, W / 2 - ir, H / 2 - ir, ir * 2, ir * 2); O(iris, 1 - eo((l - 0.5) / 0.3));
+    const s = l < 0.5 ? 0 : back((l - 0.5) / 0.45), lw = PORT ? W * 0.82 : W * 0.46, lh = lw * 0.42;
+    box(logo0, W / 2 - lw / 2, H / 2 - lh / 2 - (PORT ? 40 : 30) * U, lw, lh);
+    T(logo0, `scale(${0.2 + 0.8 * s}) rotate(${(1 - clamp((l - 0.5) / 0.45)) * -12}deg) ${l > 0.5 && l < 0.8 ? shake(6) : ''}`); O(logo0, l > 0.5 ? 1 : 0);
+    const rr = eo((l - 0.55) / 0.6) * D * 0.45; box(ring, W / 2 - rr, H / 2 - rr, rr * 2, rr * 2); O(ring, l > 0.55 ? 1 - eo((l - 0.55) / 0.6) : 0);
+    sparks0.forEach((sp, i) => { const a = i / 16 * Math.PI * 2 + rnd(i) * 0.4, p = eo((l - 0.55) / 0.7), r = p * (PORT ? W * 0.55 : H * 0.6) * (0.6 + rnd(i, 2) * 0.6), sz = (18 + rnd(i, 3) * 26) * U * (1 - p * 0.7);
+      box(sp, W / 2 + Math.cos(a) * r - sz / 2, H / 2 + Math.sin(a) * r - sz / 2, sz, sz); O(sp, l > 0.55 ? 1 - p : 0); });
+    kicker0.style.fontSize = (PORT ? 54 : 46) * U + 'px'; box(kicker0, 0, H / 2 + lh * 0.5 + 10 * U, W); const kp = eo((l - 0.9) / 0.35); O(kicker0, kp); T(kicker0, `translateY(${(1 - kp) * 30 * U}px)`); kicker0.style.letterSpacing = (1 - kp) * 0.3 + 'em'; }
+
+  // 1 Schrift
+  { const l = lt(1, t), step = 0.375;
+    words.forEach((w, i) => { const a = l - i * step, on = a >= 0 && a < step + 0.02;
+      const sl = slabs1[i]; box(sl, 0, 0, W, H); sl.style.display = a >= -0.1 && a < step ? 'block' : 'none';
+      T(sl, `scaleX(${eo((a + 0.1) / 0.16)})`); sl.style.transformOrigin = i % 2 ? '100% 50%' : '0 50%';
+      const d = w1[i]; d.style.display = on ? 'block' : 'none'; d.style.fontSize = (PORT ? 210 : 260) * U * (w[0].length > 8 ? 0.72 : 1) + 'px';
+      const p = back(a / 0.22); box(d, 0, H / 2 - (PORT ? 110 : 130) * U, W); d.style.textAlign = 'center';
+      T(d, `translateX(${(1 - eo(a / 0.18)) * (i % 2 ? -1 : 1) * W * 0.25}px) scale(${0.85 + 0.15 * p}) skewX(${(1 - eo(a / 0.2)) * (i % 2 ? 12 : -12)}deg)`); }); }
+
+  // 2 Inselkarte
+  { const l = lt(2, t); s2.style.backgroundPosition = `50% ${l * 60 * U}px`; s2.style.transform = `scale(${1.08 - 0.08 * eo(l / 2)})`;
+    const pts = PORT ? [[.55, .86], [.22, .72], [.62, .58], [.25, .45], [.62, .33]] : [[.62, .70], [.42, .40], [.66, .12], [.84, .45], [.86, .78]];
+    const iw = PORT ? W * 0.38 : W * 0.17;
+    const C = i => [pts[i][0] * W, pts[i][1] * H];
+    isl2.forEach((im, i) => { const [x, y] = C(i), p = back((l - 0.1 - i * 0.14) / 0.4); box(im, x - iw / 2, y - iw * 0.38, iw, iw * 0.76); T(im, `scale(${p}) translateY(${Math.sin(t * 2 + i) * 4 * U}px)`); O(im, clamp(p * 2)); });
+    const prog = eio((l - 0.6) / 1.1) * 4;
+    dots2.forEach((d, k) => { const seg = Math.floor(k / 8.5), f = (k % 8.5) / 8.5; if (seg > 3) { O(d, 0); return; }
+      const [ax, ay] = C(seg), [bx, by] = C(seg + 1), s = 9 * U; box(d, ax + (bx - ax) * f - s / 2, ay + (by - ay) * f - s / 2, s, s); O(d, seg + f <= prog ? 1 : 0); });
+    const seg = Math.min(3, Math.floor(prog)), f = prog - seg, [ax, ay] = C(seg), [bx, by] = C(Math.min(4, seg + 1)), sw = iw * 0.55;
+    box(ship2, ax + (bx - ax) * f - sw / 2, ay + (by - ay) * f - sw * 0.7, sw, sw * 0.75); O(ship2, eo((l - 0.5) / 0.3)); T(ship2, `rotate(${Math.sin(t * 3) * 3}deg)`);
+    chip2.style.fontSize = 34 * U + 'px'; chip2.style.padding = `${6 * U}px ${22 * U}px`; t2.style.fontSize = (PORT ? 130 : 120) * U + 'px';
+    const tp = eo((l - 0.2) / 0.4); box(chip2, PORT ? 60 * U : 110 * U, PORT ? 110 * U : H * 0.32, undefined); box(t2, PORT ? 60 * U : 110 * U, PORT ? 180 * U : H * 0.32 + 70 * U, W * 0.6);
+    T(t2, `translateY(${(1 - tp) * 60 * U}px)`); O(t2, tp); O(chip2, tp); T(chip2, `scale(${back((l - 0.15) / 0.3)})`); }
+
+  // 3 Lernen
+  { const l = lt(3, t), ph = PORT ? H * 0.56 : H * 0.84, pw = ph * 0.47;
+    const px = PORT ? W / 2 - pw / 2 : W * 0.62 - pw / 2, py = PORT ? H * 0.38 : H / 2 - ph / 2;
+    phoneAt(ph3, px, py, ph); const ip = eo(l / 0.55);
+    T(ph3, `translateX(${(1 - ip) * W * 0.6}px) rotateY(${-38 * (1 - ip) - 14 + Math.sin(t * 1.2) * 3}deg) rotateX(${6 - 4 * ip}deg) rotateZ(${(1 - ip) * 10}deg)`);
+    const sh = (pw - pw * 0.048) / 0.462, scroll = eio((l - 0.55) / 0.35) + eio((l - 1.55) / 0.3);
+    shots3.forEach((s, i) => { s.style.top = ((i - scroll) * sh) + 'px'; s.style.height = sh + 'px'; });
+    const op = back((l - 1.15) / 0.3); ok3.style.fontSize = 48 * U + 'px'; ok3.style.padding = `${10 * U}px ${30 * U}px`;
+    box(ok3, px + pw * (PORT ? 0.35 : 0.55), py + ph * 0.42, undefined); T(ok3, `scale(${op}) rotate(-6deg)`); O(ok3, l > 1.15 && l < 1.95 ? 1 : 0);
+    conf3.forEach((c, i) => { const p = (l - 1.2) / 1.0, a = rnd(i) * Math.PI * 2, v = (300 + rnd(i, 2) * 500) * U;
+      const x = px + pw * 0.7 + Math.cos(a) * v * p, y = py + ph * 0.45 + Math.sin(a) * v * p + 900 * U * p * p; box(c, x, y, 14 * U, 22 * U); T(c, `rotate(${p * 720 * rnd(i, 3)}deg)`); O(c, p > 0 && p < 1 ? 1 - p : 0); });
+    chip3.style.fontSize = 34 * U + 'px'; chip3.style.padding = `${6 * U}px ${22 * U}px`; t3.style.fontSize = (PORT ? 104 : 104) * U + 'px'; sub3.style.fontSize = 40 * U + 'px';
+    const tx = PORT ? 60 * U : 110 * U, ty = PORT ? 110 * U : H * 0.3; box(chip3, tx, ty); box(t3, tx, ty + 70 * U, PORT ? W - 120 * U : W * 0.48); box(sub3, tx, ty + (PORT ? 300 : 300) * U, W * 0.5);
+    [chip3, t3, sub3].forEach((e, i) => { const p = eo((l - 0.2 - i * 0.12) / 0.35); O(e, p); T(e, `translateX(${(1 - p) * -80 * U}px)`); }); }
+
+  // 4 Mini-Spiele
+  { const l = lt(4, t), ph = PORT ? H * 0.36 : H * 0.6, pw = ph * 0.47, gap = pw * 0.18;
+    box(gal4, 0, 0, W, H); T(gal4, `rotate(-12deg) translateX(${-l * (pw + gap) * 1.6}px)`);
+    games4.forEach((p, i) => { const row = PORT ? i % 2 : 0, col = PORT ? Math.floor(i / 2) : i; phoneAt(p, col * (pw + gap) - pw * 0.2 + row * (pw + gap) * 0.5, PORT ? H * 0.08 + row * (ph + gap) + H * 0.05 : H / 2 - ph / 2 + (i % 2 ? 40 : -40) * U, ph);
+      const pp = eo((l - i * 0.05) / 0.4); O(p, pp); });
+    big4.style.fontSize = (PORT ? 150 : 220) * U + 'px'; const bp = back((l - 0.25) / 0.35); box(big4, 0, H / 2 - (PORT ? 80 : 120) * U, W); big4.style.textAlign = 'center'; T(big4, `scale(${bp})`); O(big4, clamp(bp * 3));
+    sub4.style.fontSize = (PORT ? 52 : 60) * U + 'px'; box(sub4, 0, H / 2 + (PORT ? 80 : 110) * U, W); sub4.style.textAlign = 'center'; const sp = eo((l - 0.55) / 0.3); O(sub4, sp); T(sub4, `translateY(${(1 - sp) * 30 * U}px)`);
+    const mw = (PORT ? 260 : 300) * U, mx = -mw + eio(l / 1.6) * (W + mw * 2), my = H * 0.2 + Math.sin(l * 6) * 40 * U; box(mia4, mx, my, mw, mw * 0.8); T(mia4, `rotate(${Math.cos(l * 6) * 8}deg)`);
+    coins4.forEach((c, i) => { const cs = 80 * U, x = W * (0.15 + i * 0.15), y = H * (PORT ? 0.78 : 0.82) - Math.abs(Math.sin(l * 5 + i)) * 120 * U; box(c, x, y, cs, cs); T(c, `rotateY(${l * 540 + i * 40}deg)`); O(c, eo((l - 0.3 - i * 0.06) / 0.2)); }); }
+
+  // 5 Tauchgang
+  { const l = lt(5, t), rise = eio(l / 0.5);
+    // Welle fällt weg: blaue Fläche mit welligem Rand rutscht nach oben aus dem Bild
+    const top = -rise * 110, amp = 4;
+    let d = `M0 ${top + 100} `; for (let x = 0; x <= 100; x += 5) d += `L${x} ${top + 100 + Math.sin(x / 8 + t * 6) * amp} `; d += `L100 -10 L0 -10 Z`;
+    wave5.querySelector('#wp').setAttribute('d', d); box(wave5, 0, 0, W, H); O(wave5, rise < 1 ? 1 : 0);
+    s5.style.backgroundPosition = `50% ${30 + l * 6}%`;
+    const dw = (PORT ? 340 : 320) * U; box(diver5, W * (PORT ? 0.1 : 0.2) + eio(l / 1.5) * W * (PORT ? 0.3 : 0.25), H * 0.45 + Math.sin(t * 2.4) * 30 * U, dw, dw); T(diver5, `rotate(${Math.sin(t * 2.4) * 8}deg)`);
+    const jw = 160 * U; box(jelly5, W * 0.78, H * 0.25 + Math.sin(t * 1.8) * 40 * U, jw, jw);
+    shells5.forEach((s, i) => { const sw = 140 * U, x = W * (0.42 + i * 0.16), y = H * 0.82; box(s, x, y, sw, sw * 0.7);
+      const pp = pearls5[i], got = l > 0.55 + i * 0.25, pw = 54 * U, fly = eo((l - 0.55 - i * 0.25) / 0.35);
+      box(pp, x + sw / 2 - pw / 2 + (W * 0.12 - x) * fly, y - pw * 0.2 + (H * 0.12 - y) * fly, pw, pw); O(pp, got && fly < 1 ? 1 : (got ? 0 : 1)); });
+    bubs5.forEach((b, i) => { const r = (10 + rnd(i) * 26) * U, y = H - ((t * (120 + rnd(i, 2) * 160) * U + rnd(i, 3) * H) % (H + 80)); box(b, rnd(i, 4) * W + Math.sin(t * 2 + i) * 14 * U, y, r, r); });
+    chip5.style.fontSize = 34 * U + 'px'; chip5.style.padding = `${6 * U}px ${22 * U}px`; t5.style.fontSize = (PORT ? 110 : 100) * U + 'px';
+    const tx = PORT ? 60 * U : 110 * U, ty = PORT ? 110 * U : H * 0.2; box(chip5, tx, ty); box(t5, tx, ty + 70 * U, W);
+    t5.querySelectorAll ? null : 0; [chip5, t5].forEach((e, i) => { const p = eo((l - 0.35 - i * 0.1) / 0.35); O(e, p); T(e, `translateY(${(1 - p) * 50 * U}px)`); });
+    const n = (l > 0.9 ? 1 : 0) + (l > 1.15 ? 1 : 0) + (l > 1.4 ? 1 : 0); cnt5.innerHTML = `<span style="color:#f6e3a6">●</span> ${n} ${n === 1 ? 'Perle' : 'Perlen'}`; cnt5.style.fontSize = 50 * U + 'px'; box(cnt5, W * 0.12 - 20 * U, H * 0.12 - 20 * U); O(cnt5, n ? 1 : 0); cnt5.style.left = (PORT ? 60 * U : W * 0.06) + 'px'; cnt5.style.top = (PORT ? H * 0.5 : H * 0.06) + 'px'; }
+
+  // 6 Schatztruhe
+  { const l = lt(6, t), cw = (PORT ? 520 : 460) * U, cx = PORT ? W / 2 - cw / 2 : W * 0.5 - cw / 2, cy = PORT ? H * 0.5 : H * 0.42;
+    const R = Math.hypot(W, H); box(rays6, cx + cw / 2 - R, cy + cw / 2 - R, R * 2, R * 2); T(rays6, `rotate(${t * 20}deg)`);
+    let bump = 0; coins6.forEach((c, i) => { const s0 = 0.25 + i * 0.1, p = (l - s0) / 0.35, cs = 90 * U; const sx = (i % 2 ? W + cs : -cs), sy = H * (0.1 + rnd(i) * 0.3), ex = cx + cw / 2 - cs / 2, ey = cy + cw * 0.25;
+      if (p > 1 && p < 1.25) bump = Math.max(bump, 1 - (p - 1) / 0.25); box(c, sx + (ex - sx) * eio(p), sy + (ey - sy) * eio(p) - Math.sin(clamp(p) * Math.PI) * 200 * U, cs, cs); O(c, p > 0 && p < 1 ? 1 : 0); T(c, `rotate(${p * 400}deg)`); });
+    box(chest6, cx, cy, cw, cw); T(chest6, `scale(${back(l / 0.4) * (1 + 0.08 * bump)})`);
+    const got = clamp((l - 0.6) / 1.0); amt6.textContent = (14.5 * eio(got)).toFixed(2).replace('.', ',') + ' €'; amt6.style.fontSize = (PORT ? 140 : 120) * U + 'px';
+    box(amt6, 0, cy - (PORT ? 190 : 150) * U, W); amt6.style.textAlign = 'center'; O(amt6, eo((l - 0.5) / 0.2));
+    const ph = PORT ? H * 0.34 : H * 0.7, pw = ph * 0.47; phoneAt(ph6, PORT ? W - pw - 50 * U : W * 0.76, PORT ? H - ph - 40 * U : H / 2 - ph / 2, ph); const pp = eo((l - 0.4) / 0.4); T(ph6, `translateY(${(1 - pp) * H}px) rotate(6deg)`);
+    chip6.style.fontSize = 34 * U + 'px'; chip6.style.padding = `${6 * U}px ${22 * U}px`; t6.style.fontSize = (PORT ? 88 : 84) * U + 'px';
+    const tx = PORT ? 60 * U : 90 * U, ty = PORT ? 110 * U : H * 0.3; box(chip6, tx, ty); box(t6, tx, ty + 70 * U, W * 0.5);
+    [chip6, t6].forEach((e, i) => { const p = eo((l - 0.2 - i * 0.1) / 0.35); O(e, p); T(e, `translateX(${(1 - p) * -60 * U}px)`); });
+    if (PORT) { box(t6, tx, ty + 70 * U, W - 120 * U); } }
+
+  // 7 Leuchtturm
+  { const l = lt(7, t), lw = (PORT ? 300 : 300) * U, lx = PORT ? W * 0.08 : W * 0.08, ly = PORT ? H * 0.52 : H * 0.36;
+    const R = Math.hypot(W, H); box(beam7, lx + lw / 2 - R, ly + lw * 0.25 - R, R * 2, R * 2); T(beam7, `rotate(${l * 160 - 40}deg)`); O(beam7, eo(l / 0.3));
+    stars7.forEach((s, i) => { const r = (2 + rnd(i) * 3) * U; box(s, rnd(i, 2) * W, rnd(i, 3) * H * 0.7, r, r); O(s, 0.3 + 0.7 * Math.abs(Math.sin(t * 2 + i))); });
+    box(lh7, lx, ly, lw, lw * 1.4); T(lh7, `translateY(${(1 - back(l / 0.4)) * 200 * U}px)`);
+    cards7.forEach((c, i) => { const cw = PORT ? W * 0.46 : W * 0.22, x = W * (0.42 + i * 0.25), y = PORT ? H * (0.42 + i * 0.1) : H * 0.2;
+      box(c, PORT ? W * 0.44 + i * W * 0.08 : x, y, cw, PORT ? H * 0.34 : H * 0.6); const p = back((l - 0.25 - i * 0.18) / 0.4); T(c, `translateY(${(1 - clamp(p)) * 300 * U}px) rotate(${(i ? 4 : -4)}deg) scale(${0.8 + 0.2 * clamp(p)})`); O(c, clamp(p * 2)); });
+    chip7.style.fontSize = 34 * U + 'px'; chip7.style.padding = `${6 * U}px ${22 * U}px`; t7.style.fontSize = (PORT ? 110 : 96) * U + 'px';
+    const tx = PORT ? 60 * U : W * 0.42, ty = PORT ? 110 * U : H * 0.06; box(chip7, tx, ty + (PORT ? 0 : -10 * U)); box(t7, tx + (PORT ? 0 : 220 * U), ty + (PORT ? 70 : -24) * U, W);
+    [chip7, t7].forEach((e, i) => { const p = eo((l - 0.15 - i * 0.08) / 0.3); O(e, p); });
+    pills7.forEach((p, i) => { p.style.fontSize = 30 * U + 'px'; p.style.padding = `${8 * U}px ${22 * U}px`; const x = PORT ? 60 * U : W * 0.42 + i * 0 , y = PORT ? H * 0.2 + i * 70 * U : H * 0.8 + 0; box(p, PORT ? 60 * U : W * 0.42 + [0, 310, 790][i] * U, PORT ? H * 0.2 + i * 72 * U : H * 0.86);
+      const pp = back((l - 0.6 - i * 0.12) / 0.3); T(p, `scale(${clamp(pp, 0, 2)})`); O(p, clamp(pp * 2)); }); }
+
+  // 8 Abschluss
+  { const l = lt(8, t), lw = PORT ? W * 0.78 : W * 0.38, lh = lw * 0.42;
+    badges8.forEach((b, i) => { const a = (i / 5) * Math.PI * 2 + l * 0.8, rx = PORT ? W * 0.44 : W * 0.34, ry = PORT ? H * 0.07 : H * 0.2, bw = (PORT ? 100 : 120) * U;
+      box(b, W / 2 + Math.cos(a) * rx - bw / 2, (PORT ? H * 0.2 : H * 0.22) + Math.sin(a) * ry - bw * 0.7, bw, bw * 1.4); O(b, eo((l - 0.3 - i * 0.06) / 0.3) * (Math.sin(a) < 0 ? 0.5 : 0.95)); b.style.zIndex = 0; T(b, `scale(${0.7 + 0.3 * eo((l - 0.3) / 0.4)})`); });
+    box(logo8, W / 2 - lw / 2, PORT ? H * 0.22 : H * 0.14, lw, lh); T(logo8, `translateY(${(1 - back(l / 0.45)) * -H * 0.5}px)`);
+    tag8.style.fontSize = (PORT ? 70 : 72) * U + 'px'; box(tag8, PORT ? 40 * U : 0, (PORT ? H * 0.22 : H * 0.14) + lh + 20 * U, PORT ? W - 80 * U : W); const tp = eo((l - 0.35) / 0.35); O(tag8, tp); T(tag8, `translateY(${(1 - tp) * 30 * U}px)`);
+    const cw = (PORT ? 760 : 720) * U, ch = (PORT ? 120 : 110) * U; cta8.style.fontSize = (PORT ? 62 : 58) * U + 'px'; cta8.style.lineHeight = ch + 'px';
+    box(cta8, W / 2 - cw / 2, (PORT ? H * 0.22 : H * 0.14) + lh + (PORT ? 230 : 140) * U, cw, ch); const cp = back((l - 0.6) / 0.35); T(cta8, `scale(${clamp(cp, 0, 2) * (1 + 0.04 * Math.sin(l * 9) * clamp((l - 1) * 2))})`);
+    age8.style.fontSize = 32 * U + 'px'; age8.style.padding = `${6 * U}px ${22 * U}px`; box(age8, W / 2 - 220 * U, (PORT ? H * 0.22 : H * 0.14) + lh + (PORT ? 380 : 280) * U); O(age8, eo((l - 0.85) / 0.3));
+    const fw = PORT ? W * 0.42 : W * 0.2; [talo8, tala8].forEach((f, i) => { const p = back((l - 0.15 - i * 0.1) / 0.45); box(f, i ? W - fw - (PORT ? 20 : 60) * U : (PORT ? 20 : 60) * U, H - fw * 1.3 - (PORT ? 0 : 10) * U, fw, fw * 1.3);
+      T(f, `translateY(${(1 - p) * H * 0.6 + Math.sin(t * 3 + i) * 8 * U}px) rotate(${Math.sin(t * 2 + i) * 3}deg)`); }); }
+
+  // Übergang: zwei schräge Farbbalken schieben über jeden Schnitt
+  let wipeOn = false; CUTS.slice(1, -1).forEach((c, k) => { const d = t - c; if (d > -0.18 && d < 0.18) { wipeOn = true; const p = (d + 0.18) / 0.36;
+      const [ca, cb] = WIPE_COL[k]; wA.style.background = ca; wB.style.background = cb;
+      wA.style.left = (-70 + p * 190) + '%'; wB.style.left = (-90 + eo(p) * 190) + '%'; } });
+  wipe.style.display = wipeOn ? 'block' : 'none';
+  // Blitz beim Logo-Einschlag
+  flash.style.opacity = t > 0.5 && t < 0.75 ? (1 - (t - 0.5) / 0.25) * 0.6 : 0;
+  // Körnung
+  const id = gctx.createImageData(256, 256); for (let i = 0; i < id.data.length; i += 4) { const v = rnd(i, Math.floor(t * 30)) * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; } gctx.putImageData(id, 0, 0);
+}
+window.render = render;
+// Geräusche zum Bild (Zeit, Datei, Lautstärke)
+window.SFX = [[0.0, 'sound.arcade.sparkle_down', .25], [0.5, 'sound.arcade.thump', .6], [0.52, 'sound.island_done', .35],
+  [1.5, 'sound.arcade.swoosh', .4], [1.875, 'sound.arcade.swoosh', .4], [2.25, 'sound.arcade.swoosh', .4], [2.625, 'sound.arcade.swoosh', .4],
+  [2.95, 'sound.arcade.swoosh', .45], [3.1, 'sound.map_unroll', .3], [3.2, 'sound.arcade.hop', .25], [3.34, 'sound.arcade.hop', .25], [3.48, 'sound.arcade.hop', .25], [3.62, 'sound.arcade.hop', .25], [3.76, 'sound.arcade.hop', .25],
+  [4.95, 'sound.arcade.swoosh', .45], [5.55, 'sound.page', .35], [6.15, 'sound.correct', .4], [6.55, 'sound.page', .35],
+  [6.95, 'sound.arcade.swoosh', .45], [7.25, 'sound.arcade.boot', .35], [7.4, 'sound.coin', .3], [7.6, 'sound.coin', .3], [7.8, 'sound.coin', .3],
+  [8.7, 'sound.dive', .35], [9.4, 'sound.pearl', .35], [9.65, 'sound.pearl', .35], [9.9, 'sound.pearl', .35],
+  [10.2, 'sound.arcade.swoosh', .45], [10.6, 'sound.coin', .3], [10.8, 'sound.coin', .3], [11.0, 'sound.coin', .3], [11.2, 'sound.coin', .3], [11.4, 'sound.chest_open', .3],
+  [11.7, 'sound.arcade.swoosh', .45], [12.0, 'sound.ship_bell', .3], [12.4, 'sound.paper', .3], [12.6, 'sound.paper', .3],
+  [13.2, 'sound.arcade.swoosh', .45], [13.5, 'sound.medals', .35], [13.9, 'sound.station_done', .4]];
+render(+(P.get('t') || 0));
+</script>
+</body>
+</html>

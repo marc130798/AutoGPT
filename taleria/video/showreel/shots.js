@@ -1,0 +1,3 @@
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const [w,h,n,ts]=[+process.argv[2],+process.argv[3],process.argv[4],process.argv[5].split(',').map(Number)];
+const p=await b.newPage({viewport:{width:w,height:h}});p.on('pageerror',e=>console.log('ERR',e.message));await p.goto('file://'+process.cwd()+'/reel.html?w='+w+'&h='+h);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(700);
+for(const [i,t] of ts.entries()){await p.evaluate(t=>render(t),t);await p.screenshot({path:`pv_${n}_${String(i).padStart(2,'0')}.jpg`,type:'jpeg',quality:65});}await b.close()})()
