@@ -231,3 +231,9 @@ form.signup .consent input { margin-top: 5px; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .bob { animation: bob 4.5s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .bob { animation: none; } .btn:hover { transform: none; } html { scroll-behavior: auto; } }
+
+/* Erklärvideo auf der Startseite */
+.video-box { max-width: 960px; margin: 0 auto; }
+.video-box video { display: block; width: 100%; height: auto; border-radius: var(--radius); background: #dff1fb; box-shadow: var(--shadow); }
+.video-tall { display: none !important; max-width: 360px; margin: 0 auto; }
+@media (max-width: 640px) { .video-wide { display: none !important; } .video-tall { display: block !important; } }
