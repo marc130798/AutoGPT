@@ -119,9 +119,26 @@ Stand: 18.11.2026
 
 ---
 
-## 6. Offene Punkte
+## 6. Offene Punkte (To-do-Liste, Stand 18.11.2026)
 
-- **Altes GitHub-Konto `marc130798`:** Marc bekommt keine E-Mails von GitHub. Spam-Ordner prüfen, sonst GitHub-Support (`support.github.com`, Bereich „Account“). Bis dahin funktioniert das Hochladen weiter.
-- **Umzug zum neuen GitHub-Konto:** neue Claude-Sitzung mit dem Repository `markohler31-boop/taleria` starten; der Code kann aus dem alten Repository übernommen werden.
-- Domain kaufen und mit Netlify verbinden (Abschnitt 2).
-- E-Mail-Adresse einrichten und auf der Homepage, im Impressum und in der Datenschutzerklärung eintragen (Abschnitt 3).
+Hier steht alles, was noch zu tun ist, damit nichts vergessen wird. Claude hakt ab und ergänzt bei jeder Sitzung.
+
+**Marc erledigt:**
+- [ ] **Domain und E-Mail bei IONOS bestellen** (1,50 € im Monat, monatlich kündbar, dauerhaft): `taleria-app.de`, optional `taleriaapp.de` als Weiterleitung. Postfach anlegen, zum Beispiel `hallo@taleria-app.de`. Danach Domain und Adresse an Claude geben.
+- [ ] **Gewerbe anmelden** (Einzelunternehmen, online beim Gewerbeamt, etwa 20 bis 60 €). Kostenlose Gründungsberatung der IHK nutzen. Alle Rechnungen aufheben (ElevenLabs, IONOS, Gemini, Apple).
+- [ ] **Impressum-Adresse klären:** eigene Anschrift oder Impressum-Adresse/virtuelles Büro (etwa 10 bis 30 € im Monat).
+- [ ] **Marke beim DPMA:** vorher `register.dpma.de` und `tmdn.org/tmview` nach „Taleria“ durchsuchen, dann Wortmarke „Taleria“ in den Klassen 9, 41, 42 anmelden (290 €), Abschnitt 3b.
+- [ ] **Social Media anlegen** (alles mit der neuen Mail-Adresse und Zwei-Faktor-Anmeldung): Instagram (Business-Konto), Facebook-Seite, TikTok, YouTube; überall derselbe Name, zum Beispiel `@taleria.app`. Im Profil auf das Impressum verlinken. Kontonamen an Claude geben.
+- [ ] **Meta-Pixel anlegen** (Meta Business Manager → Events Manager) und die Pixel-ID an Claude geben. Dort die Vereinbarung zur gemeinsamen Verantwortung („Controller Addendum“) annehmen.
+- [ ] **Testfamilien aus dem Bekanntenkreis** fragen (3 bis 5 Familien mit Kindern von 8 bis 12, 2 bis 3 Wochen).
+- [ ] **Altes GitHub-Konto `marc130798`:** keine E-Mails von GitHub. Spam-Ordner prüfen, sonst GitHub-Support (`support.github.com`, Bereich „Account“). Das Hochladen funktioniert zurzeit wieder.
+
+**Claude erledigt, sobald Marc geliefert hat:**
+- [ ] Domain und Mail-Adresse in Homepage, Impressum, Datenschutz und `DIENSTE.md` eintragen; Anleitung zum Verbinden der Domain mit Netlify (DNS bei IONOS).
+- [ ] Pixel-ID in `landingpage/consent.js` eintragen (`TALERIA_PIXEL_ID`), neue Homepage-ZIP bauen.
+- [ ] Gelbe Stellen in Impressum und Datenschutz mit Marcs Angaben füllen (Name, Anschrift, E-Mail).
+- [ ] Für die Testfamilien: frische Test-Version als ZIP, Anleitung aktualisieren; in Supabase (Test) entweder die E-Mail-Bestätigung ausschalten oder eigenen Mail-Versand einrichten (Brevo mit der IONOS-Adresse), sonst kommen bei fremden Eltern keine Mails an.
+- [ ] **Social-Media-Paket** (Plan vom 18.11.2026): alle 2 Wochen ein Paket mit etwa 3 Posts pro Woche, fertige Texte mit Hashtags, Bilder und kurze Videos in 1:1, 4:5 und 9:16 aus vorhandenem Material (App-Bilder, Talo und Tala, Ausschnitte aus dem Erklärvideo, Fakten-Grafiken mit Quelle). Neue Gemini-Bilder oder Stimmen nur nach Marcs Ja. Marc prüft und plant die Posts in der kostenlosen Meta Business Suite ein. Auf Wunsch ein wiederkehrender Termin (zum Beispiel jeden zweiten Montag), an dem Claude das nächste Paket vorbereitet. Später möglich: direkt über die Meta-Schnittstelle posten (braucht Instagram-Business-Konto, verbundene Facebook-Seite und einen sicher hinterlegten Zugangsschlüssel). Grundsatz: Vor jedem Post schaut ein Mensch drauf, keine echten Kinder ohne schriftliche Erlaubnis.
+- [ ] Werbetest auf Meta vorbereiten: 3 Anzeigentexte und 15-Sekunden-Schnitte aus dem Video (Budget-Vorschlag 100 bis 200 € für 1 bis 2 Wochen, Zielgruppe Eltern 30 bis 45 in Deutschland).
+- [ ] **Vor dem Bezahl-Start:** mit Steuerberater über eine UG sprechen; Impressum, Datenschutz und AGB rechtlich prüfen lassen.
+- [ ] **Umzug zum neuen GitHub-Konto** `markohler31-boop` (nur nötig, falls das alte Konto wieder Probleme macht): neue Sitzung mit dem Repository `markohler31-boop/taleria`, Code aus dem alten Repository übernehmen.
