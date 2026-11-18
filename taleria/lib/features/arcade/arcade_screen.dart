@@ -340,7 +340,7 @@ class ArcadeFieldState extends State<ArcadeField> with SingleTickerProviderState
     (ArcadeKind.delivery, ArcadeEvent.coin) => AssetKeys.soundArcadeThump,
     (ArcadeKind.delivery, ArcadeEvent.good) => AssetKeys.soundTrade,
     (ArcadeKind.delivery, ArcadeEvent.hit || ArcadeEvent.over) => AssetKeys.soundArcadeClonk,
-    // Elsas Flaschenfänger: Der Wunsch im Netz klingt sanft, ein eigener Treffer-Ton wäre doppelt.
+    // Elsas Wunsch-Flaschen: Ein angetippter Wunsch klingt sanft, ein eigener Treffer-Ton wäre doppelt.
     (ArcadeKind.bottles, ArcadeEvent.action) => AssetKeys.soundArcadeSwoosh,
     (ArcadeKind.bottles, ArcadeEvent.coin) => AssetKeys.soundBottle,
     (ArcadeKind.bottles, ArcadeEvent.wrong) => AssetKeys.soundArcadeSparkleDown,

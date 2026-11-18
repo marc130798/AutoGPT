@@ -29,7 +29,7 @@ List<Widget> arcadeLayers(ArcadeRound round, Size size) {
     GullFlightGame g => _gull(g, u, blink),
     CraneGame g => _crane(g, u, blink),
     DeliveryGame g => _lanes(g, size, blink, catcher: 'game.delivery.boat'),
-    BottleGame g => _lanes(g, size, blink, catcher: 'game.bottles.net'),
+    BottleGame g => _bottles(g, size),
     NutRunGame g => _nuts(g, u, blink),
     PearlDiveGame g => _pearls(g, u, blink),
     _ => const [],
@@ -44,8 +44,12 @@ void arcadePointer(ArcadeRound round, Offset local, Size size, {required bool do
       g.flap();
     case CraneGame g when down:
       g.drop();
+    case BottleGame g when down:
+      g.tap(local.dx / u, local.dy / u);
     case LaneGame g when down:
-      g.moveTo((local.dx / size.width * LaneGame.lanes).floor());
+      // Marcs Wunsch (18.11.2026): Jedes Antippen springt eine Bahn weiter,
+      // links vom Boot nach links, rechts davon nach rechts.
+      g.move(local.dx < g.catcherX * u ? -1 : 1);
     case NutRunGame g when down:
       g.jump();
     case PearlDiveGame g:
@@ -251,13 +255,127 @@ List<Widget> _crane(CraneGame g, double u, bool blink) {
   ];
 }
 
-// ---------- Ottis Lieferboot und Elsas Flaschenfänger ----------
+// ---------- Elsas Wunsch-Flaschen ----------
+
+List<Widget> _bottles(BottleGame g, Size size) {
+  final u = size.height;
+  final drift = (g.time * 0.012 * u) % size.height;
+  final b = BottleGame.radius * 2 * u;
+  Widget sea(double top) => Positioned(
+    left: 0,
+    right: 0,
+    top: top,
+    height: size.height + 1,
+    child: _img(AssetKeys.mapBackground, fit: BoxFit.cover),
+  );
+  Widget bottle(WishBottle w) {
+    final shown = w.shown(g.time);
+    final result = w.tapped;
+    final since = g.time - w.tappedAt;
+    // Richtig: hüpft hoch und wird blass. Falsch: wackelt.
+    final lift = result == true ? -since * 0.25 * u : (1 - shown) * 0.5 * b;
+    final shake = result == false ? sin(since * 40) * 0.06 * b : 0.0;
+    final fade = result == null ? shown : (1 - since / WishBottle.showResult).clamp(0.0, 1.0);
+    return Positioned(
+      left: w.x * u - b / 2 + shake,
+      top: w.y * u - b / 2 + lift,
+      width: b,
+      height: b * (result == null ? 0.35 + 0.65 * shown : 1),
+      child: Opacity(
+        opacity: fade,
+        child: ClipRect(
+          child: OverflowBox(
+            alignment: Alignment.topCenter,
+            maxHeight: b,
+            child: SizedBox(
+              width: b,
+              height: b,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Positioned.fill(child: Transform.rotate(angle: -0.35, child: _img('game.bottles.bottle'))),
+                  Positioned.fill(
+                    child: Padding(padding: EdgeInsets.all(b * 0.22), child: _img('item.${w.kind}')),
+                  ),
+                  if (result != null)
+                    Positioned(
+                      right: -b * 0.05,
+                      top: -b * 0.05,
+                      child: Icon(
+                        result ? Icons.check_circle_rounded : Icons.cancel_rounded,
+                        color: result ? const Color(0xFF3E9B5A) : const Color(0xFFD9544A),
+                        size: b * 0.42,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget ring(WishBottle w) {
+    final age = g.time - w.born;
+    final p = (age / 0.5).clamp(0.0, 1.0);
+    return Positioned(
+      left: w.x * u - b * (0.4 + 0.3 * p),
+      top: w.y * u + b * 0.3 - b * 0.12,
+      width: b * (0.8 + 0.6 * p),
+      height: b * 0.24,
+      child: Opacity(
+        opacity: w.tapped == null ? (1 - p) * 0.8 : 0,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.elliptical(b, b * 0.24)),
+            border: Border.all(color: Colors.white, width: 2),
+          ),
+        ),
+      ),
+    );
+  }
+
+  return [
+    sea(drift - size.height),
+    sea(drift),
+    for (final w in g.bottles) ring(w),
+    for (final w in g.bottles) bottle(w),
+    for (final w in g.bottles)
+      if (w.trick != null && w.tapped == null && w.shown(g.time) > 0.6) _trickTag(w, u, b),
+  ];
+}
+
+Widget _trickTag(WishBottle w, double u, double b) => Positioned(
+  left: w.x * u - b,
+  top: w.y * u - b * 1.05,
+  width: b * 2,
+  child: Center(
+    child: Builder(
+      builder: (context) => DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFFE5675A),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [BoxShadow(color: Color(0x55000000), blurRadius: 6, offset: Offset(0, 2))],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          child: Text(
+            AppLocalizations.of(context).arcadeBottleTrick(w.trick!),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13),
+          ),
+        ),
+      ),
+    ),
+  ),
+);
+
+// ---------- Ottis Lieferboot ----------
 
 List<Widget> _lanes(LaneGame g, Size size, bool blink, {required String catcher}) {
   final u = size.height;
   final scroll = (g.time * g.speed * u) % size.height;
   final thing = 0.1 * u;
-  final bottles = g is BottleGame;
   Widget sea(double top) => Positioned(
     left: 0,
     right: 0,
@@ -268,16 +386,6 @@ List<Widget> _lanes(LaneGame g, Size size, bool blink, {required String catcher}
   Widget content(LaneThing t) {
     if (t.kind == 'rock') return _img('game.delivery.rock');
     final picture = _img('item.${t.kind}');
-    if (bottles) {
-      return Stack(
-        children: [
-          Positioned.fill(child: Transform.rotate(angle: -0.5, child: _img('game.bottles.bottle'))),
-          Positioned.fill(
-            child: Padding(padding: EdgeInsets.all(thing * 0.24), child: picture),
-          ),
-        ],
-      );
-    }
     // Waren schwimmen auf einem kleinen Floß aus Holz.
     return Stack(
       children: [

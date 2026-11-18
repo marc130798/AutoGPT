@@ -3849,7 +3849,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get arcadeDeliveryHow =>
-      'Tippe auf eine Bahn, dann fährt das Boot hin. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!';
+      'Tippe links oder rechts vom Boot: Mit jedem Tippen springt es eine Bahn weiter, zweimal tippen sind zwei Bahnen. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!';
 
   @override
   String get arcadeDeliveryWants => 'will';
@@ -3865,26 +3865,26 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get arcadeBottlesTitle => 'Elsas Flaschenfänger';
+  String get arcadeBottlesTitle => 'Elsas Wunsch-Flaschen';
 
   @override
   String get arcadeBottlesPlace => 'am Strand';
 
   @override
   String get arcadeBottlesHow =>
-      'Tippe auf eine Bahn, dann fährt der Kescher hin. Fang die Flaschen mit Dingen, die man braucht. Wünsche lässt du vorbeischwimmen!';
+      'Flaschen tauchen auf. Tippe schnell, was man wirklich braucht. Wünsche lässt du in Ruhe, auch wenn sie „Nur heute!“ rufen!';
 
   @override
-  String get arcadeBottlesHint => 'Fang, was man braucht';
+  String get arcadeBottlesHint => 'Tippe, was man braucht';
 
   @override
   String arcadeBottlesEnd(int needs) {
-    return 'Du hast $needs Dinge gefangen, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!';
+    return 'Du hast $needs Dinge erwischt, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!';
   }
 
   @override
   String arcadeBottlesWishes(int count) {
-    return '$count Wünsche hast du vorbeischwimmen lassen.';
+    return '$count Wünsche hast du in Ruhe gelassen.';
   }
 
   @override
@@ -3948,6 +3948,17 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String arcadePoints(int count) {
     return '$count Punkte';
+  }
+
+  @override
+  String arcadeBottleTrick(String trick) {
+    String _temp0 = intl.Intl.selectLogic(trick, {
+      'nur_heute': 'Nur heute!',
+      'alle_haben': 'Alle haben es!',
+      'gratis': 'Gratis dazu!',
+      'other': 'Super-Angebot!',
+    });
+    return '$_temp0';
   }
 
   @override

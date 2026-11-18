@@ -1,6 +1,7 @@
 import 'dart:ui' show Offset;
 
 import 'arcade/arcade_round.dart';
+import 'arcade/bottles.dart';
 import 'arcade/crane.dart';
 import 'arcade/gull_flight.dart';
 import 'arcade/lanes.dart';
@@ -9,6 +10,7 @@ import 'arcade/pearl_dive.dart';
 import 'content_models.dart';
 
 export 'arcade/arcade_round.dart';
+export 'arcade/bottles.dart';
 export 'arcade/crane.dart';
 export 'arcade/gull_flight.dart';
 export 'arcade/lanes.dart';
@@ -89,7 +91,7 @@ const arcadeGames = [
     starScores: (12, 30),
   ),
   ArcadeGame(
-    id: 'flaschenfaenger',
+    id: 'wunschflaschen',
     kind: ArcadeKind.bottles,
     island: 'wunschinsel',
     spot: Offset(0.77, 0.86),

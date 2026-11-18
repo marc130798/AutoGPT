@@ -6046,7 +6046,7 @@ abstract class AppLocalizations {
   /// Ottis Lieferboot: Spielregel
   ///
   /// In de, this message translates to:
-  /// **'Tippe auf eine Bahn, dann fährt das Boot hin. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!'**
+  /// **'Tippe links oder rechts vom Boot: Mit jedem Tippen springt es eine Bahn weiter, zweimal tippen sind zwei Bahnen. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!'**
   String get arcadeDeliveryHow;
 
   /// Ottis Lieferboot: Kunde will …
@@ -6070,7 +6070,7 @@ abstract class AppLocalizations {
   /// Richtiges Spiel auf der Wunschinsel: Titel
   ///
   /// In de, this message translates to:
-  /// **'Elsas Flaschenfänger'**
+  /// **'Elsas Wunsch-Flaschen'**
   String get arcadeBottlesTitle;
 
   /// Richtiges Spiel auf der Wunschinsel: Ort
@@ -6079,28 +6079,28 @@ abstract class AppLocalizations {
   /// **'am Strand'**
   String get arcadeBottlesPlace;
 
-  /// Elsas Flaschenfänger: Spielregel
+  /// Elsas Wunsch-Flaschen: Spielregel
   ///
   /// In de, this message translates to:
-  /// **'Tippe auf eine Bahn, dann fährt der Kescher hin. Fang die Flaschen mit Dingen, die man braucht. Wünsche lässt du vorbeischwimmen!'**
+  /// **'Flaschen tauchen auf. Tippe schnell, was man wirklich braucht. Wünsche lässt du in Ruhe, auch wenn sie „Nur heute!“ rufen!'**
   String get arcadeBottlesHow;
 
-  /// Elsas Flaschenfänger: Hinweis oben
+  /// Elsas Wunsch-Flaschen: Hinweis oben
   ///
   /// In de, this message translates to:
-  /// **'Fang, was man braucht'**
+  /// **'Tippe, was man braucht'**
   String get arcadeBottlesHint;
 
-  /// Elsas Flaschenfänger: Satz am Ende
+  /// Elsas Wunsch-Flaschen: Satz am Ende
   ///
   /// In de, this message translates to:
-  /// **'Du hast {needs} Dinge gefangen, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!'**
+  /// **'Du hast {needs} Dinge erwischt, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!'**
   String arcadeBottlesEnd(int needs);
 
-  /// Elsas Flaschenfänger: Wünsche losgelassen
+  /// Elsas Wunsch-Flaschen: Wünsche losgelassen
   ///
   /// In de, this message translates to:
-  /// **'{count} Wünsche hast du vorbeischwimmen lassen.'**
+  /// **'{count} Wünsche hast du in Ruhe gelassen.'**
   String arcadeBottlesWishes(int count);
 
   /// Richtiges Spiel auf der Spar-Insel: Titel
@@ -6192,6 +6192,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'{count} Punkte'**
   String arcadePoints(int count);
+
+  /// Wunsch-Flaschen: Werbe-Trick auf einer Flasche mit einem Wunsch
+  ///
+  /// In de, this message translates to:
+  /// **'{trick, select, nur_heute{Nur heute!} alle_haben{Alle haben es!} gratis{Gratis dazu!} other{Super-Angebot!}}'**
+  String arcadeBottleTrick(String trick);
 
   /// Richtige Spiele: Name eines Dings
   ///

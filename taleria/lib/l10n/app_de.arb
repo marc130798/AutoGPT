@@ -5425,7 +5425,7 @@
   "@arcadeDeliveryPlace": {
     "description": "Richtiges Spiel auf der Tauschinsel: Ort"
   },
-  "arcadeDeliveryHow": "Tippe auf eine Bahn, dann fährt das Boot hin. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!",
+  "arcadeDeliveryHow": "Tippe links oder rechts vom Boot: Mit jedem Tippen springt es eine Bahn weiter, zweimal tippen sind zwei Bahnen. Fang die Ware, die der Kunde haben will. Falsche Ware und Steine kosten ein Herz!",
   "@arcadeDeliveryHow": {
     "description": "Ottis Lieferboot: Spielregel"
   },
@@ -5451,7 +5451,7 @@
       }
     }
   },
-  "arcadeBottlesTitle": "Elsas Flaschenfänger",
+  "arcadeBottlesTitle": "Elsas Wunsch-Flaschen",
   "@arcadeBottlesTitle": {
     "description": "Richtiges Spiel auf der Wunschinsel: Titel"
   },
@@ -5459,26 +5459,26 @@
   "@arcadeBottlesPlace": {
     "description": "Richtiges Spiel auf der Wunschinsel: Ort"
   },
-  "arcadeBottlesHow": "Tippe auf eine Bahn, dann fährt der Kescher hin. Fang die Flaschen mit Dingen, die man braucht. Wünsche lässt du vorbeischwimmen!",
+  "arcadeBottlesHow": "Flaschen tauchen auf. Tippe schnell, was man wirklich braucht. Wünsche lässt du in Ruhe, auch wenn sie „Nur heute!“ rufen!",
   "@arcadeBottlesHow": {
-    "description": "Elsas Flaschenfänger: Spielregel"
+    "description": "Elsas Wunsch-Flaschen: Spielregel"
   },
-  "arcadeBottlesHint": "Fang, was man braucht",
+  "arcadeBottlesHint": "Tippe, was man braucht",
   "@arcadeBottlesHint": {
-    "description": "Elsas Flaschenfänger: Hinweis oben"
+    "description": "Elsas Wunsch-Flaschen: Hinweis oben"
   },
-  "arcadeBottlesEnd": "Du hast {needs} Dinge gefangen, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!",
+  "arcadeBottlesEnd": "Du hast {needs} Dinge erwischt, die man wirklich braucht. Ich hätte ja die Glitzerbrille genommen … aber du weißt, was wichtig ist!",
   "@arcadeBottlesEnd": {
-    "description": "Elsas Flaschenfänger: Satz am Ende",
+    "description": "Elsas Wunsch-Flaschen: Satz am Ende",
     "placeholders": {
       "needs": {
         "type": "int"
       }
     }
   },
-  "arcadeBottlesWishes": "{count} Wünsche hast du vorbeischwimmen lassen.",
+  "arcadeBottlesWishes": "{count} Wünsche hast du in Ruhe gelassen.",
   "@arcadeBottlesWishes": {
-    "description": "Elsas Flaschenfänger: Wünsche losgelassen",
+    "description": "Elsas Wunsch-Flaschen: Wünsche losgelassen",
     "placeholders": {
       "count": {
         "type": "int"
@@ -5582,6 +5582,15 @@
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "arcadeBottleTrick": "{trick, select, nur_heute{Nur heute!} alle_haben{Alle haben es!} gratis{Gratis dazu!} other{Super-Angebot!}}",
+  "@arcadeBottleTrick": {
+    "description": "Wunsch-Flaschen: Werbe-Trick auf einer Flasche mit einem Wunsch",
+    "placeholders": {
+      "trick": {
+        "type": "String"
       }
     }
   },

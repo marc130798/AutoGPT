@@ -196,15 +196,79 @@ void main() {
     });
   });
 
-  group('Elsas Flaschenfänger', () {
-    test('Brauchen zählt, ein gefangener Wunsch kostet ein Herz', () {
-      final g = BottleGame(width: 0.46, random: Random(1))..moveTo(0);
-      g.onCatch(LaneThing(lane: 0, y: 0, kind: BottleGame.needs.first));
+  group('Elsas Wunsch-Flaschen', () {
+    BottleGame started() => BottleGame(width: 0.46, random: Random(3))..tap(0, 0);
+
+    test('erstes Antippen startet, danach tauchen Flaschen auf', () {
+      final g = BottleGame(width: 0.46, random: Random(3));
+      g.tap(0.2, 0.5);
+      expect(g.started, isTrue);
+      for (var i = 0; i < 40; i++) {
+        g.step(0.05);
+      }
+      expect(g.bottles, isNotEmpty);
+      for (final b in g.bottles) {
+        expect(b.y, inInclusiveRange(BottleGame.top, BottleGame.bottom));
+        expect(b.x, inInclusiveRange(0, g.width));
+      }
+    });
+
+    test('Brauchen antippen zählt, einen Wunsch antippen kostet ein Herz', () {
+      final g = started();
+      g.bottles.add(WishBottle(x: 0.1, y: 0.4, kind: BottleGame.needs.first, born: 0, life: 5));
+      g.bottles.add(WishBottle(x: 0.35, y: 0.7, kind: BottleGame.wishes.first, born: 0, life: 5));
+      for (var i = 0; i < 8; i++) {
+        g.step(0.05);
+      }
+      g.tap(0.1, 0.4);
+      g.step(0.02);
       expect(g.points, 1);
-      g.onCatch(LaneThing(lane: 0, y: 0, kind: BottleGame.wishes.first));
-      expect(g.lives, 2);
-      g.onMiss(LaneThing(lane: 1, y: 1, kind: BottleGame.wishes.first));
+      expect(g.lives, ArcadeRound.hearts);
+      g.tap(0.35, 0.7);
+      g.step(0.02);
+      g.step(0.02);
+      expect(g.wishesCaught, 1);
+      expect(g.lives, ArcadeRound.hearts - 1);
+    });
+
+    test('Nötiges versinken lassen kostet ein Herz, ein Wunsch nicht', () {
+      final g = started();
+      g.bottles.add(WishBottle(x: 0.1, y: 0.4, kind: BottleGame.wishes.first, born: 0, life: 0.5));
+      g.step(0.05);
+      for (var i = 0; i < 12; i++) {
+        g.step(0.05);
+      }
       expect(g.wishesLetGo, 1);
+      expect(g.lives, ArcadeRound.hearts);
+      g.bottles.add(WishBottle(x: 0.3, y: 0.6, kind: BottleGame.needs.first, born: g.time, life: 0.5));
+      for (var i = 0; i < 12; i++) {
+        g.step(0.05);
+      }
+      expect(g.needsMissed, 1);
+      expect(g.lives, ArcadeRound.hearts - 1);
+    });
+
+    test('daneben tippen kostet nichts', () {
+      final g = started();
+      g.tap(0.4, 0.3);
+      g.step(0.02);
+      expect(g.lives, ArcadeRound.hearts);
+      expect(g.points, 0);
+    });
+
+    test('wird mit den Stufen schneller, Werbe-Tricks nur auf Wünschen ab Stufe 3', () {
+      final g = started();
+      final slow = g.lifetime;
+      g.points = 24;
+      expect(g.level, 4);
+      expect(g.lifetime, lessThan(slow));
+      for (var i = 0; i < 400; i++) {
+        g.step(0.05);
+        g.lives = ArcadeRound.hearts;
+        for (final b in g.bottles) {
+          if (b.trick != null) expect(BottleGame.isNeed(b.kind), isFalse);
+        }
+      }
     });
   });
 
