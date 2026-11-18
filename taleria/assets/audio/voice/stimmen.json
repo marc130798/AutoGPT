@@ -1696,8 +1696,8 @@
   },
   "voice.spar-insel.1.3.mp3": {
     "wer": "talo",
-    "text": "Mit Geld ist es genauso. Sparen heißt: Heute etwas zurücklegen, damit man später etwas hat. Für einen großen Wunsch, für einen Notfall oder einfach für später.",
-    "datum": "2026-11-17",
+    "text": "Mit Geld ist es genauso. Sparen heißt: Heute etwas zurücklegen, damit man später etwas hat. Für einen großen Wunsch, für einen Notfall oder für etwas, das schon fest geplant ist, wie eine Klassenfahrt.",
+    "datum": "2026-11-18",
     "plan": "starter",
     "modell": "eleven_multilingual_v2",
     "einstellungen": {
