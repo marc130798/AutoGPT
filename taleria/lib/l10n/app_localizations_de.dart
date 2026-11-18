@@ -3924,7 +3924,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get arcadePearlTitle => 'Talas Perlentaucher';
 
   @override
-  String get arcadePearlPlace => 'nach dem ersten Tauchgang';
+  String get arcadePearlPlace => 'an der Tauch-Boje vor dem Hafen';
 
   @override
   String get arcadePearlHow =>
@@ -3968,4 +3968,7 @@ class AppLocalizationsDe extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String get arcadeBuoyLocked => 'Die Tauch-Boje öffnet sich nach deinem ersten Tauchgang im Hafen.';
 }

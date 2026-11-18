@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../data/content_repository.dart';
+import '../domain/arcade_games.dart';
 import '../domain/content_models.dart';
 import '../domain/family_models.dart';
 import '../domain/progress_logic.dart';
@@ -16,6 +17,10 @@ class MapController extends ChangeNotifier {
 
   List<MapIsland> _islands = const [];
   Map<String, IslandState> _states = const {};
+
+  /// Ist Talas Perlentaucher schon offen (nach dem ersten Tauchgang)?
+  bool get pearlDiveOpen => _pearlDiveOpen;
+  bool _pearlDiveOpen = false;
 
   /// Stopps auf See je Insel (auf der Route davor) und ihr Zustand.
   Map<String, List<StationInfo>> _stops = const {};
@@ -125,6 +130,17 @@ class MapController extends ChangeNotifier {
         for (final island in islands)
           ...seaStopStates(_stops[island.id]!, progress, stateOf(island), preview: child.previewAll),
       };
+      _pearlDiveOpen = false;
+      final dive = arcadeGames.firstWhere((g) => g.kind == ArcadeKind.pearlDive);
+      final home = islands.where((i) => i.slug == dive.island && i.hasContent).firstOrNull;
+      if (home != null) {
+        try {
+          final stations = await _content.fetchStations(home.id);
+          _pearlDiveOpen = arcadeUnlocked(dive, stations, (s) => progress.doneStationIds.contains(s.id));
+        } on AppFailure {
+          // Ohne Stationen bleibt die Boje gesperrt; die Karte geht trotzdem.
+        }
+      }
     } on AppFailure catch (e) {
       _failure = e.kind;
     }

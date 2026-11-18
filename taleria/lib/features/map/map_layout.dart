@@ -246,6 +246,17 @@ class MapLayout {
   /// Inseln: in der Mitte des Meeres, am Rand weg vom Weg. Nie auf einer Insel,
   /// einem Stopp oder auf dem, was in [avoid] liegt; passt nichts, fällt der
   /// Platz weg.
+  /// Platz der Tauch-Boje für Talas Perlentaucher: im offenen Meer unter dem
+  /// Hafen (der ersten Insel), unter dem Namensband, weg von Schiff und Weg.
+  Offset diveBuoySpot(Size size) {
+    if (route.isEmpty) return Offset(width / 2, height - size.height);
+    final c = centerOf(route.first.id);
+    return Offset(
+      (c.dx + islandWidth * 0.28).clamp(size.width / 2 + 6, width - size.width / 2 - 6),
+      min(c.dy + islandHeight * 0.95 + size.height * 0.3, height - size.height / 2 - 6),
+    );
+  }
+
   List<Offset> critterSpots(Size size, {List<Rect> avoid = const [], Random? random}) {
     final spots = <Offset>[];
     for (var index = 1; index < route.length; index++) {

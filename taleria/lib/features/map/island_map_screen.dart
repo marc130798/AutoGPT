@@ -14,6 +14,8 @@ import '../../domain/family_models.dart';
 import '../../domain/progress_logic.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/map_controller.dart';
+import '../../domain/arcade_games.dart';
+import '../arcade/arcade_screen.dart';
 import '../common/fog_reveal.dart';
 import '../common/menu_music.dart';
 import '../common/texts.dart';
@@ -27,6 +29,7 @@ import 'sea_critters.dart';
 import '../common/taleria_app_bar.dart';
 import '../common/play_effect.dart';
 import 'seagull_flock.dart';
+import 'dive_buoy.dart';
 
 /// Die Inselkarte: scrollt senkrecht, die Route führt von unten (Hafen)
 /// nach oben (Schatzinsel). Inseln im Nebel und gesperrte Inseln sind
@@ -722,6 +725,11 @@ class _MapScene extends StatelessWidget {
                     if (shipPosition != null) layout.shipRect(shipPosition, shipScale),
                     if (controller.encounter != null && shipId != null)
                       layout.encounterSpot(shipId, _encounterSize) & _encounterSize,
+                    Rect.fromCenter(
+                      center: layout.diveBuoySpot(DiveBuoy.size),
+                      width: DiveBuoy.size.width,
+                      height: DiveBuoy.size.height,
+                    ),
                   ],
                 )
                 .indexed)
@@ -729,6 +737,34 @@ class _MapScene extends StatelessWidget {
             left: spot.dx,
             top: spot.dy,
             child: SeaCritter(key: ValueKey('critter-$i'), kind: critterKindAt(critterSeed, i), clock: clock),
+          ),
+        // Tauch-Boje für Talas Perlentaucher, im Meer neben dem Hafen.
+        if (layout.route.isNotEmpty)
+          Positioned(
+            left: layout.diveBuoySpot(DiveBuoy.size).dx - DiveBuoy.size.width / 2,
+            top: layout.diveBuoySpot(DiveBuoy.size).dy - DiveBuoy.size.height / 2,
+            width: DiveBuoy.size.width,
+            height: DiveBuoy.size.height,
+            child: DiveBuoy(
+              key: const ValueKey('map-pearl-dive'),
+              unlocked: controller.pearlDiveOpen,
+              clock: clock,
+              onTap: () {
+                final l10n = AppLocalizations.of(context);
+                final game = arcadeGames.firstWhere((g) => g.kind == ArcadeKind.pearlDive);
+                if (!controller.pearlDiveOpen) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(SnackBar(content: Text(l10n.arcadeBuoyLocked)));
+                  return;
+                }
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => ArcadeScreen(game: game, childId: controller.child.id),
+                  ),
+                );
+              },
+            ),
           ),
         if (controller.encounter != null && shipId != null && !traveling)
           if (layout.encounterSpot(

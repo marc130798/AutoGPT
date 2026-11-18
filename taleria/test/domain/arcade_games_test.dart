@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/painting.dart' show Size;
 import 'package:taleria/domain/arcade_games.dart';
+import 'package:taleria/domain/content_models.dart';
+import 'package:taleria/features/map/map_layout.dart';
 
 GullFlightGame _game() => GullFlightGame(width: 0.46, random: Random(1));
 
@@ -322,5 +325,30 @@ void main() {
       g.step(0.001);
       expect(g.events.where((e) => e == ArcadeEvent.action), hasLength(2));
     });
+  });
+
+  test('Perlentaucher: Wer unten bei den Muscheln stehen bleibt, trifft auch Quallen', () {
+    for (final seed in [1, 2, 3]) {
+      final g = PearlDiveGame(width: 0.46, random: Random(seed))..swimTo(0.15, 1);
+      for (var i = 0; i < 3000 && g.lives == ArcadeRound.hearts; i++) {
+        g.step(0.02);
+      }
+      expect(g.lives, lessThan(ArcadeRound.hearts), reason: 'Seed $seed: unten ist man nicht mehr sicher');
+    }
+  });
+
+  test('Tauch-Boje liegt im Meer unter dem Hafen, nicht auf der Insel', () {
+    final layout = MapLayout.compute(
+      width: 390,
+      viewportHeight: 844,
+      islands: [
+        for (final (i, s) in ['hafen', 'tauschinsel', 'wunschinsel'].indexed)
+          MapIsland(id: s, slug: s, title: s, sortOrder: i + 1, mapX: 0.5, mapY: 1.0 - i * 0.3, hasContent: true),
+      ],
+    );
+    final spot = layout.diveBuoySpot(const Size(104, 112));
+    final hafen = layout.centerOf('hafen');
+    expect((spot.dx - hafen.dx).abs(), greaterThan(layout.islandWidth / 2), reason: "neben der Insel");
+    expect(spot.dx, inInclusiveRange(52, 390 - 52));
   });
 }

@@ -6160,7 +6160,7 @@ abstract class AppLocalizations {
   /// Talas Perlentaucher: wo es sich öffnet
   ///
   /// In de, this message translates to:
-  /// **'nach dem ersten Tauchgang'**
+  /// **'an der Tauch-Boje vor dem Hafen'**
   String get arcadePearlPlace;
 
   /// Talas Perlentaucher: Spielregel
@@ -6198,6 +6198,12 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}'**
   String arcadeItem(String item);
+
+  /// Seekarte: Perlentaucher-Boje noch gesperrt
+  ///
+  /// In de, this message translates to:
+  /// **'Die Tauch-Boje öffnet sich nach deinem ersten Tauchgang im Hafen.'**
+  String get arcadeBuoyLocked;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

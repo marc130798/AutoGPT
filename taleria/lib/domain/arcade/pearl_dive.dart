@@ -105,12 +105,17 @@ class PearlDiveGame extends ArcadeRound {
     _sinceJelly += drift * dt;
     if (_sinceJelly > jellyGap) {
       _sinceJelly = 0;
+      // Quallen überall, auch unten bei den Muscheln (Marcs Test am 18.11.2026:
+      // Wer unten stehen blieb, wurde nie getroffen). Ab Stufe 2 schweben
+      // manche weit auf und ab, durch das ganze Wasser.
+      final low = _random.nextDouble() < 0.45;
+      final wide = level >= 2 && _random.nextDouble() < 0.35;
       jellies.add(
         Jelly(
           x: width + 0.08,
-          baseY: 0.25 + _random.nextDouble() * 0.45,
+          baseY: wide ? 0.5 : (low ? bottom - 0.08 - _random.nextDouble() * 0.06 : 0.22 + _random.nextDouble() * 0.45),
           phase: _random.nextDouble() * pi * 2,
-          amp: 0.03 + _random.nextDouble() * (0.04 + 0.01 * level),
+          amp: wide ? 0.28 : 0.03 + _random.nextDouble() * (0.04 + 0.01 * level),
         ),
       );
     }

@@ -5541,7 +5541,7 @@
   "@arcadePearlTitle": {
     "description": "Richtiges Spiel nach dem ersten Tauchgang: Titel"
   },
-  "arcadePearlPlace": "nach dem ersten Tauchgang",
+  "arcadePearlPlace": "an der Tauch-Boje vor dem Hafen",
   "@arcadePearlPlace": {
     "description": "Talas Perlentaucher: wo es sich öffnet"
   },
@@ -5593,5 +5593,9 @@
         "type": "String"
       }
     }
+  },
+  "arcadeBuoyLocked": "Die Tauch-Boje öffnet sich nach deinem ersten Tauchgang im Hafen.",
+  "@arcadeBuoyLocked": {
+    "description": "Seekarte: Perlentaucher-Boje noch gesperrt"
   }
 }
