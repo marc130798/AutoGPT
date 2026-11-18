@@ -372,6 +372,175 @@
       "similarity_boost": 0.75
     }
   },
+  "voice.begegnung.taleron-siegel-a.erste.1.mp3": {
+    "wer": "tala",
+    "text": "Talo! Das Wasser wird ganz still. Und dort, der große Schatten …",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.2.mp3": {
+    "wer": "taleron",
+    "text": "Hoho! Habt keine Angst. Heute zeige ich mich euch ganz.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.3.mp3": {
+    "wer": "talo",
+    "text": "Meister Taleron! So groß haben wir dich noch nie gesehen.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "SfAtBxtKeIJ5PJmhPaty"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.4.mp3": {
+    "wer": "taleron",
+    "text": "Ich muss euch etwas gestehen. Die Schatzkarte, deren Stücke ihr sucht, habe ich selbst zerrissen.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.5.mp3": {
+    "wer": "tala",
+    "text": "Du? Aber warum denn?",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "GtGbvM5PvWwzWI8rtTKT"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.6.mp3": {
+    "wer": "taleron",
+    "text": "Damit nur eine kluge Crew den Schatz findet. Eine Crew, die nicht nur sucht, sondern auch lernt.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.7.mp3": {
+    "wer": "taleron",
+    "text": "Vier Inseln habt ihr geschafft. Jetzt will ich sehen, ob ihr das Gelernte behalten habt. Zwölf Fragen aus allen vier Inseln.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.erste.8.mp3": {
+    "wer": "taleron",
+    "text": "Schafft ihr neun, bekommt ihr mein Siegel. Und wie immer gilt: Bei mir geht niemand unter.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.falsch.mp3": {
+    "wer": "taleron",
+    "text": "Nicht ganz. Hör gut zu, dann klappt es gleich.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.geschafft.mp3": {
+    "wer": "taleron",
+    "text": "Ihr habt das Gelernte behalten. Nehmt mein Siegel, ihr habt es euch verdient!",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.nicht_bestanden.mp3": {
+    "wer": "taleron",
+    "text": "Fast! Für mein Siegel fehlt noch ein kleines Stück. Ruht euch aus und kommt wieder. Ich warte hier auf euch.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.richtig.mp3": {
+    "wer": "taleron",
+    "text": "Hoho, richtig! Das sitzt.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
+  "voice.begegnung.taleron-siegel-a.szene.1.mp3": {
+    "wer": "taleron",
+    "text": "Da seid ihr wieder! Zwölf Fragen aus Hafen, Tauschinsel, Wunschinsel und Spar-Insel. Neun richtige, dann gehört mein Siegel euch.",
+    "datum": "2026-11-18",
+    "plan": "starter",
+    "modell": "eleven_multilingual_v2",
+    "einstellungen": {
+      "speed": 0.87,
+      "stability": 0.5,
+      "similarity_boost": 0.75
+    },
+    "stimme": "DrEioZtDeKuQuCiimPiq"
+  },
   "voice.hafen.2.1.mp3": {
     "wer": "talo",
     "text": "Beim Tauschen muss jeder genau das haben, was der andere gerade braucht. Das klappt nur selten.",
