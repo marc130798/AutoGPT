@@ -348,7 +348,8 @@ void main() {
     );
     final spot = layout.diveBuoySpot(const Size(104, 112));
     final hafen = layout.centerOf('hafen');
-    expect((spot.dx - hafen.dx).abs(), greaterThan(layout.islandWidth / 2), reason: "neben der Insel");
+    expect(spot.dy, greaterThan(hafen.dy), reason: 'unter dem Hafen');
+    expect(spot.dy, lessThanOrEqualTo(layout.height), reason: 'noch auf der Karte');
     expect(spot.dx, inInclusiveRange(52, 390 - 52));
   });
 }
