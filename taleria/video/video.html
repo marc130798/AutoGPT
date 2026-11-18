@@ -32,6 +32,7 @@ h1 { font-size: calc(var(--u) * 96px); text-shadow: 0 4px 24px rgba(0,0,0,.35); 
 .lead { font-size: calc(var(--u) * 52px); text-shadow: 0 2px 14px rgba(0,0,0,.55); font-weight: 700; line-height: 1.25; color: #e7f4fb; }
 .big { font-size: calc(var(--u) * 230px); color: var(--gold); text-shadow: 0 6px 30px rgba(0,0,0,.35); letter-spacing: -.02em; }
 .big.coral { color: #ff8a7a; }
+.port .big { font-size: calc(var(--u) * 150px); white-space: nowrap; }
 .src { font-size: calc(var(--u) * 32px); color: #dbe8f1; text-shadow: 0 2px 10px rgba(0,0,0,.6); font-weight: 700; border-top: 2px solid rgba(255,255,255,.25); padding-top: calc(var(--u) * 12px); }
 .text > .chip { justify-self: start; }
 .text.center > .chip { justify-self: center; }
@@ -59,6 +60,20 @@ img.fit { position: absolute; object-fit: contain; }
 .glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(246,227,166,.55), rgba(246,227,166,0) 65%); }
 .word { display: inline-block; }
 .bubble { position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,.55); background: rgba(255,255,255,.12); }
+
+#storm { pointer-events: none; }
+.rain { position: absolute; width: 2px; background: linear-gradient(180deg, rgba(200,225,245,0), rgba(200,225,245,.55)); border-radius: 2px; }
+#flash { background: radial-gradient(ellipse at 60% 10%, rgba(230,240,255,.9), rgba(200,220,255,.25) 60%, rgba(200,220,255,0)); opacity: 0; }
+#vignette { background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,.45) 100%); }
+#waves svg { position: absolute; left: 0; width: 200%; }
+.glass { background: linear-gradient(160deg, rgba(255,255,255,.22), rgba(31,95,140,.35)); border: calc(var(--u)*3px) solid rgba(255,255,255,.6); border-radius: calc(var(--u)*48px); box-shadow: 0 30px 80px rgba(16,50,80,.3), inset 0 1px 0 rgba(255,255,255,.4); backdrop-filter: blur(10px); padding: calc(var(--u)*50px) calc(var(--u)*60px) calc(var(--u)*40px); }
+.land .text.center.glass { left: 17% !important; right: 17%; }
+.port .text.center.glass { left: 6% !important; right: 6%; }
+.ficon { width: calc(var(--u)*120px); height: calc(var(--u)*120px); border-radius: 50%; display: grid; place-items: center; background: rgba(246,227,166,.15); border: calc(var(--u)*3px) solid rgba(246,227,166,.6); }
+.ficon svg { width: 60%; height: 60%; }
+.step { position: absolute; display: flex; gap: calc(var(--u)*14px); }
+.step i { display: block; width: calc(var(--u)*46px); height: calc(var(--u)*10px); border-radius: 99px; background: rgba(255,255,255,.25); }
+.step i.on { background: var(--gold); }
 </style>
 </head>
 <body>
@@ -67,29 +82,40 @@ img.fit { position: absolute; object-fit: contain; }
   <div class="layer" id="tile"></div>
   <div class="layer" id="gloom"></div>
   <div class="layer" id="clouds"></div>
+  <div class="layer" id="storm"></div>
+  <div class="layer" id="waves"></div>
+  <div class="layer" id="flash"></div>
+  <div class="layer" id="vignette"></div>
 
   <!-- 1 Hook -->
   <div class="scene" id="s1">
-    <div class="text center"><h1 data-a="up" data-d="0.2">Wer hat dir eigentlich beigebracht, mit Geld umzugehen?</h1></div>
+    <img class="fit" id="tala1" src="img/character.tala.think.png" alt="">
+    <div class="text center" id="t1"><h1 data-a="up" data-d="0.2">Wer hat dir eigentlich beigebracht, mit Geld umzugehen?</h1></div>
   </div>
 
   <!-- 2-4 Fakten -->
   <div class="scene" id="s2">
-    <div class="text center">
+    <div class="step" data-step="0"><i></i><i></i><i></i></div>
+    <div class="text center glass" data-a="pop" data-d="0">
+      <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e3a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l10-4 10 4-10 4z"/><path d="M6 9v5c0 1.5 3 3 6 3s6-1.5 6-3V9"/><path d="M22 7v6"/></svg></div>
       <div class="big" data-count="80" data-suffix=" %" data-d="0.1">0 %</div>
       <p class="lead" data-a="up" data-d="0.6">der jungen Menschen haben in der Schule kaum etwas über Geld gelernt.</p>
       <p class="src" data-a="up" data-d="1.0">Quelle: Bankenverband, Jugendstudie 2024</p>
     </div>
   </div>
   <div class="scene" id="s3">
-    <div class="text center">
+    <div class="step" data-step="1"><i></i><i></i><i></i></div>
+    <div class="text center glass" data-a="pop" data-d="0">
+      <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e3a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v4M18 10v4"/></svg></div>
       <div class="big" data-a="pop" data-d="0.1"><span style="opacity:.55">58 %</span> → <span data-count="51" data-from="58" data-suffix=" %">58 %</span></div>
       <p class="lead" data-a="up" data-d="0.6">Bargeld verschwindet. Kinder sehen kaum noch, wie Geld den Besitzer wechselt.</p>
       <p class="src" data-a="up" data-d="1.0">Quelle: Deutsche Bundesbank, Zahlungsverhalten 2023</p>
     </div>
   </div>
   <div class="scene" id="s4">
-    <div class="text center">
+    <div class="step" data-step="2"><i></i><i></i><i></i></div>
+    <div class="text center glass" data-a="pop" data-d="0">
+      <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l6 6 4-4 8 9"/><path d="M15 16h6v-6"/></svg></div>
       <div class="big coral" data-count="5.67" data-decimals="2" data-suffix=" Mio." data-d="0.1">0 Mio.</div>
       <p class="lead" data-a="up" data-d="0.8">Erwachsene sind überschuldet. Besonders gefährdet: junge Menschen.</p>
       <p class="src" data-a="up" data-d="1.2">Quelle: Creditreform, SchuldnerAtlas 2025</p>
@@ -191,7 +217,7 @@ for (let i = 0; i < 9; i++) {
   const w = (0.5 + (i % 3) * 0.25) * Math.max(W, H);
   c.style.width = w + 'px'; c.style.height = w * 0.45 + 'px';
   $('clouds').appendChild(c);
-  clouds.push({ el: c, x: ((i * 0.37) % 1) * W - w * 0.3, y: ((i * 0.53) % 1) * H - w * 0.2, w, side: i % 2 ? 1 : -1, speed: 8 + i * 3 });
+  clouds.push({ el: c, x: ((i * 0.37) % 1) * W - w * 0.4, y: -w * (PORT ? 0.3 : 0.33) + ((i * 0.13) % 0.06) * H, w, side: i % 2 ? 1 : -1, speed: 10 + i * 4 });
 }
 
 // Inselkarte (Szene 6)
@@ -202,6 +228,12 @@ const ship6 = document.createElement('img'); ship6.src = 'img/ship.crew.png'; sh
 const lock6 = document.createElement('div'); lock6.className = 'abs'; lock6.innerHTML = '<svg viewBox="0 0 60 70" width="100%" height="100%"><rect x="6" y="30" width="48" height="36" rx="8" fill="#d4a62a" stroke="#7a5a10" stroke-width="4"/><path id="shackle" d="M16 30 V20 a14 14 0 0 1 28 0 V30" fill="none" stroke="#7a5a10" stroke-width="7"/><circle cx="30" cy="47" r="5" fill="#5c3a18"/></svg>'; map6.appendChild(lock6);
 const dots6 = []; for (let i = 0; i < 26; i++) { const d = document.createElement('div'); d.className = 'dot'; map6.appendChild(d); dots6.push(d); }
 
+// Sturm: Regen und Wellen
+const rain = []; for (let i = 0; i < 90; i++) { const r = document.createElement('div'); r.className = 'rain'; const len = (40 + (i * 37) % 60) * U; r.style.height = len + 'px'; $('storm').appendChild(r); rain.push({ el: r, x: ((i * 0.618) % 1) * (W + 300) - 150, sp: (900 + (i * 53) % 500) * U, ph: (i * 0.37) % 1, len }); }
+const waveCols = ['rgba(255,255,255,.22)', 'rgba(120,200,232,.35)', 'rgba(31,95,140,.45)'];
+const waves = waveCols.map((c, i) => { const d = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); d.setAttribute('viewBox', '0 0 400 60'); d.setAttribute('preserveAspectRatio', 'none'); d.innerHTML = `<path fill="${c}" d="M0 30 Q25 ${10 + i * 6} 50 30 T100 30 T150 30 T200 30 T250 30 T300 30 T350 30 T400 30 V60 H0Z"/>`; d.style.height = (H * (0.12 + i * 0.045)) + 'px'; d.style.bottom = (-i * H * 0.02) + 'px'; $('waves').appendChild(d); return d; });
+// Bargeld-Münzen (Szene 3), die verblassen
+const coins3 = []; for (let i = 0; i < 7; i++) { const c = document.createElement('img'); c.src = 'img/game.gull.coin.png'; c.className = 'fit'; $('s3').prepend(c); coins3.push(c); }
 // Münzen (Szene 8)
 const coins8 = []; for (let i = 0; i < 5; i++) { const c = document.createElement('img'); c.src = 'img/game.gull.coin.png'; c.className = 'fit'; $('vis8').appendChild(c); coins8.push(c); }
 
@@ -210,7 +242,7 @@ function animateGeneric(scene, lt) {
     const p = ease((lt - (+el.dataset.d || 0)) / 0.7);
     if (el.dataset.a === 'up') { el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 40 * U}px)`; }
     if (el.dataset.a === 'words') { el.style.opacity = 1; [...el.children].forEach((w, k) => { const q = ease((lt - (+el.dataset.d || 0) - k * 0.07) / 0.45); w.style.opacity = q; w.style.transform = `translateY(${(1 - q) * 34 * U}px) scale(${0.9 + 0.1 * q})`; }); }
-    if (el.dataset.a === 'pop') { el.style.opacity = p; el.style.transform = `scale(${0.7 + 0.3 * ease((lt - (+el.dataset.d || 0)) / 0.5)})`; }
+    if (el.dataset.a === 'pop') { el.style.opacity = p; el.style.transform = (el.classList.contains('text') ? 'translateY(-50%) ' : '') + `scale(${0.7 + 0.3 * ease((lt - (+el.dataset.d || 0)) / 0.5)})`; }
   });
   scene.querySelectorAll('[data-count]').forEach(el => {
     const to = +el.dataset.count, from = +(el.dataset.from || 0), dec = +(el.dataset.decimals || 0);
@@ -224,18 +256,27 @@ function animateGeneric(scene, lt) {
 function render(t) {
   // Hintergrund: Nebel bis zum Wendepunkt, dann klares Meer
   const turn = starts[4] + LEAD;
-  const clear = easeIO((t - turn + 0.2) / 2.2);
+  const clear = 1; // Marc: alles hellblau, kein dunkler Nebel
   $('gloom').style.opacity = 1 - clear;
   $('tile').style.backgroundPosition = `${-t * 18}px ${t * 6}px`;
   $('sea').style.filter = `saturate(${0.35 + 0.65 * clear}) brightness(${0.75 + 0.25 * clear})`;
   clouds.forEach((c, i) => {
     const drift = t * c.speed;
     const away = clear * (W * 0.9) * c.side;
-    c.el.style.transform = `translate(${c.x + drift * c.side * 0.3 + away}px, ${c.y + Math.sin(t * 0.3 + i) * 12}px)`;
-    c.el.style.opacity = (0.32 + 0.12 * (i % 3) / 2) * (1 - clear);
+    c.el.style.transform = `translate(${((c.x + drift * c.side + W * 2) % (W + c.w)) - c.w * 0.5}px, ${c.y + Math.sin(t * 0.3 + i) * 12}px)`;
+    c.el.style.opacity = 0.75 + 0.2 * (i % 3) / 2;
   });
 
-  bubbles.forEach(b => { const y = H - ((t * b.sp * U + b.ph * 200) % (H + 100)); b.el.style.transform = `translate(${b.x + Math.sin(t + b.ph) * 20}px, ${y}px)`; b.el.style.opacity = clear * 0.8; });
+  bubbles.forEach(b => { const y = H - ((t * b.sp * U + b.ph * 200) % (H + 100)); b.el.style.transform = `translate(${b.x + Math.sin(t + b.ph) * 20}px, ${y}px)`; b.el.style.opacity = 0.7; });
+
+  const storm = 0;
+  rain.forEach(r => { const y = ((t * r.sp / H + r.ph) % 1) * (H + r.len * 2) - r.len; r.el.style.transform = `translate(${r.x - y * 0.18}px, ${y}px) rotate(10deg)`; r.el.style.opacity = storm * 0.8; });
+  waves.forEach((w, i) => { w.style.transform = `translateX(${-((t * (30 + i * 22) * U) % (W)) }px) translateY(${Math.sin(t * 1.3 + i) * 8 * U}px)`; w.style.opacity = 1; });
+  const flashes = [starts[1] + 0.15, starts[3] + 0.2, starts[2] + 2.8];
+  let fl = 0; flashes.forEach(f => { const d = t - f; if (d > 0 && d < 0.6) fl = Math.max(fl, (d < 0.08 ? d / 0.08 : Math.exp(-(d - 0.08) * 7)) * (0.55 + 0.35 * Math.sin(d * 60) ** 2)); });
+  $('flash').style.opacity = fl * storm;
+  $('vignette').style.opacity = 0.35;
+  document.querySelectorAll('.step').forEach(st => { const k = +st.dataset.step; [...st.children].forEach((i, j) => i.classList.toggle('on', j <= k)); st.style.left = (W / 2 - 80 * U) + 'px'; st.style.top = (PORT ? H * 0.2 : H * 0.1) + 'px'; });
 
   // Szenen ein- und ausblenden
   const scenes = [...document.querySelectorAll('.scene')];
@@ -248,6 +289,27 @@ function render(t) {
   });
 
   const L = i => (t - starts[i]) * K;
+
+  // 1: Tala denkt nach
+  {
+    const lt = L(0), cw = PORT ? W * 0.5 : W * 0.2, p = ease((lt - 0.6) / 0.7);
+    place($('tala1'), PORT ? W / 2 - cw / 2 : W * 0.72, (PORT ? H * 0.58 : H * 0.42) + (1 - p) * 120 * U + Math.sin(t * 2) * 6 * U, cw, cw * 1.3);
+    $('tala1').style.opacity = p;
+    $('t1').style.cssText += PORT ? ';top:28%' : ';left:6% !important;right:auto;width:62% !important';
+  }
+  // 3: Münzen verblassen nach und nach
+  {
+    const lt = L(2);
+    coins3.forEach((c, i) => {
+      const cs = (PORT ? 110 : 90) * U, ang = i / coins3.length * Math.PI * 2 + t * 0.4;
+      const rx = PORT ? W * 0.42 : W * 0.4, ry = PORT ? H * 0.3 : H * 0.4;
+      place(c, W / 2 + Math.cos(ang) * rx - cs / 2, H / 2 + Math.sin(ang) * ry - cs / 2, cs, cs);
+      const gone = ease((lt - 1.2 - i * 0.35) / 0.6);
+      c.style.opacity = ease((lt - 0.2) / 0.5) * (1 - gone);
+      c.style.transform = `scale(${1 - 0.5 * gone}) rotate(${t * 40 + i * 30}deg)`;
+      c.style.filter = `grayscale(${gone})`;
+    });
+  }
 
   // 5: Schiff segelt aus dem Nebel herein
   {
