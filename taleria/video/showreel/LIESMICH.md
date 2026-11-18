@@ -1,6 +1,6 @@
 # Showreel Taleria (18.11.2026)
 
-15 Sekunden Motion-Graphics, 16:9 (1920 × 1080) und 9:16 (1080 × 1920), 30 Bilder pro Sekunde, Schnitte auf den Beat (120 BPM).
+25 Sekunden Motion-Graphics (zweite Fassung 18.11.2026: langsamer, länger stehende Texte, Leuchtturm neu; erste Fassung 15 s), 16:9 (1920 × 1080) und 9:16 (1080 × 1920), 30 Bilder pro Sekunde, Schnitte auf den Beat (120 BPM).
 Nur vorhandenes Material: App-Screenshots aus `landingpage/bilder`, Bilder aus `assets/images`, Klänge aus `assets/audio`.
 Der Beat (Kick, Clap, Hi-Hat, Bass, Akkord) ist im Code erzeugt (numpy), kein fremder Dienst.
 
