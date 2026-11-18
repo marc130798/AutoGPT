@@ -380,6 +380,7 @@ Jede Insel: Ankunftsfilm, 7 Stationen mit 3 Ankerplätzen dazwischen (Schatzinse
 - `MARKETING.md` – Inhaltskalender, Ankündigungen, E-Mail-Marketing (für Claude Code nur Abschnitt 5 relevant)
 - `FIGUREN.md` – alle Figuren, Stil und Illustrations-Briefing (für Platzhalter-Namen und Asset-Schlüssel relevant)
 - `BILDER.md` – Bildliste für die Karte mit den Texten für Gemini
+- `DIENSTE.md` – alle Konten, Dienste, Domain, E-Mail und Kosten an einem Ort (ohne Passwörter); bei jeder Änderung mitpflegen
 
 ---
 
