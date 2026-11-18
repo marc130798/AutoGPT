@@ -5,12 +5,13 @@ const fs = require('fs'), path = require('path');
   const vo = JSON.parse(fs.readFileSync(path.join(dir, 'vo.json'), 'utf8'));
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: +w, height: +h }, deviceScaleFactor: 1 });
-  await page.addInitScript(d => { window.VO = d; }, { durs: vo.durs });
+  await page.addInitScript(d => { window.VO = d; }, { durs: vo.durs, words: vo.words });
   await page.goto('file://' + path.join(dir, 'video.html') + `?w=${w}&h=${h}`);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(800);
   const timing = await page.evaluate(() => window.TIMING);
   fs.writeFileSync(path.join(dir, 'timing.json'), JSON.stringify(timing));
+  fs.writeFileSync(path.join(dir, 'sfx.json'), JSON.stringify(await page.evaluate(() => window.SFX)));
   fs.mkdirSync(out, { recursive: true });
   if (mode === 'preview') {
     const ts = timing.starts.map(s => s + 2.6);

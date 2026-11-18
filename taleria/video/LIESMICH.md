@@ -28,3 +28,9 @@ dem SchuldnerAtlas 2025, Tabellenband, Tab. 54 (6,922 / 6,853 / 6,158 / 5,884 / 
 leuchtende Spitze, „Heute“-Marke, dazu unter 30 Jahren 763.000 (+19.000, +2,6 %). Achtung: Bei den
 unter 30-Jährigen ist die Zahl seit 2013 stark gesunken (1,79 Mio.) und erst 2025 leicht gestiegen;
 „immer mehr“ darf man darum nicht sagen.
+
+Vierte Fassung (18.11.2026): Sprecherin „Matilda“ (ElevenLabs `XrExE9yKIg1WjnnlVkGX`, eleven_multilingual_v2,
+Tempo 1,1), im Sprechtext „Taléria“ geschrieben, damit die Betonung stimmt (Marcs Wahl). Aufnahme mit
+`/with-timestamps`; die Wortzeiten stehen in `vo.json` (`words`) und steuern die Untertitel, die Wort für Wort
+erscheinen. Geräusche aus `assets/audio` (Liste `window.SFX` im Video, beim Aufnehmen als `sfx.json` gespeichert),
+dazu ein mit ffmpeg erzeugtes Handy-Vibrieren (`sound.buzz.mp3`, 170 Hz gepulst).

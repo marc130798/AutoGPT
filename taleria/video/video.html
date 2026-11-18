@@ -109,6 +109,9 @@ h1 { color: var(--sea-deep) !important; text-shadow: none !important; }
 .ykids svg { width: calc(var(--u)*30px); height: calc(var(--u)*40px); }
 .axis { position: absolute; font-weight: 800; color: var(--ink-soft); }
 #viz4 svg { left: 0; top: 0; }
+#cap { position: absolute; left: 50%; transform: translateX(-50%); max-width: 86%; text-align: center; background: rgba(16,32,47,.82); color: #fff; font-weight: 800; border-radius: calc(var(--u)*22px); padding: calc(var(--u)*12px) calc(var(--u)*30px); line-height: 1.3; box-shadow: 0 10px 30px rgba(0,0,0,.18); z-index: 50; white-space: nowrap; }
+#cap .cw { display: inline-block; margin: 0 .1em; }
+#cap .cw.now { color: #f6c94b; }
 </style>
 </head>
 <body>
@@ -218,6 +221,7 @@ h1 { color: var(--sea-deep) !important; text-shadow: none !important; }
   </div>
 </div>
 
+<div id="cap"></div>
 <script>
 const VO = window.VO || { durs: [3.5, 5.5, 5.7, 7.8, 3.2, 8.1, 6.3, 6.3, 5.2, 7.3] };
 const params = new URLSearchParams(location.search);
@@ -235,6 +239,20 @@ const starts = []; let t0 = 0.3;
 VO.durs.forEach((d, i) => { starts.push(t0); t0 += LEAD + d + TAIL[i]; });
 const TOTAL = t0;
 window.TIMING = { starts: starts.map(s => s + LEAD), total: TOTAL };
+// Geräusche aus der App: Zeitpunkt aus Szene und lokaler Animationszeit
+const SFX = [];
+const sfx = (scene, lt, name, vol = 0.3) => SFX.push({ t: +(starts[scene] + lt / 1.3).toFixed(3), name, vol });
+sfx(0, 1.0, 'sound.arcade.hop', 0.25); sfx(0, 1.5, 'sound.arcade.hop', 0.25); sfx(0, 2.0, 'sound.coin', 0.3);
+sfx(1, 0.2, 'sound.arcade.swoosh', 0.3); sfx(1, 1.2, 'sound.arcade.sparkle_down', 0.3); sfx(1, 2.4, 'sound.correct', 0.25);
+sfx(2, 0.3, 'sound.arcade.swoosh', 0.3); sfx(2, 1.2, 'sound.arcade.swoosh', 0.3); sfx(2, 2.6, 'sound.coin', 0.35); sfx(2, 2.9, 'sound.buzz', 0.3);
+sfx(3, 0.5, 'sound.arcade.swoosh', 0.3); sfx(3, 3.0, 'sound.arcade.thump', 0.35); sfx(3, 3.9, 'sound.pearl', 0.3);
+sfx(4, 0.0, 'sound.ship_bell', 0.3);
+sfx(5, 0.2, 'sound.map_unroll', 0.3); sfx(5, 1.6, 'sound.arcade.oar', 0.25); sfx(5, 6.4, 'sound.unlock', 0.3);
+sfx(6, 0.0, 'sound.arcade.swoosh', 0.35); sfx(6, 0.5, 'sound.buzz', 0.3); [1.5, 3.1, 4.7, 6.3].forEach(x => sfx(6, x - 0.1, 'sound.arcade.swoosh', 0.3));
+sfx(7, 0.3, 'sound.arcade.swoosh', 0.3); sfx(7, 0.8, 'sound.paper', 0.25); sfx(7, 2.0, 'sound.correct', 0.3); [0, 1, 2, 3, 4].forEach(i => sfx(7, 2.4 + i * 0.22 + 0.85, 'sound.coin', 0.25));
+sfx(8, 0.4, 'sound.arcade.swoosh', 0.25); sfx(8, 1.1, 'sound.arcade.swoosh', 0.25);
+sfx(9, 0.1, 'sound.island_done', 0.35);
+window.SFX = SFX;
 
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const ease = x => 1 - Math.pow(1 - clamp(x), 3);
@@ -243,6 +261,22 @@ const $ = id => document.getElementById(id);
 function place(el, x, y, w, h) { Object.assign(el.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h === undefined ? '' : h + 'px' }); }
 function visBox(id) { const el = $(id); return { x: 0, y: 0, w: el.clientWidth, h: el.clientHeight }; }
 
+// Untertitel: Wörter erscheinen, wenn sie gesprochen werden
+stage.appendChild($('cap'));
+const capChunks = (VO.words || []).map(ws => { const out = []; let cur = []; ws.forEach(w => { cur.push(w); if (cur.length >= (PORT ? 5 : 7) || /[.?!:]$/.test(w[0])) { out.push(cur); cur = []; } }); if (cur.length) out.push(cur); return out; });
+function renderCaption(t) {
+  const cap = $('cap'); cap.style.fontSize = (PORT ? 46 : 40) * U + 'px';
+  cap.style.bottom = (PORT ? H * 0.085 : H * 0.07) + 'px'; cap.style.top = 'auto';
+  let html = '';
+  capChunks.forEach((chunks, i) => {
+    const vs = starts[i] + LEAD, lt = t - vs;
+    if (lt < 0 || lt > VO.durs[i] + 0.5) return;
+    let pick = chunks[0]; chunks.forEach(c => { if (c[0][1] <= lt) pick = c; });
+    let last = -1; pick.forEach((w, k) => { if (w[1] <= lt) last = k; });
+    html = pick.map((w, k) => `<span class="cw${k === last ? ' now' : ''}" style="opacity:${w[1] <= lt ? 1 : 0};transform:translateY(${w[1] <= lt ? 0 : 10 * U}px)">${w[0]}</span>`).join(' ');
+  });
+  cap.innerHTML = html; cap.style.opacity = html ? 1 : 0;
+}
 // Überschriften Wort für Wort
 document.querySelectorAll('h1').forEach(h => { if (!h.dataset.a || h.dataset.a === 'up') h.dataset.a = 'words'; h.innerHTML = h.textContent.split(' ').map(w => `<span class="word">${w}</span>`).join(' '); });
 // Luftblasen im klaren Meer
@@ -345,6 +379,8 @@ function render(t) {
   $('flash').style.opacity = fl * storm;
   $('vignette').style.opacity = 0.35;
   document.querySelectorAll('.step').forEach(st => { const k = +st.dataset.step; [...st.children].forEach((i, j) => i.classList.toggle('on', j <= k)); st.style.left = (W / 2 - 80 * U) + 'px'; st.style.top = (PORT ? H * 0.2 : H * 0.1) + 'px'; });
+
+  renderCaption(t);
 
   // Szenen ein- und ausblenden
   const scenes = [...document.querySelectorAll('.scene')];
