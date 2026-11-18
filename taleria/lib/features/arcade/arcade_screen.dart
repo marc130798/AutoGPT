@@ -42,7 +42,7 @@ String arcadeCover(ArcadeKind kind) => switch (kind) {
   ArcadeKind.gullFlight => 'character.mia.fly',
   ArcadeKind.crane => 'game.crane.bag',
   ArcadeKind.delivery => 'game.delivery.boat',
-  ArcadeKind.bottles => 'game.bottles.bottle',
+  ArcadeKind.bottles => 'game.bottles.cover',
   ArcadeKind.nutRun => 'character.emma.run',
   ArcadeKind.pearlDive => 'game.pearl.diver',
 };

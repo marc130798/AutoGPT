@@ -605,6 +605,21 @@ Text für Bild 176:
 
 > Hochwertiger 3D-Animationsfilm-Look wie im angehängten Bild: gleiche warme Farben, gleiches Licht, weiche runde Formen, freundlich für Kinder. Hochformat. Blick in eine gemütliche, große Holzwerft am Hafen, späte Nachmittagssonne fällt schräg durch ein offenes Tor und hohe Fenster. Unten in der Mitte eine leere hölzerne Helling (schräge Holzrampe mit Schienen) Richtung Wasser, auf ihr steht **kein Schiff**, sie ist frei. An den Wänden hängen Werkzeuge, aufgerollte Seile, Segeltuch-Ballen in Rot, Weiß und Blau, ein paar bunte Flaggen an einer Leine quer unter dem Dach, Farbtöpfe und Pinsel auf einem Regal, ein Hobel und Holzbretter in einer Ecke. Oben viel ruhige Fläche (Dachbalken und helles Licht), unten der Holzboden. Keine Figuren, keine Tiere, keine Schrift, keine Logos, keine Waffen.
 
+## 4v. Elsas Wunsch-Flaschen (Bild 209 bis 214)
+
+Erstellt am 18.11.2026 von Claude mit Gemini (Marc: „Mach alles mit rein“). Gegenstände im Stil von `design/prompts_minispiele.txt` auf Pink, freigestellt mit `--art gegenstand`, auf 256 px verkleinert. Originale in `design/gemini/`.
+
+| Nr. | Schlüssel | Was | Vorlage | Stand |
+| --- | --- | --- | --- | --- |
+| 209 | `game.bottles.background` | Ruhige türkise Bucht der Wunschinsel von oben, Strand unten (Hochformat 9:16; Flaschen tauchen nur über dem Sand auf) | keine | da (Claude mit Gemini, 18.11.2026) |
+| 210 | `game.bottles.cover` | Elsa die Elster am Strand, vor ihr Flaschenpost im Wasser (4:3, für die Spieleliste quadratisch zugeschnitten) | `character.elsa` | da (Claude mit Gemini, 18.11.2026) |
+| 211 | `item.zahnbuerste` | Kinder-Zahnbürste mit Zahnpasta (brauchen) | keine | da (Claude mit Gemini, 18.11.2026) |
+| 212 | `item.schulranzen` | Schulranzen in Blau und Gelb (brauchen) | keine | da (Claude mit Gemini, 18.11.2026) |
+| 213 | `item.spielzeugauto` | Rotes Spielzeug-Rennauto (Wunsch) | keine | da (Claude mit Gemini, 18.11.2026) |
+| 214 | `item.sammelkarten` | Fächer aus Sammelkarten mit Meerestieren (Wunsch) | keine | da (Claude mit Gemini, 18.11.2026) |
+
+---
+
 ## 4o. Spar-Insel (Insel 4)
 
 Vorbereitet am 11.10.2026 abends auf Marcs Wunsch, bevor die Texte der Spar-Insel geschrieben sind: Die Bildergeschichten geben die Geschichte vor, die Sätze schreibt Claude danach passend dazu. Reihenfolge: erst Karte (132), dann die Insel von innen (133, braucht 132 als Vorlage), dann Emma und Gustav (134, 135, sie sind Vorlagen für die Geschichten), danach Orden, Siegel, Funde und die Geschichten. Emma ist rotbraun, Gustav hellgrün: beide auf Pink. Gustav darf nicht wie eine bekannte Filmgrille aussehen (kein Zylinder, kein Regenschirm). Wo Zahlen nötig sind (Station 3: 50 Cent am Tag sind 3,50 € in der Woche; Station 5: Sparplan 30 Taler mit 5 pro Woche), zeichnet die App das Bild selbst. Ganze Texte in `design/prompts_spar_insel.txt`.

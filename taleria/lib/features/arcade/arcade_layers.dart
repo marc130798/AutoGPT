@@ -259,14 +259,15 @@ List<Widget> _crane(CraneGame g, double u, bool blink) {
 
 List<Widget> _bottles(BottleGame g, Size size) {
   final u = size.height;
-  final drift = (g.time * 0.012 * u) % size.height;
   final b = BottleGame.radius * 2 * u;
-  Widget sea(double top) => Positioned(
-    left: 0,
-    right: 0,
-    top: top,
-    height: size.height + 1,
-    child: _img(AssetKeys.mapBackground, fit: BoxFit.cover),
+  // Ruhige Bucht der Wunschinsel von oben (Strand unten). Fehlt das Bild, das Meer der Karte.
+  final bay = Positioned.fill(
+    child: TaleriaAsset(
+      'game.bottles.background',
+      fit: BoxFit.cover,
+      alignment: Alignment.bottomCenter,
+      fallback: _img(AssetKeys.mapBackground, fit: BoxFit.cover),
+    ),
   );
   Widget bottle(WishBottle w) {
     final shown = w.shown(g.time);
@@ -337,8 +338,7 @@ List<Widget> _bottles(BottleGame g, Size size) {
   }
 
   return [
-    sea(drift - size.height),
-    sea(drift),
+    bay,
     for (final w in g.bottles) ring(w),
     for (final w in g.bottles) bottle(w),
     for (final w in g.bottles)

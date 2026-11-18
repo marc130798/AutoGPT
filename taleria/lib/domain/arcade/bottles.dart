@@ -56,13 +56,22 @@ class BottleGame extends ArcadeRound {
 
   final Random random;
 
-  static const needs = ['wasserflasche', 'regenjacke', 'broetchen', 'aepfel', 'sonnenhut'];
-  static const wishes = ['bonbons', 'glitzerbrille', 'fernglas'];
+  static const needs = [
+    'wasserflasche',
+    'regenjacke',
+    'broetchen',
+    'aepfel',
+    'sonnenhut',
+    'zahnbuerste',
+    'schulranzen',
+  ];
+  static const wishes = ['bonbons', 'glitzerbrille', 'fernglas', 'spielzeugauto', 'sammelkarten'];
   static const tricks = ['nur_heute', 'alle_haben', 'gratis'];
 
-  /// Bereich, in dem Flaschen auftauchen (Höhe 1): unter der Anzeige, über dem Rand.
-  static const top = 0.26;
-  static const bottom = 0.86;
+  /// Bereich, in dem Flaschen auftauchen (Höhe 1): unter der Anzeige, über dem Strand
+  /// des Hintergrundbilds (`game.bottles.background`, Sand ab etwa 0,74).
+  static const top = 0.24;
+  static const bottom = 0.68;
   static const radius = 0.075;
 
   final bottles = <WishBottle>[];

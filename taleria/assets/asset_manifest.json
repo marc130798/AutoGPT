@@ -298,6 +298,24 @@
         "shape": "circle"
       }
     },
+    "game.bottles.background": {
+      "type": "image",
+      "path": "assets/images/game.bottles.background.jpg",
+      "placeholder": {
+        "label": "Bild: Bucht der Wunschinsel",
+        "color": "#7FD1D8",
+        "shape": "rectangle"
+      }
+    },
+    "game.bottles.cover": {
+      "type": "image",
+      "path": "assets/images/game.bottles.cover.jpg",
+      "placeholder": {
+        "label": "Elsas Wunsch-Flaschen",
+        "color": "#A9D8B8",
+        "shape": "rectangle"
+      }
+    },
     "game.bottles.bottle": {
       "type": "image",
       "path": "assets/images/game.bottles.bottle.png",
@@ -1294,6 +1312,42 @@
       "placeholder": {
         "label": "Glitzer-Sonnenbrille",
         "color": "#E8C27A",
+        "shape": "rounded"
+      }
+    },
+    "item.zahnbuerste": {
+      "type": "image",
+      "path": "assets/images/item.zahnbuerste.png",
+      "placeholder": {
+        "label": "Zahnbürste",
+        "color": "#7FB3E8",
+        "shape": "rounded"
+      }
+    },
+    "item.schulranzen": {
+      "type": "image",
+      "path": "assets/images/item.schulranzen.png",
+      "placeholder": {
+        "label": "Schulranzen",
+        "color": "#F2C94C",
+        "shape": "rounded"
+      }
+    },
+    "item.spielzeugauto": {
+      "type": "image",
+      "path": "assets/images/item.spielzeugauto.png",
+      "placeholder": {
+        "label": "Spielzeugauto",
+        "color": "#E8645A",
+        "shape": "rounded"
+      }
+    },
+    "item.sammelkarten": {
+      "type": "image",
+      "path": "assets/images/item.sammelkarten.png",
+      "placeholder": {
+        "label": "Sammelkarten",
+        "color": "#7FD1C0",
         "shape": "rounded"
       }
     },

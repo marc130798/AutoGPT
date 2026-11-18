@@ -6202,7 +6202,7 @@ abstract class AppLocalizations {
   /// Richtige Spiele: Name eines Dings
   ///
   /// In de, this message translates to:
-  /// **'{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}'**
+  /// **'{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} zahnbuerste{Zahnbürste} schulranzen{Schulranzen} spielzeugauto{Spielzeugauto} sammelkarten{Sammelkarten} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}'**
   String arcadeItem(String item);
 
   /// Seekarte: Perlentaucher-Boje noch gesperrt

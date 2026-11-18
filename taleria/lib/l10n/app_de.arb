@@ -5594,7 +5594,7 @@
       }
     }
   },
-  "arcadeItem": "{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}",
+  "arcadeItem": "{item, select, wasserflasche{Wasser} regenjacke{Regenjacke} broetchen{Brötchen} aepfel{Äpfel} sonnenhut{Sonnenhut} bonbons{Bonbons} glitzerbrille{Glitzerbrille} fernglas{Fernglas} zahnbuerste{Zahnbürste} schulranzen{Schulranzen} spielzeugauto{Spielzeugauto} sammelkarten{Sammelkarten} fisch{Fisch} seil{Seil} eimer{Eimer} other{Ding}}",
   "@arcadeItem": {
     "description": "Richtige Spiele: Name eines Dings",
     "placeholders": {
