@@ -61,13 +61,13 @@ def head():
 """
 
 
-def foot(label):
+def foot(label, book=BOOK):
     # Die Seitenzahl setzt number_pages() am Ende.
-    return f'  <div class="foot"><span>{BOOK} · {label}</span><span>Seite @@</span></div>\n'
+    return f'  <div class="foot"><span>{book} · {label}</span><span>Seite @@</span></div>\n'
 
 
-def section(cls, body, label):
-    return f'\n<section class="page {cls}">\n{body}{foot(label)}</section>\n'
+def section(cls, body, label, book=BOOK):
+    return f'\n<section class="page {cls}">\n{body}{foot(label, book)}</section>\n'
 
 
 def lineart(src: Path, dest: Path):
@@ -118,7 +118,7 @@ def parents_intro():
     <ul>
       <li><b>Erst die App, dann das Buch:</b> Oben auf jeder Seite steht, zu welcher Station sie gehört. Am besten macht Ihr Kind die Seite, nachdem es die Station in der App gespielt hat.</li>
       <li><b>Seekarte vorn im Buch:</b> Ihr Kind malt jede geschaffte Station aus. So sieht es, wie weit es schon gesegelt ist.</li>
-      <li><b>Schatzcode auf jeder Urkunde:</b> Ihr Kind gibt ihn in der App in der <b>Werft</b> ein und bekommt ein besonderes Teil für sein Schiff.</li>
+      <li><b>Urkunden im Elternheft:</b> Zu jeder Insel gibt es eine Urkunde mit Schatzcode im eigenen <b>Elternheft „Urkunden und Lösungen“</b>. Überreichen Sie sie, wenn Ihr Kind Ihnen sein fertiges Kapitel gezeigt hat. Mit dem Code bekommt es in der App in der <b>Werft</b> ein besonderes Teil für sein Schiff.</li>
       <li><b>„Gemeinsam“-Seite in jedem Kapitel:</b> Ihr Kind erklärt Ihnen, was es gelernt hat, und Sie erleben zusammen ein kleines Crew-Abenteuer. Den Code dafür finden Sie in der App im <b>Leuchtturm</b> unter <b>„Gemeinsam“</b>. Für jeden Code gibt es einen Crew-Stern.</li>
     </ul>
   </div>
@@ -128,14 +128,14 @@ def parents_intro():
       <ul>
         <li>Die Aufgaben sind für Kinder von 8 bis 12 zum Alleinmachen gedacht.</li>
         <li>Es gibt keine Noten. Oft sind mehrere Antworten gut, wenn Ihr Kind sie begründen kann.</li>
-        <li>Lösungen und Tipps stehen hinten im Buch.</li>
+        <li>Lösungen und Tipps stehen im Elternheft, damit Ihr Kind nicht nachschauen kann.</li>
       </ul>
     </div>
     <div class="box gold">
       <h3>Drucken</h3>
       <ul>
         <li>A4, gern beidseitig. Die Seiten sind tintensparend gestaltet.</li>
-        <li>Sie müssen nicht alles auf einmal drucken: Jedes Kapitel ist für sich vollständig.</li>
+        <li>Sie müssen nicht alles auf einmal drucken: Jedes Kapitel ist für sich vollständig. Das Elternheft drucken Sie getrennt und bewahren es selbst auf.</li>
         <li>Die Ausmalseiten sind schwarz-weiß.</li>
       </ul>
     </div>
@@ -156,11 +156,10 @@ def contents(chapters):
     body = f"""  <div class="head"><span class="tag">Inhalt</span><h2>Deine Reise</h2></div>
   <div class="toc">
     <div class="toc-row"><span>Deine Seekarte zum Ausmalen</span><span class="toc-dots"></span><span>Seite @karte@</span></div>
-{rows}    <div class="toc-row"><span>Lösungen für Eltern</span><span class="toc-dots"></span><span>Seite @loesungen@</span></div>
-  </div>
+{rows}  </div>
   <div class="box talk">
     <img src="{IMG}/character.tala.happy.png" alt="">
-    <div><b>Tala sagt:</b> Auf jeder Insel wartet ein Kartenstück, eine Urkunde mit Schatzcode und ein Abenteuer mit deinen Eltern. Los geht's!</div>
+    <div><b>Tala sagt:</b> Auf jeder Insel wartet ein Kartenstück, ein Abenteuer mit deinen Eltern und am Ende eine Urkunde mit Schatzcode. Die bekommst du von deinen Eltern, wenn du ihnen dein fertiges Kapitel zeigst. Los geht's!</div>
   </div>
 """
     return section("", body, "Inhalt")
@@ -212,7 +211,7 @@ def opener(n, slug, island):
       <li>Spiel in der App die Stationen auf der Insel {island['titel']}.</li>
       <li>Mach danach die passende Seite hier im Buch. Oben steht, zu welcher Station sie gehört.</li>
       <li>Mal auf der Seekarte vorn jede geschaffte Station aus.</li>
-      <li>Am Ende: Erklär deinen Eltern, was du gelernt hast, und hol dir deine Urkunde mit Schatzcode.</li>
+      <li>Am Ende: Erklär deinen Eltern, was du gelernt hast, und zeig ihnen dein Kapitel. Dann bekommst du deine Urkunde mit Schatzcode.</li>
     </ol>
   </div>
 """
@@ -279,6 +278,13 @@ def together(title, island):
       </ol>
     </div>
     <div class="stars-row"><span class="check"></span> Erklärt <span class="check"></span> Abenteuer geschafft</div>
+  </div>
+  <div class="box gold chapter-done">
+    <img src="{IMG}/icon.badges.png" alt="">
+    <div>
+      <h3>Kapitel geschafft?</h3>
+      <p>Zeig deinen Eltern dein fertiges Kapitel. Dann überreichen sie dir deine <b>Urkunde</b> mit einem <b>Schatzcode</b>. Den gibst du in der App in der <b>Werft</b> ein und bekommst ein besonderes Teil für dein Schiff!</p>
+    </div>
   </div>
 """
     return section("together-page", body, title)
@@ -369,6 +375,50 @@ def solutions_pages(collected):
 
 # ---------------------------------------------------------------------------
 
+PARENTS_BOOK = "Elternheft"
+
+
+def parents_cover():
+    return f"""
+<section class="page cover book-cover">
+  <div class="cover-top">
+    <img class="logo" src="{IMG}/brand.logo.png" alt="Taleria">
+    <p class="eyebrow">Für Eltern · Teil 1</p>
+    <h1>Urkunden und Lösungen</h1>
+    <p class="sub">zu „{BOOK}“, vom Hafen bis zur Taschengeld-Bucht</p>
+  </div>
+  <div class="crew-big"><img src="{IMG}/parent.lighthouse.png" alt="" style="height:70mm"></div>
+  <div class="box coral">
+    <h3>Bitte selbst aufbewahren</h3>
+    <p>In diesem Heft stehen die Schatzcodes und die Lösungen. Geben Sie es nicht Ihrem Kind, sonst ist die Überraschung weg.</p>
+  </div>
+</section>
+"""
+
+
+def parents_howto():
+    body = """  <div class="head"><span class="tag">Für Eltern</span><h2>So nutzen Sie dieses Heft</h2></div>
+  <div class="box">
+    <h3>Die Urkunde überreichen</h3>
+    <ol>
+      <li>Ihr Kind arbeitet im Schatzbuch ein Kapitel durch, passend zu den Stationen in der App.</li>
+      <li>Am Ende zeigt es Ihnen sein fertiges Kapitel. Schauen Sie gemeinsam drüber, die Lösungen stehen hier im Heft.</li>
+      <li>Dann bekommt es die Urkunde der Insel. Schneiden Sie sie aus, schreiben Sie den Namen und das Datum dazu und überreichen Sie sie feierlich.</li>
+      <li>Mit dem Schatzcode auf der Urkunde schaltet Ihr Kind in der App in der <b>Werft</b> ein Teil für sein Schiff frei. Es ist nur Aussehen, nichts lässt sich kaufen.</li>
+    </ol>
+  </div>
+  <div class="box gold">
+    <h3>Und die Codes auf den Gemeinsam-Seiten?</h3>
+    <p>Die sind anders: Für „Erklär's deinen Eltern“ und das Crew-Abenteuer holen Sie den Code jedes Mal neu in der App, im <b>Leuchtturm</b> unter <b>„Gemeinsam“</b>. Er gilt nur für Ihr Kind und nur einmal.</p>
+  </div>
+  <div class="box coral">
+    <h3>Gut zu wissen</h3>
+    <p>Die Seitenzahlen in den Lösungen beziehen sich auf das Schatzbuch Ihres Kindes. Alle Beträge sind Übungsbeispiele. Keine Finanzberatung.</p>
+  </div>
+"""
+    return section("parents", body, "So geht's", PARENTS_BOOK)
+
+
 def number_pages(html, anchors):
     """Seitenzahlen in Fußzeilen und Inhaltsverzeichnis setzen."""
     parts = html.split("Seite @@")
@@ -389,6 +439,7 @@ def main():
     sections = [cover(), parents_intro(), contents(chapters), sea_chart(chapters)]
     anchors = {"karte": 4}
     collected = []
+    parent_sections = [parents_cover(), parents_howto()]
     for n, (slug, isl, log, figs) in enumerate(islands, 1):
         title = isl["titel"]
         anchors[slug] = len(sections) + 1
@@ -400,18 +451,22 @@ def main():
         sections.append(extra(slug, title))
         sections.append(coloring(slug, title, figs))
         sections.append(together(title, isl))
-        sections += cert
+        parent_sections.extend(s.replace(f"{BOOK} · ", f"{PARENTS_BOOK} · ") for s in cert)
         # Die Lösungen der Logbücher nennen deren Seiten (ab 2); im Buch folgen die Seiten auf den Kapitelanfang.
         first = anchors[slug] + 1
         sol = re.sub(r"<h3>Seite (\d+)</h3>", lambda m: f"<h3>Seite {first + int(m.group(1)) - 2}</h3>", sol)
         collected.append((title, sol, SOLUTIONS[slug]))
-    anchors["loesungen"] = len(sections) + 1
-    sections += solutions_pages(collected)
+        parent_sections.extend(
+            s.replace(f"{BOOK} · ", f"{PARENTS_BOOK} · ") for s in solutions_pages([collected[-1]])
+        )
 
     html = head() + "".join(sections) + "</body>\n</html>\n"
     html = number_pages(html, anchors)
     (OUT / "schatzbuch_teil1.html").write_text(html, encoding="utf-8")
     print(f"schatzbuch/schatzbuch_teil1.html: {len(sections)} Seiten")
+    parents_html = number_pages(head() + "".join(parent_sections) + "</body>\n</html>\n", {})
+    (OUT / "elternheft_teil1.html").write_text(parents_html, encoding="utf-8")
+    print(f"schatzbuch/elternheft_teil1.html: {len(parent_sections)} Seiten")
 
 
 if __name__ == "__main__":

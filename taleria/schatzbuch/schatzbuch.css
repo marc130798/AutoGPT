@@ -63,3 +63,11 @@
 .code-box p { color: var(--ink); }
 .code-box b { color: var(--sea-deep); }
 .code-box .treasure-code { color: var(--sea-deep); }
+
+.chapter-done { display: grid; grid-template-columns: 22mm 1fr; gap: 4mm; align-items: center; }
+.chapter-done img { width: 22mm; }
+.together-page { gap: 3.5mm; }
+.together-page .drawbox.small { height: 22mm; }
+.together-page .explain-point { margin-top: 1.5mm; }
+.together-page .chapter-done img { width: 18mm; }
+.code-box .treasure-code { color: var(--sea-deep) !important; }
