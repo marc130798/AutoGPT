@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Taleria – Pitch</title>
+<style>
+@font-face { font-family: "Nunito"; src: url("../landingpage/schriften/Nunito-400.ttf"); font-weight: 400; }
+@font-face { font-family: "Nunito"; src: url("../landingpage/schriften/Nunito-700.ttf"); font-weight: 700; }
+@font-face { font-family: "Nunito"; src: url("../landingpage/schriften/Nunito-800.ttf"); font-weight: 800; }
+@font-face { font-family: "Baloo 2"; src: url("../landingpage/schriften/Baloo2-700.ttf"); font-weight: 700; }
+@font-face { font-family: "Baloo 2"; src: url("../landingpage/schriften/Baloo2-800.ttf"); font-weight: 800; }
+@page { size: 297mm 167mm; margin: 0; }
+:root { --sky: #dff1fb; --sea: #2f86a8; --deep: #1f4166; --gold: #d4a62a; --gold-soft: #f6e3a6; --coral: #e5675a; --green: #3e9b5a; --cream: #fff8ea; --ink: #1c2b3a; --soft: #4a5d70; --line: #cfe3ee; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fff; color: var(--ink); font-family: "Nunito", sans-serif; font-size: 11pt; line-height: 1.4; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.slide { width: 297mm; height: 167mm; padding: 13mm 16mm 11mm; position: relative; overflow: hidden; page-break-after: always; background: #fff; display: flex; flex-direction: column; }
+.slide:last-child { page-break-after: auto; }
+.slide.sky { background: var(--sky); }
+.slide.deep { background: var(--deep); color: #fff; }
+.slide.cream { background: var(--cream); }
+h1, h2, h3 { font-family: "Baloo 2", sans-serif; line-height: 1.1; color: var(--deep); }
+.deep h1, .deep h2, .deep h3 { color: #fff; }
+h1 { font-size: 34pt; }
+h2 { font-size: 23pt; margin-bottom: 4mm; }
+h3 { font-size: 13pt; margin-bottom: 1mm; }
+.eyebrow { font-weight: 800; font-size: 9pt; letter-spacing: .12em; text-transform: uppercase; color: var(--sea); margin-bottom: 1.5mm; }
+.deep .eyebrow { color: var(--gold-soft); }
+.lead { font-size: 12.5pt; color: var(--soft); max-width: 150mm; }
+.deep .lead { color: #d6e6f2; }
+.foot { position: absolute; left: 16mm; right: 16mm; bottom: 5mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--soft); }
+.deep .foot { color: #9fb8cc; }
+.row { display: flex; gap: 8mm; flex: 1; min-height: 0; }
+.col { flex: 1; min-width: 0; }
+.grid { display: grid; gap: 4mm; }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g5 { grid-template-columns: repeat(5, 1fr); }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 4mm; padding: 4mm 4.5mm; }
+.sky .card { border-color: #c4e1f0; }
+.card p, .card li { font-size: 9.5pt; color: var(--soft); }
+.big { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 26pt; color: var(--coral); line-height: 1; display: block; margin-bottom: 2mm; }
+.src { font-size: 7pt !important; color: #7d8e9d !important; margin-top: 2mm; }
+ul.checks { list-style: none; }
+ul.checks li { position: relative; padding-left: 6mm; margin-bottom: 1.8mm; font-size: 10.5pt; }
+ul.checks li::before { content: ""; position: absolute; left: 0; top: 1.3mm; width: 3.2mm; height: 3.2mm; border-radius: 50%; background: var(--green); }
+.deep ul.checks li::before { background: var(--gold); }
+.phone { border: 2.2mm solid #14263a; border-radius: 5mm; overflow: hidden; background: #14263a; box-shadow: 0 2mm 6mm rgba(10,30,50,.25); }
+.phone img { display: block; width: 100%; height: auto; }
+.phones { display: flex; gap: 5mm; align-items: flex-start; justify-content: center; }
+.phones .phone { width: 40mm; }
+.phones .phone:nth-child(2) { margin-top: 8mm; }
+.pill { display: inline-block; font-size: 8pt; font-weight: 800; padding: .6mm 2.5mm; border-radius: 10mm; background: var(--gold-soft); color: #6b5210; }
+.pill.sea { background: #d3ecf7; color: var(--deep); }
+.island { text-align: center; }
+.island img { width: 100%; height: 30mm; object-fit: contain; }
+.island h3 { font-size: 11pt; margin-top: 1mm; }
+.island p { font-size: 8.5pt; color: var(--soft); }
+.fog { margin-top: 5mm; font-size: 9pt; color: var(--soft); columns: 2; column-gap: 8mm; }
+.fan { position: relative; height: 100%; }
+.fan img { position: absolute; width: 48%; border-radius: 1.5mm; box-shadow: 0 2mm 6mm rgba(10,40,70,.22); background: #fff; }
+.feat { display: flex; gap: 3mm; align-items: flex-start; }
+.feat img { width: 13mm; height: 13mm; object-fit: contain; flex: none; }
+.roomy .card { padding: 6mm; } .roomy .card p { font-size: 11pt; } .roomy .card h3 { font-size: 14.5pt; margin-bottom: 2mm; }
+.num { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 22pt; color: var(--sea); line-height: 1; }
+</style>
+</head>
+<body>
+
+<!-- 1 Titel -->
+<section class="slide sky">
+  <div class="row" style="align-items:center">
+    <div class="col" style="flex:1.15">
+      <img src="../landingpage/bilder/brand.logo.png" alt="Taleria" style="height:22mm;margin-bottom:5mm">
+      <h1>Kinder lernen,<br>mit Geld umzugehen.</h1>
+      <p class="lead" style="margin-top:4mm">Ein Abenteuer in einer App für Kinder von 8 bis 12 Jahren, mit einem Schatzbuch zum Ausdrucken. Die Eltern sind mit dabei.</p>
+      <p style="margin-top:6mm"><span class="pill">App + Buch</span> <span class="pill sea">8–12 Jahre</span> <span class="pill sea">Deutsch</span> <span class="pill sea">Testphase läuft</span></p>
+    </div>
+    <div class="col" style="position:relative;height:100%">
+      <img src="../landingpage/bilder/character.talo.wave.png" alt="Talo" style="position:absolute;left:2mm;bottom:4mm;height:92mm">
+      <img src="../landingpage/bilder/character.tala.wave.png" alt="Tala" style="position:absolute;right:4mm;bottom:4mm;height:88mm">
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch · Stand November 2026</span><span>1</span></div>
+</section>
+
+<!-- 2 Problem -->
+<section class="slide roomy">
+  <div class="eyebrow">Das Problem</div>
+  <h2>Geld lernt man heute nicht mehr nebenbei</h2>
+  <p class="lead" style="margin-bottom:6mm;max-width:220mm">Früher sahen Kinder an der Kasse, wie Scheine und Münzen den Besitzer wechseln. Heute wird mit Karte und Handy bezahlt, online gekauft und später bezahlt. In der Schule kommt das Thema kaum vor.</p>
+  <div class="grid g3">
+    <div class="card"><span class="big">8 von 10</span><p>jungen Menschen zwischen 14 und 24 sagen, sie hätten in der Schule wenig oder so gut wie nichts über Wirtschaft und Finanzen gelernt.</p><p class="src">Quelle: Bankenverband, Jugendstudie 2024</p></div>
+    <div class="card"><span class="big">51 %</span><p>der Einkäufe wurden 2023 noch bar bezahlt, 2021 waren es 58 %. Bezahlen mit dem Handy hat sich in dieser Zeit verdreifacht. Für Kinder wird Geld unsichtbar.</p><p class="src">Quelle: Deutsche Bundesbank, Zahlungsverhalten 2023</p></div>
+    <div class="card"><span class="big">5,67 Mio.</span><p>Erwachsene in Deutschland sind überschuldet. Besonders gefährdet sind junge Menschen unter 30, oft durch Konsum, Ratenkäufe und Onlinekäufe.</p><p class="src">Quelle: Creditreform, SchuldnerAtlas 2025</p></div>
+  </div>
+  <p style="margin-top:8mm;font-size:13pt;font-weight:700;color:var(--deep)">Mit 8 bis 12 Jahren bekommen Kinder ihr erstes Taschengeld. Das ist der beste Moment, um anzufangen.</p>
+  <div class="foot"><span>Taleria · Pitch</span><span>2</span></div>
+</section>
+
+<!-- 3 Lösung -->
+<section class="slide sky">
+  <div class="eyebrow">Die Lösung</div>
+  <h2>Ein Abenteuer statt trockener Lektionen</h2>
+  <div class="row">
+    <div class="col" style="flex:1.3">
+      <p class="lead" style="margin-bottom:5mm">Das Kind wird Crewmitglied von Kapitän Talo und Zahlmeisterin Tala. Gemeinsam suchen sie die Teile einer zerrissenen Schatzkarte. Jede Insel ist ein Thema rund ums Geld.</p>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:3mm">
+        <div class="card"><h3>📱 Die App</h3><p>Kurze Stationen von 5 bis 10 Minuten, Bildergeschichten, Übungen, Spiele. Alles wird vorgelesen.</p></div>
+        <div class="card"><h3>📖 Das Schatzbuch</h3><p>Rätsel, Rechenaufgaben und Ausmalseiten zum Ausdrucken. Lernen auch ohne Bildschirm.</p></div>
+        <div class="card"><h3>🏠 Die Eltern</h3><p>Im Leuchtturm sehen sie den Lernstand. Dazu geben sie Aufträge, Taschengeld und Gesprächsideen.</p></div>
+        <div class="card"><h3>🔁 Das Wiederholen</h3><p>Fragen kommen nach einem Tag, einer Woche und einem Monat wieder. So bleibt das Wissen hängen.</p></div>
+      </div>
+    </div>
+    <div class="col phones">
+      <div class="phone"><img src="../landingpage/bilder/app.start.jpg" alt=""></div>
+      <div class="phone"><img src="../landingpage/bilder/app.karte.jpg" alt=""></div>
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch</span><span>3</span></div>
+</section>
+
+<!-- 4 Reise -->
+<section class="slide">
+  <div class="eyebrow">Die Reise</div>
+  <h2>15 Inseln, 15 Themen. Fünf davon sind fertig.</h2>
+  <div class="grid g5">
+    <div class="island"><img src="../landingpage/bilder/map.island.hafen.png" alt=""><h3>1 · Hafen</h3><p>Was ist Geld? Woher kommt es, wie liest man Preise?</p></div>
+    <div class="island"><img src="../landingpage/bilder/map.island.tauschinsel.png" alt=""><h3>2 · Tauschinsel</h3><p>Tauschen und Wert. Billig ist nicht immer günstig.</p></div>
+    <div class="island"><img src="../landingpage/bilder/map.island.wunschinsel.png" alt=""><h3>3 · Wunschinsel</h3><p>Brauchen oder Wollen, die Warte-Regel, Nein sagen</p></div>
+    <div class="island"><img src="../landingpage/bilder/map.island.spar-insel.png" alt=""><h3>4 · Spar-Insel</h3><p>Sparen für Ziele und Notfälle, einen Sparplan machen</p></div>
+    <div class="island"><img src="../landingpage/bilder/map.island.taschengeld-bucht.png" alt=""><h3>5 · Taschengeld-Bucht</h3><p>Taschengeld einteilen, Logbuch, fair verhandeln</p></div>
+  </div>
+  <div class="card" style="margin-top:6mm;background:var(--cream);border-color:var(--gold-soft)">
+    <h3>Noch im Nebel: die Inseln 6 bis 15</h3>
+    <div class="fog">Marktinsel: Einkaufen · Werbe-Riff: Werbung durchschauen · Verdienst-Insel: Geld verdienen · Bank-Insel: Bank und Konto · Zins-Insel: Zinsen und Inflation · Leih-Lagune: Leihen und Schulden · Sicherheits-Festung: Sicher mit Geld · Risiko-Klippen: Risiko und Vorsorge · Zukunftsinsel: Planen · Schatzinsel: die Goldene Schatzkarte („Finanzführerschein Stufe 1“)</div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch</span><span>4</span></div>
+</section>
+
+<!-- 5 Features Kind -->
+<section class="slide sky">
+  <div class="eyebrow">Für Kinder</div>
+  <h2>Darum spielen Kinder gern weiter</h2>
+  <div class="row">
+    <div class="col" style="flex:1.6">
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:3mm">
+        <div class="card feat"><img src="../landingpage/bilder/story.hafen.2.1.jpg" alt="" style="object-fit:cover;border-radius:2mm"><div><h3>Stationen mit Geschichte</h3><p>Erst schätzen, dann eine Bildergeschichte, eine Übung und ein kurzer Check. Fehler werden erklärt, nicht bestraft.</p></div></div>
+        <div class="card feat"><img src="../landingpage/bilder/game.pearl.diver.png" alt=""><div><h3>Tauchgänge</h3><p>Hier wird wiederholt. Jede Insel hat eine eigene Unterwasserwelt, im Wrack wartet ein Fundstück.</p></div></div>
+        <div class="card feat"><img src="../landingpage/bilder/character.mia.fly.png" alt=""><div><h3>16 Spiele</h3><p>10 Denk-Spiele (zum Beispiel Wechselgeld und Werbetricks) und 6 Geschick-Spiele mit Rekord.</p></div></div>
+        <div class="card feat"><img src="../landingpage/bilder/encounter.taleron.png" alt=""><div><h3>Begegnungen auf See</h3><p>Händlerschiffe und Fischerboote stellen Fragen. Meister Taleron prüft die Crew und verleiht ein Siegel.</p></div></div>
+        <div class="card feat"><img src="../landingpage/bilder/icon.treasure.png" alt=""><div><h3>Schatztruhe</h3><p>Virtuelles Taschengeld einteilen, Wunschschätze ansparen, die Wunschflasche mit Warte-Regel und ein Kassenbuch.</p></div></div>
+        <div class="card feat"><img src="../landingpage/bilder/rank.kapitaen.png" alt=""><div><h3>Ränge, Orden, Werft</h3><p>Seemeilen sammeln, vom Schiffsjungen zur Kapitänin aufsteigen und das eigene Schiff gestalten. Alles wird verdient, nichts gekauft.</p></div></div>
+      </div>
+    </div>
+    <div class="col phones" style="flex:.9">
+      <div class="phone" style="width:36mm"><img src="../landingpage/bilder/app.geschichte.jpg" alt=""></div>
+      <div class="phone" style="width:36mm"><img src="../landingpage/bilder/app.moewenflug.jpg" alt=""></div>
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch</span><span>5</span></div>
+</section>
+
+<!-- 6 Eltern -->
+<section class="slide">
+  <div class="eyebrow">Für Eltern</div>
+  <h2>Der Leuchtturm: Eltern sehen, was ihr Kind lernt</h2>
+  <div class="row">
+    <div class="col" style="flex:1.4">
+      <p class="lead" style="margin-bottom:4mm">Der Elternbereich ist mit einer PIN geschützt. Er verbindet die App mit dem echten Familienalltag.</p>
+      <ul class="checks">
+        <li><strong>Wochenbericht:</strong> geschaffte Stationen, wacklige Themen, dazu eine Gesprächsidee für den Familientisch</li>
+        <li><strong>Lernstand pro Thema:</strong> „Sicher“, „Wird geübt“ oder „Wackelt noch“, berechnet aus den Wiederholungen über Wochen</li>
+        <li><strong>Aufträge:</strong> „Spülmaschine ausräumen“. Das Kind meldet den Auftrag, die Eltern bestätigen, mit oder ohne Belohnung.</li>
+        <li><strong>Virtuelles Taschengeld</strong> und eine freiwillige Lern-Belohnung für geschaffte Inseln</li>
+        <li><strong>Tempo:</strong> 2 Stationen pro Woche oder mehr, in den Ferien freie Fahrt. Kein Countdown, kein Druck.</li>
+        <li><strong>Anmeldung ohne E-Mail fürs Kind:</strong> ein Spitzname und ein Anmelde-Code reichen</li>
+      </ul>
+    </div>
+    <div class="col phones">
+      <div class="phone"><img src="../landingpage/bilder/app.wochenbericht.jpg" alt=""></div>
+      <div class="phone"><img src="../landingpage/bilder/app.lernstand.jpg" alt=""></div>
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch</span><span>6</span></div>
+</section>
+
+<!-- 7 Gemeinsam -->
+<section class="slide cream roomy">
+  <div class="eyebrow">Gemeinsam statt allein</div>
+  <h2>Ein 8-Jähriger denkt nicht an den Lernplan. Darum holt Taleria die Eltern dazu.</h2>
+  <div class="grid g3" style="margin-top:2mm">
+    <div class="card"><div class="num">1</div><h3>Erklär's deinen Eltern</h3><p>Nach jeder Insel erklärt das Kind den Eltern drei Dinge, die es gelernt hat. Wer etwas erklären kann, hat es wirklich verstanden.</p></div>
+    <div class="card"><div class="num">2</div><h3>Crew-Abenteuer</h3><p>Zu jeder Insel gibt es eine kleine Aufgabe fürs echte Leben, zum Beispiel beim Einkaufen Preise vergleichen.</p></div>
+    <div class="card"><div class="num">3</div><h3>Code statt Schummeln</h3><p>Die Belohnung gibt es nur mit einem Code aus dem Leuchtturm. Die Eltern sagen ihn erst, wenn die Aufgabe geschafft ist. Dafür gibt es Crew-Sterne und besondere Teile fürs Schiff.</p></div>
+  </div>
+  <p style="max-width:170mm;margin-top:8mm;font-size:13pt;color:var(--deep);font-weight:700">So wird Geld zum Familienthema: Die Eltern bleiben dran, ohne kontrollieren zu müssen.</p>
+  <img src="../landingpage/bilder/character.talo.wave.png" alt="" style="position:absolute;right:42mm;bottom:6mm;height:40mm">
+  <img src="../landingpage/bilder/character.tala.think.png" alt="" style="position:absolute;right:14mm;bottom:6mm;height:38mm">
+  <div class="foot"><span>Taleria · Pitch</span><span>7</span></div>
+</section>
+
+<!-- 8 Schatzbuch -->
+<section class="slide sky">
+  <div class="row" style="align-items:center">
+    <div class="col">
+      <div class="eyebrow">App + Buch</div>
+      <h2>Talos und Talas Schatzbuch</h2>
+      <p class="lead" style="margin-bottom:4mm">Das Buch begleitet die ersten fünf Inseln auf Papier. Es ist eng mit der App verbunden.</p>
+      <ul class="checks">
+        <li><strong>49 Seiten</strong> mit Rätseln, Rechenaufgaben, Ausmalseiten und Gemeinsam-Seiten</li>
+        <li><strong>Seekarte zum Abhaken:</strong> Das Kind trägt ein, wie weit es in der App gesegelt ist.</li>
+        <li><strong>Eltern-Heft</strong> mit Lösungen und Urkunden. Die Schatzcodes für die App stehen nur hier, also kann das Kind nicht schummeln.</li>
+        <li>Heute ein PDF zum Ausdrucken für Testfamilien. <strong>Später ist es auch als gedrucktes Buch im Handel geplant.</strong></li>
+      </ul>
+    </div>
+    <div class="col" style="height:115mm">
+      <div class="fan">
+        <img src="../landingpage/bilder/schatzbuch.gemeinsam.jpg" alt="" style="left:50%;top:10mm;transform:rotate(9deg)">
+        <img src="../landingpage/bilder/schatzbuch.ausmalen.jpg" alt="" style="left:35%;top:5mm;transform:rotate(4deg)">
+        <img src="../landingpage/bilder/schatzbuch.aufgabe.jpg" alt="" style="left:19%;top:0;transform:rotate(-2deg)">
+        <img src="../landingpage/bilder/schatzbuch.cover.jpg" alt="" style="left:2%;top:4mm;transform:rotate(-7deg)">
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch</span><span>8</span></div>
+</section>
+
+<!-- 9 Sicherheit -->
+<section class="slide roomy">
+  <div class="eyebrow">Sicher an Bord</div>
+  <h2>Für Kinder gebaut, von Anfang an</h2>
+  <p class="lead" style="margin-bottom:5mm">Diese Regeln stehen nicht nur auf Papier. Die App und die Datenbank setzen sie technisch durch.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Kein echtes Geld</h3><p>Alle Beträge sind virtuell. Keine Bankverbindung, keine Bezahlkarte.</p></div>
+    <div class="card"><h3>Keine Käufe durch Kinder</h3><p>Im Kinderbereich gibt es keine Preise, keine Kauf-Knöpfe und keine Links nach außen.</p></div>
+    <div class="card"><h3>Keine Werbung, kein Tracking</h3><p>Keine Werbe-ID und keine Analyse-Dienste anderer Firmen in der App.</p></div>
+    <div class="card"><h3>Kein Druck</h3><p>Keine Countdowns, keine Zufallsboxen, keine täglichen Erinnerungen.</p></div>
+    <div class="card"><h3>Wenige Daten</h3><p>Ein Spitzname reicht. Kein Klarname, keine Adresse, kein Standort. Die Server stehen in der EU (Frankfurt).</p></div>
+    <div class="card"><h3>Keine Chats</h3><p>Niemand Fremdes kann dem Kind schreiben. Eltern können alle Daten jederzeit löschen.</p></div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch</span><span>9</span></div>
+</section>
+
+<!-- 10 Stand + Modell -->
+<section class="slide deep">
+  <div class="eyebrow">Stand und nächste Schritte</div>
+  <h2>Kein Versprechen, sondern fertig gebaut</h2>
+  <div class="grid g4" style="margin-bottom:6mm">
+    <div><span class="big" style="color:var(--gold)">5</span><p>Inseln komplett spielbar, mit Bildern und Stimmen</p></div>
+    <div><span class="big" style="color:var(--gold)">50+</span><p>Stationen und Tauchgänge</p></div>
+    <div><span class="big" style="color:var(--gold)">350+</span><p>Fragen, jedes Mal neu gemischt</p></div>
+    <div><span class="big" style="color:var(--gold)">16</span><p>Spiele, dazu ein Schatzbuch mit 49 Seiten</p></div>
+  </div>
+  <div class="row" style="gap:6mm">
+    <div class="col">
+      <h3>Geschäftsmodell</h3>
+      <ul class="checks">
+        <li><strong>Kostenlos starten:</strong> Hafen und Tauschinsel, ohne Zeitlimit</li>
+        <li><strong>Familien-Abo</strong> für alle Inseln und Geschwister. Den Preis testen wir noch.</li>
+        <li><strong>Schatzbuch</strong> später als gedrucktes Buch im Handel</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Nächste Schritte</h3>
+      <ul class="checks">
+        <li>Testphase mit Familien, Feedback einarbeiten</li>
+        <li>Inseln 6 bis 15 bauen</li>
+        <li>Apps für iPhone, iPad und Android, dazu Web</li>
+      </ul>
+    </div>
+    <div class="col" style="flex:.7;position:relative">
+      <img src="../landingpage/bilder/ship.crew.png" alt="" style="position:absolute;right:0;bottom:2mm;width:58mm">
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Pitch · Stand November 2026</span><span>10</span></div>
+</section>
+
+</body>
+</html>
