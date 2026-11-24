@@ -10,9 +10,9 @@ const path = require('path');
   const over = await p.$$eval('section.slide', (s) =>
     s.map((x, i) => {
       const box = x.getBoundingClientRect();
-      const kids = [...x.querySelectorAll('*')].filter((k) => !k.closest('.foot') && !k.closest('.fan') && getComputedStyle(k).position !== 'absolute');
+      const kids = [...x.querySelectorAll('*')].filter((k) => !k.closest('.foot') && !k.closest('.fan') && getComputedStyle(k).position !== "absolute" && !k.classList.contains("grow") && !k.closest(".grow:not(.mid)"));
       const bottom = Math.max(...kids.map((k) => k.getBoundingClientRect().bottom));
-      return [i + 1, Math.round(bottom - (box.bottom - 30))];
+      return [i + 1, Math.round(bottom - (box.bottom - 8))];
     }).filter(([, d]) => d > 0));
   const broken = await p.$$eval('img', (i) => i.filter((x) => !x.naturalWidth).map((x) => x.getAttribute('src')));
   console.log('Seiten:', await p.$$eval('section.slide', (s) => s.length), '| zu voll:', JSON.stringify(over), '| fehlende Bilder:', broken);
