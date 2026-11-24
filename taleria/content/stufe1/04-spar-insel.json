@@ -46,6 +46,14 @@
     "titel": "Erster Wunschschatz",
     "text": "Legt gemeinsam einen echten Wunschschatz mit Sparplan an und besprecht, wie viel jede Woche in die Schatztruhe kommt."
   },
+  "gemeinsam": {
+    "erklaeren": [
+      "Sparen heißt: heute etwas zurücklegen, damit man später etwas hat.",
+      "Wofür man spart: für einen Wunsch, einen Notfall oder etwas Geplantes.",
+      "Wie man mit einem Sparplan ausrechnet, wann das Geld reicht."
+    ],
+    "nachfragen": "Wie lange müsstest du für deinen größten Wunsch sparen?"
+  },
   "kombuesen_fragen": [
     "Wofür hast du als Kind gespart?",
     "Wofür sparen wir als Familie gerade?"

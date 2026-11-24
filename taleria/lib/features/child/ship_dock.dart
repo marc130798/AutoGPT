@@ -203,6 +203,7 @@ class ShipSideView extends StatelessWidget {
     SailColor.green: Color(0xFF3F9E62),
     SailColor.gold: Color(0xFFE8B83E),
     SailColor.purple: Color(0xFF8E5BB5),
+    SailColor.coral: Color(0xFFE5675A),
   };
 
   @override

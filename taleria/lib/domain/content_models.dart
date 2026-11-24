@@ -94,6 +94,8 @@ class IslandDetails {
     this.teaser = const [],
     this.nextSlug,
     this.nextTitle,
+    this.explain = const [],
+    this.explainAsk,
   });
 
   factory IslandDetails.fromRow(Map<String, dynamic> row) {
@@ -101,6 +103,7 @@ class IslandDetails {
     final arrival = content['arrival'] as Map<String, dynamic>?;
     final task = content['real_life_task'] as Map<String, dynamic>?;
     final teaser = content['teaser'] as Map<String, dynamic>?;
+    final together = content['together'] as Map<String, dynamic>?;
     return IslandDetails(
       id: row['id'] as String,
       slug: row['slug'] as String,
@@ -118,8 +121,16 @@ class IslandDetails {
       teaser: [for (final l in (teaser?['scene'] as List?) ?? const []) DialogLine.fromJson(l as Map<String, dynamic>)],
       nextSlug: teaser?['next_slug'] as String?,
       nextTitle: teaser?['next_title'] as String?,
+      explain: [for (final p in (together?['explain'] as List?) ?? const []) p as String],
+      explainAsk: together?['ask'] as String?,
     );
   }
+
+  /// „Erklär's deinen Eltern“: 3 Punkte, die das Kind nach der Insel erklärt.
+  final List<String> explain;
+
+  /// Nachfrage für die Eltern dazu.
+  final String? explainAsk;
 
   /// Ausblick auf die nächste Insel nach dem Abschluss (macht neugierig aufs Weitersegeln).
   final List<DialogLine> teaser;

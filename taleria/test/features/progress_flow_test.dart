@@ -246,6 +246,46 @@ void main() {
     expect(find.text('Serie pausiert'), findsOneWidget);
   });
 
+  testWidgets('Crew: Hafen erklären, Code der Eltern eingeben, Crew-Stern bekommen', (tester) async {
+    final (content: _, :progress) = await startOnHome(
+      tester,
+      prepare: (p) => p
+        ..completeStations('hafen')
+        ..completedIslands.add('island-hafen'),
+    );
+    await scrollTo(tester, find.byKey(const ValueKey('home-crew')));
+    await tapKey(tester, 'home-crew');
+    expect(find.text('Noch keine Crew-Sterne'), findsOneWidget);
+    expect(find.text('Noch 3 Sterne bis: Crew-Flagge'), findsOneWidget);
+    await scrollTo(tester, find.byKey(const ValueKey('crew-code-island-hafen/explain')));
+    expect(find.byKey(const ValueKey('crew-task-island-hafen/explain')), findsOneWidget);
+
+    // Ohne Code der Eltern gibt es nichts.
+    await tapKey(tester, 'crew-code-island-hafen/explain');
+    await tester.enterText(find.byKey(const ValueKey('crew-code-field')), '1234');
+    await tester.pump();
+    await tapKey(tester, 'crew-code-submit');
+    expect(find.textContaining('noch keinen Code geholt'), findsOneWidget);
+    expect(progress.crewDone, isEmpty);
+
+    // Der Hinweis verschwindet wieder (er liegt sonst über dem Knopf).
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
+
+    // Die Eltern holen den Code im Leuchtturm, das Kind gibt ihn ein.
+    final code = await progress.crewCode(childId: 'x', islandId: 'island-hafen', kind: CrewKind.explain);
+    await scrollTo(tester, find.byKey(const ValueKey('crew-code-island-hafen/explain')));
+    await tapKey(tester, 'crew-code-island-hafen/explain');
+    await tester.enterText(find.byKey(const ValueKey('crew-code-field')), code);
+    await tester.pump();
+    await tapKey(tester, 'crew-code-submit');
+    expect(find.byKey(const ValueKey('crew-star-dialog')), findsOneWidget);
+    expect(find.text('Super gemacht! 30 Seemeilen und dein 1. Crew-Stern.'), findsOneWidget);
+    await tapText(tester, 'Weiter');
+    expect(progress.crewDone.single.kind, CrewKind.explain);
+    expect(find.text('Geschafft am 24.11.2026'), findsOneWidget);
+  });
+
   testWidgets('Spiele: geschaffte Mini-Spiele nochmal spielen, die anderen warten auf ihrer Insel', (tester) async {
     await startOnHome(tester, prepare: (p) => p.completeStations('hafen'));
     await tapKey(tester, 'home-games');

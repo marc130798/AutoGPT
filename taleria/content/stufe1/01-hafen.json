@@ -19,6 +19,14 @@
     "titel": "Preis-Detektiv",
     "text": "Suche beim nächsten Einkauf drei Produkte, schätze vorher ihren Preis und vergleiche dann mit dem echten Preis. Überlege mit deinen Eltern, wer an einem davon alles mitverdient."
   },
+  "gemeinsam": {
+    "erklaeren": [
+      "Warum es Geld gibt: Tauschen ist oft schwierig, mit Geld geht es leicht.",
+      "Wie man einen Preis mit Komma liest, zum Beispiel 2,05 €.",
+      "Woher das Geld kommt: Erwachsene verdienen es mit ihrer Arbeit."
+    ],
+    "nachfragen": "Was würde passieren, wenn es morgen kein Geld mehr gäbe?"
+  },
   "kombuesen_fragen": [
     "Was war das Erste, das du dir von deinem eigenen Geld gekauft hast? (Eltern erzählen)",
     "Was glaubst du, wie viel unser Wocheneinkauf kostet?",

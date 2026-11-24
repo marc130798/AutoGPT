@@ -46,6 +46,14 @@
     "titel": "Logbuch-Woche",
     "text": "Schreib eine Woche lang alle Einnahmen und Ausgaben in ein Heft und schau es danach mit deinen Eltern an."
   },
+  "gemeinsam": {
+    "erklaeren": [
+      "Wie man Taschengeld einteilt: etwas zum Ausgeben, etwas zum Sparen.",
+      "Warum ein Logbuch zeigt, wohin das Geld wirklich geht.",
+      "Wie man fair um mehr Taschengeld verhandelt."
+    ],
+    "nachfragen": "Wofür gibst du dein Taschengeld am liebsten aus?"
+  },
   "kombuesen_fragen": [
     "Wie viel Taschengeld hattest du als Kind, und was hast du davon gekauft?",
     "Was könnte ich ab jetzt selbst von meinem Taschengeld bezahlen?"

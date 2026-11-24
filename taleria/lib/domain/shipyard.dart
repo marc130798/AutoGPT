@@ -15,7 +15,7 @@ enum LookSlot { outfit, hat, scarf, flag, sails, figurehead, clothes, garment }
 const shipyardSlots = [LookSlot.garment, LookSlot.clothes, LookSlot.sails, LookSlot.figurehead, LookSlot.flag];
 
 class LookItem {
-  const LookItem(this.slot, this.value, this.minXp, {this.logbook, this.island});
+  const LookItem(this.slot, this.value, this.minXp, {this.logbook, this.island, this.crewStars});
 
   final LookSlot slot;
   final Enum value;
@@ -29,16 +29,22 @@ class LookItem {
   /// Frei, sobald diese Insel geschafft ist (zum Beispiel `hafen`), nicht mit Seemeilen.
   final String? island;
 
+  /// Frei mit so vielen Crew-Sternen („Gemeinsam“: nur zusammen mit den Eltern), nicht mit Seemeilen.
+  final int? crewStars;
+
   String get id => '${slot.name}_${value.name}';
-  bool unlockedAt(int xp) => logbook == null && island == null && xp >= minXp;
+  bool unlockedAt(int xp) => logbook == null && island == null && crewStars == null && xp >= minXp;
 
   /// Frei: mit Seemeilen, bei Logbuch-Teilen mit dem eingelösten Schatzcode,
   /// bei Insel-Teilen mit der geschafften Insel ([islands]: Slugs).
-  bool isUnlocked(int xp, Set<String> logbooks, [Set<String> islands = const {}]) => switch ((logbook, island)) {
-    (final String l, _) => logbooks.contains(l),
-    (_, final String i) => islands.contains(i),
-    _ => xp >= minXp,
-  };
+  /// [stars]: Crew-Sterne des Kindes.
+  bool isUnlocked(int xp, Set<String> logbooks, [Set<String> islands = const {}, int stars = 0]) =>
+      switch ((logbook, island, crewStars)) {
+        (final String l, _, _) => logbooks.contains(l),
+        (_, final String i, _) => islands.contains(i),
+        (_, _, final int s) => stars >= s,
+        _ => xp >= minXp,
+      };
 }
 
 /// Alle Teile der Werft in der Reihenfolge der Grenzen. Die Grenzen passen
@@ -74,7 +80,14 @@ final shipyardItems = <LookItem>[
   LookItem(LookSlot.garment, Garment.hoodie, 0, island: 'wunschinsel'),
   LookItem(LookSlot.garment, Garment.raincoat, 0, island: 'spar-insel'),
   LookItem(LookSlot.garment, Garment.beach, 0, island: 'taschengeld-bucht'),
+  // Nur gemeinsam mit den Eltern („Gemeinsam“: Crew-Sterne mit Eltern-Code).
+  LookItem(LookSlot.flag, ShipFlag.crew, 0, crewStars: 3),
+  LookItem(LookSlot.sails, SailColor.coral, 0, crewStars: 6),
+  LookItem(LookSlot.flag, ShipFlag.crewGold, 0, crewStars: 10),
 ];
+
+/// Grenzen der Crew-Sterne für die Werft (aufsteigend).
+List<int> get crewStarSteps => [for (final i in shipyardItems) ?i.crewStars]..sort();
 
 /// Kleidungsstück, das die Insel [slug] freischaltet (für den Hinweis nach dem Insel-Abschluss).
 LookItem? islandGarment(String slug) {
@@ -116,7 +129,7 @@ int unlockedShipyardCount(int xp) => shipyardItems.where((i) => i.minXp > 0 && i
 /// Das nächste Teil, das noch gesperrt ist, oder `null`, wenn alles frei ist.
 LookItem? nextShipyardItem(int xp) {
   for (final i in shipyardItems) {
-    if (i.logbook == null && i.island == null && !i.unlockedAt(xp)) return i;
+    if (i.logbook == null && i.island == null && i.crewStars == null && !i.unlockedAt(xp)) return i;
   }
   return null;
 }

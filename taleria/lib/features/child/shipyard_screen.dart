@@ -40,6 +40,9 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
 
   /// Geschaffte Inseln (Slugs) und die Namen aller Inseln, für die Kleidungsstücke.
   Set<String> _islandsDone = const {};
+
+  /// Crew-Sterne („Gemeinsam“) für die Crew-Teile.
+  int _crewStars = 0;
   Map<String, String> _islandTitles = const {};
   bool _islandsLoaded = false;
 
@@ -61,8 +64,10 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
     try {
       final map = await content.fetchMap(widget.child.stage);
       final done = (await progress.fetchProgress(widget.child.id)).completedIslandIds;
+      final stars = (await progress.fetchCrewDone(widget.child.id)).length;
       if (!mounted) return;
       setState(() {
+        _crewStars = stars;
         _islandTitles = {for (final i in map) i.slug: i.title};
         _islandsDone = {
           for (final i in map)
@@ -74,10 +79,11 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
     }
   }
 
-  bool _unlocked(LookItem item) => item.isUnlocked(widget.xp, _avatar.logbooks, _islandsDone);
+  bool _unlocked(LookItem item) => item.isUnlocked(widget.xp, _avatar.logbooks, _islandsDone, _crewStars);
 
   String _lockText(AppLocalizations l10n, LookItem item) {
     if (item.logbook != null) return l10n.shipyardFromLogbook;
+    if (item.crewStars case final s?) return l10n.shipyardFromCrew(s);
     if (item.island != null) return l10n.shipyardFromIsland(_islandTitles[item.island] ?? item.island!);
     return l10n.ranksFrom(item.minXp);
   }
@@ -93,6 +99,8 @@ class _ShipyardScreenState extends State<ShipyardScreen> {
             content: Text(
               item.logbook != null
                   ? l10n.shipyardLockedLogbook
+                  : item.crewStars != null
+                  ? l10n.shipyardLockedCrew(item.crewStars!, _crewStars)
                   : item.island != null
                   ? l10n.shipyardLockedIsland(_islandTitles[item.island] ?? item.island!)
                   : l10n.shipyardLocked(l10n.ranksFrom(item.minXp)),

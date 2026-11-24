@@ -34,6 +34,7 @@ import '../progress/rank_ladder_screen.dart';
 import '../treasure/tasks_screen.dart';
 import '../treasure/treasure_screen.dart';
 import 'board_tour.dart';
+import 'crew_screen.dart';
 import 'games_screen.dart';
 
 import 'lighthouse_button.dart';
@@ -784,6 +785,23 @@ class _HomeBodyState extends State<_HomeBody> {
                   ),
                 },
               },
+            ),
+            const SizedBox(height: 14),
+            // „Gemeinsam“: Crew-Abenteuer mit den Eltern. Die Räume sind ins Schiffsbild
+            // gemalt, darum steht der Knopf als goldenes Schild unter dem Schiff.
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: FilledButton.icon(
+                key: const ValueKey('home-crew'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: context.palette.gold,
+                  foregroundColor: context.palette.ink,
+                  minimumSize: const Size.fromHeight(56),
+                ),
+                onPressed: () => _open(CrewScreen(child: child)),
+                icon: const Icon(Icons.groups_rounded),
+                label: Text(l10n.crewHomeButton),
+              ),
             ),
             const SizedBox(height: 14),
             // Hilfen, die man selten braucht: klein am Ende.

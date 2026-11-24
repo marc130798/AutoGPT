@@ -176,12 +176,19 @@ void main() {
     await tapText(tester, 'Mila');
     await tapKey(tester, 'child-kitchen');
 
-    expect(find.text('Gesprächsideen für den Familientisch, passend zu dem, was Mila gerade lernt.'), findsOneWidget);
+    expect(find.textContaining('Hier lernt ihr zusammen: Mila erklärt euch'), findsOneWidget);
     expect(find.text('Gerade dran'), findsOneWidget);
     final hafenPrompt = content.prompts.firstWhere((p) => p.islandId == 'island-hafen').text;
+    await scrollTo(tester, find.text('„$hafenPrompt“'));
     expect(find.text('„$hafenPrompt“'), findsOneWidget);
 
-    await scrollTo(tester, find.byKey(const ValueKey('real-life-hafen')));
+    // Crew-Abenteuer: Code für das Kind abrufen.
+    await scrollTo(tester, find.byKey(const ValueKey('together-adventure-hafen')));
+    await tapKey(tester, 'together-show-code-adventure-hafen');
+    expect(find.byKey(const ValueKey('together-code')), findsOneWidget);
+    expect(find.text('4711'), findsOneWidget);
+    await tapText(tester, 'OK');
+
     expect(find.text('Preis-Detektiv'), findsOneWidget);
     await tapKey(tester, 'real-life-create-hafen');
     expect(

@@ -2683,11 +2683,11 @@
   "@childDetailProgress": {
     "description": "Leuchtturm: Eintrag zur Fortschritts-Seite eines Kindes"
   },
-  "childDetailKitchen": "Fragen für zu Hause",
+  "childDetailKitchen": "Gemeinsam",
   "@childDetailKitchen": {
     "description": "Leuchtturm: Eintrag zu den Gesprächsideen"
   },
-  "childDetailKitchenHint": "Gesprächsideen und Aufträge fürs echte Leben",
+  "childDetailKitchenHint": "Erklären lassen, Crew-Abenteuer und Fragen für zu Hause",
   "@childDetailKitchenHint": {
     "description": "Untertitel des Eintrags Kombüsen-Fragen"
   },
@@ -2907,11 +2907,11 @@
       }
     }
   },
-  "kitchenTitle": "Fragen für zu Hause",
+  "kitchenTitle": "Gemeinsam",
   "@kitchenTitle": {
     "description": "Überschrift der Gesprächsideen"
   },
-  "kitchenIntro": "Gesprächsideen für den Familientisch, passend zu dem, was {nickname} gerade lernt.",
+  "kitchenIntro": "Hier lernt ihr zusammen: {nickname} erklärt euch, was es auf einer Insel gelernt hat, und ihr erlebt kleine Abenteuer im echten Leben. Danach sagt ihr {nickname} den Code, dafür gibt es einen Crew-Stern und besondere Teile in der Werft.",
   "@kitchenIntro": {
     "description": "Einleitung Kombüsen-Fragen",
     "placeholders": {
@@ -4358,7 +4358,7 @@
       }
     }
   },
-  "lookName": "{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} flag_book{Logbuch-Flagge} sails_white{Weiße Segel} sails_red{Rote Segel} sails_blue{Blaue Segel} sails_green{Grüne Segel} sails_gold{Goldene Segel} sails_purple{Lila Segel} figurehead_none{Ohne} figurehead_dolphin{Delfin} figurehead_lion{Goldener Löwe} clothes_blue{Blau-Weiß} clothes_pink{Rosa-Weiß} clothes_green{Grün-Weiß} clothes_red{Rot-Weiß} clothes_turquoise{Türkis-Weiß} clothes_yellow{Gelb-Weiß} clothes_purple{Lila-Weiß} garment_stripes{Ringel-Shirt} garment_sailor{Matrosenpulli} garment_vest{Händlerweste} garment_hoodie{Sternen-Pulli} garment_raincoat{Regenjacke} garment_beach{Strandhemd} other{Teil}}",
+  "lookName": "{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} flag_book{Logbuch-Flagge} flag_crew{Crew-Flagge} flag_crewGold{Goldene Crew-Flagge} sails_white{Weiße Segel} sails_red{Rote Segel} sails_blue{Blaue Segel} sails_green{Grüne Segel} sails_gold{Goldene Segel} sails_purple{Lila Segel} sails_coral{Korallen-Segel} figurehead_none{Ohne} figurehead_dolphin{Delfin} figurehead_lion{Goldener Löwe} clothes_blue{Blau-Weiß} clothes_pink{Rosa-Weiß} clothes_green{Grün-Weiß} clothes_red{Rot-Weiß} clothes_turquoise{Türkis-Weiß} clothes_yellow{Gelb-Weiß} clothes_purple{Lila-Weiß} garment_stripes{Ringel-Shirt} garment_sailor{Matrosenpulli} garment_vest{Händlerweste} garment_hoodie{Sternen-Pulli} garment_raincoat{Regenjacke} garment_beach{Strandhemd} other{Teil}}",
   "@lookName": {
     "description": "Name eines Teils in der Werft",
     "placeholders": {
@@ -5641,5 +5641,262 @@
   "arcadeBuoyLocked": "Die Tauch-Boje öffnet sich nach deinem ersten Tauchgang im Hafen.",
   "@arcadeBuoyLocked": {
     "description": "Seekarte: Perlentaucher-Boje noch gesperrt"
+  },
+  "crewTitle": "Crew",
+  "@crewTitle": {
+    "description": "Kinderbereich: Seite Gemeinsam mit den Eltern"
+  },
+  "crewHomeButton": "Crew-Abenteuer",
+  "@crewHomeButton": {
+    "description": "Startseite: Knopf zur Seite Crew"
+  },
+  "crewHomeStars": "{count} ★",
+  "@crewHomeStars": {
+    "description": "Startseite: Crew-Sterne am Knopf",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "crewIntro": "Manche Abenteuer schafft man nur gemeinsam! Mach sie mit Mama oder Papa. Danach verraten sie dir einen Code, und du bekommst einen Crew-Stern.",
+  "@crewIntro": {
+    "description": "Crew: Erklärung von Talo"
+  },
+  "crewStars": "{count, plural, =0{Noch keine Crew-Sterne} =1{1 Crew-Stern} other{{count} Crew-Sterne}}",
+  "@crewStars": {
+    "description": "Crew: Zahl der Sterne",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "crewNextItem": "{count, plural, =1{Noch 1 Stern bis: {item}} other{Noch {count} Sterne bis: {item}}}",
+  "@crewNextItem": {
+    "description": "Crew: nächstes Werft-Teil",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "crewAllUnlocked": "Alle Crew-Teile in der Werft sind frei. Stark!",
+  "@crewAllUnlocked": {
+    "description": "Crew: alles frei"
+  },
+  "crewNone": "Sobald du die erste Insel betrittst, warten hier Crew-Abenteuer.",
+  "@crewNone": {
+    "description": "Crew: noch nichts"
+  },
+  "crewFinishedHeading": "Geschafft",
+  "@crewFinishedHeading": {
+    "description": "Crew: Überschrift erledigte Aufgaben"
+  },
+  "crewExplainHeading": "Erklär's deinen Eltern",
+  "@crewExplainHeading": {
+    "description": "Crew: Art Erklären"
+  },
+  "crewAdventureHeading": "Crew-Abenteuer",
+  "@crewAdventureHeading": {
+    "description": "Crew: Art Abenteuer"
+  },
+  "crewExplainIntro": "Du kennst dich jetzt auf der Insel {island} aus. Erklär deinen Eltern:",
+  "@crewExplainIntro": {
+    "description": "Crew: Einleitung Erklären",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      }
+    }
+  },
+  "crewAdventureIsland": "Abenteuer der Insel {island}",
+  "@crewAdventureIsland": {
+    "description": "Crew: zu welcher Insel",
+    "placeholders": {
+      "island": {
+        "type": "String"
+      }
+    }
+  },
+  "crewDoneOn": "Geschafft am {date}",
+  "@crewDoneOn": {
+    "description": "Crew: erledigt",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "crewEnterCode": "Code eingeben",
+  "@crewEnterCode": {
+    "description": "Crew: Knopf"
+  },
+  "crewCodeTitle": "Code von deinen Eltern",
+  "@crewCodeTitle": {
+    "description": "Crew: Dialog"
+  },
+  "crewCodeHint": "Deine Eltern finden den Code im Leuchtturm unter „Gemeinsam“.",
+  "@crewCodeHint": {
+    "description": "Crew: Hinweis im Dialog"
+  },
+  "crewCodeSubmit": "Einlösen",
+  "@crewCodeSubmit": {
+    "description": "Crew: Knopf im Dialog"
+  },
+  "crewCodeOkTitle": "Crew-Stern!",
+  "@crewCodeOkTitle": {
+    "description": "Crew: Feier"
+  },
+  "crewCodeOk": "Super gemacht! {xp} Seemeilen und dein {stars}. Crew-Stern.",
+  "@crewCodeOk": {
+    "description": "Crew: Feier",
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      },
+      "stars": {
+        "type": "int"
+      }
+    }
+  },
+  "crewCodeOkButton": "Weiter",
+  "@crewCodeOkButton": {
+    "description": "Crew: Feier schließen"
+  },
+  "crewNewItem": "Neu in der Werft: {item}!",
+  "@crewNewItem": {
+    "description": "Crew: neues Teil",
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "crewCodeMessage": "{status, select, wrong{Der Code passt nicht. Schau noch mal genau hin.} expired{Der Code ist abgelaufen. Frag deine Eltern nach einem neuen.} locked{Zu viele falsche Versuche. Deine Eltern können im Leuchtturm einen neuen Code holen.} none{Deine Eltern haben noch keinen Code geholt. Sie finden ihn im Leuchtturm unter „Gemeinsam“.} done{Das hast du schon geschafft.} other{Das hat nicht geklappt.}}",
+  "@crewCodeMessage": {
+    "description": "Crew: Antwort auf den Code (tries derzeit nicht im Text)",
+    "placeholders": {
+      "status": {
+        "type": "String"
+      },
+      "tries": {
+        "type": "int"
+      }
+    }
+  },
+  "shipyardFromCrew": "mit {stars} Crew-Sternen",
+  "@shipyardFromCrew": {
+    "description": "Werft: Herkunft Crew-Teil",
+    "placeholders": {
+      "stars": {
+        "type": "int"
+      }
+    }
+  },
+  "shipyardLockedCrew": "Das gibt es mit {need} Crew-Sternen, du hast {have}. Crew-Sterne bekommst du unter „Crew-Abenteuer“, zusammen mit deinen Eltern.",
+  "@shipyardLockedCrew": {
+    "description": "Werft: Crew-Teil gesperrt",
+    "placeholders": {
+      "need": {
+        "type": "int"
+      },
+      "have": {
+        "type": "int"
+      }
+    }
+  },
+  "togetherExplainHeading": "Erklär's deinen Eltern",
+  "@togetherExplainHeading": {
+    "description": "Leuchtturm Gemeinsam: Art"
+  },
+  "togetherExplainIntro": "Lass dir von {nickname} diese 3 Dinge erklären:",
+  "@togetherExplainIntro": {
+    "description": "Leuchtturm Gemeinsam",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "togetherAsk": "Zum Nachhaken:",
+  "@togetherAsk": {
+    "description": "Leuchtturm Gemeinsam"
+  },
+  "togetherShowCode": "Code anzeigen",
+  "@togetherShowCode": {
+    "description": "Leuchtturm Gemeinsam: Knopf"
+  },
+  "togetherDone": "Geschafft am {date}, Crew-Stern verdient",
+  "@togetherDone": {
+    "description": "Leuchtturm Gemeinsam",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "togetherCodeTitle": "Code für {nickname}",
+  "@togetherCodeTitle": {
+    "description": "Leuchtturm Gemeinsam: Dialog",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "togetherCodeHintExplain": "Sag {nickname} den Code, wenn es dir alles erklärt hat. Er gilt 24 Stunden und nur einmal.",
+  "@togetherCodeHintExplain": {
+    "description": "Leuchtturm Gemeinsam",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "togetherCodeHintAdventure": "Sag {nickname} den Code, wenn ihr das Abenteuer zusammen geschafft habt. Er gilt 24 Stunden und nur einmal.",
+  "@togetherCodeHintAdventure": {
+    "description": "Leuchtturm Gemeinsam",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      }
+    }
+  },
+  "togetherWaiting": "{count, plural, =1{Gemeinsam: 1 Aufgabe wartet auf euch} other{Gemeinsam: {count} Aufgaben warten auf euch}}",
+  "@togetherWaiting": {
+    "description": "Leuchtturm Kinderseite: Hinweis",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "togetherWaitingExplain": "Lass dir von {nickname} die Insel {island} erklären!",
+  "@togetherWaitingExplain": {
+    "description": "Leuchtturm Kinderseite: Hinweis",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      },
+      "island": {
+        "type": "String"
+      }
+    }
+  },
+  "togetherWaitingAdventure": "Neues Crew-Abenteuer mit {nickname}: {title}",
+  "@togetherWaitingAdventure": {
+    "description": "Leuchtturm Kinderseite: Hinweis",
+    "placeholders": {
+      "nickname": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
   }
 }

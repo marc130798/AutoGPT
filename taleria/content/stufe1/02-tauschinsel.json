@@ -46,6 +46,14 @@
     "titel": "Fairer Tausch",
     "text": "Tausche mit jemandem aus der Familie etwas (Buch, Spielzeug, Sammelkarte). Erzählt euch vorher gegenseitig, warum euch die Sachen etwas wert sind, und klärt, ob man zurücktauschen darf."
   },
+  "gemeinsam": {
+    "erklaeren": [
+      "Ein Tausch ist fair, wenn beide am Ende zufrieden sind.",
+      "Etwas ist so viel wert, wie andere dafür geben würden.",
+      "Wenn viele etwas wollen und es wenig davon gibt, wird es teurer."
+    ],
+    "nachfragen": "Was würdest du nie eintauschen, und warum?"
+  },
   "kombuesen_fragen": [
     "Was hast du als Kind getauscht, und war es ein guter Tausch?",
     "Gibt es etwas, das dir viel wert ist, für andere aber kaum etwas?",

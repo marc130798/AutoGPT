@@ -56,6 +56,20 @@ abstract interface class ProgressRepository {
   /// Eltern: Lernstand pro Thema aus dem Wiederholungsplan.
   Future<List<TopicLearning>> fetchLearningStatus(String childId);
 
+  /// „Gemeinsam“: alle geschafften Crew-Aufgaben (= Crew-Sterne) des Kindes.
+  Future<List<CrewDone>> fetchCrewDone(String childId);
+
+  /// Eltern: Code für eine Crew-Aufgabe abrufen (4 Ziffern, 24 Stunden gültig).
+  Future<String> crewCode({required String childId, required String islandId, required CrewKind kind});
+
+  /// Kind: Code der Eltern eingeben.
+  Future<CrewRedeemResult> redeemCrewCode({
+    required String childId,
+    required String islandId,
+    required CrewKind kind,
+    required String code,
+  });
+
   /// Meister Talerons Prüfung, die gerade wartet (nach einer Inselgruppe, bis
   /// das Siegel verdient ist), sonst `null`.
   Future<EncounterOffer?> taleronTrial(String childId);
@@ -329,6 +343,42 @@ class SupabaseProgressRepository implements ProgressRepository {
         else
           CollectibleInfo.fromJson(r),
     ];
+  });
+
+  @override
+  Future<List<CrewDone>> fetchCrewDone(String childId) => guardBackend(() async {
+    final rows = await _client
+        .from('crew_done')
+        .select('island_id, kind, done_at')
+        .eq('child_id', childId)
+        .order('done_at', ascending: true);
+    return [
+      for (final r in rows)
+        if (CrewKind.parse(r['kind']) case final kind?)
+          CrewDone(islandId: r['island_id'] as String, kind: kind, doneAt: DateTime.parse(r['done_at'] as String)),
+    ];
+  });
+
+  @override
+  Future<String> crewCode({required String childId, required String islandId, required CrewKind kind}) => guardBackend(
+    () async => await _client.rpc<String>(
+      'crew_code',
+      params: {'p_child_id': childId, 'p_island_id': islandId, 'p_kind': kind.name},
+    ),
+  );
+
+  @override
+  Future<CrewRedeemResult> redeemCrewCode({
+    required String childId,
+    required String islandId,
+    required CrewKind kind,
+    required String code,
+  }) => guardBackend(() async {
+    final result = await _client.rpc<Map<String, dynamic>>(
+      'redeem_crew_code',
+      params: {'p_child_id': childId, 'p_island_id': islandId, 'p_kind': kind.name, 'p_code': code},
+    );
+    return CrewRedeemResult.fromJson(result);
   });
 
   @override

@@ -15,7 +15,7 @@ void main() {
   });
 
   test('Grenzen steigen und jedes Teil gibt es nur einmal', () {
-    final byXp = shipyardItems.where((i) => i.logbook == null && i.island == null).toList();
+    final byXp = shipyardItems.where((i) => i.logbook == null && i.island == null && i.crewStars == null).toList();
     for (var i = 1; i < byXp.length; i++) {
       expect(byXp[i].minXp, greaterThanOrEqualTo(byXp[i - 1].minXp));
     }
@@ -105,7 +105,18 @@ void main() {
     expect(AvatarConfig.fromJson(dressed.toJson()).garment, Garment.sailor);
     expect(AvatarConfig.fromJson({}).garment, Garment.stripes);
     // Die Liste bleibt nach Grenzen sortiert, sonst stimmt „das nächste Teil“ nicht.
-    final limits = [for (final i in shipyardItems.where((i) => i.logbook == null && i.island == null)) i.minXp];
+    final limits = [
+      for (final i in shipyardItems.where((i) => i.logbook == null && i.island == null && i.crewStars == null)) i.minXp,
+    ];
     expect(limits, [...limits]..sort());
+  });
+
+  test('Crew-Teile gibt es nur mit Crew-Sternen, nicht mit Seemeilen', () {
+    final flag = shipyardItems.firstWhere((i) => i.value == ShipFlag.crew);
+    expect(flag.isUnlocked(100000, const {}), isFalse);
+    expect(flag.isUnlocked(0, const {}, const {}, 2), isFalse);
+    expect(flag.isUnlocked(0, const {}, const {}, 3), isTrue);
+    expect(crewStarSteps, [3, 6, 10]);
+    expect(nextShipyardItem(100000), isNull, reason: 'Crew-Teile zählen nicht als nächstes Seemeilen-Teil');
   });
 }

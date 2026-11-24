@@ -179,6 +179,27 @@ class _ShipFlagPainter extends CustomPainter {
           canvas.drawLine(c + Offset(-h * 0.3, h * dy), c + Offset(-h * 0.08, h * dy), lineP);
           canvas.drawLine(c + Offset(h * 0.08, h * dy), c + Offset(h * 0.3, h * dy), lineP);
         }
+      case ShipFlag.crew:
+      case ShipFlag.crewGold:
+        // Crew-Flaggen („Gemeinsam“): zwei Sterne nebeneinander, bei der goldenen drei.
+        final gold = flag == ShipFlag.crewGold;
+        canvas.drawRect(rect, Paint()..color = gold ? _navy : const Color(0xFFE5675A));
+        final h = rect.height;
+        final starPaint = Paint()..color = gold ? _gold : _white;
+        final count = gold ? 3 : 2;
+        for (var k = 0; k < count; k++) {
+          final cx = rect.center.dx + (k - (count - 1) / 2) * h * (gold ? 0.42 : 0.5);
+          final c = Offset(cx, rect.center.dy);
+          final r = h * (gold ? 0.2 : 0.24);
+          final star = Path();
+          for (var i = 0; i < 10; i++) {
+            final rad = i.isEven ? r : r * 0.45;
+            final a = -1.5708 + i * 0.6283;
+            final pt = c + Offset.fromDirection(a, rad);
+            i == 0 ? star.moveTo(pt.dx, pt.dy) : star.lineTo(pt.dx, pt.dy);
+          }
+          canvas.drawPath(star..close(), starPaint);
+        }
       case ShipFlag.sun:
         canvas.drawRect(rect, Paint()..color = _orange);
         canvas.drawCircle(rect.center, rect.height * 0.24, Paint()..color = _gold);

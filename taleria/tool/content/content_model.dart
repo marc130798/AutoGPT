@@ -685,6 +685,8 @@ class Island {
     required this.badge,
     required this.task,
     required this.prompts,
+    this.explain = const [],
+    this.explainAsk,
     required this.stations,
     this.dives = const [],
     this.seaStops = const [],
@@ -713,6 +715,11 @@ class Island {
   final String? badge;
   final Map<String, dynamic>? task;
   final List<String> prompts;
+
+  /// „Erklär's deinen Eltern“ (`gemeinsam.erklaeren`): 3 kurze Punkte, die das
+  /// Kind nach der Insel erklärt; [explainAsk] ist die Nachfrage für die Eltern.
+  final List<String> explain;
+  final String? explainAsk;
   final List<Station> stations;
   final List<Dive> dives;
 
@@ -744,6 +751,7 @@ class Island {
       },
     'badge': ?badge,
     if (task != null) 'real_life_task': {'title': task!['titel'], 'text': task!['text']},
+    if (explain.isNotEmpty) 'together': {'explain': explain, 'ask': ?explainAsk},
     if (teaser.isNotEmpty)
       'teaser': {
         'scene': [for (final l in teaser) l.toDb()],
@@ -859,6 +867,10 @@ Island parseIsland(String file, String source) {
     badge: json['orden'] as String?,
     task: json['auftrag'] as Map<String, dynamic>?,
     prompts: [for (final p in (json['kombuesen_fragen'] as List? ?? const [])) p as String],
+    explain: [
+      for (final p in ((json['gemeinsam'] as Map<String, dynamic>?)?['erklaeren'] as List? ?? const [])) p as String,
+    ],
+    explainAsk: (json['gemeinsam'] as Map<String, dynamic>?)?['nachfragen'] as String?,
     stations: stations,
     status: json['status'] as String? ?? 'entwurf',
     teaser: lines(json['ausblick'], '$file, Ausblick'),
@@ -953,6 +965,14 @@ List<String> validateIslands(List<Island> islands, {required Set<String> knownAs
       check(before.isEmpty, '$w: freigegeben, aber diese Inseln davor noch nicht: ${before.join(', ')}');
     }
     check(slugPattern.hasMatch(island.slug), '$w: Slug "${island.slug}" ist ungültig');
+    // „Gemeinsam“: Nach jeder Insel erklärt das Kind 3 Punkte, die Eltern fragen nach.
+    if (island.stations.isNotEmpty) {
+      check(
+        island.explain.length == 3 && island.explain.every((p) => p.trim().isNotEmpty && p.length <= 90),
+        '$w: "gemeinsam.erklaeren" braucht genau 3 Punkte mit höchstens 90 Zeichen',
+      );
+      check((island.explainAsk ?? '').trim().isNotEmpty, '$w: "gemeinsam.nachfragen" fehlt');
+    }
     // Kinder lesen auf der Insel „Das lernst du hier“, nicht das Lernziel für Eltern.
     if (island.stations.isNotEmpty) {
       check(

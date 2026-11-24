@@ -146,6 +146,10 @@ void main() {
         'zugang': 'gratis',
         'lernziel': 'Test',
         'lernziel_kind': ['Eins', 'Zwei'],
+        'gemeinsam': {
+          'erklaeren': ['Eins', 'Zwei', 'Drei'],
+          'nachfragen': 'Was war neu?',
+        },
         'stationen': [
           station,
           {

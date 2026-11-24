@@ -1944,10 +1944,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get childDetailProgress => 'Fortschritt und Lernstand';
 
   @override
-  String get childDetailKitchen => 'Fragen für zu Hause';
+  String get childDetailKitchen => 'Gemeinsam';
 
   @override
-  String get childDetailKitchenHint => 'Gesprächsideen und Aufträge fürs echte Leben';
+  String get childDetailKitchenHint => 'Erklären lassen, Crew-Abenteuer und Fragen für zu Hause';
 
   @override
   String get childDetailWeekly => 'Wochenbericht';
@@ -2113,11 +2113,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get kitchenTitle => 'Fragen für zu Hause';
+  String get kitchenTitle => 'Gemeinsam';
 
   @override
   String kitchenIntro(String nickname) {
-    return 'Gesprächsideen für den Familientisch, passend zu dem, was $nickname gerade lernt.';
+    return 'Hier lernt ihr zusammen: $nickname erklärt euch, was es auf einer Insel gelernt hat, und ihr erlebt kleine Abenteuer im echten Leben. Danach sagt ihr $nickname den Code, dafür gibt es einen Crew-Stern und besondere Teile in der Werft.';
   }
 
   @override
@@ -3147,12 +3147,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'flag_coin': 'Taler-Flagge',
       'flag_bottle': 'Flaschenpost-Flagge',
       'flag_book': 'Logbuch-Flagge',
+      'flag_crew': 'Crew-Flagge',
+      'flag_crewGold': 'Goldene Crew-Flagge',
       'sails_white': 'Weiße Segel',
       'sails_red': 'Rote Segel',
       'sails_blue': 'Blaue Segel',
       'sails_green': 'Grüne Segel',
       'sails_gold': 'Goldene Segel',
       'sails_purple': 'Lila Segel',
+      'sails_coral': 'Korallen-Segel',
       'figurehead_none': 'Ohne',
       'figurehead_dolphin': 'Delfin',
       'figurehead_lion': 'Goldener Löwe',
@@ -4007,4 +4010,178 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get arcadeBuoyLocked => 'Die Tauch-Boje öffnet sich nach deinem ersten Tauchgang im Hafen.';
+
+  @override
+  String get crewTitle => 'Crew';
+
+  @override
+  String get crewHomeButton => 'Crew-Abenteuer';
+
+  @override
+  String crewHomeStars(int count) {
+    return '$count ★';
+  }
+
+  @override
+  String get crewIntro =>
+      'Manche Abenteuer schafft man nur gemeinsam! Mach sie mit Mama oder Papa. Danach verraten sie dir einen Code, und du bekommst einen Crew-Stern.';
+
+  @override
+  String crewStars(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Crew-Sterne',
+      one: '1 Crew-Stern',
+      zero: 'Noch keine Crew-Sterne',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String crewNextItem(int count, String item) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Noch $count Sterne bis: $item',
+      one: 'Noch 1 Stern bis: $item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get crewAllUnlocked => 'Alle Crew-Teile in der Werft sind frei. Stark!';
+
+  @override
+  String get crewNone => 'Sobald du die erste Insel betrittst, warten hier Crew-Abenteuer.';
+
+  @override
+  String get crewFinishedHeading => 'Geschafft';
+
+  @override
+  String get crewExplainHeading => 'Erklär\'s deinen Eltern';
+
+  @override
+  String get crewAdventureHeading => 'Crew-Abenteuer';
+
+  @override
+  String crewExplainIntro(String island) {
+    return 'Du kennst dich jetzt auf der Insel $island aus. Erklär deinen Eltern:';
+  }
+
+  @override
+  String crewAdventureIsland(String island) {
+    return 'Abenteuer der Insel $island';
+  }
+
+  @override
+  String crewDoneOn(String date) {
+    return 'Geschafft am $date';
+  }
+
+  @override
+  String get crewEnterCode => 'Code eingeben';
+
+  @override
+  String get crewCodeTitle => 'Code von deinen Eltern';
+
+  @override
+  String get crewCodeHint => 'Deine Eltern finden den Code im Leuchtturm unter „Gemeinsam“.';
+
+  @override
+  String get crewCodeSubmit => 'Einlösen';
+
+  @override
+  String get crewCodeOkTitle => 'Crew-Stern!';
+
+  @override
+  String crewCodeOk(int xp, int stars) {
+    return 'Super gemacht! $xp Seemeilen und dein $stars. Crew-Stern.';
+  }
+
+  @override
+  String get crewCodeOkButton => 'Weiter';
+
+  @override
+  String crewNewItem(String item) {
+    return 'Neu in der Werft: $item!';
+  }
+
+  @override
+  String crewCodeMessage(String status, int tries) {
+    String _temp0 = intl.Intl.selectLogic(status, {
+      'wrong': 'Der Code passt nicht. Schau noch mal genau hin.',
+      'expired': 'Der Code ist abgelaufen. Frag deine Eltern nach einem neuen.',
+      'locked': 'Zu viele falsche Versuche. Deine Eltern können im Leuchtturm einen neuen Code holen.',
+      'none': 'Deine Eltern haben noch keinen Code geholt. Sie finden ihn im Leuchtturm unter „Gemeinsam“.',
+      'done': 'Das hast du schon geschafft.',
+      'other': 'Das hat nicht geklappt.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String shipyardFromCrew(int stars) {
+    return 'mit $stars Crew-Sternen';
+  }
+
+  @override
+  String shipyardLockedCrew(int need, int have) {
+    return 'Das gibt es mit $need Crew-Sternen, du hast $have. Crew-Sterne bekommst du unter „Crew-Abenteuer“, zusammen mit deinen Eltern.';
+  }
+
+  @override
+  String get togetherExplainHeading => 'Erklär\'s deinen Eltern';
+
+  @override
+  String togetherExplainIntro(String nickname) {
+    return 'Lass dir von $nickname diese 3 Dinge erklären:';
+  }
+
+  @override
+  String get togetherAsk => 'Zum Nachhaken:';
+
+  @override
+  String get togetherShowCode => 'Code anzeigen';
+
+  @override
+  String togetherDone(String date) {
+    return 'Geschafft am $date, Crew-Stern verdient';
+  }
+
+  @override
+  String togetherCodeTitle(String nickname) {
+    return 'Code für $nickname';
+  }
+
+  @override
+  String togetherCodeHintExplain(String nickname) {
+    return 'Sag $nickname den Code, wenn es dir alles erklärt hat. Er gilt 24 Stunden und nur einmal.';
+  }
+
+  @override
+  String togetherCodeHintAdventure(String nickname) {
+    return 'Sag $nickname den Code, wenn ihr das Abenteuer zusammen geschafft habt. Er gilt 24 Stunden und nur einmal.';
+  }
+
+  @override
+  String togetherWaiting(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Gemeinsam: $count Aufgaben warten auf euch',
+      one: 'Gemeinsam: 1 Aufgabe wartet auf euch',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String togetherWaitingExplain(String nickname, String island) {
+    return 'Lass dir von $nickname die Insel $island erklären!';
+  }
+
+  @override
+  String togetherWaitingAdventure(String nickname, String title) {
+    return 'Neues Crew-Abenteuer mit $nickname: $title';
+  }
 }

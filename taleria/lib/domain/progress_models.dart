@@ -372,3 +372,48 @@ class EncounterResult {
   /// Das Siegel, wenn es mit dieser Prüfung neu verliehen wurde.
   final BadgeRef? badge;
 }
+
+/// „Gemeinsam“: Erklär's deinen Eltern (nach der Insel) oder Crew-Abenteuer (Auftrag fürs echte Leben).
+enum CrewKind {
+  explain,
+  adventure;
+
+  static CrewKind? parse(Object? raw) => switch (raw) {
+    'explain' => CrewKind.explain,
+    'adventure' => CrewKind.adventure,
+    _ => null,
+  };
+
+  /// Seemeilen, die der Server dafür gibt.
+  int get xp => this == CrewKind.explain ? 30 : 50;
+}
+
+/// Eine geschaffte Crew-Aufgabe (= ein Crew-Stern).
+class CrewDone {
+  const CrewDone({required this.islandId, required this.kind, required this.doneAt});
+
+  final String islandId;
+  final CrewKind kind;
+  final DateTime doneAt;
+}
+
+enum CrewRedeemStatus { ok, wrong, expired, locked, none, done }
+
+/// Antwort beim Eingeben des Eltern-Codes.
+class CrewRedeemResult {
+  const CrewRedeemResult({required this.status, this.xpAwarded = 0, this.stars = 0, this.triesLeft, this.rankUp});
+
+  factory CrewRedeemResult.fromJson(Map<String, dynamic> json) => CrewRedeemResult(
+    status: CrewRedeemStatus.values.firstWhere((s) => s.name == json['status'], orElse: () => CrewRedeemStatus.none),
+    xpAwarded: json['xp_awarded'] as int? ?? 0,
+    stars: json['stars'] as int? ?? 0,
+    triesLeft: json['tries_left'] as int?,
+    rankUp: Rank.parse(json['rank_up']),
+  );
+
+  final CrewRedeemStatus status;
+  final int xpAwarded;
+  final int stars;
+  final int? triesLeft;
+  final Rank? rankUp;
+}

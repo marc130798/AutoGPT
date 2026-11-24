@@ -3340,13 +3340,13 @@ abstract class AppLocalizations {
   /// Leuchtturm: Eintrag zu den Gesprächsideen
   ///
   /// In de, this message translates to:
-  /// **'Fragen für zu Hause'**
+  /// **'Gemeinsam'**
   String get childDetailKitchen;
 
   /// Untertitel des Eintrags Kombüsen-Fragen
   ///
   /// In de, this message translates to:
-  /// **'Gesprächsideen und Aufträge fürs echte Leben'**
+  /// **'Erklären lassen, Crew-Abenteuer und Fragen für zu Hause'**
   String get childDetailKitchenHint;
 
   /// Eintrag im Leuchtturm
@@ -3538,13 +3538,13 @@ abstract class AppLocalizations {
   /// Überschrift der Gesprächsideen
   ///
   /// In de, this message translates to:
-  /// **'Fragen für zu Hause'**
+  /// **'Gemeinsam'**
   String get kitchenTitle;
 
   /// Einleitung Kombüsen-Fragen
   ///
   /// In de, this message translates to:
-  /// **'Gesprächsideen für den Familientisch, passend zu dem, was {nickname} gerade lernt.'**
+  /// **'Hier lernt ihr zusammen: {nickname} erklärt euch, was es auf einer Insel gelernt hat, und ihr erlebt kleine Abenteuer im echten Leben. Danach sagt ihr {nickname} den Code, dafür gibt es einen Crew-Stern und besondere Teile in der Werft.'**
   String kitchenIntro(String nickname);
 
   /// Noch keine Insel erreicht
@@ -5068,7 +5068,7 @@ abstract class AppLocalizations {
   /// Name eines Teils in der Werft
   ///
   /// In de, this message translates to:
-  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} flag_book{Logbuch-Flagge} sails_white{Weiße Segel} sails_red{Rote Segel} sails_blue{Blaue Segel} sails_green{Grüne Segel} sails_gold{Goldene Segel} sails_purple{Lila Segel} figurehead_none{Ohne} figurehead_dolphin{Delfin} figurehead_lion{Goldener Löwe} clothes_blue{Blau-Weiß} clothes_pink{Rosa-Weiß} clothes_green{Grün-Weiß} clothes_red{Rot-Weiß} clothes_turquoise{Türkis-Weiß} clothes_yellow{Gelb-Weiß} clothes_purple{Lila-Weiß} garment_stripes{Ringel-Shirt} garment_sailor{Matrosenpulli} garment_vest{Händlerweste} garment_hoodie{Sternen-Pulli} garment_raincoat{Regenjacke} garment_beach{Strandhemd} other{Teil}}'**
+  /// **'{id, select, outfit_navy{Blaue Jacke} outfit_red{Rote Jacke} outfit_green{Grüne Jacke} outfit_yellow{Gelbe Jacke} outfit_purple{Lila Jacke} outfit_orange{Orange Jacke} outfit_teal{Türkise Jacke} outfit_gold{Goldene Jacke} hat_none{Ohne} hat_captain{Kapitänsmütze} hat_bandana{Kopftuch} hat_straw{Strohhut} hat_tricorn{Dreispitz} hat_goldCaptain{Goldmütze} scarf_none{Ohne} scarf_red{Rotes Halstuch} scarf_gold{Goldenes Halstuch} scarf_purple{Lila Halstuch} flag_taleria{Taleria-Flagge} flag_stripes{Streifen-Flagge} flag_wave{Wellen-Flagge} flag_star{Sternen-Flagge} flag_sun{Sonnen-Flagge} flag_anchor{Anker-Flagge} flag_shell{Muschel-Flagge} flag_coin{Taler-Flagge} flag_bottle{Flaschenpost-Flagge} flag_book{Logbuch-Flagge} flag_crew{Crew-Flagge} flag_crewGold{Goldene Crew-Flagge} sails_white{Weiße Segel} sails_red{Rote Segel} sails_blue{Blaue Segel} sails_green{Grüne Segel} sails_gold{Goldene Segel} sails_purple{Lila Segel} sails_coral{Korallen-Segel} figurehead_none{Ohne} figurehead_dolphin{Delfin} figurehead_lion{Goldener Löwe} clothes_blue{Blau-Weiß} clothes_pink{Rosa-Weiß} clothes_green{Grün-Weiß} clothes_red{Rot-Weiß} clothes_turquoise{Türkis-Weiß} clothes_yellow{Gelb-Weiß} clothes_purple{Lila-Weiß} garment_stripes{Ringel-Shirt} garment_sailor{Matrosenpulli} garment_vest{Händlerweste} garment_hoodie{Sternen-Pulli} garment_raincoat{Regenjacke} garment_beach{Strandhemd} other{Teil}}'**
   String lookName(String id);
 
   /// Kachel auf der Startseite zur Werft
@@ -6240,6 +6240,222 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Die Tauch-Boje öffnet sich nach deinem ersten Tauchgang im Hafen.'**
   String get arcadeBuoyLocked;
+
+  /// Kinderbereich: Seite Gemeinsam mit den Eltern
+  ///
+  /// In de, this message translates to:
+  /// **'Crew'**
+  String get crewTitle;
+
+  /// Startseite: Knopf zur Seite Crew
+  ///
+  /// In de, this message translates to:
+  /// **'Crew-Abenteuer'**
+  String get crewHomeButton;
+
+  /// Startseite: Crew-Sterne am Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'{count} ★'**
+  String crewHomeStars(int count);
+
+  /// Crew: Erklärung von Talo
+  ///
+  /// In de, this message translates to:
+  /// **'Manche Abenteuer schafft man nur gemeinsam! Mach sie mit Mama oder Papa. Danach verraten sie dir einen Code, und du bekommst einen Crew-Stern.'**
+  String get crewIntro;
+
+  /// Crew: Zahl der Sterne
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =0{Noch keine Crew-Sterne} =1{1 Crew-Stern} other{{count} Crew-Sterne}}'**
+  String crewStars(int count);
+
+  /// Crew: nächstes Werft-Teil
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Noch 1 Stern bis: {item}} other{Noch {count} Sterne bis: {item}}}'**
+  String crewNextItem(int count, String item);
+
+  /// Crew: alles frei
+  ///
+  /// In de, this message translates to:
+  /// **'Alle Crew-Teile in der Werft sind frei. Stark!'**
+  String get crewAllUnlocked;
+
+  /// Crew: noch nichts
+  ///
+  /// In de, this message translates to:
+  /// **'Sobald du die erste Insel betrittst, warten hier Crew-Abenteuer.'**
+  String get crewNone;
+
+  /// Crew: Überschrift erledigte Aufgaben
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft'**
+  String get crewFinishedHeading;
+
+  /// Crew: Art Erklären
+  ///
+  /// In de, this message translates to:
+  /// **'Erklär\'s deinen Eltern'**
+  String get crewExplainHeading;
+
+  /// Crew: Art Abenteuer
+  ///
+  /// In de, this message translates to:
+  /// **'Crew-Abenteuer'**
+  String get crewAdventureHeading;
+
+  /// Crew: Einleitung Erklären
+  ///
+  /// In de, this message translates to:
+  /// **'Du kennst dich jetzt auf der Insel {island} aus. Erklär deinen Eltern:'**
+  String crewExplainIntro(String island);
+
+  /// Crew: zu welcher Insel
+  ///
+  /// In de, this message translates to:
+  /// **'Abenteuer der Insel {island}'**
+  String crewAdventureIsland(String island);
+
+  /// Crew: erledigt
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft am {date}'**
+  String crewDoneOn(String date);
+
+  /// Crew: Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'Code eingeben'**
+  String get crewEnterCode;
+
+  /// Crew: Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Code von deinen Eltern'**
+  String get crewCodeTitle;
+
+  /// Crew: Hinweis im Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Deine Eltern finden den Code im Leuchtturm unter „Gemeinsam“.'**
+  String get crewCodeHint;
+
+  /// Crew: Knopf im Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Einlösen'**
+  String get crewCodeSubmit;
+
+  /// Crew: Feier
+  ///
+  /// In de, this message translates to:
+  /// **'Crew-Stern!'**
+  String get crewCodeOkTitle;
+
+  /// Crew: Feier
+  ///
+  /// In de, this message translates to:
+  /// **'Super gemacht! {xp} Seemeilen und dein {stars}. Crew-Stern.'**
+  String crewCodeOk(int xp, int stars);
+
+  /// Crew: Feier schließen
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter'**
+  String get crewCodeOkButton;
+
+  /// Crew: neues Teil
+  ///
+  /// In de, this message translates to:
+  /// **'Neu in der Werft: {item}!'**
+  String crewNewItem(String item);
+
+  /// Crew: Antwort auf den Code (tries derzeit nicht im Text)
+  ///
+  /// In de, this message translates to:
+  /// **'{status, select, wrong{Der Code passt nicht. Schau noch mal genau hin.} expired{Der Code ist abgelaufen. Frag deine Eltern nach einem neuen.} locked{Zu viele falsche Versuche. Deine Eltern können im Leuchtturm einen neuen Code holen.} none{Deine Eltern haben noch keinen Code geholt. Sie finden ihn im Leuchtturm unter „Gemeinsam“.} done{Das hast du schon geschafft.} other{Das hat nicht geklappt.}}'**
+  String crewCodeMessage(String status, int tries);
+
+  /// Werft: Herkunft Crew-Teil
+  ///
+  /// In de, this message translates to:
+  /// **'mit {stars} Crew-Sternen'**
+  String shipyardFromCrew(int stars);
+
+  /// Werft: Crew-Teil gesperrt
+  ///
+  /// In de, this message translates to:
+  /// **'Das gibt es mit {need} Crew-Sternen, du hast {have}. Crew-Sterne bekommst du unter „Crew-Abenteuer“, zusammen mit deinen Eltern.'**
+  String shipyardLockedCrew(int need, int have);
+
+  /// Leuchtturm Gemeinsam: Art
+  ///
+  /// In de, this message translates to:
+  /// **'Erklär\'s deinen Eltern'**
+  String get togetherExplainHeading;
+
+  /// Leuchtturm Gemeinsam
+  ///
+  /// In de, this message translates to:
+  /// **'Lass dir von {nickname} diese 3 Dinge erklären:'**
+  String togetherExplainIntro(String nickname);
+
+  /// Leuchtturm Gemeinsam
+  ///
+  /// In de, this message translates to:
+  /// **'Zum Nachhaken:'**
+  String get togetherAsk;
+
+  /// Leuchtturm Gemeinsam: Knopf
+  ///
+  /// In de, this message translates to:
+  /// **'Code anzeigen'**
+  String get togetherShowCode;
+
+  /// Leuchtturm Gemeinsam
+  ///
+  /// In de, this message translates to:
+  /// **'Geschafft am {date}, Crew-Stern verdient'**
+  String togetherDone(String date);
+
+  /// Leuchtturm Gemeinsam: Dialog
+  ///
+  /// In de, this message translates to:
+  /// **'Code für {nickname}'**
+  String togetherCodeTitle(String nickname);
+
+  /// Leuchtturm Gemeinsam
+  ///
+  /// In de, this message translates to:
+  /// **'Sag {nickname} den Code, wenn es dir alles erklärt hat. Er gilt 24 Stunden und nur einmal.'**
+  String togetherCodeHintExplain(String nickname);
+
+  /// Leuchtturm Gemeinsam
+  ///
+  /// In de, this message translates to:
+  /// **'Sag {nickname} den Code, wenn ihr das Abenteuer zusammen geschafft habt. Er gilt 24 Stunden und nur einmal.'**
+  String togetherCodeHintAdventure(String nickname);
+
+  /// Leuchtturm Kinderseite: Hinweis
+  ///
+  /// In de, this message translates to:
+  /// **'{count, plural, =1{Gemeinsam: 1 Aufgabe wartet auf euch} other{Gemeinsam: {count} Aufgaben warten auf euch}}'**
+  String togetherWaiting(int count);
+
+  /// Leuchtturm Kinderseite: Hinweis
+  ///
+  /// In de, this message translates to:
+  /// **'Lass dir von {nickname} die Insel {island} erklären!'**
+  String togetherWaitingExplain(String nickname, String island);
+
+  /// Leuchtturm Kinderseite: Hinweis
+  ///
+  /// In de, this message translates to:
+  /// **'Neues Crew-Abenteuer mit {nickname}: {title}'**
+  String togetherWaitingAdventure(String nickname, String title);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

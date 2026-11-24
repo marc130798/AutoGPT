@@ -29,10 +29,10 @@ enum Hat { none, captain, bandana, straw, tricorn, goldCaptain }
 enum Scarf { none, red, gold, purple }
 
 /// Flagge am Mast des eigenen Schiffs, auf der Startseite und auf der Karte.
-enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin, bottle, book }
+enum ShipFlag { taleria, stripes, wave, star, sun, anchor, shell, coin, bottle, book, crew, crewGold }
 
 /// Farbe der Segel des eigenen Schiffs (die App färbt die Segel ein).
-enum SailColor { white, red, blue, green, gold, purple }
+enum SailColor { white, red, blue, green, gold, purple, coral }
 
 /// Galionsfigur vorne am Bug.
 enum Figurehead { none, dolphin, lion }

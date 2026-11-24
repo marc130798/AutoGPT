@@ -104,7 +104,9 @@ class _ChildDetailScreenState extends State<ChildDetailScreen> {
               padding: const EdgeInsets.all(16),
               children: [
                 Text(l10n.childSubtitle(child.birthYear, l10n.level(child.level)), style: theme.textTheme.bodyLarge),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
+                TogetherHint(child: child, parentId: widget.controller.parent.id),
+                const SizedBox(height: 8),
                 _Section(
                   title: l10n.childDetailCodeHeading,
                   body: l10n.childDetailCodeBody,

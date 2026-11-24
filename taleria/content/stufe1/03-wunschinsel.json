@@ -45,6 +45,14 @@
     "titel": "Wunschflasche",
     "text": "Steck einen Wunsch in die Wunschflasche und schau nach einer Woche mit deinen Eltern nach, ob du ihn noch willst."
   },
+  "gemeinsam": {
+    "erklaeren": [
+      "Den Unterschied zwischen Brauchen und Wollen.",
+      "Die Wunschflasche: Ein neuer Wunsch darf erst mal warten.",
+      "Wie man Nein sagt, wenn andere drängeln oder Werbung lockt."
+    ],
+    "nachfragen": "Was hast du dir mal gewünscht und später gar nicht mehr gewollt?"
+  },
   "kombuesen_fragen": [
     "Was hast du dir mal sehr gewünscht und dann kaum benutzt?",
     "Was war dein schönstes Erlebnis, das fast kein Geld gekostet hat?"

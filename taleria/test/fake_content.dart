@@ -447,6 +447,43 @@ class FakeProgress implements ProgressRepository {
     );
   }
 
+  /// „Gemeinsam“: geschaffte Crew-Aufgaben und ausgegebene Codes.
+  final List<CrewDone> crewDone = [];
+  final Map<String, String> crewCodes = {};
+
+  @override
+  Future<List<CrewDone>> fetchCrewDone(String childId) async {
+    _check();
+    return [...crewDone];
+  }
+
+  @override
+  Future<String> crewCode({required String childId, required String islandId, required CrewKind kind}) async {
+    _check();
+    if (crewDone.any((d) => d.islandId == islandId && d.kind == kind)) throw const AppFailure(FailureKind.unknown);
+    return crewCodes['$islandId/${kind.name}'] = '4711';
+  }
+
+  @override
+  Future<CrewRedeemResult> redeemCrewCode({
+    required String childId,
+    required String islandId,
+    required CrewKind kind,
+    required String code,
+  }) async {
+    _check();
+    if (crewDone.any((d) => d.islandId == islandId && d.kind == kind)) {
+      return const CrewRedeemResult(status: CrewRedeemStatus.done);
+    }
+    final expected = crewCodes['$islandId/${kind.name}'];
+    if (expected == null) return const CrewRedeemResult(status: CrewRedeemStatus.none);
+    if (expected != code.trim()) return const CrewRedeemResult(status: CrewRedeemStatus.wrong, triesLeft: 4);
+    crewCodes.remove('$islandId/${kind.name}');
+    crewDone.add(CrewDone(islandId: islandId, kind: kind, doneAt: DateTime(2026, 11, 24)));
+    extraXp += kind.xp;
+    return CrewRedeemResult(status: CrewRedeemStatus.ok, xpAwarded: kind.xp, stars: crewDone.length);
+  }
+
   /// Meister Talerons Prüfung, die gerade wartet (Tests setzen sie selbst).
   EncounterOffer? trialOffer;
 
