@@ -1,0 +1,65 @@
+/* Talos und Talas Schatzbuch: baut auf testphase/stil.css und logbuch/logbuch.css auf.
+   Tintensparend: viel Weiß, Farbe nur bei Figuren, Rändern und Überschriften. */
+.book-cover .cover-top h1 { font-size: 36pt; line-height: 1.05; }
+.hint-line { font-size: 11pt; color: var(--ink-soft); }
+
+/* Inhaltsverzeichnis */
+.toc { display: grid; gap: 3mm; font-size: 13pt; font-weight: 700; }
+.toc-row { display: flex; align-items: center; gap: 3mm; }
+.toc-row img { height: 16mm; width: 22mm; object-fit: contain; }
+.toc-dots { flex: 1; border-bottom: 0.5mm dotted #9fb3c2; transform: translateY(-1mm); }
+
+/* Seekarte zum Ausmalen */
+.chart { display: grid; gap: 3mm; }
+.chart-row { display: grid; grid-template-columns: 34mm 1fr; align-items: center; gap: 4mm; border: 0.5mm solid var(--line); border-radius: 4mm; padding: 2mm 3mm; }
+.chart-row img { height: 26mm; width: 34mm; object-fit: contain; }
+.chart-row b { font-family: var(--display); font-size: 13pt; color: var(--sea-deep); }
+.chart-row.taleron { border-style: dashed; border-color: var(--gold); }
+.dots { display: flex; flex-wrap: wrap; gap: 2mm; margin-top: 1.5mm; }
+.dot { width: 9mm; height: 9mm; border-radius: 50%; border: 0.6mm solid var(--sea-deep); display: grid; place-items: center; font-weight: 800; font-size: 10pt; color: var(--sea-deep); }
+.dot.anchor { border-color: var(--sea); color: var(--sea); }
+.dot.sea { border-style: dashed; border-color: var(--ink-soft); }
+.dot.exam { border-color: var(--gold); color: var(--gold); }
+.dot.big { width: auto; padding: 0 3mm; border-radius: 5mm; }
+
+/* Kapitel-Anfang */
+.chapter { text-align: center; display: grid; justify-items: center; gap: 1mm; padding-top: 4mm; }
+.chapter h1 { font-size: 32pt; }
+.chapter .eyebrow { color: var(--gold); font-size: 12pt; }
+.chapter-island { height: 80mm; max-width: 150mm; object-fit: contain; }
+.box ol, .box ul { padding-left: 5mm; display: grid; gap: 1.2mm; font-size: 11pt; }
+
+/* Ausmalen */
+.coloring { flex: 1; display: flex; justify-content: center; align-items: flex-end; gap: 4mm; border: 0.6mm solid var(--line); border-radius: 5mm; padding: 6mm 4mm 4mm; min-height: 0; }
+.coloring img { max-height: 175mm; max-width: 88mm; object-fit: contain; }
+
+/* Gemeinsam */
+.explain-point { display: grid; grid-template-columns: 8mm 1fr; gap: 3mm; align-items: start; margin-top: 2.5mm; font-size: 11pt; }
+.check { display: inline-block; width: 6mm; height: 6mm; border: 0.6mm solid var(--sea-deep); border-radius: 1.2mm; vertical-align: middle; margin: 0 1.5mm; }
+.explain-point .check { margin: 0.5mm 0 0; }
+.ask { margin-top: 3mm; font-size: 11pt; }
+.code-steps { display: grid; gap: 2mm; }
+.stars-row { font-weight: 800; font-size: 11pt; }
+
+/* Spar-Thermometer */
+.thermometer { display: flex; gap: 1.5mm; margin: 2mm 0; }
+.therm { width: 10mm; height: 14mm; border: 0.6mm solid var(--sea-deep); border-radius: 2mm; }
+
+/* Lösungen */
+.solutions .sol-island { font-family: var(--display); color: var(--sea-deep); font-size: 15pt; margin-top: 1mm; }
+.solutions .cols { gap: 3mm; }
+.solutions ul { font-size: 9.5pt; }
+.wordsearch { width: auto; margin: 2mm auto; text-align: center; font-weight: 800; font-size: 13pt; }
+.wordsearch td { width: 9mm; height: 9mm; padding: 0; }
+
+/* Verbinden */
+.connect { display: grid; grid-template-columns: 30mm 1fr 70mm; row-gap: 5mm; margin-top: 3mm; font-size: 12pt; font-weight: 700; }
+.m-l { display: flex; justify-content: space-between; align-items: center; }
+.m-r { display: flex; gap: 3mm; align-items: center; }
+.m-dot { width: 3.5mm; height: 3.5mm; border-radius: 50%; background: var(--sea-deep); display: inline-block; }
+
+/* Schatzcode tintensparend: hell statt dunkelblau */
+.code-box { background: #fff; color: var(--ink); border: 0.8mm solid var(--sea-deep); }
+.code-box p { color: var(--ink); }
+.code-box b { color: var(--sea-deep); }
+.code-box .treasure-code { color: var(--sea-deep); }
