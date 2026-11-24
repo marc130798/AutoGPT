@@ -39,11 +39,11 @@ h3 { font-size: 12pt; margin-bottom: .8mm; }
 .g3 { grid-template-columns: repeat(3, 1fr); }
 .g4 { grid-template-columns: repeat(4, 1fr); }
 .g5 { grid-template-columns: repeat(5, 1fr); }
-.card { background: #fff; border: 1px solid var(--line); border-radius: 4mm; padding: 4mm; box-shadow: 0 1mm 3mm rgba(20,50,80,.06); }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 4mm; padding: 4mm; }
 .card p { font-size: 9pt; color: var(--soft); }
 .big { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 26pt; color: var(--coral); line-height: 1; display: block; margin-bottom: 1.5mm; }
 .src { font-size: 7pt !important; color: #7d8e9d !important; margin-top: 1.5mm; }
-.phone { border: 1.8mm solid #14263a; border-radius: 4.5mm; overflow: hidden; background: #14263a; box-shadow: 0 2mm 5mm rgba(10,30,50,.25); }
+.phone { border: 1.8mm solid #14263a; border-radius: 4.5mm; overflow: hidden; background: #14263a; }
 .phone img { display: block; width: 100%; height: auto; }
 .shot { text-align: center; }
 .shot .phone { margin-bottom: 2mm; }
@@ -58,19 +58,19 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
 .hero { position: relative; flex: 1; background: url("../landingpage/bilder/home.background.jpg") center 62% / cover no-repeat; color: #fff; padding: 14mm 15mm 10mm; }
 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,40,66,.3), rgba(14,40,66,.05) 45%, rgba(14,40,66,.55)); }
 .hero > * { position: relative; z-index: 1; }
-.hero h1 { color: #fff; font-size: 34pt; text-shadow: 0 1mm 4mm rgba(10,30,50,.55); margin: 4mm 0; }
+.hero h1 { color: #fff; font-size: 34pt; margin: 4mm 0; }
 .hero .sub { font-size: 12pt; font-weight: 700; background: rgba(255,251,242,.96); color: var(--ink); padding: 4mm 5mm; border-radius: 4mm; border: .6mm solid #e2c27a; width: 98mm; }
 .hero .phone { position: absolute; right: 16mm; top: 22mm; width: 62mm; transform: rotate(3deg); z-index: 2; }
 .badge-pill { display: inline-block; background: var(--gold); color: #2b1f05; font-weight: 800; font-size: 9pt; padding: 1.2mm 4mm; border-radius: 10mm; margin-top: 5mm; }
 /* Inselkarten */
-.isle { background: #fff; border-radius: 4mm; padding: 3mm 3mm 3.5mm; text-align: center; box-shadow: 0 1.5mm 4mm rgba(20,50,80,.1); }
+.isle { background: #fff; border: 1px solid #c4e1f0; border-radius: 4mm; padding: 3mm 3mm 3.5mm; text-align: center; }
 .isle img { width: 100%; height: 34mm; object-fit: contain; }
 .isle h3 { font-size: 10pt; margin-top: 1mm; }
 .isle .tag { font-size: 7.5pt; font-weight: 800; color: var(--sea); text-transform: uppercase; letter-spacing: .06em; }
 .isle ul { list-style: none; text-align: left; margin-top: 1.5mm; }
 .isle li { font-size: 7.8pt; color: var(--soft); line-height: 1.3; padding-left: 3mm; position: relative; margin-bottom: 1mm; }
 .isle li::before { content: "★"; position: absolute; left: 0; color: var(--gold); font-size: 6.5pt; top: .3mm; }
-.fogcard { background: rgba(255,255,255,.55); border: 1px dashed #a9cfe2; border-radius: 3mm; padding: 2.2mm 3mm; font-size: 8.3pt; color: var(--soft); }
+.fogcard { background: #f1f8fc; border: 1px dashed #a9cfe2; border-radius: 3mm; padding: 2.2mm 3mm; font-size: 8.3pt; color: var(--soft); }
 .fogcard b { color: var(--deep); }
 /* Ablauf */
 .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.5mm; }
@@ -82,9 +82,27 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
 .feat img { width: 16mm; height: 16mm; object-fit: contain; flex: none; }
 .num { width: 9mm; height: 9mm; border-radius: 50%; background: var(--sea); color: #fff; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 13pt; display: flex; align-items: center; justify-content: center; margin-bottom: 2mm; }
 .fan { position: relative; height: 92mm; }
-.fan img { position: absolute; width: 34%; border-radius: 1.5mm; box-shadow: 0 2mm 6mm rgba(10,40,70,.25); background: #fff; }
+.fan img { position: absolute; width: 34%; border-radius: 1.5mm; border: .4mm solid #b9d3e2; background: #fff; }
 .icon { font-size: 18pt; line-height: 1; display: block; margin-bottom: 1.5mm; }
 .stat-g { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 28pt; color: var(--gold); line-height: 1; }
+
+/* Familienalltag */
+.flow4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5mm; position: relative; }
+.flow4 > div { background: #fff; border: 1px solid #c4e1f0; border-radius: 3.5mm; padding: 3mm; text-align: center; position: relative; }
+.flow4 > div:not(:last-child)::after { content: "›"; position: absolute; right: -2.6mm; top: 40%; width: 4.4mm; height: 4.4mm; border-radius: 50%; background: var(--gold); color: #2b1f05; font-weight: 800; font-size: 9pt; line-height: 4.2mm; text-align: center; z-index: 2; }
+.flow4 .who { display: inline-block; font-size: 7pt; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: .4mm 2mm; border-radius: 5mm; margin-bottom: 1.5mm; }
+.who.kid { background: #fde3df; color: #9b3a2f; }
+.who.par { background: #d3ecf7; color: var(--deep); }
+.flow4 b { display: block; font-family: "Baloo 2", sans-serif; font-size: 10pt; color: var(--deep); line-height: 1.1; margin-bottom: .8mm; }
+.flow4 span.t { font-size: 7.8pt; color: var(--soft); line-height: 1.3; display: block; }
+.flow4 i { font-style: normal; font-size: 15pt; display: block; margin-bottom: 1mm; }
+.mock { background: var(--cream); border: .5mm solid #e2c27a; border-radius: 3mm; padding: 2.6mm 3mm; font-size: 8.5pt; }
+.mock .row1 { display: flex; justify-content: space-between; font-weight: 800; color: var(--deep); }
+.mock .gold { color: #8a6510; }
+.mock .btnm { display: inline-block; background: var(--deep); color: #fff; font-weight: 800; border-radius: 5mm; padding: .8mm 3.5mm; font-size: 8pt; margin-top: 1.5mm; }
+.mock .ok { color: var(--green); font-weight: 800; }
+.bar { height: 2.2mm; background: #e6eef3; border-radius: 2mm; overflow: hidden; margin-top: 1mm; }
+.bar span { display: block; height: 100%; background: var(--gold); }
 </style>
 </head>
 <body>
@@ -92,7 +110,7 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
 <!-- 1 Titel -->
 <section class="slide">
   <div class="hero">
-    <img src="../landingpage/bilder/brand.logo.png" alt="Taleria" style="width:72mm;filter:drop-shadow(0 1.5mm 3mm rgba(0,0,0,.3))">
+    <img src="../landingpage/bilder/brand.logo.png" alt="Taleria" style="width:72mm">
     <h1>Geld verstehen.<br>Abenteuer erleben.</h1>
     <p class="sub">Die Lern-App für Kinder von 8 bis 12 Jahren: Mit Talo und Tala segelt dein Kind von Insel zu Insel und lernt, wie Geld wirklich funktioniert.</p>
     <span class="badge-pill">Lern-App + Schatzbuch zum Ausdrucken</span>
@@ -253,7 +271,7 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
       <ul class="checks">
         <li><b>Wochenbericht</b> mit Gesprächsidee für den Familientisch</li>
         <li><b>Lernstand pro Thema:</b> Sicher, Wird geübt, Wackelt noch</li>
-        <li><b>Aufträge</b> erteilen und bestätigen</li>
+        <li><b>Aufträge</b> erteilen und bestätigen (mehr auf der nächsten Seite)</li>
         <li><b>Virtuelles Taschengeld</b> und Sparziele</li>
         <li><b>Tempo</b> selbst einstellen, ohne Countdown</li>
         <li><b>Anmeldung ohne E-Mail</b> fürs Kind</li>
@@ -275,6 +293,49 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
     </div>
   </div>
   <div class="foot"><span>Taleria · Die Lern-App für den Umgang mit Geld</span><span>6</span></div>
+</section>
+
+<!-- 6b Familienalltag -->
+<section class="slide">
+  <div class="band">
+    <div class="eyebrow">Geld im echten Familienalltag</div>
+    <h2>Aufträge, Taschengeld und die eigene Schatztruhe</h2>
+    <p class="lead">Hier wird aus Wissen Übung. Das Kind verdient, spart und gibt aus wie im echten Leben, nur mit virtuellem Geld. Die Eltern behalten die Kontrolle: Gutgeschrieben wird nur, was sie bestätigen.</p>
+  </div>
+  <div class="band sky">
+    <div style="display:flex;gap:6mm;align-items:center;margin-bottom:4mm">
+      <img src="../landingpage/bilder/icon.tasks.png" alt="" style="height:20mm">
+      <div><h3 style="font-size:15pt">Aufträge: So läuft es ab</h3><p class="soft">Ob „Spülmaschine ausräumen“ oder „Zimmer aufräumen“: Eltern bestimmen, was es zu tun gibt und ob es dafür etwas gibt.</p></div>
+    </div>
+    <div class="flow4">
+      <div><span class="who par">Eltern</span><i>📝</i><b>Auftrag anlegen</b><span class="t">mit Belohnung bis 100 € oder als Pflicht ohne Geld</span></div>
+      <div><span class="who kid">Kind</span><i>🧹</i><b>Erledigen und melden</b><span class="t">tippt in der App auf „Erledigt!“</span></div>
+      <div><span class="who par">Eltern</span><i>✅</i><b>Bestätigen</b><span class="t">oder mit einer Nachricht ablehnen, dann noch einmal</span></div>
+      <div><span class="who kid">Kind</span><i>🪙</i><b>Belohnung</b><span class="t">landet in der Schatztruhe, die Taler fliegen hinein</span></div>
+    </div>
+    <div class="grid g3" style="margin-top:4mm">
+      <div class="mock"><div class="row1"><span>Spülmaschine ausräumen</span><span class="gold">1,00 €</span></div><span class="btnm">Erledigt!</span></div>
+      <div class="mock"><div class="row1"><span>Zimmer aufräumen</span><span class="gold">2,00 €</span></div><div class="soft" style="margin-top:1.5mm">Gemeldet am 21.11. · wartet auf deine Eltern</div></div>
+      <div class="mock"><div class="row1"><span>Müll rausbringen</span><span class="soft">Pflicht</span></div><div class="ok" style="margin-top:1.5mm">✓ Erledigt am 20.11.</div></div>
+    </div>
+  </div>
+  <div class="band grow" style="display:flex;gap:7mm;align-items:flex-start;padding-bottom:13mm">
+    <div class="phone" style="width:46mm;flex:none"><img src="../landingpage/bilder/app.truhe.jpg" alt=""></div>
+    <div>
+      <h3 style="font-size:15pt;margin-bottom:2.5mm">Taschengeld und Schatztruhe</h3>
+      <ul class="checks">
+        <li><b>Taschengeld automatisch:</b> Eltern legen Betrag und Rhythmus fest (wöchentlich oder monatlich). Es wird von selbst in die Truhe gebucht.</li>
+        <li><b>Eine Schatztruhe, zwei Teile:</b> „Frei zum Ausgeben“ und „Für Wünsche zurückgelegt“. Das Kind teilt selbst ein.</li>
+        <li><b>Wunschschätze:</b> Sparziele mit Fortschrittsbalken. Ist genug zurückgelegt, wird der Wunsch eingelöst.</li>
+        <li><b>Wunschflasche:</b> Ein Wunsch wartet erst ein paar Tage. Will das Kind ihn danach noch, wird ein Wunschschatz daraus.</li>
+        <li><b>Geld melden:</b> Bekommt das Kind Geld von Oma, meldet es das. Die Eltern bestätigen es.</li>
+        <li><b>Kassenbuch:</b> Jede Buchung ist sichtbar. Nichts verschwindet einfach.</li>
+        <li><b>Lern-Belohnung (freiwillig):</b> Eltern können für jede geschaffte Insel einen kleinen Betrag in die Truhe legen.</li>
+      </ul>
+      <div class="mock" style="margin-top:3mm"><div class="row1"><span>⭐ Wunschschatz: Fußball</span><span class="gold">9,00 € von 25,00 €</span></div><div class="bar"><span style="width:36%"></span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Taleria · Die Lern-App für den Umgang mit Geld</span><span>7</span></div>
 </section>
 
 <!-- 7 Schatzbuch -->
@@ -301,7 +362,7 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
     </div>
     <div class="card" style="margin-top:4mm;background:var(--cream);border-color:var(--gold-soft)"><h3>Heute und morgen</h3><p><b>Heute:</b> ein PDF zum Ausdrucken, kostenlos für Testfamilien. <b>Geplant:</b> ein gedrucktes Buch, auch im Buchhandel.</p></div>
   </div>
-  <div class="foot"><span>Taleria · Die Lern-App für den Umgang mit Geld</span><span>7</span></div>
+  <div class="foot"><span>Taleria · Die Lern-App für den Umgang mit Geld</span><span>8</span></div>
 </section>
 
 <!-- 8 Sicherheit + Stand -->
@@ -338,7 +399,7 @@ ul.checks li::before { content: "✓"; position: absolute; left: 0; top: .2mm; w
     </div>
     <h3 style="margin-top:2mm">Taleria: die Lern-App, die sich wie ein Abenteuer anfühlt.</h3>
   </div>
-  <div class="foot"><span>Taleria · Die Lern-App für den Umgang mit Geld</span><span>8</span></div>
+  <div class="foot"><span>Taleria · Die Lern-App für den Umgang mit Geld</span><span>9</span></div>
 </section>
 
 </body>
