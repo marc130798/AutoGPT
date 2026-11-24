@@ -4,7 +4,7 @@ const { chromium } = require('playwright');
 const path = require('path');
 (async () => {
   const b = await chromium.launch();
-  const p = await b.newPage({ viewport: { width: 1123, height: 631 } });
+  const p = await b.newPage({ viewport: { width: 794, height: 1123 } });
   await p.goto('file://' + path.resolve('pitch/taleria_pitch.html'), { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   const over = await p.$$eval('section.slide', (s) =>
